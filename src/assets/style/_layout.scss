@@ -1,8 +1,11 @@
+@import "./_variables.scss";
+
 .root-layout {
 	min-height: 100vh;
+
 	.logo {
-		height: 80px;
-		color: white;
+		height: 64px;
+		color: $white;
 		font-weight: 700;
 		font-size: 32px;
 		display: flex;
@@ -13,5 +16,44 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding: 20px 20px;
+		.header-left {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 30px;
+		}
+	}
+	.layout-sider {
+		background: $primary_color;
+		&.ant-layout-sider-collapsed {
+			@media only screen and (max-width: 767px) {
+				display: none;
+			}
+		}
+		.ant-layout-sider-children {
+			.ant-menu-item,
+			.ant-menu-dark {
+				background: $primary_color;
+				svg {
+					color: $white;
+				}
+
+				&.ant-menu-item-selected {
+					background: $light_grey;
+					color: $black;
+					font-weight: $font_semibolder;
+					svg {
+						color: $primary_color;
+					}
+				}
+			}
+		}
+	}
+	.layout-main {
+		padding: 30px;
+		@media only screen and (max-width: 767px) {
+			padding: 5px;
+		}
 	}
 }

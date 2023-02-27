@@ -1,12 +1,12 @@
 // Import React
-import React, { useState, ReactElement } from "react";
+import React, { useState } from "react";
 
 // Import Antd
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Layout as AntdLayout, Menu, theme } from "antd";
 
 // Import Router
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Outlet } from "react-router-dom";
 
 // Import Utils
 import { translate } from "../common/utils/translateUtils";
@@ -14,26 +14,22 @@ import { translate } from "../common/utils/translateUtils";
 // Import Constants
 import { MENU } from "./menu";
 
+// Import Components
+import Icon from "../components/Icon/Icon";
+
 // Import Style
 import "../assets/style/_layout.scss";
 
-interface ILayout {
-	children?: ReactElement | ReactElement[];
-}
-
-const App: React.FC<ILayout> = props => {
-	// Props Destruction
-	const { children } = props;
-
+const Layout: React.FC = () => {
 	// useStates
-	const [collapsed, setCollapsed] = useState(false);
+	const [collapsed, setCollapsed] = useState(true);
 
 	// Variables
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	// Layout Destruction
-	const { Header, Sider, Content } = Layout;
+	const { Header, Sider, Content } = AntdLayout;
 
 	// Get Theme
 	const {
@@ -41,29 +37,37 @@ const App: React.FC<ILayout> = props => {
 	} = theme.useToken();
 
 	return (
-		<Layout className="root-layout">
-			<Sider trigger={null} className="sider-layout" collapsible collapsed={collapsed}>
+		<AntdLayout className="root-layout" hasSider>
+			<Sider
+				className="layout-sider"
+				collapsible
+				collapsed={collapsed}
+				defaultCollapsed
+				width={300}
+				onCollapse={collapsed => setCollapsed(collapsed)}
+			>
 				<div className="logo">AYS</div>
 				<Menu
 					theme="dark"
 					mode="inline"
 					defaultSelectedKeys={[
-						MENU?.find((menuItem: any) => location?.pathname === menuItem?.url)?.url || "",
+						MENU?.find(menuItem => location?.pathname === menuItem?.url)?.url || "",
 					]}
 					onClick={e => {
 						navigate(e?.key);
 					}}
-					items={MENU?.map(Item => {
+					items={MENU?.map(item => {
 						return {
-							...Item,
-							key: Item?.url,
-							label: translate(Item?.label),
-							icon: <Item.icon />,
+							...item,
+							key: item?.url,
+							title: translate(item?.label),
+							label: !collapsed && translate(item?.label),
+							icon: <Icon icon={item?.icon} marginRight={10} />,
 						};
 					})}
 				/>
 			</Sider>
-			<Layout className="site-layout">
+			<AntdLayout>
 				<Header className="layout-header" style={{ background: colorBgContainer }}>
 					<div className="header-left">
 						{collapsed ? (
@@ -74,18 +78,12 @@ const App: React.FC<ILayout> = props => {
 					</div>
 					<div className="header-right"></div>
 				</Header>
-				<Content
-					style={{
-						margin: "24px 16px",
-						padding: 24,
-						minHeight: 280,
-					}}
-				>
-					{children}
+				<Content className="layout-main">
+					<Outlet />
 				</Content>
-			</Layout>
-		</Layout>
+			</AntdLayout>
+		</AntdLayout>
 	);
 };
 
-export default App;
+export default Layout;

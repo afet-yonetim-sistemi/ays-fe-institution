@@ -9,6 +9,7 @@ import Layout from "../layout/Layout";
 
 // Import Routes
 import { routes as routesConfig } from "./routes";
+import type { Troute } from "./routes";
 
 function AppRoutes() {
 	const [template, setTemplate] = useState<any>();
@@ -18,21 +19,15 @@ function AppRoutes() {
 		if (true) {
 			setTemplate(
 				<Routes>
-					{routesConfig.map((route: any, index) => (
-						<Route
-							key={`route_${index}`}
-							path={route.url !== "/" ? route.url : undefined}
-							index={route.url === "/" ? true : false}
-							element={
-								<Suspense fallback={<div>loading...</div>}>
-									{
-										<Layout>
-											<route.element />
-										</Layout>
-									}
-								</Suspense>
-							}
-						/>
+					{routesConfig.map((route: Troute, index) => (
+						<Route path="/" element={<Layout />}>
+							<Route
+								key={`route_${index}`}
+								path={route.url !== "/" ? route.url : undefined}
+								index={route.url === "/" ? true : false}
+								element={<Suspense fallback={<div>loading...</div>}>{<route.element />}</Suspense>}
+							/>
+						</Route>
 					))}
 
 					<Route
@@ -43,7 +38,7 @@ function AppRoutes() {
 				</Routes>
 			);
 		} else {
-			//  setTemplate(<Login handlerFunction={handler} />);
+			//  setTemplate(<Login  />);
 		}
 	};
 

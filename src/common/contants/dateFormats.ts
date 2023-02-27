@@ -1,0 +1,13 @@
+export const dateFormat = "dd.MM.yyyy";
+export const dateTimeFormat = "dd.MM.yyyy HH:mm";
+export const timeFormat = "HH:mm";
+export const dateHour = "HH";
+export const monthYearFormat = "yyyy.MM";
+export const dateFormatBackend = "yyyy-MM-dd";
+export const dateTimeFormatBackend = "yyyy-MM-dd-HH-mm";
+export const dateTimeMiliSecondFormatBackend = "yyyy-MM-dd-HH-mm-SS-sss";
+export const monthFormatToBackend = "yyyy-MM";
+export const dayMonthYearTimeFormat = "d MMM yyyy HH:mm";
+export const dateTimeSecondFormatFileName = "yyyyMMddHHmm";
+export const dateTimeSecondFormat = "dd.MM.yyyy HH:mm:SS";
+export const dateTimeSecondMiliFormat = "dd.MM.yyyy HH:mm:SS:sss";

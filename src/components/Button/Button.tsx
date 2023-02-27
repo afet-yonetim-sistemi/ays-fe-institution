@@ -10,6 +10,11 @@ import { ButtonProps as ButtonPropsAntd } from "antd/lib/button";
 
 // Import Constants
 import { STATUS } from "../../common/contants/status";
+import { MARGIN_SIZES } from "../../common/contants/marginSizes";
+import { BUTTON_SIZES } from "../../common/contants/buttonSizes";
+
+// Import Style
+import "../../assets/style/_buttons.scss";
 
 export interface ButtonProps extends Omit<ButtonPropsAntd, "size"> {
 	status?: STATUS | undefined;
@@ -18,10 +23,14 @@ export interface ButtonProps extends Omit<ButtonPropsAntd, "size"> {
 	icon?: ReactNode;
 	rightIcon?: ReactNode;
 	className?: string | undefined;
-
 	isform?: boolean;
 	name: string;
 	disabled?: boolean;
+	marginright?: MARGIN_SIZES;
+	marginleft?: MARGIN_SIZES;
+	margintop?: MARGIN_SIZES;
+	marginbottom?: MARGIN_SIZES;
+	sizes?: BUTTON_SIZES;
 }
 
 function Button(props: ButtonProps) {
@@ -31,10 +40,15 @@ function Button(props: ButtonProps) {
 		customLabel,
 		icon,
 		rightIcon,
-
+		status,
 		name,
-
 		disabled,
+		className,
+		marginright,
+		marginleft,
+		margintop,
+		marginbottom,
+		sizes = BUTTON_SIZES.MD,
 	} = props;
 
 	const buttonTemplate = (
@@ -42,6 +56,13 @@ function Button(props: ButtonProps) {
 			{...props}
 			disabled={disabled}
 			id={name}
+			className={
+				status
+					? `btn-${status} ${className} ${sizes} 
+				margin_right_${marginright} margin_left_${marginleft} margin_top_${margintop} margin_bottom_${marginbottom}`
+					: `${className} 
+				margin_right_${marginright} margin_left_${marginleft} margin_top_${margintop} margin_bottom_${marginbottom}`
+			}
 			icon={
 				icon && (
 					<span className={`btn-icon ${(label || customLabel) && "margin_right_5"}`}>{icon}</span>

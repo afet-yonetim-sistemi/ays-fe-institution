@@ -1,0 +1,101 @@
+@mixin apperance-none {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+@mixin transition($val) {
+  transition: $val;
+  -webkit-transition: $val;
+  -moz-transition: $val;
+  -o-transition: $val;
+  -ms-transition: $val;
+}
+
+@mixin rotate($val: 0deg) {
+  -webkit-transform: rotate($val);
+  -moz-transform: rotate($val);
+  -ms-transform: rotate($val);
+  -o-transform: rotate($val);
+  transform: rotate($val);
+}
+
+@mixin transform($val) {
+  -webkit-transform: $val;
+  -moz-transform: $val;
+  -ms-transform: $val;
+  -o-transform: $val;
+  transform: $val;
+}
+
+@mixin box-shadow($value) {
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  box-shadow: $value;
+}
+
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin radius($value) {
+  border-radius: $value;
+  -webkit-border-radius: $value;
+  -moz-border-radius: $value;
+}
+
+@mixin custom-btn($selector, $color) {
+  height: auto !important;
+  background: $selector;
+  color: $color;
+  padding: 9px 18px;
+  font-size: 14px;
+  transition: all 200ms linear;
+  -webkit-transition: all 200ms linear;
+  -moz-transition: all 200ms linear;
+  -o-transition: all 200ms linear;
+  -ms-transition: all 200ms linear;
+  @include radius(5px);
+  border: none;
+  font-weight: $font_semibold;
+  display: inline-block !important;
+  position: relative;
+  &:hover,
+  &:active {
+    //background: darken($selector, 10%);
+    background: $selector;
+    color: $color;
+    border-color: $selector;
+    @include transform(scale(1.05));
+  }
+  &:focus {
+    background: $selector;
+    color: $color;
+    border-color: $selector;
+    span {
+      position: initial;
+    }
+  }
+
+  @media only screen and (max-width: 1599px) {
+    font-size: 13px;
+  }
+}
+
+@mixin gradientBg($bg1, $bg2) {
+  background: $bg2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, $bg1, $bg2); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, $bg1, $bg2);
+}
+
+@mixin opacity($value, $value2) {
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=$value)';
+  filter: alpha(opacity=$value);
+  -moz-opacity: $value2;
+  -khtml-opacity: $value2;
+  opacity: $value2;
+}

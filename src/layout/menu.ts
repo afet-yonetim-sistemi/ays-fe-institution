@@ -1,15 +1,14 @@
-// Import Antd
-import { UserOutlined, HomeOutlined } from "@ant-design/icons";
+import { ICON_LIST } from "../common/contants/iconList";
 
 export const MENU = [
 	{
 		url: "/",
 		label: "MENU.HOME",
-		icon: HomeOutlined,
+		icon: ICON_LIST.HOME,
 	},
 	{
 		url: "/users",
 		label: "MENU.USERS",
-		icon: UserOutlined,
+		icon: ICON_LIST.USERS,
 	},
 ];
