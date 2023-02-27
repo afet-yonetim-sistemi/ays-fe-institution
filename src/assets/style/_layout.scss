@@ -1,0 +1,17 @@
+.root-layout {
+	min-height: 100vh;
+	.logo {
+		height: 80px;
+		color: white;
+		font-weight: 700;
+		font-size: 32px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.layout-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
