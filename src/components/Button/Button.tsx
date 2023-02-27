@@ -11,9 +11,6 @@ import { ButtonProps as ButtonPropsAntd } from "antd/lib/button";
 // Import Constants
 import { STATUS } from "../../common/contants/status";
 
-// Import Styles
-import "src/assets/styles/_buttons.scss";
-
 export interface ButtonProps extends Omit<ButtonPropsAntd, "size"> {
 	status?: STATUS | undefined;
 	label?: string | undefined;

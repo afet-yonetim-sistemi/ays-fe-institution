@@ -1,0 +1,21 @@
+.table-wrapper {
+	.tableHead {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background: transparent;
+		.table-title {
+			font-weight: bold;
+		}
+	}
+	.ant-table-title {
+		background: transparent !important;
+		border: none !important;
+	}
+	.ant-table-container {
+		background: #fff;
+	}
+	.ant-table {
+		background: transparent;
+	}
+}
