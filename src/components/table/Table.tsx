@@ -3,7 +3,6 @@ import { useMemo, ReactElement } from "react";
 
 // Import Utils
 import { translate } from "../../common/utils/translateUtils";
-import { lastUpdateTimeStampFormat } from "../../common/utils/dateTimeUtils";
 
 // Import Antd
 import { Table as AntdTable } from "antd";
@@ -17,7 +16,6 @@ interface ITable extends Omit<TableProps<any>, "title"> {
 	headerControls?: ReactElement | ReactElement[];
 	title?: string;
 	totalCount?: number;
-	lastUpdate?: number;
 	name: string;
 }
 
@@ -32,7 +30,6 @@ function Table(props: ITable) {
 		dataSource,
 		totalCount = dataSource?.length,
 		scroll,
-		lastUpdate,
 	} = props;
 
 	// Columns Formatter
@@ -64,15 +61,7 @@ function Table(props: ITable) {
 							<h4 className="table-title"> {translate(title)} </h4>
 							<h5> {totalCount + " " + translate("TABLE.TITLES.RECORD_LISTINING")} </h5>
 						</div>
-						<div className="tableControls">
-							{lastUpdate && (
-								<div className="lastUpdate margin_right_10">
-									<span className="title"> {translate("TABLE.TITLES.LAST_UPDATE")} </span>
-									<span className="time">{lastUpdateTimeStampFormat(new Date(lastUpdate))}</span>
-								</div>
-							)}
-							{headerControls}
-						</div>
+						<div className="tableControls">{headerControls}</div>
 					</div>
 				)}
 			/>

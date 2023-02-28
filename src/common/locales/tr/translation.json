@@ -1,100 +1,112 @@
 {
-  "MENU": {
-    "HOME": "Anasayfa",
-    "USERS": "Kullanıcılar"
-  },
-  "HEADER": {
-    "ENGLISH": "İngilizce",
-    "TURKISH": "Türkçe",
-    "LOGOUT": "Çıkış",
-    "ADMIN": "Yönetici",
-    "USER": "Kullanıcı"
-  },
+	"MENU": {
+		"HOME": "Anasayfa",
+		"USERS": "Kullanıcılar"
+	},
+	"HEADER": {
+		"ENGLISH": "İngilizce",
+		"TURKISH": "Türkçe",
+		"LOGOUT": "Çıkış",
+		"ADMIN": "Yönetici",
+		"USER": "Kullanıcı"
+	},
 
-  "FORM_ELEMENTS": {
-    "LABELS": {
-      "USERNAME": "Kullanıcı Adı",
-      "PASSWORD": "Şifre",
-      "DATE": "Tarih",
-      "NAME": "Ad",
-      "SURNAME": "Soyad",
-      "EMAIL": "E-posta",
-      "TITLE": "Pozisyon",
-      "START_DATE": "Başlangıç Tarihi",
-      "END_DATE": "Bitiş Tarihi"
-    },
-    "CTA": {
-      "OK": "Tamam",
-      "NO": "Hayır",
-      "YES": "Evet",
-      "CANCEL": "İptal",
-      "CONFIRM": "Onayla",
-      "SAVE": "Kaydet",
-      "ADD_NEW": "Yeni Ekle",
-      "CREATE": "Oluştur",
-      "FILTER": "Filtrele",
-      "CLEAR": "Temizle",
-      "BACK_TO_HOMEPAGE": "Anasayfaya Dön"
-    },
-    "RULES": {
-      "REQUIRED": "Bu alan zorunludur.",
-      "EMAIL": "Geçerli bir e-posta adresi giriniz."
-    },
-    "SELECT": {
-      "SUPER_ADMIN": "Süper Yönetici",
-      "ADMIN": "Yönetici",
-      "USER": "Kullanıcı"
-    }
-  },
-  "NOTIFICATIONS": {
-    "GENERAL": {
-      "SUCCESS": {
-        "MESSAGE": "İşlem Başarılı!"
-      },
-      "ERROR": {
-        "MESSAGE": "Bir hata oluştu.!"
-      }
-    }
-  },
-  "POPCONFIRM": {
-    "TITLES": {
-      "CONFIRMATION": "Onayla"
-    },
-    "DESCRIPTION": {
-      "SURE": "Bu eylemi gerçekleştirmek istediğinizden emin misiniz?"
-    }
-  },
-  "FILTER": {
-    "ASC": "Artan",
-    "DESC": "Azalan",
-    "ORDER": "Sırala",
-    "FILTER": "Filtrele"
-  },
-  "TABLE": {
-    "COLUMN": {
-      "NAME": "Ad",
-      "SURNAME": "Soyad",
-      "EMAIL": "E-posta",
-      "TITLE": "Pozisyon",
-      "CREATED_DATE": "Oluşturulma Tarihi",
-      "ACTIONS": "Aksiyon",
-      "DATE": "Tarih",
-      "STATUS": "Durum"
-    },
-    "TITLES": {
-      "USERS": "Kullanıcılar",
-      "RECORD_LISTINING": "kayıt listeleniyor",
-      "LAST_UPDATE": "Son güncellenme"
-    }
-  },
-  "STATUS_TEXT": {
-    "SUCCESS": "Başarılı",
-    "FAILED": "Başarısız",
-    "IN_PROGRESS": "Devam Ediyor"
-  },
-  "OTHERS": {
-    "LOADING": "Yükleniyor...",
-    "404_ERROR": "404 Sayfa Bulunamadı",
-    "404_DESCRIPTION": "Aradığınız sayfa mevcut değil. Aşağıdaki buton ile anasayfaya dönebilirsiniz."
-  }
+	"FORM_ELEMENTS": {
+		"LABELS": {
+			"USERNAME": "Kullanıcı Adı",
+			"PASSWORD": "Şifre",
+			"DATE": "Tarih",
+			"NAME": "Ad",
+			"SURNAME": "Soyad",
+			"EMAIL": "E-posta",
+			"TITLE": "Pozisyon",
+			"START_DATE": "Başlangıç Tarihi",
+			"END_DATE": "Bitiş Tarihi",
+			"SEARCH": "Ara",
+			"ADDRESS": "Adres",
+			"AGE": "Yaş"
+		},
+		"CTA": {
+			"OK": "Tamam",
+			"NO": "Hayır",
+			"YES": "Evet",
+			"CANCEL": "İptal",
+			"CONFIRM": "Onayla",
+			"SAVE": "Kaydet",
+			"ADD_NEW": "Yeni Ekle",
+			"CREATE": "Oluştur",
+			"FILTER": "Filtrele",
+			"CLEAR": "Temizle",
+			"BACK_TO_HOMEPAGE": "Anasayfaya Dön"
+		},
+		"RULES": {
+			"REQUIRED": "Bu alan zorunludur.",
+			"EMAIL": "Geçerli bir e-posta adresi giriniz."
+		},
+		"SELECT": {
+			"SUPER_ADMIN": "Süper Yönetici",
+			"ADMIN": "Yönetici",
+			"USER": "Kullanıcı"
+		}
+	},
+	"NOTIFICATIONS": {
+		"GENERAL": {
+			"SUCCESS": {
+				"MESSAGE": "İşlem Başarılı!"
+			},
+			"ERROR": {
+				"MESSAGE": "Bir hata oluştu.!"
+			}
+		}
+	},
+	"POPCONFIRM": {
+		"TITLES": {
+			"CONFIRMATION": "Onayla",
+			"DELETE": "Sil"
+		},
+		"DESCRIPTION": {
+			"SURE": "Bu eylemi gerçekleştirmek istediğinizden emin misiniz?"
+		}
+	},
+	"FILTER": {
+		"ASC": "Artan",
+		"DESC": "Azalan",
+		"ORDER": "Sırala",
+		"FILTER": "Filtrele"
+	},
+	"TABLE": {
+		"COLUMN": {
+			"NAME": "Ad",
+			"SURNAME": "Soyad",
+			"EMAIL": "E-posta",
+			"TITLE": "Pozisyon",
+			"CREATED_DATE": "Oluşturulma Tarihi",
+			"ACTIONS": "Aksiyon",
+			"DATE": "Tarih",
+			"STATUS": "Durum",
+			"AGE": "Yaş",
+			"ADDRESS": "Adres"
+		},
+		"TITLES": {
+			"USERS": "Kullanıcılar",
+			"RECORD_LISTINING": "kayıt listeleniyor",
+			"LAST_UPDATE": "Son güncellenme"
+		}
+	},
+	"DRAWER": {
+		"TITLES": {
+			"ADD_USER": "Kullanıcı Ekle",
+			"EDIT_USER": "Kullanıcı Düzenle"
+		}
+	},
+	"STATUS_TEXT": {
+		"SUCCESS": "Başarılı",
+		"FAILED": "Başarısız",
+		"IN_PROGRESS": "Devam Ediyor"
+	},
+	"OTHERS": {
+		"LOADING": "Yükleniyor...",
+		"404_ERROR": "404 Sayfa Bulunamadı",
+		"404_DESCRIPTION": "Aradığınız sayfa mevcut değil. Aşağıdaki buton ile anasayfaya dönebilirsiniz."
+	}
 }

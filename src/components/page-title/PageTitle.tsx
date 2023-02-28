@@ -17,7 +17,7 @@ function PageTitle() {
 	// Get Page Title
 	const myRoute = routes?.find(route => route?.url === pathname);
 
-	return myRoute && myRoute?.url !== "/" ? (
+	return myRoute ? (
 		<div className="page-title">
 			<h3> {translate(myRoute?.title)} </h3>
 		</div>

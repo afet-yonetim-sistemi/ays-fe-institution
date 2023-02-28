@@ -58,6 +58,7 @@ const Layout: React.FC = () => {
 				collapsed={collapsed}
 				defaultCollapsed
 				width={300}
+				trigger={null}
 				onCollapse={collapsed => setCollapsed(collapsed)}
 			>
 				<div className="logo">AYS</div>

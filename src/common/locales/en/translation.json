@@ -1,99 +1,111 @@
 {
-  "MENU": {
-    "HOME": "Home",
-    "USERS": "Users"
-  },
-  "HEADER": {
-    "ENGLISH": "English",
-    "TURKISH": "Turkish",
-    "LOGOUT": "Logout",
-    "ADMIN": "Admin",
-    "USER": "User"
-  },
-  "FORM_ELEMENTS": {
-    "LABELS": {
-      "USERNAME": "Username",
-      "PASSWORD": "Password",
-      "DATE": "Date",
-      "NAME": "Name",
-      "SURNAME": "Surname",
-      "EMAIL": "E-mail",
-      "TITLE": "Title",
-      "START_DATE": "Start Date",
-      "END_DATE": "End Date"
-    },
-    "CTA": {
-      "OK": "Ok",
-      "NO": "No",
-      "YES": "Yes",
-      "CANCEL": "Cancel",
-      "CONFIRM": "Confirm",
-      "SAVE": "Save",
-      "ADD_NEW": "Add New",
-      "CREATE": "Create",
-      "FILTER": "Filter",
-      "CLEAR": "Clear",
-      "BACK_TO_HOMEPAGE": "Back To Homepage"
-    },
-    "RULES": {
-      "REQUIRED": "This field is required",
-      "EMAIL": "Please enter a valid email address"
-    },
-    "SELECT": {
-      "SUPER_ADMIN": "Super Admin",
-      "ADMIN": "Admin",
-      "USER": "User"
-    }
-  },
-  "NOTIFICATIONS": {
-    "GENERAL": {
-      "SUCCESS": {
-        "MESSAGE": "Transaction İs Successful!"
-      },
-      "ERROR": {
-        "MESSAGE": "Something went wrong!"
-      }
-    }
-  },
-  "POPCONFIRM": {
-    "TITLES": {
-      "CONFIRMATION": "Confirmation"
-    },
-    "DESCRIPTION": {
-      "SURE": "Are you sure you want to perform this action?"
-    }
-  },
-  "FILTER": {
-    "ASC": "Ascending",
-    "DESC": "Descending",
-    "ORDER": "Order",
-    "FILTER": "Filter"
-  },
-  "TABLE": {
-    "COLUMN": {
-      "NAME": "Name",
-      "SURNAME": "Surname",
-      "EMAIL": "E-mail",
-      "TITLE": "Title",
-      "ACTIONS": "Actions",
-      "CREATED_DATE": "Created Date",
-      "DATE": "Date",
-      "STATUS": "Status"
-    },
-    "TITLES": {
-      "USERS": "Users",
-      "RECORD_LISTINING": "records listed",
-      "LAST_UPDATE": "Last Update Date"
-    }
-  },
-  "STATUS_TEXT": {
-    "SUCCESS": "Success",
-    "FAILED": "Failed",
-    "IN_PROGRESS": "In Progress"
-  },
-  "OTHERS": {
-    "LOADING": "Loading...",
-    "404_ERROR": "404 Not Found",
-    "404_DESCRIPTION": "The page you are looking for does not exist. You can return to the homepage with the button below."
-  }
+	"MENU": {
+		"HOME": "Home",
+		"USERS": "Users"
+	},
+	"HEADER": {
+		"ENGLISH": "English",
+		"TURKISH": "Turkish",
+		"LOGOUT": "Logout",
+		"ADMIN": "Admin",
+		"USER": "User"
+	},
+	"FORM_ELEMENTS": {
+		"LABELS": {
+			"USERNAME": "Username",
+			"PASSWORD": "Password",
+			"DATE": "Date",
+			"NAME": "Name",
+			"SURNAME": "Surname",
+			"EMAIL": "E-mail",
+			"TITLE": "Title",
+			"START_DATE": "Start Date",
+			"END_DATE": "End Date",
+			"SEARCH": "Search",
+			"AGE": "Age",
+			"ADDRESS": "Address"
+		},
+		"CTA": {
+			"OK": "Ok",
+			"NO": "No",
+			"YES": "Yes",
+			"CANCEL": "Cancel",
+			"CONFIRM": "Confirm",
+			"SAVE": "Save",
+			"ADD_NEW": "Add New",
+			"CREATE": "Create",
+			"FILTER": "Filter",
+			"CLEAR": "Clear",
+			"BACK_TO_HOMEPAGE": "Back To Homepage"
+		},
+		"RULES": {
+			"REQUIRED": "This field is required",
+			"EMAIL": "Please enter a valid email address"
+		},
+		"SELECT": {
+			"SUPER_ADMIN": "Super Admin",
+			"ADMIN": "Admin",
+			"USER": "User"
+		}
+	},
+	"NOTIFICATIONS": {
+		"GENERAL": {
+			"SUCCESS": {
+				"MESSAGE": "Transaction İs Successful!"
+			},
+			"ERROR": {
+				"MESSAGE": "Something went wrong!"
+			}
+		}
+	},
+	"POPCONFIRM": {
+		"TITLES": {
+			"CONFIRMATION": "Confirmation",
+			"DELETE": "Delete"
+		},
+		"DESCRIPTION": {
+			"SURE": "Are you sure you want to perform this action?"
+		}
+	},
+	"FILTER": {
+		"ASC": "Ascending",
+		"DESC": "Descending",
+		"ORDER": "Order",
+		"FILTER": "Filter"
+	},
+	"TABLE": {
+		"COLUMN": {
+			"NAME": "Name",
+			"SURNAME": "Surname",
+			"EMAIL": "E-mail",
+			"TITLE": "Title",
+			"ACTIONS": "Actions",
+			"CREATED_DATE": "Created Date",
+			"DATE": "Date",
+			"STATUS": "Status",
+			"AGE": "Age",
+			"ADDRESS": "Address"
+		},
+		"TITLES": {
+			"USERS": "Users",
+			"RECORD_LISTINING": "records listed",
+			"LAST_UPDATE": "Last Update Date"
+		}
+	},
+	"DRAWER": {
+		"TITLES": {
+			"ADD_USER": "Add User",
+			"EDIT_USER": "Edit User"
+		}
+	},
+	"STATUS_TEXT": {
+		"SUCCESS": "Success",
+		"FAILED": "Failed",
+		"IN_PROGRESS": "In Progress"
+	},
+	"OTHERS": {
+		"LOADING": "Loading...",
+		"404_ERROR": "404 Not Found",
+		"404_DESCRIPTION": "The page you are looking for does not exist. You can return to the homepage with the button below."
+	}
 }
