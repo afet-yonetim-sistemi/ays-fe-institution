@@ -139,12 +139,6 @@ body {
 	text-align: center;
 }
 
-.ant-dropdown {
-	border: 1px solid $border_color;
-	@include radius(5px);
-	@include box-shadow(1px 1px 5px 1px $border_color);
-	overflow: hidden;
-}
 .ant-pagination {
 	.ant-pagination-item-active {
 		border-color: $primary_color !important;

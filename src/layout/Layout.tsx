@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 
 // Import Antd
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Layout as AntdLayout, Menu, theme } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from "@ant-design/icons";
+import { Layout as AntdLayout, Menu, theme, Dropdown, MenuProps, Avatar } from "antd";
 
 // Import Router
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
@@ -14,7 +14,11 @@ import { translate } from "../common/utils/translateUtils";
 // Import Constants
 import { MENU } from "./menu";
 
+// Import i18n
+import i18n from "../common/locales/i18n";
+
 // Import Components
+import PageTitle from "../components/page-title/PageTitle";
 import Icon from "../components/Icon/Icon";
 
 // Import Style
@@ -27,6 +31,16 @@ const Layout: React.FC = () => {
 	// Variables
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	// Header Menu
+	const items: MenuProps["items"] = [
+		{
+			key: "1",
+			label: translate(i18n?.language === "tr" ? "HEADER.ENGLISH" : "HEADER.TURKISH"),
+			onClick: () => i18n?.changeLanguage(i18n?.language === "tr" ? "en" : "tr"),
+		},
+		{ key: "2", label: translate("HEADER.LOGOUT") },
+	];
 
 	// Layout Destruction
 	const { Header, Sider, Content } = AntdLayout;
@@ -76,9 +90,22 @@ const Layout: React.FC = () => {
 							<MenuFoldOutlined onClick={() => setCollapsed(!collapsed)} />
 						)}
 					</div>
-					<div className="header-right"></div>
+					<div className="header-right">
+						<Dropdown trigger={["click"]} menu={{ items }} placement="bottom">
+							<div className="header-dropdown-trigger">
+								<div className="user-info">
+									<p className="full-name">
+										<span>Name</span> <span>Surname</span>
+									</p>
+									<p className="company">AFAD</p>
+								</div>
+								<Avatar icon={<UserOutlined />} />
+							</div>
+						</Dropdown>
+					</div>
 				</Header>
 				<Content className="layout-main">
+					<PageTitle />
 					<Outlet />
 				</Content>
 			</AntdLayout>
