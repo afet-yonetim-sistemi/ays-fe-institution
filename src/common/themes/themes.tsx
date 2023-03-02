@@ -1,6 +1,6 @@
 export const normalTheme = () => ({
 	styles: {
-		primaryColor: "#3A4F7A",
+		primaryColor: "#1F293D",
 		secondary_color: "#8c8c8c",
 		dark_color: "#393a3b",
 		danger_color: "#dc3545",

@@ -23,7 +23,8 @@
 			"END_DATE": "End Date",
 			"SEARCH": "Search",
 			"AGE": "Age",
-			"ADDRESS": "Address"
+			"ADDRESS": "Address",
+			"LOGIN": "Login"
 		},
 		"CTA": {
 			"OK": "Ok",
@@ -36,7 +37,12 @@
 			"CREATE": "Create",
 			"FILTER": "Filter",
 			"CLEAR": "Clear",
-			"BACK_TO_HOMEPAGE": "Back To Homepage"
+			"BACK_TO_HOMEPAGE": "Back To Homepage",
+			"LOCATION": "Location",
+			"OPEN_IN_GOOGLE_MAPS": "Open in Google Maps",
+			"OPEN_ON_MY_PHONE": "Open on My Phone",
+			"COPY_LOCATION": "Copy Location Information",
+			"COPIED": "Copied"
 		},
 		"RULES": {
 			"REQUIRED": "This field is required",
@@ -73,6 +79,12 @@
 		"ORDER": "Order",
 		"FILTER": "Filter"
 	},
+	"MAP": {
+		"S_LOCATION": "'s Location",
+		"YOUR_LOCATION": "Your Location",
+		"YOU_ARE_HERE": "You are here",
+		"WHERE_AM_I": "Where Am I?"
+	},
 	"TABLE": {
 		"COLUMN": {
 			"NAME": "Name",
@@ -104,6 +116,8 @@
 		"IN_PROGRESS": "In Progress"
 	},
 	"OTHERS": {
+		"SCAN_QR_CODE": "Scan it into your phone's camera.",
+		"QR_CODE": "QR CODE",
 		"LOADING": "Loading...",
 		"404_ERROR": "404 Not Found",
 		"404_DESCRIPTION": "The page you are looking for does not exist. You can return to the homepage with the button below."

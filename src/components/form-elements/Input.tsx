@@ -17,10 +17,10 @@ function Input(props: MergedProps) {
 	return (
 		<FormItem {...props}>
 			<InputAntd
+				allowClear
 				{...props}
 				name=""
 				placeholder={placeholder && translate(placeholder)}
-				allowClear
 				autoComplete="off"
 			/>
 		</FormItem>

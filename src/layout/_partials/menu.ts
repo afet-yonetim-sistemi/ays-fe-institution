@@ -1,4 +1,4 @@
-import { ICON_LIST } from "../common/contants/iconList";
+import { ICON_LIST } from "../../common/contants/iconList";
 
 export const MENU = [
 	{

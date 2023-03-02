@@ -45,7 +45,7 @@
 	}
 	&.btn-white {
 		@include custom-btn($white, $font_color);
-		border: 1px solid $border_color;
+		border: 1px solid $border_color !important;
 	}
 	&.btn-sm {
 		padding: 4px 11px;
@@ -136,7 +136,7 @@
 			padding: 8px;
 		}
 		position: relative;
-		border: 1px solid $border_color;
+		border: 1px solid $primary_color;
 		display: block;
 		text-align-last: left;
 		.title {

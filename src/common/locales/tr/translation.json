@@ -24,7 +24,8 @@
 			"END_DATE": "Bitiş Tarihi",
 			"SEARCH": "Ara",
 			"ADDRESS": "Adres",
-			"AGE": "Yaş"
+			"AGE": "Yaş",
+			"LOGIN": "Giriş Yap"
 		},
 		"CTA": {
 			"OK": "Tamam",
@@ -37,7 +38,12 @@
 			"CREATE": "Oluştur",
 			"FILTER": "Filtrele",
 			"CLEAR": "Temizle",
-			"BACK_TO_HOMEPAGE": "Anasayfaya Dön"
+			"BACK_TO_HOMEPAGE": "Anasayfaya Dön",
+			"LOCATION": "Konum",
+			"OPEN_IN_GOOGLE_MAPS": "Google Haritalarda Aç",
+			"OPEN_ON_MY_PHONE": "Telefonumda Aç",
+			"COPY_LOCATION": "Konum Bilgilerini Kopyala",
+			"COPIED": "Kopyalandı"
 		},
 		"RULES": {
 			"REQUIRED": "Bu alan zorunludur.",
@@ -74,6 +80,12 @@
 		"ORDER": "Sırala",
 		"FILTER": "Filtrele"
 	},
+	"MAP": {
+		"S_LOCATION": " Konumu",
+		"YOUR_LOCATION": "Konumun",
+		"YOU_ARE_HERE": "Buradasın.",
+		"WHERE_AM_I": "Neredeyim?"
+	},
 	"TABLE": {
 		"COLUMN": {
 			"NAME": "Ad",
@@ -105,6 +117,8 @@
 		"IN_PROGRESS": "Devam Ediyor"
 	},
 	"OTHERS": {
+		"SCAN_QR_CODE": "Telefonunuzun kamerasına taratın.",
+		"QR_CODE": "QR KOD",
 		"LOADING": "Yükleniyor...",
 		"404_ERROR": "404 Sayfa Bulunamadı",
 		"404_DESCRIPTION": "Aradığınız sayfa mevcut değil. Aşağıdaki buton ile anasayfaya dönebilirsiniz."

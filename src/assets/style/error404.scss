@@ -1,0 +1,11 @@
+.error_404_wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+	h1 {
+		font-size: 3rem;
+	}
+	row-gap: 20px;
+}

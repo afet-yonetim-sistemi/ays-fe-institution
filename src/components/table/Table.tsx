@@ -39,6 +39,7 @@ function Table(props: ITable) {
 				return {
 					...item,
 					key: `${index}_${item?.key}`,
+
 					title: typeof item?.title === "string" ? translate(item?.title) : "",
 				};
 			}),

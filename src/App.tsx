@@ -1,6 +1,11 @@
 // Import React
 import { useEffect } from "react";
 
+// Import Store
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./store/store";
+
 // Import Router
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./router/AppRoutes";
@@ -23,9 +28,13 @@ function App() {
 		getTheme();
 	}, []);
 	return (
-		<BrowserRouter>
-			<AppRoutes />
-		</BrowserRouter>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<BrowserRouter>
+					<AppRoutes />
+				</BrowserRouter>
+			</PersistGate>
+		</Provider>
 	);
 }
 

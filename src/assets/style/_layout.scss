@@ -26,6 +26,8 @@
 		}
 		.header-right {
 			height: 100%;
+			display: flex;
+			align-items: center;
 			.header-dropdown-trigger {
 				height: 100%;
 				display: flex;

@@ -2,9 +2,9 @@
 import { Fragment, useState } from "react";
 
 // Import Partials
-import UsersFilter from "./UsersFilter";
-import UsersTable from "./UsersTable";
-import UsersCrud from "./UsersCrud";
+import UsersFilter from "./_partials/UsersFilter";
+import UsersTable from "./_partials/UsersTable";
+import UsersCrud from "./_partials/UsersCrud";
 function Users() {
 	// useStates
 	const [search, setSearch] = useState<string>("");
