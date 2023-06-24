@@ -1,16 +1,33 @@
 import Cookies from "js-cookie";
 import { TOKENKEYS } from "../common/contants/auth";
 
-interface FetchOptions {
-  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+interface BaseFetchOptions {
+  headers?: object;
 
   /**
    *  İsteğin headerında Authorization'ı kaldırmak için auth false gönderilebilir
    * @defaultValue `true`
    */
   auth?: boolean;
+}
+interface FetchGetOptions extends BaseFetchOptions {
+  method?: "GET";
+
   params?: { [key: string]: string };
-  headers?: { [key: string]: string };
+}
+interface FetchOtherOptions extends BaseFetchOptions {
+  method?: "POST" | "PUT" | "PATCH" | "DELETE";
+
+  params?: object;
+}
+
+type FetchOptions = FetchGetOptions | FetchOtherOptions;
+
+interface BaseResponseProps<T> {
+  httpStatus: string;
+  isSuccess: boolean;
+  response: T;
+  time: string;
 }
 
 class Client {
@@ -18,12 +35,18 @@ class Client {
   private accessToken?: string | null = Cookies.get(TOKENKEYS.ACCESS_TOKEN);
   private refreshToken?: string | null = Cookies.get(TOKENKEYS.REFRESH_TOKEN);
 
-  public fetch = async (url: string, customOptions: FetchOptions) => {
-    const options = {
-      method: "GET",
+  public fetch = async <T>(
+    url: string,
+    customOptions: FetchOptions
+  ): Promise<BaseResponseProps<T> | undefined> => {
+    const options: FetchOptions = {
       auth: true,
       ...customOptions,
     };
+
+    if (!options.method) {
+      options.method = "GET";
+    }
 
     let params;
 
