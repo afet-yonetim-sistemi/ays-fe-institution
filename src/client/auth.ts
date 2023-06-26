@@ -6,10 +6,10 @@ export interface AdminLoginResponse {
   refreshToken: string;
 }
 
-export interface AdminLoginPayload  {
+export interface AdminLoginPayload {
   username: string;
   password: string;
-};
+}
 
 class AuthClient extends Client {
   private baseEndpoint = "authentication";
@@ -23,6 +23,14 @@ class AuthClient extends Client {
         auth: false,
       }
     );
+
+    if (res?.response?.accessToken) {
+      this.setAccessToken(res?.response?.accessToken);
+    }
+
+    if (res?.response?.refreshToken) {
+      this.setRefreshToken(res?.response?.refreshToken);
+    }
 
     return res?.response;
   };
@@ -38,6 +46,14 @@ class AuthClient extends Client {
         },
       }
     );
+
+    if (res?.response?.accessToken) {
+      this.setAccessToken(res?.response?.accessToken);
+    }
+
+    if (res?.response?.refreshToken) {
+      this.setRefreshToken(res?.response?.refreshToken);
+    }
 
     return res?.response;
   };
