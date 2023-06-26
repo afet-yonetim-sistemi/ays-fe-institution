@@ -66,7 +66,7 @@ class Client {
           "Content-Type": "application/json",
           ...(options.auth &&
             this.accessToken && {
-              Authorization: `Bearer ${this.accessToken}`,
+              Authorization: `Bearer ${this.getAccessToken()}`,
             }),
           ...options.headers,
         },
@@ -83,6 +83,31 @@ class Client {
         console.error({ [url]: err });
       }
     }
+  };
+
+  public setAccessToken = (accessToken: string) => {
+    this.accessToken = accessToken;
+    Cookies.set(TOKENKEYS.ACCESS_TOKEN, accessToken);
+  };
+
+  public getAccessToken = () => {
+    return this.accessToken;
+  };
+
+  public getRefreshToken = () => {
+    return this.refreshToken;
+  };
+
+  public setRefreshToken = (refreshToken: string) => {
+    this.refreshToken = refreshToken;
+    Cookies.set(TOKENKEYS.REFRESH_TOKEN, refreshToken);
+  };
+
+  public removeTokens = () => {
+    this.accessToken = null;
+    this.refreshToken = null;
+    Cookies.remove(TOKENKEYS.ACCESS_TOKEN);
+    Cookies.remove(TOKENKEYS.REFRESH_TOKEN);
   };
 }
 
