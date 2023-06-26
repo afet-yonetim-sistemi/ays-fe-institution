@@ -1,6 +1,7 @@
 // Import Store
-import { useDispatch } from "react-redux";
-import { userLoginAction } from "../../store/actions/user/userLoginAction";
+import { adminLogin } from "../../store/reducers/authReducer";
+import { AdminLoginPayload } from "../../client/auth";
+import { useAppDispatch } from "../../store/store";
 
 // Import Constants
 import { FORM_RULES } from "../../common/contants/formRules";
@@ -20,11 +21,11 @@ import "../../assets/style/login.scss";
 function Login() {
 	// Variables
 	const [form] = useForm();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	// Actions
-	const onSubmit = (values: Record<string, any>) => {
-		dispatch(userLoginAction(values));
+	const onSubmit = (values: AdminLoginPayload) => {
+		dispatch(adminLogin(values));
 	};
 
 	return (
@@ -33,17 +34,17 @@ function Login() {
 			<div className="login-form">
 				<Form form={form} onFinish={onSubmit}>
 					<Input
-						name="login_email"
+						name="username"
 						rules={[FORM_RULES.REQUIRED]}
 						label="FORM_ELEMENTS.LABELS.EMAIL"
 					/>
 					<Input
-						name="login_password"
+						name="password"
 						rules={[FORM_RULES.REQUIRED]}
 						label="FORM_ELEMENTS.LABELS.PASSWORD"
 					/>
 					<Button
-						name="login_cta"
+						name="cta"
 						onClick={() => form.submit()}
 						label="FORM_ELEMENTS.LABELS.LOGIN"
 						status={STATUS.PRIMARY}

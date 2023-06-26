@@ -1,33 +1,37 @@
-// Import Redux
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import ReduxThunk, { ThunkAction } from "redux-thunk";
-import { persistStore } from "redux-persist";
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-// Import Reducers
-import reducers from "./reducers";
+import UIReducer from './reducers/UIReducer';
+import authReducer from './reducers/authReducer';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-// Combine Reducers
-const reducer = combineReducers(reducers);
+const persistConfig1 = {
+  key: 'reducer1',
+  storage,
+  // Add any additional configuration options here for reducer1
+};
 
-// Redux Thunk
-declare module "redux" {
-	interface Dispatch<A extends Action = AnyAction> {
-		<S, E, R>(asyncAction: ThunkAction<R, S, E, A>): R;
-	}
-}
+const persistConfig2 = {
+  key: 'reducer2',
+  storage,
+  // Add any additional configuration options here for reducer2
+};
 
-// Devtools
-const devTools =
-	window && (window as any).__REDUX_DEVTOOLS_EXTENSION__
-		? window && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-		: (f: any) => f;
+const rootReducer = combineReducers({
+  ui: persistReducer(persistConfig1, UIReducer),
+  auth: persistReducer(persistConfig2, authReducer),
+  // Add other persisted reducers here
+});
 
-// Apply Middlewares
-const enhancer = compose(applyMiddleware(ReduxThunk), devTools);
+export const store = configureStore({
+  reducer: rootReducer,
+  // Add other store configuration options here
+});
 
-// Create Store
-export const store = createStore(reducer, enhancer);
+export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
+
 export const persistor = persistStore(store);
-
-// RootState Type
 export type RootState = ReturnType<typeof store.getState>;
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
