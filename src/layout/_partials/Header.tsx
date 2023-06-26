@@ -2,8 +2,8 @@
 import { useState } from "react";
 
 // Import Store
-import { useDispatch } from "react-redux";
-import { userLogoutAction } from "../../store/actions/user/userLogoutAction";
+import { useAppDispatch } from "../../store/store";
+import { logout } from "../../store/reducers/authReducer";
 
 // Import i18n
 import i18n from "../../common/locales/i18n";
@@ -42,7 +42,7 @@ function Header(props: IHeader) {
 	const [myLocationFindLoading, setMyLocationFindLoading] = useState<boolean>(false);
 
 	// Variables
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	// Actions
 	const changeLang = (lang: string) => {
@@ -80,16 +80,16 @@ function Header(props: IHeader) {
 		{
 			key: "2",
 			label: translate("HEADER.LOGOUT"),
-			onClick: () => dispatch(userLogoutAction()),
+			onClick: () => dispatch(logout()),
 		},
 	];
 	return (
 		<Header className="layout-header" style={{ background: "#fff" }}>
 			<div className="header-left">
 				{collapsed ? (
-					<MenuUnfoldOutlined onClick={() => setCollapsed(!collapsed)} />
+					<MenuUnfoldOutlined onClick={() => setCollapsed(!collapsed)} rev=""/>
 				) : (
-					<MenuFoldOutlined onClick={() => setCollapsed(!collapsed)} />
+					<MenuFoldOutlined onClick={() => setCollapsed(!collapsed)} rev=""/>
 				)}
 			</div>
 			<div className="header-right">
@@ -110,7 +110,7 @@ function Header(props: IHeader) {
 							</p>
 							<p className="company">AFAD</p>
 						</div>
-						<Avatar icon={<UserOutlined />} />
+						<Avatar icon={<UserOutlined rev=""/>} />
 					</div>
 				</Dropdown>
 			</div>

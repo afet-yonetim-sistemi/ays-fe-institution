@@ -2,8 +2,7 @@
 import { Suspense, useEffect, useState } from "react";
 
 // Import Redux
-import { RootState } from "../store/store";
-import { useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../store/store";
 
 // Import React Router
 import { Routes, Route } from "react-router-dom";
@@ -21,13 +20,27 @@ import Login from "../pages/login/Login";
 
 // Import i18n
 import i18n from "../common/locales/i18n";
+import { refreshAccessToken } from "../store/reducers/authReducer";
 
 function AppRoutes() {
 	// useStates
 	const [template, setTemplate] = useState<any>();
 
 	// Store Variables
-	const user = useSelector((state: RootState) => state?.login?.user);
+	const user = useAppSelector((state) => state.auth.user);
+	// Redux Dispatch
+	const dispatch = useAppDispatch();
+
+	// Eğer kullanıcı varsa ve access token süresi dolmuşsa yenile
+	useEffect(() => {
+		if (!user) {
+			return;
+		}
+		const now = Date.now() / 1000; 
+		if (user.accessTokenExpiresAt &&  user.accessTokenExpiresAt < now ) {
+		  dispatch(refreshAccessToken());
+		}
+	}, [dispatch, user]);
 
 	const handler = () => {
 		if (user) {
