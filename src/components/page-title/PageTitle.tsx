@@ -1,5 +1,5 @@
 // Import Router
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 // Import Utils
 import { translate } from "../../common/utils/translateUtils";
