@@ -10,7 +10,6 @@
 		"ADMIN": "Yönetici",
 		"USER": "Kullanıcı"
 	},
-
 	"FORM_ELEMENTS": {
 		"LABELS": {
 			"USERNAME": "Kullanıcı Adı",
@@ -103,6 +102,16 @@
 			"USERS": "Kullanıcılar",
 			"RECORD_LISTINING": "kayıt listeleniyor",
 			"LAST_UPDATE": "Son güncellenme"
+		},
+		"STATUS": {
+			"ACTIVE": "Aktif",
+			"PASSIVE": "Pasif",
+			"DELETED": "Silindi"
+		},
+		"ROLE": {
+			"SUPER_ADMIN": "Süper Yönetici",
+			"ADMIN": "Yönetici",
+			"VOLUNTEER": "Gönüllü"
 		}
 	},
 	"DRAWER": {

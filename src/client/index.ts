@@ -1,1 +1,1 @@
-export { default as AuthClient } from "./auth";
+export { default as axiosInstance } from "./axiosInstance";

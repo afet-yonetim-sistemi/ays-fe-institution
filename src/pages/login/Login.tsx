@@ -1,6 +1,6 @@
 // Import Store
 import { adminLogin } from "../../store/reducers/authReducer";
-import { AdminLoginPayload } from "../../client/auth";
+import { AdminLoginPayload } from "../../client/services/auth";
 import { useAppDispatch } from "../../store/store";
 
 // Import Constants
@@ -19,40 +19,40 @@ import Input from "../../components/form-elements/Input";
 import "../../assets/style/login.scss";
 
 function Login() {
-	// Variables
-	const [form] = useForm();
-	const dispatch = useAppDispatch();
+  // Variables
+  const [form] = useForm();
+  const dispatch = useAppDispatch();
 
-	// Actions
-	const onSubmit = (values: AdminLoginPayload) => {
-		dispatch(adminLogin(values));
-	};
+  // Actions
+  const onSubmit = (values: AdminLoginPayload) => {
+    dispatch(adminLogin(values));
+  };
 
-	return (
-		<div className="login-wrapper">
-			<h1 className="login-heading">AYS</h1>
-			<div className="login-form">
-				<Form form={form} onFinish={onSubmit}>
-					<Input
-						name="username"
-						rules={[FORM_RULES.REQUIRED]}
-						label="FORM_ELEMENTS.LABELS.EMAIL"
-					/>
-					<Input
-						name="password"
-						rules={[FORM_RULES.REQUIRED]}
-						label="FORM_ELEMENTS.LABELS.PASSWORD"
-					/>
-					<Button
-						name="cta"
-						onClick={() => form.submit()}
-						label="FORM_ELEMENTS.LABELS.LOGIN"
-						status={STATUS.PRIMARY}
-					/>
-				</Form>
-			</div>
-		</div>
-	);
+  return (
+    <div className="login-wrapper">
+      <h1 className="login-heading">AYS</h1>
+      <div className="login-form">
+        <Form form={form} onFinish={onSubmit}>
+          <Input
+            name="username"
+            rules={[FORM_RULES.REQUIRED]}
+            label="FORM_ELEMENTS.LABELS.EMAIL"
+          />
+          <Input
+            name="password"
+            rules={[FORM_RULES.REQUIRED]}
+            label="FORM_ELEMENTS.LABELS.PASSWORD"
+          />
+          <Button
+            name="cta"
+            onClick={() => form.submit()}
+            label="FORM_ELEMENTS.LABELS.LOGIN"
+            status={STATUS.PRIMARY}
+          />
+        </Form>
+      </div>
+    </div>
+  );
 }
 
 export default Login;

@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
-import Auth, { AdminLoginPayload, AdminLoginResponse } from "../../client/auth";
-
+import * as AuthService from "../../client/services/auth";
+import * as TokenService from "../../client/services/token";
 type AuthState = {
-  user: AdminLoginResponse | null;
+  user: AuthService.AdminLoginResponse | null;
 };
 // Initial State
 const initialState = {
@@ -11,9 +11,9 @@ const initialState = {
 
 export const adminLogin = createAsyncThunk(
   "auth/login",
-  async (payload: AdminLoginPayload, { rejectWithValue }) => {
+  async (payload: AuthService.AdminLoginPayload, { rejectWithValue }) => {
     try {
-      const user = await Auth.adminLogin(payload);
+      const user = await AuthService.adminLogin(payload);
       if (!user) {
         return rejectWithValue("Invalid credentials");
       }
@@ -33,7 +33,9 @@ export const refreshAccessToken = createAsyncThunk(
       if (!user) {
         return rejectWithValue("Invalid credentials");
       }
-      const refreshToken = await Auth.refreshAccessToken(user.refreshToken);
+      const refreshToken = await TokenService.refreshAccessToken(
+        user.refreshToken
+      );
       if (!refreshToken) {
         return rejectWithValue("Invalid credentials");
       }
@@ -45,7 +47,7 @@ export const refreshAccessToken = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
-  Auth.removeTokens();
+  TokenService.removeTokens();
   return null;
 });
 
@@ -60,7 +62,11 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     // adminLogin ve refreshAccessToken action'larından herhangi biri fulfilled olduğunda
     builder.addMatcher(
-      isAnyOf(adminLogin.fulfilled, refreshAccessToken.fulfilled, logout.fulfilled),
+      isAnyOf(
+        adminLogin.fulfilled,
+        refreshAccessToken.fulfilled,
+        logout.fulfilled
+      ),
       (state, action) => {
         state.user = action.payload;
       }
