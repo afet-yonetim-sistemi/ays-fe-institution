@@ -18,6 +18,7 @@
     "antd": "^5.2.3",
     "axios": "^1.4.0",
     "date-fns": "^2.29.3",
+    "dotenv": "^16.3.1",
     "i18next": "^22.4.10",
     "js-cookie": "^3.0.5",
     "leaflet": "^1.9.3",
@@ -39,7 +40,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "open-api": "node open-api-setter.js",
+    "postinstall": "npm run open-api"
   },
   "eslintConfig": {
     "extends": [
