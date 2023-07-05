@@ -22,6 +22,9 @@ import Login from "../pages/login/Login";
 import i18n from "../common/locales/i18n";
 import { refreshAccessToken, setUser } from "../store/reducers/authReducer";
 import { getAccessToken, getRefreshToken } from "../client/services/token";
+import { notification } from "antd";
+import { clearNotification } from "../store/reducers/UIReducer";
+import { translate } from "../common/utils/translateUtils";
 
 function AppRoutes() {
   // useStates
@@ -29,6 +32,14 @@ function AppRoutes() {
 
   // Store Variables
   const user = useAppSelector((state) => state.auth.user);
+
+  // Notification
+  const message = useAppSelector((state) => state?.UI?.notification.message);
+  const description = useAppSelector(
+    (state) => state?.UI?.notification.description
+  );
+  const type = useAppSelector((state) => state?.UI?.notification.type);
+
   // Redux Dispatch
   const dispatch = useAppDispatch();
 
@@ -51,6 +62,19 @@ function AppRoutes() {
       dispatch(setUser({ accessToken, refreshToken }));
     }
   }, [dispatch]);
+
+  // Eğer notification varsa göster
+  useEffect(() => {
+    if (message && type && description) {
+      notification[type]({
+        message,
+        description,
+        onClose: () => {
+          dispatch(clearNotification());
+        },
+      });
+    }
+  }, [message, description, type, dispatch]);
 
   const handler = () => {
     if (user) {

@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
 import * as AuthService from "../../client/services/auth";
 import * as TokenService from "../../client/services/token";
 import { refreshAccessToken as axiosRefreshAccessToken } from "../../client/axiosInstance";
+import { setNotification } from "./UIReducer";
+import { translate } from "../../common/utils/translateUtils";
 type AuthState = {
   user: AuthService.AdminLoginResponse | null;
 };
@@ -12,14 +14,41 @@ const initialState = {
 
 export const adminLogin = createAsyncThunk(
   "auth/login",
-  async (payload: AuthService.AdminLoginPayload, { rejectWithValue }) => {
+  async (
+    payload: AuthService.AdminLoginPayload,
+    { rejectWithValue, dispatch }
+  ) => {
     try {
       const user = await AuthService.adminLogin(payload);
       if (!user) {
-        return rejectWithValue("Invalid credentials");
+        dispatch(
+          setNotification({
+            message: translate("UI.NOTIFICATION.ERROR"),
+            description: translate("ERRORS.AUTH.INVALID_CREDENTIALS"),
+            type: "error",
+          })
+        );
+        return rejectWithValue(translate("ERRORS.AUTH.INVALID_CREDENTIALS"));
       }
       return user;
     } catch (error: any) {
+      if (error.response.status === 401) {
+        dispatch(
+          setNotification({
+            message: translate("UI.NOTIFICATION.ERROR"),
+            description: translate("ERRORS.AUTH.INVALID_CREDENTIALS"),
+            type: "error",
+          })
+        );
+      } else {
+        dispatch(
+          setNotification({
+            message: translate("UI.NOTIFICATION.ERROR"),
+            description: translate("ERRORS.DEFAULT.MESSAGE"),
+            type: "error",
+          })
+        );
+      }
       return rejectWithValue(error.response.data);
     }
   }
@@ -46,6 +75,7 @@ export const refreshAccessToken = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
+  await AuthService.invalidate();
   TokenService.removeTokens();
   return null;
 });

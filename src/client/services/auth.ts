@@ -1,5 +1,5 @@
 import { axiosInstance } from "..";
-import { setAccessToken, setRefreshToken } from "./token";
+import { getRefreshToken, setAccessToken, setRefreshToken } from "./token";
 
 export interface AdminLoginResponse {
   accessToken: string;
@@ -31,4 +31,11 @@ const adminLogin = async (credentials: AdminLoginPayload) => {
   return response;
 };
 
-export { adminLogin };
+const invalidate = async () => {
+  const refreshToken = getRefreshToken();
+  await axiosInstance.post(`${baseEndpoint}/admin/token/invalidate`, {
+    refreshToken,
+  });
+};
+
+export { adminLogin, invalidate };

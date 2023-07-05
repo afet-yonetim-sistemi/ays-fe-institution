@@ -131,5 +131,20 @@
 		"LOADING": "Yükleniyor...",
 		"404_ERROR": "404 Sayfa Bulunamadı",
 		"404_DESCRIPTION": "Aradığınız sayfa mevcut değil. Aşağıdaki buton ile anasayfaya dönebilirsiniz."
+	},
+	"UI": {
+		"NOTIFICATION": {
+			"ERROR": "Hata",
+			"SUCCESS": "Başarılı",
+			"WARNING": "Uyarı"
+		}
+	},
+	"ERRORS": {
+		"DEFAULT": {
+			"MESSAGE": "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+		},
+		"AUTH": {
+			"INVALID_CREDENTIALS": "Kullanıcı adı veya şifre hatalı."
+		}
 	}
 }
