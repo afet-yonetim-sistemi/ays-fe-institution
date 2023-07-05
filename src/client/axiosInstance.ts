@@ -2,13 +2,35 @@ import axios from "axios";
 import {
   getAccessToken,
   getRefreshToken,
-  refreshAccessToken,
+  setAccessToken,
+  setRefreshToken,
 } from "./services/token";
-// Create a new instance of Axios
+import { AdminLoginResponse } from "./services/auth";
+
+const baseEndpoint = "authentication";
+
+// Axios instance
 const api = axios.create({
   baseURL: `${process.env.REACT_APP_API_BASE_URL}/api/v1`,
 });
 
+// atılan her istekten önce çalışır
+api.interceptors.request.use(
+  (config) => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    // Handle request error
+    console.error("Request interceptor error:", error);
+    return Promise.reject(error);
+  }
+);
+
+// gelen her dönüşten sonra çalışır
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -31,9 +53,27 @@ api.interceptors.response.use(
   }
 );
 
-const accessToken = getAccessToken();
-if (accessToken) {
-  api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-}
+// Refresh access token function
+export const refreshAccessToken = async (refreshToken?: string) => {
+  const res = await api.post<AdminLoginResponse>(
+    `${baseEndpoint}/admin/token/refresh`,
+    {
+      refreshToken: refreshToken || getRefreshToken(),
+    }
+  );
+
+  if (res?.data?.accessToken) {
+    setAccessToken(res?.data?.accessToken);
+    api.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${res?.data?.accessToken}`;
+  }
+
+  if (res?.data?.refreshToken) {
+    setRefreshToken(res?.data?.refreshToken);
+  }
+
+  return res?.data;
+};
 
 export default api;

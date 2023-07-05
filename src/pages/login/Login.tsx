@@ -40,6 +40,7 @@ function Login() {
           />
           <Input
             name="password"
+            type="password"
             rules={[FORM_RULES.REQUIRED]}
             label="FORM_ELEMENTS.LABELS.PASSWORD"
           />

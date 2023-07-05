@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
 import * as AuthService from "../../client/services/auth";
 import * as TokenService from "../../client/services/token";
+import { refreshAccessToken as axiosRefreshAccessToken } from "../../client/axiosInstance";
 type AuthState = {
   user: AuthService.AdminLoginResponse | null;
 };
@@ -33,9 +34,7 @@ export const refreshAccessToken = createAsyncThunk(
       if (!user) {
         return rejectWithValue("Invalid credentials");
       }
-      const refreshToken = await TokenService.refreshAccessToken(
-        user.refreshToken
-      );
+      const refreshToken = await axiosRefreshAccessToken(user.refreshToken);
       if (!refreshToken) {
         return rejectWithValue("Invalid credentials");
       }
