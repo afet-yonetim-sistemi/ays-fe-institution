@@ -1,6 +1,6 @@
 // Import Store
 import { adminLogin } from "../../store/reducers/authReducer";
-import { AdminLoginPayload } from "../../client/services/auth";
+import { AdminTokenRequest } from "../../client/services/auth";
 import { useAppDispatch } from "../../store/store";
 
 // Import Constants
@@ -24,7 +24,7 @@ function Login() {
   const dispatch = useAppDispatch();
 
   // Actions
-  const onSubmit = (values: AdminLoginPayload) => {
+  const onSubmit = (values: AdminTokenRequest) => {
     dispatch(adminLogin(values));
   };
 

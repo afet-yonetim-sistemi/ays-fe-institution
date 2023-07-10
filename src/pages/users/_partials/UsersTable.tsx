@@ -20,23 +20,20 @@ import Table from "../../../components/table/Table";
 import Button from "../../../components/Button/Button";
 import Icon from "../../../components/Icon/Icon";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { getUsers } from "../../../store/reducers/usersReducer";
-import { User } from "../../../client/services/user";
+import {
+  deleteUser,
+  getUsers,
+  setDrawer,
+} from "../../../store/reducers/usersReducer";
+import { IUser } from "../../../client/services/user";
 
-interface IUsersTable {
-  search: string;
-  setCrudVisible: (status: boolean) => void;
-  setRecord: (record: User | null) => void;
-}
-
-function UsersTable(props: IUsersTable) {
+function UsersTable() {
   // useAppSelector
-  const { content: users } = useAppSelector((state) => state.users);
+  const { content: users, search } = useAppSelector((state) => state.users);
   // useAppDispatch
   const dispatch = useAppDispatch();
 
   // Props Destruction
-  const { search, setCrudVisible, setRecord } = props;
 
   // useStates
   const [detailRecord, setDetailRecord] = useState<Record<string, any> | null>(
@@ -45,7 +42,7 @@ function UsersTable(props: IUsersTable) {
   const [detailVisible, setDetailVisible] = useState(false);
 
   // Columns
-  const columns: TableColumnsType<User> = [
+  const columns: TableColumnsType<IUser> = [
     {
       title: "TABLE.COLUMN.NAME",
       dataIndex: "fullName",
@@ -70,6 +67,22 @@ function UsersTable(props: IUsersTable) {
       render: (_: any, record) => {
         return renderBadge(record.status);
       },
+      filters: [
+        {
+          text: translate("TABLE.STATUS.ACTIVE"),
+          value: "ACTIVE",
+        },
+        {
+          text: translate("TABLE.STATUS.PASSIVE"),
+          value: "PASSIVE",
+        },
+        {
+          text: translate("TABLE.STATUS.DELETED"),
+          value: "DELETED",
+        },
+      ],
+      defaultFilteredValue: ["ACTIVE"],
+      onFilter: (value, record) => record && record?.status === value,
     },
     {
       title: "TABLE.COLUMN.ACTIONS",
@@ -78,7 +91,7 @@ function UsersTable(props: IUsersTable) {
       width: 200,
       render: (_: any, record) => (
         <>
-          <Button
+          {/* <Button
             sizes={BUTTON_SIZES.SM}
             name="cta_edit"
             marginright={10}
@@ -89,19 +102,19 @@ function UsersTable(props: IUsersTable) {
               setDetailRecord(record);
               setDetailVisible(true);
             }}
-          />
+          /> */}
           <Button
             sizes={BUTTON_SIZES.SM}
             name="cta_edit"
             icon={<Icon icon={ICON_LIST.EDIT} status={ICON_STATUS.WHITE} />}
-            status={STATUS.SECONDARY}
+            status={STATUS.SUCCESS}
             onClick={() => {
-              setRecord(record);
-              setCrudVisible(true);
+              dispatch(setDrawer({ visible: true, record: record }));
             }}
+            disabled={record.status === "DELETED"}
           />
           <PopConfirm
-            onConfirm={() => console.log("deleted")}
+            onConfirm={() => record.id && dispatch(deleteUser(record.id))}
             title="POPCONFIRM.TITLES.DELETE"
           >
             <Button
@@ -110,6 +123,7 @@ function UsersTable(props: IUsersTable) {
               marginleft={10}
               icon={<Icon icon={ICON_LIST.DELETE} status={ICON_STATUS.WHITE} />}
               status={STATUS.DANGER}
+              disabled={record.status === "DELETED"}
             />
           </PopConfirm>
         </>
@@ -122,7 +136,7 @@ function UsersTable(props: IUsersTable) {
   }, [dispatch]);
 
   // ACTIVE || PASSIVE || DELETED
-  const renderBadge = (status: User["status"]) => {
+  const renderBadge = (status: IUser["status"]) => {
     switch (status) {
       case "ACTIVE":
         return (
@@ -144,14 +158,14 @@ function UsersTable(props: IUsersTable) {
   };
 
   // ADMIN || VOLUNTEER
-  const renderRole = (role: User["role"]) => {
+  const renderRole = (role: IUser["role"]) => {
     switch (role) {
-      case "ADMIN":
-        return <span>{translate("TABLE.ROLE.ADMIN")}</span>;
+      // case "ADMIN":
+      //   return <span>{translate("TABLE.ROLE.ADMIN")}</span>;
       case "VOLUNTEER":
         return <span>{translate("TABLE.ROLE.VOLUNTEER")}</span>;
-      case "SUPER_ADMIN":
-        return <span>{translate("TABLE.ROLE.SUPER_ADMIN")}</span>;
+      // case "SUPER_ADMIN":
+      //   return <span>{translate("TABLE.ROLE.SUPER_ADMIN")}</span>;
       default:
         return <span>{translate("TABLE.ROLE.VOLUNTEER")}</span>;
     }
@@ -175,7 +189,7 @@ function UsersTable(props: IUsersTable) {
       <Table
         name="users"
         columns={columns}
-        dataSource={tableFilter(search, ["firstName"], users)}
+        dataSource={tableFilter(search, ["firstName"], users || [])}
         title="TABLE.TITLES.USERS"
         onRow={(record) => {
           return {
@@ -194,7 +208,7 @@ function UsersTable(props: IUsersTable) {
             sizes={BUTTON_SIZES.SM}
             status={STATUS.PRIMARY}
             icon={<Icon icon={ICON_LIST.PLUS} status={ICON_STATUS.WHITE} />}
-            onClick={() => setCrudVisible(true)}
+            onClick={() => dispatch(setDrawer({ visible: true, record: null }))}
           />
         }
       />

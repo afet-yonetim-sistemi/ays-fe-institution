@@ -24,7 +24,6 @@ import { refreshAccessToken, setUser } from "../store/reducers/authReducer";
 import { getAccessToken, getRefreshToken } from "../client/services/token";
 import { notification } from "antd";
 import { clearNotification } from "../store/reducers/UIReducer";
-import { translate } from "../common/utils/translateUtils";
 
 function AppRoutes() {
   // useStates

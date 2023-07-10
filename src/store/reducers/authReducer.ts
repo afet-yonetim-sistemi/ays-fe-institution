@@ -5,17 +5,15 @@ import { refreshAccessToken as axiosRefreshAccessToken } from "../../client/axio
 import { setNotification } from "./UIReducer";
 import { translate } from "../../common/utils/translateUtils";
 type AuthState = {
-  user: AuthService.AdminLoginResponse | null;
+  user: AuthService.AdminTokenResponse["response"] | null;
 };
 // Initial State
-const initialState = {
-  user: null,
-};
+const initialState = {};
 
 export const adminLogin = createAsyncThunk(
   "auth/login",
   async (
-    payload: AuthService.AdminLoginPayload,
+    payload: AuthService.AdminTokenRequest,
     { rejectWithValue, dispatch }
   ) => {
     try {

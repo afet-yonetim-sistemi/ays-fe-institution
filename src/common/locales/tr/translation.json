@@ -24,7 +24,9 @@
 			"SEARCH": "Ara",
 			"ADDRESS": "Adres",
 			"AGE": "Yaş",
-			"LOGIN": "Giriş Yap"
+			"LOGIN": "Giriş Yap",
+			"PHONE_NUMBER": "Telefon Numarası",
+			"COUNTRY_CODE": "Ülke Kodu"
 		},
 		"CTA": {
 			"OK": "Tamam",
@@ -96,7 +98,8 @@
 			"DATE": "Tarih",
 			"STATUS": "Durum",
 			"AGE": "Yaş",
-			"ADDRESS": "Adres"
+			"ADDRESS": "Adres",
+			"ROLE": "Rol"
 		},
 		"TITLES": {
 			"USERS": "Kullanıcılar",

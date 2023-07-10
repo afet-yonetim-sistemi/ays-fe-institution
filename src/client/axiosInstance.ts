@@ -5,7 +5,14 @@ import {
   setAccessToken,
   setRefreshToken,
 } from "./services/token";
-import { AdminLoginResponse } from "./services/auth";
+import { paths } from "../types/OpenAPITypes";
+
+export type RefreshTokenPath =
+  paths["/api/v1/authentication/admin/token/refresh"]["post"];
+export type RefreshTokenResponse =
+  RefreshTokenPath["responses"]["200"]["content"]["*/*"];
+
+const REFRESH_TOKEN_URL = "/api/v1/authentication/admin/token/refresh";
 
 const baseEndpoint = "authentication";
 
@@ -18,7 +25,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const accessToken = getAccessToken();
-    if (accessToken) {
+    if (config.url && !REFRESH_TOKEN_URL.includes(config.url) && accessToken) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
@@ -55,22 +62,19 @@ api.interceptors.response.use(
 
 // Refresh access token function
 export const refreshAccessToken = async (refreshToken?: string) => {
-  const res = await api.post<AdminLoginResponse>(
-    `${baseEndpoint}/admin/token/refresh`,
-    {
-      refreshToken: refreshToken || getRefreshToken(),
-    }
-  );
-
-  if (res?.data?.accessToken) {
-    setAccessToken(res?.data?.accessToken);
+  const res = await api.post(`${baseEndpoint}/admin/token/refresh`, {
+    refreshToken: refreshToken || getRefreshToken(),
+  });
+  const data = res?.data as RefreshTokenResponse;
+  if (data?.response?.accessToken) {
+    setAccessToken(data?.response?.accessToken);
     api.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${res?.data?.accessToken}`;
+    ] = `Bearer ${data?.response?.accessToken}`;
   }
 
-  if (res?.data?.refreshToken) {
-    setRefreshToken(res?.data?.refreshToken);
+  if (data?.response?.refreshToken) {
+    setRefreshToken(data?.response?.refreshToken);
   }
 
   return res?.data;
