@@ -10,7 +10,6 @@
 		"ADMIN": "Yönetici",
 		"USER": "Kullanıcı"
 	},
-
 	"FORM_ELEMENTS": {
 		"LABELS": {
 			"USERNAME": "Kullanıcı Adı",
@@ -25,7 +24,9 @@
 			"SEARCH": "Ara",
 			"ADDRESS": "Adres",
 			"AGE": "Yaş",
-			"LOGIN": "Giriş Yap"
+			"LOGIN": "Giriş Yap",
+			"PHONE_NUMBER": "Telefon Numarası",
+			"COUNTRY_CODE": "Ülke Kodu"
 		},
 		"CTA": {
 			"OK": "Tamam",
@@ -97,12 +98,29 @@
 			"DATE": "Tarih",
 			"STATUS": "Durum",
 			"AGE": "Yaş",
-			"ADDRESS": "Adres"
+			"ADDRESS": "Adres",
+			"ROLE": "Rol",
+			"INSTITUTION_INFO": "Kurum Bilgileri",
+			"INSTITUTION_NAME": "Kurum Adı",
+			"PHONE_NUMBER": "Telefon Numarası",
+			"LOCATION": "Konum",
+			"USER_INFO": "Kullanıcı Bilgileri",
+			"USERNAME": "Kullanıcı Adı"
 		},
 		"TITLES": {
 			"USERS": "Kullanıcılar",
 			"RECORD_LISTINING": "kayıt listeleniyor",
 			"LAST_UPDATE": "Son güncellenme"
+		},
+		"STATUS": {
+			"ACTIVE": "Aktif",
+			"PASSIVE": "Pasif",
+			"DELETED": "Silindi"
+		},
+		"ROLE": {
+			"SUPER_ADMIN": "Süper Yönetici",
+			"ADMIN": "Yönetici",
+			"VOLUNTEER": "Gönüllü"
 		}
 	},
 	"DRAWER": {
@@ -122,5 +140,20 @@
 		"LOADING": "Yükleniyor...",
 		"404_ERROR": "404 Sayfa Bulunamadı",
 		"404_DESCRIPTION": "Aradığınız sayfa mevcut değil. Aşağıdaki buton ile anasayfaya dönebilirsiniz."
+	},
+	"UI": {
+		"NOTIFICATION": {
+			"ERROR": "Hata",
+			"SUCCESS": "Başarılı",
+			"WARNING": "Uyarı"
+		}
+	},
+	"ERRORS": {
+		"DEFAULT": {
+			"MESSAGE": "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+		},
+		"AUTH": {
+			"INVALID_CREDENTIALS": "Kullanıcı adı veya şifre hatalı."
+		}
 	}
 }

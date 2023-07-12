@@ -1,6 +1,7 @@
 // Import Store
-import { useDispatch } from "react-redux";
-import { userLoginAction } from "../../store/actions/user/userLoginAction";
+import { adminLogin } from "../../store/reducers/authReducer";
+import { AdminTokenRequest } from "../../client/services/auth";
+import { useAppDispatch } from "../../store/store";
 
 // Import Constants
 import { FORM_RULES } from "../../common/contants/formRules";
@@ -18,40 +19,41 @@ import Input from "../../components/form-elements/Input";
 import "../../assets/style/login.scss";
 
 function Login() {
-	// Variables
-	const [form] = useForm();
-	const dispatch = useDispatch();
+  // Variables
+  const [form] = useForm();
+  const dispatch = useAppDispatch();
 
-	// Actions
-	const onSubmit = (values: Record<string, any>) => {
-		dispatch(userLoginAction(values));
-	};
+  // Actions
+  const onSubmit = (values: AdminTokenRequest) => {
+    dispatch(adminLogin(values));
+  };
 
-	return (
-		<div className="login-wrapper">
-			<h1 className="login-heading">AYS</h1>
-			<div className="login-form">
-				<Form form={form} onFinish={onSubmit}>
-					<Input
-						name="login_email"
-						rules={[FORM_RULES.REQUIRED]}
-						label="FORM_ELEMENTS.LABELS.EMAIL"
-					/>
-					<Input
-						name="login_password"
-						rules={[FORM_RULES.REQUIRED]}
-						label="FORM_ELEMENTS.LABELS.PASSWORD"
-					/>
-					<Button
-						name="login_cta"
-						onClick={() => form.submit()}
-						label="FORM_ELEMENTS.LABELS.LOGIN"
-						status={STATUS.PRIMARY}
-					/>
-				</Form>
-			</div>
-		</div>
-	);
+  return (
+    <div className="login-wrapper">
+      <h1 className="login-heading">AYS</h1>
+      <div className="login-form">
+        <Form form={form} onFinish={onSubmit}>
+          <Input
+            name="username"
+            rules={[FORM_RULES.REQUIRED]}
+            label="FORM_ELEMENTS.LABELS.EMAIL"
+          />
+          <Input
+            name="password"
+            type="password"
+            rules={[FORM_RULES.REQUIRED]}
+            label="FORM_ELEMENTS.LABELS.PASSWORD"
+          />
+          <Button
+            name="cta"
+            onClick={() => form.submit()}
+            label="FORM_ELEMENTS.LABELS.LOGIN"
+            status={STATUS.PRIMARY}
+          />
+        </Form>
+      </div>
+    </div>
+  );
 }
 
 export default Login;

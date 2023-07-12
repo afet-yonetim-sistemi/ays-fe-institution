@@ -2,8 +2,7 @@
 import { Suspense, useEffect, useState } from "react";
 
 // Import Redux
-import { RootState } from "../store/store";
-import { useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../store/store";
 
 // Import React Router
 import { Routes, Route } from "react-router-dom";
@@ -21,42 +20,100 @@ import Login from "../pages/login/Login";
 
 // Import i18n
 import i18n from "../common/locales/i18n";
+import { refreshAccessToken, setUser } from "../store/reducers/authReducer";
+import { getAccessToken, getRefreshToken } from "../client/services/token";
+import { notification } from "antd";
+import { clearNotification } from "../store/reducers/UIReducer";
 
 function AppRoutes() {
-	// useStates
-	const [template, setTemplate] = useState<any>();
+  // useStates
+  const [template, setTemplate] = useState<any>();
 
-	// Store Variables
-	const user = useSelector((state: RootState) => state?.login?.user);
+  // Store Variables
+  const user = useAppSelector((state) => state.auth.user);
 
-	const handler = () => {
-		if (user) {
-			setTemplate(
-				<Routes>
-					<Route path="/" element={<Layout />}>
-						{routesConfig.map((route: Troute, index) => (
-							<Route
-								key={`route_${index}`}
-								path={route.url !== "/" ? route.url : undefined}
-								index={route.url === "/" ? true : false}
-								element={<Suspense fallback={<div>loading...</div>}>{<route.element />}</Suspense>}
-							/>
-						))}
-					</Route>
-					<Route key={`route_404`} path="*" element={<Error404 />} />
-				</Routes>
-			);
-		} else {
-			setTemplate(<Login />);
-		}
-	};
+  // Notification
+  const message = useAppSelector((state) => state?.UI?.notification.message);
+  const description = useAppSelector(
+    (state) => state?.UI?.notification.description
+  );
+  const type = useAppSelector((state) => state?.UI?.notification.type);
 
-	useEffect(() => {
-		handler();
-		// eslint-disable-next-line
-	}, [i18n?.language, user]);
+  // Redux Dispatch
+  const dispatch = useAppDispatch();
 
-	return template;
+  // Eğer kullanıcı varsa ve access token süresi dolmuşsa yenile
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+    const now = Date.now() / 1000;
+    if (user.accessTokenExpiresAt && user.accessTokenExpiresAt < now) {
+      dispatch(refreshAccessToken());
+    }
+  }, [dispatch, user]);
+
+  // Eğer kullanıcı varsa ve tokenlar storelanmış ise user'ı setle
+  useEffect(() => {
+    const accessToken = getAccessToken();
+    const refreshToken = getRefreshToken();
+    if (accessToken && refreshToken) {
+      dispatch(setUser({ accessToken, refreshToken }));
+    }
+  }, [dispatch]);
+
+  // Eğer kullanıcı varsa ve url login ise ana sayfaya yönlendir
+  useEffect(() => {
+    if (user && window.location.pathname === "/login") {
+      window.location.href = "/";
+    }
+  }, [user]);
+
+  // Eğer notification varsa göster
+  useEffect(() => {
+    if (message && type && description) {
+      notification[type]({
+        message,
+        description,
+        onClose: () => {
+          dispatch(clearNotification());
+        },
+      });
+    }
+  }, [message, description, type, dispatch]);
+
+  const handler = () => {
+    if (user) {
+      setTemplate(
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {routesConfig.map((route: Troute, index) => (
+              <Route
+                key={`route_${index}`}
+                path={route.url !== "/" ? route.url : undefined}
+                index={route.url === "/" ? true : false}
+                element={
+                  <Suspense fallback={<div>loading...</div>}>
+                    {<route.element />}
+                  </Suspense>
+                }
+              />
+            ))}
+          </Route>
+          <Route key={`route_404`} path="*" element={<Error404 />} />
+        </Routes>
+      );
+    } else {
+      setTemplate(<Login />);
+    }
+  };
+
+  useEffect(() => {
+    handler();
+    // eslint-disable-next-line
+  }, [i18n?.language, user]);
+
+  return template;
 }
 
 export default AppRoutes;

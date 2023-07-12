@@ -1,33 +1,16 @@
-// Import Redux
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import ReduxThunk, { ThunkAction } from "redux-thunk";
-import { persistStore } from "redux-persist";
-
-// Import Reducers
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import reducers from "./reducers";
 
-// Combine Reducers
-const reducer = combineReducers(reducers);
+const rootReducer = combineReducers(reducers);
 
-// Redux Thunk
-declare module "redux" {
-	interface Dispatch<A extends Action = AnyAction> {
-		<S, E, R>(asyncAction: ThunkAction<R, S, E, A>): R;
-	}
-}
+export const store = configureStore({
+  reducer: rootReducer,
+  // Add other store configuration options here
+});
 
-// Devtools
-const devTools =
-	window && (window as any).__REDUX_DEVTOOLS_EXTENSION__
-		? window && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-		: (f: any) => f;
+export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
 
-// Apply Middlewares
-const enhancer = compose(applyMiddleware(ReduxThunk), devTools);
-
-// Create Store
-export const store = createStore(reducer, enhancer);
-export const persistor = persistStore(store);
-
-// RootState Type
 export type RootState = ReturnType<typeof store.getState>;
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

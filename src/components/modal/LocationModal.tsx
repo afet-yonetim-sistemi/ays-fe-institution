@@ -1,5 +1,5 @@
 // Import React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Import Leaflet
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
@@ -42,12 +42,20 @@ function LocationModal(props: ILocationModal) {
 	// Resize Handler (Required to work in modal)
 	const ResizeMap = () => {
 		const map = useMap();
-		const resizeObserver = new ResizeObserver(() => {
-			map.invalidateSize();
-		});
-		const container = document.getElementById("map-container");
-		resizeObserver.observe(container!);
 
+		useEffect(() => {
+		  const resizeObserver = new ResizeObserver(() => {
+			map.invalidateSize();
+		  });
+	  
+		  const container = document.getElementById('map-container');
+		  resizeObserver.observe(container!);
+	  
+		  return () => {
+			resizeObserver.unobserve(container!); 
+		  };
+		}, [map]);
+	  
 		return null;
 	};
 

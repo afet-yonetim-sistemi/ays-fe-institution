@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -14,8 +16,11 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "antd": "^5.2.3",
+    "axios": "^1.4.0",
     "date-fns": "^2.29.3",
+    "dotenv": "^16.3.1",
     "i18next": "^22.4.10",
+    "js-cookie": "^3.0.5",
     "leaflet": "^1.9.3",
     "node-sass": "^8.0.0",
     "react": "^18.2.0",
@@ -35,7 +40,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "open-api": "node open-api-setter.js",
+    "postinstall": "npm run open-api"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +63,7 @@
     ]
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.3",
     "@types/leaflet": "^1.9.1"
   }
 }

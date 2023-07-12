@@ -3,16 +3,20 @@ import { persistReducer } from "redux-persist";
 import sessionStorage from "redux-persist/es/storage/session";
 
 // Import Reducers
-import loginReducer from "./loginReducer";
+import authReducer from "./authReducer";
+import UIReducer from "./UIReducer";
+import usersReducer from "./usersReducer";
 
-// Login Reducer Persist Config
-const loginPersistConfig = {
-	key: "root",
-	storage: sessionStorage,
+// Persist Config
+const persistConfig = {
+  key: "root",
+  storage: sessionStorage,
 };
 
-const login = persistReducer(loginPersistConfig, loginReducer);
+const auth = persistReducer(persistConfig, authReducer);
+const UI = persistReducer(persistConfig, UIReducer);
+const users = persistReducer(persistConfig, usersReducer);
 
-const reducers = { login };
+const reducers = { auth, UI, users };
 
 export default reducers;

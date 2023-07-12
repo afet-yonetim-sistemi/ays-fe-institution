@@ -3,8 +3,7 @@ import { useEffect } from "react";
 
 // Import Store
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./store/store";
+import { store } from "./store/store";
 
 // Import Router
 import { BrowserRouter } from "react-router-dom";
@@ -23,19 +22,17 @@ import "./assets/style/global.scss";
 import "./assets/style/app.scss";
 
 function App() {
-	// useEffect
-	useEffect(() => {
-		getTheme();
-	}, []);
-	return (
-		<Provider store={store}>
-			<PersistGate loading={null} persistor={persistor}>
-				<BrowserRouter>
-					<AppRoutes />
-				</BrowserRouter>
-			</PersistGate>
-		</Provider>
-	);
+  // useEffect
+  useEffect(() => {
+    getTheme();
+  }, []);
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </Provider>
+  );
 }
 
 export default withTranslation()(App);
