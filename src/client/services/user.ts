@@ -21,6 +21,9 @@ export type UpdateUserResponse =
 export type UpdateUserRequest =
   UpdateUserPath["requestBody"]["content"]["application/json"];
 
+export type GetUserPath = paths["/api/v1/user/{id}"]["get"];
+export type GetUserResponse = GetUserPath["responses"]["200"]["content"]["*/*"];
+
 const baseEndpoint = "user";
 
 const getUsers = async (
@@ -31,7 +34,7 @@ const getUsers = async (
   return res.data;
 };
 
-const getUser = async (id: string) => {
+const getUser = async (id: string): Promise<GetUserResponse> => {
   const res = await axiosInstance.get(`${baseEndpoint}/${id}`);
 
   return res.data;

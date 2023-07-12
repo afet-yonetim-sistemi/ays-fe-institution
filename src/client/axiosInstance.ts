@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   getAccessToken,
   getRefreshToken,
+  removeTokens,
   setAccessToken,
   setRefreshToken,
 } from "./services/token";
@@ -12,7 +13,12 @@ export type RefreshTokenPath =
 export type RefreshTokenResponse =
   RefreshTokenPath["responses"]["200"]["content"]["*/*"];
 
-const REFRESH_TOKEN_URL = "/api/v1/authentication/admin/token/refresh";
+let refreshSubscribers: (() => void)[] = [];
+let isRefreshing = false;
+
+const REFRESH_TOKEN_URL = "authentication/admin/token/refresh";
+
+const TOKEN_URL = "authentication/admin/token";
 
 const baseEndpoint = "authentication";
 
@@ -28,6 +34,7 @@ api.interceptors.request.use(
     if (config.url && !REFRESH_TOKEN_URL.includes(config.url) && accessToken) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
+
     return config;
   },
   (error) => {
@@ -43,17 +50,31 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      try {
-        const refreshToken = await refreshAccessToken();
-        if (!refreshToken) {
-          window.location.href = "/login";
-        }
-      } catch (refreshError) {
-        console.error("Failed to refresh access token:", refreshError);
+    if (
+      error.response.status === 401 &&
+      !originalRequest._retry &&
+      TOKEN_URL !== originalRequest.url
+    ) {
+      if (originalRequest.url === REFRESH_TOKEN_URL) {
+        window.location.href = "/login";
+        removeTokens();
       }
+
+      originalRequest._retry = true;
+      const accessToken = getAccessToken();
+      const retryOriginalRequest = new Promise((resolve, reject) => {
+        refreshSubscribers.push(() => {
+          originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
+          resolve(api(originalRequest));
+        });
+      });
+
+      if (!isRefreshing) {
+        isRefreshing = true;
+        await refreshAccessToken();
+      }
+
+      return retryOriginalRequest;
     }
 
     return Promise.reject(error);
@@ -62,22 +83,29 @@ api.interceptors.response.use(
 
 // Refresh access token function
 export const refreshAccessToken = async (refreshToken?: string) => {
-  const res = await api.post(`${baseEndpoint}/admin/token/refresh`, {
-    refreshToken: refreshToken || getRefreshToken(),
-  });
-  const data = res?.data as RefreshTokenResponse;
-  if (data?.response?.accessToken) {
-    setAccessToken(data?.response?.accessToken);
-    api.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${data?.response?.accessToken}`;
-  }
+  try {
+    const res = await api.post(`${baseEndpoint}/admin/token/refresh`, {
+      refreshToken: refreshToken || getRefreshToken(),
+    });
+    const data = res?.data as RefreshTokenResponse;
+    if (data?.response?.accessToken) {
+      setAccessToken(data?.response?.accessToken);
+      api.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${data?.response?.accessToken}`;
+    }
 
-  if (data?.response?.refreshToken) {
-    setRefreshToken(data?.response?.refreshToken);
-  }
+    if (data?.response?.refreshToken) {
+      setRefreshToken(data?.response?.refreshToken);
+      refreshSubscribers.forEach((subscriber) => subscriber());
+    }
 
-  return res?.data;
+    return res?.data;
+  } catch (error) {
+    console.error("Refresh token error:", error);
+  } finally {
+    isRefreshing = false;
+  }
 };
 
 export default api;

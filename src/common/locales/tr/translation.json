@@ -99,7 +99,13 @@
 			"STATUS": "Durum",
 			"AGE": "Yaş",
 			"ADDRESS": "Adres",
-			"ROLE": "Rol"
+			"ROLE": "Rol",
+			"INSTITUTION_INFO": "Kurum Bilgileri",
+			"INSTITUTION_NAME": "Kurum Adı",
+			"PHONE_NUMBER": "Telefon Numarası",
+			"LOCATION": "Konum",
+			"USER_INFO": "Kullanıcı Bilgileri",
+			"USERNAME": "Kullanıcı Adı"
 		},
 		"TITLES": {
 			"USERS": "Kullanıcılar",

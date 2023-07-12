@@ -26,12 +26,16 @@ import {
   setDrawer,
 } from "../../../store/reducers/usersReducer";
 import { IUser } from "../../../client/services/user";
+import { useNavigate } from "react-router-dom";
 
 function UsersTable() {
   // useAppSelector
   const { content: users, search } = useAppSelector((state) => state.users);
   // useAppDispatch
   const dispatch = useAppDispatch();
+
+  // useNavigate
+  const navigate = useNavigate();
 
   // Props Destruction
 
@@ -105,6 +109,17 @@ function UsersTable() {
           /> */}
           <Button
             sizes={BUTTON_SIZES.SM}
+            name="cta_edit"
+            icon={<Icon icon={ICON_LIST.SHOW} status={ICON_STATUS.WHITE} />}
+            status={STATUS.PRIMARY}
+            onClick={() => {
+              navigate(`/users/${record.id}`);
+            }}
+            disabled={record.status === "DELETED"}
+          />
+          <Button
+            sizes={BUTTON_SIZES.SM}
+            marginleft={10}
             name="cta_edit"
             icon={<Icon icon={ICON_LIST.EDIT} status={ICON_STATUS.WHITE} />}
             status={STATUS.SUCCESS}

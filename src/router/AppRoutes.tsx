@@ -62,6 +62,13 @@ function AppRoutes() {
     }
   }, [dispatch]);
 
+  // Eğer kullanıcı varsa ve url login ise ana sayfaya yönlendir
+  useEffect(() => {
+    if (user && window.location.pathname === "/login") {
+      window.location.href = "/";
+    }
+  }, [user]);
+
   // Eğer notification varsa göster
   useEffect(() => {
     if (message && type && description) {
