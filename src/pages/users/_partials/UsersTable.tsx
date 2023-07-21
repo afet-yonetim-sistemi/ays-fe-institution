@@ -112,10 +112,12 @@ function UsersTable() {
             name="cta_edit"
             icon={<Icon icon={ICON_LIST.SHOW} status={ICON_STATUS.WHITE} />}
             status={STATUS.PRIMARY}
-            onClick={() => {
-              navigate(`/users/${record.id}`);
-            }}
             disabled={record.status === "DELETED"}
+            onClick={() => {
+              dispatch(
+                setDrawer({ visible: true, record: record, type: "view" })
+              );
+            }}
           />
           <Button
             sizes={BUTTON_SIZES.SM}
@@ -124,7 +126,9 @@ function UsersTable() {
             icon={<Icon icon={ICON_LIST.EDIT} status={ICON_STATUS.WHITE} />}
             status={STATUS.SUCCESS}
             onClick={() => {
-              dispatch(setDrawer({ visible: true, record: record }));
+              dispatch(
+                setDrawer({ visible: true, record: record, type: "update" })
+              );
             }}
             disabled={record.status === "DELETED"}
           />
@@ -206,16 +210,16 @@ function UsersTable() {
         columns={columns}
         dataSource={tableFilter(search, ["firstName"], users || [])}
         title="TABLE.TITLES.USERS"
-        onRow={(record) => {
-          return {
-            onClick: (e: any) => {
-              if (e.target?.nodeName === "TD") {
-                setDetailVisible(true);
-                setDetailRecord(record);
-              }
-            },
-          };
-        }}
+        // onRow={(record) => {
+        //   return {
+        //     onClick: (e: any) => {
+        //       if (e.target?.nodeName === "TD") {
+        //         setDetailVisible(true);
+        //         setDetailRecord(record);
+        //       }
+        //     },
+        //   };
+        // }}
         headerControls={
           <Button
             name="add_cta"
@@ -223,7 +227,11 @@ function UsersTable() {
             sizes={BUTTON_SIZES.SM}
             status={STATUS.PRIMARY}
             icon={<Icon icon={ICON_LIST.PLUS} status={ICON_STATUS.WHITE} />}
-            onClick={() => dispatch(setDrawer({ visible: true, record: null }))}
+            onClick={() =>
+              dispatch(
+                setDrawer({ visible: true, record: null, type: "create" })
+              )
+            }
           />
         }
       />

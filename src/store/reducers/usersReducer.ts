@@ -6,6 +6,7 @@ export type InitialState = UserService.GetUsersResponse["response"] &
     drawer: {
       visible: boolean;
       record: UserService.IUser | null;
+      type: "create" | "update" | "view";
     };
     search: string;
   };
@@ -26,6 +27,7 @@ const initialState: InitialState = {
   drawer: {
     visible: false,
     record: null,
+    type: "create",
   },
   search: "",
 };

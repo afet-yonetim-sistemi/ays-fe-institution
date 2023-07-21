@@ -14,7 +14,7 @@ import Drawer from "../../../components/drawer/Drawer";
 import Button from "../../../components/Button/Button";
 import Input from "../../../components/form-elements/Input";
 import FormItem from "../../../components/form-elements/FormItem";
-import { Col, Row } from "antd";
+import { Col, Descriptions, Row } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {
   createUser,
@@ -28,20 +28,24 @@ import {
   UpdateUserRequest,
 } from "../../../client/services/user";
 import Select from "../../../components/form-elements/Select";
+import { Typography } from "antd";
 
+const { Text, Title } = Typography;
 function UsersCrud() {
   // Form
   const [form] = useForm();
 
   // Actions
   const drawerCloser = () => {
-    dispatch(setDrawer({ visible: false, record: null }));
+    dispatch(setDrawer({ visible: false, record: null, type: null }));
     form.resetFields();
   };
 
   // dispatch
   const dispatch = useAppDispatch();
-  const { visible, record } = useAppSelector((state) => state.users.drawer);
+  const { visible, record, type } = useAppSelector(
+    (state) => state.users.drawer
+  );
 
   const onCreate = async (values: CreateUserRequest) => {
     await dispatch(
@@ -77,33 +81,45 @@ function UsersCrud() {
 
   return (
     <Drawer
-      title={record ? "DRAWER.TITLES.EDIT_USER" : "DRAWER.TITLES.ADD_USER"}
+      title={
+        type === "view"
+          ? "DRAWER.TITLES.VIEW_USER"
+          : record
+          ? "DRAWER.TITLES.EDIT_USER"
+          : "DRAWER.TITLES.ADD_USER"
+      }
       visible={visible}
       onClose={drawerCloser}
       footer={
-        <>
-          <Button
-            name="cancel_cta"
-            onClick={drawerCloser}
-            label="FORM_ELEMENTS.CTA.CANCEL"
-            status={STATUS.SECONDARY}
-          />
+        type !== "view" && (
+          <>
+            <Button
+              name="cancel_cta"
+              onClick={drawerCloser}
+              label="FORM_ELEMENTS.CTA.CANCEL"
+              status={STATUS.SECONDARY}
+            />
 
-          <Button
-            name="submit_cta"
-            marginleft={10}
-            onClick={() => {
-              form.submit();
-            }}
-            label="FORM_ELEMENTS.CTA.SAVE"
-            status={STATUS.SUCCESS}
-          />
-        </>
+            <Button
+              name="submit_cta"
+              marginleft={10}
+              onClick={() => {
+                form.submit();
+              }}
+              label="FORM_ELEMENTS.CTA.SAVE"
+              status={STATUS.SUCCESS}
+            />
+          </>
+        )
       }
     >
-      <Form form={form} onFinish={onSubmit}>
-        {record ? <EditForm record={record} /> : <CreateForm />}
-      </Form>
+      {type === "view" && record ? (
+        <UserDetails record={record} />
+      ) : (
+        <Form form={form} onFinish={onSubmit}>
+          {record ? <EditForm record={record} /> : <CreateForm />}
+        </Form>
+      )}
     </Drawer>
   );
 }
@@ -171,6 +187,45 @@ const EditForm = ({ record }: EditFormProps) => {
           value={record.status}
         />
       </FormItem>
+    </div>
+  );
+};
+
+const UserDetails = ({ record }: EditFormProps) => {
+  const userdetails = [
+    {
+      label: translate("TABLE.COLUMN.USERNAME"),
+      value: record?.username,
+    },
+    {
+      label: translate("TABLE.COLUMN.NAME"),
+      value: record?.firstName,
+    },
+    {
+      label: translate("TABLE.COLUMN.SURNAME"),
+      value: record?.lastName,
+    },
+    {
+      label: translate("TABLE.COLUMN.ROLE"),
+      value: translate("TABLE.ROLE." + record?.role),
+    },
+    {
+      label: translate("TABLE.COLUMN.STATUS"),
+      value: record?.status,
+    },
+    {
+      label: translate("TABLE.COLUMN.INSTITUTION_NAME"),
+      value: record?.institution?.name,
+    },
+  ];
+  return (
+    <div>
+      {userdetails.map((detail) => (
+        <>
+          <Title level={5}>{detail.label}</Title>
+          <Text>{detail.value}</Text>
+        </>
+      ))}
     </div>
   );
 };
