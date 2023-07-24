@@ -107,7 +107,8 @@
 	"DRAWER": {
 		"TITLES": {
 			"ADD_USER": "Add User",
-			"EDIT_USER": "Edit User"
+			"EDIT_USER": "Edit User",
+			"VIEW_USER": "View User"
 		}
 	},
 	"STATUS_TEXT": {

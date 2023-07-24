@@ -126,7 +126,8 @@
 	"DRAWER": {
 		"TITLES": {
 			"ADD_USER": "Kullanıcı Ekle",
-			"EDIT_USER": "Kullanıcı Düzenle"
+			"EDIT_USER": "Kullanıcı Düzenle",
+			"VIEW_USER": "Kullanıcıyı Görüntüle"
 		}
 	},
 	"STATUS_TEXT": {

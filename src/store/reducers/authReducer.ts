@@ -13,6 +13,7 @@ type JWT = {
   exp: number;
   institutionId: string;
   userLastName: string;
+  institutionName: string;
   userType: string;
   userFirstName: string;
   userId: string;
@@ -116,6 +117,11 @@ const authSlice = createSlice({
       ),
       (state, action) => {
         state.user = action.payload;
+        if (action.payload?.accessToken) {
+          state.data = jwt_decode(action.payload?.accessToken);
+        } else {
+          state.data = null;
+        }
       }
     );
   },

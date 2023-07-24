@@ -126,7 +126,7 @@ function Header(props: IHeader) {
               <p className="full-name">
                 {user?.userFirstName + " " + user?.userLastName}
               </p>
-              <p className="company">AFAD</p>
+              <p className="company">{user?.institutionName}</p>
             </div>
             <Avatar icon={<UserOutlined rev="" />} />
           </div>
