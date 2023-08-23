@@ -1,6 +1,7 @@
 {
     "i18n-ally.localesPaths": [
-        "src/common/locales"
+        "public/locales"
     ],
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "i18n-ally.keystyle": "nested"
 }

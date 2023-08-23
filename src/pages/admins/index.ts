@@ -1,0 +1,1 @@
+export { AdminList } from "./list";
