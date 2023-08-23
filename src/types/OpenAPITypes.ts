@@ -10,7 +10,7 @@ export interface paths {
     put: operations["updateUser"];
     delete: operations["deleteUser"];
   };
-  "/api/v1/user/self/status/support": {
+  "/api/v1/user-self/status/support": {
     put: operations["updateUserSupportStatus"];
   };
   "/api/v1/users": {
@@ -39,6 +39,9 @@ export interface paths {
   };
   "/api/v1/authentication/admin/register": {
     post: operations["register"];
+  };
+  "/api/v1/assignment": {
+    post: operations["saveAssignment"];
   };
   "/api/v1/admins": {
     post: operations["getAdminUsers"];
@@ -79,12 +82,12 @@ export interface components {
       direction: "ASC" | "DESC";
     };
     UserListRequest: {
-      sort?: (components["schemas"]["AysSorting"])[];
+      sort?: components["schemas"]["AysSorting"][];
       pagination: components["schemas"]["AysPaging"];
     };
     AysFiltering: Record<string, never>;
     AysPageResponseUsersResponse: {
-      content?: (components["schemas"]["UsersResponse"])[];
+      content?: components["schemas"]["UsersResponse"][];
       /** Format: int32 */
       pageNumber?: number;
       /** Format: int32 */
@@ -93,7 +96,7 @@ export interface components {
       totalPageCount?: number;
       /** Format: int64 */
       totalElementCount?: number;
-      sortedBy?: (components["schemas"]["AysSorting"])[];
+      sortedBy?: components["schemas"]["AysSorting"][];
       filteredBy?: components["schemas"]["AysFiltering"];
     };
     AysResponseAysPageResponseUsersResponse: {
@@ -126,15 +129,13 @@ export interface components {
       institution?: components["schemas"]["InstitutionResponse"];
     };
     AysPhoneNumber: {
-      /** Format: int64 */
-      countryCode: number;
-      /** Format: int64 */
-      lineNumber: number;
+      countryCode: string;
+      lineNumber: string;
     };
     UserSaveRequest: {
-      firstName?: string;
-      lastName?: string;
-      phoneNumber?: components["schemas"]["AysPhoneNumber"];
+      firstName: string;
+      lastName: string;
+      phoneNumber: components["schemas"]["AysPhoneNumber"];
     };
     AysResponseUserSavedResponse: {
       /** Format: date-time */
@@ -182,8 +183,18 @@ export interface components {
       firstName: string;
       lastName: string;
     };
+    AssignmentSaveRequest: {
+      description: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: components["schemas"]["AysPhoneNumber"];
+      /** Format: double */
+      latitude: number;
+      /** Format: double */
+      longitude: number;
+    };
     AdminUserListRequest: {
-      sort?: (components["schemas"]["AysSorting"])[];
+      sort?: components["schemas"]["AysSorting"][];
       pagination: components["schemas"]["AysPaging"];
     };
     AdminUsersResponse: {
@@ -196,7 +207,7 @@ export interface components {
       institution?: components["schemas"]["InstitutionResponse"];
     };
     AysPageResponseAdminUsersResponse: {
-      content?: (components["schemas"]["AdminUsersResponse"])[];
+      content?: components["schemas"]["AdminUsersResponse"][];
       /** Format: int32 */
       pageNumber?: number;
       /** Format: int32 */
@@ -205,7 +216,7 @@ export interface components {
       totalPageCount?: number;
       /** Format: int64 */
       totalElementCount?: number;
-      sortedBy?: (components["schemas"]["AysSorting"])[];
+      sortedBy?: components["schemas"]["AysSorting"][];
       filteredBy?: components["schemas"]["AysFiltering"];
     };
     AysResponseAysPageResponseAdminUsersResponse: {
@@ -250,6 +261,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -444,6 +457,21 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["AdminUserRegisterRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
+        };
+      };
+    };
+  };
+  saveAssignment: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AssignmentSaveRequest"];
       };
     };
     responses: {

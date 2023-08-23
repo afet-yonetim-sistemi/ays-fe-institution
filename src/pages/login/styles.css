@@ -1,0 +1,21 @@
+.layout {
+}
+
+.container {
+  max-width: 408px;
+  margin: auto;
+}
+
+.title {
+  text-align: center;
+  color: #626262;
+  font-size: 30px;
+  letter-spacing: -0.04em;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}

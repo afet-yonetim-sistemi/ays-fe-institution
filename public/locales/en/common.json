@@ -1,0 +1,193 @@
+{
+  "title": "AYS",
+  "pages": {
+    "login": {
+      "title": "Sign in to your account",
+      "signin": "Sign in",
+      "signup": "Sign up",
+      "divider": "or",
+      "fields": {
+        "username": "Username",
+        "email": "Email",
+        "password": "Password"
+      },
+      "errors": {
+        "validEmail": "Invalid email address",
+        "invalidCredentials": "Invalid credentials"
+      },
+      "buttons": {
+        "submit": "Login",
+        "forgotPassword": "Forgot password?",
+        "noAccount": "Don’t have an account?",
+        "rememberMe": "Remember me"
+      }
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "fields": {
+        "email": "Email"
+      },
+      "errors": {
+        "validEmail": "Invalid email address"
+      },
+      "buttons": {
+        "submit": "Send reset instructions"
+      }
+    },
+    "register": {
+      "title": "Sign up for your account",
+      "fields": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "errors": {
+        "validEmail": "Invalid email address"
+      },
+      "buttons": {
+        "submit": "Register",
+        "haveAccount": "Have an account?"
+      }
+    },
+    "updatePassword": {
+      "title": "Update password",
+      "fields": {
+        "password": "New Password",
+        "confirmPassword": "Confirm new password"
+      },
+      "errors": {
+        "confirmPasswordNotMatch": "Passwords do not match"
+      },
+      "buttons": {
+        "submit": "Update"
+      }
+    },
+    "error": {
+      "404": "Sorry, the page you visited does not exist.",
+      "info": "You may have forgotten to add the {{action}} component to {{resource}} resource.",
+      "resource404": "Are you sure you have created the {{resource}} resource.",
+      "backHome": "Back Home"
+    }
+  },
+  "actions": {
+    "list": "List",
+    "create": "Create",
+    "edit": "Edit",
+    "show": "Show"
+  },
+  "resources": {
+    "admins": {
+      "plural": "Admins",
+      "singular": "Admin"
+    },
+    "users": {
+      "plural": "Users",
+      "singular": "User"
+    }
+  },
+  "buttons": {
+    "create": "Create",
+    "save": "Save",
+    "logout": "Logout",
+    "delete": "Delete",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "confirm": "Are you sure?",
+    "filter": "Filter",
+    "clear": "Clear",
+    "refresh": "Refresh",
+    "show": "Show",
+    "undo": "Undo",
+    "import": "Import",
+    "clone": "Clone",
+    "notAccessTitle": "You don't have permission to access",
+    "copy": "Copy"
+  },
+  "warnWhenUnsavedChanges": "Are you sure you want to leave? You have unsaved changes.",
+  "notifications": {
+    "success": "Successful",
+    "failure": "Failure",
+    "error": "Error (status code: {{statusCode}})",
+    "undoable": "You have {{seconds}} seconds to undo",
+    "createSuccess": "Successfully created {{resource}}",
+    "createError": "There was an error creating {{resource}} (status code: {{statusCode}})",
+    "deleteSuccess": "Successfully deleted {{resource}}",
+    "deleteError": "Error when deleting {{resource}} (status code: {{statusCode}})",
+    "editSuccess": "Successfully edited {{resource}}",
+    "editError": "Error when editing {{resource}} (status code: {{statusCode}})",
+    "importProgress": "Importing: {{processed}}/{{total}}"
+  },
+  "loading": "Loading",
+  "tags": {
+    "clone": "Clone"
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "documentTitle": {
+    "default": "AYS",
+    "suffix": " | AYS",
+    "users": {
+      "list": "Users | AYS"
+    }
+  },
+  "table": {
+    "actions": "Actions"
+  },
+  "users": {
+    "title": "Users",
+    "actions": {
+      "edit": "Edit User",
+      "create": "Create User",
+      "show": "Show User"
+    },
+    "fields": {
+      "firstName": "Name",
+      "lastName": "Surname",
+      "institution": "Institution",
+      "role": "Role",
+      "status": "Status",
+      "phoneNumber": "Phone Number",
+      "username": "Username",
+      "password": "Password"
+    },
+    "newUserModal": {
+      "title": "New User Created",
+      "message": "New user created successfully. You can copy the username and password below and send it to the user.",
+      "copyAndClose": "Copy and Close",
+      "copySuccess": "Username and password copied to clipboard"
+    }
+  },
+  "admins": {
+    "title": "Admins"
+  },
+  "statuses": {
+    "DELETED": "Deleted",
+    "PASSIVE": "Passive",
+    "ACTIVE": "Active",
+    "NOT_VERIFIED": "Not Verified"
+  },
+  "roles": {
+    "VOLUNTEER": "Volunteer"
+  },
+  "formErrors": {
+    "required": "This field is required",
+    "users": {
+      "phoneNumber": "Invalid phone number"
+    }
+  },
+  "locationModal": {
+    "openWithGoogleMaps": "Open With Google Maps",
+    "copyTheLocation": "Copy The Location Details",
+    "copied": "Copied",
+    "notCopied": "Not Copied",
+    "openOnMyPhone": "Open On My Phone",
+    "QRCode": "QR Code",
+    "scanQRCode": "Scan QR Code With Your Phone",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "googleMaps": "Google Maps",
+    "geoLocationError": "GeoLocation error {{error}}",
+    "whereAmI": "Where Am I?",
+    "myLocation": "My Location"
+  }
+}

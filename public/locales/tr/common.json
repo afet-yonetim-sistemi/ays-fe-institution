@@ -1,0 +1,192 @@
+{
+    "title": "AYS",
+    "resources": {
+        "admins": {
+            "plural": "Yöneticiler",
+            "singular": "Yönetici"
+        },
+        "users": {
+            "plural": "Kullanıcılar",
+            "singular": "Kullanıcı"
+        }
+    },
+    "pages": {
+        "login": {
+            "title": "Hesabınıza giriş yapın",
+            "signin": "Giriş Yap",
+            "signup": "Kayıt Ol",
+            "divider": "veya",
+            "fields": {
+                "username": "Kullanıcı Adı",
+                "email": "E-posta",
+                "password": "Parola"
+            },
+            "errors": {
+                "validEmail": "Geçersiz e-posta adresi",
+                "invalidCredentials": "Kullanıcı adı veya parola hatalı"
+            },
+            "buttons": {
+                "submit": "Giriş",
+                "forgotPassword": "Parolanızı mı unuttunuz?",
+                "noAccount": "Hesabınız yok mu?",
+                "rememberMe": "Beni Hatırla"
+            }
+        },
+        "forgotPassword": {
+            "title": "Parolanızı mı unuttunuz?",
+            "fields": {
+                "email": "E-posta"
+            },
+            "errors": {
+                "validEmail": "Geçersiz e-posta adresi"
+            },
+            "buttons": {
+                "submit": "Sıfırlama talimatları gönder"
+            }
+        },
+        "register": {
+            "title": "Hesap oluşturun",
+            "fields": {
+                "email": "E-posta",
+                "password": "Parola"
+            },
+            "errors": {
+                "validEmail": "Geçersiz e-posta adresi"
+            },
+            "buttons": {
+                "submit": "Kayıt Ol",
+                "haveAccount": "Zaten hesabınız var mı?"
+            }
+        },
+        "updatePassword": {
+            "title": "Parolayı güncelle",
+            "fields": {
+                "password": "Yeni Parola",
+                "confirmPassword": "Yeni parolayı onayla"
+            },
+            "errors": {
+                "confirmPasswordNotMatch": "Parolalar uyuşmuyor"
+            },
+            "buttons": {
+                "submit": "Güncelle"
+            }
+        },
+        "error": {
+            "info": "{{action}} bileşenini {{resource}} kaynağına eklemeyi unutmuş olabilirsiniz.",
+            "404": "Üzgünüz, ziyaret ettiğiniz sayfa mevcut değil.",
+            "resource404": "{{resource}} kaynağını oluşturduğunuza emin misiniz?",
+            "backHome": "Ana Sayfa'ya Dön"
+        }
+    },
+    "actions": {
+        "list": "Liste",
+        "create": "Oluştur",
+        "edit": "Düzenle",
+        "show": "Göster"
+    },
+    "buttons": {
+        "create": "Oluştur",
+        "save": "Kaydet",
+        "logout": "Çıkış Yap",
+        "delete": "Sil",
+        "edit": "Düzenle",
+        "cancel": "İptal",
+        "confirm": "Emin misiniz?",
+        "filter": "Filtrele",
+        "clear": "Temizle",
+        "refresh": "Yenile",
+        "show": "Göster",
+        "undo": "Geri Al",
+        "import": "İçe Aktar",
+        "clone": "Kopyala",
+        "notAccessTitle": "Erişim izniniz yok",
+        "copy": "Kopyala"
+    },
+    "warnWhenUnsavedChanges": "Ayrılmak istediğinize emin misiniz? Kaydedilmemiş değişiklikleriniz var.",
+    "notifications": {
+        "success": "Başarılı",
+        "failure": "Hata",
+        "error": "Hata (durum kodu: {{statusCode}})",
+        "undoable": "Geri almak için {{seconds}} saniyeniz var",
+        "createSuccess": "{{resource}} başarıyla oluşturuldu",
+        "createError": "{{resource}} oluşturulurken bir hata oluştu (durum kodu: {{statusCode}})",
+        "deleteSuccess": "{{resource}} başarıyla silindi",
+        "deleteError": "{{resource}} silinirken bir hata oluştu (durum kodu: {{statusCode}})",
+        "editSuccess": "{{resource}} başarıyla düzenlendi",
+        "editError": "{{resource}} düzenlenirken bir hata oluştu (durum kodu: {{statusCode}})",
+        "importProgress": "İçe Aktarılıyor: {{processed}}/{{total}}"
+    },
+    "loading": "Yükleniyor",
+    "tags": {
+        "clone": "Kopyala"
+    },
+    "dashboard": {
+        "title": "Kontrol Paneli"
+    },
+    "documentTitle": {
+        "default": "AYS",
+        "suffix": " | AYS",
+        "users": {
+            "list": "Kullanıcılar | AYS"
+        }
+    },
+    "table": {
+        "actions": "İşlemler"
+    },
+    "users": {
+        "title": "Kullanıcılar",
+        "actions": {
+            "edit": "Kullanıcı Düzenle",
+            "create": "Kullanıcı Oluştur",
+            "show": "Kullanıcı Göster"
+        },
+        "fields": {
+            "firstName": "Ad",
+            "lastName": "Soyad",
+            "institution": "Kurum",
+            "status": "Durum",
+            "role": "Rol",
+            "phoneNumber": "Telefon Numarası",
+            "username": "Kullanıcı Adı"
+        },
+        "newUserModal": {
+            "title": "Yeni Kullanıcı Oluşturuldu",
+            "message": "Yeni kullanıcı başarıyla oluşturuldu. Bilgileri koplayabilir ve kullanıcıya gönderebilirsiniz.",
+            "copyAndClose": "Kopyala ve Kapat",
+            "copySuccess": "Kullanıcı adı ve parola panoya kopyalandı"
+        }
+    },
+    "admins": {
+        "title": "Yöneticiler"
+    },
+    "statuses": {
+        "ACTIVE": "Aktif",
+        "PASSIVE": "Pasif",
+        "DELETED": "Silindi",
+        "NOT_VERIFIED": "Doğrulanmamış"
+    },
+    "roles": {
+        "VOLUNTEER": "Gönüllü"
+    },
+    "formErrors": {
+        "required": "Bu alan zorunludur",
+        "users": {
+            "phoneNumber": "Geçersiz telefon numarası"
+        }
+    },
+    "locationModal": {
+        "openWithGoogleMaps": "Google Haritalarda Aç",
+        "copyTheLocation": "Konumu Bilgilerini Kopyala",
+        "openOnMyPhone": "Telefonumda Aç",
+        "copied": "Kopyalandı",
+        "notCopied": "Kopyalanamadı",
+        "QRCode": "QR Kod",
+        "scanQRCode": "Telefonunuzun kamerasına QR kodu okutun",
+        "latitude": "Enlem",
+        "longitude": "Boylam",
+        "googleMaps": "Google Haritalar",
+        "geoLocationError": "GeoLocation hatası {{error}}",
+        "whereAmI": "Neredeyim?",
+        "myLocation": "Konumum"
+    }
+}
