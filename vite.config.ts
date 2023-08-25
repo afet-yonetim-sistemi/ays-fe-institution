@@ -5,6 +5,12 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: [{ find: "@", replacement: resolve(__dirname, "./src") }],
+    alias: [
+      { find: "@", replacement: resolve(__dirname, "./src") },
+      {
+        find: "./runtimeConfig",
+        replacement: "./runtimeConfig.browser",
+      },
+    ],
   },
 });
