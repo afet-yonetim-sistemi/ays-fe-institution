@@ -19,6 +19,9 @@ export interface paths {
   "/api/v1/user": {
     post: operations["saveUser"];
   };
+  "/api/v1/user/location": {
+    post: operations["saveUserLocation"];
+  };
   "/api/v1/authentication/token": {
     post: operations["authenticate"];
   };
@@ -148,6 +151,12 @@ export interface components {
     UserSavedResponse: {
       username?: string;
       password?: string;
+    };
+    UserLocationSaveRequest: {
+      /** Format: double */
+      latitude: number;
+      /** Format: double */
+      longitude: number;
     };
     AysLoginRequest: {
       username: string;
@@ -359,6 +368,21 @@ export interface operations {
       200: {
         content: {
           "*/*": components["schemas"]["AysResponseUserSavedResponse"];
+        };
+      };
+    };
+  };
+  saveUserLocation: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserLocationSaveRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
         };
       };
     };

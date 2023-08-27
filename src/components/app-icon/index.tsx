@@ -1,5 +1,5 @@
 import React from "react";
 
 export const AppIcon: React.FC = () => {
-  return <img src="logo.jpeg" alt="Refine" style={{ height: 32 }} />;
+  return <img src="logo.jpg" alt="Refine" style={{ height: 32 }} />;
 };
