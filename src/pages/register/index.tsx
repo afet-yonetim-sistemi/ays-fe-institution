@@ -163,7 +163,6 @@ export const Register = () => {
               label: institution.name,
               value: institution.id,
             }))}
-            onChange={setCountryCode}
           />
         </Form.Item>
         <Form.Item
