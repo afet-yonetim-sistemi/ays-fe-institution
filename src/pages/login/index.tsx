@@ -61,14 +61,24 @@ export const Login: React.FC = () => {
                 <Form.Item
                   name="username"
                   label={t("pages.login.fields.username")}
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t("formErrors.required"),
+                    },
+                  ]}
                 >
                   <Input size="large" placeholder="Username" />
                 </Form.Item>
                 <Form.Item
                   name="password"
                   label={t("pages.login.fields.password")}
-                  rules={[{ required: true }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t("formErrors.required"),
+                    },
+                  ]}
                   style={{ marginBottom: "12px" }}
                 >
                   <Input type="password" placeholder="●●●●●●●●" size="large" />

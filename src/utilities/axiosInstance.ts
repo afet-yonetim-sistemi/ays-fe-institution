@@ -8,6 +8,7 @@ const baseEndpoint = "authentication";
 const refreshTokenUrl = `${baseEndpoint}/admin/token/refresh`;
 const loginUrl = `${baseEndpoint}/admin/token`;
 const invalidateUrl = `${baseEndpoint}/admin/token/invalidate`;
+const registerAdminUrl = `${baseEndpoint}/admin/register`;
 
 // Axios instance
 const axiosInstance: AxiosInstance = axios.create({
@@ -17,7 +18,7 @@ const axiosInstance: AxiosInstance = axios.create({
 // Function that will be called to refresh authorization
 const refreshAuthLogic = async (failedRequest: any) => {
   const url = failedRequest.response.config.url;
-  if (url === loginUrl || url === invalidateUrl) {
+  if (url.includes(loginUrl) || url.includes(invalidateUrl) || url.includes(registerAdminUrl)) {
     return Promise.reject(failedRequest);
   }
 
