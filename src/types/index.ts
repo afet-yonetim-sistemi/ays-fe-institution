@@ -31,7 +31,6 @@ export type Pagination = components["schemas"]["AysPaging"];
  */
 export type UserListRequest = components["schemas"]["UserListRequest"];
 export type User = components["schemas"]["UsersResponse"];
-
 export type CreateUserResponse = components["schemas"]["UserSavedResponse"];
 
 /**
@@ -39,6 +38,7 @@ export type CreateUserResponse = components["schemas"]["UserSavedResponse"];
  */
 export type AdminListRequest = components["schemas"]["AdminUserListRequest"];
 export type Admin = components["schemas"]["AdminUsersResponse"];
+export type CreateAdminRequest = components["schemas"]["AdminUserRegisterRequest"];
 
 /**
  * App Version Types
@@ -68,3 +68,8 @@ export interface TokenPayload {
   userId: string;
   username: string;
 }
+
+/**
+ * Institution Types
+ */
+export type Institution = components["schemas"]["InstitutionResponse"];

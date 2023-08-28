@@ -157,7 +157,10 @@
         }
     },
     "admins": {
-        "title": "Yöneticiler"
+        "title": "Yöneticiler",
+        "create":{
+            "successMessage": "Başvurunuz alınmıştır, kontroller gerçekleştikten ve onaylandıktan sonra sisteme giriş yapabileceksiniz."
+        }
     },
     "statuses": {
         "ACTIVE": "Aktif",
