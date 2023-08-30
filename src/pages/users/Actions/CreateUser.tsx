@@ -3,7 +3,7 @@ import { countryCodes } from "@/utilities";
 import { Create, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
 import { Col, Drawer, Form, Input, Row, Select } from "antd";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 // import { useState } from "react";
 
 type Props = UseDrawerFormReturnType<User>;
@@ -11,13 +11,7 @@ type Props = UseDrawerFormReturnType<User>;
 export default function CreateUser({ formProps, drawerProps, saveButtonProps, form }: Props) {
   const t = useTranslate();
 
-  const [val, setVal] = useState("");
-
   const formatPhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
-    const regex = /^[0-9\b]+$/;
-    if (e.target.value === "" || regex.test(e.target.value)) {
-      setVal(e.target.value);
-    }
     form.setFieldValue("phoneNumber", {
       ...form.getFieldValue("phoneNumber"),
       lineNumber: e.target.value,
@@ -81,8 +75,6 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
             <Input />
           </Form.Item>
           <Form.Item
-            label={t("users.fields.phoneNumber")}
-            style={{ marginBottom: 8 }}
             name={["phoneNumber", "lineNumber"]}
             rules={[
               {
@@ -90,7 +82,7 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
                   if (!value) {
                     return Promise.reject(t("formErrors.required"));
                   }
-                  if (value.length !== 10) {
+                  if (!/^\d{10}$/.test(value)) {
                     return Promise.reject(t("formErrors.users.phoneNumber"));
                   }
                   return Promise.resolve();
@@ -112,7 +104,7 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
               </Col>
               <Col span={16}>
                 <Form.Item noStyle>
-                  <Input maxLength={10} value={val} onChange={formatPhoneNumber} />
+                  <Input maxLength={10} onChange={formatPhoneNumber} />
                 </Form.Item>
               </Col>
             </Row>
