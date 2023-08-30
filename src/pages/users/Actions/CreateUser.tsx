@@ -75,6 +75,8 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
             <Input />
           </Form.Item>
           <Form.Item
+            style={{ marginBottom: 8 }}
+            label={t("users.fields.phoneNumber")}
             name={["phoneNumber", "lineNumber"]}
             rules={[
               {
