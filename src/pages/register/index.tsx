@@ -175,7 +175,7 @@ export const Register = () => {
                 if (!value) {
                   return Promise.reject(t("formErrors.required"));
                 }
-                if (value.length !== 10) {
+                if (!/^\d{10}$/.test(value)) {
                   return Promise.reject(t("formErrors.users.phoneNumber"));
                 }
                 return Promise.resolve();
