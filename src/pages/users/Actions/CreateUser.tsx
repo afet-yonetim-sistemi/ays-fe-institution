@@ -4,6 +4,7 @@ import { Create, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
 import { Col, Drawer, Form, Input, Row, Select } from "antd";
 import { ChangeEvent } from "react";
+// import { useState } from "react";
 
 type Props = UseDrawerFormReturnType<User>;
 
@@ -74,8 +75,8 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
             <Input />
           </Form.Item>
           <Form.Item
-            label={t("users.fields.phoneNumber")}
             style={{ marginBottom: 8 }}
+            label={t("users.fields.phoneNumber")}
             name={["phoneNumber", "lineNumber"]}
             rules={[
               {
@@ -83,7 +84,7 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
                   if (!value) {
                     return Promise.reject(t("formErrors.required"));
                   }
-                  if (value.length !== 10) {
+                  if (!/^\d{10}$/.test(value)) {
                     return Promise.reject(t("formErrors.users.phoneNumber"));
                   }
                   return Promise.resolve();
