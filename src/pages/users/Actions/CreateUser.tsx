@@ -58,6 +58,14 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
                 required: true,
                 message: t("formErrors.required"),
               },
+              {
+                min: 2,
+                message: t("formErrors.minLength", { min: "2" }),
+              },
+              {
+                max: 35,
+                message: t("formErrors.maxLength", { max: "35" }),
+              },
             ]}
           >
             <Input />
@@ -69,6 +77,14 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
               {
                 required: true,
                 message: t("formErrors.required"),
+              },
+              {
+                min: 2,
+                message: t("formErrors.minLength", { min: "2" }),
+              },
+              {
+                max: 35,
+                message: t("formErrors.maxLength", { max: "35" }),
               },
             ]}
           >

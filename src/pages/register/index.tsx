@@ -140,6 +140,14 @@ export const Register = () => {
               required: true,
               message: t("formErrors.required"),
             },
+            {
+              min: 2,
+              message: t("formErrors.minLength", { min: "2" }),
+            },
+            {
+              max: 35,
+              message: t("formErrors.maxLength", { max: "35" }),
+            },
           ]}
         >
           <Input />
@@ -151,6 +159,14 @@ export const Register = () => {
             {
               required: true,
               message: t("formErrors.required"),
+            },
+            {
+              min: 2,
+              message: t("formErrors.minLength"),
+            },
+            {
+              max: 35,
+              message: t("formErrors.maxLength"),
             },
           ]}
         >
@@ -175,7 +191,7 @@ export const Register = () => {
                 if (!value) {
                   return Promise.reject(t("formErrors.required"));
                 }
-                if (value.length !== 10) {
+                if (!/^\d{10}$/.test(value)) {
                   return Promise.reject(t("formErrors.users.phoneNumber"));
                 }
                 return Promise.resolve();
