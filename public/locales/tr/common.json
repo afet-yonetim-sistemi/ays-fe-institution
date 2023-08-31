@@ -177,6 +177,10 @@
   },
   "formErrors": {
     "required": "Bu alan zorunludur",
+    "maxLength": "En fazla {{max}} karakter olabilir",
+    "minLength": "En az {{min}} karakter olabilir",
+    "maxLengthField": "{{field}} en fazla {{max}} karakter olabilir",
+    "minLengthField": "{{field}} en az {{min}} karakter olabilir",
     "users": {
       "phoneNumber": "Geçersiz telefon numarası"
     }
