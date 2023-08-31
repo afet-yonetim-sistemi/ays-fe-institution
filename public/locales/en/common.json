@@ -100,7 +100,8 @@
     "import": "Import",
     "clone": "Clone",
     "notAccessTitle": "You don't have permission to access",
-    "copy": "Copy"
+    "copy": "Copy",
+    "ok": "Ok"
   },
   "warnWhenUnsavedChanges": "Are you sure you want to leave? You have unsaved changes.",
   "notifications": {
@@ -114,7 +115,8 @@
     "deleteError": "Error when deleting {{resource}} (status code: {{statusCode}})",
     "editSuccess": "Successfully edited {{resource}}",
     "editError": "Error when editing {{resource}} (status code: {{statusCode}})",
-    "importProgress": "Importing: {{processed}}/{{total}}"
+    "importProgress": "Importing: {{processed}}/{{total}}",
+    "warning": "Warning"
   },
   "loading": "Loading",
   "tags": {
@@ -154,11 +156,15 @@
       "title": "New User Created",
       "message": "New user created successfully. You can copy the username and password below and send it to the user.",
       "copyAndClose": "Copy and Close",
-      "copySuccess": "Username and password copied to clipboard"
+      "copySuccess": "Username and password copied to clipboard",
+      "onCancelTitle": "Are you sure you want to continue without copying the user information?"
     }
   },
   "admins": {
-    "title": "Admins"
+    "title": "Admins",
+    "create": {
+      "successMessage": "Your application has been received, you will be able to log in to the system after the controls are completed and approved."
+    }
   },
   "statuses": {
     "DELETED": "Deleted",

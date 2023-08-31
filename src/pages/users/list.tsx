@@ -16,9 +16,9 @@ import {
   useModal,
 } from "@refinedev/antd";
 
-import { Button, Divider, Modal, Space, Table, Typography } from "antd";
+import { Divider, Modal, Space, Table, Typography } from "antd";
 import { CreateUserResponse, User } from "@/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "./style.css";
 import { countryCodes } from "@/utilities";
@@ -30,8 +30,9 @@ import { useCopyToClipboard } from "@/components/hooks/use";
 export const UserList: React.FC<IResourceComponentsProps> = () => {
   const { show, modalProps } = useModal();
   const [newRecord, setNewRecord] = useState<CreateUserResponse | undefined>(undefined);
-  const [value, copy] = useCopyToClipboard();
-
+  const [_value, copy] = useCopyToClipboard();
+  const [confirmModal, setConfirmModal] = useState<boolean>(false);
+  const [modal, contextHolder] = Modal.useModal();
   const t = useTranslate();
 
   const { open } = useNotification();
@@ -77,7 +78,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
       },
     },
 
-    onMutationSuccess(data, variables, context, isAutoSave) {
+    onMutationSuccess(data) {
       setNewRecord(data?.data);
       show();
       open &&
@@ -103,6 +104,27 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
   const showDrawerProps = useShow<User>({
     resource: "user",
   });
+
+  const onCancel = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (confirmModal) return;
+
+    setConfirmModal(true);
+    const confirm = await modal.confirm({
+      title: t("notifications.warning"),
+      content: t("users.newUserModal.onCancelTitle"),
+      cancelButtonProps: {
+        hidden: false,
+      },
+      cancelText: t("buttons.cancel"),
+      okText: t("buttons.ok"),
+    });
+
+    if (confirm) {
+      modalProps.onCancel && modalProps.onCancel(e);
+    }
+    setConfirmModal(false);
+  };
+
   return (
     <List
       title={t("users.title")}
@@ -113,12 +135,11 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
         },
       }}
     >
+      {contextHolder}
       <Modal
         {...modalProps}
         title={t("users.newUserModal.title")}
-        onCancel={() => {
-          return false;
-        }}
+        onCancel={onCancel}
         cancelButtonProps={{
           hidden: true,
         }}
