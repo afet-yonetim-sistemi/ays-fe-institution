@@ -171,6 +171,10 @@
   },
   "formErrors": {
     "required": "This field is required",
+    "minLength": "This field must be at least {{min}} characters long",
+    "maxLength": "This field must be at most {{max}} characters long",
+    "maxLengthField": "The {{field}} field must be at most {{max}} characters long",
+    "minLengthField": "The {{field}} field must be at least {{min}} characters long",
     "users": {
       "phoneNumber": "Invalid phone number"
     }
