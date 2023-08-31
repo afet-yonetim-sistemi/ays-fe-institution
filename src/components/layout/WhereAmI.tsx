@@ -3,7 +3,7 @@ import { Col, Modal, Popover, QRCode, Row, Space, Button as AntdButton } from "a
 import React, { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import GoogleMapIcon from "../icons/GoogleMapIcon";
-import { useCopyToClipboard } from "../hooks/use";
+import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import Button from "../formItems/Button";
 import CopyIcon from "../icons/CopyIcon";
 import PhoneIcon from "../icons/PhoneIcon";
