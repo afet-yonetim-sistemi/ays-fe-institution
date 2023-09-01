@@ -1,32 +1,26 @@
 import { useEffect, useState } from "react";
 
 const useIsMobile = (breakpoint = 640) => {
-  const checkForDevice = () => window.innerWidth < breakpoint;
-
-  const [isMobile, setIsMobile] = useState(checkForDevice());
+  const [isMobile, setIsMobile] = useState(window.innerWidth < breakpoint);
 
   useEffect(() => {
     const handlePageResized = () => {
-      setIsMobile(checkForDevice());
+      setIsMobile(window.innerWidth < breakpoint);
     };
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", handlePageResized);
-      window.addEventListener("orientationchange", handlePageResized);
-      window.addEventListener("load", handlePageResized);
-      window.addEventListener("reload", handlePageResized);
-    }
+    // Add event listeners without redundant checks
+    window.addEventListener("resize", handlePageResized);
+    window.addEventListener("orientationchange", handlePageResized);
 
+    // Initial call to set isMobile
+    handlePageResized();
+
+    // Clean up the event listeners
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("resize", handlePageResized);
-        window.removeEventListener("orientationchange", handlePageResized);
-        window.removeEventListener("load", handlePageResized);
-        window.removeEventListener("reload", handlePageResized);
-      }
+      window.removeEventListener("resize", handlePageResized);
+      window.removeEventListener("orientationchange", handlePageResized);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [breakpoint]);
 
   return isMobile;
 };
