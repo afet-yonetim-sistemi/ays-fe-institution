@@ -26,6 +26,7 @@ import { AppContext } from "../../contexts/app";
 import { TokenPayload } from "@/types";
 import WhereAmI from "../layout/WhereAmI";
 import LocationIcon from "../icons/LocationIcon";
+import useIsMobile from "./useIsMobile";
 
 const { Text } = Typography;
 const { useToken } = theme;
@@ -43,7 +44,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({ sticky }) =>
   const [myLocationPoint, setMyLocationPoint] = useState<[number, number]>([0, 0]);
   const [myLocationModalVisible, setMyLocationModalVisible] = useState<boolean>(false);
   const { open } = useNotification();
-
+  const isMobile = useIsMobile();
   const currentLocale = locale();
   const items: MenuProps["items"] = [
     {
@@ -145,17 +146,19 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({ sticky }) =>
             }}
           >
             <Space style={{ cursor: "pointer", marginLeft: "1.5em" }}>
-              <Row
-                style={{
-                  marginRight: "1em",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "end",
-                }}
-              >
-                <Text strong>{user.userFirstName + " " + user.userLastName}</Text>
-                <Text>{user.institutionName}</Text>
-              </Row>
+              {!isMobile && (
+                <Row
+                  style={{
+                    marginRight: "1em",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "end",
+                  }}
+                >
+                  <Text strong>{user.userFirstName + " " + user.userLastName}</Text>
+                  <Text>{user.institutionName}</Text>
+                </Row>
+              )}
               <Avatar icon={<UserOutlined rev="" />} />
             </Space>
           </Dropdown>

@@ -1,20 +1,10 @@
 import React from "react";
 import { useLogin, useTranslate } from "@refinedev/core";
-import {
-  Row,
-  Col,
-  Layout as AntdLayout,
-  Card,
-  Typography,
-  Form,
-  Input,
-  Button,
-  Checkbox,
-} from "antd";
+import { Row, Col, Layout as AntdLayout, Card, Typography, Form, Input, Button } from "antd";
 import "./styles.css";
 import { NoAuthHeader } from "@/components/noauth-header";
 
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 export interface ILoginForm {
   username: string;

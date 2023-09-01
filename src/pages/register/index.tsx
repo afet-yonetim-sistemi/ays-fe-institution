@@ -6,6 +6,7 @@ import { containerStyles, titleStyles, headStyles, bodyStyles } from "./styles";
 import { countryCodes } from "@/utilities";
 import { CreateAdminRequest, Institution } from "@/types";
 import { useParams } from "react-router-dom";
+import { NoAuthHeader } from "@/components/noauth-header";
 
 const institutions: Pick<Institution, "id" | "name">[] = [
   {
@@ -232,6 +233,7 @@ export const Register = () => {
   );
   return (
     <Layout>
+      <NoAuthHeader />
       <Row
         justify="center"
         align="middle"

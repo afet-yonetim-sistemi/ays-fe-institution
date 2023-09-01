@@ -14,6 +14,7 @@ import {
   EditButton,
   ShowButton,
   useModal,
+  MarkdownField,
 } from "@refinedev/antd";
 
 import { Divider, Modal, Space, Table, Typography } from "antd";
@@ -25,7 +26,7 @@ import { countryCodes } from "@/utilities";
 import CreateUser from "./Actions/CreateUser";
 import EditUser from "./Actions/EditUser";
 import ShowUser from "./Actions/ShowUser";
-import { useCopyToClipboard } from "@/components/hooks/use";
+import { useCopyToClipboard } from "@/components/hooks/useCopyToClipboard";
 
 export const UserList: React.FC<IResourceComponentsProps> = () => {
   const { show, modalProps } = useModal();
@@ -180,9 +181,17 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           </Typography.Text>
         </Space>
       </Modal>
-      <Table rowKey="id" dataSource={tableProps.dataSource || []}>
-        <Table.Column dataIndex="firstName" title={t("users.fields.firstName")} />
-        <Table.Column dataIndex="lastName" title={t("users.fields.lastName")} />
+      <Table rowKey="id" {...tableProps}>
+        <Table.Column
+          dataIndex="firstName"
+          title={t("users.fields.firstName")}
+          render={(value: string) => <MarkdownField value={value} />}
+        />
+        <Table.Column
+          dataIndex="lastName"
+          title={t("users.fields.lastName")}
+          render={(value: string) => <MarkdownField value={value} />}
+        />
         <Table.Column
           dataIndex="institution"
           title={t("users.fields.institution")}
