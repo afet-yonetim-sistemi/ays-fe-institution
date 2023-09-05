@@ -148,6 +148,7 @@
       "institution": "Institution",
       "role": "Role",
       "status": "Status",
+      "supportStatus": "Support Status", 
       "phoneNumber": "Phone Number",
       "username": "Username",
       "password": "Password"
@@ -171,6 +172,16 @@
     "PASSIVE": "Passive",
     "ACTIVE": "Active",
     "NOT_VERIFIED": "Not Verified"
+  },
+  "supportStatuses":{
+    "IDLE": "Idle",
+    "READY":  "Ready",
+    "BUSY": "Busy",
+    "MALFUNCTION": "Malfunction",
+    "ACCIDENT":  "Accident",
+    "OFFLINE": "Offline",
+    "ON_ROAD": "On road",
+    "RETURN": "Return"
   },
   "roles": {
     "VOLUNTEER": "Volunteer"

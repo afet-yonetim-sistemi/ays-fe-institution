@@ -148,6 +148,7 @@
       "institution": "Kurum",
       "status": "Durum",
       "role": "Rol",
+      "supportStatus": "Destek Statüsü", 
       "phoneNumber": "Telefon Numarası",
       "username": "Kullanıcı Adı",
       "password": "Parola"
@@ -171,6 +172,16 @@
     "PASSIVE": "Pasif",
     "DELETED": "Silindi",
     "NOT_VERIFIED": "Doğrulanmamış"
+  },
+  "supportStatuses":{
+    "IDLE": "Boşta",
+    "READY":  "Müsait",
+    "BUSY": "Meşgul",
+    "MALFUNCTION": "Araç Arıza Yapmış",
+    "ACCIDENT":  "Kaza Yapmış",
+    "OFFLINE": "Çevrimdışı",
+    "ON_ROAD": "Yolda",
+    "RETURN": "Dönüyor"
   },
   "roles": {
     "VOLUNTEER": "Gönüllü"

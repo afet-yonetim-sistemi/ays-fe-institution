@@ -31,6 +31,7 @@ export type Pagination = components["schemas"]["AysPaging"];
  */
 export type UserListRequest = components["schemas"]["UserListRequest"];
 export type User = components["schemas"]["UsersResponse"];
+export type SingleUser = components["schemas"]["UserResponse"];
 export type CreateUserResponse = components["schemas"]["UserSavedResponse"];
 
 /**

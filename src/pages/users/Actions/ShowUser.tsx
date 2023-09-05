@@ -1,11 +1,11 @@
-import { User } from "@/types";
+import { User, SingleUser } from "@/types";
 import { DeleteButton, Show } from "@refinedev/antd";
 import { useShowReturnType, useTranslate } from "@refinedev/core";
 import { Drawer, Typography } from "antd";
 
 const { Title, Text } = Typography;
 
-type Props = useShowReturnType<User> & {
+type Props = useShowReturnType<SingleUser> & {
   setVisibleShowDrawer: (visible: boolean) => void;
   visibleShowDrawer: boolean;
 };
@@ -46,6 +46,8 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
         <Text>{t("roles." + record?.role)}</Text>
         <Title level={5}>{t("users.fields.status")}</Title>
         <Text>{t("statuses." + record?.status)}</Text>
+        <Title level={5}>{t("users.fields.supportStatus")}</Title>
+        <Text>{t("supportStatuses." + record?.supportStatus)}</Text>
       </Show>
     </Drawer>
   );
