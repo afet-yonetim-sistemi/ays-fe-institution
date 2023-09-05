@@ -1,5 +1,5 @@
 import { User, SingleUser } from "@/types";
-import { DeleteButton, Show } from "@refinedev/antd";
+import { DeleteButton, Show, TagField } from "@refinedev/antd";
 import { useShowReturnType, useTranslate } from "@refinedev/core";
 import { Drawer, Typography } from "antd";
 
@@ -9,6 +9,29 @@ type Props = useShowReturnType<SingleUser> & {
   setVisibleShowDrawer: (visible: boolean) => void;
   visibleShowDrawer: boolean;
 };
+
+const statusToColor = (supportStatus: SingleUser["supportStatus"]) => { 
+  switch (supportStatus) { 
+    case "IDLE": 
+      return "green"; 
+    case "READY": 
+      return "yellow"; 
+    case "MALFUNCTION": 
+      return "red"; 
+    case "ACCIDENT": 
+      return "red"; 
+    case "BUSY": 
+      return "red"; 
+    case "OFFLINE": 
+      return "gray"; 
+    case "ON_ROAD": 
+      return "yellow";
+    case "RETURN": 
+      return "yellow";
+    default: 
+      return "green"; 
+  } 
+}; 
 
 export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...props }: Props) {
   const t = useTranslate();
@@ -47,8 +70,8 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
         <Title level={5}>{t("users.fields.status")}</Title>
         <Text>{t("statuses." + record?.status)}</Text>
         <Title level={5}>{t("users.fields.supportStatus")}</Title>
-        <Text>{t("supportStatuses." + record?.supportStatus)}</Text>
-      </Show>
+        <TagField value={t("supportStatuses." + record?.supportStatus ) } color={statusToColor(record?.supportStatus )}  />      
+        </Show>
     </Drawer>
   );
 }
