@@ -185,12 +185,12 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
         <Table.Column
           dataIndex="firstName"
           title={t("users.fields.firstName")}
-          render={(value: string) => <MarkdownField value={value} />}
+          render={(value: string) => <span>{value}</span>}
         />
         <Table.Column
           dataIndex="lastName"
           title={t("users.fields.lastName")}
-          render={(value: string) => <MarkdownField value={value} />}
+          render={(value: string) => <span>{value}</span>}
         />
         <Table.Column
           dataIndex="institution"
