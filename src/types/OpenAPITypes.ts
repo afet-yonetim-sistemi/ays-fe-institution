@@ -264,6 +264,8 @@ export interface components {
       /** @enum {string} */
       status?: "ACTIVE" | "PASSIVE" | "DELETED";
       phoneNumber?: components["schemas"]["AysPhoneNumber"];
+      /** @enum {string} */
+      supportStatus?: "IDLE" | "READY" | "BUSY" | "MALFUNCTION" | "ACCIDENT" | "OFFLINE" | "ON_ROAD" | "RETURN";
       institution?: components["schemas"]["InstitutionResponse"];
     };
     AssignmentResponse: {
