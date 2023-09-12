@@ -1,4 +1,4 @@
-# Contributing to Disaster Management System / Afet Yönetim Sistemi (AYS) Katkıda Bulunma Kılavuzu
+# Contributing to Afet Yönetim Sistemi (AYS)
 
 Thank you for your interest in contributing to Afet Yönetim Sistemi project. We appreciate your help in making our project better and more useful to everyone. Before you get started, please take a moment to read and follow this guide to understand how you can contribute effectively.
 
