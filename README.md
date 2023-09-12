@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# AYS | Afet Yönetim Sistemi Institution Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+The Disaster Management System, known as AYS (AFET YÖNETİM SİSTEMİ), is an open-source and voluntary project. Its aim is to effectively manage the needs that arise during a natural disaster. It facilitates the coordination of processes related to these needs between volunteers and institutions operating in the disaster area.
 
-In the project directory, you can run:
+This project is designed to be used by non-governmental organizations and volunteers affiliated with relevant organizations. It enables organizations to register both themselves and their volunteers. By doing so, it allows for the efficient and precise management of the needs within the disaster area, including the deployment of volunteers located in proximity to the affected regions.
 
-### `npm start`
+### Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project is built using the following technologies:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [React](https://reactjs.org/)
+- [Refine](https://refine.dev/)
+- [Ant Design](https://ant.design/)
+- [Axios](https://axios-http.com/)
+  - [Axios Auth Refresh](https://github.com/Flyrell/axios-auth-refresh)
+- [React Leaflet](https://react-leaflet.js.org/)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Query](https://react-query.tanstack.com/)
+- [OpenAPI Typescript](https://www.npmjs.com/package/openapi-typescript)
 
-### `npm test`
+##  Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###  Clone the repository
 
-### `npm run build`
+```bash
+git clone https://github.com/afet-yonetim-sistemi/ays-fe-institution
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+###  Install dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###  Run the project locally
 
-### `npm run eject`
+```bash
+npm run dev
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Note that you need to install [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) to run the project locally. We recommend using `version v18` of Node.js.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##  Contributing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Thank you for your interest in contributing to Afet Yönetim Sistemi project. We appreciate your help in making our project better and more useful to everyone. To contribute to the project, please read the [contributing guidelines](CONTRIBUTING.md) first.
