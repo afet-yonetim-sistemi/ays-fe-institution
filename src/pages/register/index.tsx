@@ -119,7 +119,7 @@ export const Register = () => {
             },
           ]}
         >
-          <Input />
+          <Input placeholder={t("users.fields.username")} />
         </Form.Item>
         <Form.Item
           name="password"
@@ -151,7 +151,7 @@ export const Register = () => {
             },
           ]}
         >
-          <Input />
+          <Input placeholder={t("users.fields.firstName")} />
         </Form.Item>
         <Form.Item
           name="lastName"
@@ -171,7 +171,7 @@ export const Register = () => {
             },
           ]}
         >
-          <Input />
+          <Input placeholder={t("users.fields.lastName")} />
         </Form.Item>
         <Form.Item name={"institutionId"} label={t("users.fields.institution")}>
           <Select
@@ -214,7 +214,7 @@ export const Register = () => {
             </Col>
             <Col span={16}>
               <Form.Item noStyle>
-                <Input maxLength={10} onChange={formatPhoneNumber} />
+                <Input maxLength={10} onChange={formatPhoneNumber} placeholder={"555-555-55-55"} />
               </Form.Item>
             </Col>
           </Row>

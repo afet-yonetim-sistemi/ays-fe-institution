@@ -58,7 +58,7 @@ export const Login: React.FC = () => {
                     },
                   ]}
                 >
-                  <Input size="large" placeholder="Username" />
+                  <Input size="large" placeholder={t("pages.login.fields.username")} />
                 </Form.Item>
                 <Form.Item
                   name="password"
