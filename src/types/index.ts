@@ -42,6 +42,13 @@ export type Admin = components["schemas"]["AdminUsersResponse"];
 export type CreateAdminRequest = components["schemas"]["AdminUserRegisterRequest"];
 
 /**
+ * Assignments Types
+ */
+export type Assignment = components["schemas"]["AssignmentResponse"];
+
+
+
+/**
  * App Version Types
  *
  */
