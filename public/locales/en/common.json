@@ -133,7 +133,9 @@
     }
   },
   "table": {
-    "actions": "Actions"
+    "actions": "Actions",
+    "description": "Description",
+    "location": "Location"
   },
   "users": {
     "title": "Users",
@@ -148,7 +150,7 @@
       "institution": "Institution",
       "role": "Role",
       "status": "Status",
-      "supportStatus": "Support Status", 
+      "supportStatus": "Support Status",
       "phoneNumber": "Phone Number",
       "username": "Username",
       "password": "Password"
@@ -167,21 +169,31 @@
       "successMessage": "Your application has been received, you will be able to log in to the system after the controls are completed and approved."
     }
   },
+  "assignments": {
+    "title": "Assignments"
+  },
   "statuses": {
     "DELETED": "Deleted",
     "PASSIVE": "Passive",
     "ACTIVE": "Active",
     "NOT_VERIFIED": "Not Verified"
   },
-  "supportStatuses":{
+  "supportStatuses": {
     "IDLE": "Idle",
-    "READY":  "Ready",
+    "READY": "Ready",
     "BUSY": "Busy",
     "MALFUNCTION": "Malfunction",
-    "ACCIDENT":  "Accident",
+    "ACCIDENT": "Accident",
     "OFFLINE": "Offline",
     "ON_ROAD": "On road",
     "RETURN": "Return"
+  },
+  "assignmentStatuses": {
+    "ASSIGNED": "Assigned",
+    "IN_PROGRESS": "In Progress",
+    "AVAILABLE": "Available",
+    "DONE": "Done",
+    "RESERVED": "Reserved"
   },
   "roles": {
     "VOLUNTEER": "Volunteer"

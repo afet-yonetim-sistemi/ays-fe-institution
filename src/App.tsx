@@ -29,6 +29,9 @@ import { ThemedTitleV2 } from "./components/sider/title";
 import UserListIcon from "./components/icons/UserListIcon";
 import AdminListIcon from "./components/icons/AdminListIcon";
 import "./styles/index.css";
+import { AssignmentList } from "./pages/assignments/AssignmentList";
+import AssignmentListIcon from "./components/icons/AssignmentListIcon";
+
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -65,6 +68,14 @@ function App() {
                   icon: <AdminListIcon />,
                 },
               },
+              {
+                name: "assignments",
+                list: "/assignments",
+                meta: {
+                  label: t("assignments.title"),
+                  icon: <AssignmentListIcon />,
+                },
+              },
             ]}
             options={{
               syncWithLocation: true,
@@ -93,6 +104,9 @@ function App() {
                 </Route>
                 <Route path="/admins">
                   <Route index element={<AdminList />} />
+                </Route>
+                <Route path="/assignments">
+                  <Route index element={<AssignmentList />} />
                 </Route>
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
