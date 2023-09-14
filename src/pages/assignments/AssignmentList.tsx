@@ -1,9 +1,12 @@
 import { IResourceComponentsProps, getDefaultFilter, useTranslate } from "@refinedev/core";
-import { List, TagField, useTable } from "@refinedev/antd";
+import { List, TagField, useDrawerForm, useTable } from "@refinedev/antd";
 
 import { Button, Space, Table, Tooltip } from "antd";
 import { Assignment } from "@/types";
 import { useState } from "react";
+
+import { countryCodes } from "@/utilities";
+import CreateAssignment from "./Actions/CreateAssignment";
 import Map from "@/components/map/Map";
 import LocationIcon from "@/components/icons/LocationIcon";
 
@@ -45,6 +48,19 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
     }
   };
 
+  // Create Assignment
+  const createDrawerProps = useDrawerForm<Assignment>({
+    resource: "assignment",
+    action: "create",
+    syncWithLocation: true,
+    successNotification: false,
+    defaultFormValues: {
+      phoneNumber: {
+        countryCode: countryCodes[0].phoneCode,
+      },
+    },
+  });
+
   const showLocation = (location: Assignment["location"]) => {
     if (location?.latitude && location?.longitude) {
       setLocation([location.latitude, location.longitude]);
@@ -59,7 +75,15 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
   return (
     <>
       <Map location={location} open={isMapOpen} onCancel={onCancel} />
-      <List title={t("assignments.title")} canCreate={false}>
+      <List
+        title={t("assignments.title")}
+        canCreate
+        createButtonProps={{
+          onClick: () => {
+            createDrawerProps.show();
+          },
+        }}
+      >
         <Table<Assignment> rowKey="id" dataSource={tableProps.dataSource || []}>
           <Table.Column key="name" dataIndex="firstName" title={t("users.fields.firstName")} />
           <Table.Column dataIndex="lastName" title={t("users.fields.lastName")} />
@@ -89,6 +113,7 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
             )}
           />
         </Table>
+        <CreateAssignment {...createDrawerProps} />
       </List>
     </>
   );

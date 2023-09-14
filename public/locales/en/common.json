@@ -170,7 +170,25 @@
     }
   },
   "assignments": {
-    "title": "Assignments"
+    "title": "Assignments",
+    "actions": {
+      "create": "Create Assignment",
+      "edit": "Edit Assignment",
+      "delete": "Delete Assignment"
+    },
+    "fields": {
+      "firstName": "Name",
+      "lastName": "Surname",
+      "status": "Status",
+      "supportStatus": "Support Status",
+      "phoneNumber": "Phone Number",
+      "username": "Username",
+      "password": "Password",
+      "description": "Description",
+      "coordinate": "Coordinate",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    }
   },
   "statuses": {
     "DELETED": "Deleted",
@@ -206,6 +224,10 @@
     "minLengthField": "The {{field}} field must be at least {{min}} characters long",
     "users": {
       "phoneNumber": "Invalid phone number"
+    },
+    "assignments": {
+      "phoneNumber": "Invalid phone number",
+      "coordinate": "Invalid coordinate"
     }
   },
   "locationModal": {

@@ -203,6 +203,10 @@
     "minLengthField": "{{field}} en az {{min}} karakter olabilir",
     "users": {
       "phoneNumber": "Geçersiz telefon numarası"
+    },
+    "assignments": {
+      "phoneNumber": "Geçersiz telefon numarası",
+      "coordinate": "Geçersiz koordinat"
     }
   },
   "locationModal": {
@@ -221,6 +225,24 @@
     "myLocation": "Konumum"
   },
   "assignments": {
-    "title": "Atamalar"
+    "title": "Atamalar",
+    "actions": {
+      "create": "Atamayı Oluştur",
+      "edit": "Atamayı Düzenle",
+      "delete": "Atamayı Sil"
+    },
+    "fields": {
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "status": "Durum",
+      "supportStatus": "Destek Statüsü",
+      "phoneNumber": "Telefon Numarası",
+      "username": "Kullanıcı Adı",
+      "password": "Parola",
+      "description": "Açıklama",
+      "coordinate": "Koordinat",
+      "latitude": "Enlem",
+      "longitude": "Boylam"
+    }
   }
 }
