@@ -65,11 +65,6 @@ export default function EditUser({
                   label: t("statuses.PASSIVE"),
                   value: "PASSIVE",
                 },
-                {
-                  label: t("statuses.DELETED"),
-
-                  value: "DELETED",
-                },
               ]}
             />
           </Form.Item>
