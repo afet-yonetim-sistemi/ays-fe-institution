@@ -1,4 +1,4 @@
-import { User, SingleUser } from "@/types";
+import { SingleUser } from "@/types";
 import { DeleteButton, Show, TagField } from "@refinedev/antd";
 import { useShowReturnType, useTranslate } from "@refinedev/core";
 import { Drawer, Typography } from "antd";
@@ -10,40 +10,35 @@ type Props = useShowReturnType<SingleUser> & {
   visibleShowDrawer: boolean;
 };
 
-const statusToColor = (supportStatus: SingleUser["supportStatus"]) => { 
-  switch (supportStatus) { 
-    case "IDLE": 
-      return "green"; 
-    case "READY": 
-      return "yellow"; 
-    case "MALFUNCTION": 
-      return "red"; 
-    case "ACCIDENT": 
-      return "red"; 
-    case "BUSY": 
-      return "red"; 
-    case "OFFLINE": 
-      return "gray"; 
-    case "ON_ROAD": 
+const statusToColor = (supportStatus: SingleUser["supportStatus"]) => {
+  switch (supportStatus) {
+    case "IDLE":
+      return "green";
+    case "READY":
       return "yellow";
-    case "RETURN": 
+    case "MALFUNCTION":
+      return "red";
+    case "ACCIDENT":
+      return "red";
+    case "BUSY":
+      return "red";
+    case "OFFLINE":
+      return "gray";
+    case "ON_ROAD":
       return "yellow";
-    default: 
-      return "green"; 
-  } 
-}; 
+    case "RETURN":
+      return "yellow";
+    default:
+      return "green";
+  }
+};
 
 export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...props }: Props) {
   const t = useTranslate();
   const { data: showQueryResult, isLoading: showIsLoading } = props.queryResult;
   const record = showQueryResult?.data;
   return (
-    <Drawer
-      open={visibleShowDrawer}
-      onClose={() => setVisibleShowDrawer(false)}
-      width="500"
-      title={t("users.actions.show")}
-    >
+    <Drawer open={visibleShowDrawer} onClose={() => setVisibleShowDrawer(false)} width="500">
       <Show
         isLoading={showIsLoading}
         headerButtons={
@@ -56,6 +51,7 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
             <></>
           )
         }
+        title={t("users.actions.show")}
       >
         <Title level={5}>{t("users.fields.username")}</Title>
         <Text>{record?.username}</Text>
@@ -70,8 +66,11 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
         <Title level={5}>{t("users.fields.status")}</Title>
         <Text>{t("statuses." + record?.status)}</Text>
         <Title level={5}>{t("users.fields.supportStatus")}</Title>
-        <TagField value={t("supportStatuses." + record?.supportStatus ) } color={statusToColor(record?.supportStatus )}  />      
-        </Show>
+        <TagField
+          value={t("supportStatuses." + record?.supportStatus)}
+          color={statusToColor(record?.supportStatus)}
+        />
+      </Show>
     </Drawer>
   );
 }
