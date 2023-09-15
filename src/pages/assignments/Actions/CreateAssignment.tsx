@@ -147,8 +147,8 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
             </Row>
           </Form.Item>
           <Form.Item
-            name="coordinate"
-            label={t("assignments.fields.coordinate")}
+            name="coordinates"
+            label={t("assignments.fields.coordinates")}
             rules={[
               {
                 validator: (_, value) => {

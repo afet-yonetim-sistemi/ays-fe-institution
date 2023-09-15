@@ -185,6 +185,7 @@
       "username": "Username",
       "password": "Password",
       "description": "Description",
+      "coordinates": "Coordinates",
       "coordinate": "Coordinate",
       "latitude": "Latitude",
       "longitude": "Longitude"

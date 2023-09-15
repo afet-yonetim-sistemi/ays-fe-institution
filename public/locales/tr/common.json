@@ -240,6 +240,7 @@
       "username": "Kullanıcı Adı",
       "password": "Parola",
       "description": "Açıklama",
+      "coordinates": "Koordinatlar",
       "coordinate": "Koordinat",
       "latitude": "Enlem",
       "longitude": "Boylam"

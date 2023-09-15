@@ -85,12 +85,16 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
         }}
       >
         <Table<Assignment> rowKey="id" dataSource={tableProps.dataSource || []}>
-          <Table.Column key="name" dataIndex="firstName" title={t("users.fields.firstName")} />
-          <Table.Column dataIndex="lastName" title={t("users.fields.lastName")} />
+          <Table.Column
+            key="name"
+            dataIndex="firstName"
+            title={t("assignments.fields.firstName")}
+          />
+          <Table.Column dataIndex="lastName" title={t("assignments.fields.lastName")} />
           <Table.Column dataIndex="description" title={t("table.description")} />
           <Table.Column
             dataIndex="status"
-            title={t("users.fields.status")}
+            title={t("assignments.fields.status")}
             render={(value: Assignment["status"]) => (
               <TagField value={t("assignmentStatuses." + value)} color={statusToColor(value)} />
             )}
