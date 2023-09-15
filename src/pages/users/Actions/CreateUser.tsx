@@ -28,11 +28,11 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
   const validateName = (value: string) => {
     if (!value) {
       return Promise.reject(t("formErrors.required"));
-    } else if (value.trim().length === 0) {
+    } else if (value?.trim()?.length === 0) {
       return Promise.reject(t("formErrors.required"));
-    } else if (value.trim().length > 0 && value.trim().length < 2) {
+    } else if (value?.trim()?.length > 0 && value?.trim()?.length < 2) {
       return Promise.reject(t("formErrors.minLength", { min: "2" }));
-    } else if (value.trim().length > 35) {
+    } else if (value?.trim()?.length > 35) {
       return Promise.reject(t("formErrors.maxLength", { max: "35" }));
     } else {
       return Promise.resolve();
