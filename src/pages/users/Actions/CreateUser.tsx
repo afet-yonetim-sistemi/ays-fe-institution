@@ -25,10 +25,32 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
     });
   };
 
+  const validateName = (value: string) => {
+    if (!value) {
+      return Promise.reject(t("formErrors.required"));
+    } else if (value.trim().length === 0) {
+      return Promise.reject(t("formErrors.required"));
+    } else if (value.trim().length > 0 && value.trim().length < 2) {
+      return Promise.reject(t("formErrors.minLength", { min: "2" }));
+    } else if (value.trim().length > 35) {
+      return Promise.reject(t("formErrors.maxLength", { max: "35" }));
+    } else {
+      return Promise.resolve();
+    }
+  };
+
   return (
     <Drawer {...drawerProps} title={t("users.actions.create")}>
       <Create
-        saveButtonProps={saveButtonProps}
+        saveButtonProps={{
+          ...saveButtonProps,
+          onClick: () => {
+            // trim first and last name before saving
+            form.setFieldValue("firstName", form.getFieldValue("firstName").trim());
+            form.setFieldValue("lastName", form.getFieldValue("lastName").trim());
+            saveButtonProps.onClick();
+          },
+        }}
         resource="user"
         goBack={false}
         contentProps={{
@@ -53,18 +75,12 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
           <Form.Item
             name="firstName"
             label={t("users.fields.firstName")}
+            required
             rules={[
               {
-                required: true,
-                message: t("formErrors.required"),
-              },
-              {
-                min: 2,
-                message: t("formErrors.minLength", { min: "2" }),
-              },
-              {
-                max: 35,
-                message: t("formErrors.maxLength", { max: "35" }),
+                validator: (_, value) => {
+                  return validateName(value);
+                },
               },
             ]}
           >
@@ -73,18 +89,12 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
           <Form.Item
             name="lastName"
             label={t("users.fields.lastName")}
+            required
             rules={[
               {
-                required: true,
-                message: t("formErrors.required"),
-              },
-              {
-                min: 2,
-                message: t("formErrors.minLength", { min: "2" }),
-              },
-              {
-                max: 35,
-                message: t("formErrors.maxLength", { max: "35" }),
+                validator: (_, value) => {
+                  return validateName(value);
+                },
               },
             ]}
           >
@@ -94,6 +104,7 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
             style={{ marginBottom: 8 }}
             label={t("users.fields.phoneNumber")}
             name={["phoneNumber", "lineNumber"]}
+            required
             rules={[
               {
                 validator: (_, value) => {
