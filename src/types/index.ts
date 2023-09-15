@@ -45,6 +45,8 @@ export type CreateAdminRequest = components["schemas"]["AdminUserRegisterRequest
  * Assignments Types
  */
 export type Assignment = components["schemas"]["AssignmentResponse"];
+export type CreateAssignmentResponse = components["schemas"]["AssignmentSaveRequest"];
+
 
 
 
