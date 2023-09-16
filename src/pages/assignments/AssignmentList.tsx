@@ -1,16 +1,22 @@
-import { IResourceComponentsProps, getDefaultFilter, useTranslate } from "@refinedev/core";
-import { List, TagField, useDrawerForm, useTable } from "@refinedev/antd";
+import {
+  IResourceComponentsProps,
+  getDefaultFilter,
+  useTranslate,
+} from "@refinedev/core";
+import {  EditButton, List, TagField, useDrawerForm, useTable } from "@refinedev/antd";
 
 import { Button, Space, Table, Tooltip } from "antd";
 import { Assignment } from "@/types";
 import { useState } from "react";
 
 import { countryCodes } from "@/utilities";
+import EditAssignment from "./Actions/EditAssignment";
 import CreateAssignment from "./Actions/CreateAssignment";
 import Map from "@/components/map/Map";
 import LocationIcon from "@/components/icons/LocationIcon";
 
 export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
+
   const t = useTranslate();
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [location, setLocation] = useState<[number, number]>([0, 0]);
@@ -48,7 +54,7 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
     }
   };
 
-  // Create Assignment
+  // Create Drawer
   const createDrawerProps = useDrawerForm<Assignment>({
     resource: "assignment",
     action: "create",
@@ -59,6 +65,13 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
         countryCode: countryCodes[0].phoneCode,
       },
     },
+  });
+
+  // Edit Drawer
+  const editDrawerProps = useDrawerForm<Assignment>({
+    action: "edit",
+    resource: "assignment",
+    syncWithLocation: true,
   });
 
   const showLocation = (location: Assignment["location"]) => {
@@ -113,11 +126,20 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                     icon={<LocationIcon />}
                   />
                 </Tooltip>
+
+                <EditButton
+                  size="small"
+                  recordItemId={record.id}
+                  resource="assignment"
+                  onClick={() => editDrawerProps.show(record.id)}
+                  hideText
+                />
               </Space>
             )}
           />
         </Table>
         <CreateAssignment {...createDrawerProps} />
+        <EditAssignment {...editDrawerProps} />
       </List>
     </>
   );
