@@ -15,7 +15,7 @@ export default function EditAssignment({
   ...props
 }: Props) {
   const t = useTranslate();
-
+  const record = props?.queryResult?.data?.data;
   const formatPhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue("phoneNumber", {
       ...form.getFieldValue("phoneNumber"),
@@ -56,6 +56,11 @@ export default function EditAssignment({
           layout="vertical"
           style={{
             background: "none",
+          }}
+          initialValues={{
+            ...formProps.initialValues,
+            latitude: record?.location?.latitude,
+            longitude: record?.location?.longitude,
           }}
         >
           <Form.Item
