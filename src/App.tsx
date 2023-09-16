@@ -31,9 +31,14 @@ import "./styles/index.css";
 import { AssignmentList } from "./pages/assignments/AssignmentList";
 import AssignmentListIcon from "./components/icons/AssignmentListIcon";
 import { dataProvider } from "./providers/rest-data-provider";
+import accessProvider from "./providers/access-provider";
+import { useState } from "react";
+import AuthChecker from "./components/AuthChecker";
+import { UserTypes } from "./types";
 
 function App() {
   const { t, i18n } = useTranslation();
+  const [userType, setUserType] = useState<UserTypes>("GUEST");
 
   const i18nProvider = {
     translate: (key: string, params: object) => t(key, params),
@@ -51,6 +56,7 @@ function App() {
             authProvider={authProvider}
             i18nProvider={i18nProvider}
             routerProvider={routerBindings}
+            accessControlProvider={userType !== "GUEST" ? accessProvider(userType) : undefined}
             resources={[
               {
                 name: "users",
@@ -98,7 +104,7 @@ function App() {
                   </Authenticated>
                 }
               >
-                <Route index element={<NavigateToResource resource="users" />} />
+                <Route index element={<NavigateToResource resource={"/"} />} />
                 <Route path="/users">
                   <Route index element={<UserList />} />
                 </Route>
@@ -126,6 +132,7 @@ function App() {
             <RefineKbar />
             <UnsavedChangesNotifier />
             <DocumentTitleHandler />
+            <AuthChecker setUserType={setUserType} />
           </Refine>
         </AppProvider>
       </RefineKbarProvider>
