@@ -16,6 +16,7 @@ export interface paths {
   "/api/v1/assignment/{id}": {
     get: operations["getAssignmentById"];
     put: operations["updateAssignment"];
+    delete: operations["deleteAssignment"];
   };
   "/api/v1/users": {
     post: operations["getUsers"];
@@ -501,6 +502,21 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["AssignmentUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
+        };
+      };
+    };
+  };
+  deleteAssignment: {
+    parameters: {
+      path: {
+        id: string;
       };
     };
     responses: {
