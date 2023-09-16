@@ -33,7 +33,8 @@
     "react-dom": "^18.0.0",
     "react-i18next": "^11.8.11",
     "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.8.1"
+    "react-router-dom": "^6.8.1",
+    "rollup-plugin-polyfill-node": "^0.12.0"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.3",
