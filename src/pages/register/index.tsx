@@ -52,7 +52,7 @@ export const Register = () => {
 
   useEffect(() => {
     form.setFieldValue("institutionId", institutions[0].id);
-  }, []);
+  }, [form]);
 
   const onSubmit = (values: CreateAdminRequest) => {
     mutate({

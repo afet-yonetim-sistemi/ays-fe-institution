@@ -11,6 +11,7 @@ export type RefreshTokenResponse = RefreshTokenPath["responses"]["200"]["content
  */
 export type AdminTokenPath = paths["/api/v1/authentication/admin/token"]["post"];
 export type AdminTokenResponse = AdminTokenPath["responses"]["200"]["content"]["*/*"];
+export type UserTypes = "ADMIN" | "SUPER_ADMIN" | "GUEST";
 
 /**
  * Admin Invalidate Types
@@ -46,9 +47,6 @@ export type CreateAdminRequest = components["schemas"]["AdminUserRegisterRequest
  */
 export type Assignment = components["schemas"]["AssignmentResponse"];
 export type CreateAssignmentResponse = components["schemas"]["AssignmentSaveRequest"];
-
-
-
 
 /**
  * App Version Types

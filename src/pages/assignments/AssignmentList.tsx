@@ -1,27 +1,52 @@
 import {
+  CrudFilters,
   IResourceComponentsProps,
   getDefaultFilter,
   useTranslate,
 } from "@refinedev/core";
-import {  EditButton, List, TagField, useDrawerForm, useTable } from "@refinedev/antd";
-
-import { Button, Space, Table, Tooltip } from "antd";
+import { EditButton,List, TagField, useDrawerForm, useModal, useTable } from "@refinedev/antd";
+import {  Modal, Space, Table, Tooltip } from "antd";
 import { Assignment } from "@/types";
 import { useState } from "react";
-
 import { countryCodes } from "@/utilities";
 import EditAssignment from "./Actions/EditAssignment";
 import CreateAssignment from "./Actions/CreateAssignment";
 import Map from "@/components/map/Map";
 import LocationIcon from "@/components/icons/LocationIcon";
+import AssignmentFilterForm from "./AssignmentFilterForm";
+import IconButton from "@/components/IconButton";
+import FilterIcon from "@/components/icons/FilterIcon";
 
 export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
 
   const t = useTranslate();
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [location, setLocation] = useState<[number, number]>([0, 0]);
+  const { show, modalProps, close } = useModal();
 
-  const { filters, tableProps } = useTable<Assignment>({
+  const { filters, tableProps, searchFormProps } = useTable<Assignment>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onSearch: (params: any) => {
+      const filters: CrudFilters = [];
+      const { statuses, phoneNumber } = params;
+      if (statuses) {
+        filters.push({
+          field: "statuses",
+          operator: "eq",
+          value: statuses,
+        });
+      }
+      filters.push({
+        field: "phoneNumber",
+        operator: "eq",
+        value: {
+          countryCode: phoneNumber?.countryCode?.length ? phoneNumber?.countryCode : undefined,
+          lineNumber: phoneNumber?.lineNumber?.length ? phoneNumber?.lineNumber : undefined,
+        },
+      });
+      close();
+      return filters;
+    },
     resource: "assignments",
     filters: {
       permanent: [
@@ -34,6 +59,7 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
     },
     pagination: {
       pageSize: 10,
+      current: 1,
     },
   });
 
@@ -88,6 +114,9 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
   return (
     <>
       <Map location={location} open={isMapOpen} onCancel={onCancel} />
+      <Modal {...modalProps} title={t("form.filters")} footer={null}>
+        <AssignmentFilterForm formProps={searchFormProps} filters={filters || []} />
+      </Modal>
       <List
         title={t("assignments.title")}
         canCreate
@@ -96,8 +125,18 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
             createDrawerProps.show();
           },
         }}
+        headerButtons={({ defaultButtons }) => (
+          <>
+            <IconButton
+              type="default"
+              icon={<FilterIcon height="1.3em" width="1.3em" />}
+              onClick={() => show()}
+            />
+            {defaultButtons}
+          </>
+        )}
       >
-        <Table<Assignment> rowKey="id" dataSource={tableProps.dataSource || []}>
+        <Table<Assignment> rowKey="id" {...tableProps}>
           <Table.Column
             key="name"
             dataIndex="firstName"
@@ -120,8 +159,7 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
             render={(_, record) => (
               <Space size="middle">
                 <Tooltip title={t("table.location")}>
-                  <Button
-                    type="primary"
+                  <IconButton
                     onClick={() => showLocation(record.location)}
                     icon={<LocationIcon />}
                   />

@@ -2,7 +2,7 @@
 import axios, { AxiosInstance } from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { ENV } from ".";
-import { Pagination, RefreshTokenResponse, Sorters } from "@/types";
+import { RefreshTokenResponse } from "@/types";
 
 const baseEndpoint = "authentication";
 const refreshTokenUrl = `${baseEndpoint}/admin/token/refresh`;
@@ -35,7 +35,7 @@ const refreshAuthLogic = async (failedRequest: any) => {
         },
       }
     );
-    console.log(data);
+
     if (!data) {
       return Promise.reject(failedRequest);
     }
@@ -78,16 +78,6 @@ createAuthRefreshInterceptor(axiosInstance, refreshAuthLogic, {
 // it will be called before every request
 axiosInstance.interceptors.request.use(
   (config) => {
-    const url = config.url;
-    if (getToPost(url || "")) {
-      config.url = removeAllParams(url || "");
-      config.method = "post";
-      // set body
-      config.data = {
-        pagination: setPaginationFromParams(url || ""),
-        sort: setSortersFromParams(url || ""),
-      };
-    }
     const accessToken = localStorage.getItem(ENV.TOKEN_KEY);
     if (accessToken && config.headers) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
@@ -109,9 +99,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    if (response?.data?.response?.content) {
-      response.data = response.data.response.content;
-    } else if (response?.data?.response) {
+    if (response?.data?.response) {
       response.data = response.data.response;
     }
 
@@ -133,94 +121,6 @@ const removeTokens = () => {
 const setTokens = (accessToken: string, refreshToken: string) => {
   localStorage.setItem(ENV.TOKEN_KEY, accessToken);
   localStorage.setItem(ENV.TOKEN_KEY + "_refresh", refreshToken);
-};
-
-const extractParams = (url: string) => {
-  const params = url.split("?")[1];
-  if (!params) {
-    return {};
-  }
-  const paramsArray = params.split("&");
-  const paramsObject: any = {};
-  paramsArray.forEach((param) => {
-    const [key, value] = param.split("=");
-    paramsObject[key] = value;
-  });
-
-  return paramsObject;
-};
-
-const getToPost = (url: string) => {
-  const params = extractParams(url);
-  if (params && params["getToPost"]) {
-    return true;
-  }
-  return false;
-};
-
-const removeAllParams = (url: string) => {
-  const params = extractParams(url);
-  if (!params) {
-    return url;
-  }
-  const paramsArray = Object.keys(params);
-  let newUrl = url.split("?")[0];
-  paramsArray.forEach((param) => {
-    newUrl = newUrl.replace(param, "");
-  });
-  return newUrl;
-};
-
-const setPaginationFromParams = (url: string): Pagination => {
-  const params = extractParams(url);
-  if (!params) {
-    return {
-      page: 1,
-      pageSize: 10,
-    };
-  }
-
-  const { _end, _start } = params;
-  const perPage = _end ? _end - _start : 10;
-  const page = _start ? Math.floor(_start / perPage) + 1 : 1;
-  const pageSize = perPage;
-
-  if (page && pageSize) {
-    return {
-      page,
-      pageSize,
-    };
-  }
-
-  return {
-    page: 1,
-    pageSize: 10,
-  };
-};
-
-const setSortersFromParams = (url: string): Sorters => {
-  const params = extractParams(url);
-  if (!params) {
-    return [];
-  }
-
-  const { _sort, _order } = params;
-
-  if (_sort && _order) {
-    const orders = _order.split("%2C");
-    const sorts = _sort.split("%2C");
-    const sorters: Sorters = [];
-    orders.forEach((order: string, index: string | number) => {
-      sorters.push({
-        property: sorts[index],
-        direction: order === "desc" ? "DESC" : "ASC",
-      });
-    });
-
-    return sorters;
-  }
-
-  return [];
 };
 
 export { axiosInstance, setTokens, removeTokens };
