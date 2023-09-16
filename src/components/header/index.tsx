@@ -90,13 +90,28 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({ sticky }) =>
           setMyLocationFindLoading(false);
         },
         (err) => {
-          console.warn(`Geolocation error (${err.code}): ${err.message}`);
+          let description = "";
+          let message = err.message;
+          switch (err.code) {
+            case 1:
+              description = t("locationModal.geoLocationErrors.permissionDenied");
+              message = t("locationModal.geoLocationErrors.message");
+              break;
+            case 2:
+              description = t("locationModal.geoLocationErrors.positionUnavailable");
+              break;
+            case 3:
+              description = t("locationModal.geoLocationErrors.timeout");
+              break;
+            default:
+              description = t("locationModal.geoLocationErrors.unknownError");
+              break;
+          }
           open &&
             open({
               type: "error",
-              message: t("locationModal.geoLocationError", {
-                error: err.code,
-              }),
+              message,
+              description,
             });
 
           setMyLocationFindLoading(false);

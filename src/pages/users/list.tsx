@@ -14,7 +14,6 @@ import {
   EditButton,
   ShowButton,
   useModal,
-  MarkdownField,
 } from "@refinedev/antd";
 
 import { Divider, Modal, Space, Table, Typography } from "antd";
@@ -51,6 +50,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     },
     pagination: {
       pageSize: 10,
+      current: 1,
     },
   });
 
@@ -205,15 +205,6 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           render={(value: User["role"]) => {
             return <span>{t("roles." + value)}</span>;
           }}
-          // onFilter={(value, record: User) => {
-          //   return record.role === value;
-          // }}
-          // filters={[
-          //   {
-          //     text: t("roles.VOLUNTEER"),
-          //     value: "VOLUNTEER",
-          //   },
-          // ]}
         />
         <Table.Column
           dataIndex="status"
@@ -221,24 +212,6 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           render={(value: User["status"]) => (
             <TagField value={t("statuses." + value)} color={statusToColor(value)} />
           )}
-          // onFilter={(value, record: User) => {
-          //   return record.status === value;
-          // }}
-          // filters={[
-          //   {
-          //     text: t("statuses.ACTIVE"),
-          //     value: "ACTIVE",
-          //   },
-          //   {
-          //     text: t("statuses.PASSIVE"),
-          //     value: "PASSIVE",
-          //   },
-          //   {
-          //     text: t("statuses.DELETED"),
-
-          //     value: "DELETED",
-          //   },
-          // ]}
           defaultFilteredValue={getDefaultFilter("status", filters)}
         />
         <Table.Column<User>

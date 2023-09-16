@@ -242,8 +242,17 @@
     "latitude": "Latitude",
     "longitude": "Longitude",
     "googleMaps": "Google Maps",
-    "geoLocationError": "GeoLocation error {{error}}",
+    "geoLocationErrors": {
+      "message": "Please allow location access to use this feature.",
+      "permissionDenied": "Permission denied",
+      "positionUnavailable": "Position unavailable",
+      "timeout": "Timeout",
+      "unknownError": "Unknown error"
+    },
     "whereAmI": "Where Am I?",
     "myLocation": "My Location"
+  },
+  "form": {
+    "filters": "Filters"
   }
 }

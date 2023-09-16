@@ -245,5 +245,8 @@
       "latitude": "Enlem",
       "longitude": "Boylam"
     }
+  },
+  "form": {
+    "filters": "Filtreler"
   }
 }

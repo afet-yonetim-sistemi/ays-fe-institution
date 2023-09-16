@@ -21,4 +21,9 @@ export const countryCodes: CountryCode[] = [
     code: "TR",
     phoneCode: "+90",
   },
+  {
+    name: "Azərbaycan",
+    code: "AZ",
+    phoneCode: "+994",
+  },
 ];

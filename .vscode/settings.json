@@ -3,5 +3,11 @@
         "public/locales"
     ],
     "editor.formatOnSave": true,
-    "i18n-ally.keystyle": "nested"
+    "i18n-ally.keystyle": "nested",
+    "cSpell.words": [
+        "antd",
+        "Kbar",
+        "refinedev",
+        "sider"
+    ]
 }
