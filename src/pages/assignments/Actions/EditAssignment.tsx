@@ -30,16 +30,12 @@ export default function EditAssignment({
     });
   };
 
-  const values = form.getFieldsValue() as Assignment;
-  const oldValues = props?.queryResult?.data?.data;
-  const disabled = values?.status === oldValues?.status;
-
   return (
     <Drawer {...drawerProps} title={t("assignments.actions.edit")}>
       <Edit
         headerButtons={<></>}
         recordItemId={props.id}
-        saveButtonProps={{ ...saveButtonProps, disabled }}
+        saveButtonProps={saveButtonProps}
         resource="assignment"
         goBack={false}
         contentProps={{
@@ -124,8 +120,8 @@ export default function EditAssignment({
           </Form.Item>
           <Form.Item
             style={{ marginBottom: 8 }}
-            label={t("assignments.fields.phoneNumber")}
             name={["phoneNumber", "lineNumber"]}
+            label={t("assignments.fields.phoneNumber")}
             required
             rules={[
               {
@@ -154,15 +150,16 @@ export default function EditAssignment({
                 </Form.Item>
               </Col>
               <Col span={16}>
-                <Form.Item noStyle>
+                <Form.Item name={["phoneNumber", "lineNumber"]} noStyle>
                   <Input maxLength={10} onChange={formatPhoneNumber} />
                 </Form.Item>
               </Col>
             </Row>
           </Form.Item>
           <Form.Item
-            name="coordinates"
+            name="location"
             label={t("assignments.fields.coordinates")}
+            required
             rules={[
               {
                 validator: (_, value) => {
@@ -176,16 +173,16 @@ export default function EditAssignment({
                 },
               },
             ]}
-            required
+            
           >
             <Row gutter={8}>
               <Col span={12}>
-                <Form.Item name="latitude" noStyle>
+                <Form.Item  name={["location", "latitude"]} noStyle>
                   <Input maxLength={15} placeholder={t("assignments.fields.latitude")} />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="longitude" noStyle>
+                <Form.Item  name={["location", "longitude"]} noStyle>
                   <Input maxLength={15} placeholder={t("assignments.fields.longitude")} />
                 </Form.Item>
               </Col>
