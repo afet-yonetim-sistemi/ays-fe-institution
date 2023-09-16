@@ -113,6 +113,7 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
             style={{ marginBottom: 8 }}
             label={t("assignments.fields.phoneNumber")}
             name={["phoneNumber", "lineNumber"]}
+            required
             rules={[
               {
                 validator: (_, value) => {
@@ -162,6 +163,7 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
                 },
               },
             ]}
+            required
           >
             <Row gutter={8}>
               <Col span={12}>

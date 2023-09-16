@@ -10,7 +10,6 @@ import routerBindings, {
   NavigateToResource,
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
-import dataProvider from "@refinedev/simple-rest";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { authProvider } from "./providers/authProvider";
@@ -31,6 +30,7 @@ import AdminListIcon from "./components/icons/AdminListIcon";
 import "./styles/index.css";
 import { AssignmentList } from "./pages/assignments/AssignmentList";
 import AssignmentListIcon from "./components/icons/AssignmentListIcon";
+import { dataProvider } from "./providers/rest-data-provider";
 
 function App() {
   const { t, i18n } = useTranslation();
