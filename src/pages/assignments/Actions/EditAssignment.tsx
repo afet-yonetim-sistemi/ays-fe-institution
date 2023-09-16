@@ -156,11 +156,11 @@ export default function EditAssignment({
               </Col>
             </Row>
           </Form.Item>
-          <Form.Item name="location" label={t("assignments.fields.coordinates")}>
+          <Form.Item label={t("assignments.fields.coordinates")}>
             <Row gutter={8}>
               <Col span={12}>
                 <Form.Item
-                  name={["location", "latitude"]}
+                  name="latitude"
                   noStyle
                   rules={[
                     {
@@ -183,7 +183,7 @@ export default function EditAssignment({
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name={["location", "longitude"]}
+                  name="longitude"
                   noStyle
                   rules={[
                     {
