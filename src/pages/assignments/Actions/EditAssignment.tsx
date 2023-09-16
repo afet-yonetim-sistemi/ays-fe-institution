@@ -156,33 +156,51 @@ export default function EditAssignment({
               </Col>
             </Row>
           </Form.Item>
-          <Form.Item
-            name="location"
-            label={t("assignments.fields.coordinates")}
-            required
-            rules={[
-              {
-                validator: (_, value) => {
-                  if (!value) {
-                    return Promise.reject(t("formErrors.required"));
-                  }
-                  if (/^[0-9.]*$/.test(value)) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(t("formErrors.assignments.coordinate"));
-                },
-              },
-            ]}
-            
-          >
+          <Form.Item name="location" label={t("assignments.fields.coordinates")}>
             <Row gutter={8}>
               <Col span={12}>
-                <Form.Item  name={["location", "latitude"]} noStyle>
+                <Form.Item
+                  name={["location", "latitude"]}
+                  noStyle
+                  rules={[
+                    {
+                      validator: (_, value) => {
+                        console.log(value);
+                        if (!value) {
+                          return Promise.reject(t("formErrors.required"));
+                        }
+                        if (/^[0-9.]*$/.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(t("formErrors.assignments.coordinate"));
+                      },
+                    },
+                  ]}
+                  required
+                >
                   <Input maxLength={15} placeholder={t("assignments.fields.latitude")} />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item  name={["location", "longitude"]} noStyle>
+                <Form.Item
+                  name={["location", "longitude"]}
+                  noStyle
+                  rules={[
+                    {
+                      validator: (_, value) => {
+                        console.log(value);
+                        if (!value) {
+                          return Promise.reject(t("formErrors.required"));
+                        }
+                        if (/^[0-9.]*$/.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(t("formErrors.assignments.coordinate"));
+                      },
+                    },
+                  ]}
+                  required
+                >
                   <Input maxLength={15} placeholder={t("assignments.fields.longitude")} />
                 </Form.Item>
               </Col>
