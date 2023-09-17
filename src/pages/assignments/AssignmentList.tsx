@@ -3,9 +3,18 @@ import {
   IResourceComponentsProps,
   getDefaultFilter,
   useTranslate,
+  useNotification,
 } from "@refinedev/core";
-import { EditButton,List, TagField, useDrawerForm, useModal, useTable } from "@refinedev/antd";
-import {  Modal, Space, Table, Tooltip } from "antd";
+import {
+  DeleteButton,
+  EditButton,
+  List,
+  TagField,
+  useDrawerForm,
+  useModal,
+  useTable,
+} from "@refinedev/antd";
+import { Modal, Space, Table, Tooltip } from "antd";
 import { Assignment } from "@/types";
 import { useState } from "react";
 import { countryCodes } from "@/utilities";
@@ -18,11 +27,12 @@ import IconButton from "@/components/IconButton";
 import FilterIcon from "@/components/icons/FilterIcon";
 
 export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
-
   const t = useTranslate();
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [location, setLocation] = useState<[number, number]>([0, 0]);
   const { show, modalProps, close } = useModal();
+
+  const { open } = useNotification();
 
   const { filters, tableProps, searchFormProps } = useTable<Assignment>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -164,13 +174,29 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                     icon={<LocationIcon />}
                   />
                 </Tooltip>
-
                 <EditButton
                   size="small"
                   recordItemId={record.id}
                   resource="assignment"
                   onClick={() => editDrawerProps.show(record.id)}
                   hideText
+                />
+                <DeleteButton
+                  size="small"
+                  recordItemId={record.id}
+                  resource="assignment"
+                  successNotification={false}
+                  hideText
+                  onSuccess={() => {
+                    open &&
+                      open({
+                        type: "success",
+                        description: t("notifications.success"),
+                        message: t("notifications.deleteSuccess", {
+                          resource: t("resources.users.singular"),
+                        }),
+                      });
+                  }}
                 />
               </Space>
             )}
