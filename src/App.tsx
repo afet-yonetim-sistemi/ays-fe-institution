@@ -59,19 +59,19 @@ function App() {
             accessControlProvider={userType !== "GUEST" ? accessProvider(userType) : undefined}
             resources={[
               {
-                name: "users",
-                list: "/users",
-                meta: {
-                  label: t("users.title"),
-                  icon: <UserListIcon />,
-                },
-              },
-              {
                 name: "admins",
                 list: "/admins",
                 meta: {
                   label: t("admins.title"),
                   icon: <AdminListIcon />,
+                },
+              },
+              {
+                name: "users",
+                list: "/users",
+                meta: {
+                  label: t("users.title"),
+                  icon: <UserListIcon />,
                 },
               },
               {
@@ -105,11 +105,11 @@ function App() {
                 }
               >
                 <Route index element={<NavigateToResource resource={"/"} />} />
-                <Route path="/users">
-                  <Route index element={<UserList />} />
-                </Route>
                 <Route path="/admins">
                   <Route index element={<AdminList />} />
+                </Route>
+                <Route path="/users">
+                  <Route index element={<UserList />} />
                 </Route>
                 <Route path="/assignments">
                   <Route index element={<AssignmentList />} />
