@@ -193,7 +193,7 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                         type: "success",
                         description: t("notifications.success"),
                         message: t("notifications.deleteSuccess", {
-                          resource: t("resources.users.singular"),
+                          resource: t("resources.assignments.singular"),
                         }),
                       });
                   }}
