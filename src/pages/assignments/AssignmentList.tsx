@@ -175,14 +175,14 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                   />
                 </Tooltip>
                 <EditButton
-                  size="small"
+                  size="middle"
                   recordItemId={record.id}
                   resource="assignment"
                   onClick={() => editDrawerProps.show(record.id)}
                   hideText
                 />
                 <DeleteButton
-                  size="small"
+                  size="middle"
                   recordItemId={record.id}
                   resource="assignment"
                   successNotification={false}

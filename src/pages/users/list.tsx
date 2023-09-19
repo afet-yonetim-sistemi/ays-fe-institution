@@ -222,7 +222,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
             <Space size="middle">
               <ShowButton
                 hideText
-                size="small"
+                size="middle"
                 recordItemId={record.id}
                 onClick={() => {
                   showDrawerProps.setShowId(record.id);
@@ -233,14 +233,14 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
               {record.status !== "DELETED" && (
                 <>
                   <EditButton
-                    size="small"
+                    size="middle"
                     recordItemId={record.id}
                     resource="user"
                     onClick={() => editDrawerProps.show(record.id)}
                     hideText
                   />
                   <DeleteButton
-                    size="small"
+                    size="middle"
                     recordItemId={record.id}
                     resource="user"
                     successNotification={false}
