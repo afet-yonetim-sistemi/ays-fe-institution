@@ -38,7 +38,12 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
   const { data: showQueryResult, isLoading: showIsLoading } = props.queryResult;
   const record = showQueryResult?.data;
   return (
-    <Drawer open={visibleShowDrawer} onClose={() => setVisibleShowDrawer(false)} width="500">
+    <Drawer
+      open={visibleShowDrawer}
+      onClose={() => setVisibleShowDrawer(false)}
+      width="500"
+      title={t("users.actions.show")}
+    >
       <Show
         isLoading={showIsLoading}
         headerButtons={
@@ -51,7 +56,7 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
             <></>
           )
         }
-        title={t("users.actions.show")}
+        title=""
       >
         <Title level={5}>{t("users.fields.username")}</Title>
         <Text>{record?.username}</Text>
