@@ -206,7 +206,8 @@
     },
     "assignments": {
       "phoneNumber": "Geçersiz telefon numarası",
-      "coordinate": "Geçersiz koordinat"
+      "coordinate": "Geçersiz koordinat",
+      "coordinateNotFound": "Koordinatlar bulunamadı."
     }
   },
   "locationModal": {
@@ -229,7 +230,8 @@
     "actions": {
       "create": "Atamayı Oluştur",
       "edit": "Atamayı Düzenle",
-      "delete": "Atamayı Sil"
+      "delete": "Atamayı Sil",
+      "show": "Atamayı Göster"
     },
     "fields": {
       "firstName": "Ad",

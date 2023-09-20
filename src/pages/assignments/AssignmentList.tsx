@@ -2,12 +2,12 @@ import {
   CrudFilters,
   IResourceComponentsProps,
   getDefaultFilter,
-  useTranslate,
+  useTranslate, useShow,
 } from "@refinedev/core";
-import { List, TagField, useDrawerForm, useModal, useTable } from "@refinedev/antd";
+import {List, ShowButton, TagField, useDrawerForm, useModal, useTable} from "@refinedev/antd";
 
 import { Button, Modal, Space, Table, Tooltip } from "antd";
-import { Assignment } from "@/types";
+import {Assignment} from "@/types";
 import { useState } from "react";
 
 import { countryCodes } from "@/utilities";
@@ -17,12 +17,19 @@ import LocationIcon from "@/components/icons/LocationIcon";
 import AssignmentFilterForm from "./AssignmentFilterForm";
 import IconButton from "@/components/IconButton";
 import FilterIcon from "@/components/icons/FilterIcon";
+import ShowAssignment from "@/pages/assignments/Actions/ShowAssignment";
 
 export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
   const t = useTranslate();
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [location, setLocation] = useState<[number, number]>([0, 0]);
   const { show, modalProps, close } = useModal();
+
+  // Show Drawer
+  const [visibleShowDrawer, setVisibleShowDrawer] = useState<boolean>(false);
+  const showDrawerProps = useShow<Assignment>({
+    resource: "assignment",
+  });
 
   const { filters, tableProps, searchFormProps } = useTable<Assignment>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -157,11 +164,26 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                     icon={<LocationIcon />}
                   />
                 </Tooltip>
+                <ShowButton
+                    hideText
+                    size="small"
+                    recordItemId={record.id}
+                    onClick={() => {
+                      showDrawerProps.setShowId(record.id);
+                      setVisibleShowDrawer(true);
+                    }}
+                    color="primary"
+                />
               </Space>
             )}
           />
         </Table>
         <CreateAssignment {...createDrawerProps} />
+        <ShowAssignment
+            {...showDrawerProps}
+            visibleShowDrawer={visibleShowDrawer}
+            setVisibleShowDrawer={setVisibleShowDrawer}
+        />
       </List>
     </>
   );
