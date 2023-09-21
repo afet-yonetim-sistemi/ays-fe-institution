@@ -174,30 +174,34 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                     icon={<LocationIcon />}
                   />
                 </Tooltip>
-                <EditButton
-                  size="middle"
-                  recordItemId={record.id}
-                  resource="assignment"
-                  onClick={() => editDrawerProps.show(record.id)}
-                  hideText
-                />
-                <DeleteButton
-                  size="middle"
-                  recordItemId={record.id}
-                  resource="assignment"
-                  successNotification={false}
-                  hideText
-                  onSuccess={() => {
-                    open &&
-                      open({
-                        type: "success",
-                        description: t("notifications.success"),
-                        message: t("notifications.deleteSuccess", {
-                          resource: t("resources.assignments.singular"),
-                        }),
-                      });
-                  }}
-                />
+                {record.status === "AVAILABLE" && (
+                  <>
+                    <EditButton
+                      size="middle"
+                      recordItemId={record.id}
+                      resource="assignment"
+                      onClick={() => editDrawerProps.show(record.id)}
+                      hideText
+                    />
+                    <DeleteButton
+                      size="middle"
+                      recordItemId={record.id}
+                      resource="assignment"
+                      successNotification={false}
+                      hideText
+                      onSuccess={() => {
+                        open &&
+                          open({
+                            type: "success",
+                            description: t("notifications.success"),
+                            message: t("notifications.deleteSuccess", {
+                              resource: t("resources.assignments.singular"),
+                            }),
+                          });
+                      }}
+                    />
+                  </>
+                )}
               </Space>
             )}
           />
