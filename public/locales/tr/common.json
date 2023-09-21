@@ -8,6 +8,10 @@
     "users": {
       "plural": "Kullanıcılar",
       "singular": "Kullanıcı"
+    },
+    "assignments": {
+      "plural": "Atamalar",
+      "singular": "Atama"
     }
   },
   "pages": {

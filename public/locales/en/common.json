@@ -82,6 +82,10 @@
     "users": {
       "plural": "Users",
       "singular": "User"
+    },
+    "assignments": {
+      "plural": "Assignments",
+      "singular": "Assignment"
     }
   },
   "buttons": {
