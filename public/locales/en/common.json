@@ -178,7 +178,8 @@
     "actions": {
       "create": "Create Assignment",
       "edit": "Edit Assignment",
-      "delete": "Delete Assignment"
+      "delete": "Delete Assignment",
+      "show": "Show Assignment"
     },
     "fields": {
       "firstName": "Name",
@@ -232,7 +233,8 @@
     },
     "assignments": {
       "phoneNumber": "Invalid phone number",
-      "coordinate": "Invalid coordinate"
+      "coordinate": "Invalid coordinate",
+      "coordinateNotFound": "Coordinate Not Found"
     }
   },
   "locationModal": {
