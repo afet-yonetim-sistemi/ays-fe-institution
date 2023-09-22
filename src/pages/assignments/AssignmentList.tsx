@@ -43,7 +43,7 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
     resource: "assignment",
   });
 
-  const { filters, tableProps, searchFormProps } = useTable<Assignment>({
+  const { filters, tableProps, searchFormProps, tableQueryResult } = useTable<Assignment>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSearch: (params: any) => {
       const filters: CrudFilters = [];
@@ -184,14 +184,14 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                   />
                 </Tooltip>
                 <ShowButton
-                    hideText
-                    size="small"
-                    recordItemId={record.id}
-                    onClick={() => {
-                      showDrawerProps.setShowId(record.id);
-                      setVisibleShowDrawer(true);
-                    }}
-                    color="primary"
+                  hideText
+                  size="middle"
+                  recordItemId={record.id}
+                  onClick={() => {
+                    showDrawerProps.setShowId(record.id);
+                    setVisibleShowDrawer(true);
+                  }}
+                  color="primary"
                 />
                 {record.status === "AVAILABLE" && (
                   <>
@@ -217,11 +217,11 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                               resource: t("resources.assignments.singular"),
                             }),
                           });
+                        tableQueryResult.refetch();
                       }}
                     />
                   </>
                 )}
-                />
               </Space>
             )}
           />
@@ -229,9 +229,9 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
         <CreateAssignment {...createDrawerProps} />
         <EditAssignment {...editDrawerProps} />
         <ShowAssignment
-            {...showDrawerProps}
-            visibleShowDrawer={visibleShowDrawer}
-            setVisibleShowDrawer={setVisibleShowDrawer}
+          {...showDrawerProps}
+          visibleShowDrawer={visibleShowDrawer}
+          setVisibleShowDrawer={setVisibleShowDrawer}
         />
       </List>
     </>
