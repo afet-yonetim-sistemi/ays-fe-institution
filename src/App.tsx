@@ -1,3 +1,4 @@
+import { DevtoolsProvider, DevtoolsPanel } from "@refinedev/devtools";
 import { Authenticated, Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
@@ -50,90 +51,97 @@ function App() {
     <BrowserRouter>
       <RefineKbarProvider>
         <AppProvider>
-          <Refine
-            dataProvider={dataProvider(ENV.API_URL, axiosInstance)}
-            notificationProvider={notificationProvider}
-            authProvider={authProvider}
-            i18nProvider={i18nProvider}
-            routerProvider={routerBindings}
-            accessControlProvider={userType !== "GUEST" ? accessProvider(userType) : undefined}
-            resources={[
-              {
-                name: "admins",
-                list: "/admins",
-                meta: {
-                  label: t("admins.title"),
-                  icon: <AdminListIcon />,
+          <DevtoolsProvider>
+            <Refine
+              dataProvider={dataProvider(ENV.API_URL, axiosInstance)}
+              notificationProvider={notificationProvider}
+              authProvider={authProvider}
+              i18nProvider={i18nProvider}
+              routerProvider={routerBindings}
+              accessControlProvider={userType !== "GUEST" ? accessProvider(userType) : undefined}
+              resources={[
+                {
+                  name: "admins",
+                  list: "/admins",
+                  meta: {
+                    label: t("admins.title"),
+                    icon: <AdminListIcon />,
+                  },
                 },
-              },
-              {
-                name: "users",
-                list: "/users",
-                meta: {
-                  label: t("users.title"),
-                  icon: <UserListIcon />,
+                {
+                  name: "users",
+                  list: "/users",
+                  meta: {
+                    label: t("users.title"),
+                    icon: <UserListIcon />,
+                  },
                 },
-              },
-              {
-                name: "assignments",
-                list: "/assignments",
-                meta: {
-                  label: t("assignments.title"),
-                  icon: <AssignmentListIcon />,
+                {
+                  name: "assignments",
+                  list: "/assignments",
+                  meta: {
+                    label: t("assignments.title"),
+                    icon: <AssignmentListIcon />,
+                  },
                 },
-              },
-            ]}
-            options={{
-              syncWithLocation: true,
-              warnWhenUnsavedChanges: true,
-            }}
-          >
-            <Routes>
-              <Route
-                element={
-                  <Authenticated fallback={<CatchAllNavigate to="/login" />}>
-                    <ThemedLayoutV2
-                      Header={() => <Header sticky />}
-                      Sider={(props) => <ThemedSiderV2 {...props} fixed />}
-                      Title={({ collapsed }) => (
-                        <ThemedTitleV2 collapsed={collapsed} icon={<AppIcon />} text={t("title")} />
-                      )}
-                    >
-                      <Outlet />
-                    </ThemedLayoutV2>
-                  </Authenticated>
-                }
-              >
-                <Route index element={<NavigateToResource resource={"/"} />} />
-                <Route path="/admins">
-                  <Route index element={<AdminList />} />
+              ]}
+              options={{
+                syncWithLocation: true,
+                warnWhenUnsavedChanges: true,
+              }}
+            >
+              <Routes>
+                <Route
+                  element={
+                    <Authenticated fallback={<CatchAllNavigate to="/login" />}>
+                      <ThemedLayoutV2
+                        Header={() => <Header sticky />}
+                        Sider={(props) => <ThemedSiderV2 {...props} fixed />}
+                        Title={({ collapsed }) => (
+                          <ThemedTitleV2
+                            collapsed={collapsed}
+                            icon={<AppIcon />}
+                            text={t("title")}
+                          />
+                        )}
+                      >
+                        <Outlet />
+                      </ThemedLayoutV2>
+                    </Authenticated>
+                  }
+                >
+                  <Route index element={<NavigateToResource resource={"/"} />} />
+                  <Route path="/admins">
+                    <Route index element={<AdminList />} />
+                  </Route>
+                  <Route path="/users">
+                    <Route index element={<UserList />} />
+                  </Route>
+                  <Route path="/assignments">
+                    <Route index element={<AssignmentList />} />
+                  </Route>
+                  <Route path="*" element={<ErrorComponent />} />
                 </Route>
-                <Route path="/users">
-                  <Route index element={<UserList />} />
+                <Route
+                  element={
+                    <Authenticated fallback={<Outlet />}>
+                      <NavigateToResource />
+                    </Authenticated>
+                  }
+                >
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register/:id" element={<Register />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
                 </Route>
-                <Route path="/assignments">
-                  <Route index element={<AssignmentList />} />
-                </Route>
-                <Route path="*" element={<ErrorComponent />} />
-              </Route>
-              <Route
-                element={
-                  <Authenticated fallback={<Outlet />}>
-                    <NavigateToResource />
-                  </Authenticated>
-                }
-              >
-                <Route path="/login" element={<Login />} />
-                <Route path="/register/:id" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-              </Route>
-            </Routes>
+              </Routes>
 
-            <RefineKbar />
-            <UnsavedChangesNotifier />
-            <DocumentTitleHandler />
-            <AuthChecker setUserType={setUserType} />
-          </Refine>
+              <RefineKbar />
+              <UnsavedChangesNotifier />
+              <DocumentTitleHandler />
+              <AuthChecker setUserType={setUserType} />
+            </Refine>
+            <DevtoolsPanel />
+          </DevtoolsProvider>
         </AppProvider>
       </RefineKbarProvider>
     </BrowserRouter>

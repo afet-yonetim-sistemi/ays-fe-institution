@@ -234,10 +234,13 @@
     "assignments": {
       "phoneNumber": "Invalid phone number",
       "coordinate": "Invalid coordinate",
-      "coordinateNotFound": "Coordinate Not Found"
+      "coordinateNotFound": "Coordinate Not Found",
+      "invalidLatitude": "Invalid latitude",
+      "invalidLongitude": "Invalid longitude"
     }
   },
   "locationModal": {
+    "selectLocation": "Select Location",
     "openWithGoogleMaps": "Open With Google Maps",
     "copyTheLocation": "Copy The Location Details",
     "copied": "Copied",
@@ -248,6 +251,7 @@
     "latitude": "Latitude",
     "longitude": "Longitude",
     "googleMaps": "Google Maps",
+    "geoLocationError": "GeoLocation error {{error}}",
     "geoLocationErrors": {
       "message": "Please allow location access to use this feature.",
       "permissionDenied": "Permission denied",
@@ -256,7 +260,11 @@
       "unknownError": "Unknown error"
     },
     "whereAmI": "Where Am I?",
-    "myLocation": "My Location"
+    "myLocation": "My Location",
+    "invalidLocation": {
+      "title": "Invalid Location",
+      "message": "The location you entered or selected is invalid. Please try again or update the location."
+    }
   },
   "form": {
     "filters": "Filters"
