@@ -54,8 +54,20 @@ export interface paths {
   "/api/v1/assignment": {
     post: operations["saveAssignment"];
   };
+  "/api/v1/assignment/start": {
+    post: operations["startAssignment"];
+  };
   "/api/v1/assignment/search": {
     post: operations["searchUserAssignment"];
+  };
+  "/api/v1/assignment/reject": {
+    post: operations["rejectAssignment"];
+  };
+  "/api/v1/assignment/complete": {
+    post: operations["completeAssignment"];
+  };
+  "/api/v1/assignment/approve": {
+    post: operations["approveAssignment"];
   };
   "/api/v1/admins": {
     post: operations["getAdminUsers"];
@@ -90,9 +102,9 @@ export interface components {
       lastName: string;
       phoneNumber: components["schemas"]["AysPhoneNumber"];
       /** Format: double */
-      latitude: number;
-      /** Format: double */
       longitude: number;
+      /** Format: double */
+      latitude: number;
     };
     AysPhoneNumber: {
       countryCode: string;
@@ -175,9 +187,9 @@ export interface components {
     };
     UserLocationSaveRequest: {
       /** Format: double */
-      latitude: number;
-      /** Format: double */
       longitude: number;
+      /** Format: double */
+      latitude: number;
     };
     AysLoginRequest: {
       username: string;
@@ -708,6 +720,16 @@ export interface operations {
       };
     };
   };
+  startAssignment: {
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
+        };
+      };
+    };
+  };
   searchUserAssignment: {
     requestBody: {
       content: {
@@ -719,6 +741,36 @@ export interface operations {
       200: {
         content: {
           "*/*": components["schemas"]["AysResponseAssignmentSearchResponse"];
+        };
+      };
+    };
+  };
+  rejectAssignment: {
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
+        };
+      };
+    };
+  };
+  completeAssignment: {
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
+        };
+      };
+    };
+  };
+  approveAssignment: {
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
         };
       };
     };

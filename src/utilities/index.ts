@@ -35,7 +35,19 @@ type Location = {
 
 export const checkLocationIsValid = (location: Location) => {
   const { lat, lng } = location;
-  if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+
+  return checkLatIsValid(lat) && checkLngIsValid(lng);
+};
+
+export const checkLatIsValid = (lat: number) => {
+  if (lat < -90 || lat > 90) {
+    return false;
+  }
+  return true;
+};
+
+export const checkLngIsValid = (lng: number) => {
+  if (lng < -180 || lng > 180) {
     return false;
   }
   return true;

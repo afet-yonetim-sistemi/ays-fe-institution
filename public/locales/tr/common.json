@@ -211,7 +211,9 @@
     "assignments": {
       "phoneNumber": "Geçersiz telefon numarası",
       "coordinate": "Geçersiz koordinat",
-      "coordinateNotFound": "Koordinatlar bulunamadı."
+      "coordinateNotFound": "Koordinatlar bulunamadı.",
+      "invalidLatitude": "Geçersiz enlem",
+      "invalidLongitude": "Geçersiz boylam"
     }
   },
   "locationModal": {
@@ -227,7 +229,19 @@
     "googleMaps": "Google Haritalar",
     "geoLocationError": "GeoLocation hatası {{error}}",
     "whereAmI": "Neredeyim?",
-    "myLocation": "Konumum"
+    "myLocation": "Konumum",
+    "geoLocationErrors": {
+      "permissionDenied": "İzin reddedildi",
+      "positionUnavailable": "Konum kullanılamıyor",
+      "timeout": "Zaman aşımı",
+      "unknownError": "Bilinmeyen hata",
+      "message": "Bu özelliği kullanmak için lütfen konum erişimine izin verin."
+    },
+    "invalidLocation": {
+      "message": "Girdiğiniz veya seçtiğiniz konum geçersiz. \nLütfen tekrar deneyin veya konumu güncelleyin.",
+      "title": "Geçersiz konum"
+    },
+    "selectLocation": "Konum Seçin"
   },
   "assignments": {
     "title": "Atamalar",

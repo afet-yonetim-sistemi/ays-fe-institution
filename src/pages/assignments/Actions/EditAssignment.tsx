@@ -1,9 +1,12 @@
+import IconButton from "@/components/IconButton";
+import SelectLocation from "@/components/map/SelectLocation";
 import { Assignment } from "@/types";
-import { countryCodes } from "@/utilities";
+import { checkLatIsValid, checkLngIsValid, countryCodes } from "@/utilities";
 import { Edit, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
-import { Col, Drawer, Form, Input, Row, Select } from "antd";
-import { ChangeEvent } from "react";
+import { Col, Drawer, Form, Input, Row, Select, Tooltip } from "antd";
+import { ChangeEvent, useState } from "react";
+import LocationIcon from "@/components/icons/LocationIcon";
 
 type Props = UseDrawerFormReturnType<Assignment>;
 
@@ -14,6 +17,19 @@ export default function EditAssignment({
   form,
   ...props
 }: Props) {
+  const [isMapOpen, setIsMapOpen] = useState(false);
+
+  const onCancel = () => {
+    setIsMapOpen(false);
+  };
+
+  const onOk = (location: { lat: number; lng: number }) => {
+    console.log("location", location);
+    form.setFieldValue("latitude", location.lat);
+    form.setFieldValue("longitude", location.lng);
+    setIsMapOpen(false);
+  };
+
   const t = useTranslate();
   const record = props?.queryResult?.data?.data;
   const formatPhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +48,17 @@ export default function EditAssignment({
 
   return (
     <Drawer {...drawerProps} title={t("assignments.actions.edit")}>
+      <SelectLocation
+        open={isMapOpen}
+        id={record?.id ?? ""}
+        onCancel={onCancel}
+        onOk={onOk}
+        modalTitle={t("locationModal.selectLocation")}
+        location={{
+          lat: form.getFieldValue("latitude"),
+          lng: form.getFieldValue("longitude"),
+        }}
+      />
       <Edit
         headerButtons={<></>}
         recordItemId={props.id}
@@ -81,7 +108,15 @@ export default function EditAssignment({
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^\p{L}\s]+/gu, "")
+                  .replace(/[0-9]/g, "")
+                  .replace("  ", " ");
+                form.setFieldValue("firstName", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             name="lastName"
@@ -101,7 +136,15 @@ export default function EditAssignment({
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^\p{L}\s]+/gu, "")
+                  .replace(/[0-9]/g, "")
+                  .replace("  ", " ");
+                form.setFieldValue("lastName", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             name="description"
@@ -163,21 +206,22 @@ export default function EditAssignment({
           </Form.Item>
           <Form.Item label={t("assignments.fields.coordinates")}>
             <Row gutter={8}>
-              <Col span={12}>
+              <Col span={11}>
                 <Form.Item
                   name="latitude"
-                  noStyle
                   rules={[
                     {
                       validator: (_, value) => {
-                        console.log(value);
                         if (!value) {
                           return Promise.reject(t("formErrors.required"));
+                        }
+                        if (!checkLatIsValid(value)) {
+                          return Promise.reject(t("formErrors.assignments.invalidLatitude"));
                         }
                         if (/^[0-9.]*$/.test(value)) {
                           return Promise.resolve();
                         }
-                        return Promise.reject(t("formErrors.assignments.coordinate"));
+                        return Promise.reject(t("formErrors.assignments.invalidLatitude"));
                       },
                     },
                   ]}
@@ -186,21 +230,22 @@ export default function EditAssignment({
                   <Input maxLength={15} placeholder={t("assignments.fields.latitude")} />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col span={11}>
                 <Form.Item
                   name="longitude"
-                  noStyle
                   rules={[
                     {
                       validator: (_, value) => {
-                        console.log(value);
                         if (!value) {
                           return Promise.reject(t("formErrors.required"));
+                        }
+                        if (!checkLngIsValid(value)) {
+                          return Promise.reject(t("formErrors.assignments.invalidLongitude"));
                         }
                         if (/^[0-9.]*$/.test(value)) {
                           return Promise.resolve();
                         }
-                        return Promise.reject(t("formErrors.assignments.coordinate"));
+                        return Promise.reject(t("formErrors.assignments.invalidLatitude"));
                       },
                     },
                   ]}
@@ -208,6 +253,16 @@ export default function EditAssignment({
                 >
                   <Input maxLength={15} placeholder={t("assignments.fields.longitude")} />
                 </Form.Item>
+              </Col>
+              <Col
+                span={2}
+                style={{
+                  alignSelf: "start",
+                }}
+              >
+                <Tooltip title={t("locationModal.selectLocation")}>
+                  <IconButton icon={<LocationIcon />} onClick={() => setIsMapOpen(true)} />
+                </Tooltip>
               </Col>
             </Row>
           </Form.Item>
