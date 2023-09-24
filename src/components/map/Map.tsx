@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { ResizeMap } from "./ResizeMap";
 import { Modal, Popover, QRCode, Row, Col, Alert } from "antd";
 import { useTranslate } from "@refinedev/core";
@@ -8,16 +8,25 @@ import CopyIcon from "../icons/CopyIcon";
 import PhoneIcon from "../icons/PhoneIcon";
 import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import GoogleMapIcon from "../icons/GoogleMapIcon";
-import { checkLocationIsValid, getDistance } from "@/utilities";
+import { checkLocationIsValid } from "@/utilities";
+import CustomMarker from "./CustomMarker";
 type Props = {
   location: [number, number];
   open: boolean;
   id?: string;
   onCancel?: () => void;
   title?: string;
+  isMyLocation?: boolean;
 };
 
-export default function Map({ location, open, id = "", onCancel, title }: Props) {
+export default function Map({
+  location,
+  open,
+  id = "",
+  onCancel,
+  title,
+  isMyLocation = false,
+}: Props) {
   const t = useTranslate();
   const modalTitle = title || t("table.location");
 
@@ -125,7 +134,7 @@ export default function Map({ location, open, id = "", onCancel, title }: Props)
             attribution="Google Maps"
             url="https://www.google.com.tr/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
           />
-          <Marker position={location}></Marker>
+          <CustomMarker position={location} isMyLocation={isMyLocation} />
           <ResizeMap id={mapId} />
         </MapContainer>
       )}
