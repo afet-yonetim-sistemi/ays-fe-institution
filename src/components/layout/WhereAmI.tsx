@@ -19,6 +19,7 @@ export default function WhereAmI({ location, open, onCancel }: Props) {
       onCancel={onCancel}
       id={mapId}
       title={t("locationModal.myLocation")}
+      isMyLocation
     />
   );
 }

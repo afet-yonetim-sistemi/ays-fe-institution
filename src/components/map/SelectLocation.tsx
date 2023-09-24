@@ -5,6 +5,7 @@ import { LatLngExpression } from "leaflet";
 import { useTranslate } from "@refinedev/core";
 import { Modal } from "antd";
 import { ResizeMap } from "./ResizeMap";
+import CustomMarker from "./CustomMarker";
 
 type Props = {
   open: boolean;
@@ -89,7 +90,7 @@ function SelectLocation({ open, id = "", onCancel, modalTitle, onOk, location }:
           // make map is available in turkish
         />
         <LocationMarker />
-        {selectedLocation && <Marker position={selectedLocation} draggable></Marker>}
+        {selectedLocation && <CustomMarker position={selectedLocation} draggable></CustomMarker>}
         <ResizeMap id={mapId} />
       </MapContainer>
     </Modal>
