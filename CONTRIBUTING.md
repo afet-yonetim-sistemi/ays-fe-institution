@@ -116,7 +116,7 @@ By improving and maintaining documentation alongside your code contributions, yo
 
 ## Community
 
-Join our community discussions and help others on the project's [GitHub Discussions](https://github.com/afet-yonetim-sistemi/ays-fe-institution/discussions) page. Engaging with the community is a great way to learn, share knowledge, and collaborate with other contributors and users of the project.
+Join our community discussions and help others on the project's [GitHub Discussions](https://github.com/orgs/afet-yonetim-sistemi/discussions) page. Engaging with the community is a great way to learn, share knowledge, and collaborate with other contributors and users of the project.
 
 In discussions, you can:
 
