@@ -37,6 +37,12 @@ import { useState } from "react";
 import AuthChecker from "./components/AuthChecker";
 import { UserTypes } from "./types";
 
+if (ENV.NODE_ENV === "production") {
+  console.log = () => null;
+  console.warn = () => null;
+  console.error = () => null;
+}
+
 function App() {
   const { t, i18n } = useTranslation();
   const [userType, setUserType] = useState<UserTypes>("GUEST");

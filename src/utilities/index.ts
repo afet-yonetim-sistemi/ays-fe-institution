@@ -2,12 +2,14 @@ export type Config = {
   PUBLIC_API_URL: string;
   API_URL: string;
   TOKEN_KEY: string;
+  NODE_ENV:string;
 };
 
 export const ENV: Config = {
   PUBLIC_API_URL: import.meta.env.VITE_API_BASE_URL as string,
   API_URL: (import.meta.env.VITE_API_BASE_URL + "/api/v1") as string,
   TOKEN_KEY: import.meta.env.VITE_TOKEN as string,
+  NODE_ENV: import.meta.env.VITE_NODE_ENV as string
 };
 
 export type CountryCode = {
