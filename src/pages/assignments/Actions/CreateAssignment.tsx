@@ -148,7 +148,12 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value.replace("  ", " ");
+                form.setFieldValue("description", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             style={{ marginBottom: 8 }}
