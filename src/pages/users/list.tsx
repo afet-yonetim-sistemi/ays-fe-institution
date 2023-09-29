@@ -37,7 +37,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
 
   const { open } = useNotification();
 
-  const { filters, tableProps } = useTable<User>({
+  const { filters, tableProps, tableQueryResult } = useTable<User>({
     resource: "users",
     filters: {
       permanent: [
@@ -254,6 +254,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
                             resource: t("resources.users.singular"),
                           }),
                         });
+                      tableQueryResult.refetch();
                     }}
                   />
                 </>

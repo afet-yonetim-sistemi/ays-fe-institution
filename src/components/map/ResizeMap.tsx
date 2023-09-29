@@ -14,10 +14,13 @@ export const ResizeMap = ({ id }: Props) => {
     });
 
     const container = document.getElementById(id);
-    resizeObserver.observe(container!);
+    if (!container) return;
+    resizeObserver.observe(container);
+    console.log("observe");
 
     return () => {
-      resizeObserver.unobserve(container!);
+      console.log("unobserve");
+      resizeObserver.unobserve(container);
     };
   }, [id, map]);
 

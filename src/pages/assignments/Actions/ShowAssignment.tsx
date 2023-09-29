@@ -7,11 +7,11 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import TwoLocationMap from "@/components/map/TwoLocationMap";
 
-const {Title, Text} = Typography;
+const { Title, Text } = Typography;
 
 type Props = useShowReturnType<SingleAssignment> & {
-    setVisibleShowDrawer: (visible: boolean) => void;
-    visibleShowDrawer: boolean;
+  setVisibleShowDrawer: (visible: boolean) => void;
+  visibleShowDrawer: boolean;
 };
 
 export default function ShowAssignment({setVisibleShowDrawer, visibleShowDrawer, ...props}: Props) {

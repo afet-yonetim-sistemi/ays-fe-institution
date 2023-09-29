@@ -1,14 +1,28 @@
+import IconButton from "@/components/IconButton";
+import SelectLocation from "@/components/map/SelectLocation";
 import { Assignment } from "@/types";
-import { countryCodes } from "@/utilities";
+import { checkLatIsValid, checkLngIsValid, countryCodes } from "@/utilities";
 import { Create, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
-import { Col, Drawer, Form, Input, Row, Select } from "antd";
-import { ChangeEvent } from "react";
+import { Col, Drawer, Form, Input, Row, Select, Tooltip } from "antd";
+import { ChangeEvent, useState } from "react";
+import LocationIcon from "@/components/icons/LocationIcon";
 
 type Props = UseDrawerFormReturnType<Assignment>;
 
 export default function CreateAssignment({ formProps, drawerProps, saveButtonProps, form }: Props) {
   const t = useTranslate();
+  const [isMapOpen, setIsMapOpen] = useState(false);
+
+  const onCancel = () => {
+    setIsMapOpen(false);
+  };
+
+  const onOk = (location: { lat: number; lng: number }) => {
+    formProps.form.setFieldValue("latitude", location.lat);
+    formProps.form.setFieldValue("longitude", location.lng);
+    setIsMapOpen(false);
+  };
 
   const formatPhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue("phoneNumber", {
@@ -26,6 +40,17 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
 
   return (
     <Drawer {...drawerProps} title={t("assignments.actions.create")}>
+      <SelectLocation
+        open={isMapOpen}
+        id="create-assignment"
+        onCancel={onCancel}
+        onOk={onOk}
+        modalTitle={t("locationModal.selectLocation")}
+        location={{
+          lat: form.getFieldValue("latitude") ?? null,
+          lng: form.getFieldValue("longitude") ?? null,
+        }}
+      />
       <Create
         saveButtonProps={saveButtonProps}
         resource="assignment"
@@ -67,7 +92,15 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^\p{L}\s]+/gu, "")
+                  .replace(/[0-9]/g, "")
+                  .replace("  ", " ");
+                form.setFieldValue("firstName", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             name="lastName"
@@ -87,7 +120,15 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^\p{L}\s]+/gu, "")
+                  .replace(/[0-9]/g, "")
+                  .replace("  ", " ");
+                form.setFieldValue("lastName", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             name="description"
@@ -147,34 +188,65 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
               </Col>
             </Row>
           </Form.Item>
-          <Form.Item
-            name="coordinates"
-            label={t("assignments.fields.coordinates")}
-            rules={[
-              {
-                validator: (_, value) => {
-                  if (!value) {
-                    return Promise.reject(t("formErrors.required"));
-                  }
-                  if (/^[0-9.]*$/.test(value)) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(t("formErrors.assignments.coordinate"));
-                },
-              },
-            ]}
-            required
-          >
+          <Form.Item label={t("assignments.fields.coordinates")}>
             <Row gutter={8}>
-              <Col span={12}>
-                <Form.Item name="latitude" noStyle>
+              <Col span={11}>
+                <Form.Item
+                  name="latitude"
+                  rules={[
+                    {
+                      validator: (_, value) => {
+                        if (!value) {
+                          return Promise.reject(t("formErrors.required"));
+                        }
+                        if (!checkLatIsValid(value)) {
+                          return Promise.reject(t("formErrors.assignments.invalidLatitude"));
+                        }
+                        if (/^[0-9.]*$/.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(t("formErrors.assignments.invalidLatitude"));
+                      },
+                    },
+                  ]}
+                  required
+                >
                   <Input maxLength={15} placeholder={t("assignments.fields.latitude")} />
                 </Form.Item>
               </Col>
-              <Col span={12}>
-                <Form.Item name="longitude" noStyle>
+              <Col span={11}>
+                <Form.Item
+                  name="longitude"
+                  rules={[
+                    {
+                      validator: (_, value) => {
+                        if (!value) {
+                          return Promise.reject(t("formErrors.required"));
+                        }
+                        if (!checkLngIsValid(value)) {
+                          return Promise.reject(t("formErrors.assignments.invalidLongitude"));
+                        }
+                        if (/^[0-9.]*$/.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(t("formErrors.assignments.invalidLatitude"));
+                      },
+                    },
+                  ]}
+                  required
+                >
                   <Input maxLength={15} placeholder={t("assignments.fields.longitude")} />
                 </Form.Item>
+              </Col>
+              <Col
+                span={2}
+                style={{
+                  alignSelf: "start",
+                }}
+              >
+                <Tooltip title={t("locationModal.selectLocation")}>
+                  <IconButton icon={<LocationIcon />} onClick={() => setIsMapOpen(true)} />
+                </Tooltip>
               </Col>
             </Row>
           </Form.Item>

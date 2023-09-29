@@ -43,7 +43,7 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
     resource: "assignment",
   });
 
-  const { filters, tableProps, searchFormProps } = useTable<Assignment>({
+  const { filters, tableProps, searchFormProps, tableQueryResult } = useTable<Assignment>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSearch: (params: any) => {
       const filters: CrudFilters = [];
@@ -184,39 +184,44 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
                   />
                 </Tooltip>
                 <ShowButton
-                    hideText
-                    size="small"
-                    recordItemId={record.id}
-                    onClick={() => {
-                      showDrawerProps.setShowId(record.id);
-                      setVisibleShowDrawer(true);
-                    }}
-                    color="primary"
-                />
-                <EditButton
+                  hideText
                   size="middle"
                   recordItemId={record.id}
-                  resource="assignment"
-                  onClick={() => editDrawerProps.show(record.id)}
-                  hideText
-                />
-                <DeleteButton
-                  size="middle"
-                  recordItemId={record.id}
-                  resource="assignment"
-                  successNotification={false}
-                  hideText
-                  onSuccess={() => {
-                    open &&
-                      open({
-                        type: "success",
-                        description: t("notifications.success"),
-                        message: t("notifications.deleteSuccess", {
-                          resource: t("resources.assignments.singular"),
-                        }),
-                      });
+                  onClick={() => {
+                    showDrawerProps.setShowId(record.id);
+                    setVisibleShowDrawer(true);
                   }}
+                  color="primary"
                 />
+                {record.status === "AVAILABLE" && (
+                  <>
+                    <EditButton
+                      size="middle"
+                      recordItemId={record.id}
+                      resource="assignment"
+                      onClick={() => editDrawerProps.show(record.id)}
+                      hideText
+                    />
+                    <DeleteButton
+                      size="middle"
+                      recordItemId={record.id}
+                      resource="assignment"
+                      successNotification={false}
+                      hideText
+                      onSuccess={() => {
+                        open &&
+                          open({
+                            type: "success",
+                            description: t("notifications.success"),
+                            message: t("notifications.deleteSuccess", {
+                              resource: t("resources.assignments.singular"),
+                            }),
+                          });
+                        tableQueryResult.refetch();
+                      }}
+                    />
+                  </>
+                )}
               </Space>
             )}
           />
@@ -224,9 +229,9 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
         <CreateAssignment {...createDrawerProps} />
         <EditAssignment {...editDrawerProps} />
         <ShowAssignment
-            {...showDrawerProps}
-            visibleShowDrawer={visibleShowDrawer}
-            setVisibleShowDrawer={setVisibleShowDrawer}
+          {...showDrawerProps}
+          visibleShowDrawer={visibleShowDrawer}
+          setVisibleShowDrawer={setVisibleShowDrawer}
         />
       </List>
     </>
