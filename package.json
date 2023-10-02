@@ -59,7 +59,8 @@
     "preview": "refine start",
     "refine": "refine",
     "open-api": "node open-api-setter.js",
-    "postinstall": "npm run open-api"
+    "postinstall": "npm run open-api",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "browserslist": {
     "production": [
