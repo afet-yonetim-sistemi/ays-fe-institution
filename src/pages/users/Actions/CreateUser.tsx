@@ -117,7 +117,7 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
                   }
                   if (selectedCountry === "TR") {
                     if (!/^5/.test(value) || value.length !== 10) {
-                      return Promise.reject(t("formErrors.assignments.phoneNumber"));
+                      return Promise.reject(t("formErrors.users.phoneNumber"));
                     }
                   }
 
