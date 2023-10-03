@@ -3,13 +3,13 @@ import { countryCodes } from "@/utilities";
 import { Create, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
 import { Col, Drawer, Form, Input, Row, Select } from "antd";
-import { ChangeEvent } from "react";
-// import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 type Props = UseDrawerFormReturnType<User>;
 
 export default function CreateUser({ formProps, drawerProps, saveButtonProps, form }: Props) {
   const t = useTranslate();
+  const [selectedCountry, setSelectedCountry] = useState("TR");
 
   const formatPhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue("phoneNumber", {
@@ -23,6 +23,7 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
       ...form.getFieldValue("phoneNumber"),
       countryCode: value.replace("+", ""),
     });
+    setSelectedCountry("TR");
   };
 
   const validateName = (value: string) => {
@@ -114,6 +115,12 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
                   if (!/^\d{10}$/.test(value)) {
                     return Promise.reject(t("formErrors.users.phoneNumber"));
                   }
+                  if (selectedCountry === "TR") {
+                    if (!/^5/.test(value) || value.length !== 10) {
+                      return Promise.reject(t("formErrors.assignments.phoneNumber"));
+                    }
+                  }
+
                   return Promise.resolve();
                 },
               },

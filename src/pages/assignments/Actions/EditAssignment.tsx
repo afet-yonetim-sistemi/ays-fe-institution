@@ -17,7 +17,9 @@ export default function EditAssignment({
   form,
   ...props
 }: Props) {
+  const t = useTranslate();
   const [isMapOpen, setIsMapOpen] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState("TR");
 
   const onCancel = () => {
     setIsMapOpen(false);
@@ -30,7 +32,6 @@ export default function EditAssignment({
     setIsMapOpen(false);
   };
 
-  const t = useTranslate();
   const record = props?.queryResult?.data?.data;
   const formatPhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue("phoneNumber", {
@@ -44,6 +45,7 @@ export default function EditAssignment({
       ...form.getFieldValue("phoneNumber"),
       countryCode: value.replace("+", ""),
     });
+    setSelectedCountry("TR");
   };
 
   return (
@@ -185,6 +187,13 @@ export default function EditAssignment({
                   if (!/^\d{10}$/.test(value)) {
                     return Promise.reject(t("formErrors.assignments.phoneNumber"));
                   }
+
+                  if (selectedCountry === "TR") {
+                    if (!/^5/.test(value) || value.length !== 10) {
+                      return Promise.reject(t("formErrors.assignments.phoneNumber"));
+                    }
+                  }
+
                   return Promise.resolve();
                 },
               },

@@ -13,6 +13,7 @@ type Props = UseDrawerFormReturnType<Assignment>;
 export default function CreateAssignment({ formProps, drawerProps, saveButtonProps, form }: Props) {
   const t = useTranslate();
   const [isMapOpen, setIsMapOpen] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState("TR");
 
   const onCancel = () => {
     setIsMapOpen(false);
@@ -36,6 +37,7 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
       ...form.getFieldValue("phoneNumber"),
       countryCode: value.replace("+", ""),
     });
+    setSelectedCountry("TR");
   };
 
   return (
@@ -169,6 +171,13 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
                   if (!/^\d{10}$/.test(value)) {
                     return Promise.reject(t("formErrors.assignments.phoneNumber"));
                   }
+
+                  if (selectedCountry === "TR") {
+                    if (!/^5/.test(value) || value.length !== 10) {
+                      return Promise.reject(t("formErrors.assignments.phoneNumber"));
+                    }
+                  }
+
                   return Promise.resolve();
                 },
               },
