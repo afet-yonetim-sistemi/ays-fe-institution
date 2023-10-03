@@ -23,7 +23,7 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
       ...form.getFieldValue("phoneNumber"),
       countryCode: value.replace("+", ""),
     });
-    setSelectedCountry("TR");
+    setSelectedCountry(value === "+994" ? "AZ" : "TR");
   };
 
   const validateName = (value: string) => {

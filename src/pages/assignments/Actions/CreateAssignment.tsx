@@ -37,7 +37,7 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
       ...form.getFieldValue("phoneNumber"),
       countryCode: value.replace("+", ""),
     });
-    setSelectedCountry("TR");
+    setSelectedCountry(value === "+994" ? "AZ" : "TR");
   };
 
   return (

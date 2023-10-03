@@ -45,7 +45,7 @@ export default function EditAssignment({
       ...form.getFieldValue("phoneNumber"),
       countryCode: value.replace("+", ""),
     });
-    setSelectedCountry("TR");
+    setSelectedCountry(value === "+994" ? "AZ" : "TR");
   };
 
   return (
