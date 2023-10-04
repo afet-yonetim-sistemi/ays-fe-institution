@@ -43,6 +43,8 @@ export default function ShowAssignment({
         <Text>{record?.lastName}</Text>
         <Title level={5}>{t("assignments.fields.description")}</Title>
         <Text>{record?.description}</Text>
+        <Title level={5}>{t("assignments.fields.phoneNumber")}</Title>
+        <Text>{record?.phoneNumber?.countryCode} {record?.phoneNumber?.lineNumber}</Text>
         {record?.user?.location && record?.location ? (
           <>
             <Title level={5}>{t("assignments.fields.coordinates")}</Title>
