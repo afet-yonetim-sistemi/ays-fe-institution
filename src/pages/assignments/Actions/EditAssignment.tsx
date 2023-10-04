@@ -105,8 +105,8 @@ export default function EditAssignment({
                 message: t("formErrors.minLength", { min: "2" }),
               },
               {
-                max: 35,
-                message: t("formErrors.maxLength", { max: "35" }),
+                max: 255,
+                message: t("formErrors.maxLength", { max: "255" }),
               },
             ]}
           >
@@ -133,8 +133,8 @@ export default function EditAssignment({
                 message: t("formErrors.minLength", { min: "2" }),
               },
               {
-                max: 35,
-                message: t("formErrors.maxLength", { max: "35" }),
+                max: 255,
+                message: t("formErrors.maxLength", { max: "255" }),
               },
             ]}
           >
@@ -161,8 +161,8 @@ export default function EditAssignment({
                 message: t("formErrors.minLength", { min: "2" }),
               },
               {
-                max: 35,
-                message: t("formErrors.maxLength", { max: "50" }),
+                max: 2045,
+                message: t("formErrors.maxLength", { max: "2048" }),
               },
             ]}
           >
