@@ -16,21 +16,22 @@
   },
   "pages": {
     "login": {
-      "title": "Hesabınıza giriş yapın",
+      "title": "Hoş Geldiniz",
+      "subtitle": "Lütfen Kullanıcı Adınızı ve Şifrenizi giriniz.",
       "signin": "Giriş Yap",
       "signup": "Kayıt Ol",
       "divider": "veya",
       "fields": {
         "username": "Kullanıcı Adı",
         "email": "E-posta",
-        "password": "Parola"
+        "password": "Şifre"
       },
       "errors": {
         "validEmail": "Geçersiz e-posta adresi",
         "invalidCredentials": "Kullanıcı adı veya parola hatalı"
       },
       "buttons": {
-        "submit": "Giriş",
+        "submit": "Oturum Aç",
         "forgotPassword": "Parolanızı mı unuttunuz?",
         "noAccount": "Hesabınız yok mu?",
         "rememberMe": "Beni Hatırla"

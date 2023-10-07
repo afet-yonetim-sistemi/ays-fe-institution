@@ -6,11 +6,29 @@
   margin: auto;
 }
 
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title-container img {
+  width: 40%;
+}
+
 .title {
   text-align: center;
   color: #626262;
   font-size: 30px;
   letter-spacing: -0.04em;
+}
+
+.subtitle {
+  text-align: center;
+  letter-spacing: -0.04em;
+  font-weight: 300;
+  font-size: 1em;
 }
 
 .imageContainer {

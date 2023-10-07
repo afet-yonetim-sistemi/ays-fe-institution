@@ -4,7 +4,7 @@ import { Row, Col, Layout as AntdLayout, Card, Typography, Form, Input, Button }
 import "./styles.css";
 import { NoAuthHeader } from "@/components/noauth-header";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 export interface ILoginForm {
   username: string;
@@ -19,9 +19,13 @@ export const Login: React.FC = () => {
   const { mutate: login } = useLogin<ILoginForm>();
 
   const CardTitle = (
-    <Title level={3} className="title">
-      {t("pages.login.title")}
-    </Title>
+    <div className="title-container">
+      <img src="logo-radius.jpg" />
+      <Title level={3} className="title">
+        {t("pages.login.title")}
+      </Title>
+      <Text className="subtitle">{t("pages.login.subtitle")}</Text>
+    </div>
   );
 
   return (
