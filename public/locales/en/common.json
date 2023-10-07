@@ -2,7 +2,8 @@
   "title": "AYS",
   "pages": {
     "login": {
-      "title": "Sign in to your account",
+      "title": "Welcome",
+      "subtitle": "Please enter your Username and Password.",
       "signin": "Sign in",
       "signup": "Sign up",
       "divider": "or",
