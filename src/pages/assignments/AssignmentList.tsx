@@ -155,7 +155,14 @@ export const AssignmentList: React.FC<IResourceComponentsProps> = () => {
           </>
         )}
       >
-        <Table<Assignment> rowKey="id" {...tableProps}>
+        <Table<Assignment>
+          rowKey="id"
+          {...tableProps}
+          pagination={{
+            ...tableProps.pagination,
+            pageSizeOptions: [10],
+          }}
+        >
           <Table.Column
             key="name"
             dataIndex="firstName"

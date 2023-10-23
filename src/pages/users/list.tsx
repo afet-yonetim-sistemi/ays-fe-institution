@@ -181,7 +181,14 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           </Typography.Text>
         </Space>
       </Modal>
-      <Table rowKey="id" {...tableProps}>
+      <Table
+        rowKey="id"
+        {...tableProps}
+        pagination={{
+          ...tableProps.pagination,
+          pageSizeOptions: [10],
+        }}
+      >
         <Table.Column
           dataIndex="firstName"
           title={t("users.fields.firstName")}
