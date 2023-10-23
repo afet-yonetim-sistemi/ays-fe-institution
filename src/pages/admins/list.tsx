@@ -40,7 +40,14 @@ export const AdminList: React.FC<IResourceComponentsProps> = () => {
 
   return (
     <List title={t("admins.title")} canCreate={false}>
-      <Table rowKey="id" dataSource={tableProps.dataSource || []}>
+      <Table
+        rowKey="id"
+        dataSource={tableProps.dataSource || []}
+        pagination={{
+          ...tableProps.pagination,
+          pageSizeOptions: [10],
+        }}
+      >
         <Table.Column dataIndex="firstName" title={t("users.fields.firstName")} />
         <Table.Column dataIndex="lastName" title={t("users.fields.lastName")} />
         <Table.Column
