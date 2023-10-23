@@ -1,12 +1,11 @@
-import IconButton from "@/components/IconButton";
 import SelectLocation from "@/components/map/SelectLocation";
 import { Assignment } from "@/types";
-import { checkLatIsValid, checkLngIsValid, countryCodes } from "@/utilities";
+import { checkLatIsValid, countryCodes } from "@/utilities";
 import { Edit, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
-import { Col, Drawer, Form, Input, Row, Select, Tooltip } from "antd";
+import { Button, Col, Drawer, Form, Input, Row, Select } from "antd";
 import { ChangeEvent, useState } from "react";
-import LocationIcon from "@/components/icons/LocationIcon";
+import { SelectOutlined } from "@ant-design/icons";
 
 type Props = UseDrawerFormReturnType<Assignment>;
 
@@ -47,6 +46,9 @@ export default function EditAssignment({
     });
     setSelectedCountry(value === "+994" ? "AZ" : "TR");
   };
+  const isLocationValid = !!(
+    formProps.form.getFieldValue("latitude") && formProps.form.getFieldValue("longitude")
+  );
 
   return (
     <Drawer {...drawerProps} title={t("assignments.actions.edit")}>
@@ -220,7 +222,7 @@ export default function EditAssignment({
           </Form.Item>
           <Form.Item label={t("assignments.fields.coordinates")}>
             <Row gutter={8}>
-              <Col span={11}>
+              <Col span={24}>
                 <Form.Item
                   name="latitude"
                   rules={[
@@ -241,20 +243,26 @@ export default function EditAssignment({
                   ]}
                   required
                 >
-                  <Input maxLength={15} placeholder={t("assignments.fields.latitude")} />
+                  <Button
+                    block
+                    icon={<SelectOutlined />}
+                    type={isLocationValid ? "primary" : "default"}
+                    onClick={() => setIsMapOpen(true)}
+                  >
+                    {t("locationModal.selectLocation")}
+                  </Button>
                 </Form.Item>
-              </Col>
-              <Col span={11}>
                 <Form.Item
                   name="longitude"
+                  hidden
                   rules={[
                     {
                       validator: (_, value) => {
                         if (!value) {
                           return Promise.reject(t("formErrors.required"));
                         }
-                        if (!checkLngIsValid(value)) {
-                          return Promise.reject(t("formErrors.assignments.invalidLongitude"));
+                        if (!checkLatIsValid(value)) {
+                          return Promise.reject(t("formErrors.assignments.invalidLatitude"));
                         }
                         if (/^[0-9.]*$/.test(value)) {
                           return Promise.resolve();
@@ -264,19 +272,7 @@ export default function EditAssignment({
                     },
                   ]}
                   required
-                >
-                  <Input maxLength={15} placeholder={t("assignments.fields.longitude")} />
-                </Form.Item>
-              </Col>
-              <Col
-                span={2}
-                style={{
-                  alignSelf: "start",
-                }}
-              >
-                <Tooltip title={t("locationModal.selectLocation")}>
-                  <IconButton icon={<LocationIcon />} onClick={() => setIsMapOpen(true)} />
-                </Tooltip>
+                ></Form.Item>
               </Col>
             </Row>
           </Form.Item>
