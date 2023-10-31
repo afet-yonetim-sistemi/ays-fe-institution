@@ -83,7 +83,15 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^\p{L}\s]+/gu, "")
+                  .replace(/[0-9]/g, "")
+                  .replace("  ", " ");
+                form.setFieldValue("firstName", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             name="lastName"
@@ -97,7 +105,15 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^\p{L}\s]+/gu, "")
+                  .replace(/[0-9]/g, "")
+                  .replace("  ", " ");
+                form.setFieldValue("lastName", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             style={{ marginBottom: 8 }}
