@@ -3,13 +3,12 @@ import { countryCodes } from "@/utilities";
 import { Create, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
 import { Col, Drawer, Form, Input, Row, Select } from "antd";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 
 type Props = UseDrawerFormReturnType<User>;
 
 export default function CreateUser({ formProps, drawerProps, saveButtonProps, form }: Props) {
   const t = useTranslate();
-  const [selectedCountry, setSelectedCountry] = useState("TR");
 
   const formatPhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue("phoneNumber", {
@@ -23,7 +22,6 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
       ...form.getFieldValue("phoneNumber"),
       countryCode: value.replace("+", ""),
     });
-    setSelectedCountry(value === "+994" ? "AZ" : "TR");
   };
 
   const validateName = (value: string) => {
@@ -85,7 +83,15 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^\p{L}\s]+/gu, "")
+                  .replace(/[0-9]/g, "")
+                  .replace("  ", " ");
+                form.setFieldValue("firstName", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             name="lastName"
@@ -99,7 +105,15 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
               },
             ]}
           >
-            <Input />
+            <Input
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^\p{L}\s]+/gu, "")
+                  .replace(/[0-9]/g, "")
+                  .replace("  ", " ");
+                form.setFieldValue("lastName", value);
+              }}
+            />
           </Form.Item>
           <Form.Item
             style={{ marginBottom: 8 }}
@@ -115,12 +129,6 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
                   if (!/^\d{10}$/.test(value)) {
                     return Promise.reject(t("formErrors.users.phoneNumber"));
                   }
-                  if (selectedCountry === "TR") {
-                    if (!/^5/.test(value) || value.length !== 10) {
-                      return Promise.reject(t("formErrors.users.phoneNumber"));
-                    }
-                  }
-
                   return Promise.resolve();
                 },
               },

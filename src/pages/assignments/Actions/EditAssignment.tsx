@@ -18,7 +18,6 @@ export default function EditAssignment({
 }: Props) {
   const t = useTranslate();
   const [isMapOpen, setIsMapOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState("TR");
 
   const onCancel = () => {
     setIsMapOpen(false);
@@ -44,7 +43,6 @@ export default function EditAssignment({
       ...form.getFieldValue("phoneNumber"),
       countryCode: value.replace("+", ""),
     });
-    setSelectedCountry(value === "+994" ? "AZ" : "TR");
   };
   const isLocationValid = !!(
     formProps.form.getFieldValue("latitude") && formProps.form.getFieldValue("longitude")
@@ -189,13 +187,6 @@ export default function EditAssignment({
                   if (!/^\d{10}$/.test(value)) {
                     return Promise.reject(t("formErrors.assignments.phoneNumber"));
                   }
-
-                  if (selectedCountry === "TR") {
-                    if (!/^5/.test(value) || value.length !== 10) {
-                      return Promise.reject(t("formErrors.assignments.phoneNumber"));
-                    }
-                  }
-
                   return Promise.resolve();
                 },
               },
