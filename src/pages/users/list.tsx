@@ -200,13 +200,6 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           render={(value: string) => <span>{value}</span>}
         />
         <Table.Column
-          dataIndex="institution"
-          title={t("users.fields.institution")}
-          render={(value) => {
-            return <span>{value?.name}</span>;
-          }}
-        />
-        <Table.Column
           dataIndex="role"
           title={t("users.fields.role")}
           render={(value: User["role"]) => {
