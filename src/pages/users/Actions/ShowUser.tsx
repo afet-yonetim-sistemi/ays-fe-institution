@@ -64,8 +64,6 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
         <Text>{record?.firstName}</Text>
         <Title level={5}>{t("users.fields.lastName")}</Title>
         <Text>{record?.lastName}</Text>
-        <Title level={5}>{t("users.fields.institution")}</Title>
-        <Text>{record?.institution?.name}</Text>
         <Title level={5}>{t("users.fields.role")}</Title>
         <Text>{t("roles." + record?.role)}</Text>
         <Title level={5}>{t("users.fields.status")}</Title>
