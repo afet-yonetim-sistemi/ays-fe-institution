@@ -191,11 +191,11 @@
     "RETURN": "Dönüyor"
   },
   "assignmentStatuses": {
-    "ASSIGNED": "Atandı",
-    "AVAILABLE": "Uygun",
-    "DONE": "Tamamlandır",
-    "IN_PROGRESS": "Devam etmekte",
-    "RESERVED": "Rezerve edildi"
+    "ASSIGNED": "Atanmış",
+    "AVAILABLE": "Atanmaya Müsait",
+    "DONE": "Tamamlandı",
+    "IN_PROGRESS": "Taşınma Durumunda",
+    "RESERVED": "Ayrılmış"
   },
   "roles": {
     "VOLUNTEER": "Gönüllü"
