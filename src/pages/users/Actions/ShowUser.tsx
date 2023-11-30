@@ -37,19 +37,24 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
   const t = useTranslate();
   const { data: showQueryResult } = props.queryResult;
   const record = showQueryResult?.data;
+
+  const titleElement = (
+    <span style={{ fontSize: 18 }}>{t(`${record?.firstName} ${record?.lastName}`)}</span>
+  );
+  const deleteElement =
+    record?.status !== "DELETED" ? (
+      <DeleteButton recordItemId={props.showId} onSuccess={() => setVisibleShowDrawer(false)} />
+    ) : (
+      <></>
+    );
+
   return (
     <Drawer
       open={visibleShowDrawer}
       onClose={() => setVisibleShowDrawer(false)}
       width="500"
-      title={<span style={{ fontSize: 18 }}>{t(record?.firstName + " " + record?.lastName)}</span>}
-      extra={
-        record?.status !== "DELETED" ? (
-          <DeleteButton recordItemId={props.showId} onSuccess={() => setVisibleShowDrawer(false)} />
-        ) : (
-          <></>
-        )
-      }
+      title={titleElement}
+      extra={deleteElement}
     >
       <Title level={5}>{t("users.fields.username")}</Title>
       <Text>{record?.username}</Text>
