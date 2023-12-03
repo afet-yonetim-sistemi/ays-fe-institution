@@ -183,6 +183,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
       </Modal>
       <Table
         rowKey="id"
+        id="users-table"
         {...tableProps}
         pagination={{
           ...tableProps.pagination,
