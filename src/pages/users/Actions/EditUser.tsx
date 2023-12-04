@@ -1,5 +1,5 @@
 import { User } from "@/types";
-import { Edit, UseDrawerFormReturnType } from "@refinedev/antd";
+import { Edit, SaveButton, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
 import { Drawer, Form, Select } from "antd";
 
@@ -14,81 +14,67 @@ export default function EditUser({
 }: Props) {
   const t = useTranslate();
   const values = form.getFieldsValue() as User;
-  const oldValues = props?.queryResult?.data?.data;
-  const disabled = values?.status === oldValues?.status && values.role === oldValues?.role;
+  const record = props?.queryResult?.data?.data;
+  const disabled = values?.status === record?.status && values.role === record?.role;
+
+  const titleElement = (
+    <span style={{ fontSize: 18 }}>{t(`${record?.firstName} ${record?.lastName}`)}</span>
+  );
+
+  const saveElement = <SaveButton {...{ ...saveButtonProps, disabled }} />;
 
   return (
-    <Drawer {...drawerProps} title={t("users.actions.edit")}>
-      <Edit
-        headerButtons={<></>}
-        recordItemId={props.id}
-        saveButtonProps={{ ...saveButtonProps, disabled }}
-        resource="user"
-        goBack={false}
-        contentProps={{
-          style: {
-            boxShadow: "none",
-            background: "none",
-          },
-          bodyStyle: {
-            padding: 0,
-            background: "none",
-          },
+    <Drawer {...drawerProps} title={titleElement} extra={saveElement}>
+      <Form
+        {...formProps}
+        layout="vertical"
+        style={{
+          background: "none",
         }}
-        deleteButtonProps={props.deleteButtonProps}
-        title=""
       >
-        <Form
-          {...formProps}
-          layout="vertical"
-          style={{
-            background: "none",
-          }}
+        <Form.Item
+          name="status"
+          label={t("users.fields.status")}
+          rules={[
+            {
+              required: true,
+              message: t("formErrors.required"),
+            },
+          ]}
         >
-          <Form.Item
-            name="status"
-            label={t("users.fields.status")}
-            rules={[
+          <Select
+            options={[
               {
-                required: true,
-                message: t("formErrors.required"),
+                label: t("statuses.ACTIVE"),
+                value: "ACTIVE",
+              },
+              {
+                label: t("statuses.PASSIVE"),
+                value: "PASSIVE",
               },
             ]}
-          >
-            <Select
-              options={[
-                {
-                  label: t("statuses.ACTIVE"),
-                  value: "ACTIVE",
-                },
-                {
-                  label: t("statuses.PASSIVE"),
-                  value: "PASSIVE",
-                },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item
-            name="role"
-            label={t("users.fields.role")}
-            rules={[
+          />
+        </Form.Item>
+        <Form.Item
+          name="role"
+          label={t("users.fields.role")}
+          rules={[
+            {
+              required: true,
+              message: t("formErrors.required"),
+            },
+          ]}
+        >
+          <Select
+            options={[
               {
-                required: true,
-                message: t("formErrors.required"),
+                label: t("roles.VOLUNTEER"),
+                value: "VOLUNTEER",
               },
             ]}
-          >
-            <Select
-              options={[
-                {
-                  label: t("roles.VOLUNTEER"),
-                  value: "VOLUNTEER",
-                },
-              ]}
-            />
-          </Form.Item>
-        </Form>
-      </Edit>
+          />
+        </Form.Item>
+      </Form>
     </Drawer>
   );
 }
