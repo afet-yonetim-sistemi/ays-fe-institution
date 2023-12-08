@@ -80,7 +80,8 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     },
 
     onMutationSuccess(data) {
-      setNewRecord(data?.data);
+      const newUser = data.data as CreateUserResponse;
+      setNewRecord(newUser);
       show();
       open &&
         open({
