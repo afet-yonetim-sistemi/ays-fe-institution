@@ -80,7 +80,8 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     },
 
     onMutationSuccess(data) {
-      setNewRecord(data?.data);
+      const newUser = data.data as CreateUserResponse;
+      setNewRecord(newUser);
       show();
       open &&
         open({
@@ -183,6 +184,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
       </Modal>
       <Table
         rowKey="id"
+        id="users-table"
         {...tableProps}
         pagination={{
           ...tableProps.pagination,

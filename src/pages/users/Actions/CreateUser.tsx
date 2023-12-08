@@ -148,7 +148,7 @@ export default function CreateUser({ formProps, drawerProps, saveButtonProps, fo
               </Col>
               <Col span={16}>
                 <Form.Item noStyle>
-                  <Input maxLength={10} onChange={formatPhoneNumber} />
+                  <Input maxLength={10} onChange={formatPhoneNumber} id="phoneNumber_lineNumber" />
                 </Form.Item>
               </Col>
             </Row>

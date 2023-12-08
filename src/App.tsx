@@ -99,7 +99,7 @@ function App() {
               <Routes>
                 <Route
                   element={
-                    <Authenticated fallback={<CatchAllNavigate to="/login" />}>
+                    <Authenticated fallback={<CatchAllNavigate to="/login" />} key="dashboard">
                       <ThemedLayoutV2
                         Header={() => <Header sticky />}
                         Sider={(props) => <ThemedSiderV2 {...props} fixed />}
@@ -130,7 +130,7 @@ function App() {
                 </Route>
                 <Route
                   element={
-                    <Authenticated fallback={<Outlet />}>
+                    <Authenticated fallback={<Outlet />} key="auth">
                       <NavigateToResource />
                     </Authenticated>
                   }

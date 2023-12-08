@@ -191,7 +191,7 @@ export default function CreateAssignment({ formProps, drawerProps, saveButtonPro
               </Col>
               <Col span={16}>
                 <Form.Item noStyle>
-                  <Input maxLength={10} onChange={formatPhoneNumber} />
+                  <Input maxLength={10} onChange={formatPhoneNumber} id="phoneNumber_lineNumber" />
                 </Form.Item>
               </Col>
             </Row>

@@ -102,7 +102,7 @@ const AssignmentFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilter
         </Col>
         <Col xs={24}>
           <Form.Item>
-            <Button htmlType="submit" type="primary" size="large" block>
+            <Button htmlType="submit" type="primary" size="large" block id="filter-button">
               {t("buttons.filter")}
             </Button>
           </Form.Item>
