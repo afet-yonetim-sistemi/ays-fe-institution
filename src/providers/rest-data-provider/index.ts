@@ -182,6 +182,8 @@ export const dataProvider = (
     }
 
     if (headers) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       httpClient.defaults.headers = {
         ...httpClient.defaults.headers,
         ...headers,
