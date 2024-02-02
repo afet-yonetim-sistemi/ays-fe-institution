@@ -1,5 +1,5 @@
 import React, { CSSProperties, useContext } from "react";
-import { Layout, Menu, Grid, Drawer, Button, theme, Divider, Typography } from "antd";
+import { Layout, Menu, Grid, Drawer, Button, theme, Typography } from "antd";
 import {
   DashboardOutlined,
   LogoutOutlined,
@@ -217,6 +217,8 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
           <Typography.Text
             style={{
               color: mode === "light" ? token.colorPrimary : "white",
+              fontSize: "0.95em",
+              marginTop: "1.3em",
             }}
           >
             UI v{packageJson.version} | API v{appVersion?.application.version}
