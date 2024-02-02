@@ -1,6 +1,5 @@
 import {
   CrudFilters,
-  CrudSorting,
   IResourceComponentsProps,
   getDefaultFilter,
   useNotification,
@@ -41,11 +40,10 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
 
   const { open } = useNotification();
 
-  const { filters, sorter, tableProps, searchFormProps, tableQueryResult } = useTable<SingleUser>({
+  const { filters, tableProps, searchFormProps, tableQueryResult } = useTable<SingleUser>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSearch: (params: any) => {
       const filters: CrudFilters = [];
-      const sorter: CrudSorting = [];
       const { firstName, lastName, supportStatuses, statuses, phoneNumber } = params;
       if (firstName) {
         filters.push({
@@ -83,13 +81,9 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           lineNumber: phoneNumber?.lineNumber?.length ? phoneNumber?.lineNumber : undefined,
         },
       });
-      sorter.push({
-        field: "createdAt",
-        order: "asc",
-      });
 
       close();
-      return { filters, sorter };
+      return filters;
     },
 
     resource: "users",
@@ -208,7 +202,6 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
         {...tableProps}
         pagination={{
           ...tableProps.pagination,
-          pageSizeOptions: [10],
         }}
       >
         <Table.Column
@@ -241,7 +234,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           title={t("users.fields.createdAt")}
           width={400}
           render={(value: string) => <span>{formatDate(value)}</span>}
-          defaultSortOrder={getDefaultSortOrder("createdAt", sorter)}
+          defaultSortOrder={getDefaultSortOrder("createdAt")}
           sorter={(a: { createdAt: number }, b: { createdAt: number }) => {
             if (a.createdAt < b.createdAt) {
               return -1;

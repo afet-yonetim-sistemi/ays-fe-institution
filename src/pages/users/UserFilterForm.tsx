@@ -104,7 +104,9 @@ const UserFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilters }> =
                   .replace(/[^\p{L}\s]+/gu, "")
                   .replace(/[0-9]/g, "")
                   .replace("  ", " ");
-                form.setFieldValue("firstName", value);
+                if (form) {
+                  form.setFieldValue("firstName", value);
+                }
               }}
             />
           </Form.Item>
@@ -128,7 +130,9 @@ const UserFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilters }> =
                   .replace(/[^\p{L}\s]+/gu, "")
                   .replace(/[0-9]/g, "")
                   .replace("  ", " ");
-                form.setFieldValue("lastName", value);
+                if (form) {
+                  form.setFieldValue("lastName", value);
+                }
               }}
             />
           </Form.Item>
