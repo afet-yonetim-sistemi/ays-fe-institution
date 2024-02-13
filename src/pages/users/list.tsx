@@ -1,4 +1,5 @@
 import {
+  CrudFilters,
   IResourceComponentsProps,
   getDefaultFilter,
   useNotification,
@@ -14,10 +15,11 @@ import {
   EditButton,
   ShowButton,
   useModal,
+  getDefaultSortOrder,
 } from "@refinedev/antd";
 
-import { Divider, Modal, Space, Table, Typography } from "antd";
-import { CreateUserResponse, User } from "@/types";
+import { Modal, Space, Table } from "antd";
+import { CreateUserResponse, SingleUser, User } from "@/types";
 import { useState } from "react";
 
 import "./style.css";
@@ -26,18 +28,64 @@ import CreateUser from "./Actions/CreateUser";
 import EditUser from "./Actions/EditUser";
 import ShowUser from "./Actions/ShowUser";
 import { useCopyToClipboard } from "@/components/hooks/useCopyToClipboard";
-
+import UserFilterForm from "./UserFilterForm";
+import IconButton from "@/components/IconButton";
+import FilterIcon from "@/components/icons/FilterIcon";
 export const UserList: React.FC<IResourceComponentsProps> = () => {
   const { show, modalProps } = useModal();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newRecord, setNewRecord] = useState<CreateUserResponse | undefined>(undefined);
-  const [_value, copy] = useCopyToClipboard();
-  const [confirmModal, setConfirmModal] = useState<boolean>(false);
-  const [modal, contextHolder] = Modal.useModal();
+  const [_value] = useCopyToClipboard();
   const t = useTranslate();
 
   const { open } = useNotification();
 
-  const { filters, tableProps, tableQueryResult } = useTable<User>({
+  const { filters, tableProps, searchFormProps, tableQueryResult } = useTable<SingleUser>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onSearch: (params: any) => {
+      const filters: CrudFilters = [];
+      const { firstName, lastName, supportStatuses, statuses, phoneNumber } = params;
+      if (firstName) {
+        filters.push({
+          field: "firstName",
+          operator: "eq",
+          value: firstName,
+        });
+      }
+      if (lastName) {
+        filters.push({
+          field: "lastName",
+          operator: "eq",
+          value: lastName,
+        });
+      }
+      if (supportStatuses) {
+        filters.push({
+          field: "supportStatuses",
+          operator: "eq",
+          value: supportStatuses,
+        });
+      }
+      if (statuses) {
+        filters.push({
+          field: "statuses",
+          operator: "eq",
+          value: statuses,
+        });
+      }
+      filters.push({
+        field: "phoneNumber",
+        operator: "eq",
+        value: {
+          countryCode: phoneNumber?.countryCode?.length ? phoneNumber?.countryCode : undefined,
+          lineNumber: phoneNumber?.lineNumber?.length ? phoneNumber?.lineNumber : undefined,
+        },
+      });
+
+      close();
+      return filters;
+    },
+
     resource: "users",
     filters: {
       permanent: [
@@ -65,6 +113,24 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
       default:
         return "green";
     }
+  };
+
+  const formatDate = (value: string): string => {
+    const date = new Date(value);
+
+    const day = padZero(date.getDate());
+    const month = padZero(date.getMonth() + 1);
+    const year = date.getFullYear();
+
+    const hour = padZero(date.getHours());
+    const minute = padZero(date.getMinutes());
+    const second = padZero(date.getSeconds());
+
+    return `${day}.${month}.${year} ${hour}:${minute}:${second}`;
+  };
+
+  const padZero = (num: number): string => {
+    return num < 10 ? `0${num}` : `${num}`;
   };
 
   // Create Drawer
@@ -107,26 +173,6 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     resource: "user",
   });
 
-  const onCancel = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (confirmModal) return;
-
-    setConfirmModal(true);
-    const confirm = await modal.confirm({
-      title: t("notifications.warning"),
-      content: t("users.newUserModal.onCancelTitle"),
-      cancelButtonProps: {
-        hidden: false,
-      },
-      cancelText: t("buttons.cancel"),
-      okText: t("buttons.ok"),
-    });
-
-    if (confirm) {
-      modalProps.onCancel && modalProps.onCancel(e);
-    }
-    setConfirmModal(false);
-  };
-
   return (
     <List
       title={t("users.title")}
@@ -136,51 +182,19 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           createDrawerProps.show();
         },
       }}
-    >
-      {contextHolder}
-      <Modal
-        {...modalProps}
-        title={t("users.newUserModal.title")}
-        onCancel={onCancel}
-        cancelButtonProps={{
-          hidden: true,
-        }}
-        okText={t("users.newUserModal.copyAndClose")}
-        onOk={(e) => {
-          copy(
-            `${t("users.fields.username")}: ${newRecord?.username}\n${t(
-              "users.fields.password"
-            )}: ${newRecord?.password}`
-          );
-          modalProps.onCancel && modalProps.onCancel(e);
-          open &&
-            open({
-              type: "success",
-              description: t("notifications.success"),
-              message: t("users.newUserModal.copySuccess"),
-            });
-        }}
-      >
-        <Space
-          direction="vertical"
-          style={{
-            width: "100%",
-            padding: "1rem 0",
-          }}
-        >
-          <Typography.Text>{t("users.newUserModal.message")}</Typography.Text>
-          <Divider
-            style={{
-              margin: "0.5rem 0",
-            }}
+      headerButtons={({ defaultButtons }) => (
+        <>
+          <IconButton
+            type="default"
+            icon={<FilterIcon height="1.3em" width="1.3em" />}
+            onClick={() => show()}
           />
-          <Typography.Text>
-            {t("users.fields.username")}: {newRecord?.username}
-          </Typography.Text>
-          <Typography.Text>
-            {t("users.fields.password")}: {newRecord?.password}
-          </Typography.Text>
-        </Space>
+          {defaultButtons}
+        </>
+      )}
+    >
+      <Modal {...modalProps} title={t("form.filters")} footer={null}>
+        <UserFilterForm formProps={searchFormProps} filters={filters || []} />
       </Modal>
       <Table
         rowKey="id"
@@ -188,7 +202,6 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
         {...tableProps}
         pagination={{
           ...tableProps.pagination,
-          pageSizeOptions: [10],
         }}
       >
         <Table.Column
@@ -215,6 +228,22 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
             <TagField value={t("statuses." + value)} color={statusToColor(value)} />
           )}
           defaultFilteredValue={getDefaultFilter("status", filters)}
+        />
+        <Table.Column
+          dataIndex="createdAt"
+          title={t("users.fields.createdAt")}
+          width={400}
+          render={(value: string) => <span>{formatDate(value)}</span>}
+          defaultSortOrder={getDefaultSortOrder("createdAt")}
+          sorter={(a: { createdAt: number }, b: { createdAt: number }) => {
+            if (a.createdAt < b.createdAt) {
+              return -1;
+            }
+            if (a.createdAt > b.createdAt) {
+              return 1;
+            }
+            return 0;
+          }}
         />
         <Table.Column<User>
           title={t("table.actions")}

@@ -45,9 +45,6 @@ export interface paths {
   "/api/v1/authentication/admin/token/invalidate": {
     post: operations["invalidateTokens_1"];
   };
-  "/api/v1/authentication/admin/register": {
-    post: operations["register"];
-  };
   "/api/v1/assignments": {
     post: operations["getAssignments"];
   };
@@ -76,6 +73,21 @@ export interface paths {
   "/api/v1/admins": {
     post: operations["getAdminUsers"];
   };
+  "/api/v1/admin/registration-applications": {
+    post: operations["getRegistrationApplications"];
+  };
+  "/api/v1/admin/registration-application": {
+    post: operations["createRegistrationApplication"];
+  };
+  "/api/v1/admin/registration-application/{id}/reject": {
+    post: operations["rejectRegistrationApplication"];
+  };
+  "/api/v1/admin/registration-application/{id}/complete": {
+    post: operations["completeRegistration"];
+  };
+  "/api/v1/admin/registration-application/{id}/approve": {
+    post: operations["approveRegistrationApplication"];
+  };
   "/api/v1/user-self": {
     get: operations["getUserSelfInformation"];
   };
@@ -84,6 +96,12 @@ export interface paths {
   };
   "/api/v1/assignment/summary": {
     get: operations["getAssignmentSummary"];
+  };
+  "/api/v1/admin/registration-application/{id}": {
+    get: operations["getRegistrationApplicationById"];
+  };
+  "/api/v1/admin/registration-application/{id}/summary": {
+    get: operations["getRegistrationApplicationSummaryById"];
   };
 }
 
@@ -113,30 +131,42 @@ export interface components {
       description: string;
       firstName: string;
       lastName: string;
-      phoneNumber: components["schemas"]["AysPhoneNumber"];
+      phoneNumber: components["schemas"]["AysPhoneNumberRequest"];
       /** Format: double */
       longitude: number;
       /** Format: double */
       latitude: number;
     };
-    AysPhoneNumber: {
+    AysPhoneNumberRequest: {
       countryCode: string;
       lineNumber: string;
     };
     AysPaging: {
-      /** Format: int64 */
-      page: number;
-      /** Format: int64 */
-      pageSize: number;
+      /** Format: int32 */
+      page?: number;
+      /** Format: int32 */
+      pageSize?: number;
+    };
+    AysPhoneNumberFilterRequest: {
+      countryCode?: string;
+      lineNumber?: string;
     };
     AysSorting: {
       property: string;
       /** @enum {string} */
       direction: "ASC" | "DESC";
     };
+    Filter: {
+      firstName?: string;
+      lastName?: string;
+      supportStatuses?: ("IDLE" | "READY" | "BUSY" | "MALFUNCTION" | "ACCIDENT" | "OFFLINE" | "ON_ROAD" | "RETURN")[];
+      statuses?: ("ACTIVE" | "PASSIVE" | "DELETED")[];
+      phoneNumber?: components["schemas"]["AysPhoneNumberFilterRequest"];
+    };
     UserListRequest: {
       sort?: components["schemas"]["AysSorting"][];
       pagination: components["schemas"]["AysPaging"];
+      filter?: components["schemas"]["Filter"];
     };
     AysFiltering: Record<string, never>;
     AysPageResponseUsersResponse: {
@@ -160,31 +190,23 @@ export interface components {
       isSuccess?: boolean;
       response?: components["schemas"]["AysPageResponseUsersResponse"];
     };
-    InstitutionResponse: {
-      createdUser?: string;
-      /** Format: date-time */
-      createdAt?: string;
-      updatedUser?: string;
-      /** Format: date-time */
-      updatedAt?: string;
-      id?: string;
-      name?: string;
-    };
     UsersResponse: {
       id?: string;
-      username?: string;
       firstName?: string;
       lastName?: string;
       /** @enum {string} */
       role?: "VOLUNTEER";
       /** @enum {string} */
       status?: "ACTIVE" | "PASSIVE" | "DELETED";
-      institution?: components["schemas"]["InstitutionResponse"];
+      /** @enum {string} */
+      supportStatus?: "IDLE" | "READY" | "BUSY" | "MALFUNCTION" | "ACCIDENT" | "OFFLINE" | "ON_ROAD" | "RETURN";
+      /** Format: date-time */
+      createdAt?: string;
     };
     UserSaveRequest: {
       firstName: string;
       lastName: string;
-      phoneNumber: components["schemas"]["AysPhoneNumber"];
+      phoneNumber: components["schemas"]["AysPhoneNumberRequest"];
     };
     AysResponseUserSavedResponse: {
       /** Format: date-time */
@@ -228,28 +250,10 @@ export interface components {
     AysTokenInvalidateRequest: {
       refreshToken: string;
     };
-    AdminUserRegisterRequest: {
-      applicationId: string;
-      institutionId: string;
-      username: string;
-      email: string;
-      password: string;
-      phoneNumber: components["schemas"]["AysPhoneNumber"];
-      firstName: string;
-      lastName: string;
-    };
     AssignmentListRequest: {
       sort?: components["schemas"]["AysSorting"][];
       pagination: components["schemas"]["AysPaging"];
       filter?: components["schemas"]["Filter"];
-    };
-    Filter: {
-      statuses?: ("AVAILABLE" | "RESERVED" | "ASSIGNED" | "IN_PROGRESS" | "DONE")[];
-      phoneNumber?: components["schemas"]["PhoneNumber"];
-    };
-    PhoneNumber: {
-      countryCode?: string;
-      lineNumber?: string;
     };
     AssignmentsResponse: {
       createdUser?: string;
@@ -303,7 +307,7 @@ export interface components {
       description: string;
       firstName: string;
       lastName: string;
-      phoneNumber: components["schemas"]["AysPhoneNumber"];
+      phoneNumber: components["schemas"]["AysPhoneNumberRequest"];
       /** Format: double */
       longitude: number;
       /** Format: double */
@@ -365,6 +369,92 @@ export interface components {
       isSuccess?: boolean;
       response?: components["schemas"]["AysPageResponseAdminUsersResponse"];
     };
+    InstitutionResponse: {
+      createdUser?: string;
+      /** Format: date-time */
+      createdAt?: string;
+      updatedUser?: string;
+      /** Format: date-time */
+      updatedAt?: string;
+      id?: string;
+      name?: string;
+    };
+    AdminUserRegisterApplicationListRequest: {
+      sort?: components["schemas"]["AysSorting"][];
+      pagination: components["schemas"]["AysPaging"];
+      filter?: components["schemas"]["Filter"];
+    };
+    AdminUser: {
+      id?: string;
+      firstName?: string;
+      lastName?: string;
+    };
+    AdminUserRegisterApplicationsResponse: {
+      id?: string;
+      reason?: string;
+      /** @enum {string} */
+      status?: "WAITING" | "COMPLETED" | "VERIFIED" | "REJECTED";
+      institution?: components["schemas"]["Institution"];
+      adminUser?: components["schemas"]["AdminUser"];
+      createdUser?: string;
+      /** Format: date-time */
+      createdAt?: string;
+    };
+    AysPageResponseAdminUserRegisterApplicationsResponse: {
+      content?: components["schemas"]["AdminUserRegisterApplicationsResponse"][];
+      /** Format: int32 */
+      pageNumber?: number;
+      /** Format: int32 */
+      pageSize?: number;
+      /** Format: int32 */
+      totalPageCount?: number;
+      /** Format: int64 */
+      totalElementCount?: number;
+      sortedBy?: components["schemas"]["AysSorting"][];
+      filteredBy?: components["schemas"]["AysFiltering"];
+    };
+    AysResponseAysPageResponseAdminUserRegisterApplicationsResponse: {
+      /** Format: date-time */
+      time?: string;
+      /** @enum {string} */
+      httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
+      isSuccess?: boolean;
+      response?: components["schemas"]["AysPageResponseAdminUserRegisterApplicationsResponse"];
+    };
+    Institution: {
+      id?: string;
+      name?: string;
+    };
+    AdminUserRegisterApplicationCreateRequest: {
+      institutionId: string;
+      reason: string;
+    };
+    AdminUserRegisterApplicationCreateResponse: {
+      id?: string;
+    };
+    AysResponseAdminUserRegisterApplicationCreateResponse: {
+      /** Format: date-time */
+      time?: string;
+      /** @enum {string} */
+      httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
+      isSuccess?: boolean;
+      response?: components["schemas"]["AdminUserRegisterApplicationCreateResponse"];
+    };
+    AdminUserRegisterApplicationRejectRequest: {
+      rejectReason: string;
+    };
+    AdminUserRegisterApplicationCompleteRequest: {
+      username: string;
+      email: string;
+      password: string;
+      phoneNumber: components["schemas"]["AysPhoneNumberRequest"];
+      firstName: string;
+      lastName: string;
+    };
+    AysPhoneNumber: {
+      countryCode?: string;
+      lineNumber?: string;
+    };
     AysResponseUserResponse: {
       /** Format: date-time */
       time?: string;
@@ -399,9 +489,6 @@ export interface components {
       httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
       isSuccess?: boolean;
       response?: components["schemas"]["UserSelfResponse"];
-    };
-    Institution: {
-      name?: string;
     };
     UserSelfResponse: {
       username?: string;
@@ -486,6 +573,41 @@ export interface components {
       httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
       isSuccess?: boolean;
       response?: components["schemas"]["AssignmentSummaryResponse"];
+    };
+    AdminUserRegisterApplicationResponse: {
+      createdUser?: string;
+      /** Format: date-time */
+      createdAt?: string;
+      updatedUser?: string;
+      /** Format: date-time */
+      updatedAt?: string;
+      id?: string;
+      reason?: string;
+      rejectReason?: string;
+      /** @enum {string} */
+      status?: "WAITING" | "COMPLETED" | "VERIFIED" | "REJECTED";
+      institution?: components["schemas"]["Institution"];
+      adminUser?: components["schemas"]["AdminUser"];
+    };
+    AysResponseAdminUserRegisterApplicationResponse: {
+      /** Format: date-time */
+      time?: string;
+      /** @enum {string} */
+      httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
+      isSuccess?: boolean;
+      response?: components["schemas"]["AdminUserRegisterApplicationResponse"];
+    };
+    AdminUserRegisterApplicationSummaryResponse: {
+      id?: string;
+      institution?: components["schemas"]["Institution"];
+    };
+    AysResponseAdminUserRegisterApplicationSummaryResponse: {
+      /** Format: date-time */
+      time?: string;
+      /** @enum {string} */
+      httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
+      isSuccess?: boolean;
+      response?: components["schemas"]["AdminUserRegisterApplicationSummaryResponse"];
     };
   };
   responses: never;
@@ -751,21 +873,6 @@ export interface operations {
       };
     };
   };
-  register: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["AdminUserRegisterRequest"];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "*/*": components["schemas"]["AysResponseVoid"];
-        };
-      };
-    };
-  };
   getAssignments: {
     requestBody: {
       content: {
@@ -891,6 +998,91 @@ export interface operations {
       };
     };
   };
+  getRegistrationApplications: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdminUserRegisterApplicationListRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseAysPageResponseAdminUserRegisterApplicationsResponse"];
+        };
+      };
+    };
+  };
+  createRegistrationApplication: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdminUserRegisterApplicationCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseAdminUserRegisterApplicationCreateResponse"];
+        };
+      };
+    };
+  };
+  rejectRegistrationApplication: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdminUserRegisterApplicationRejectRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
+        };
+      };
+    };
+  };
+  completeRegistration: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AdminUserRegisterApplicationCompleteRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
+        };
+      };
+    };
+  };
+  approveRegistrationApplication: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseVoid"];
+        };
+      };
+    };
+  };
   getUserSelfInformation: {
     responses: {
       /** @description OK */
@@ -917,6 +1109,36 @@ export interface operations {
       200: {
         content: {
           "*/*": components["schemas"]["AysResponseAssignmentSummaryResponse"];
+        };
+      };
+    };
+  };
+  getRegistrationApplicationById: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseAdminUserRegisterApplicationResponse"];
+        };
+      };
+    };
+  };
+  getRegistrationApplicationSummaryById: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "*/*": components["schemas"]["AysResponseAdminUserRegisterApplicationSummaryResponse"];
         };
       };
     };

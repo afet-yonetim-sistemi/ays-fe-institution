@@ -158,7 +158,8 @@
       "supportStatus": "Destek Statüsü",
       "phoneNumber": "Telefon Numarası",
       "username": "Kullanıcı Adı",
-      "password": "Parola"
+      "password": "Parola",
+      "createdAt": "Oluşturulma Tarihi"
     },
     "newUserModal": {
       "title": "Yeni Kullanıcı Oluşturuldu",

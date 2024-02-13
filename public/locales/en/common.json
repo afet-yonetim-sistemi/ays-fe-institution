@@ -158,7 +158,8 @@
       "supportStatus": "Support Status",
       "phoneNumber": "Phone Number",
       "username": "Username",
-      "password": "Password"
+      "password": "Password",
+      "createdAt": "Created At"
     },
     "newUserModal": {
       "title": "New User Created",
