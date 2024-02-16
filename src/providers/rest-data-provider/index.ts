@@ -32,6 +32,12 @@ export const dataProvider = (
         {
           pagination,
           filter: queryFilters,
+          sort: sorters
+            ? sorters.map((sorter) => ({
+                property: sorter.field,
+                direction: sorter.order.toLocaleUpperCase(),
+              }))
+            : [],
         },
         {
           headers: headersFromMeta,

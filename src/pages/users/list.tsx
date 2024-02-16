@@ -96,6 +96,9 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
         },
       ],
     },
+    sorters: {
+      mode: "server",
+    },
     pagination: {
       pageSize: 10,
       current: 1,
