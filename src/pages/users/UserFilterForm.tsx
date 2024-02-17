@@ -6,6 +6,11 @@ import { ChangeEvent, useMemo } from "react";
 import { countryCodes } from "@/utilities";
 import { FormProps } from "antd/lib";
 
+type Props = {
+  filters: CrudFilters;
+  formProps: FormProps;
+};
+
 const supportStatuses = [
   "IDLE",
   "READY",
@@ -196,7 +201,7 @@ const UserFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilters }> =
         </Col>
         <Col xs={24}>
           <Form.Item>
-            <Button htmlType="submit" type="primary" size="large" block>
+            <Button htmlType="submit" type="primary" size="large" block id="filter-button">
               {t("buttons.filter")}
             </Button>
           </Form.Item>
