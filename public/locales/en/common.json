@@ -198,6 +198,20 @@
       "longitude": "Longitude"
     }
   },
+  "registrationApplications": {
+    "title": "Registration Applications",
+    "fields": {
+      "firstName": "Name",
+      "lastName": "Surname",
+      "status": "Status",
+      "supportStatus": "Support Status",
+      "phoneNumber": "Phone Number",
+      "organization": "Organization",
+      "creationReason": "Creation Reason",
+      "createdAt": "Created At",
+      "createdUser": "Created User"
+    }
+  },
   "statuses": {
     "DELETED": "Deleted",
     "PASSIVE": "Passive",
@@ -220,6 +234,12 @@
     "AVAILABLE": "Available",
     "DONE": "Done",
     "RESERVED": "Reserved"
+  },
+  "registrationApplicationStatuses": {
+    "WAITING": "Waiting",
+    "COMPLETED": "Completed ",
+    "VERIFIED": "Verified",
+    "REJECTED": "Rejected"
   },
   "roles": {
     "VOLUNTEER": "Volunteer"
