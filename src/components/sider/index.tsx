@@ -217,8 +217,8 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
           <Typography.Text
             style={{
               color: mode === "light" ? token.colorPrimary : "white",
-              fontSize: "0.95em",
-              marginTop: "1.3em",
+              fontSize: "0.85em",
+              marginTop: "1.9em",
             }}
           >
             UI v{packageJson.version} | API v{appVersion?.application.version}
