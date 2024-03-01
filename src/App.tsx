@@ -36,6 +36,8 @@ import accessProvider from "./providers/access-provider";
 import { useState } from "react";
 import AuthChecker from "./components/AuthChecker";
 import { UserTypes } from "./types";
+import RegistrationApplicationListIcon from "./components/icons/RegistrationApplicationListIcon";
+import RegistrationApplicationList from "./pages/registration-applications/RegistrationApplicationList";
 
 if (ENV.NODE_ENV === "production") {
   console.log = () => null;
@@ -90,6 +92,14 @@ function App() {
                     icon: <AssignmentListIcon />,
                   },
                 },
+                {
+                  name: "registration-applications",
+                  list: "/registration-applications",
+                  meta: {
+                    label: t("registrationApplications.title"),
+                    icon: <RegistrationApplicationListIcon />,
+                  },
+                },
               ]}
               options={{
                 syncWithLocation: true,
@@ -125,6 +135,9 @@ function App() {
                   </Route>
                   <Route path="/assignments">
                     <Route index element={<AssignmentList />} />
+                  </Route>
+                  <Route path="/registration-applications">
+                    <Route index element={<RegistrationApplicationList />} />
                   </Route>
                   <Route path="*" element={<ErrorComponent />} />
                 </Route>

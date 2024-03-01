@@ -198,6 +198,12 @@
     "IN_PROGRESS": "Taşınma Durumunda",
     "RESERVED": "Ayrılmış"
   },
+  "registrationApplicationStatuses": {
+    "WAITING": "Bekleniyor",
+    "COMPLETED": "Tamamlandı",
+    "VERIFIED": "Doğrulandı",
+    "REJECTED": "Reddedildi"
+  },
   "roles": {
     "VOLUNTEER": "Gönüllü"
   },
@@ -266,6 +272,20 @@
       "coordinate": "Koordinat",
       "latitude": "Enlem",
       "longitude": "Boylam"
+    }
+  },
+  "registrationApplications": {
+    "title": "Kayıt Başvuruları",
+    "fields": {
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "status": "Durum",
+      "supportStatus": "Destek Statüsü",
+      "phoneNumber": "Telefon Numarası",
+      "organization": "Kurum",
+      "creationReason": "Oluşturulma Nedeni",
+      "createdAt": "Oluşturulma Tarihi",
+      "createdUser": "Oluşturan Kullanıcı"
     }
   },
   "form": {

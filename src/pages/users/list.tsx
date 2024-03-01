@@ -32,7 +32,7 @@ import UserFilterForm from "./UserFilterForm";
 import IconButton from "@/components/IconButton";
 import FilterIcon from "@/components/icons/FilterIcon";
 export const UserList: React.FC<IResourceComponentsProps> = () => {
-  const { show, modalProps } = useModal();
+  const { show, modalProps, close } = useModal();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newRecord, setNewRecord] = useState<CreateUserResponse | undefined>(undefined);
   const [_value] = useCopyToClipboard();
@@ -81,7 +81,6 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           lineNumber: phoneNumber?.lineNumber?.length ? phoneNumber?.lineNumber : undefined,
         },
       });
-
       close();
       return filters;
     },
@@ -95,6 +94,9 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           value: true,
         },
       ],
+    },
+    sorters: {
+      mode: "server",
     },
     pagination: {
       pageSize: 10,
@@ -174,133 +176,135 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
   });
 
   return (
-    <List
-      title={t("users.title")}
-      canCreate
-      createButtonProps={{
-        onClick: () => {
-          createDrawerProps.show();
-        },
-      }}
-      headerButtons={({ defaultButtons }) => (
-        <>
-          <IconButton
-            type="default"
-            icon={<FilterIcon height="1.3em" width="1.3em" />}
-            onClick={() => show()}
-          />
-          {defaultButtons}
-        </>
-      )}
-    >
+    <>
       <Modal {...modalProps} title={t("form.filters")} footer={null}>
         <UserFilterForm formProps={searchFormProps} filters={filters || []} />
       </Modal>
-      <Table
-        rowKey="id"
-        id="users-table"
-        {...tableProps}
-        pagination={{
-          ...tableProps.pagination,
+      <List
+        title={t("users.title")}
+        canCreate
+        createButtonProps={{
+          onClick: () => {
+            createDrawerProps.show();
+          },
         }}
+        headerButtons={({ defaultButtons }) => (
+          <>
+            <IconButton
+              type="default"
+              icon={<FilterIcon height="1.3em" width="1.3em" />}
+              onClick={() => show()}
+            />
+            {defaultButtons}
+          </>
+        )}
       >
-        <Table.Column
-          dataIndex="firstName"
-          title={t("users.fields.firstName")}
-          render={(value: string) => <span>{value}</span>}
-        />
-        <Table.Column
-          dataIndex="lastName"
-          title={t("users.fields.lastName")}
-          render={(value: string) => <span>{value}</span>}
-        />
-        <Table.Column
-          dataIndex="role"
-          title={t("users.fields.role")}
-          render={(value: User["role"]) => {
-            return <span>{t("roles." + value)}</span>;
+        <Table
+          rowKey="id"
+          id="users-table"
+          {...tableProps}
+          pagination={{
+            ...tableProps.pagination,
           }}
+        >
+          <Table.Column
+            dataIndex="firstName"
+            title={t("users.fields.firstName")}
+            render={(value: string) => <span>{value}</span>}
+          />
+          <Table.Column
+            dataIndex="lastName"
+            title={t("users.fields.lastName")}
+            render={(value: string) => <span>{value}</span>}
+          />
+          <Table.Column
+            dataIndex="role"
+            title={t("users.fields.role")}
+            render={(value: User["role"]) => {
+              return <span>{t("roles." + value)}</span>;
+            }}
+          />
+          <Table.Column
+            dataIndex="status"
+            title={t("users.fields.status")}
+            render={(value: User["status"]) => (
+              <TagField value={t("statuses." + value)} color={statusToColor(value)} />
+            )}
+            defaultFilteredValue={getDefaultFilter("status", filters)}
+          />
+          <Table.Column
+            dataIndex="createdAt"
+            title={t("users.fields.createdAt")}
+            width={400}
+            render={(value: string) => <span>{formatDate(value)}</span>}
+            defaultSortOrder={getDefaultSortOrder("createdAt")}
+            sorter={(a: { createdAt: number }, b: { createdAt: number }) => {
+              if (a.createdAt < b.createdAt) {
+                return -1;
+              }
+              if (a.createdAt > b.createdAt) {
+                return 1;
+              }
+              return 0;
+            }}
+          />
+          <Table.Column<User>
+            title={t("table.actions")}
+            dataIndex="actions"
+            key="actions"
+            render={(_, record) => (
+              <Space size="middle">
+                <ShowButton
+                  hideText
+                  size="middle"
+                  recordItemId={record.id}
+                  onClick={() => {
+                    showDrawerProps.setShowId(record.id);
+                    setVisibleShowDrawer(true);
+                  }}
+                  color="primary"
+                />
+                {record.status !== "DELETED" && (
+                  <>
+                    <EditButton
+                      size="middle"
+                      recordItemId={record.id}
+                      resource="user"
+                      onClick={() => editDrawerProps.show(record.id)}
+                      hideText
+                    />
+                    <DeleteButton
+                      size="middle"
+                      recordItemId={record.id}
+                      resource="user"
+                      successNotification={false}
+                      hideText
+                      onSuccess={() => {
+                        open &&
+                          open({
+                            type: "success",
+                            description: t("notifications.success"),
+                            message: t("notifications.deleteSuccess", {
+                              resource: t("resources.users.singular"),
+                            }),
+                          });
+                        tableQueryResult.refetch();
+                      }}
+                    />
+                  </>
+                )}
+              </Space>
+            )}
+          />
+        </Table>
+        <CreateUser {...createDrawerProps} />
+        <EditUser {...editDrawerProps} />
+        <ShowUser
+          {...showDrawerProps}
+          visibleShowDrawer={visibleShowDrawer}
+          setVisibleShowDrawer={setVisibleShowDrawer}
         />
-        <Table.Column
-          dataIndex="status"
-          title={t("users.fields.status")}
-          render={(value: User["status"]) => (
-            <TagField value={t("statuses." + value)} color={statusToColor(value)} />
-          )}
-          defaultFilteredValue={getDefaultFilter("status", filters)}
-        />
-        <Table.Column
-          dataIndex="createdAt"
-          title={t("users.fields.createdAt")}
-          width={400}
-          render={(value: string) => <span>{formatDate(value)}</span>}
-          defaultSortOrder={getDefaultSortOrder("createdAt")}
-          sorter={(a: { createdAt: number }, b: { createdAt: number }) => {
-            if (a.createdAt < b.createdAt) {
-              return -1;
-            }
-            if (a.createdAt > b.createdAt) {
-              return 1;
-            }
-            return 0;
-          }}
-        />
-        <Table.Column<User>
-          title={t("table.actions")}
-          dataIndex="actions"
-          key="actions"
-          render={(_, record) => (
-            <Space size="middle">
-              <ShowButton
-                hideText
-                size="middle"
-                recordItemId={record.id}
-                onClick={() => {
-                  showDrawerProps.setShowId(record.id);
-                  setVisibleShowDrawer(true);
-                }}
-                color="primary"
-              />
-              {record.status !== "DELETED" && (
-                <>
-                  <EditButton
-                    size="middle"
-                    recordItemId={record.id}
-                    resource="user"
-                    onClick={() => editDrawerProps.show(record.id)}
-                    hideText
-                  />
-                  <DeleteButton
-                    size="middle"
-                    recordItemId={record.id}
-                    resource="user"
-                    successNotification={false}
-                    hideText
-                    onSuccess={() => {
-                      open &&
-                        open({
-                          type: "success",
-                          description: t("notifications.success"),
-                          message: t("notifications.deleteSuccess", {
-                            resource: t("resources.users.singular"),
-                          }),
-                        });
-                      tableQueryResult.refetch();
-                    }}
-                  />
-                </>
-              )}
-            </Space>
-          )}
-        />
-      </Table>
-      <CreateUser {...createDrawerProps} />
-      <EditUser {...editDrawerProps} />
-      <ShowUser
-        {...showDrawerProps}
-        visibleShowDrawer={visibleShowDrawer}
-        setVisibleShowDrawer={setVisibleShowDrawer}
-      />
-    </List>
+      </List>
+    </>
   );
 };
