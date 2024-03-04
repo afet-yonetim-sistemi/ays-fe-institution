@@ -22,8 +22,6 @@ export const adapter = new StringAdapter(`
 
 p, SUPER_ADMIN, admins, (list)|(create)
 
-p, SUPER_ADMIN, registration-applications, (list)|(create)
-
 p, ADMIN, assignments, (list)|(create)
 p, ADMIN, assignments/*, (edit)|(show)|(delete)
 p, ADMIN, assignment/*, (edit)|(show)|(delete)
@@ -35,5 +33,9 @@ p, ADMIN, user/*, (edit)|(show)|(delete)
 p, ADMIN, admins, (list)|(create)
 p, ADMIN, admins/*, (edit)|(show)|(delete)
 p, ADMIN, admin/*, (edit)|(show)|(delete)
+
+p, SUPER_ADMIN, registration-applications, (list)|(create)
+p, SUPER_ADMIN, registration-applications/*, (edit)|(show)|(delete)
+p, SUPER_ADMIN, registration-applications/*, (edit)|(show)|(delete)
 
 `);
