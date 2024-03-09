@@ -255,6 +255,12 @@
     "VERIFIED": "Verified",
     "REJECTED": "Rejected"
   },
+  "registrationApplicationStatuses": {
+    "WAITING": "Waiting",
+    "COMPLETED": "Completed ",
+    "VERIFIED": "Verified",
+    "REJECTED": "Rejected"
+  },
   "roles": {
     "VOLUNTEER": "Volunteer"
   },
