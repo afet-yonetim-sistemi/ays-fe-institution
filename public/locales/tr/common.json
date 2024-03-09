@@ -283,7 +283,7 @@
     "rejectedTitle": "Başvuruya Ait Bilgiler",
     "completedTitle": "Başvuruyu Tamamlayan Yöneticiye Ait Bilgiler",
     "actions": {
-      "show": "Kayıt Başvurusunu Göster"
+      "show": "Kayıt Başvurusunu Göster",
     },
     "fields": {
       "firstName": "Ad",

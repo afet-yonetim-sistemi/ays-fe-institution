@@ -188,6 +188,7 @@ export default function RegistrationApplicationList() {
           visibleShowDrawer={visibleShowDrawer}
           setVisibleShowDrawer={setVisibleShowDrawer}
         />
+        </Table>
       </List>
     </>
   );
