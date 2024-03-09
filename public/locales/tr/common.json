@@ -208,6 +208,12 @@
     "VERIFIED": "Doğrulandı",
     "REJECTED": "Reddedildi"
   },
+  "registrationApplicationStatuses": {
+    "WAITING": "Bekleniyor",
+    "COMPLETED": "Tamamlandı",
+    "VERIFIED": "Doğrulandı",
+    "REJECTED": "Reddedildi"
+  },
   "roles": {
     "VOLUNTEER": "Gönüllü"
   },
@@ -283,7 +289,7 @@
     "rejectedTitle": "Başvuruya Ait Bilgiler",
     "completedTitle": "Başvuruyu Tamamlayan Yöneticiye Ait Bilgiler",
     "actions": {
-      "show": "Kayıt Başvurusunu Göster",
+      "show": "Kayıt Başvurusunu Göster"
     },
     "fields": {
       "firstName": "Ad",

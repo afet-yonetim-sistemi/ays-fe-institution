@@ -127,7 +127,12 @@ export default function RegistrationApplicationList() {
           <Table.Column
             dataIndex="reason"
             title={t("registrationApplications.fields.creationReason")}
-            render={(value: string) => <span>{value}</span>}
+            width={500}
+            render={(value: string) => (
+              <div style={{ maxWidth: "500px" }}>
+                <p>{value}</p>
+              </div>
+            )}
           />
           <Table.Column
             dataIndex="status"
