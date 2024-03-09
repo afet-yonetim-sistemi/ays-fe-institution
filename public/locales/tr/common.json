@@ -208,12 +208,6 @@
     "VERIFIED": "Doğrulandı",
     "REJECTED": "Reddedildi"
   },
-  "registrationApplicationStatuses": {
-    "WAITING": "Bekleniyor",
-    "COMPLETED": "Tamamlandı",
-    "VERIFIED": "Doğrulandı",
-    "REJECTED": "Reddedildi"
-  },
   "roles": {
     "VOLUNTEER": "Gönüllü"
   },
