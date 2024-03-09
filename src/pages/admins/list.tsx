@@ -65,24 +65,6 @@ export const AdminList: React.FC<IResourceComponentsProps> = () => {
           render={(value: Admin["status"]) => (
             <TagField value={t("statuses." + value)} color={statusToColor(value)} />
           )}
-          // onFilter={(value, record: User) => {
-          //   return record.status === value;
-          // }}
-          // filters={[
-          //   {
-          //     text: t("statuses.ACTIVE"),
-          //     value: "ACTIVE",
-          //   },
-          //   {
-          //     text: t("statuses.PASSIVE"),
-          //     value: "PASSIVE",
-          //   },
-          //   {
-          //     text: t("statuses.DELETED"),
-
-          //     value: "DELETED",
-          //   },
-          // ]}
           defaultFilteredValue={getDefaultFilter("status", filters)}
         />
       </Table>
