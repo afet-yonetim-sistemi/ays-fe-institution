@@ -179,7 +179,11 @@
     "ACTIVE": "Aktif",
     "PASSIVE": "Pasif",
     "DELETED": "Silindi",
-    "NOT_VERIFIED": "Doğrulanmamış"
+    "NOT_VERIFIED": "Doğrulanmamış",
+    "WAITING": "Bekleniyor",
+    "COMPLETED": "Tamamlandı",
+    "VERIFIED": "Doğrulandı",
+    "REJECTED": "Reddedildi"
   },
   "supportStatuses": {
     "IDLE": "Boşta",
@@ -197,6 +201,12 @@
     "DONE": "Tamamlandı",
     "IN_PROGRESS": "Taşınma Durumunda",
     "RESERVED": "Ayrılmış"
+  },
+  "registrationApplicationStatuses": {
+    "WAITING": "Bekleniyor",
+    "COMPLETED": "Tamamlandı",
+    "VERIFIED": "Doğrulandı",
+    "REJECTED": "Reddedildi"
   },
   "registrationApplicationStatuses": {
     "WAITING": "Bekleniyor",
@@ -276,6 +286,11 @@
   },
   "registrationApplications": {
     "title": "Kayıt Başvuruları",
+    "rejectedTitle": "Başvuruya Ait Bilgiler",
+    "completedTitle": "Başvuruyu Tamamlayan Yöneticiye Ait Bilgiler",
+    "actions": {
+      "show": "Kayıt Başvurusunu Göster"
+    },
     "fields": {
       "firstName": "Ad",
       "lastName": "Soyad",
@@ -283,9 +298,14 @@
       "supportStatus": "Destek Statüsü",
       "phoneNumber": "Telefon Numarası",
       "organization": "Kurum",
+      "institution": "Kurum",
       "creationReason": "Oluşturulma Nedeni",
+      "rejectReason": "Reddedilme Nedeni",
       "createdAt": "Oluşturulma Tarihi",
-      "createdUser": "Oluşturan Kullanıcı"
+      "creationDate": "Oluşturulma Tarihi",
+      "createdUser": "Oluşturan Kullanıcı",
+      "username": "Kullanıcı Adı",
+      "email": "Email Adresi"
     }
   },
   "form": {

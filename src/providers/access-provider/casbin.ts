@@ -36,4 +36,8 @@ p, ADMIN, admins, (list)|(create)
 p, ADMIN, admins/*, (edit)|(show)|(delete)
 p, ADMIN, admin/*, (edit)|(show)|(delete)
 
+p, SUPER_ADMIN, registration-applications, (list)|(create)
+p, SUPER_ADMIN, registration-applications/*, (edit)|(show)|(delete)
+p, SUPER_ADMIN, registration-applications/*, (edit)|(show)|(delete)
+
 `);

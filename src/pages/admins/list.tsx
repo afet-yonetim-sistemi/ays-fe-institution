@@ -20,6 +20,7 @@ export const AdminList: React.FC<IResourceComponentsProps> = () => {
     },
     pagination: {
       pageSize: 10,
+      current: 1,
     },
   });
 
@@ -43,6 +44,7 @@ export const AdminList: React.FC<IResourceComponentsProps> = () => {
       <Table
         rowKey="id"
         dataSource={tableProps.dataSource || []}
+        {...tableProps}
         pagination={{
           ...tableProps.pagination,
           pageSizeOptions: [10],

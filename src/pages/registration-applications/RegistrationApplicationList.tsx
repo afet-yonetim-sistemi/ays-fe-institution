@@ -1,14 +1,29 @@
-import { CrudFilters, useTranslate } from "@refinedev/core";
-import { List, TagField, getDefaultSortOrder, useModal, useTable } from "@refinedev/antd";
-import { Modal, Table } from "antd";
+import { CrudFilters, useShow, useTranslate } from "@refinedev/core";
+import {
+  List,
+  ShowButton,
+  TagField,
+  getDefaultSortOrder,
+  useModal,
+  useTable,
+} from "@refinedev/antd";
+import { Modal, Space, Table } from "antd";
 import { SingleRegisterApplication } from "@/types";
 import RegistrationApplicationFilterForm from "./RegistrationApplicationFilterForm";
 import IconButton from "@/components/IconButton";
 import FilterIcon from "@/components/icons/FilterIcon";
+import ShowRegistrationApplication from "@/pages/registration-applications/Actions/ShowRegistrationApplication";
+import { useState } from "react";
 
 export default function RegistrationApplicationList() {
   const t = useTranslate();
   const { modalProps, close, show } = useModal();
+
+  // Show Drawer
+  const [visibleShowDrawer, setVisibleShowDrawer] = useState<boolean>(false);
+  const showDrawerProps = useShow<SingleRegisterApplication>({
+    resource: "admin/registration-application",
+  });
 
   const { filters, searchFormProps, tableProps } = useTable<SingleRegisterApplication>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,7 +127,12 @@ export default function RegistrationApplicationList() {
           <Table.Column
             dataIndex="reason"
             title={t("registrationApplications.fields.creationReason")}
-            render={(value: string) => <span>{value}</span>}
+            width={500}
+            render={(value: string) => (
+              <div style={{ maxWidth: "500px" }}>
+                <p>{value}</p>
+              </div>
+            )}
           />
           <Table.Column
             dataIndex="status"
@@ -144,7 +164,35 @@ export default function RegistrationApplicationList() {
               return 0;
             }}
           />
+          <Table.Column<SingleRegisterApplication>
+            title={t("table.actions")}
+            dataIndex="actions"
+            key="actions"
+            render={(_, record) => (
+              <Space size="middle">
+                {record.status !== "WAITING" && (
+                  <>
+                    <ShowButton
+                      hideText
+                      size="middle"
+                      recordItemId={record.id}
+                      onClick={() => {
+                        showDrawerProps.setShowId(record.id);
+                        setVisibleShowDrawer(true);
+                      }}
+                      color="primary"
+                    />
+                  </>
+                )}
+              </Space>
+            )}
+          />
         </Table>
+        <ShowRegistrationApplication
+          {...showDrawerProps}
+          visibleShowDrawer={visibleShowDrawer}
+          setVisibleShowDrawer={setVisibleShowDrawer}
+        />
       </List>
     </>
   );

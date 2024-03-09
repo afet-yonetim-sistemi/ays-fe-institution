@@ -68,8 +68,24 @@ export type CreateAssignmentResponse = components["schemas"]["AssignmentSaveRequ
  * Register Applications Types
  *
  */
-export type RegisterApplication = components["schemas"]["AdminUserRegisterApplicationResponse"]
-export type SingleRegisterApplication = components["schemas"]["AdminUserRegisterApplicationResponse"]
+export type AdminUserRegisterApplicationCompleteRequest =
+  components["schemas"]["AdminUserRegisterApplicationCompleteRequest"];
+export type SingleRegisterApplication =
+  components["schemas"]["AdminUserRegisterApplicationResponse"] & {
+    adminUser: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      username: string;
+      phoneNumber: {
+        countryCode: string;
+        lineNumber: string;
+      };
+    };
+    institution: {
+      name: string;
+    };
+  };
 
 /**
  * App Version Types

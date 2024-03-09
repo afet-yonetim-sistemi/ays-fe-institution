@@ -200,23 +200,37 @@
   },
   "registrationApplications": {
     "title": "Registration Applications",
+    "rejectedTitle": "Application Information",
+    "completedTitle": "Information of the Admin Completing the Application",
+    "actions": {
+      "show": "Show Registration Application"
+    },
     "fields": {
-      "firstName": "Name",
-      "lastName": "Surname",
+      "firstName": "First Name",
+      "lastName": "Last Name",
       "status": "Status",
       "supportStatus": "Support Status",
       "phoneNumber": "Phone Number",
       "organization": "Organization",
+      "institution": "Institution",
       "creationReason": "Creation Reason",
+      "rejectReason": "Rejection Reason",
       "createdAt": "Created At",
-      "createdUser": "Created User"
+      "creationDate": "Creation Date",
+      "createdUser": "Created User",
+      "username": "Username",
+      "email": "Email Address"
     }
   },
   "statuses": {
     "DELETED": "Deleted",
     "PASSIVE": "Passive",
     "ACTIVE": "Active",
-    "NOT_VERIFIED": "Not Verified"
+    "NOT_VERIFIED": "Not Verified",
+    "WAITING": "Waiting",
+    "COMPLETED": "Completed",
+    "VERIFIED": "Verified",
+    "REJECTED": "Rejected"
   },
   "supportStatuses": {
     "IDLE": "Idle",
@@ -234,6 +248,12 @@
     "AVAILABLE": "Available",
     "DONE": "Done",
     "RESERVED": "Reserved"
+  },
+  "registrationApplicationStatuses": {
+    "WAITING": "Waiting",
+    "COMPLETED": "Completed ",
+    "VERIFIED": "Verified",
+    "REJECTED": "Rejected"
   },
   "registrationApplicationStatuses": {
     "WAITING": "Waiting",
