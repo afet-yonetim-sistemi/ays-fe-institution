@@ -209,16 +209,19 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
         >
           <Table.Column
             dataIndex="firstName"
+            width={330}
             title={t("users.fields.firstName")}
             render={(value: string) => <span>{value}</span>}
           />
           <Table.Column
             dataIndex="lastName"
+            width={330}
             title={t("users.fields.lastName")}
             render={(value: string) => <span>{value}</span>}
           />
           <Table.Column
             dataIndex="role"
+            width={300}
             title={t("users.fields.role")}
             render={(value: User["role"]) => {
               return <span>{t("roles." + value)}</span>;
@@ -227,6 +230,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           <Table.Column
             dataIndex="status"
             title={t("users.fields.status")}
+            width={300}
             render={(value: User["status"]) => (
               <TagField value={t("statuses." + value)} color={statusToColor(value)} />
             )}
@@ -252,6 +256,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
             title={t("table.actions")}
             dataIndex="actions"
             key="actions"
+            width={250}
             render={(_, record) => (
               <Space size="middle">
                 <ShowButton
