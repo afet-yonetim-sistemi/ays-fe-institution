@@ -120,6 +120,7 @@ export default function RegistrationApplicationList() {
           <Table.Column
             dataIndex="institution"
             title={t("registrationApplications.fields.organization")}
+            width={200}
             render={(value) => {
               return <span>{value?.name}</span>;
             }}
@@ -129,7 +130,7 @@ export default function RegistrationApplicationList() {
             title={t("registrationApplications.fields.creationReason")}
             width={500}
             render={(value: string) => (
-              <div style={{ maxWidth: "500px" }}>
+              <div style={{ maxWidth: "450px" }}>
                 <p>{value}</p>
               </div>
             )}
@@ -137,6 +138,7 @@ export default function RegistrationApplicationList() {
           <Table.Column
             dataIndex="status"
             title={t("registrationApplications.fields.status")}
+            width={200}
             render={(value: SingleRegisterApplication["status"]) => (
               <TagField
                 value={t("registrationApplicationStatuses." + value)}
@@ -147,11 +149,13 @@ export default function RegistrationApplicationList() {
           <Table.Column
             dataIndex="createdUser"
             title={t("registrationApplications.fields.createdUser")}
+            width={300}
             render={(value: string) => <span>{value}</span>}
           />
           <Table.Column
             dataIndex="createdAt"
             title={t("registrationApplications.fields.createdAt")}
+            width={400}
             render={(value: string) => <span>{formatDate(value)}</span>}
             defaultSortOrder={getDefaultSortOrder("createdAt")}
             sorter={(a: { createdAt: number }, b: { createdAt: number }) => {
@@ -168,6 +172,7 @@ export default function RegistrationApplicationList() {
             title={t("table.actions")}
             dataIndex="actions"
             key="actions"
+            width={250}
             render={(_, record) => (
               <Space size="middle">
                 {record.status !== "WAITING" && (
