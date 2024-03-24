@@ -44,27 +44,6 @@ export type Admin = components["schemas"]["AdminUsersResponse"];
 export type CreateAdminRequest = components["schemas"]["AdminUserListRequest"];
 
 /**
- * Assignments Types
- */
-export type Assignment = components["schemas"]["AssignmentResponse"] & {
-  user: {
-    location: {
-      latitude: number;
-      longitude: number;
-    };
-  };
-};
-export type SingleAssignment = components["schemas"]["AssignmentResponse"] & {
-  user: {
-    location: {
-      latitude: number;
-      longitude: number;
-    };
-  };
-};
-export type CreateAssignmentResponse = components["schemas"]["AssignmentSaveRequest"];
-
-/**
  * Register Applications Types
  *
  */

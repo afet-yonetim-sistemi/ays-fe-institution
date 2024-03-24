@@ -29,8 +29,6 @@ import { ThemedTitleV2 } from "./components/sider/title";
 import UserListIcon from "./components/icons/UserListIcon";
 import AdminListIcon from "./components/icons/AdminListIcon";
 import "./styles/index.css";
-import { AssignmentList } from "./pages/assignments/AssignmentList";
-import AssignmentListIcon from "./components/icons/AssignmentListIcon";
 import { dataProvider } from "./providers/rest-data-provider";
 import accessProvider from "./providers/access-provider";
 import { useState } from "react";
@@ -85,14 +83,6 @@ function App() {
                   },
                 },
                 {
-                  name: "assignments",
-                  list: "/assignments",
-                  meta: {
-                    label: t("assignments.title"),
-                    icon: <AssignmentListIcon />,
-                  },
-                },
-                {
                   name: "registration-applications",
                   list: "/registration-applications",
                   meta: {
@@ -132,9 +122,6 @@ function App() {
                   </Route>
                   <Route path="/users">
                     <Route index element={<UserList />} />
-                  </Route>
-                  <Route path="/assignments">
-                    <Route index element={<AssignmentList />} />
                   </Route>
                   <Route path="/registration-applications">
                     <Route index element={<RegistrationApplicationList />} />

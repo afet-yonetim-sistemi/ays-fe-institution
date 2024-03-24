@@ -58,7 +58,7 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
     >
       <Title level={5}>{t("users.fields.username")}</Title>
       <Text>{record?.username}</Text>
-      <Title level={5}>{t("assignments.fields.phoneNumber")}</Title>
+      <Title level={5}>{t("users.fields.phoneNumber")}</Title>
       <Text>
         {record?.phoneNumber?.countryCode} {record?.phoneNumber?.lineNumber}
       </Text>
