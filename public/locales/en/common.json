@@ -83,10 +83,6 @@
     "users": {
       "plural": "Users",
       "singular": "User"
-    },
-    "assignments": {
-      "plural": "Assignments",
-      "singular": "Assignment"
     }
   },
   "buttons": {
@@ -175,29 +171,6 @@
       "successMessage": "Your application has been received, you will be able to log in to the system after the controls are completed and approved."
     }
   },
-  "assignments": {
-    "title": "Assignments",
-    "actions": {
-      "create": "Create Assignment",
-      "edit": "Edit Assignment",
-      "delete": "Delete Assignment",
-      "show": "Show Assignment"
-    },
-    "fields": {
-      "firstName": "Name",
-      "lastName": "Surname",
-      "status": "Status",
-      "supportStatus": "Support Status",
-      "phoneNumber": "Phone Number",
-      "username": "Username",
-      "password": "Password",
-      "description": "Description",
-      "coordinates": "Coordinates",
-      "coordinate": "Coordinate",
-      "latitude": "Latitude",
-      "longitude": "Longitude"
-    }
-  },
   "registrationApplications": {
     "title": "Registration Applications",
     "rejectedTitle": "Application Information",
@@ -242,19 +215,6 @@
     "ON_ROAD": "On road",
     "RETURN": "Return"
   },
-  "assignmentStatuses": {
-    "ASSIGNED": "Assigned",
-    "IN_PROGRESS": "In Progress",
-    "AVAILABLE": "Available",
-    "DONE": "Done",
-    "RESERVED": "Reserved"
-  },
-  "registrationApplicationStatuses": {
-    "WAITING": "Waiting",
-    "COMPLETED": "Completed ",
-    "VERIFIED": "Verified",
-    "REJECTED": "Rejected"
-  },
   "registrationApplicationStatuses": {
     "WAITING": "Waiting",
     "COMPLETED": "Completed ",
@@ -272,13 +232,6 @@
     "minLengthField": "The {{field}} field must be at least {{min}} characters long",
     "users": {
       "phoneNumber": "Invalid phone number"
-    },
-    "assignments": {
-      "phoneNumber": "Invalid phone number",
-      "coordinate": "Invalid coordinate",
-      "coordinateNotFound": "Coordinate Not Found",
-      "invalidLatitude": "Invalid latitude",
-      "invalidLongitude": "Invalid longitude"
     }
   },
   "locationModal": {

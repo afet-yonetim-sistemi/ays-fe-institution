@@ -8,10 +8,6 @@
     "users": {
       "plural": "Kullanıcılar",
       "singular": "Kullanıcı"
-    },
-    "assignments": {
-      "plural": "Atamalar",
-      "singular": "Atama"
     }
   },
   "pages": {
@@ -195,19 +191,6 @@
     "ON_ROAD": "Yolda",
     "RETURN": "Dönüyor"
   },
-  "assignmentStatuses": {
-    "ASSIGNED": "Atanmış",
-    "AVAILABLE": "Atanmaya Müsait",
-    "DONE": "Tamamlandı",
-    "IN_PROGRESS": "Taşınma Durumunda",
-    "RESERVED": "Ayrılmış"
-  },
-  "registrationApplicationStatuses": {
-    "WAITING": "Bekleniyor",
-    "COMPLETED": "Tamamlandı",
-    "VERIFIED": "Doğrulandı",
-    "REJECTED": "Reddedildi"
-  },
   "registrationApplicationStatuses": {
     "WAITING": "Bekleniyor",
     "COMPLETED": "Tamamlandı",
@@ -225,13 +208,6 @@
     "minLengthField": "{{field}} en az {{min}} karakter olabilir",
     "users": {
       "phoneNumber": "Geçersiz telefon numarası"
-    },
-    "assignments": {
-      "phoneNumber": "Geçersiz telefon numarası",
-      "coordinate": "Geçersiz koordinat",
-      "coordinateNotFound": "Koordinatlar bulunamadı.",
-      "invalidLatitude": "Geçersiz enlem",
-      "invalidLongitude": "Geçersiz boylam"
     }
   },
   "locationModal": {
@@ -260,29 +236,6 @@
       "title": "Geçersiz konum"
     },
     "selectLocation": "Konum Seçin"
-  },
-  "assignments": {
-    "title": "Atamalar",
-    "actions": {
-      "create": "Atamayı Oluştur",
-      "edit": "Atamayı Düzenle",
-      "delete": "Atamayı Sil",
-      "show": "Atamayı Göster"
-    },
-    "fields": {
-      "firstName": "Ad",
-      "lastName": "Soyad",
-      "status": "Durum",
-      "supportStatus": "Destek Statüsü",
-      "phoneNumber": "Telefon Numarası",
-      "username": "Kullanıcı Adı",
-      "password": "Parola",
-      "description": "Açıklama",
-      "coordinates": "Koordinatlar",
-      "coordinate": "Koordinat",
-      "latitude": "Enlem",
-      "longitude": "Boylam"
-    }
   },
   "registrationApplications": {
     "title": "Kayıt Başvuruları",
