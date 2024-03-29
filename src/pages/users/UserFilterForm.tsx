@@ -57,21 +57,6 @@ const UserFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilters }> =
         countryCode: value.replace("+", ""),
       });
   };
-
-  const validateName = (value: string) => {
-    if (!value) {
-      return Promise.reject(t("formErrors.required"));
-    } else if (value?.trim()?.length === 0) {
-      return Promise.reject(t("formErrors.required"));
-    } else if (value?.trim()?.length > 0 && value?.trim()?.length < 2) {
-      return Promise.reject(t("formErrors.minLength", { min: "2" }));
-    } else if (value?.trim()?.length > 35) {
-      return Promise.reject(t("formErrors.maxLength", { max: "35" }));
-    } else {
-      return Promise.resolve();
-    }
-  };
-
   return (
     <Form
       layout="vertical"
@@ -91,18 +76,7 @@ const UserFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilters }> =
         }}
       >
         <Col xs={24}>
-          <Form.Item
-            name="firstName"
-            label={t("users.fields.firstName")}
-            required
-            rules={[
-              {
-                validator: (_, value) => {
-                  return validateName(value);
-                },
-              },
-            ]}
-          >
+          <Form.Item name="firstName" label={t("users.fields.firstName")} required>
             <Input
               onChange={(e) => {
                 const value = e.target.value
@@ -117,18 +91,7 @@ const UserFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilters }> =
           </Form.Item>
         </Col>
         <Col xs={24}>
-          <Form.Item
-            name="lastName"
-            label={t("users.fields.lastName")}
-            required
-            rules={[
-              {
-                validator: (_, value) => {
-                  return validateName(value);
-                },
-              },
-            ]}
-          >
+          <Form.Item name="lastName" label={t("users.fields.lastName")} required>
             <Input
               onChange={(e) => {
                 const value = e.target.value
