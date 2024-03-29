@@ -24,10 +24,6 @@ p, SUPER_ADMIN, admins, (list)|(create)
 
 p, SUPER_ADMIN, registration-applications, (list)|(create)
 
-p, ADMIN, assignments, (list)|(create)
-p, ADMIN, assignments/*, (edit)|(show)|(delete)
-p, ADMIN, assignment/*, (edit)|(show)|(delete)
-
 p, ADMIN, users, (list)|(create)
 p, ADMIN, users/*, (edit)|(show)|(delete)
 p, ADMIN, user/*, (edit)|(show)|(delete)
