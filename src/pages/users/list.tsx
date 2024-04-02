@@ -150,7 +150,8 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     onMutationSuccess(data) {
       const newUser = data.data as CreateUserResponse;
       setNewRecord(newUser);
-      show();
+      showDrawerProps.setShowId(newUser.id);
+      setVisibleShowDrawer(true);
       open &&
         open({
           type: "success",
