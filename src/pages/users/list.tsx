@@ -31,8 +31,10 @@ import { useCopyToClipboard } from "@/components/hooks/useCopyToClipboard";
 import UserFilterForm from "./UserFilterForm";
 import IconButton from "@/components/IconButton";
 import FilterIcon from "@/components/icons/FilterIcon";
+
 export const UserList: React.FC<IResourceComponentsProps> = () => {
   const { show, modalProps, close } = useModal();
+  const { show: showPreviewModal, modalProps: previewModalProps, close: closePreviewModal } = useModal();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newRecord, setNewRecord] = useState<CreateUserResponse | undefined>(undefined);
   const [_value] = useCopyToClipboard();
@@ -150,15 +152,16 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     onMutationSuccess(data) {
       const newUser = data.data as CreateUserResponse;
       setNewRecord(newUser);
-      show();
+      setVisibleUser({ username: newUser.username, password: newUser.password, });
+      showPreviewModal();
       open &&
-        open({
-          type: "success",
-          description: t("notifications.success"),
-          message: t("notifications.createSuccess", {
-            resource: t("resources.users.singular"),
-          }),
-        });
+      open({
+        type: "success",
+        description: t("notifications.success"),
+        message: t("notifications.createSuccess", {
+          resource: t("resources.users.singular"),
+        }),
+      });
     },
   });
 
@@ -175,10 +178,25 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     resource: "user",
   });
 
+  // For visible user
+  const [visibleUser, setVisibleUser] = useState<{ username: string | undefined, password: string | undefined }>({
+    username: undefined,
+    password: undefined,
+  });
   return (
     <>
       <Modal {...modalProps} title={t("form.filters")} footer={null}>
         <UserFilterForm formProps={searchFormProps} filters={filters || []} />
+      </Modal>
+      <Modal {...previewModalProps} title="Kullanıcı" footer={null}>
+        {
+          visibleUser.username && visibleUser.password && (
+            <div>
+              <p>{t("username")}: {visibleUser.username}</p>
+              <p>{t("password")}: {visibleUser.password}</p>
+            </div>
+          )
+        }
       </Modal>
       <List
         title={t("users.title")}
@@ -286,13 +304,13 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
                       hideText
                       onSuccess={() => {
                         open &&
-                          open({
-                            type: "success",
-                            description: t("notifications.success"),
-                            message: t("notifications.deleteSuccess", {
-                              resource: t("resources.users.singular"),
-                            }),
-                          });
+                        open({
+                          type: "success",
+                          description: t("notifications.success"),
+                          message: t("notifications.deleteSuccess", {
+                            resource: t("resources.users.singular"),
+                          }),
+                        });
                         tableQueryResult.refetch();
                       }}
                     />
