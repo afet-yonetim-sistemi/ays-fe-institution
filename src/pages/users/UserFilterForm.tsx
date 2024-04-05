@@ -76,7 +76,7 @@ const UserFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilters }> =
         }}
       >
         <Col xs={24}>
-          <Form.Item name="firstName" label={t("users.fields.firstName")} required>
+          <Form.Item name="firstName" label={t("users.fields.firstName")}>
             <Input
               onChange={(e) => {
                 const value = e.target.value
@@ -91,7 +91,7 @@ const UserFilterForm: React.FC<{ formProps: FormProps; filters: CrudFilters }> =
           </Form.Item>
         </Col>
         <Col xs={24}>
-          <Form.Item name="lastName" label={t("users.fields.lastName")} required>
+          <Form.Item name="lastName" label={t("users.fields.lastName")}>
             <Input
               onChange={(e) => {
                 const value = e.target.value
