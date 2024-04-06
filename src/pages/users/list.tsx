@@ -18,9 +18,9 @@ import {
   getDefaultSortOrder,
 } from "@refinedev/antd";
 
-import { Modal, Space, Table } from "antd";
+import { Modal, Space, Table, Divider, Typography } from "antd";
 import { CreateUserResponse, SingleUser, User } from "@/types";
-import { useState } from "react";
+import React,{ useState } from "react";
 
 import "./style.css";
 import { countryCodes } from "@/utilities";
@@ -34,77 +34,91 @@ import FilterIcon from "@/components/icons/FilterIcon";
 
 export const UserList: React.FC<IResourceComponentsProps> = () => {
   const { show, modalProps, close } = useModal();
-  const { show: showPreviewModal, modalProps: previewModalProps, close: closePreviewModal } = useModal();
+  const {
+    show: showNewUserModal,
+    modalProps: newUserModalProps,
+    close: closeNewUserModal,
+  } = useModal();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [newRecord, setNewRecord] = useState<CreateUserResponse | undefined>(undefined);
-  const [_value] = useCopyToClipboard();
+  const [newRecord, setNewRecord] = useState<CreateUserResponse | undefined>(
+    undefined
+  );
+  const [_value, copy] = useCopyToClipboard();
+  const [confirmModal, setConfirmModal] = useState<boolean>(false);
+  const [modal, contextHolder] = Modal.useModal();
   const t = useTranslate();
 
   const { open } = useNotification();
 
-  const { filters, tableProps, searchFormProps, tableQueryResult } = useTable<SingleUser>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onSearch: (params: any) => {
-      const filters: CrudFilters = [];
-      const { firstName, lastName, supportStatuses, statuses, phoneNumber } = params;
-      if (firstName) {
+  const { filters, tableProps, searchFormProps, tableQueryResult } =
+    useTable<SingleUser>({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onSearch: (params: any) => {
+        const filters: CrudFilters = [];
+        const { firstName, lastName, supportStatuses, statuses, phoneNumber } =
+          params;
+        if (firstName) {
+          filters.push({
+            field: "firstName",
+            operator: "eq",
+            value: firstName,
+          });
+        }
+        if (lastName) {
+          filters.push({
+            field: "lastName",
+            operator: "eq",
+            value: lastName,
+          });
+        }
+        if (supportStatuses) {
+          filters.push({
+            field: "supportStatuses",
+            operator: "eq",
+            value: supportStatuses,
+          });
+        }
+        if (statuses) {
+          filters.push({
+            field: "statuses",
+            operator: "eq",
+            value: statuses,
+          });
+        }
         filters.push({
-          field: "firstName",
+          field: "phoneNumber",
           operator: "eq",
-          value: firstName,
+          value: {
+            countryCode: phoneNumber?.countryCode?.length
+              ? phoneNumber?.countryCode
+              : undefined,
+            lineNumber: phoneNumber?.lineNumber?.length
+              ? phoneNumber?.lineNumber
+              : undefined,
+          },
         });
-      }
-      if (lastName) {
-        filters.push({
-          field: "lastName",
-          operator: "eq",
-          value: lastName,
-        });
-      }
-      if (supportStatuses) {
-        filters.push({
-          field: "supportStatuses",
-          operator: "eq",
-          value: supportStatuses,
-        });
-      }
-      if (statuses) {
-        filters.push({
-          field: "statuses",
-          operator: "eq",
-          value: statuses,
-        });
-      }
-      filters.push({
-        field: "phoneNumber",
-        operator: "eq",
-        value: {
-          countryCode: phoneNumber?.countryCode?.length ? phoneNumber?.countryCode : undefined,
-          lineNumber: phoneNumber?.lineNumber?.length ? phoneNumber?.lineNumber : undefined,
-        },
-      });
-      close();
-      return filters;
-    },
+        close();
+        return filters;
+      },
 
-    resource: "users",
-    filters: {
-      permanent: [
-        {
-          field: "getToPost",
-          operator: "eq",
-          value: true,
-        },
-      ],
-    },
-    sorters: {
-      mode: "server",
-    },
-    pagination: {
-      pageSize: 10,
-      current: 1,
-    },
-  });
+      resource: "users",
+      filters: {
+        permanent: [
+          {
+            field: "getToPost",
+            operator: "eq",
+            value: true,
+          },
+        ],
+      },
+      sorters: {
+        mode: "server",
+      },
+      pagination: {
+        pageSize: 10,
+        current: 1,
+      },
+    });
 
   const statusToColor = (status: User["status"]) => {
     switch (status) {
@@ -152,16 +166,15 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     onMutationSuccess(data) {
       const newUser = data.data as CreateUserResponse;
       setNewRecord(newUser);
-      setVisibleUser({ username: newUser.username, password: newUser.password, });
-      showPreviewModal();
+      showNewUserModal();
       open &&
-      open({
-        type: "success",
-        description: t("notifications.success"),
-        message: t("notifications.createSuccess", {
-          resource: t("resources.users.singular"),
-        }),
-      });
+        open({
+          type: "success",
+          description: t("notifications.success"),
+          message: t("notifications.createSuccess", {
+            resource: t("resources.users.singular"),
+          }),
+        });
     },
   });
 
@@ -178,25 +191,29 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     resource: "user",
   });
 
-  // For visible user
-  const [visibleUser, setVisibleUser] = useState<{ username: string | undefined, password: string | undefined }>({
-    username: undefined,
-    password: undefined,
-  });
+  const onCancel = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (confirmModal) return;
+    setConfirmModal(true);
+    const confirm = await modal.confirm({
+      title: t("notifications.warning"),
+      content: t("users.newUserModal.onCancelTitle"),
+      cancelButtonProps: {
+        hidden: false,
+      },
+      cancelText: t("buttons.cancel"),
+      okText: t("buttons.ok"),
+    });
+
+    if (confirm) {
+      newUserModalProps.onCancel && newUserModalProps.onCancel(e);
+    }
+    setConfirmModal(false);
+  };
+
   return (
     <>
       <Modal {...modalProps} title={t("form.filters")} footer={null}>
         <UserFilterForm formProps={searchFormProps} filters={filters || []} />
-      </Modal>
-      <Modal {...previewModalProps} title="Kullanıcı" footer={null}>
-        {
-          visibleUser.username && visibleUser.password && (
-            <div>
-              <p>{t("username")}: {visibleUser.username}</p>
-              <p>{t("password")}: {visibleUser.password}</p>
-            </div>
-          )
-        }
       </Modal>
       <List
         title={t("users.title")}
@@ -217,6 +234,51 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           </>
         )}
       >
+        {contextHolder}
+        <Modal
+          {...newUserModalProps}
+          title={t("users.newUserModal.title")}
+          onCancel={onCancel}
+          cancelButtonProps={{
+            hidden: true,
+          }}
+          okText={t("users.newUserModal.copyAndClose")}
+          onOk={(e) => {
+            copy(
+              `${t("users.fields.username")}: ${newRecord?.username}\n${t(
+                "users.fields.password"
+              )}: ${newRecord?.password}`
+            );
+            newUserModalProps.onCancel && newUserModalProps.onCancel(e);
+            open &&
+              open({
+                type: "success",
+                description: t("notifications.success"),
+                message: t("users.newUserModal.copySuccess"),
+              });
+          }}
+        >
+          <Space
+            direction="vertical"
+            style={{
+              width: "100%",
+              padding: "1rem 0",
+            }}
+          >
+            <Typography.Text>{t("users.newUserModal.message")}</Typography.Text>
+            <Divider
+              style={{
+                margin: "0.5rem 0",
+              }}
+            />
+            <Typography.Text>
+              {t("users.fields.username")}: {newRecord?.username}
+            </Typography.Text>
+            <Typography.Text>
+              {t("users.fields.password")}: {newRecord?.password}
+            </Typography.Text>
+          </Space>
+        </Modal>
         <Table
           rowKey="id"
           id="users-table"
@@ -250,7 +312,10 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
             title={t("users.fields.status")}
             width={300}
             render={(value: User["status"]) => (
-              <TagField value={t("statuses." + value)} color={statusToColor(value)} />
+              <TagField
+                value={t("statuses." + value)}
+                color={statusToColor(value)}
+              />
             )}
             defaultFilteredValue={getDefaultFilter("status", filters)}
           />
@@ -304,13 +369,13 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
                       hideText
                       onSuccess={() => {
                         open &&
-                        open({
-                          type: "success",
-                          description: t("notifications.success"),
-                          message: t("notifications.deleteSuccess", {
-                            resource: t("resources.users.singular"),
-                          }),
-                        });
+                          open({
+                            type: "success",
+                            description: t("notifications.success"),
+                            message: t("notifications.deleteSuccess", {
+                              resource: t("resources.users.singular"),
+                            }),
+                          });
                         tableQueryResult.refetch();
                       }}
                     />
