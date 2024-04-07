@@ -44,6 +44,7 @@ export default function ShowUser({
   const t = useTranslate();
   const { data: showQueryResult } = props.queryResult;
   const record = showQueryResult?.data;
+  const { open } = useNotification();
 
   const titleElement = (
     <span style={{ fontSize: 18 }}>
