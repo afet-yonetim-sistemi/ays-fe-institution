@@ -38,6 +38,7 @@ const statusToColor = (supportStatus: SingleUser["supportStatus"]) => {
 export default function ShowUser({
   setVisibleShowDrawer,
   visibleShowDrawer,
+  tableQueryResult,
   ...props
 }: Props) {
   const t = useTranslate();
