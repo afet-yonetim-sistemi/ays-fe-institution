@@ -8,6 +8,7 @@ const { Title, Text } = Typography;
 type Props = useShowReturnType<SingleUser> & {
   setVisibleShowDrawer: (visible: boolean) => void;
   visibleShowDrawer: boolean;
+  tableQueryResult: any;
 };
 
 const statusToColor = (supportStatus: SingleUser["supportStatus"]) => {
@@ -43,10 +44,12 @@ export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...p
   );
   const deleteElement =
     record?.status !== "DELETED" ? (
-      <DeleteButton recordItemId={props.showId} onSuccess={() => setVisibleShowDrawer(false)} />
-    ) : (
-      <></>
-    );
+      <DeleteButton recordItemId={props.showId} resource="user" onSuccess={() => {
+          setVisibleShowDrawer(false)
+          props.tableQueryResult.refetch();
+        }}
+      />
+    ) : (<></>);
 
   return (
     <Drawer

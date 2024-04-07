@@ -389,6 +389,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
         <EditUser {...editDrawerProps} />
         <ShowUser
           {...showDrawerProps}
+          tableQueryResult={tableQueryResult}
           visibleShowDrawer={visibleShowDrawer}
           setVisibleShowDrawer={setVisibleShowDrawer}
         />
