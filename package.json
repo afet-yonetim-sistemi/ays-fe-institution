@@ -27,7 +27,7 @@
     "jwt-decode": "^3.1.2",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
-    "npm": "^9.8.1",
+    "npm": "^10.5.2",
     "prettier": "^3.0.0",
     "query-string": "^7.1.1",
     "react": "^18.0.0",
