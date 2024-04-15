@@ -1,14 +1,15 @@
 import { SingleUser } from "@/types";
 import { DeleteButton, TagField } from "@refinedev/antd";
-import { useShowReturnType, useTranslate } from "@refinedev/core";
+import { useShowReturnType, useTranslate,useNotification } from "@refinedev/core";
 import { Drawer, Typography } from "antd";
+import { QueryObserverResult } from "@tanstack/react-query";
 
 const { Title, Text } = Typography;
 
 type Props = useShowReturnType<SingleUser> & {
   setVisibleShowDrawer: (visible: boolean) => void;
   visibleShowDrawer: boolean;
-  tableQueryResult: any;
+  tableQueryResult: QueryObserverResult;
 };
 
 const statusToColor = (supportStatus: SingleUser["supportStatus"]) => {
@@ -34,22 +35,44 @@ const statusToColor = (supportStatus: SingleUser["supportStatus"]) => {
   }
 };
 
-export default function ShowUser({ setVisibleShowDrawer, visibleShowDrawer, ...props }: Props) {
+export default function ShowUser({
+  setVisibleShowDrawer,
+  visibleShowDrawer,
+  tableQueryResult,
+  ...props
+}: Props) {
   const t = useTranslate();
   const { data: showQueryResult } = props.queryResult;
   const record = showQueryResult?.data;
+  const { open } = useNotification();
 
   const titleElement = (
-    <span style={{ fontSize: 18 }}>{t(`${record?.firstName} ${record?.lastName}`)}</span>
+    <span style={{ fontSize: 18 }}>
+      {t(`${record?.firstName} ${record?.lastName}`)}
+    </span>
   );
   const deleteElement =
     record?.status !== "DELETED" ? (
-      <DeleteButton recordItemId={props.showId} resource="user" onSuccess={() => {
-          setVisibleShowDrawer(false)
-          props.tableQueryResult.refetch();
+      <DeleteButton
+        recordItemId={props.showId}
+        resource="user"
+        successNotification={false}
+        onSuccess={(): void => {
+          open &&
+            open({
+              type: "success",
+              description: t("notifications.success"),
+              message: t("notifications.deleteSuccess", {
+                resource: t("resources.users.singular"),
+              }),
+            });
+          setVisibleShowDrawer(false);
+          tableQueryResult.refetch().then();
         }}
       />
-    ) : (<></>);
+    ) : (
+      <></>
+    );
 
   return (
     <Drawer
