@@ -1,5 +1,5 @@
 import { User } from "@/types";
-import { Edit, SaveButton, UseDrawerFormReturnType } from "@refinedev/antd";
+import { SaveButton, UseDrawerFormReturnType } from "@refinedev/antd";
 import { useTranslate } from "@refinedev/core";
 import { Drawer, Form, Select } from "antd";
 
@@ -30,6 +30,7 @@ export default function EditUser({
         layout="vertical"
         style={{
           background: "none",
+          marginTop: "32px",
         }}
       >
         <Form.Item
