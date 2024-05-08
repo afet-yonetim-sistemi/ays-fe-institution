@@ -4,6 +4,7 @@ import Menu from './menu'
 import { MenuIcon } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ModeToggle } from './mode-toggle'
+import LanguageToggle from './language-toggle'
 
 function Navbar() {
   return (
@@ -22,7 +23,8 @@ function Navbar() {
       <div className="w-full flex-1">
         <div className="text-center md:text-left">AYS</div>
       </div>
-      <div className="space-x-2">
+      <div className="flex space-x-2">
+        <LanguageToggle />
         <ModeToggle />
       </div>
     </header>
