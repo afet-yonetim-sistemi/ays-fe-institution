@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { useEffect } from 'react'
 import { increment } from '@/modules/counter/counterSlice'
-import { Button } from 'antd'
+import { Button } from '@/components/ui/button'
 
 export default function Home() {
   const { t } = useTranslation()
