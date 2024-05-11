@@ -13,5 +13,8 @@
   },
   "username": "Kullanıcı Adı",
   "password": "Şifre",
-  "submit": "Giriş Yap"
+  "submit": "Giriş Yap",
+    "requiredField": "Bu alan zorunludur",
+  "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
+    "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır."
 }

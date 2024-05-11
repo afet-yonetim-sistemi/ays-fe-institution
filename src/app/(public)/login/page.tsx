@@ -27,20 +27,28 @@ import { PasswordInput } from '@/components/ui/passwordInput'
 import { useAppDispatch } from '@/store/hooks'
 import authService from '@/modules/auth/service'
 import { loginFailed, loginSuccess } from '@/modules/auth/authSlice'
-
-//TODO: write custom messages for validation
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  password: z.string().min(8).max(50),
-})
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 
 const Page = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-  //TODO: set loading
   const [loading, setLoading] = useState(false)
+
+  const formSchema = z.object({
+    username: z
+      .string()
+      .min(1, t('requiredField'))
+      .min(2, t('minLength', { field: 2 }))
+      .max(50, t('maxLength', { field: 50 })),
+    password: z
+      .string()
+      .min(1, t('requiredField'))
+      .min(8, t('minLength', { field: 8 }))
+      .max(50, t('maxLength', { field: 50 })),
+  })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,18 +63,22 @@ const Page = () => {
       .login(values)
       .then((res) => {
         dispatch(loginSuccess(res.data.response))
+        form.reset()
+        router.push('/dashboard')
       })
       .catch((err) => {
         dispatch(loginFailed(err.message))
       })
       .finally(() => {
-        form.reset()
         setLoading(false)
-        router.push('/dashboard')
       })
   }
 
-  return (
+  return loading ? (
+    <div className={'spinner'}>
+      <LoadingSpinner size={100} />
+    </div>
+  ) : (
     <div className={'container'}>
       <Card className={'w-[410px] h-fit'}>
         <CardHeader className={'flex items-center'}>

@@ -1,6 +1,7 @@
 {
   "hello": "hello",
-  "increment": "increment",
+  "welcome": "Welcome to AYS",
+  "loginDescription": "Please enter your username and password to login.",
   "aysTitle": "AYS | Disaster Management System",
   "aysDescription": "Disaster Management System",
   "users": "Users",
@@ -9,5 +10,11 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System"
-  }
+  },
+  "username": "Username",
+  "password": "Password",
+  "submit": "Submit",
+  "requiredField": "This field is required.",
+  "minLength": "This field must be at least {{field}} characters.",
+  "maxLength": "This field must be at most {{field}} characters."
 }
