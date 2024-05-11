@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import i18n from '@/i18n'
 import { Providers } from '@/lib/providers'
+import { ThemeProvider } from '@/components/theme-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,14 @@ export default function RootLayout({
   return (
     <html lang={i18n.language}>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>{children}</Providers>
+        </ThemeProvider>
       </body>
     </html>
   )

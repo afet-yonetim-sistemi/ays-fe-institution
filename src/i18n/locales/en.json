@@ -1,0 +1,13 @@
+{
+  "hello": "hello",
+  "increment": "increment",
+  "aysTitle": "AYS | Disaster Management System",
+  "aysDescription": "Disaster Management System",
+  "users": "Users",
+  "home": "Home",
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}
