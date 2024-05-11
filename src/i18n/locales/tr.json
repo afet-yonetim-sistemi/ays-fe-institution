@@ -4,6 +4,13 @@
   "loginDescription": "Lütfen Kullanıcı Adınızı ve Şifrenizi giriniz.",
   "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
   "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
+  "users": "Kullanıcılar",
+  "home": "Ana Sayfa",
+  "theme": {
+    "light": "Açık",
+    "dark": "Karanlık",
+    "system": "Sistem"
+  },
   "username": "Kullanıcı Adı",
   "password": "Şifre",
   "submit": "Giriş Yap"

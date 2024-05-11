@@ -2,6 +2,10 @@
 import PrivateRoute from '@/app/hocs/isAuth'
 
 const Page = () => {
-  return <PrivateRoute></PrivateRoute>
+  return(
+      <PrivateRoute>
+      <div>Dashboard Page</div>
+  </PrivateRoute>
+  )
 }
 export default Page
