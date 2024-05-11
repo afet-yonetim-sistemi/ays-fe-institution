@@ -1,7 +1,11 @@
-import React from 'react'
+'use client'
+import PrivateRoute from '@/app/hocs/isAuth'
 
-export default function Page() {
-  return (
-    <div>Dashboard Page</div>
+const Page = () => {
+  return(
+      <PrivateRoute>
+      <div>Dashboard Page</div>
+  </PrivateRoute>
   )
 }
+export default Page
