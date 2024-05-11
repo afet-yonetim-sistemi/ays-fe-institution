@@ -1,21 +1,20 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useAppSelector } from '@/store/hooks'
 import { selectToken } from '@/modules/auth/authSlice'
-import { useRouter } from 'next/navigation'
 
-export default function Home() {
+const PrivateRoute = ({ children }: any) => {
   const router = useRouter()
-
-  const tokenInfo = useAppSelector(selectToken)
-
+  const token = useAppSelector(selectToken)
   useEffect(() => {
-    if (!tokenInfo) {
+    if (!token) {
       router.push('/login')
-    } else {
-      router.push('/dashboard')
     }
-  })
-  return <></>
+  }, [token, router])
+
+  return children
 }
+
+export default PrivateRoute

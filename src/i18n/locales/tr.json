@@ -1,6 +1,10 @@
 {
   "hello": "Merhaba",
-  "increment": "Arttır",
+  "welcome": "Hoşgeldiniz",
+  "loginDescription": "Lütfen Kullanıcı Adınızı ve Şifrenizi giriniz.",
   "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
-  "aysDescription": "Afet Yönetim Sistemi | Disaster Management System"
+  "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
+  "username": "Kullanıcı Adı",
+  "password": "Şifre",
+  "submit": "Giriş Yap"
 }

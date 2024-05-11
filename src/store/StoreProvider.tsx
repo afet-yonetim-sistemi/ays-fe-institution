@@ -5,6 +5,8 @@ import { makeStore, AppStore } from './store'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 
+export const store = makeStore()
+
 export default function StoreProvider({
   children,
 }: {
@@ -12,8 +14,6 @@ export default function StoreProvider({
 }) {
   const storeRef = useRef<AppStore>()
   if (!storeRef.current) {
-    // Create the store instance the first time this renders
-    const store = makeStore()
     storeRef.current = store
     //@ts-ignore
     storeRef.current.__persistor = persistStore(store)
