@@ -43,7 +43,7 @@ http.interceptors.response.use(
         }
         try {
           const response = await api.post(
-            '/authentication/admin/token/refresh',
+            '/api/v2/authentication/token/refresh',
             {
               refreshToken,
             },
