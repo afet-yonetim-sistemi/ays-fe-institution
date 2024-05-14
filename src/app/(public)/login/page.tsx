@@ -37,23 +37,24 @@ const Page = () => {
   const [loading, setLoading] = useState(false)
 
   const formSchema = z.object({
-    username: z
+    emailAddress: z
       .string()
       .min(1, t('requiredField'))
-      .min(2, t('minLength', { field: 2 }))
-      .max(50, t('maxLength', { field: 50 })),
+      .email(t('invalidEmail')),
     password: z
       .string()
       .min(1, t('requiredField'))
       .min(8, t('minLength', { field: 8 }))
       .max(50, t('maxLength', { field: 50 })),
+    sourcePage: z.string(),
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      emailAddress: '',
       password: '',
+      sourcePage: 'INSTITUTION',
     },
   })
 
@@ -96,12 +97,12 @@ const Page = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
               <FormField
                 control={form.control}
-                name="username"
+                name="emailAddress"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('username')}</FormLabel>
+                    <FormLabel>{t('email')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('username')} {...field} />
+                      <Input placeholder={t('email')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -121,7 +122,7 @@ const Page = () => {
                 )}
               />
               <Button type="submit" className={'w-full'}>
-                {t('submit')}
+                {t('login')}
               </Button>
             </form>
           </Form>
