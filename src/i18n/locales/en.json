@@ -1,0 +1,23 @@
+{
+  "hello": "Hello",
+  "welcome": "Welcome",
+  "loginDescription": "Please enter your E-mail and Password.",
+  "aysTitle": "AYS | Disaster Management System",
+  "aysDescription": "Disaster Management System",
+  "users": "Users",
+  "home": "Home",
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "username": "Username",
+    "email": "E-mail",
+  "password": "Password",
+  "login": "Login",
+    "logout": "Logout",
+  "requiredField": "This field is required.",
+  "minLength": "This field must be at least {{field}} characters.",
+  "maxLength": "This field must be at most {{field}} characters.",
+    "invalidEmail": "Invalid E-mail."
+}
