@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItems } from "@/constants/menuItems";
-
+  
 export default function Menu() {
   const pathname = usePathname()
   const { t } = useTranslation()
