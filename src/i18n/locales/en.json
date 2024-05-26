@@ -6,6 +6,22 @@
   "aysDescription": "Disaster Management System",
   "users": "Users",
   "home": "Home",
+  "page": "Page",
+  "admin": {
+    "adminRegistrationApplications":"Admin Registration Applications",
+    "status": "Status",
+    "waiting": "WAITING",
+    "completed":"COMPLETED",
+    "rejected":"REJECTED",
+    "verified":"VERIFIED",
+    "columnHeader": {
+      "organization": "Organization",
+      "creationReason": "Creation Reason",
+      "status": "Status",
+      "createdAt": "Created At",
+      "createdUser": "Created User"
+    }
+  },
   "theme": {
     "light": "Light",
     "dark": "Dark",

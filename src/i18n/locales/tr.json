@@ -6,6 +6,22 @@
   "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
   "users": "Kullanıcılar",
   "home": "Ana Sayfa",
+  "page": "Sayfa",
+  "admin": {
+    "adminRegistrationApplications":"Yönetici Kayıt Başvuruları",
+    "status": "Durum",
+    "waiting": "BEKLEMEDE",
+    "completed":"TAMAMLANDI",
+    "rejected":"REDDEDİLDİ",
+    "verified":"DOĞRULANDI",
+    "columnHeader": {
+      "organization": "Organizasyon",
+      "creationReason": "Oluşturulma Sebebi",
+      "status": "Durum",
+      "createdAt": "Oluşturulma Tarihi",
+      "createdUser": "Oluşturan Kullanıcı"
+    }
+  },
   "theme": {
     "light": "Açık",
     "dark": "Karanlık",
