@@ -3,6 +3,7 @@ import { clsx } from 'clsx'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { useTranslation } from 'react-i18next'
 
 const Pagination = ({ totalPage }: { totalPage: number }) => {
   const pathname: string = usePathname()
@@ -14,11 +15,10 @@ const Pagination = ({ totalPage }: { totalPage: number }) => {
     params.set('page', pageNumber.toString())
     return `${pathname}?${params.toString()}`
   }
+  const { t } = useTranslation()
   return (
     <div className="flex items-center gap-8 float-end">
-      <div>
-        Page {currentPage}/{totalPage}
-      </div>
+      <div>{`${t('page')} ${currentPage}/${totalPage}`}</div>
       <div className="flex">
         <PaginationArrow
           direction="left"
