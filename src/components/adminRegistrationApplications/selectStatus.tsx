@@ -9,12 +9,27 @@ import { PlusCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 
-const StatusData: string[] = ['WAITING', 'COMPLETED', 'REJECTED', 'VERIFIED']
+const StatusData: string[] = [
+  'ALL',
+  'WAITING',
+  'COMPLETED',
+  'REJECTED',
+  'VERIFIED',
+]
 
 const SelectStatus = ({ setSelectStatus }: { setSelectStatus: any }) => {
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>(['ALL'])
   const { t } = useTranslation()
   const handleStatusChange = (status: string) => {
+    if (status == 'ALL') {
+      setSelectedStatuses(['ALL'])
+      setSelectStatus([])
+      return
+    }
+    if (selectedStatuses.includes('ALL')) {
+      const updatedItems = selectedStatuses.filter((status) => status !== 'ALL')
+      setSelectedStatuses(updatedItems)
+    }
     setSelectedStatuses((prev) =>
       prev.includes(status)
         ? prev.filter((s) => s !== status)

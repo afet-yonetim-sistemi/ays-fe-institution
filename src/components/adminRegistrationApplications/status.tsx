@@ -7,7 +7,7 @@ const Status = ({ status }: { status: string }) => {
   return (
     <span
       className={clsx('inline-flex items-center rounded-md px-2 py-1 text-xs', {
-        'bg-gray-100 text-gray-500': status === 'REJECTED',
+        'bg-red-500 text-white': status === 'REJECTED',
         'bg-green-500 text-white': status === 'COMPLETED',
         'bg-yellow-500 text-white': status === 'WAITING',
         'bg-sky-500 text-white': status === 'VERIFIED',
