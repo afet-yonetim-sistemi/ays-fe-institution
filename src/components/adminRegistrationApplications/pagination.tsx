@@ -1,33 +1,77 @@
 import React from 'react'
+
 import { clsx } from 'clsx'
-import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import { useTranslation } from 'react-i18next'
-
-const Pagination = ({ totalPage }: { totalPage: number }) => {
-  const pathname: string = usePathname()
-  const searchParams = useSearchParams()
-
-  const currentPage: number = Number(searchParams.get('page')) || 1
-  const createPageURL = (pageNumber: number | string) => {
-    const params: URLSearchParams = new URLSearchParams(searchParams)
-    params.set('page', pageNumber.toString())
-    return `${pathname}?${params.toString()}`
+import Link from 'next/link'
+import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+interface PaginationProps {
+  page?: string
+  totalPage: number
+}
+const Pagination = (props: PaginationProps) => {
+  const { page = 1, totalPage } = props
+  const router = useRouter()
+  const currentPage = Number(page)
+  if (totalPage == 1) router.push('?page=1')
+  const getPagesToShow = () => {
+    let startPage = currentPage - 2
+    let endPage = currentPage + 2
+    if (currentPage <= 2) {
+      startPage = 1
+      endPage = totalPage - 1
+    } else if (currentPage >= totalPage - 2) {
+      startPage = totalPage - 2
+      endPage = totalPage - 1
+    }
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i,
+    )
   }
-  const { t } = useTranslation()
+  const pages = getPagesToShow()
   return (
     <div className="flex items-center gap-8 float-end">
-      <div>{`${t('page')} ${currentPage}/${totalPage}`}</div>
       <div className="flex">
         <PaginationArrow
           direction="left"
-          href={createPageURL(currentPage - 1)}
+          href={`?page=${currentPage - 1}`}
           isDisabled={currentPage <= 1}
         />
+        <nav
+          aria-label="Pagination"
+          className="relative z-0 inline-flex -space-x-px rounded-md"
+        >
+          {!(totalPage == 1) &&
+            pages.map((p, i) => (
+              <Link
+                key={p}
+                className={cn(
+                  'relative inline-flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50',
+                  p === currentPage
+                    ? 'pointer-events-none bg-gray-100 rounded'
+                    : '',
+                )}
+                href={`?page=${p}`}
+              >
+                {p}
+              </Link>
+            ))}
+          <Link
+            className={cn(
+              'relative inline-flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50',
+              totalPage === currentPage
+                ? 'pointer-events-none bg-gray-100 rounded'
+                : '',
+            )}
+            href={`?page=${totalPage}`}
+          >
+            {totalPage}
+          </Link>
+        </nav>
         <PaginationArrow
           direction="right"
-          href={createPageURL(currentPage + 1)}
+          href={`?page=${currentPage + 1}`}
           isDisabled={currentPage >= totalPage}
         />
       </div>
