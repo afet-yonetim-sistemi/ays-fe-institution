@@ -9,11 +9,12 @@
   "page": "Page",
   "admin": {
     "adminRegistrationApplications":"Admin Registration Applications",
+    "all": "All",
     "status": "Status",
-    "waiting": "WAITING",
-    "completed":"COMPLETED",
-    "rejected":"REJECTED",
-    "verified":"VERIFIED",
+    "waiting": "Waiting",
+    "completed":"Completed",
+    "rejected":"Rejected",
+    "verified":"Verified",
     "columnHeader": {
       "organization": "Organization",
       "creationReason": "Creation Reason",

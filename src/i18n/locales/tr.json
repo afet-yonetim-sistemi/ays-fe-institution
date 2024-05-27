@@ -9,11 +9,12 @@
   "page": "Sayfa",
   "admin": {
     "adminRegistrationApplications":"Yönetici Kayıt Başvuruları",
+    "all": "Hepsini Seç",
     "status": "Durum",
-    "waiting": "BEKLEMEDE",
-    "completed":"TAMAMLANDI",
-    "rejected":"REDDEDİLDİ",
-    "verified":"DOĞRULANDI",
+    "waiting": "Beklemede",
+    "completed":"Tamamlandı",
+    "rejected":"Reddedildi",
+    "verified":"Doğrulandı",
     "columnHeader": {
       "organization": "Organizasyon",
       "creationReason": "Oluşturulma Sebebi",
