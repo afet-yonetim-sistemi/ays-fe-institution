@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import DataTable from '@/modules/adminRegistrationApplications/components/dataTable'
 import { SortingState } from '@tanstack/react-table'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { pageSize } from '@/modules/adminRegistrationApplications/constants'
 
 interface AdminRegistrationState {
   content: any[]
@@ -26,11 +27,9 @@ const Page = ({ searchParams }: { searchParams: any }) => {
   const page = searchParams.page || 1
 
   useEffect(() => {
-    const sortBy = sorting
-      .map((s) => `${s.id},${s.desc ? 'DESC' : 'ASC'}`)
-      .join(',')
+    const sortBy = sorting.map((s) => `${s.desc ? 'DESC' : 'ASC'}`).join(',')
     setIsLoading(true)
-    postAdminRegistrationApplications(page, 10, selectStatus, sortBy)
+    postAdminRegistrationApplications(page, pageSize, selectStatus, sortBy)
       .then((responseData) => {
         setAdminRegistration(responseData.data.response)
       })
@@ -55,7 +54,7 @@ const Page = ({ searchParams }: { searchParams: any }) => {
           <h1>{t('adminRegistrationApplications')}</h1>
           <SelectStatus
             selectStatus={selectStatus}
-            setSelectStatus={setSelectStatus}
+            setSelectStatus={(state: string[]) => setSelectStatus(state)}
           />
         </div>
         <DataTable

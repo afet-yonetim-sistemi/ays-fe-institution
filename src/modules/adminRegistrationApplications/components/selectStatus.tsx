@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -8,17 +7,15 @@ import {
 import { PlusCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
-import status from '@/modules/adminRegistrationApplications/components/status'
-import { StatusData } from '@/constants/common'
 import { useRouter } from 'next/navigation'
+import { StatusData } from '@/modules/adminRegistrationApplications/constants'
 
-const SelectStatus = ({
-  selectStatus,
-  setSelectStatus,
-}: {
+interface StatusProps {
   selectStatus: string[]
-  setSelectStatus: any
-}) => {
+  setSelectStatus: (state: string[]) => void
+}
+
+const SelectStatus = ({ selectStatus, setSelectStatus }: StatusProps) => {
   const router = useRouter()
   const { t } = useTranslation()
   const handleStatusChange = (status: string) => {
@@ -44,18 +41,18 @@ const SelectStatus = ({
         <DropdownMenuCheckboxItem
           checked={selectStatus.length == 0}
           onCheckedChange={() => setSelectStatus([])}
-          className="capitalize cursor-pointer"
+          className="cursor-pointer"
         >
           {t(`all`)}
         </DropdownMenuCheckboxItem>
-        {StatusData.map((menu) => (
+        {StatusData.map((menu, id) => (
           <DropdownMenuCheckboxItem
-            key={menu}
-            checked={selectStatus.includes(menu)}
-            onCheckedChange={() => handleStatusChange(menu)}
-            className="capitalize cursor-pointer"
+            key={id}
+            checked={selectStatus.includes(menu.value)}
+            onCheckedChange={() => handleStatusChange(menu.value)}
+            className="cursor-pointer"
           >
-            {t(`${menu.toLowerCase()}`)}
+            {t(`${menu.label}`)}
           </DropdownMenuCheckboxItem>
         ))}
       </DropdownMenuContent>
