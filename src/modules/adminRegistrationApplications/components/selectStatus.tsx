@@ -9,14 +9,7 @@ import { PlusCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import status from '@/modules/adminRegistrationApplications/components/status'
-
-const StatusData: string[] = [
-  'ALL',
-  'WAITING',
-  'COMPLETED',
-  'REJECTED',
-  'VERIFIED',
-]
+import { StatusData } from '@/constants/common'
 
 const SelectStatus = ({
   selectStatus,
