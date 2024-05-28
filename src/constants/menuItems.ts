@@ -15,7 +15,7 @@ export const MenuItems: Menu[] = [
   },
   {
     key: '/admin-registration-applications',
-    label: 'admin.adminRegistrationApplications',
+    label: 'adminRegistrationApplications',
     icon: Users2,
   },
 ]

@@ -13,7 +13,7 @@ const Status = ({ status }: { status: string }) => {
         'bg-sky-500 text-white': status === 'VERIFIED',
       })}
     >
-      {t(`admin.${status.toLowerCase()}`)}
+      {t(`${status.toLowerCase()}`)}
     </span>
   )
 }

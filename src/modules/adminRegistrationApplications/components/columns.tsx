@@ -17,20 +17,20 @@ export interface AdminRegistrationApplication {
 export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   {
     accessorKey: 'institution.name',
-    header: () => i18next.t('admin.columnHeader.organization'),
+    header: () => i18next.t('organization'),
   },
   {
     accessorKey: 'reason',
-    header: () => i18next.t('admin.columnHeader.creationReason'),
+    header: () => i18next.t('creationReason'),
   },
   {
     accessorKey: 'status',
-    header: () => i18next.t('admin.columnHeader.status'),
+    header: () => i18next.t('status'),
     cell: ({ row }) => <Status status={row.getValue('status')} />,
   },
   {
     accessorKey: 'createdUser',
-    header: () => i18next.t('admin.columnHeader.createdUser'),
+    header: () => i18next.t('createdUser'),
   },
   {
     accessorKey: 'createdAt',
@@ -40,7 +40,7 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          {i18next.t('admin.columnHeader.createdAt')}
+          {i18next.t('createdAt')}
           <BiSort className="ml-2 h-4 w-4" />
         </Button>
       )

@@ -45,7 +45,7 @@ const SelectStatus = ({
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="space-x-1">
           <PlusCircle size={14} />
-          <span>{t('admin.status')}</span>
+          <span>{t('status')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -56,7 +56,7 @@ const SelectStatus = ({
             onCheckedChange={() => handleStatusChange(menu)}
             className="capitalize cursor-pointer"
           >
-            {t(`admin.${menu.toLowerCase()}`)}
+            {t(`${menu.toLowerCase()}`)}
           </DropdownMenuCheckboxItem>
         ))}
       </DropdownMenuContent>

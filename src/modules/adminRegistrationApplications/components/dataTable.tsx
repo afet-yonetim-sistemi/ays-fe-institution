@@ -19,6 +19,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { usePathname, useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 
 const ListRegistration = ({
   data,
@@ -31,6 +32,7 @@ const ListRegistration = ({
 }) => {
   const pathname: string = usePathname()
   const router = useRouter()
+  const { t } = useTranslation()
   const table = useReactTable({
     data,
     columns,
@@ -80,7 +82,7 @@ const ListRegistration = ({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results...
+                {t('noResult')}
               </TableCell>
             </TableRow>
           )}

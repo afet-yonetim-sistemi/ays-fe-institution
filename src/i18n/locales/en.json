@@ -7,34 +7,30 @@
   "users": "Users",
   "home": "Home",
   "page": "Page",
-  "admin": {
-    "adminRegistrationApplications":"Admin Registration Applications",
-    "all": "All",
-    "status": "Status",
-    "waiting": "Waiting",
-    "completed":"Completed",
-    "rejected":"Rejected",
-    "verified":"Verified",
-    "columnHeader": {
-      "organization": "Organization",
-      "creationReason": "Creation Reason",
-      "status": "Status",
-      "createdAt": "Created At",
-      "createdUser": "Created User"
-    }
-  },
+  "adminRegistrationApplications": "Admin Registration Applications",
+  "all": "All",
+  "status": "Status",
+  "waiting": "Waiting",
+  "completed": "Completed",
+  "rejected": "Rejected",
+  "verified": "Verified",
+  "organization": "Organization",
+  "creationReason": "Creation Reason",
+  "createdAt": "Created At",
+  "createdUser": "Created User",
+  "noResult": "No Results...",
   "theme": {
     "light": "Light",
     "dark": "Dark",
     "system": "System"
   },
   "username": "Username",
-    "email": "E-mail",
+  "email": "E-mail",
   "password": "Password",
   "login": "Login",
-    "logout": "Logout",
+  "logout": "Logout",
   "requiredField": "This field is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
-    "invalidEmail": "Invalid E-mail."
+  "invalidEmail": "Invalid E-mail."
 }
