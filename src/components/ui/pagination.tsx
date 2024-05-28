@@ -3,16 +3,13 @@ import React from 'react'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
 interface PaginationProps {
   page?: string
   totalPage: number
 }
 const Pagination = (props: PaginationProps) => {
   const { page = 1, totalPage } = props
-  const router = useRouter()
   const currentPage = Number(page)
-  if (totalPage == 1) router.push('?page=1')
   const getPagesToShow = () => {
     let startPage = currentPage - 2
     let endPage = currentPage + 2

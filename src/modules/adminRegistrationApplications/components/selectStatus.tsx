@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import status from '@/modules/adminRegistrationApplications/components/status'
 import { StatusData } from '@/constants/common'
+import { useRouter } from 'next/navigation'
 
 const SelectStatus = ({
   selectStatus,
@@ -18,12 +19,9 @@ const SelectStatus = ({
   selectStatus: string[]
   setSelectStatus: any
 }) => {
+  const router = useRouter()
   const { t } = useTranslation()
   const handleStatusChange = (status: string) => {
-    if (status == 'ALL') {
-      setSelectStatus([])
-      return
-    }
     let newStatus
     if (selectStatus.includes(status)) {
       newStatus = selectStatus.filter((stat) => stat !== status)
@@ -31,6 +29,7 @@ const SelectStatus = ({
       newStatus = [...selectStatus, status]
     }
     setSelectStatus(newStatus)
+    router.push('?page=1')
   }
 
   return (
@@ -42,6 +41,13 @@ const SelectStatus = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        <DropdownMenuCheckboxItem
+          checked={selectStatus.length == 0}
+          onCheckedChange={() => setSelectStatus([])}
+          className="capitalize cursor-pointer"
+        >
+          {t(`all`)}
+        </DropdownMenuCheckboxItem>
         {StatusData.map((menu) => (
           <DropdownMenuCheckboxItem
             key={menu}
