@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/table-core'
 import { formatDate } from '@/app/hocs/formatDate'
-import Status from '@/components/adminRegistrationApplications/status'
+import Status from '@/modules/adminRegistrationApplications/components/status'
 import { Button } from '@/components/ui/button'
 import { BiSort } from 'react-icons/bi'
 import i18next from 'i18next'

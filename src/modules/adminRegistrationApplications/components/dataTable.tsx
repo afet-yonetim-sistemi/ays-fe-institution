@@ -7,11 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useTranslation } from 'react-i18next'
 import {
   AdminRegistrationApplication,
   columns,
-} from '@/components/adminRegistrationApplications/columns'
+} from '@/modules/adminRegistrationApplications/components/columns'
 import {
   flexRender,
   getCoreRowModel,
@@ -30,7 +29,6 @@ const ListRegistration = ({
   sorting?: SortingState
   setSorting: OnChangeFn<SortingState>
 }) => {
-  const { t } = useTranslation()
   const pathname: string = usePathname()
   const router = useRouter()
   const table = useReactTable({

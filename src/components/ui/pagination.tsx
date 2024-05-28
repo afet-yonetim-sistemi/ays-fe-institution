@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { clsx } from 'clsx'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
@@ -90,7 +89,7 @@ const PaginationArrow = ({
   direction: 'left' | 'right'
   isDisabled?: boolean
 }) => {
-  const className = clsx(
+  const className = cn(
     'flex h-10 w-10 items-center justify-center rounded-md border',
     {
       'pointer-events-none text-gray-300': isDisabled,

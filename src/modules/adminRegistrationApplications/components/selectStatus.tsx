@@ -8,6 +8,7 @@ import {
 import { PlusCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
+import status from '@/modules/adminRegistrationApplications/components/status'
 
 const StatusData: string[] = [
   'ALL',
@@ -17,29 +18,26 @@ const StatusData: string[] = [
   'VERIFIED',
 ]
 
-const SelectStatus = ({ setSelectStatus }: { setSelectStatus: any }) => {
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>(['ALL'])
+const SelectStatus = ({
+  selectStatus,
+  setSelectStatus,
+}: {
+  selectStatus: string[]
+  setSelectStatus: any
+}) => {
   const { t } = useTranslation()
   const handleStatusChange = (status: string) => {
     if (status == 'ALL') {
-      setSelectedStatuses(['ALL'])
       setSelectStatus([])
       return
     }
-    if (selectedStatuses.includes('ALL')) {
-      const updatedItems = selectedStatuses.filter((status) => status !== 'ALL')
-      setSelectedStatuses(updatedItems)
+    let newStatus
+    if (selectStatus.includes(status)) {
+      newStatus = selectStatus.filter((stat) => stat !== status)
+    } else {
+      newStatus = [...selectStatus, status]
     }
-    setSelectedStatuses((prev) =>
-      prev.includes(status)
-        ? prev.filter((s) => s !== status)
-        : [...prev, status],
-    )
-    setSelectStatus((prev: string[]) =>
-      prev.includes(status)
-        ? prev.filter((s: string) => s !== status)
-        : [...prev, status],
-    )
+    setSelectStatus(newStatus)
   }
 
   return (
@@ -54,7 +52,7 @@ const SelectStatus = ({ setSelectStatus }: { setSelectStatus: any }) => {
         {StatusData.map((menu) => (
           <DropdownMenuCheckboxItem
             key={menu}
-            checked={selectedStatuses.includes(menu)}
+            checked={selectStatus.includes(menu)}
             onCheckedChange={() => handleStatusChange(menu)}
             className="capitalize cursor-pointer"
           >

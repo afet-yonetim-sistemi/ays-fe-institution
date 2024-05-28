@@ -1,58 +1,72 @@
 'use client'
-import PrivateRoute from '@/app/hocs/isAuth'
-import SelectStatus from '@/components/adminRegistrationApplications/selectStatus'
+
 import { useEffect, useState } from 'react'
-import Pagination from '@/components/adminRegistrationApplications/pagination'
+import PrivateRoute from '@/app/hocs/isAuth'
+import SelectStatus from '@/modules/adminRegistrationApplications/components/selectStatus'
+import Pagination from '@/components/ui/pagination'
 import { postAdminRegistrationApplications } from '@/modules/adminRegistrationApplications/service'
 import { useTranslation } from 'react-i18next'
-import DataTable from '@/components/adminRegistrationApplications/dataTable'
+import DataTable from '@/modules/adminRegistrationApplications/components/dataTable'
 import { SortingState } from '@tanstack/react-table'
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+
 interface AdminRegistrationState {
-  content: []
+  content: any[]
   totalPageCount: number
 }
+
 const Page = ({ searchParams }: { searchParams: any }) => {
-  const [selectStatus, setSelectStatus] = useState([])
+  const { t } = useTranslation()
+  const [selectStatus, setSelectStatus] = useState<string[]>([])
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [sorting, setSorting] = useState<SortingState>([])
-  const { t } = useTranslation()
 
-  let page = searchParams.page || 1
+  const page = searchParams.page || 1
+
   useEffect(() => {
-    const sortBy = sorting.map((s) => `${s.desc ? 'DESC' : 'ASC'}`).join(',')
+    const sortBy = sorting
+      .map((s) => `${s.id},${s.desc ? 'DESC' : 'ASC'}`)
+      .join(',')
+    setIsLoading(true)
     postAdminRegistrationApplications(page, 10, selectStatus, sortBy)
       .then((responseData) => {
-        setIsLoading(false)
         setAdminRegistration(responseData.data.response)
-        setIsLoading(true)
       })
       .catch((error) => {
         console.error('Request failed:', error)
       })
+      .finally(() => setIsLoading(false))
   }, [selectStatus, sorting, page])
-  if (!isLoading) {
-    return <div>Loading...</div>
+
+  if (isLoading) {
+    return (
+      <div className="h-full flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    )
   }
+
   return (
     <PrivateRoute>
       <div className="space-y-1">
         <div className="flex justify-between w-full gap-4">
-          <h1>{t('admin.adminRegistrationApplications')}</h1>
-          <SelectStatus setSelectStatus={setSelectStatus} />
+          <h1>{t('adminRegistrationApplications')}</h1>
+          <SelectStatus
+            selectStatus={selectStatus}
+            setSelectStatus={setSelectStatus}
+          />
         </div>
         <DataTable
-          data={adminRegistration?.content}
+          data={adminRegistration.content}
           sorting={sorting}
           setSorting={setSorting}
         />
-        <Pagination
-          page={searchParams.page}
-          totalPage={adminRegistration?.totalPageCount}
-        />
+        <Pagination page={page} totalPage={adminRegistration.totalPageCount} />
       </div>
     </PrivateRoute>
   )
 }
+
 export default Page
