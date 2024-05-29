@@ -1,6 +1,7 @@
 {
   "hello": "Merhaba",
   "welcome": "Hoş Geldiniz",
+  "notFound": "Sayfa Bulunamadı.",
   "loginDescription": "Lütfen E-postanızı ve Şifrenizi giriniz.",
   "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
   "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
