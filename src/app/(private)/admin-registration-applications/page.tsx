@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import DataTable from '@/modules/adminRegistrationApplications/components/dataTable'
 import { SortingState } from '@tanstack/react-table'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { pageSize } from '@/modules/adminRegistrationApplications/constants'
+import { pageSize } from '@/constants/common'
 
 interface AdminRegistrationState {
   content: any[]

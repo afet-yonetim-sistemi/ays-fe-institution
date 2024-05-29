@@ -8,7 +8,7 @@ import { PlusCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/navigation'
-import { StatusData } from '@/modules/adminRegistrationApplications/constants'
+import { StatusData } from '@/modules/adminRegistrationApplications/constants/status'
 
 interface StatusProps {
   selectStatus: string[]
