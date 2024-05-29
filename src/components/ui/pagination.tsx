@@ -43,9 +43,9 @@ const Pagination = (props: PaginationProps) => {
               <Link
                 key={p}
                 className={cn(
-                  'relative inline-flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50',
+                  'relative inline-flex items-center px-4 py-2 text-sm font-medium rounded hover:bg-gray-50 dark:hover:bg-gray-800',
                   p === currentPage
-                    ? 'pointer-events-none bg-gray-100 rounded'
+                    ? 'pointer-events-none bg-gray-100 dark:bg-gray-800 dark:text-white'
                     : '',
                 )}
                 href={`?page=${p}`}
@@ -55,9 +55,9 @@ const Pagination = (props: PaginationProps) => {
             ))}
           <Link
             className={cn(
-              'relative inline-flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50',
+              'relative inline-flex items-center px-4 py-2 text-sm font-medium rounded hover:bg-gray-50 dark:hover:bg-gray-800',
               totalPage === currentPage
-                ? 'pointer-events-none bg-gray-100 rounded'
+                ? 'pointer-events-none bg-gray-100 dark:bg-gray-800 dark:text-white'
                 : '',
             )}
             href={`?page=${totalPage}`}
