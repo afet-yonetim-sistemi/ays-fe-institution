@@ -3,8 +3,8 @@
   "welcome": "Welcome",
   "notFound": "Page not found.",
   "loginDescription": "Please enter your E-mail and Password.",
-  "aysTitle": "AYS | Disaster Management System",
-  "aysDescription": "Disaster Management System",
+  "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
+  "aysDescription": "Disaster Management System | Afet Yönetim Sistemi",
   "users": "Users",
   "home": "Home",
   "theme": {
@@ -13,12 +13,12 @@
     "system": "System"
   },
   "username": "Username",
-    "email": "E-mail",
+  "email": "E-mail",
   "password": "Password",
   "login": "Login",
-    "logout": "Logout",
+  "logout": "Logout",
   "requiredField": "This field is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
-    "invalidEmail": "Invalid E-mail."
+  "invalidEmail": "Invalid E-mail."
 }

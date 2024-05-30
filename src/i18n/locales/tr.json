@@ -1,7 +1,7 @@
 {
   "hello": "Merhaba",
   "welcome": "Hoş Geldiniz",
-  "notFound": "Sayfa Bulunamadı.",
+  "notFound": "Aradığınız Sayfa Bulunamadı.",
   "loginDescription": "Lütfen E-postanızı ve Şifrenizi giriniz.",
   "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
   "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
@@ -16,9 +16,9 @@
   "email": "E-posta",
   "password": "Şifre",
   "login": "Oturum Aç",
-    "logout": "Çıkış Yap",
-    "requiredField": "Bu alan zorunludur.",
+  "logout": "Çıkış Yap",
+  "requiredField": "Bu alan zorunludur.",
   "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
-    "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
+  "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
   "invalidEmail": "Geçersiz e-posta adresi."
 }
