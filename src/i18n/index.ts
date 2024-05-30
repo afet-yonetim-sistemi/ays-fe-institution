@@ -16,7 +16,10 @@ const resources = {
 
 i18n.init({
   resources,
-  lng: 'en', // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
+  lng:
+    typeof window !== 'undefined'
+      ? localStorage.getItem('language') || 'tr'
+      : 'tr', // Check localStorage for saved language
   // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
   // if you're using a language detector, do not define the lng option
 
@@ -24,5 +27,12 @@ i18n.init({
     escapeValue: false, // react already safes from xss
   },
 })
+
+const changeLanguage = (lng: string) => {
+  i18n.changeLanguage(lng)
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('language', lng)
+  }
+}
 
 export default i18n
