@@ -59,10 +59,9 @@ const Page = ({ searchParams }: { searchParams: any }) => {
             sorting={sorting}
             setSorting={setSorting}
           />
-          <Pagination
-            page={page}
-            totalPage={adminRegistration.totalPageCount}
-          />
+          <div className="float-end">
+            <Pagination totalPages={adminRegistration.totalPageCount} />
+          </div>
         </div>
       )}
     </PrivateRoute>
