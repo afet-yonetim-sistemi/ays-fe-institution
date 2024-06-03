@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { changeLanguage } from 'i18next'
+import { changeLanguage } from '@/i18n'
 const lngs: any = {
   en: { nativeName: 'English' },
   tr: { nativeName: 'Türkçe' },
