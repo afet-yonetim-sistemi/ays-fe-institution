@@ -36,3 +36,4 @@ const changeLanguage = (lng: string) => {
 }
 
 export default i18n
+export { changeLanguage }
