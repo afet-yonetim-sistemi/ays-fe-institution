@@ -10,6 +10,7 @@ import DataTable from '@/modules/adminRegistrationApplications/components/dataTa
 import { SortingState } from '@tanstack/react-table'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { pageSize } from '@/constants/common'
+import { columns } from '@/modules/adminRegistrationApplications/components/columns'
 
 interface AdminRegistrationState {
   content: any[]
@@ -22,8 +23,12 @@ const Page = ({ searchParams }: { searchParams: any }) => {
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [sorting, setSorting] = useState<SortingState>([])
-
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: 'createdAt',
+      desc: false,
+    },
+  ])
   const page = searchParams.page || 1
 
   useEffect(() => {
@@ -56,6 +61,7 @@ const Page = ({ searchParams }: { searchParams: any }) => {
           </div>
           <DataTable
             data={adminRegistration.content}
+            columns={columns}
             sorting={sorting}
             setSorting={setSorting}
           />
