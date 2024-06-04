@@ -1,29 +1,29 @@
 import React from 'react'
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { usePathname, useSearchParams } from 'next/navigation'
 import { generatePagination } from '@/lib/generatePagination'
+import { Button } from '@/components/ui/button'
+
 interface PaginationProps {
-  totalPage: number
+  totalPages: number
+  currentPage: number
+  setCurrentPage: (page: number) => void
 }
-const Pagination = ({ totalPages }: { totalPages: number }) => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const currentPage = Number(searchParams.get('page')) || 1
-  const createPageURL = (pageNumber: number | string) => {
-    const params = new URLSearchParams(searchParams)
-    params.set('page', pageNumber.toString())
-    return `${pathname}?${params.toString()}`
-  }
+
+const Pagination = ({
+  totalPages,
+  currentPage,
+  setCurrentPage,
+}: PaginationProps) => {
   const allPages = generatePagination(currentPage, totalPages)
+  if (totalPages < 2) setCurrentPage(1)
   return (
     <>
       <div className="inline-flex">
         <PaginationArrow
           direction="left"
-          href={createPageURL(currentPage - 1)}
+          onClick={() => setCurrentPage(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
 
@@ -35,11 +35,10 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
             if (index === allPages.length - 1) position = 'last'
             if (allPages.length === 1) position = 'single'
             if (page === '...') position = 'middle'
-
             return (
               <PaginationNumber
                 key={page}
-                href={createPageURL(page)}
+                onClick={() => setCurrentPage(Number(page))}
                 page={page}
                 position={position}
                 isActive={currentPage === page}
@@ -50,7 +49,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 
         <PaginationArrow
           direction="right"
-          href={createPageURL(currentPage + 1)}
+          onClick={() => setCurrentPage(currentPage + 1)}
           isDisabled={currentPage >= totalPages}
         />
       </div>
@@ -60,21 +59,21 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 
 function PaginationNumber({
   page,
-  href,
+  onClick,
   isActive,
   position,
 }: {
   page: number | string
-  href: string
+  onClick: any
   position?: 'first' | 'last' | 'middle' | 'single'
   isActive: boolean
 }) {
   const className = cn(
-    'flex h-10 w-10 items-center justify-center text-sm border',
+    'flex h-10 w-10 border-none items-center justify-center text-sm border',
     {
       'rounded-l-md': position === 'first' || position === 'single',
       'rounded-r-md': position === 'last' || position === 'single',
-      'z-10 bg-blue-600 border-blue-600 text-white': isActive,
+      'z-10 rounded bg-blue-600 border-blue-600 text-white': isActive,
       'hover:bg-gray-800/10 dark:hover:bg-gray-800':
         !isActive && position !== 'middle',
       'text-gray-300': position === 'middle',
@@ -84,26 +83,26 @@ function PaginationNumber({
   return isActive || position === 'middle' ? (
     <div className={className}>{page}</div>
   ) : (
-    <Link href={href} className={className}>
+    <Button variant="ghost" onClick={onClick} className={className}>
       {page}
-    </Link>
+    </Button>
   )
 }
 
 function PaginationArrow({
-  href,
+  onClick,
   direction,
   isDisabled,
 }: {
-  href: string
+  onClick: any
   direction: 'left' | 'right'
   isDisabled?: boolean
 }) {
   const className = cn(
-    'flex h-10 w-10 items-center justify-center rounded-md border',
+    'flex h-10 w-10 p-0 items-center justify-center rounded-md border',
     {
       'pointer-events-none text-gray-300': isDisabled,
-      'hover:bg-gray-100': !isDisabled,
+      'hover:bg-gray-800/10 dark:hover:bg-gray-800': !isDisabled,
       'mr-2 md:mr-4': direction === 'left',
       'ml-2 md:ml-4': direction === 'right',
     },
@@ -119,9 +118,9 @@ function PaginationArrow({
   return isDisabled ? (
     <div className={className}>{icon}</div>
   ) : (
-    <Link className={className} href={href}>
+    <Button variant="outline" className={className} onClick={onClick}>
       {icon}
-    </Link>
+    </Button>
   )
 }
 

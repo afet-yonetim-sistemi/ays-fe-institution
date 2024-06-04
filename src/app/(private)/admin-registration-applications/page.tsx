@@ -17,7 +17,7 @@ interface AdminRegistrationState {
   totalPageCount: number
 }
 
-const Page = ({ searchParams }: { searchParams: any }) => {
+const Page = () => {
   const { t } = useTranslation()
   const [selectStatus, setSelectStatus] = useState<string[]>([])
   const [adminRegistration, setAdminRegistration] =
@@ -29,12 +29,17 @@ const Page = ({ searchParams }: { searchParams: any }) => {
       desc: false,
     },
   ])
-  const page = searchParams.page || 1
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   useEffect(() => {
     const sortBy = sorting.map((s) => `${s.desc ? 'DESC' : 'ASC'}`).join(',')
     setIsLoading(true)
-    postAdminRegistrationApplications(page, pageSize, selectStatus, sortBy)
+    postAdminRegistrationApplications(
+      currentPage,
+      pageSize,
+      selectStatus,
+      sortBy,
+    )
       .then((responseData) => {
         setAdminRegistration(responseData.data.response)
       })
@@ -42,7 +47,7 @@ const Page = ({ searchParams }: { searchParams: any }) => {
         console.error('Request failed:', error)
       })
       .finally(() => setIsLoading(false))
-  }, [selectStatus, sorting, page])
+  }, [selectStatus, sorting, currentPage])
 
   return (
     <PrivateRoute>
@@ -66,7 +71,11 @@ const Page = ({ searchParams }: { searchParams: any }) => {
             setSorting={setSorting}
           />
           <div className="float-end">
-            <Pagination totalPages={adminRegistration.totalPageCount} />
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={adminRegistration.totalPageCount}
+            />
           </div>
         </div>
       )}

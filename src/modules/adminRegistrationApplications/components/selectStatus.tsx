@@ -7,7 +7,6 @@ import {
 import { PlusCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
-import { useRouter } from 'next/navigation'
 import { StatusData } from '@/modules/adminRegistrationApplications/constants/status'
 
 interface StatusProps {
@@ -16,7 +15,6 @@ interface StatusProps {
 }
 
 const SelectStatus = ({ selectStatus, setSelectStatus }: StatusProps) => {
-  const router = useRouter()
   const { t } = useTranslation()
   const handleStatusChange = (status: string) => {
     let newStatus
@@ -26,7 +24,6 @@ const SelectStatus = ({ selectStatus, setSelectStatus }: StatusProps) => {
       newStatus = [...selectStatus, status]
     }
     setSelectStatus(newStatus)
-    router.push('?page=1')
   }
 
   return (
