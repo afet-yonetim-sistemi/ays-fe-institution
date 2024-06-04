@@ -1,9 +1,10 @@
 {
   "hello": "Hello",
   "welcome": "Welcome",
+  "notFound": "Page not found.",
   "loginDescription": "Please enter your E-mail and Password.",
-  "aysTitle": "AYS | Disaster Management System",
-  "aysDescription": "Disaster Management System",
+  "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
+  "aysDescription": "Disaster Management System | Afet Yönetim Sistemi",
   "users": "Users",
   "home": "Home",
   "page": "Page",
