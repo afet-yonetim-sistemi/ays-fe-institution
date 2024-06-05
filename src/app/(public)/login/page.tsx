@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
@@ -24,15 +24,20 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { useAppDispatch } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import authService from '@/modules/auth/service'
-import { loginFailed, loginSuccess } from '@/modules/auth/authSlice'
+import {
+  loginFailed,
+  loginSuccess,
+  selectToken,
+} from '@/modules/auth/authSlice'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 
 const Page = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const tokenInfo = useAppSelector(selectToken)
 
   const [loading, setLoading] = useState(false)
 
@@ -69,16 +74,23 @@ const Page = () => {
       })
       .catch((err) => {
         dispatch(loginFailed(err.message))
+        form.reset()
       })
-      .finally(() => {
-        setLoading(false)
-      })
+      .finally(() => setLoading(false))
   }
 
-  return loading ? (
+  useEffect(() => {
+    if (tokenInfo) {
+      router.push('/dashboard')
+    }
+  }, [tokenInfo])
+
+  return loading && !tokenInfo ? (
     <div className={'spinner'}>
       <LoadingSpinner size={100} />
     </div>
+  ) : tokenInfo ? (
+    <></>
   ) : (
     <div className={'container'}>
       <Card className={'w-[410px] h-fit'}>

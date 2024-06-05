@@ -20,6 +20,7 @@ const authSlice = createSlice({
     loginSuccess: (state, action) => {
       state.accessToken = action.payload.accessToken
       state.refreshToken = action.payload.refreshToken
+      state.error = null
     },
     loginFailed: (state, action) => {
       state.error = action.payload
@@ -27,6 +28,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.accessToken = ''
       state.refreshToken = ''
+      state.error = null
     },
   },
 })
