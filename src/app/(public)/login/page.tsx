@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
@@ -78,6 +78,12 @@ const Page = () => {
       })
       .finally(() => setLoading(false))
   }
+
+  useEffect(() => {
+    if (tokenInfo) {
+      router.push('/dashboard')
+    }
+  }, [tokenInfo])
 
   return loading && !tokenInfo ? (
     <div className={'spinner'}>
