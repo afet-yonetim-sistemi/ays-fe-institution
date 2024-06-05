@@ -10,26 +10,36 @@ import DataTable from '@/modules/adminRegistrationApplications/components/dataTa
 import { SortingState } from '@tanstack/react-table'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { pageSize } from '@/constants/common'
+import { columns } from '@/modules/adminRegistrationApplications/components/columns'
 
 interface AdminRegistrationState {
   content: any[]
   totalPageCount: number
 }
 
-const Page = ({ searchParams }: { searchParams: any }) => {
+const Page = () => {
   const { t } = useTranslation()
   const [selectStatus, setSelectStatus] = useState<string[]>([])
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [sorting, setSorting] = useState<SortingState>([])
-
-  const page = searchParams.page || 1
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: 'createdAt',
+      desc: false,
+    },
+  ])
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   useEffect(() => {
     const sortBy = sorting.map((s) => `${s.desc ? 'DESC' : 'ASC'}`).join(',')
     setIsLoading(true)
-    postAdminRegistrationApplications(page, pageSize, selectStatus, sortBy)
+    postAdminRegistrationApplications(
+      currentPage,
+      pageSize,
+      selectStatus,
+      sortBy,
+    )
       .then((responseData) => {
         setAdminRegistration(responseData.data.response)
       })
@@ -37,7 +47,7 @@ const Page = ({ searchParams }: { searchParams: any }) => {
         console.error('Request failed:', error)
       })
       .finally(() => setIsLoading(false))
-  }, [selectStatus, sorting, page])
+  }, [selectStatus, sorting, currentPage])
 
   return (
     <PrivateRoute>
@@ -56,13 +66,17 @@ const Page = ({ searchParams }: { searchParams: any }) => {
           </div>
           <DataTable
             data={adminRegistration.content}
+            columns={columns}
             sorting={sorting}
             setSorting={setSorting}
           />
-          <Pagination
-            page={page}
-            totalPage={adminRegistration.totalPageCount}
-          />
+          <div className="float-end">
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={adminRegistration.totalPageCount}
+            />
+          </div>
         </div>
       )}
     </PrivateRoute>

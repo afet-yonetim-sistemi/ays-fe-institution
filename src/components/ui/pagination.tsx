@@ -1,102 +1,114 @@
 import React from 'react'
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { generatePagination } from '@/lib/generatePagination'
+import { Button } from '@/components/ui/button'
+
 interface PaginationProps {
-  page?: string
-  totalPage: number
+  totalPages: number
+  currentPage: number
+  setCurrentPage: (page: number) => void
 }
-const Pagination = (props: PaginationProps) => {
-  const { page = 1, totalPage } = props
-  const currentPage = Number(page)
-  const getPagesToShow = () => {
-    let startPage = currentPage - 2
-    let endPage = currentPage + 2
-    if (currentPage <= 2) {
-      startPage = 1
-      endPage = totalPage - 1
-    } else if (currentPage >= totalPage - 2) {
-      startPage = totalPage - 2
-      endPage = totalPage - 1
-    }
-    return Array.from(
-      { length: endPage - startPage + 1 },
-      (_, i) => startPage + i,
-    )
-  }
-  const pages = getPagesToShow()
+
+const Pagination = ({
+  totalPages,
+  currentPage,
+  setCurrentPage,
+}: PaginationProps) => {
+  const allPages = generatePagination(currentPage, totalPages)
+  if (totalPages < 2) setCurrentPage(1)
   return (
-    <div className="flex items-center gap-8 float-end">
-      <div className="flex">
+    <>
+      <div className="inline-flex">
         <PaginationArrow
           direction="left"
-          href={`?page=${currentPage - 1}`}
+          onClick={() => setCurrentPage(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
-        <nav
-          aria-label="Pagination"
-          className="relative z-0 inline-flex -space-x-px rounded-md"
-        >
-          {!(totalPage == 1) &&
-            pages.map((p, i) => (
-              <Link
-                key={p}
-                className={cn(
-                  'relative inline-flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50',
-                  p === currentPage
-                    ? 'pointer-events-none bg-gray-100 rounded'
-                    : '',
-                )}
-                href={`?page=${p}`}
-              >
-                {p}
-              </Link>
-            ))}
-          <Link
-            className={cn(
-              'relative inline-flex items-center px-4 py-2 text-sm font-medium hover:bg-gray-50',
-              totalPage === currentPage
-                ? 'pointer-events-none bg-gray-100 rounded'
-                : '',
-            )}
-            href={`?page=${totalPage}`}
-          >
-            {totalPage}
-          </Link>
-        </nav>
+
+        <div className="flex -space-x-px">
+          {allPages.map((page, index) => {
+            let position: 'first' | 'last' | 'single' | 'middle' | undefined
+
+            if (index === 0) position = 'first'
+            if (index === allPages.length - 1) position = 'last'
+            if (allPages.length === 1) position = 'single'
+            if (page === '...') position = 'middle'
+            return (
+              <PaginationNumber
+                key={page}
+                onClick={() => setCurrentPage(Number(page))}
+                page={page}
+                position={position}
+                isActive={currentPage === page}
+              />
+            )
+          })}
+        </div>
+
         <PaginationArrow
           direction="right"
-          href={`?page=${currentPage + 1}`}
-          isDisabled={currentPage >= totalPage}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          isDisabled={currentPage >= totalPages}
         />
       </div>
-    </div>
+    </>
   )
 }
 
-export default Pagination
-
-const PaginationArrow = ({
-  href,
-  direction,
-  isDisabled,
+function PaginationNumber({
+  page,
+  onClick,
+  isActive,
+  position,
 }: {
-  href: string
-  direction: 'left' | 'right'
-  isDisabled?: boolean
-}) => {
+  page: number | string
+  onClick: any
+  position?: 'first' | 'last' | 'middle' | 'single'
+  isActive: boolean
+}) {
   const className = cn(
-    'flex h-10 w-10 items-center justify-center rounded-md border',
+    'flex h-10 w-10 border-none items-center justify-center text-sm border',
     {
-      'pointer-events-none text-gray-300': isDisabled,
-      'hover:bg-gray-900/10 dark:hover:bg-gray-900': !isDisabled,
-      'mr-1': direction === 'left',
-      'ml-1': direction === 'right',
+      'rounded-l-md': position === 'first' || position === 'single',
+      'rounded-r-md': position === 'last' || position === 'single',
+      'z-10 rounded bg-blue-600 border-blue-600 text-white': isActive,
+      'hover:bg-gray-800/10 dark:hover:bg-gray-800':
+        !isActive && position !== 'middle',
+      'text-gray-300': position === 'middle',
     },
   )
 
-  const icon: React.JSX.Element =
+  return isActive || position === 'middle' ? (
+    <div className={className}>{page}</div>
+  ) : (
+    <Button variant="ghost" onClick={onClick} className={className}>
+      {page}
+    </Button>
+  )
+}
+
+function PaginationArrow({
+  onClick,
+  direction,
+  isDisabled,
+}: {
+  onClick: any
+  direction: 'left' | 'right'
+  isDisabled?: boolean
+}) {
+  const className = cn(
+    'flex h-10 w-10 p-0 items-center justify-center rounded-md border',
+    {
+      'pointer-events-none text-gray-300': isDisabled,
+      'hover:bg-gray-800/10 dark:hover:bg-gray-800': !isDisabled,
+      'mr-2 md:mr-4': direction === 'left',
+      'ml-2 md:ml-4': direction === 'right',
+    },
+  )
+
+  const icon =
     direction === 'left' ? (
       <IoIosArrowBack className="w-4" />
     ) : (
@@ -106,8 +118,10 @@ const PaginationArrow = ({
   return isDisabled ? (
     <div className={className}>{icon}</div>
   ) : (
-    <Link className={className} href={href}>
+    <Button variant="outline" className={className} onClick={onClick}>
       {icon}
-    </Link>
+    </Button>
   )
 }
+
+export default Pagination

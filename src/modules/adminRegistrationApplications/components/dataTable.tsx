@@ -8,50 +8,53 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import {
-  AdminRegistrationApplication,
-  columns,
-} from '@/modules/adminRegistrationApplications/components/columns'
-import {
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   OnChangeFn,
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { usePathname, useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
+import { ColumnDef } from '@tanstack/table-core'
+import { usePathname, useRouter } from 'next/navigation'
+import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/components/columns'
 
-const ListRegistration = ({
-  data,
-  sorting,
-  setSorting,
-}: {
+interface DataTableProps {
+  columns: ColumnDef<AdminRegistrationApplication>[]
   data: AdminRegistrationApplication[]
+  setSorting?: OnChangeFn<SortingState>
   sorting?: SortingState
-  setSorting: OnChangeFn<SortingState>
-}) => {
-  const pathname: string = usePathname()
-  const router = useRouter()
-  const { t } = useTranslation()
+}
+
+export function ListRegistration({
+  columns,
+  data,
+  setSorting,
+  sorting,
+}: DataTableProps) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
     },
-    manualSorting: true,
-    onSortingChange: setSorting,
   })
+  const { t } = useTranslation()
+  const pathname = usePathname()
+  const router = useRouter()
   return (
     <div className="rounded-md border">
-      <Table>
-        <TableHeader className="w-full">
+      <Table className="w-full caption-bottom text-sm">
+        <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="hover:bg-muted/0">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="h-10 px-2">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -73,7 +76,12 @@ const ListRegistration = ({
                 onClick={() => router.push(`${pathname}/${row.original.id}`)}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    className="px-2"
+                    width={cell.column.getSize()}
+                    colSpan={1}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
