@@ -33,6 +33,5 @@
   "requiredField": "This field is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
-  "invalidEmail": "Invalid E-mail.",
-  "version": "Version"
+  "invalidEmail": "Invalid E-mail."
 }
