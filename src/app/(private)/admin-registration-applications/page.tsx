@@ -11,6 +11,8 @@ import { SortingState } from '@tanstack/react-table'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { pageSize } from '@/constants/common'
 import { columns } from '@/modules/adminRegistrationApplications/components/columns'
+import { useToast } from '@/components/ui/use-toast'
+import { Toaster } from '@/components/ui/toaster'
 
 interface AdminRegistrationState {
   content: any[]
@@ -19,6 +21,7 @@ interface AdminRegistrationState {
 
 const Page = () => {
   const { t } = useTranslation()
+  const { toast } = useToast()
   const [selectStatus, setSelectStatus] = useState<string[]>([])
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
@@ -30,7 +33,7 @@ const Page = () => {
     },
   ])
   const [currentPage, setCurrentPage] = useState<number>(1)
-
+  const [error, setError] = useState<string | null>(null)
   useEffect(() => {
     const sortBy = sorting.map((s) => `${s.desc ? 'DESC' : 'ASC'}`).join(',')
     setIsLoading(true)
@@ -44,7 +47,12 @@ const Page = () => {
         setAdminRegistration(responseData.data.response)
       })
       .catch((error) => {
-        console.error('Request failed:', error)
+        setError(error.message)
+        toast({
+          title: t('error'),
+          description: t('defaultError'),
+          variant: 'destructive',
+        })
       })
       .finally(() => setIsLoading(false))
   }, [selectStatus, sorting, currentPage])
@@ -57,6 +65,7 @@ const Page = () => {
         </div>
       ) : (
         <div className="space-y-1">
+          {error && <Toaster />}
           <div className="flex justify-between w-full gap-4">
             <h1>{t('adminRegistrationApplications')}</h1>
             <SelectStatus
