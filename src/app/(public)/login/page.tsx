@@ -74,7 +74,7 @@ const Page = () => {
       })
       .catch((err) => {
         dispatch(loginFailed(err.message))
-        form.reset()
+        form.setValue('password', '')
       })
       .finally(() => setLoading(false))
   }
