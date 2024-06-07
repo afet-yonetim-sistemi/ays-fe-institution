@@ -29,15 +29,20 @@ import authService from '@/modules/auth/service'
 import {
   loginFailed,
   loginSuccess,
+  selectError,
   selectToken,
 } from '@/modules/auth/authSlice'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { useToast } from '@/components/ui/use-toast'
+import { Toaster } from '@/components/ui/toaster'
 
 const Page = () => {
   const { t } = useTranslation()
+  const { toast } = useToast()
   const dispatch = useAppDispatch()
   const router = useRouter()
   const tokenInfo = useAppSelector(selectToken)
+  const error = useAppSelector(selectError)
 
   const [loading, setLoading] = useState(false)
 
@@ -75,6 +80,11 @@ const Page = () => {
       .catch((err) => {
         dispatch(loginFailed(err.message))
         form.reset()
+        toast({
+          title: t('error'),
+          description: t('invalidEmailAndPassword'),
+          variant: 'destructive',
+        })
       })
       .finally(() => setLoading(false))
   }
@@ -92,55 +102,61 @@ const Page = () => {
   ) : tokenInfo ? (
     <></>
   ) : (
-    <div className={'container'}>
-      <Card className={'w-[410px] h-fit'}>
-        <CardHeader className={'flex items-center'}>
-          <Image
-            src={'/aysfavicon360.png'}
-            alt={'AYS'}
-            width={100}
-            height={100}
-          />
-          <CardTitle>{t('welcome')}</CardTitle>
-          <CardDescription>{t('loginDescription')}</CardDescription>
-        </CardHeader>
-        <CardHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-              <FormField
-                control={form.control}
-                name="emailAddress"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('email')}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t('email')} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('password')}</FormLabel>
-                    <FormControl>
-                      <PasswordInput placeholder={t('password')} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className={'w-full'}>
-                {t('login')}
-              </Button>
-            </form>
-          </Form>
-        </CardHeader>
-      </Card>
-    </div>
+    <>
+      {error && <Toaster />}
+      <div className={'container'}>
+        <Card className={'w-[410px] h-fit'}>
+          <CardHeader className={'flex items-center'}>
+            <Image
+              src={'/aysfavicon360.png'}
+              alt={'AYS'}
+              width={100}
+              height={100}
+            />
+            <CardTitle>{t('welcome')}</CardTitle>
+            <CardDescription>{t('loginDescription')}</CardDescription>
+          </CardHeader>
+          <CardHeader>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-5"
+              >
+                <FormField
+                  control={form.control}
+                  name="emailAddress"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('email')}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t('email')} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('password')}</FormLabel>
+                      <FormControl>
+                        <PasswordInput placeholder={t('password')} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className={'w-full'}>
+                  {t('login')}
+                </Button>
+              </form>
+            </Form>
+          </CardHeader>
+        </Card>
+      </div>
+    </>
   )
 }
 

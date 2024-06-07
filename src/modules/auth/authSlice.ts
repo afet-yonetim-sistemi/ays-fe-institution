@@ -37,5 +37,6 @@ export const { loginSuccess, loginFailed, logout } = authSlice.actions
 
 export const selectToken = (state: RootState) => state.auth.accessToken
 export const selectRefreshToken = (state: RootState) => state.auth.refreshToken
+export const selectError = (state: RootState) => state.auth.error
 
 export default authSlice.reducer
