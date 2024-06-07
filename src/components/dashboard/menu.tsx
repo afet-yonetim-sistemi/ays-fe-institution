@@ -13,7 +13,7 @@ export default function Menu() {
   const { t } = useTranslation()
 
   const UIVersion = packageInfo.version
-  const [versionInfo, setVersionInfo] = useState(`UI v${UIVersion}`)
+  const [versionInfo, setVersionInfo] = useState('')
 
   useEffect(() => {
     const fetchData = () => {
@@ -21,12 +21,7 @@ export default function Menu() {
         .get('/public/actuator/info')
         .then((response) => {
           const APIVersion = response.data.application.version
-          setVersionInfo((prevVersionInfo) => {
-            if (!prevVersionInfo.includes("API")) {
-              return `${prevVersionInfo} | API v${APIVersion}`
-            }
-            return prevVersionInfo
-          })
+          setVersionInfo(APIVersion)
         })
         .catch((error) => {
           console.error('Error fetching data:', error)
@@ -59,11 +54,11 @@ export default function Menu() {
           )
         })}
       </nav>
-        <div className="flex justify-center py-2">
-          <span className="text-xs text-gray-500 dark:text-gray-400">
-            {versionInfo}
-          </span>
-        </div>
+      <div className="flex justify-center py-2">
+        <span className="text-xs text-gray-500 dark:text-gray-400">
+          UI {UIVersion} {versionInfo && `| API ${versionInfo}`}
+        </span>
+      </div>
     </div>
   )
 }
