@@ -4,8 +4,13 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { PlusCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { StatusData } from '@/modules/adminRegistrationApplications/constants/status'
 
@@ -28,26 +33,37 @@ const SelectStatus = ({ selectStatus, setSelectStatus }: StatusProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="space-x-1">
-          <PlusCircle size={14} />
-          <span>{t('status')}</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuCheckboxItem
-          checked={selectStatus.length == 0}
-          onCheckedChange={() => setSelectStatus([])}
-          className="cursor-pointer"
-        >
-          {t(`all`)}
-        </DropdownMenuCheckboxItem>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger className="flex items-center gap-2 ">
+            <DropdownMenuTrigger
+              asChild
+              className="hover:bg-muted/90 data-[state=open]:bg-muted rounded h-10 px-4 py-2"
+            >
+              <div className="flex gap-2 items-center">
+                {t('status')}
+                {selectStatus.length > 0 && (
+                  <p className="px-1.5 py-1 text-xs text-white rounded-full text-center bg-blue-600">
+                    {selectStatus.length}
+                  </p>
+                )}
+                <ChevronDown size={14} />
+              </div>
+            </DropdownMenuTrigger>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            <p>{t('status')}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <DropdownMenuContent align="end" className="px-0">
         {StatusData.map((menu, id) => (
           <DropdownMenuCheckboxItem
             key={id}
             checked={selectStatus.includes(menu.value)}
             onCheckedChange={() => handleStatusChange(menu.value)}
-            className="cursor-pointer"
+            onSelect={(event) => event.preventDefault()}
+            className="cursor-pointer rounded-none border-l-2 border-transparent hover:border-l-2 hover:border-l-blue-700"
           >
             {t(`${menu.label}`)}
           </DropdownMenuCheckboxItem>

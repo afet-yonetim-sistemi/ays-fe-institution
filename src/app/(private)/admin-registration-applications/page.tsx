@@ -51,19 +51,19 @@ const Page = () => {
 
   return (
     <PrivateRoute>
+      <div className="flex justify-between items-center w-full gap-4">
+        <h1 className="font-semibold">{t('adminRegistrationApplications')}</h1>
+        <SelectStatus
+          selectStatus={selectStatus}
+          setSelectStatus={(state: string[]) => setSelectStatus(state)}
+        />
+      </div>
       {isLoading ? (
         <div className="h-full flex justify-center items-center">
           <LoadingSpinner size={54} />
         </div>
       ) : (
         <div className="space-y-1">
-          <div className="flex justify-between w-full gap-4">
-            <h1>{t('adminRegistrationApplications')}</h1>
-            <SelectStatus
-              selectStatus={selectStatus}
-              setSelectStatus={(state: string[]) => setSelectStatus(state)}
-            />
-          </div>
           <DataTable
             data={adminRegistration.content}
             columns={columns}
