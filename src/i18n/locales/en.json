@@ -20,6 +20,8 @@
   "createdAt": "Created At",
   "createdUser": "Created User",
   "noResult": "No Results...",
+  "error": "Error",
+  "success": "Success",
   "theme": {
     "light": "Light",
     "dark": "Dark",
@@ -35,5 +37,7 @@
   "maxLength": "This field must be at most {{field}} characters.",
   "invalidEmail": "Invalid E-mail.",
   "desc": "Click to sort descending",
-  "asc": "Click to sort ascending"
+  "asc": "Click to sort ascending",
+  "invalidEmailAndPassword": "Invalid E-mail or Password.",
+  "defaultError": "An error occurred. Please try again later."
 }

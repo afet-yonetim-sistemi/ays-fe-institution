@@ -10,6 +10,8 @@ import DataTable from '@/modules/adminRegistrationApplications/components/dataTa
 import { SortingState } from '@tanstack/react-table'
 import { pageSize } from '@/constants/common'
 import { columns } from '@/modules/adminRegistrationApplications/components/columns'
+import { useToast } from '@/components/ui/use-toast'
+import { Toaster } from '@/components/ui/toaster'
 
 interface AdminRegistrationState {
   content: any[]
@@ -25,6 +27,7 @@ const Page = ({
   }
 }) => {
   const { t } = useTranslation()
+  const { toast } = useToast()
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -34,6 +37,7 @@ const Page = ({
       desc: false,
     },
   ])
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const sortBy = sorting.map((s) => `${s.desc ? 'DESC' : 'ASC'}`).join(',')
@@ -49,7 +53,12 @@ const Page = ({
         setAdminRegistration(responseData.data.response)
       })
       .catch((error) => {
-        console.error('Request failed:', error)
+        setError(error.message)
+        toast({
+          title: t('error'),
+          description: t('defaultError'),
+          variant: 'destructive',
+        })
       })
       .finally(() => setIsLoading(false))
   }, [searchParams, sorting])
@@ -63,6 +72,7 @@ const Page = ({
         <SelectStatus />
       </div>
       <div className="space-y-1">
+        {error && <Toaster />}
         <DataTable
           data={adminRegistration.content}
           columns={columns}
