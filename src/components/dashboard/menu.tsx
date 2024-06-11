@@ -7,24 +7,39 @@ import { useTranslation } from 'react-i18next'
 import { MenuItems } from '@/constants/menuItems'
 import http from '@/configs/axiosConfig'
 import packageInfo from '../../../package.json'
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 
 export default function Menu() {
   const pathname = usePathname()
   const { t } = useTranslation()
 
   const UIVersion = packageInfo.version
-  const [versionInfo, setVersionInfo] = useState('')
+  const [APIversionInfo, setAPIVersionInfo] = useState('')
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
 
   useEffect(() => {
+    const localStorageVersion = localStorage.getItem('APIversionInfo')
+    
+    if (localStorageVersion) {
+      setAPIVersionInfo(localStorageVersion)
+      setIsLoading(false)
+    }
+
     const fetchData = () => {
       http
         .get('/public/actuator/info')
         .then((response) => {
-          const APIVersion = response.data.application.version
-          setVersionInfo(APIVersion)
+          const fetchedAPIVersion = response.data.application.version
+          if (fetchedAPIVersion !== localStorageVersion) {
+            localStorage.setItem('APIversionInfo', fetchedAPIVersion)
+            setAPIVersionInfo(fetchedAPIVersion)
+          }
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching data:', error)
+          setIsLoading(false)
         })
     }
 
@@ -55,8 +70,8 @@ export default function Menu() {
         })}
       </nav>
       <div className="flex justify-center py-2">
-        <span className="text-xs text-gray-500 dark:text-gray-400">
-          UI {UIVersion} {versionInfo && `| API ${versionInfo}`}
+        <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2">
+          UI v{UIVersion} | {isLoading ? <LoadingSpinner size={10} /> : APIversionInfo && `API v${APIversionInfo}`}
         </span>
       </div>
     </div>
