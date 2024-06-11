@@ -22,40 +22,26 @@ export interface AdminRegistrationApplication {
 export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   {
     accessorKey: 'institution.name',
-    header: () => (
-      <div className="w-40 min-w-40">{i18next.t('organization')}</div>
-    ),
-    cell: ({ row }) => (
-      <div className="w-40 max-w-40">{row.original.institution.name}</div>
-    ),
-    size: 32,
+    header: () => i18next.t('organization'),
+    cell: ({ row }) => row.original.institution.name,
+    size: 170,
   },
   {
     accessorKey: 'reason',
-    header: () => (
-      <div className="w-[500px]">{i18next.t('creationReason')}</div>
-    ),
-    cell: ({ row }) => (
-      <div className="max-w-[500px] font-medium">{row.original.reason}</div>
-    ),
-    size: 400,
+    header: () => i18next.t('creationReason'),
+    cell: ({ row }) => row.original.reason,
+    size: 500,
   },
   {
     accessorKey: 'status',
-    header: () => <div className="w-24">{i18next.t('status')}</div>,
-    cell: ({ row }) => (
-      <div className="">
-        <Status status={row.getValue('status')} />
-      </div>
-    ),
-    size: 32,
-    maxSize: 32,
+    header: () => i18next.t('status'),
+    cell: ({ row }) => <Status status={row.getValue('status')} />,
   },
   {
     accessorKey: 'createdUser',
-    header: () => <div className="w-32">{i18next.t('createdUser')}</div>,
-    cell: ({ row }) => <div>{row.original.createdUser}</div>,
-    size: 40,
+    header: () => i18next.t('createdUser'),
+    cell: ({ row }) => row.original.createdUser,
+    size: 160,
   },
   {
     accessorKey: 'createdAt',

@@ -47,7 +47,6 @@ const Page = ({
     )
       .then((responseData) => {
         setAdminRegistration(responseData.data.response)
-        console.log(sorting)
       })
       .catch((error) => {
         console.error('Request failed:', error)
@@ -69,6 +68,8 @@ const Page = ({
           columns={columns}
           sorting={sorting}
           setSorting={setSorting}
+          loading={isLoading}
+          enableRowClick
         />
         {!isLoading && (
           <div className="float-end">
