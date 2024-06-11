@@ -36,8 +36,7 @@ const SelectStatus = () => {
     } else {
       params.delete('filter')
     }
-    params.set('page', '1')
-    replace(`${pathname}?${params.toString().replace(/%2C/g, ',')}`)
+    replace(`${pathname}?page=1&${params.toString().replace(/%2C/g, ',')}`)
   }
 
   return (
