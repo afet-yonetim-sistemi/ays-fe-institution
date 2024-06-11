@@ -79,7 +79,7 @@ const Page = () => {
       })
       .catch((err) => {
         dispatch(loginFailed(err.message))
-          form.setValue('password', '')
+        form.setValue('password', '')
         toast({
           title: t('error'),
           description: t('invalidEmailAndPassword'),
@@ -95,11 +95,7 @@ const Page = () => {
     }
   }, [tokenInfo])
 
-  return loading && !tokenInfo ? (
-    <div className={'spinner'}>
-      <LoadingSpinner size={100} />
-    </div>
-  ) : tokenInfo ? (
+  return tokenInfo ? (
     <></>
   ) : (
     <>
@@ -125,6 +121,7 @@ const Page = () => {
                 <FormField
                   control={form.control}
                   name="emailAddress"
+                  disabled={loading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('email')}</FormLabel>
@@ -138,6 +135,7 @@ const Page = () => {
                 <FormField
                   control={form.control}
                   name="password"
+                  disabled={loading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('password')}</FormLabel>
@@ -148,8 +146,8 @@ const Page = () => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className={'w-full'}>
-                  {t('login')}
+                <Button type="submit" disabled={loading} className={'w-full'}>
+                  {loading ? <LoadingSpinner /> : t('login')}
                 </Button>
               </form>
             </Form>
