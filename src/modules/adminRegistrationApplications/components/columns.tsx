@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/table-core'
 import { formatDate } from '@/app/hocs/formatDate'
 import Status from '@/modules/adminRegistrationApplications/components/status'
-import { BiSort } from 'react-icons/bi'
+import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
 import i18next from 'i18next'
 import {
   Tooltip,
@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import i18n from 'i18next'
 
 export interface AdminRegistrationApplication {
   id: string
@@ -36,6 +37,7 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
     accessorKey: 'status',
     header: () => i18next.t('status'),
     cell: ({ row }) => <Status status={row.getValue('status')} />,
+    size: 140,
   },
   {
     accessorKey: 'createdUser',
@@ -46,22 +48,27 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
+      const sortIcon = () => {
+        if (column.getIsSorted() == 'asc')
+          return <BiSortUp className="h-4 w-4" />
+        else if (column.getIsSorted() == 'desc')
+          return <BiSortDown className="h-4 w-4" />
+        else return <BiSort className="h-4 w-4" />
+      }
       return (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger
               className="rounded transition-colors hover:bg-muted/90 w-full h-full p-2"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
+              onClick={() => column.toggleSorting()}
             >
               <span className="flex items-center gap-2">
                 {i18next.t('createdAt')}
-                <BiSort className="h-4 w-4" />
+                {sortIcon()}
               </span>
             </TooltipTrigger>
-            <TooltipContent className="uppercase">
-              {column.getIsSorted()}
+            <TooltipContent>
+              {i18n.t(column.getIsSorted() == 'asc' ? 'asc' : 'desc')}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

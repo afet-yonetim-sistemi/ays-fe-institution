@@ -33,5 +33,7 @@
   "requiredField": "This field is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
-  "invalidEmail": "Invalid E-mail."
+  "invalidEmail": "Invalid E-mail.",
+  "desc": "Click to sort descending",
+  "asc": "Click to sort ascending"
 }

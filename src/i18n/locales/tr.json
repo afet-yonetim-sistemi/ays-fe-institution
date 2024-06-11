@@ -33,5 +33,7 @@
   "requiredField": "Bu alan zorunludur.",
   "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
-  "invalidEmail": "Geçersiz e-posta adresi."
+  "invalidEmail": "Geçersiz e-posta adresi.",
+  "desc": "Azalan sıraya göre sıralamak için tıklayın",
+  "asc": "Artan sıraya göre sıralamak için tıklayın"
 }
