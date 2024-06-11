@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Select,
@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { changeLanguage } from '@/i18n'
+
 const lngs: any = {
   en: { nativeName: 'English' },
   tr: { nativeName: 'Türkçe' },
@@ -16,6 +17,8 @@ const lngs: any = {
 
 function LanguageToggle() {
   const { i18n } = useTranslation()
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language)
+
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') || 'tr'
     if (i18n.language !== savedLanguage) {
@@ -24,11 +27,14 @@ function LanguageToggle() {
   }, [i18n])
 
   const handleLanguageChange = (lng: string) => {
+    setSelectedLanguage(lng)
     changeLanguage(lng)
+    localStorage.setItem('language', lng)
   }
+
   return (
     <div className="flex gap-2">
-      <Select onValueChange={handleLanguageChange}>
+      <Select onValueChange={handleLanguageChange} value={selectedLanguage}>
         <SelectTrigger className="">
           <SelectValue placeholder={lngs[i18n.language].nativeName} />
         </SelectTrigger>
