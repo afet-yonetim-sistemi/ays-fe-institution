@@ -20,6 +20,8 @@
   "createdAt": "Oluşturulma Tarihi",
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",
+  "error": "Hata",
+  "success": "Başarılı",
   "theme": {
     "light": "Açık",
     "dark": "Karanlık",
@@ -33,6 +35,8 @@
   "requiredField": "Bu alan zorunludur.",
   "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
+  "invalidEmailAndPassword": "Geçersiz e-posta veya şifre.",
+  "defaultError": "Bir hata oluştu. Lütfen tekrar deneyin.",
   "invalidEmail": "Geçersiz e-posta adresi.",
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın"
