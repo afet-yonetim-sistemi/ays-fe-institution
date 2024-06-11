@@ -48,13 +48,19 @@ export function ListRegistration({
   const router = useRouter()
   return (
     <div className="rounded-md border">
-      <Table className="w-full caption-bottom text-sm">
+      <Table className="w-full text-sm">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="hover:bg-muted/0">
+            <TableRow
+              key={headerGroup.id}
+              className="text-black divide-x-2 bg-muted hover:bg-muted "
+            >
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="h-10 px-2">
+                  <TableHead
+                    key={header.id}
+                    className="h-10 px-2 font-semibold"
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
