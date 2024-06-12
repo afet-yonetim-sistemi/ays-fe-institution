@@ -39,7 +39,11 @@
   "desc": "Click to sort descending",
   "asc": "Click to sort ascending",
   "invalidEmailAndPassword": "Invalid E-mail or Password.",
+<<<<<<< AYS-248
   "defaultError": "An error occurred. Please try again later.",
+=======
+  "defaultError": "An error occurred. Please try again later."
+>>>>>>> main
   "invalidEmailAndPassword": "Invalid E-mail or Password.",
   "defaultError": "An error occurred. Please try again later.",
   "invalidEmail": "Invalid E-mail."

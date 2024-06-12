@@ -32,12 +32,19 @@ const SelectStatus = () => {
       newStatus = [...filter, status]
     }
     if (newStatus.length > 0) {
+<<<<<<< AYS-248
       params.set('page', '1')
+=======
+>>>>>>> main
       params.set('filter', newStatus.join(','))
     } else {
       params.delete('filter')
     }
+<<<<<<< AYS-248
     replace(`${pathname}?${params.toString().replace(/%2C/g, ',')}`)
+=======
+    replace(`${pathname}?page=1&${params.toString().replace(/%2C/g, ',')}`)
+>>>>>>> main
   }
 
   return (
@@ -82,3 +89,4 @@ const SelectStatus = () => {
   )
 }
 export default SelectStatus
+

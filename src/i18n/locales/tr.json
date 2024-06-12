@@ -39,6 +39,10 @@
   "defaultError": "Bir hata oluştu. Lütfen tekrar deneyin.",
   "invalidEmail": "Geçersiz e-posta adresi.",
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
+<<<<<<< AYS-248
   "asc": "Artan sıraya göre sıralamak için tıklayın",
+=======
+  "asc": "Artan sıraya göre sıralamak için tıklayın"
+>>>>>>> main
   "invalidEmail": "Geçersiz e-posta adresi."
 }
