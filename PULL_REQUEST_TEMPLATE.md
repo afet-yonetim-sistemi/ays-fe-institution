@@ -19,9 +19,6 @@ Before submitting your pull request, ensure the following:
 - [ ] **Documentation:**
     - Necessary documentation has been added or existing documentation has been updated.
 
-- [ ] **Testing:**
-
-
 - [ ] **Reviewers and Assignees:**
     - Default reviewers have been assigned to this pull request.
     - Assignees have been added if necessary.
