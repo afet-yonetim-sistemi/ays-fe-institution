@@ -37,7 +37,6 @@
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
   "invalidEmailAndPassword": "Geçersiz e-posta veya şifre.",
   "defaultError": "Bir hata oluştu. Lütfen tekrar deneyin.",
-  "invalidEmail": "Geçersiz e-posta adresi.",
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
   "invalidEmail": "Geçersiz e-posta adresi."
