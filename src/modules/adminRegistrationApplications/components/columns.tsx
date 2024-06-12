@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/table-core'
 import { formatDate } from '@/app/hocs/formatDate'
 import Status from '@/modules/adminRegistrationApplications/components/status'
-import { BiSort } from 'react-icons/bi'
+import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
 import i18next from 'i18next'
 import {
   Tooltip,
@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import i18n from 'i18next'
 
 export interface AdminRegistrationApplication {
   id: string
@@ -22,60 +23,52 @@ export interface AdminRegistrationApplication {
 export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   {
     accessorKey: 'institution.name',
-    header: () => (
-      <div className="w-40 min-w-40">{i18next.t('organization')}</div>
-    ),
-    cell: ({ row }) => (
-      <div className="w-40 max-w-40">{row.original.institution.name}</div>
-    ),
-    size: 32,
+    header: () => i18next.t('organization'),
+    cell: ({ row }) => row.original.institution.name,
+    size: 170,
   },
   {
     accessorKey: 'reason',
-    header: () => (
-      <div className="w-[500px]">{i18next.t('creationReason')}</div>
-    ),
-    cell: ({ row }) => (
-      <div className="max-w-[500px] font-medium">{row.original.reason}</div>
-    ),
-    size: 400,
+    header: () => i18next.t('creationReason'),
+    cell: ({ row }) => row.original.reason,
+    size: 500,
   },
   {
     accessorKey: 'status',
-    header: () => <div className="w-24">{i18next.t('status')}</div>,
-    cell: ({ row }) => (
-      <div className="">
-        <Status status={row.getValue('status')} />
-      </div>
-    ),
-    size: 32,
-    maxSize: 32,
+    header: () => i18next.t('status'),
+    cell: ({ row }) => <Status status={row.getValue('status')} />,
+    size: 140,
   },
   {
     accessorKey: 'createdUser',
-    header: () => <div className="w-32">{i18next.t('createdUser')}</div>,
-    cell: ({ row }) => <div>{row.original.createdUser}</div>,
-    size: 40,
+    header: () => i18next.t('createdUser'),
+    cell: ({ row }) => row.original.createdUser,
+    size: 160,
   },
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
+      const sortIcon = () => {
+        if (column.getIsSorted() == 'asc')
+          return <BiSortUp className="h-4 w-4" />
+        else if (column.getIsSorted() == 'desc')
+          return <BiSortDown className="h-4 w-4" />
+        else return <BiSort className="h-4 w-4" />
+      }
       return (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger
               className="rounded transition-colors hover:bg-muted/90 w-full h-full p-2"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === 'asc')
-              }
+              onClick={() => column.toggleSorting()}
             >
               <span className="flex items-center gap-2">
                 {i18next.t('createdAt')}
-                <BiSort className="h-4 w-4" />
+                {sortIcon()}
               </span>
             </TooltipTrigger>
-            <TooltipContent className="uppercase">
-              {column.getIsSorted()}
+            <TooltipContent>
+              {i18n.t(column.getIsSorted() == 'asc' ? 'asc' : 'desc')}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

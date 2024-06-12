@@ -4,26 +4,31 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { cn } from '@/lib/utils'
 import { generatePagination } from '@/lib/generatePagination'
 import { Button } from '@/components/ui/button'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 interface PaginationProps {
   totalPages: number
-  currentPage: number
-  setCurrentPage: (page: number) => void
 }
 
-const Pagination = ({
-  totalPages,
-  currentPage,
-  setCurrentPage,
-}: PaginationProps) => {
+const Pagination = ({ totalPages }: PaginationProps) => {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+  const currentPage = Number(searchParams.get('page')) || 1
   const allPages = generatePagination(currentPage, totalPages)
-  if (totalPages < 2) setCurrentPage(1)
+
+  const createPageURL = (pageNumber: number | string) => {
+    const params = new URLSearchParams(searchParams)
+    params.set('page', pageNumber.toString())
+    router.push(`${pathname}?${params.toString().replace(/%2C/g, ',')}`)
+  }
+
   return (
     <>
       <div className="inline-flex">
         <PaginationArrow
           direction="left"
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
 
@@ -38,7 +43,7 @@ const Pagination = ({
             return (
               <PaginationNumber
                 key={page}
-                onClick={() => setCurrentPage(Number(page))}
+                onClick={() => createPageURL(page)}
                 page={page}
                 position={position}
                 isActive={currentPage === page}
@@ -49,7 +54,7 @@ const Pagination = ({
 
         <PaginationArrow
           direction="right"
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={() => createPageURL(currentPage + 1)}
           isDisabled={currentPage >= totalPages}
         />
       </div>
