@@ -32,11 +32,12 @@ const SelectStatus = () => {
       newStatus = [...filter, status]
     }
     if (newStatus.length > 0) {
+      params.set('page', '1')
       params.set('filter', newStatus.join(','))
     } else {
       params.delete('filter')
     }
-    replace(`${pathname}?page=1&${params.toString().replace(/%2C/g, ',')}`)
+    replace(`${pathname}?${params.toString().replace(/%2C/g, ',')}`)
   }
 
   return (
@@ -81,4 +82,3 @@ const SelectStatus = () => {
   )
 }
 export default SelectStatus
-
