@@ -12,21 +12,16 @@ import { pageSize } from '@/constants/common'
 import { columns } from '@/modules/adminRegistrationApplications/components/columns'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
+import { useSearchParams } from 'next/navigation'
 
 interface AdminRegistrationState {
   content: any[]
   totalPageCount: number
 }
 
-const Page = ({
-  searchParams,
-}: {
-  searchParams: {
-    filter?: string
-    page?: string
-  }
-}) => {
+const Page = () => {
   const { t } = useTranslation()
+  const params = useSearchParams()
   const { toast } = useToast()
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
@@ -41,10 +36,10 @@ const Page = ({
 
   useEffect(() => {
     const sortBy = sorting.map((s) => `${s.desc ? 'DESC' : 'ASC'}`).join(',')
-    const filterStatus = searchParams.filter?.split(',') || []
+    const filterStatus = params.get('filter')?.split(',') || []
     setIsLoading(true)
     postAdminRegistrationApplications(
-      Number(searchParams.page || 1),
+      Number(params.get('page') || 1),
       pageSize,
       filterStatus,
       sortBy,
@@ -61,7 +56,7 @@ const Page = ({
         })
       })
       .finally(() => setIsLoading(false))
-  }, [searchParams, sorting])
+  }, [params, sorting])
 
   return (
     <PrivateRoute>
@@ -92,4 +87,3 @@ const Page = ({
 }
 
 export default Page
-
