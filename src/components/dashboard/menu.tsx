@@ -8,19 +8,33 @@ import { MenuItems } from '@/constants/menuItems'
 import http from '@/configs/axiosConfig'
 import packageInfo from '../../../package.json'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { useAppSelector } from '@/store/hooks'
+import { Permission } from '@/constants/permissions'
 
 export default function Menu() {
   const pathname = usePathname()
   const { t } = useTranslation()
+  const userPermissions = useAppSelector(selectPermissions) ?? []
 
   const UIVersion = packageInfo.version
   const [APIversionInfo, setAPIVersionInfo] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
+  const hasPermission = (requiredPermissions?: Permission[]) => {
+    if (!requiredPermissions) return true
+    return requiredPermissions.every((permission) =>
+      userPermissions.includes(permission),
+    )
+  }
+
+  const filteredMenuItems = MenuItems.filter((menuItem) =>
+    hasPermission(menuItem.requiredPermissions),
+  )
 
   useEffect(() => {
     const localStorageVersion = localStorage.getItem('APIversionInfo')
-    
+
     if (localStorageVersion) {
       setAPIVersionInfo(localStorageVersion)
       setIsLoading(false)
@@ -35,7 +49,7 @@ export default function Menu() {
             localStorage.setItem('APIversionInfo', fetchedAPIVersion)
             setAPIVersionInfo(fetchedAPIVersion)
           }
-          setIsLoading(false);
+          setIsLoading(false)
         })
         .catch((error) => {
           console.error('Error fetching data:', error)
@@ -49,7 +63,7 @@ export default function Menu() {
   return (
     <div className="flex flex-col h-full justify-between">
       <nav className="grid items-start gap-1 text-sm font-medium md:p-2 w-full">
-        {MenuItems.map((item) => {
+        {filteredMenuItems.map((item) => {
           const LinkIcon = item.icon
           return (
             <Link
@@ -71,7 +85,12 @@ export default function Menu() {
       </nav>
       <div className="flex justify-center py-2">
         <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2">
-          UI v{UIVersion} | {isLoading ? <LoadingSpinner size={10} /> : APIversionInfo && `API v${APIversionInfo}`}
+          UI v{UIVersion} |{' '}
+          {isLoading ? (
+            <LoadingSpinner size={10} />
+          ) : (
+            APIversionInfo && `API v${APIversionInfo}`
+          )}
         </span>
       </div>
     </div>
