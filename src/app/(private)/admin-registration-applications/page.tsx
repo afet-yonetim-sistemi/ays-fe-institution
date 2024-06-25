@@ -13,6 +13,7 @@ import { columns } from '@/modules/adminRegistrationApplications/components/colu
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 import { useSearchParams } from 'next/navigation'
+import { Permission } from '@/constants/permissions'
 
 interface AdminRegistrationState {
   content: any[]
@@ -59,7 +60,7 @@ const Page = () => {
   }, [params, sorting])
 
   return (
-    <PrivateRoute>
+    <PrivateRoute requiredPermissions={[Permission.APPLICATION_LIST]}>
       <div className="flex justify-between items-center w-full gap-4">
         <h1 className="text-2xl font-medium">
           {t('adminRegistrationApplications')}

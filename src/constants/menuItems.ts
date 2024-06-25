@@ -1,10 +1,12 @@
 import { HomeIcon, Users2 } from 'lucide-react'
 import React from 'react'
+import { Permission } from '@/constants/permissions'
 
 interface Menu {
   key: string
   label: string
   icon: React.ElementType
+  requiredPermissions?: Permission[]
 }
 
 export const MenuItems: Menu[] = [
@@ -17,5 +19,6 @@ export const MenuItems: Menu[] = [
     key: '/admin-registration-applications',
     label: 'adminRegistrationApplications',
     icon: Users2,
+    requiredPermissions: [Permission.APPLICATION_LIST],
   },
 ]
