@@ -31,7 +31,7 @@ const SelectStatus = () => {
     } else {
       newStatus = [...filter, status]
     }
-    if (newStatus.length > 0) {
+    if (newStatus?.length > 0) {
       params.set('page', '1')
       params.set('filter', newStatus.join(','))
     } else {
@@ -51,9 +51,9 @@ const SelectStatus = () => {
             >
               <div className="flex gap-2 items-center">
                 {t('status')}
-                {filter.length > 0 && (
+                {filter?.length > 0 && (
                   <p className="px-1.5 py-1 text-xs text-white rounded-full text-center bg-blue-600">
-                    {filter.length}
+                    {filter?.length}
                   </p>
                 )}
                 <ChevronDown size={14} />
@@ -82,4 +82,3 @@ const SelectStatus = () => {
   )
 }
 export default SelectStatus
-

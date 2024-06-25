@@ -36,7 +36,7 @@ const PrivateRoute = ({ children, requiredPermissions }: PrivateRouteProps) => {
     }
   }, [token, router, memoizedPermissions, requiredPermissions])
 
-  return token && userPermissions.length > 0 ? children : null
+  return token && userPermissions?.length > 0 ? children : null
 }
 
 export default PrivateRoute
