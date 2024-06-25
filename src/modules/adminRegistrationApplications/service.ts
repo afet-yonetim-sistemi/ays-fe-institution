@@ -7,14 +7,14 @@ export function postAdminRegistrationApplications(
   sortType: string,
 ) {
   return http.post('/api/v1/admin-registration-applications', {
-    pagination: {
+    pageable: {
       page: page,
       pageSize: pageSize,
     },
     filter: {
       statuses: statues,
     },
-    sort: [
+    orders: [
       {
         property: 'createdAt',
         direction: sortType || 'ASC',
