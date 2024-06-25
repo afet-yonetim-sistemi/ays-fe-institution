@@ -96,7 +96,7 @@ export function ListRegistration<TData, TValue>({
         <TableBody>
           {loading ? (
             <TableRow>
-              <TableCell colSpan={columns.length}>
+              <TableCell colSpan={columns?.length}>
                 <div className="flex items-center h-14 justify-center ">
                   <LoadingSpinner size={34} />
                 </div>
@@ -119,7 +119,7 @@ export function ListRegistration<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24">
+              <TableCell colSpan={columns?.length} className="h-24">
                 <div className="flex flex-col items-center">
                   <Inbox strokeWidth={1} size={64} />
                   {t('noResult')}
@@ -133,4 +133,3 @@ export function ListRegistration<TData, TValue>({
   )
 }
 export default ListRegistration
-
