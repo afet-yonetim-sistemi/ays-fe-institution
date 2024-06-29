@@ -2,6 +2,16 @@
 
 Before submitting your pull request, ensure the following:
 
+- [ ] **Change Type:**
+- [ ] Bug fix
+- [ ] Feature addition
+- [ ] Documentation update
+- [ ] Performance improvement
+- [ ] Other (please specify)
+
+- [ ] **Summary:**
+    - Add a short description (e.g., added or modified features).
+
 - [ ] **Title and Branch Naming Conventions:**
     - The pull request title follows the
       standard: [Pull Request Naming Conventions](CONTRIBUTING.md#pull-request-naming-conventions).
@@ -22,6 +32,9 @@ Before submitting your pull request, ensure the following:
 - [ ] **Reviewers and Assignees:**
     - Default reviewers have been assigned to this pull request.
     - Assignees have been added if necessary.
+
+    - [ ] **Related Issue:**
+    - Closes #AYS-345 (If there is a relevant issue)
 
 - [ ] **Labels and Associations:**
     - No specific actions are required in the Labels and Associations section for this pull request.
