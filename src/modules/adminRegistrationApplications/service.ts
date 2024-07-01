@@ -10,15 +10,15 @@ export function postAdminRegistrationApplications(
     pageable: {
       page: page,
       pageSize: pageSize,
+      orders: [
+        {
+          property: 'createdAt',
+          direction: sortType || 'ASC',
+        },
+      ],
     },
     filter: {
       statuses: statues,
     },
-    orders: [
-      {
-        property: 'createdAt',
-        direction: sortType || 'ASC',
-      },
-    ],
   })
 }
