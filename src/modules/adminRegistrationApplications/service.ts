@@ -1,18 +1,22 @@
-import http from '@/configs/axiosConfig'
+import http from '@/configs/axiosConfig';
 
-export function postAdminRegistrationApplications(
+export const getAdminRegistrationApplication = (id: string) => {
+  return http.get(`/api/v1/admin-registration-application/${id}`);
+};
+
+export const postAdminRegistrationApplications = (
   page: number,
   pageSize: number,
-  statues: string[],
+  statuses: string[],
   sortType: string,
-) {
+) => {
   return http.post('/api/v1/admin-registration-applications', {
     pageable: {
       page: page,
       pageSize: pageSize,
     },
     filter: {
-      statuses: statues,
+      statuses: statuses,
     },
     orders: [
       {
@@ -20,5 +24,5 @@ export function postAdminRegistrationApplications(
         direction: sortType || 'ASC',
       },
     ],
-  })
-}
+  });
+};
