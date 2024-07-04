@@ -83,21 +83,24 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
       {!loading && !error && adminRegistrationApplicationDetails && (
         <form className="space-y-4">
           <div className="mb-6">
-  <h1 className="text-xl font-bold mb-1">
-    Institution ID: {adminRegistrationApplicationDetails.institution?.id}
-  </h1>
-  <div className="text-m text-gray-250 space-x-6">
-    <span>
-      Created User: {adminRegistrationApplicationDetails.createdUser}
-    </span>
-    <span>
-      Created At: {formatDate(adminRegistrationApplicationDetails.createdAt)}
-    </span>
-    <span>
-    Status: <Status status={adminRegistrationApplicationDetails.status} />
-    </span>
-  </div>
-</div>
+            <h1 className="text-xl font-bold mb-1">
+              Institution ID:{' '}
+              {adminRegistrationApplicationDetails.institution?.id}
+            </h1>
+            <div className="text-m text-gray-250 space-x-6">
+              <span>
+                Created User: {adminRegistrationApplicationDetails.createdUser}
+              </span>
+              <span>
+                Created At:{' '}
+                {formatDate(adminRegistrationApplicationDetails.createdAt)}
+              </span>
+              <span>
+                Status:{' '}
+                <Status status={adminRegistrationApplicationDetails.status} />
+              </span>
+            </div>
+          </div>
           <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
             {renderInput(
               'Updated User',
