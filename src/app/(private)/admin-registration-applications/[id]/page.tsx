@@ -10,17 +10,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-
-interface AdminRegistrationApplication {
-  firstName: string;
-  lastName: string;
-  email: string;
-  country: string;
-  streetAddress: string;
-  city: string;
-  state: string;
-  zip: string;
-}
+import { AdminRegistrationApplication } from "../types";
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const [adminRegistrationApplicationDetails, setAdminRegistrationApplicationDetails] =
@@ -32,8 +22,13 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     const fetchDetails = () => {
       getAdminRegistrationApplication(params.id)
         .then((response) => {
-          console.log(response.data)
-          setAdminRegistrationApplicationDetails(response.data);
+          console.log(response)
+          if (response.data.isSuccess) {
+            console.log(response.data.response)
+            setAdminRegistrationApplicationDetails(response.data.response);
+          } else {
+            setError(new Error("Failed to fetch data"));
+          }
           setLoading(false);
         })
         .catch((err) => {
@@ -44,134 +39,66 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     fetchDetails();
   }, [params.id]);
 
+  const renderInput = (label: string, value: string | number | null) => (
+    <div className="w-full">
+      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <Input value={value ?? ''} readOnly className="mt-1 block w-full" />
+    </div>
+  );
+
+  const renderPhoneInput = (countryCode: string, lineNumber: string) => {
+    if (countryCode && lineNumber) {
+      return (
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+          <Input
+            value={`(+${countryCode}) ${lineNumber}`}
+            readOnly
+            className="mt-1 block w-full"
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+          <Input
+            value=""
+            readOnly
+            className="mt-1 block w-full"
+          />
+        </div>
+      )
+    }
+  };
+
   return (
     <div className="form-container p-6 bg-white rounded-md shadow-md">
       {loading && <div>Loading...</div>}
-      {error && <div>Error: {error.message}</div>}
+      {error && <div>Error: {error}</div>}
       {!loading && !error && adminRegistrationApplicationDetails && (
         <form className="space-y-4">
-          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
-            <div>
-              <label
-                htmlFor="first-name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                First name
-              </label>
-              <Input
-                id="first-name"
-                value={adminRegistrationApplicationDetails.firstName}
-                readOnly
-                className="mt-1 block w-full"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="last-name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Last name
-              </label>
-              <Input
-                id="last-name"
-                value={adminRegistrationApplicationDetails.lastName}
-                readOnly
-                className="mt-1 block w-full"
-              />
-            </div>
-          </div>
-          <div>
-            <label
-              htmlFor="email-address"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email address
-            </label>
-            <Input
-              id="email-address"
-              type="email"
-              value={adminRegistrationApplicationDetails.email}
-              readOnly
-              className="mt-1 block w-full"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="country"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Country
-            </label>
-            <Select disabled>
-              <SelectTrigger>
-                <SelectValue>
-                  {adminRegistrationApplicationDetails.country}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={adminRegistrationApplicationDetails.country}>
-                  {adminRegistrationApplicationDetails.country}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <label
-              htmlFor="street-address"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Street address
-            </label>
-            <Input
-              id="street-address"
-              value={adminRegistrationApplicationDetails.streetAddress}
-              readOnly
-              className="mt-1 block w-full"
-            />
+          <div className="mb-6">
+            <h1 className="text-xl font-bold">
+              Institution ID: {adminRegistrationApplicationDetails.institution?.id}
+            </h1>
+            <p className="text-sm text-gray-700">
+              Created User: {adminRegistrationApplicationDetails.createdUser} | Created At: {adminRegistrationApplicationDetails.createdAt} | Status: {adminRegistrationApplicationDetails.status}
+            </p>
           </div>
           <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
-            <div>
-              <label
-                htmlFor="city"
-                className="block text-sm font-medium text-gray-700"
-              >
-                City
-              </label>
-              <Input
-                id="city"
-                value={adminRegistrationApplicationDetails.city}
-                readOnly
-                className="mt-1 block w-full"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="state"
-                className="block text-sm font-medium text-gray-700"
-              >
-                State / Province
-              </label>
-              <Input
-                id="state"
-                value={adminRegistrationApplicationDetails.state}
-                readOnly
-                className="mt-1 block w-full"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="zip"
-                className="block text-sm font-medium text-gray-700"
-              >
-                ZIP / Postal code
-              </label>
-              <Input
-                id="zip"
-                value={adminRegistrationApplicationDetails.zip}
-                readOnly
-                className="mt-1 block w-full"
-              />
-            </div>
+            {renderInput('Updated User', adminRegistrationApplicationDetails.updatedUser)}
+            {renderInput('Updated At', adminRegistrationApplicationDetails.updatedAt)}
+            {renderInput('ID', adminRegistrationApplicationDetails.id)}
+            {renderInput('Reason', adminRegistrationApplicationDetails.reason)}
+            {renderInput('Reject Reason', adminRegistrationApplicationDetails.rejectReason)}
+            {renderInput('Institution Name', adminRegistrationApplicationDetails.institution?.name)}
+            {renderInput('User ID', adminRegistrationApplicationDetails.user?.id)}
+            {renderInput('User First Name', adminRegistrationApplicationDetails.user?.firstName)}
+            {renderInput('User Last Name', adminRegistrationApplicationDetails.user?.lastName)}
+            {renderInput('User City', adminRegistrationApplicationDetails.user?.city)}
+            {renderInput('User Email Address', adminRegistrationApplicationDetails.user?.emailAddress)}
+            {renderPhoneInput(adminRegistrationApplicationDetails.user?.phoneNumber?.countryCode ?? '', adminRegistrationApplicationDetails.user?.phoneNumber?.lineNumber ?? '')}
           </div>
         </form>
       )}

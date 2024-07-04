@@ -1,7 +1,9 @@
+import { ApiResponse } from '@/app/(private)/admin-registration-applications/types';
 import http from '@/configs/axiosConfig';
+import { AxiosResponse } from 'axios';
 
-export const getAdminRegistrationApplication = (id: string) => {
-  return http.get(`/api/v1/admin-registration-application/${id}`);
+export const getAdminRegistrationApplication = async (id: string): Promise<AxiosResponse<ApiResponse>> => {
+  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`);
 };
 
 export const postAdminRegistrationApplications = (
