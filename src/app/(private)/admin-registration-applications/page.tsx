@@ -2,48 +2,51 @@
 
 import { useEffect, useState } from 'react'
 import PrivateRoute from '@/app/hocs/isAuth'
-import SelectStatus from '@/modules/adminRegistrationApplications/components/selectStatus'
-import Pagination from '@/components/ui/pagination'
 import { postAdminRegistrationApplications } from '@/modules/adminRegistrationApplications/service'
 import { useTranslation } from 'react-i18next'
-import DataTable from '@/modules/adminRegistrationApplications/components/dataTable'
-import { SortingState } from '@tanstack/react-table'
 import { pageSize } from '@/constants/common'
 import { columns } from '@/modules/adminRegistrationApplications/components/columns'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
+import { useDataTable } from '@/app/hocs/useDataTable'
+import * as z from 'zod'
+import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { useSearchParams } from 'next/navigation'
+import filterFields from '@/modules/adminRegistrationApplications/constants/filterFields'
 
 interface AdminRegistrationState {
   content: any[]
   totalPageCount: number
 }
 
+const searchParamsSchema = z.object({
+  page: z.coerce.number().default(1),
+  per_page: z.coerce.number().default(pageSize),
+  sort: z.string().optional(),
+  status: z.string().optional(),
+})
+
 const Page = () => {
+  const searchParams = useSearchParams()
+  const search = searchParamsSchema.parse(
+    Object.fromEntries(searchParams.entries()),
+  )
+
   const { t } = useTranslation()
-  const params = useSearchParams()
   const { toast } = useToast()
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [sorting, setSorting] = useState<SortingState>([
-    {
-      id: 'createdAt',
-      desc: false,
-    },
-  ])
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const sortBy = sorting.map((s) => `${s.desc ? 'DESC' : 'ASC'}`).join(',')
-    const filterStatus = params.get('filter')?.split(',') || []
     setIsLoading(true)
-    postAdminRegistrationApplications(
-      Number(params.get('page') || 1),
-      pageSize,
-      filterStatus,
-      sortBy,
-    )
+    postAdminRegistrationApplications({
+      page: search.page,
+      per_page: search.per_page,
+      sort: search.sort,
+      status: search.status,
+    })
       .then((responseData) => {
         setAdminRegistration(responseData.data.response)
       })
@@ -56,31 +59,27 @@ const Page = () => {
         })
       })
       .finally(() => setIsLoading(false))
-  }, [params, sorting])
+  }, [search.page, search.per_page, search.sort, search.status, t, toast])
+
+  const { table } = useDataTable({
+    data: adminRegistration.content,
+    columns,
+    pageCount: adminRegistration.totalPageCount,
+    filterFields,
+  })
 
   return (
     <PrivateRoute>
-      <div className="flex justify-between items-center w-full gap-4">
-        <h1 className="text-2xl font-medium">
-          {t('adminRegistrationApplications')}
-        </h1>
-        <SelectStatus />
-      </div>
       <div className="space-y-1">
         {error && <Toaster />}
-        <DataTable
-          data={adminRegistration.content}
-          columns={columns}
-          sorting={sorting}
-          setSorting={setSorting}
-          loading={isLoading}
-          enableRowClick
-        />
-        {!isLoading && (
-          <div className="float-end">
-            <Pagination totalPages={adminRegistration.totalPageCount} />
+        <DataTable table={table} loading={isLoading} enableRowClick>
+          <div className="flex justify-between items-center w-full gap-4">
+            <h1 className="text-2xl font-medium">
+              {t('adminRegistrationApplications')}
+            </h1>
+            <DataTableToolbar table={table} filterFields={filterFields} />
           </div>
-        )}
+        </DataTable>
       </div>
     </PrivateRoute>
   )

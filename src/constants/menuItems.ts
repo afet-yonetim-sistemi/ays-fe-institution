@@ -1,4 +1,4 @@
-import { HomeIcon, Users2 } from 'lucide-react'
+import { HomeIcon, UserRoundCheck } from 'lucide-react'
 import React from 'react'
 
 interface Menu {
@@ -16,6 +16,6 @@ export const MenuItems: Menu[] = [
   {
     key: '/admin-registration-applications',
     label: 'adminRegistrationApplications',
-    icon: Users2,
+    icon: UserRoundCheck,
   },
 ]

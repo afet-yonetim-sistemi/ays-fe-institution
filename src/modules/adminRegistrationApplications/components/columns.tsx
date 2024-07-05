@@ -68,7 +68,13 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
               </span>
             </TooltipTrigger>
             <TooltipContent>
-              {i18n.t(column.getIsSorted() == 'asc' ? 'asc' : 'desc')}
+              {i18n.t(
+                column.getIsSorted() == 'asc'
+                  ? 'desc'
+                  : column.getIsSorted() == 'desc'
+                    ? 'clear'
+                    : 'asc',
+              )}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
