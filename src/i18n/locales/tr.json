@@ -14,7 +14,7 @@
   "waiting": "Beklemede",
   "completed": "Tamamlandı",
   "rejected": "Reddedildi",
-  "verified": "Doğrulandı",
+  "approved": "Onaylandı",
   "organization": "Organizasyon",
   "creationReason": "Oluşturulma Sebebi",
   "createdAt": "Oluşturulma Tarihi",
@@ -39,5 +39,6 @@
   "defaultError": "Bir hata oluştu. Lütfen tekrar deneyin.",
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
+  "clearSort": "Sıralamayı sıfırla",
   "invalidEmail": "Geçersiz e-posta adresi."
 }

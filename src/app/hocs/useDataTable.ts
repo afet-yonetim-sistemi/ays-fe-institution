@@ -13,7 +13,7 @@ import {
   type SortingState,
 } from '@tanstack/react-table'
 import { z } from 'zod'
-import { pageSize } from '@/constants/common'
+import { useDebounce } from './useDebounce'
 
 interface UseDataTableProps<TData, TValue> {
   data: TData[]
@@ -27,13 +27,13 @@ const schema = z.object({
   page: z.coerce.number().default(1),
   per_page: z.coerce.number().optional(),
   sort: z.string().optional(),
+  referenceNumber: z.string().optional(),
 })
-typeof console.log(typeof pageSize)
+
 export const useDataTable = <TData, TValue>({
   data,
   columns,
   pageCount,
-  defaultPerPage = 10,
   filterFields = [],
 }: UseDataTableProps<TData, TValue>) => {
   const router = useRouter()
@@ -43,13 +43,13 @@ export const useDataTable = <TData, TValue>({
   // Search params
   const search = schema.parse(Object.fromEntries(searchParams))
   const page = search.page
-  const perPage = search.per_page ?? defaultPerPage
   const sort = search.sort ?? null
   const [column, order] = sort?.toUpperCase().split('.') ?? []
 
   // Memoize computation of filterableColumns
-  const { filterableColumns } = React.useMemo(() => {
+  const { searchableColumns, filterableColumns } = React.useMemo(() => {
     return {
+      searchableColumns: filterFields.filter((field) => !field.options),
       filterableColumns: filterFields.filter((field) => field.options),
     }
   }, [filterFields])
@@ -79,11 +79,18 @@ export const useDataTable = <TData, TValue>({
         const filterableColumn = filterableColumns.find(
           (column) => column.value === key,
         )
-
+        const searchableColumn = searchableColumns.find(
+          (column) => column.value === key,
+        )
         if (filterableColumn) {
           filters.push({
             id: key,
             value: value.toUpperCase().split('.'),
+          })
+        } else if (searchableColumn) {
+          filters.push({
+            id: key,
+            value: [value],
           })
         }
 
@@ -91,7 +98,7 @@ export const useDataTable = <TData, TValue>({
       },
       [],
     )
-  }, [filterableColumns, searchParams])
+  }, [filterableColumns, searchableColumns, searchParams])
 
   // Table states
   const [columnFilters, setColumnFilters] =
@@ -117,6 +124,18 @@ export const useDataTable = <TData, TValue>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sorting])
 
+  // Handle server-side filtering
+  const debouncedSearchableColumnFilters = JSON.parse(
+    useDebounce(
+      JSON.stringify(
+        columnFilters.filter((filter) => {
+          return searchableColumns.find((column) => column.value === filter.id)
+        }),
+      ),
+      500,
+    ),
+  ) as ColumnFiltersState
+
   const filterableColumnFilters = columnFilters.filter((filter) => {
     return filterableColumns.find((column) => column.value === filter.id)
   })
@@ -124,7 +143,16 @@ export const useDataTable = <TData, TValue>({
   React.useEffect(() => {
     // Initialize new params
     const newParamsObject = {
-      page: 1,
+      page: search.page,
+    }
+
+    // Handle debounced searchable column filters
+    for (const column of debouncedSearchableColumnFilters) {
+      if (typeof column.value === 'string') {
+        Object.assign(newParamsObject, {
+          [column.id]: 'string' === typeof column.value ? column.value : null,
+        })
+      }
     }
 
     // Handle filterable column filters
@@ -153,7 +181,10 @@ export const useDataTable = <TData, TValue>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    JSON.stringify(debouncedSearchableColumnFilters),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     JSON.stringify(filterableColumnFilters),
+    pageCount,
   ])
 
   const table = useReactTable({

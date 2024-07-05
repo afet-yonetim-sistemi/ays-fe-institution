@@ -72,7 +72,7 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
                 column.getIsSorted() == 'asc'
                   ? 'desc'
                   : column.getIsSorted() == 'desc'
-                    ? 'clear'
+                    ? 'clearSort'
                     : 'asc',
               )}
             </TooltipContent>

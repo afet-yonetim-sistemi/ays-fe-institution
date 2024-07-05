@@ -72,8 +72,13 @@ const Page = () => {
     <PrivateRoute>
       <div className="space-y-1">
         {error && <Toaster />}
-        <DataTable table={table} loading={isLoading} enableRowClick>
-          <div className="flex justify-between items-center w-full gap-4">
+        <DataTable
+          className="px-2"
+          table={table}
+          loading={isLoading}
+          enableRowClick
+        >
+          <div className="flex flex-col w-full gap-4">
             <h1 className="text-2xl font-medium">
               {t('adminRegistrationApplications')}
             </h1>
