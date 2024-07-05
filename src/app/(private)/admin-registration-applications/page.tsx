@@ -8,6 +8,8 @@ import { pageSize } from '@/constants/common'
 import { columns } from '@/modules/adminRegistrationApplications/components/columns'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
+import { useSearchParams } from 'next/navigation'
+import { Permission } from '@/constants/permissions'
 import { useDataTable } from '@/app/hocs/useDataTable'
 import * as z from 'zod'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
@@ -33,6 +35,7 @@ const Page = () => {
   )
 
   const { t } = useTranslation()
+  const params = useSearchParams()
   const { toast } = useToast()
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
@@ -69,7 +72,7 @@ const Page = () => {
   })
 
   return (
-    <PrivateRoute>
+    <PrivateRoute requiredPermissions={[Permission.APPLICATION_LIST]}>
       <div className="space-y-1">
         {error && <Toaster />}
         <DataTable

@@ -1,20 +1,42 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useAppSelector } from '@/store/hooks'
-import { selectToken } from '@/modules/auth/authSlice'
+import { selectPermissions, selectToken } from '@/modules/auth/authSlice'
+import { Permission } from '@/constants/permissions'
 
-const PrivateRoute = ({ children }: any) => {
+interface PrivateRouteProps {
+  children: React.ReactNode
+  requiredPermissions?: Permission[]
+}
+
+const PrivateRoute = ({ children, requiredPermissions }: PrivateRouteProps) => {
   const router = useRouter()
   const token = useAppSelector(selectToken)
+  const userPermissions = useAppSelector(selectPermissions)
+  const memoizedPermissions = useMemo(
+    () => userPermissions ?? [],
+    [userPermissions],
+  )
+
   useEffect(() => {
     if (!token) {
       router.push('/login')
+      return
     }
-  }, [token, router])
+    if (requiredPermissions) {
+      const hasPermission = requiredPermissions.every((permission) =>
+        memoizedPermissions.includes(permission),
+      )
 
-  return children
+      if (!hasPermission) {
+        router.push('/not-found')
+      }
+    }
+  }, [token, router, memoizedPermissions, requiredPermissions])
+
+  return token && userPermissions?.length > 0 ? children : null
 }
 
 export default PrivateRoute
