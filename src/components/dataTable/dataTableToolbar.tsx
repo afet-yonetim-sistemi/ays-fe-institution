@@ -5,6 +5,7 @@ import type { Table } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
 import { DataTableFilter } from '@/components/dataTable/dataTableFilter'
 import { Input } from '../ui/input'
+import { Label } from '@/components/ui/label'
 
 interface DataTableToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -41,21 +42,24 @@ const DataTableToolbar = <TData,>({
           searchableColumns.map(
             (column) =>
               table.getColumn(column.value ? String(column.value) : '') && (
-                <Input
-                  key={String(column.value)}
-                  placeholder={column.placeholder}
-                  value={
-                    (table
-                      .getColumn(String(column.value))
-                      ?.getFilterValue() as string) ?? ''
-                  }
-                  onChange={(event) =>
-                    table
-                      .getColumn(String(column.value))
-                      ?.setFilterValue(event.target.value)
-                  }
-                  className="h-8 w-40 lg:w-64"
-                />
+                <div>
+                  <Label htmlFor={column.value}>{column.label}</Label>
+                  <Input
+                    key={String(column.value)}
+                    placeholder={column.placeholder}
+                    value={
+                      (table
+                        .getColumn(String(column.value))
+                        ?.getFilterValue() as string) ?? ''
+                    }
+                    onChange={(event) =>
+                      table
+                        .getColumn(String(column.value))
+                        ?.setFilterValue(event.target.value)
+                    }
+                    className="h-8 w-40 lg:w-64"
+                  />
+                </div>
               ),
           )}
 
