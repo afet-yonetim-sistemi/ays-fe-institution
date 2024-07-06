@@ -13,7 +13,6 @@ import { Permission } from '@/constants/permissions'
 import { useDataTable } from '@/app/hocs/useDataTable'
 import * as z from 'zod'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
-import { useSearchParams } from 'next/navigation'
 import filterFields from '@/modules/adminRegistrationApplications/constants/filterFields'
 
 interface AdminRegistrationState {
@@ -35,7 +34,6 @@ const Page = () => {
   )
 
   const { t } = useTranslation()
-  const params = useSearchParams()
   const { toast } = useToast()
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
@@ -76,7 +74,7 @@ const Page = () => {
       <div className="space-y-1">
         {error && <Toaster />}
         <DataTable
-          className="px-2"
+          className=""
           table={table}
           loading={isLoading}
           enableRowClick

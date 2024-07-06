@@ -58,7 +58,7 @@ export function DataTableFilter<TData, TValue>({
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <DropdownMenuContent align="end" className="px-0">
+      <DropdownMenuContent align="start" className="px-0">
         {options.map((option) => {
           const isSelected = selectedValues.has(option.value)
           return (
