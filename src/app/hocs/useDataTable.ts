@@ -166,8 +166,12 @@ export const useDataTable = <TData, TValue>({
     const keys = Array.from(searchParams.keys())
     for (const key of keys) {
       if (
-        filterableColumns.find((column) => column.value === key) &&
-        !filterableColumnFilters.find((column) => column.id === key)
+        (searchableColumns.find((column) => column.value === key) &&
+          !debouncedSearchableColumnFilters.find(
+            (column) => column.id === key,
+          )) ||
+        (filterableColumns.find((column) => column.value === key) &&
+          !filterableColumnFilters.find((column) => column.id === key))
       ) {
         Object.assign(newParamsObject, { [key]: null })
       }
