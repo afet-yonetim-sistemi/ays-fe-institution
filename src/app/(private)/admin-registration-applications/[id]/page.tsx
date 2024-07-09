@@ -3,22 +3,21 @@
 import { useEffect, useState } from 'react'
 import { getAdminRegistrationApplication } from '@/modules/adminRegistrationApplications/service'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from '@/components/ui/select'
-import { AdminRegistrationApplication } from '../types'
+import { AdminRegistrationApplication } from '../../../../modules/adminRegistrationApplications/constants/types'
 import { formatDate } from '@/app/hocs/formatDate'
 import Status from '@/modules/adminRegistrationApplications/components/status'
+import { FormItem, FormField, FormControl, FormLabel, Form } from '@/components/ui/form'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FormSchema } from '@/modules/adminRegistrationApplications/constants/formSchema'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
-  const [
-    adminRegistrationApplicationDetails,
-    setAdminRegistrationApplicationDetails,
-  ] = useState<AdminRegistrationApplication | null>(null)
+  const form = useForm({
+    resolver: zodResolver(FormSchema),
+  })
+  const { control } = form
+
+  const [adminRegistrationApplicationDetails, setAdminRegistrationApplicationDetails] = useState<AdminRegistrationApplication | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<any>(null)
 
@@ -26,9 +25,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     const fetchDetails = () => {
       getAdminRegistrationApplication(params.id)
         .then((response) => {
-          console.log(response)
           if (response.data.isSuccess) {
-            console.log(response.data.response)
             setAdminRegistrationApplicationDetails(response.data.response)
           } else {
             setError(new Error('Failed to fetch data'))
@@ -43,111 +40,180 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     fetchDetails()
   }, [params.id])
 
-  const renderInput = (label: string, value: string | number | null) => (
-    <div className="w-full">
-      <label className="block text-sm font-medium text-gray-500">{label}</label>
-      <Input value={value ?? ''} disabled className="mt-1 block w-full" />
-    </div>
-  )
-
-  const renderPhoneInput = (countryCode: string, lineNumber: string) => {
-    if (countryCode && lineNumber) {
-      return (
-        <div className="w-full">
-          <label className="block text-sm font-medium text-gray-500">
-            Phone Number
-          </label>
-          <Input
-            value={`(+${countryCode}) ${lineNumber}`}
-            disabled
-            className="mt-1 block w-full"
-          />
-        </div>
-      )
-    } else {
-      return (
-        <div className="w-full">
-          <label className="block text-sm font-medium text-gray-500">
-            Phone Number
-          </label>
-          <Input value="" disabled className="mt-1 block w-full" />
-        </div>
-      )
-    }
-  }
-
   return (
     <div className="form-container p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {loading && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
+      {error && <div>Error: {error.message}</div>}
       {!loading && !error && adminRegistrationApplicationDetails && (
-        <form className="space-y-4">
-          <div className="mb-6">
-            <h1 className="text-xl font-bold mb-1">
-              Institution ID:{' '}
-              {adminRegistrationApplicationDetails.institution?.id}
-            </h1>
-            <div className="text-m text-gray-250 space-x-6">
-              <span>
-                Created User: {adminRegistrationApplicationDetails.createdUser}
-              </span>
-              <span>
-                Created At:{' '}
-                {formatDate(adminRegistrationApplicationDetails.createdAt)}
-              </span>
-              <span>
-                Status:{' '}
-                <Status status={adminRegistrationApplicationDetails.status} />
-              </span>
+        <Form {...form}>
+          <form className="space-y-4">
+            <div className="mb-6">
+              <h1 className="text-xl font-bold mb-1">
+                Institution ID: {adminRegistrationApplicationDetails.institution?.id}
+              </h1>
+              <div className="text-m text-gray-250 space-x-6">
+                <span>Created User: {adminRegistrationApplicationDetails.createdUser}</span>
+                <span>Created At: {formatDate(adminRegistrationApplicationDetails.createdAt)}</span>
+                <span>Status: <Status status={adminRegistrationApplicationDetails.status} /></span>
+              </div>
             </div>
-          </div>
-          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
-            {renderInput(
-              'Updated User',
-              adminRegistrationApplicationDetails.updatedUser,
-            )}
-            {renderInput(
-              'Updated At',
-              adminRegistrationApplicationDetails.updatedAt,
-            )}
-            {renderInput('ID', adminRegistrationApplicationDetails.id)}
-            {renderInput('Reason', adminRegistrationApplicationDetails.reason)}
-            {renderInput(
-              'Reject Reason',
-              adminRegistrationApplicationDetails.rejectReason,
-            )}
-            {renderInput(
-              'Institution Name',
-              adminRegistrationApplicationDetails.institution?.name,
-            )}
-            {renderInput(
-              'User ID',
-              adminRegistrationApplicationDetails.user?.id,
-            )}
-            {renderInput(
-              'User First Name',
-              adminRegistrationApplicationDetails.user?.firstName,
-            )}
-            {renderInput(
-              'User Last Name',
-              adminRegistrationApplicationDetails.user?.lastName,
-            )}
-            {renderInput(
-              'User City',
-              adminRegistrationApplicationDetails.user?.city,
-            )}
-            {renderInput(
-              'User Email Address',
-              adminRegistrationApplicationDetails.user?.emailAddress,
-            )}
-            {renderPhoneInput(
-              adminRegistrationApplicationDetails.user?.phoneNumber
-                ?.countryCode ?? '',
-              adminRegistrationApplicationDetails.user?.phoneNumber
-                ?.lineNumber ?? '',
-            )}
-          </div>
-        </form>
+            <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
+              <FormField
+                control={control}
+                name="updatedUser"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>Updated User</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.updatedUser ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="updatedAt"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>Updated At</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.updatedAt ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="id"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>ID</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.id ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="reason"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>Reason</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.reason ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="rejectReason"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>Reject Reason</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.rejectReason ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="institutionName"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>Institution Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.institution?.name ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="userId"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>User ID</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.user?.id ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="userFirstName"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>User First Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.user?.firstName ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="userLastName"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>User Last Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.user?.lastName ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="userCity"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>User City</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.user?.city ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="userEmailAddress"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>User Email Address</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled defaultValue={adminRegistrationApplicationDetails.user?.emailAddress ?? ''} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled
+                        defaultValue={
+                          adminRegistrationApplicationDetails.user?.phoneNumber?.countryCode &&
+                          adminRegistrationApplicationDetails.user?.phoneNumber?.lineNumber
+                            ? `(+${adminRegistrationApplicationDetails.user.phoneNumber.countryCode}) ${adminRegistrationApplicationDetails.user.phoneNumber.lineNumber}`
+                            : ''
+                        }
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </form>
+        </Form>
       )}
     </div>
   )
