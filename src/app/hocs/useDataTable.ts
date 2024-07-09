@@ -140,10 +140,18 @@ export const useDataTable = <TData, TValue>({
     return filterableColumns.find((column) => column.value === filter.id)
   })
 
+  const [mounted, setMounted] = React.useState(false)
+
   React.useEffect(() => {
+    // Prevent resetting the page on initial render
+    if (!mounted) {
+      setMounted(true)
+      return
+    }
+
     // Initialize new params
     const newParamsObject = {
-      page: search.page,
+      page: 1,
     }
 
     // Handle debounced searchable column filters
