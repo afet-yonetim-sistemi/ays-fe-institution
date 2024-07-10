@@ -1,10 +1,6 @@
-import { ApiResponse } from '@/app/(private)/admin-registration-applications/types';
-import http from '@/configs/axiosConfig';
-import { AxiosResponse } from 'axios';
-
-export const getAdminRegistrationApplication = async (id: string): Promise<AxiosResponse<ApiResponse>> => {
-  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`);
-};
+import http from '@/configs/axiosConfig'
+import { AxiosResponse } from 'axios'
+import { ApiResponse } from './constants/types'
 
 export const postAdminRegistrationApplications = (
   page: number,
@@ -26,5 +22,11 @@ export const postAdminRegistrationApplications = (
         direction: sortType || 'ASC',
       },
     ],
-  });
-};
+  })
+}
+
+export const getAdminRegistrationApplication = async (
+  id: string,
+): Promise<AxiosResponse<ApiResponse>> => {
+  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
+}
