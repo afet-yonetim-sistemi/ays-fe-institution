@@ -130,7 +130,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                           <Input
                             {...field}
                             disabled
-                            defaultValue={
+                            value={
                               t(
                                 adminRegistrationApplicationDetails.status.toLowerCase(),
                               ) ?? ''
