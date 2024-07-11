@@ -40,5 +40,22 @@
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
   "clearSort": "Sıralamayı sıfırla",
-  "invalidEmail": "Geçersiz e-posta adresi."
+  "invalidEmail": "Geçersiz e-posta adresi.",
+  "applicationDetailsTitle": "Yönetici Kayıt Başvuru Detayı",
+  "applicationInformation": "Başvuru Bilgileri",
+  "reason": "Başvuru Nedeni",
+  "institution": "Kurum Adı",
+  "applicationStatus": "Başvuru Durumu",
+  "rejectReason": "Başvuru Reddedilme Nedeni",
+  "applicationCreatedUser": "Başvuruyu Oluşturan Kullanıcı",
+  "createDate": "Başvuru Oluşturulma Tarihi",
+  "updatedUser": "Başvuruyu Güncelleyen Kullanıcı",
+  "updateDate": "Başvuru Güncellenme Tarihi",
+  "applicationError": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
+  "userInformation": "Kullanıcı  Bilgileri",
+  "firstName": "Ad",
+  "lastName": "Soyad",
+  "city": "Bulunduğu Şehir",
+  "phoneNumber": "Telefon Numarası",
+  "emailAddress": "E-posta Adresi"
 }

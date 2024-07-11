@@ -1,4 +1,6 @@
 import http from '@/configs/axiosConfig'
+import { AxiosResponse } from 'axios'
+import { ApiResponse } from './constants/types'
 
 interface Search {
   page: number
@@ -29,4 +31,10 @@ export function postAdminRegistrationApplications(search: Search) {
       statuses: filterStatus,
     },
   })
+}
+
+export const getAdminRegistrationApplication = async (
+  id: string,
+): Promise<AxiosResponse<ApiResponse>> => {
+  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
 }
