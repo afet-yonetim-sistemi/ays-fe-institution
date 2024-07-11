@@ -40,25 +40,21 @@
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
   "invalidEmail": "Geçersiz e-posta adresi.",
-  "adminRegistrationApplicationDetails": {
-    "title": "Yönetici Kayıt Başvuru Detayı",
-    "information": "Başvuru Bilgileri",
-    "reason": "Başvuru Nedeni",
-    "institution": "Kurum Adı",
-    "status": "Başvuru Durumu",
-    "rejectReason": "Başvuru Reddedilme Nedeni",
-    "createdUser": "Başvuruyu Oluşturan Kullanıcı",
-    "createDate": "Başvuru Oluşturulma Tarihi",
-    "updatedUser": "Başvuruyu Güncelleyen Kullanıcı",
-    "updateDate": "Başvuru Güncellenme Tarihi",
-    "error": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
-    "user": {
-      "information": "Kullanıcı  Bilgileri",
-      "firstName": "Ad",
-      "lastName": "Soyad",
-      "city": "Bulunduğu Şehir",
-      "phoneNumber": "Telefon Numarası",
-      "email": "E-mail Adresi"
-    }
-  }
+  "applicationDetailsTitle": "Yönetici Kayıt Başvuru Detayı",
+  "applicationInformation": "Başvuru Bilgileri",
+  "reason": "Başvuru Nedeni",
+  "institution": "Kurum Adı",
+  "applicationStatus": "Başvuru Durumu",
+  "rejectReason": "Başvuru Reddedilme Nedeni",
+  "applicationCreatedUser": "Başvuruyu Oluşturan Kullanıcı",
+  "createDate": "Başvuru Oluşturulma Tarihi",
+  "updatedUser": "Başvuruyu Güncelleyen Kullanıcı",
+  "updateDate": "Başvuru Güncellenme Tarihi",
+  "applicationError": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
+  "userInformation": "Kullanıcı  Bilgileri",
+  "firstName": "Ad",
+  "lastName": "Soyad",
+  "city": "Bulunduğu Şehir",
+  "phoneNumber": "Telefon Numarası",
+  "emailAddress": "E-mail Adresi"
 }

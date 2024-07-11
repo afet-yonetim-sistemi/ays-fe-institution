@@ -40,25 +40,21 @@
   "asc": "Click to sort ascending",
   "invalidEmailAndPassword": "Invalid E-mail or Password.",
   "defaultError": "An error occurred. Please try again later.",
-  "adminRegistrationApplicationDetails": {
-    "title": "Admin Registration Application Details",
-    "information": "Application Information",
-    "reason": "Application Reason",
-    "institution": "Institution Name",
-    "status": "Application Status",
-    "rejectReason": "Application Rejection Reason",
-    "createdUser": "User Who Created the Application",
-    "createDate": "Application Creation Date",
-    "updatedUser": "User Who Updated the Application",
-    "updateDate": "Application Update Date",
-    "error": "Error while fetching application details. Please try again",
-    "user": {
-      "information": "User Information",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "city": "City of Locate",
-      "phoneNumber": "Phone Number",
-      "email": "E-mail Address"
-    }
-  }
+  "applicationDetailsTitle": "Admin Registration Application Details",
+  "applicationInformation": "Application Information",
+  "reason": "Application Reason",
+  "institution": "Institution Name",
+  "applicationStatus": "Application Status",
+  "rejectReason": "Application Rejection Reason",
+  "applicationCreatedUser": "User Who Created the Application",
+  "createDate": "Application Creation Date",
+  "updatedUser": "User Who Updated the Application",
+  "updateDate": "Application Update Date",
+  "applicationError": "Error while fetching application details. Please try again",
+  "userInformation": "User Information",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "city": "City of Locate",
+  "phoneNumber": "Phone Number",
+  "emailAddress": "E-mail Address"
 }

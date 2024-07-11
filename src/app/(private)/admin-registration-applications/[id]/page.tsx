@@ -44,10 +44,10 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
           if (response.data.isSuccess) {
             setAdminRegistrationApplicationDetails(response.data.response)
           } else {
-            setError(t('adminRegistrationApplicationDetails.error'))
+            setError(t('applicationError'))
             toast({
               title: t('error'),
-              description: t('adminRegistrationApplicationDetails.error'),
+              description: t('applicationError'),
               variant: 'destructive',
             })
           }
@@ -56,7 +56,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
           setError(error.message)
           toast({
             title: t('error'),
-            description: t('adminRegistrationApplicationDetails.error'),
+            description: t('applicationError'),
             variant: 'destructive',
           })
         })
@@ -64,7 +64,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     }
 
     fetchDetails()
-  }, [params.id, t])
+  }, [params.id])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
@@ -74,14 +74,12 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         <Form {...form}>
           <form className="space-y-6">
             <h1 className="text-2xl font-bold mb-6">
-              {t('adminRegistrationApplicationDetails.title')}
+              {t('applicationDetailsTitle')}
             </h1>
 
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>
-                  {t('adminRegistrationApplicationDetails.information')}
-                </CardTitle>
+                <CardTitle>{t('applicationInformation')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
@@ -90,9 +88,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="reason"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.reason')}
-                        </FormLabel>
+                        <FormLabel>{t('reason')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -110,9 +106,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="institutionName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.institution')}
-                        </FormLabel>
+                        <FormLabel>{t('institution')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -131,9 +125,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.status')}
-                        </FormLabel>
+                        <FormLabel>{t('applicationStatus')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -155,11 +147,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                       name="rejectReason"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-2">
-                          <FormLabel>
-                            {t(
-                              'adminRegistrationApplicationDetails.rejectReason',
-                            )}
-                          </FormLabel>
+                          <FormLabel>{t('rejectReason')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -179,9 +167,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="createdUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.createdUser')}
-                        </FormLabel>
+                        <FormLabel>{t('applicationCreatedUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -197,12 +183,10 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                   />
                   <FormField
                     control={control}
-                    name="createdAt"
+                    name="createDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.createDate')}
-                        </FormLabel>
+                        <FormLabel>{t('createDate')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -222,9 +206,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="updatedUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.updatedUser')}
-                        </FormLabel>
+                        <FormLabel>{t('updatedUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -240,12 +222,10 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                   />
                   <FormField
                     control={control}
-                    name="updatedAt"
+                    name="updateDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.updateDate')}
-                        </FormLabel>
+                        <FormLabel>{t('updateDate')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -266,22 +246,16 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
 
             <Card>
               <CardHeader>
-                <CardTitle>
-                  {t('adminRegistrationApplicationDetails.user.information')}
-                </CardTitle>
+                <CardTitle>{t('userInformation')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 mb-6">
                   <FormField
                     control={control}
-                    name="userFirstName"
+                    name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t(
-                            'adminRegistrationApplicationDetails.user.firstName',
-                          )}
-                        </FormLabel>
+                        <FormLabel>{t('firstName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -297,14 +271,10 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                   />
                   <FormField
                     control={control}
-                    name="userLastName"
+                    name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t(
-                            'adminRegistrationApplicationDetails.user.lastName',
-                          )}
-                        </FormLabel>
+                        <FormLabel>{t('lastName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -323,9 +293,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="userCity"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.user.city')}
-                        </FormLabel>
+                        <FormLabel>{t('city')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -346,11 +314,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="phone"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t(
-                            'adminRegistrationApplicationDetails.user.phoneNumber',
-                          )}
-                        </FormLabel>
+                        <FormLabel>{t('phoneNumber')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -378,9 +342,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="userEmailAddress"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplicationDetails.user.email')}
-                        </FormLabel>
+                        <FormLabel>{t('emailAddress')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
