@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import { formatDate } from '@/app/hocs/formatDate'
 import { formatPhoneNumber } from '@/app/hocs/formatPhoneNumber'
-import { formatStatus } from '@/app/hocs/formatStatus'
 import {
   FormItem,
   FormField,
@@ -140,9 +139,8 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             {...field}
                             disabled
                             defaultValue={
-                              formatStatus(
-                                adminRegistrationApplicationDetails.status,
-                                t,
+                              t(
+                                adminRegistrationApplicationDetails.status.toLowerCase(),
                               ) ?? ''
                             }
                           />
