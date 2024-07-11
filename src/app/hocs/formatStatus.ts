@@ -6,8 +6,8 @@ export const formatStatus = (status: string, t: (key: string) => string): string
       return t('completed');
     case 'REJECTED':
       return t('rejected');
-    case 'VERIFIED':
-      return t('verified');
+    case 'APPROVED':
+      return t('Approved');
     default:
       return status.charAt(0) + status.slice(1).toLowerCase();
   }
