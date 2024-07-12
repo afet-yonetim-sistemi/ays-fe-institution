@@ -1,4 +1,4 @@
-import { Ambulance, HomeIcon, UserRoundCheck } from 'lucide-react'
+import { BusFront, HomeIcon, UserRoundCheck } from 'lucide-react'
 import React from 'react'
 import { Permission } from '@/constants/permissions'
 
@@ -24,7 +24,7 @@ export const MenuItems: Menu[] = [
   {
     key: '/emergency-evacuation-applications',
     label: 'emergencyEvacuationApplications',
-    icon: Ambulance,
+    icon: BusFront,
     requiredPermissions: [Permission.EVACUATION_LIST],
   },
 ]
