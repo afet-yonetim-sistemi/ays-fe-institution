@@ -11,6 +11,7 @@ import {
   type ColumnDef,
   type ColumnFiltersState,
   type SortingState,
+  type VisibilityState,
 } from '@tanstack/react-table'
 import { z } from 'zod'
 import { useDebounce } from './useDebounce'
@@ -103,6 +104,8 @@ export const useDataTable = <TData, TValue>({
   // Table states
   const [columnFilters, setColumnFilters] =
     React.useState<ColumnFiltersState>(initialColumnFilters)
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({})
 
   // Handle server-side sorting
   const [sorting, setSorting] = React.useState<SortingState>([
@@ -206,6 +209,7 @@ export const useDataTable = <TData, TValue>({
     state: {
       sorting,
       columnFilters,
+      columnVisibility,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -216,6 +220,7 @@ export const useDataTable = <TData, TValue>({
     manualPagination: true,
     manualSorting: true,
     manualFiltering: true,
+    onColumnVisibilityChange: setColumnVisibility,
   })
 
   return { table }
