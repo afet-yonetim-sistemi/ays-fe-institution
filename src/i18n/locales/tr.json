@@ -55,5 +55,10 @@
   "isInPerson": "Bireysel Başvuru Mu?",
   "yes": "Evet",
   "no": "Hayır",
-  "seatingCount": "Talep Edilen Koltuk Sayısı"
+  "seatingCount": "Talep Edilen Koltuk Sayısı",
+  "sourceCity": "Tahliye Edilecek Şehir",
+  "sourceDistrict": "Tahliye Edilecek İlçe",
+  "targetCity": "Tahliye Sağlanılacak Şehir",
+  "targetDistrict": "Tahliye Sağlanılacak İlçe",
+  "phoneNumber": "Telefon Numarası"
 }

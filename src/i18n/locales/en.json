@@ -52,8 +52,13 @@
   "referenceNumber": "Reference Number",
   "firstName": "Applicant's First Name",
   "lastName": "Applicant's Last Name",
-  "isInPerson": "Is It an In-Person Application?",
+  "isInPerson": "Is In Person",
   "yes": "Yes",
   "no": "No",
-  "seatingCount": "Seating Count"
+  "seatingCount": "Seating Count",
+  "sourceCity": "Source City",
+  "sourceDistrict": "Source District",
+  "targetCity": "Target City",
+  "targetDistrict": "Target District",
+  "phoneNumber": "Phone Number"
 }
