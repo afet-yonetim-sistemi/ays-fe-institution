@@ -52,7 +52,7 @@ export const columns: ColumnDef<EmergencyEvacuationApplicationsTableProps>[] = [
     accessorKey: 'status',
     header: () => i18next.t('status'),
     cell: ({ row }) => <Status status={row.getValue('status')} />,
-    size: 120,
+    size: 170,
   },
   {
     accessorKey: 'createdAt',
