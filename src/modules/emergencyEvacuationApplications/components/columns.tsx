@@ -5,6 +5,7 @@ import Status from './status'
 import { EmergencyEvacuationApplicationsTableProps } from '@/modules/emergencyEvacuationApplications/constants/types'
 import DataTableSort from '@/components/dataTable/dataTableSort'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
+import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
 
 export const columns: ColumnDef<EmergencyEvacuationApplicationsTableProps>[] = [
   { accessorKey: 'sourceCity', enableHiding: false },
@@ -14,7 +15,7 @@ export const columns: ColumnDef<EmergencyEvacuationApplicationsTableProps>[] = [
   {
     accessorKey: 'referenceNumber',
     header: () => i18next.t('referenceNumber'),
-    cell: ({ row }) => row.original.referenceNumber,
+    cell: ({ row }) => formatReferenceNumber(row.original.referenceNumber),
     size: 145,
   },
   {
