@@ -52,7 +52,7 @@
   "referenceNumber": "Referans Numarası",
   "firstName": "Başvuru Yapan Kişinin Adı",
   "lastName": "Başvuru Yapan Kişinin Soyadı",
-  "isInPerson": "Bireysel Başvuru Mu?",
+  "isInPerson": "Bireysel Başvuru",
   "yes": "Evet",
   "no": "Hayır",
   "seatingCount": "Talep Edilen Koltuk Sayısı",
