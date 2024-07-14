@@ -27,7 +27,7 @@ const QuickFilter = <TData, TValue>({
       )}
     >
       <Checkbox
-        className="border-none bg-zinc-300/50 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white"
+        className="border-none bg-zinc-300/50 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white "
         checked={isChecked}
         id={label}
         onCheckedChange={(event) => {

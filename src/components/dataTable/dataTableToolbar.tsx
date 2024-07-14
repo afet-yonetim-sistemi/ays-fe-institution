@@ -4,7 +4,7 @@ import * as React from 'react'
 import type { Table } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
 import { DataTableFilter } from '@/components/dataTable/dataTableFilter'
-import QuickFilter from '@/components/ui/quickFilter'
+import QuickFilter from '@/components/dataTable/quickFilter'
 import DataTableSearchField from '@/components/dataTable/dataTableSearchField'
 
 interface DataTableToolbarProps<TData>
