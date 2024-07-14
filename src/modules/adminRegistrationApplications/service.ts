@@ -38,3 +38,9 @@ export const getAdminRegistrationApplication = async (
 ): Promise<AxiosResponse<ApiResponse>> => {
   return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
 }
+
+export const getAdminRegistrationApplicationSummary = async (
+  id: string,
+): Promise<AxiosResponse<ApiResponse>> => {
+  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}/summary`)
+}
