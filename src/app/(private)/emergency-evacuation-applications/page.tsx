@@ -14,7 +14,6 @@ import { columns } from '@/modules/emergencyEvacuationApplications/components/co
 import { Permission } from '@/constants/permissions'
 import { searchParamsSchema } from '@/modules/emergencyEvacuationApplications/constants/searchParamsSchema'
 import { EmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/constants/types'
-import QuickFilter from '@/components/ui/quickFilter'
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -58,20 +57,10 @@ const Page = () => {
         })
       })
       .finally(() => setIsLoading(false))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    search.page,
-    search.per_page,
-    search.sort,
-    search.status,
-    search.referenceNumber,
-    search.seatingCount,
-    search.sourceCity,
-    search.sourceDistrict,
-    search.targetCity,
-    search.targetDistrict,
-    search.isInPerson,
-    t,
-    toast,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    JSON.stringify(search),
   ])
 
   const { table } = useDataTable({
@@ -94,9 +83,7 @@ const Page = () => {
             <h1 className="text-2xl font-medium">
               {t('emergencyEvacuationApplications')}
             </h1>
-            <DataTableToolbar table={table} filterFields={filterFields}>
-              <QuickFilter label={t('isInPerson')} value="isInPerson" />
-            </DataTableToolbar>
+            <DataTableToolbar table={table} filterFields={filterFields} />
           </div>
         </DataTable>
       </div>
