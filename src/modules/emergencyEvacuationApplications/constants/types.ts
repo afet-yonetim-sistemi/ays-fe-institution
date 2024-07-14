@@ -35,7 +35,9 @@ export interface StatusProps {
 export interface FilterFieldsType {
   label: string
   value: string
+  type?: string
   placeholder?: string
   options?: { label: string; value: string }[]
   maxLength?: number
+  fieldsType?: string
 }

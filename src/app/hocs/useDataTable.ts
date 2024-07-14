@@ -48,12 +48,20 @@ export const useDataTable = <TData, TValue>({
   const [column, order] = sort?.toUpperCase().split('.') ?? []
 
   // Memoize computation of filterableColumns
-  const { searchableColumns, filterableColumns } = React.useMemo(() => {
-    return {
-      searchableColumns: filterFields.filter((field) => !field.options),
-      filterableColumns: filterFields.filter((field) => field.options),
-    }
-  }, [filterFields])
+  const { searchableColumns, filterableColumns, quickFilterableColumns } =
+    React.useMemo(() => {
+      return {
+        searchableColumns: filterFields.filter(
+          (field) => field.fieldsType == 'inputField',
+        ),
+        filterableColumns: filterFields.filter(
+          (field) => field.fieldsType == 'selectBoxField',
+        ),
+        quickFilterableColumns: filterFields.filter(
+          (field) => field.fieldsType == 'quickFilterField',
+        ),
+      }
+    }, [filterFields])
 
   // Create query string
   const createQueryString = React.useCallback(
@@ -83,6 +91,9 @@ export const useDataTable = <TData, TValue>({
         const searchableColumn = searchableColumns.find(
           (column) => column.value === key,
         )
+        const quickFilterableColumn = quickFilterableColumns.find(
+          (column) => column.value === key,
+        )
         if (filterableColumn) {
           filters.push({
             id: key,
@@ -93,13 +104,23 @@ export const useDataTable = <TData, TValue>({
             id: key,
             value: [value],
           })
+        } else if (quickFilterableColumn) {
+          filters.push({
+            id: key,
+            value: true,
+          })
         }
 
         return filters
       },
       [],
     )
-  }, [filterableColumns, searchableColumns, searchParams])
+  }, [
+    filterableColumns,
+    searchableColumns,
+    quickFilterableColumns,
+    searchParams,
+  ])
 
   // Table states
   const [columnFilters, setColumnFilters] =
@@ -142,6 +163,9 @@ export const useDataTable = <TData, TValue>({
   const filterableColumnFilters = columnFilters.filter((filter) => {
     return filterableColumns.find((column) => column.value === filter.id)
   })
+  const quickColumnFilters = columnFilters.filter((filter) => {
+    return quickFilterableColumns.find((column) => column.value === filter.id)
+  })
 
   const [mounted, setMounted] = React.useState(false)
 
@@ -172,6 +196,15 @@ export const useDataTable = <TData, TValue>({
         Object.assign(newParamsObject, { [column.id]: column.value.join('.') })
       }
     }
+    // Handle quick filterable filters
+
+    for (const column of quickColumnFilters) {
+      if (typeof column.value === 'boolean') {
+        Object.assign(newParamsObject, {
+          [column.id]: column.value ? true : null,
+        })
+      }
+    }
 
     // Remove deleted values
     const keys = Array.from(searchParams.keys())
@@ -182,7 +215,9 @@ export const useDataTable = <TData, TValue>({
             (column) => column.id === key,
           )) ||
         (filterableColumns.find((column) => column.value === key) &&
-          !filterableColumnFilters.find((column) => column.id === key))
+          !filterableColumnFilters.find((column) => column.id === key)) ||
+        (quickFilterableColumns.find((column) => column.value === key) &&
+          !quickColumnFilters.find((column) => column.id === key))
       ) {
         Object.assign(newParamsObject, { [key]: null })
       }
@@ -199,6 +234,8 @@ export const useDataTable = <TData, TValue>({
     JSON.stringify(debouncedSearchableColumnFilters),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     JSON.stringify(filterableColumnFilters),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    JSON.stringify(quickColumnFilters),
     pageCount,
   ])
 
