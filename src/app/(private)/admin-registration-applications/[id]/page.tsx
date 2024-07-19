@@ -192,9 +192,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             {...field}
                             disabled
                             defaultValue={
-                              formatDate(
-                                adminRegistrationApplicationDetails.createdAt,
-                              ) ?? ''
+                              adminRegistrationApplicationDetails.createdAt
+                                ? formatDate(adminRegistrationApplicationDetails.createdAt)
+                                : ''
                             }
                           />
                         </FormControl>
@@ -231,9 +231,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             {...field}
                             disabled
                             defaultValue={
-                              formatDate(
-                                adminRegistrationApplicationDetails.updatedAt,
-                              ) ?? ''
+                              adminRegistrationApplicationDetails.updatedAt
+                                ? formatDate(adminRegistrationApplicationDetails.updatedAt)
+                                : ''
                             }
                           />
                         </FormControl>
@@ -320,15 +320,11 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             {...field}
                             disabled
                             defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.phoneNumber?.countryCode &&
-                              adminRegistrationApplicationDetails.user
-                                ?.phoneNumber?.lineNumber
+                              adminRegistrationApplicationDetails.user?.phoneNumber?.countryCode &&
+                              adminRegistrationApplicationDetails.user?.phoneNumber?.lineNumber
                                 ? formatPhoneNumber(
-                                    adminRegistrationApplicationDetails.user
-                                      .phoneNumber.countryCode,
-                                    adminRegistrationApplicationDetails.user
-                                      .phoneNumber.lineNumber,
+                                    adminRegistrationApplicationDetails.user.phoneNumber.countryCode,
+                                    adminRegistrationApplicationDetails.user.phoneNumber.lineNumber
                                   )
                                 : ''
                             }
