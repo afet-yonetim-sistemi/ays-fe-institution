@@ -23,7 +23,7 @@ const DataTableToolbar = <TData,>({
   return (
     <div
       className={cn(
-        'flex items-center justify-between space-x-2 overflow-auto p-1',
+        'flex items-center justify-between space-x-2 p-1',
         className,
       )}
       {...props}

@@ -8,7 +8,7 @@ const filterFields: FilterFieldsType[] = [
     placeholder: '',
     type: 'number',
     maxLength: 10,
-    fieldsType: 'inputField',
+    fieldsType: 'inputField'
   },
   {
     label: 'seatingCount',
@@ -16,46 +16,22 @@ const filterFields: FilterFieldsType[] = [
     placeholder: '',
     type: 'number',
     maxLength: 3,
-    fieldsType: 'inputField',
+    fieldsType: 'inputField'
   },
   {
     label: 'isInPerson',
     value: 'isInPerson',
-    fieldsType: 'quickFilterField',
-  },
-  {
-    label: 'sourceCity',
-    value: 'sourceCity',
-    placeholder: '',
-    fieldsType: 'inputField',
-  },
-  {
-    label: 'sourceDistrict',
-    value: 'sourceDistrict',
-    placeholder: '',
-    fieldsType: 'inputField',
-  },
-  {
-    label: 'targetCity',
-    value: 'targetCity',
-    placeholder: '',
-    fieldsType: 'inputField',
-  },
-  {
-    label: 'targetDistrict',
-    value: 'targetDistrict',
-    placeholder: '',
-    fieldsType: 'inputField',
+    fieldsType: 'quickFilterField'
   },
   {
     label: 'status',
     value: 'status',
     options: StatusData.map((status) => ({
       label: status.label,
-      value: status.value,
+      value: status.value
     })),
-    fieldsType: 'selectBoxField',
-  },
+    fieldsType: 'selectBoxField'
+  }
 ]
 
 export default filterFields

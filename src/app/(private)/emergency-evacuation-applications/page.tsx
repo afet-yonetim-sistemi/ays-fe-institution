@@ -14,6 +14,7 @@ import { columns } from '@/modules/emergencyEvacuationApplications/components/co
 import { Permission } from '@/constants/permissions'
 import { searchParamsSchema } from '@/modules/emergencyEvacuationApplications/constants/searchParamsSchema'
 import { EmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/constants/types'
+import FilterInput from '@/components/ui/filterInput'
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -83,7 +84,12 @@ const Page = () => {
             <h1 className="text-2xl font-medium">
               {t('emergencyEvacuationApplications')}
             </h1>
-            <DataTableToolbar table={table} filterFields={filterFields} />
+            <DataTableToolbar table={table} filterFields={filterFields}>
+              <FilterInput param="sourceCity" />
+              <FilterInput param="sourceDistrict" />
+              <FilterInput param="targetCity" />
+              <FilterInput param="targetDistrict" />
+            </DataTableToolbar>
           </div>
         </DataTable>
       </div>

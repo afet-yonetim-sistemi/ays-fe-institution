@@ -93,7 +93,7 @@ export function ListRegistration<TData, TValue>({
                       cell.column.getCanHide() && (
                         <TableCell
                           key={cell.id}
-                          className="px-2"
+                          className="px-2 overflow-hidden text-ellipsis"
                           width={cell.column.getSize()}
                           onClick={() => handleRowClick(row)}
                         >
