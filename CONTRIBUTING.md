@@ -58,6 +58,43 @@ npm run dev
 
 Note that you need to install [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) to run the project locally. We recommend using `version v18` of Node.js.
 
+## Development Standards
+
+Our project adheres to the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) for
+collaboration.
+Issues are managed on GitHub Discussions, with plans to transition them to Jira.
+
+### Branch Naming Conventions:
+
+- `bugfix/{jira-issue-number}/{optional-description}`
+- `feature/{jira-issue-number}/{optional-description}`
+- `refactor/{jira-issue-number}/{optional-description}`
+- `hotfix/{jira-issue-number}/{optional-description}`
+
+> Example : `feature/AYS-1/add-feature-to-handle-user-authentication`
+
+### Pull Request Naming Conventions:
+
+- `{jira-issue-number} | {header-for-summary-of-development}`
+
+> Example : `AYS-1 | Add feature to handle user authentication`
+
+Here are some additional standards to keep in mind:
+
+- Link your feature branch to the corresponding GitHub issue.
+- `main` branch is protected.
+- PR should be linked to the relevant issue within the GitHub Project.
+- Only one code owner's approval is needed for merging feature branches.
+- PR should be squash-merged to avoid merge commit history.
+- PR should pass build and necessary tests before merging.
+- Releases should be tagged with a version.
+- Commit messages should be subjectless.
+- Resolve comments within the PR by the commenter.
+- PR should be concise and address one thing.
+- Avoid including secret/credential information.
+- Code should comply with existing coding standards; no new standards should be introduced without justification.
+
+
 ## Pull Request Guidelines
 
 When submitting a pull request, please adhere to the following guidelines:
