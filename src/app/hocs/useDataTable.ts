@@ -45,7 +45,7 @@ export const useDataTable = <TData, TValue>({
   const search = schema.parse(Object.fromEntries(searchParams))
   const page = search.page
   const sort = search.sort ?? null
-  const [column, order] = sort?.toUpperCase().split('.') ?? []
+  const [column, order] = sort?.split('.') ?? []
 
   // Memoize computation of filterableColumns
   const { searchableColumns, filterableColumns, quickFilterableColumns } =
