@@ -57,5 +57,7 @@
   "lastName": "Last Name",
   "city": "City of Locate",
   "phoneNumber": "Phone Number",
-  "emailAddress": "E-mail Address"
+  "emailAddress": "E-mail Address",
+  "preApplication": "Create Pre-Application",
+  "preApplicationTitle": "Establishment Administrator Registration Preliminary Application Creation"
 }

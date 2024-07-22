@@ -57,5 +57,7 @@
   "lastName": "Soyad",
   "city": "Bulunduğu Şehir",
   "phoneNumber": "Telefon Numarası",
-  "emailAddress": "E-posta Adresi"
+  "emailAddress": "E-posta Adresi",
+  "preApplication": "Ön Başvuru Oluştur",
+    "preApplicationTitle": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma"
 }
