@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/table-core'
-import { formatDate } from '@/app/hocs/formatDate'
+import { formatDate } from '@/lib/formatDate'
 import Status from '@/modules/adminRegistrationApplications/components/status'
 import i18next from 'i18next'
 import DataTableSort from '@/components/dataTable/dataTableSort'

@@ -2,13 +2,12 @@ export const formatPhoneNumber = (phoneNumberObj: any) => {
   const { countryCode, lineNumber } = phoneNumberObj
 
   // Clean the line number to remove any non-digit characters
-  const cleanLineNumber = lineNumber.replace(/[^\d]/g, '')
+  const phoneNumber = countryCode + lineNumber
 
-  // Extract parts of the line number
-  const areaCode = cleanLineNumber.slice(0, 3)
-  const firstPart = cleanLineNumber.slice(3, 6)
-  const secondPart = cleanLineNumber.slice(6, 8)
-  const thirdPart = cleanLineNumber.slice(8, 10)
-
-  return `+${countryCode} (${areaCode}) ${firstPart} ${secondPart} ${thirdPart}`
+  // Direct transformation using regex
+  let formattedPhoneNumber: string = phoneNumber.replace(
+    /(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})/,
+    '+$1 ($2) $3 $4 $5'
+  )
+  return formattedPhoneNumber
 }

@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/table-core'
-import { formatDate } from '@/app/hocs/formatDate'
+import { formatDate } from '@/lib/formatDate'
 import i18next from 'i18next'
 import Status from './status'
 import { EmergencyEvacuationApplicationsTableProps } from '@/modules/emergencyEvacuationApplications/constants/types'

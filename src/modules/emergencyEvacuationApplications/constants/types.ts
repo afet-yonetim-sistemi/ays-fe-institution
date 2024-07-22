@@ -32,12 +32,3 @@ export interface Search {
 export interface StatusProps {
   status: string
 }
-export interface FilterFieldsType {
-  label: string
-  value: string
-  type?: string
-  placeholder?: string
-  options?: { label: string; value: string }[]
-  maxLength?: number
-  fieldsType?: string
-}

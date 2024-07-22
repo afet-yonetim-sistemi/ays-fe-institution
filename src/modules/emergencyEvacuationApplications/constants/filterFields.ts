@@ -1,7 +1,6 @@
 import { StatusData } from './status'
-import { FilterFieldsType } from '@/modules/emergencyEvacuationApplications/constants/types'
 
-const filterFields: FilterFieldsType[] = [
+const filterFields: FilterFields = [
   {
     label: 'Reference Number',
     value: 'referenceNumber',
