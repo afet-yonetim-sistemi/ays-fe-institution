@@ -5,7 +5,6 @@ import { getAdminRegistrationApplication } from '@/modules/adminRegistrationAppl
 import { Input } from '@/components/ui/input'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import { formatDate } from '@/lib/formatDate'
-import { formatPhoneNumber } from '@/app/hocs/formatPhoneNumber'
 import {
   FormItem,
   FormField,
@@ -21,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/components/ui/use-toast'
+import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
@@ -193,7 +193,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             disabled
                             defaultValue={
                               adminRegistrationApplicationDetails.createdAt
-                                ? formatDate(adminRegistrationApplicationDetails.createdAt)
+                                ? formatDate(
+                                    adminRegistrationApplicationDetails.createdAt,
+                                  )
                                 : ''
                             }
                           />
@@ -232,7 +234,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             disabled
                             defaultValue={
                               adminRegistrationApplicationDetails.updatedAt
-                                ? formatDate(adminRegistrationApplicationDetails.updatedAt)
+                                ? formatDate(
+                                    adminRegistrationApplicationDetails.updatedAt,
+                                  )
                                 : ''
                             }
                           />
@@ -320,11 +324,13 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             {...field}
                             disabled
                             defaultValue={
-                              adminRegistrationApplicationDetails.user?.phoneNumber?.countryCode &&
-                              adminRegistrationApplicationDetails.user?.phoneNumber?.lineNumber
+                              adminRegistrationApplicationDetails.user
+                                ?.phoneNumber?.countryCode &&
+                              adminRegistrationApplicationDetails.user
+                                ?.phoneNumber?.lineNumber
                                 ? formatPhoneNumber(
-                                    adminRegistrationApplicationDetails.user.phoneNumber.countryCode,
-                                    adminRegistrationApplicationDetails.user.phoneNumber.lineNumber
+                                    adminRegistrationApplicationDetails.user
+                                      .phoneNumber,
                                   )
                                 : ''
                             }
