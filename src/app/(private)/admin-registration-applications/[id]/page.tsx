@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { getAdminRegistrationApplication } from '@/modules/adminRegistrationApplications/service'
 import { Input } from '@/components/ui/input'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
-import { formatDate } from '@/app/hocs/formatDate'
+import { formatDate } from '@/lib/formatDate'
 import { formatPhoneNumber } from '@/app/hocs/formatPhoneNumber'
 import {
   FormItem,
