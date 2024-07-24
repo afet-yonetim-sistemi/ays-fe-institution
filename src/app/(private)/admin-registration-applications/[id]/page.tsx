@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { getAdminRegistrationApplication } from '@/modules/adminRegistrationApplications/service'
 import { Input } from '@/components/ui/input'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
-import { formatDate } from '@/lib/formatDate'
+import { formatDateTime } from '@/lib/formatDateTime'
 import {
   FormItem,
   FormField,
@@ -193,7 +193,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             disabled
                             defaultValue={
                               adminRegistrationApplicationDetails.createdAt
-                                ? formatDate(
+                                ? formatDateTime(
                                     adminRegistrationApplicationDetails.createdAt,
                                   )
                                 : ''
@@ -234,7 +234,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             disabled
                             defaultValue={
                               adminRegistrationApplicationDetails.updatedAt
-                                ? formatDate(
+                                ? formatDateTime(
                                     adminRegistrationApplicationDetails.updatedAt,
                                   )
                                 : ''
