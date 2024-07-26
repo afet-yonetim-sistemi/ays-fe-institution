@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/table-core'
-import { formatDate } from '@/lib/formatDate'
+import { formatDateTime } from '@/lib/formatDateTime'
 import i18next from 'i18next'
 import Status from './status'
 import { EmergencyEvacuationApplicationsTableProps } from '@/modules/emergencyEvacuationApplications/constants/types'
@@ -55,9 +55,9 @@ export const columns: ColumnDef<EmergencyEvacuationApplicationsTableProps>[] = [
     header: ({ column }) => {
       return <DataTableSort column={column} />
     },
-    size: 155,
     cell: ({ row }) => {
-      return <div className="px-2">{formatDate(row.getValue('createdAt'))}</div>
+      return <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
     },
+    size: 155,
   },
 ]

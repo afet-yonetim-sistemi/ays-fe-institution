@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/table-core'
-import { formatDate } from '@/lib/formatDate'
+import { formatDateTime } from '@/lib/formatDateTime'
 import Status from '@/modules/adminRegistrationApplications/components/status'
 import i18next from 'i18next'
 import DataTableSort from '@/components/dataTable/dataTableSort'
@@ -45,7 +45,7 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
     },
     size: 155,
     cell: ({ row }) => {
-      return <div className="px-2">{formatDate(row.getValue('createdAt'))}</div>
+      return <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
     }
   }
 ]
