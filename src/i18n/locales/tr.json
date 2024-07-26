@@ -79,5 +79,7 @@
   "sourceDistrict": "Tahliye Edilecek İlçe",
   "targetCity": "Tahliye Sağlanılacak Şehir",
   "targetDistrict": "Tahliye Sağlanılacak İlçe",
-  "phoneNumber": "Telefon Numarası"
+  "phoneNumber": "Telefon Numarası",
+  "seatingCountValidationMessage": "Sadece maksimum {{field}} haneli, pozitif sayı değerleri alabilir.",
+  "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir."
 }
