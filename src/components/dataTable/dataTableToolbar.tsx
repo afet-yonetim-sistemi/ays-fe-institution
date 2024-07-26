@@ -20,13 +20,6 @@ const DataTableToolbar = <TData,>({
   className,
   ...props
 }: DataTableToolbarProps<TData>) => {
-  // Memoize computation of searchableColumns and filterableColumns
-  const { searchableColumns, filterableColumns } = React.useMemo(() => {
-    return {
-      searchableColumns: filterFields.filter((field) => !field.options),
-      filterableColumns: filterFields.filter((field) => field.options),
-    }
-  }, [filterFields])
 
   return (
     <div

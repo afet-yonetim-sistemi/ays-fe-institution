@@ -21,6 +21,6 @@ export const StatusData = [
     value: 'RECEIVED_THIRD_APPROVE',
     color: 'bg-blue-700 text-white',
   },
-  { label: 'completed', value: 'COMPLETED', color: 'bg-green-500 text-white' },
-  { label: 'canceled', value: 'CANCELLED', color: 'bg-red-500 text-white' },
+  { label: 'completed', value: 'COMPLETED', color: 'bg-green-500 text-white'},
+  { label: 'cancelled', value: 'CANCELLED', color: 'bg-red-500 text-white' },
 ]

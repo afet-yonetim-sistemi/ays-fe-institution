@@ -3,6 +3,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import i18next from 'i18next'
 import type { Table } from '@tanstack/react-table'
+import { toast } from '@/components/ui/use-toast'
+import { getValidationSchema } from '@/components/dataTable/validationSchemas'
 
 interface DataTableSearchFieldProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -10,7 +12,6 @@ interface DataTableSearchFieldProps<TData>
   field: {
     value: string
     placeholder: string
-    maxLength: number
     type: string
   }
 }
@@ -19,17 +20,27 @@ const DataTableSearchField = <TData,>({
   field,
   table,
 }: DataTableSearchFieldProps<TData>) => {
+  const schema = getValidationSchema(field.value)
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    table.getColumn(String(field.value))?.setFilterValue(event.target.value)
+    const inputValue = event.target.value
+    const validation = schema.safeParse(inputValue)
+
+    if (validation.success) {
+      table.getColumn(String(field.value))?.setFilterValue(inputValue)
+    } else {
+      toast({
+        title: validation.error.errors[0].message,
+        variant: 'destructive',
+      }) // Set the error message
+    }
   }
 
   return (
     <div key={field.value} className="relative h-10">
       <Input
-        className="block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        className="block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder={field.placeholder}
         id={field.value}
-        maxLength={field.maxLength}
         type={field.type}
         value={
           (table.getColumn(String(field.value))?.getFilterValue() as string) ??

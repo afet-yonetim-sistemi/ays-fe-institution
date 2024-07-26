@@ -4,6 +4,5 @@ declare type FilterFields = {
   type?: string
   placeholder?: string
   options?: { label: string; value: string }[]
-  maxLength?: number
   fieldsType?: 'selectBoxField' | 'inputField' | 'quickFilterField'
 }[]
