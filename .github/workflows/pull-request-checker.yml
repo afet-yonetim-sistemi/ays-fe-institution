@@ -27,7 +27,6 @@ jobs:
       - uses: actions/setup-node@v4 # Step to set up Node.js
         with:
           node-version: 18
-        run: npm ci
 
       - name: Install npm # Install with npm
         run: npm install
