@@ -19,14 +19,14 @@ import FilterInput from '@/components/ui/filterInput'
 const Page = () => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
-    Object.fromEntries(searchParams.entries()),
+    Object.fromEntries(searchParams.entries())
   )
 
   const { t } = useTranslation()
   const { toast } = useToast()
   const [data, setData] = useState<EmergencyEvacuationApplications>({
     content: [],
-    totalPageCount: 0,
+    totalPageCount: 0
   })
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -44,7 +44,7 @@ const Page = () => {
       sourceDistrict: search.sourceDistrict,
       targetCity: search.targetCity,
       targetDistrict: search.targetDistrict,
-      isInPerson: search.isInPerson,
+      isInPerson: search.isInPerson
     })
       .then((responseData) => {
         setData(responseData.data.response)
@@ -54,21 +54,21 @@ const Page = () => {
         toast({
           title: t('error'),
           description: t('defaultError'),
-          variant: 'destructive',
+          variant: 'destructive'
         })
       })
       .finally(() => setIsLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    JSON.stringify(search),
+    JSON.stringify(search)
   ])
 
   const { table } = useDataTable({
     data: data.content,
     columns,
     pageCount: data.totalPageCount,
-    filterFields,
+    filterFields
   })
   return (
     <PrivateRoute requiredPermissions={[Permission.EVACUATION_LIST]}>
@@ -85,10 +85,10 @@ const Page = () => {
               {t('emergencyEvacuationApplications')}
             </h1>
             <DataTableToolbar table={table} filterFields={filterFields}>
-              <FilterInput param="sourceCity" />
-              <FilterInput param="sourceDistrict" />
-              <FilterInput param="targetCity" />
-              <FilterInput param="targetDistrict" />
+              <FilterInput min={2} max={100} param="sourceCity" />
+              <FilterInput min={2} max={100} param="sourceDistrict" />
+              <FilterInput min={2} max={100} param="targetCity" />
+              <FilterInput min={2} max={100} param="targetDistrict" />
             </DataTableToolbar>
           </div>
         </DataTable>
