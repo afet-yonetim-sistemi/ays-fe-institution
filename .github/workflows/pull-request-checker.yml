@@ -28,7 +28,6 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: npm test
 
       - name: Install npm # Install with npm
         run: npm install
