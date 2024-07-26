@@ -1,0 +1,25 @@
+# Purpose: This file is used for check application health.
+
+# Name of the workflow
+name: Application Status
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow when a push event occurs on the main branch
+
+jobs:
+  build: # Define the "build" job
+    runs-on: ubuntu-latest # Run the job on the latest version of Ubuntu
+    steps: # List of steps to execute within the job
+      - name: Update package cache # Step to update the package cache
+        run: sudo apt-get update
+
+      - name: Checkout code # Step to check out the code from the repository
+        uses: actions/checkout@v3
+
+      - name: Install Maven # Step to install npm
+        run: sudo apt-get install -y npm
+
+      - name: Build Project # Build with npm
+        run: npm run build

@@ -1,8 +1,8 @@
-# AYS | Afet Yönetim Sistemi Institution Frontend
+# AYS | Afet Yönetim Sistemi FE Institution [![Application Status](https://github.com/afet-yonetim-sistemi/ays-fe-institution/actions/workflows/application-health-checker.yml/badge.svg)](https://github.com/afet-yonetim-sistemi/ays-fe-institution/actions/workflows/application-health-checker.yml)
 
 ## Description
 
-The Disaster Management System, known as AYS (AFET YÖNETİM SİSTEMİ), is an open-source and voluntary project. Its aim is to effectively manage the needs that arise during a natural disaster. It facilitates the coordination of processes related to these needs between volunteers and institutions operating in the disaster area.
+The Disaster Management System, known as AYS (Afet Yönetim Sistemi), is an open-source and voluntary project. Its aim is to effectively manage the needs that arise during a natural disaster. It facilitates the coordination of processes related to these needs between volunteers and institutions operating in the disaster area.
 
 This project is designed to be used by non-governmental organizations and volunteers affiliated with relevant organizations. It enables organizations to register both themselves and their volunteers. By doing so, it allows for the efficient and precise management of the needs within the disaster area, including the deployment of volunteers located in proximity to the affected regions.
 
