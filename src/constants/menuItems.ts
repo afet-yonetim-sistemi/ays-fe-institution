@@ -27,4 +27,9 @@ export const MenuItems: Menu[] = [
     icon: BusFront,
     requiredPermissions: [Permission.EVACUATION_LIST],
   },
+  {
+    key: '/role-listing',
+    label: 'roleListing',
+    icon: BusFront,
+  },
 ]
