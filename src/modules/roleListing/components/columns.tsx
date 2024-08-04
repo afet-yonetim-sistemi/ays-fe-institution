@@ -2,8 +2,9 @@ import { ColumnDef } from '@tanstack/table-core'
 import i18next from 'i18next'
 import { formatDateTime } from '@/lib/formatDateTime'
 import DataTableSort from '@/components/dataTable/dataTableSort'
+import { RoleListingTableProps } from '../constants/types';
 
-export const columns: ColumnDef<RoleManagementTableProps>[] = [
+export const columns: ColumnDef<RoleListingTableProps>[] = [
   {
     accessorKey: 'name',
     header: () => i18next.t('roleName'),

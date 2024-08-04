@@ -82,5 +82,7 @@
   "targetDistrict": "Tahliye Sağlanılacak İlçe",
   "phoneNumber": "Telefon Numarası",
   "seatingCountValidationMessage": "Sadece maksimum {{field}} haneli, pozitif sayı değerleri alabilir.",
-  "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir."
+  "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir.",
+  "roleName": "Rol Adı",
+  "roleStatus": "Rol Durumu"
 }

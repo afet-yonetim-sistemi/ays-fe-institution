@@ -82,5 +82,7 @@
   "city": "City of Locate",
   "emailAddress": "E-mail Address",
   "seatingCountValidationMessage": "Only positive numbers with a maximum of {{field}} digits are allowed.",
-  "referenceNumberValidationMessage": "Only positive numerical values are allowed."
+  "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
+  "roleName": "Role Name",
+  "roleStatus": "Role Status"
 }

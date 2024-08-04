@@ -4,16 +4,14 @@ import { useEffect, useState } from 'react'
 import PrivateRoute from '@/app/hocs/isAuth'
 import { useTranslation } from 'react-i18next'
 import { useToast } from '@/components/ui/use-toast'
-import { Toaster } from '@/components/ui/toaster'
-import { useDataTable } from '@/app/hocs/useDataTable'
-import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { useSearchParams } from 'next/navigation'
-import filterFields from '@/modules/emergencyEvacuationApplications/constants/filterFields'
-import { postEmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/service'
-import { columns } from '@/modules/emergencyEvacuationApplications/components/columns'
 import { Permission } from '@/constants/permissions'
-import { searchParamsSchema } from '@/modules/emergencyEvacuationApplications/constants/searchParamsSchema'
-import { EmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/constants/types'
+import { postRoleListing } from '@/modules/roleListing/service'
+import { searchParamsSchema } from '@/modules/roleListing/constants/searchParamsSchema'
+import { RoleListing } from '@/modules/roleListing/constants/types'
+import { useDataTable } from '@/app/hocs/useDataTable'
+import { Toaster } from '@/components/ui/toaster'
+import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import FilterInput from '@/components/ui/filterInput'
 
 const Page = () => {
@@ -24,7 +22,7 @@ const Page = () => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
-  const [data, setData] = useState<EmergencyEvacuationApplications>({
+  const [data, setData] = useState<RoleListing>({
     content: [],
     totalPageCount: 0
   })
@@ -33,18 +31,14 @@ const Page = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    postEmergencyEvacuationApplications({
+    postRoleListing({
       page: search.page,
       per_page: search.per_page,
       sort: search.sort,
       status: search.status,
-      referenceNumber: search.referenceNumber,
-      seatingCount: Number(search.seatingCount),
-      sourceCity: search.sourceCity,
-      sourceDistrict: search.sourceDistrict,
-      targetCity: search.targetCity,
-      targetDistrict: search.targetDistrict,
-      isInPerson: search.isInPerson
+      name: search.name,
+      createdAt: search.createdAt,
+      updatedAt: search.updatedAt,
     })
       .then((responseData) => {
         setData(responseData.data.response)
@@ -58,23 +52,22 @@ const Page = () => {
         })
       })
       .finally(() => setIsLoading(false))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     JSON.stringify(search)
   ])
 
-  const { table } = useDataTable({
-    data: data.content,
-    columns,
-    pageCount: data.totalPageCount,
-    filterFields
-  })
+  // const { table } = useDataTable({
+  //   data: data.content,
+  //   columns,
+  //   pageCount: data.totalPageCount,
+  //   filterFields
+  // })
+
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_LIST]}>
       <div className="space-y-1">
         {error && <Toaster />}
-        <DataTable
+        {/* <DataTable
           className="px-2"
           table={table}
           loading={isLoading}
@@ -91,7 +84,7 @@ const Page = () => {
               <FilterInput min={2} max={100} param="targetDistrict" />
             </DataTableToolbar>
           </div>
-        </DataTable>
+        </DataTable> */}
       </div>
     </PrivateRoute>
   )
