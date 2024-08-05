@@ -20,6 +20,7 @@
   "notVerified": "Doğrulanmadı",
   "active": "Aktif",
   "passive": "Pasif",
+  "deleted": "Silinmiş",
   "pending": "Bekleniyor",
   "inReview": "İnceleniyor",
   "inProgress": "İşlemde",

@@ -13,6 +13,8 @@ import { useDataTable } from '@/app/hocs/useDataTable'
 import { Toaster } from '@/components/ui/toaster'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import FilterInput from '@/components/ui/filterInput'
+import { columns } from '@/modules/roleListing/components/columns'
+import filterFields from '@/modules/roleListing/constants/filterFields'
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -56,18 +58,18 @@ const Page = () => {
     JSON.stringify(search)
   ])
 
-  // const { table } = useDataTable({
-  //   data: data.content,
-  //   columns,
-  //   pageCount: data.totalPageCount,
-  //   filterFields
-  // })
+  const { table } = useDataTable({
+    data: data.content,
+    columns,
+    pageCount: data.totalPageCount,
+    filterFields
+  })
 
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_LIST]}>
       <div className="space-y-1">
         {error && <Toaster />}
-        {/* <DataTable
+        <DataTable
           className="px-2"
           table={table}
           loading={isLoading}
@@ -78,13 +80,10 @@ const Page = () => {
               {t('roleListing')}
             </h1>
             <DataTableToolbar table={table} filterFields={filterFields}>
-              <FilterInput min={2} max={100} param="sourceCity" />
-              <FilterInput min={2} max={100} param="sourceDistrict" />
-              <FilterInput min={2} max={100} param="targetCity" />
-              <FilterInput min={2} max={100} param="targetDistrict" />
+              <FilterInput min={2} max={255} param="roleName" />
             </DataTableToolbar>
           </div>
-        </DataTable> */}
+        </DataTable>
       </div>
     </PrivateRoute>
   )

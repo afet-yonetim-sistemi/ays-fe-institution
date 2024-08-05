@@ -21,6 +21,7 @@
   "active": "Active",
   "passive": "Passive",
   "pending": "Pending",
+  "deleted": "Deleted",
   "inReview": "In Review",
   "inProgress": "In Progress",
   "receivedFirstApprove": "Received First Approve",
