@@ -7,7 +7,9 @@ import { RoleListingTableProps } from '../constants/types';
 export const columns: ColumnDef<RoleListingTableProps>[] = [
   {
     accessorKey: 'name',
-    header: () => i18next.t('roleName'),
+    header: ({ column }) => (
+      <DataTableSort column={column} label={i18next.t('roleName')} />
+    ),
     cell: ({ row }) => row.original.name,
     size: 200,
   },
@@ -19,13 +21,13 @@ export const columns: ColumnDef<RoleListingTableProps>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: ({ column }) => <DataTableSort column={column} />,
-    cell: ({ row }) => <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>,
+    header: () => i18next.t('createdDateTime'),
+    cell: ({ row }) => <div className="px-2">{formatDateTime(row.getValue('updatedAt'))}</div>,
     size: 170,
   },
   {
     accessorKey: 'updatedAt',
-    header: () => i18next.t('updatedAt'),
+    header: () => i18next.t('updatedDateTime'),
     cell: ({ row }) => <div className="px-2">{formatDateTime(row.getValue('updatedAt'))}</div>,
     size: 170,
   },
