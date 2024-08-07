@@ -8,21 +8,21 @@ export const columns: ColumnDef<RoleListingTableProps>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableSort column={column} label={i18next.t('roleName')} />
+      <DataTableSort column={column} label={i18next.t('name')} />
     ),
     cell: ({ row }) => row.original.name,
     size: 200,
   },
   {
     accessorKey: 'status',
-    header: () => i18next.t('roleStatus'),
+    header: () => i18next.t('status'),
     cell: ({ row }) => row.original.status,
     size: 100,
   },
   {
     accessorKey: 'createdAt',
     header: () => i18next.t('createdDateTime'),
-    cell: ({ row }) => <div className="px-2">{formatDateTime(row.getValue('updatedAt'))}</div>,
+    cell: ({ row }) => <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>,
     size: 170,
   },
   {

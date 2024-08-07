@@ -3,14 +3,14 @@ import { StatusData } from "./status"
 const filterFields: FilterFields = [
   {
     label: 'Role Name',
-    value: 'roleName',
+    value: 'name',
     placeholder: '',
     type: 'string',
     fieldsType: 'inputField',
   },
   {
-    label: 'Role Status',
-    value: 'roleStatus',
+    label: 'status',
+    value: 'status',
     options: StatusData.map((status) => ({
       label: status.label,
       value: status.value,

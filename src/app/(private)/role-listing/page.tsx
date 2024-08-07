@@ -12,7 +12,6 @@ import { RoleListing } from '@/modules/roleListing/constants/types'
 import { useDataTable } from '@/app/hocs/useDataTable'
 import { Toaster } from '@/components/ui/toaster'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
-import FilterInput from '@/components/ui/filterInput'
 import { columns } from '@/modules/roleListing/components/columns'
 import filterFields from '@/modules/roleListing/constants/filterFields'
 
@@ -79,9 +78,7 @@ const Page = () => {
             <h1 className="text-2xl font-medium">
               {t('roleListing')}
             </h1>
-            <DataTableToolbar table={table} filterFields={filterFields}>
-              <FilterInput min={2} max={255} param="roleName" />
-            </DataTableToolbar>
+            <DataTableToolbar table={table} filterFields={filterFields}/>
           </div>
         </DataTable>
       </div>

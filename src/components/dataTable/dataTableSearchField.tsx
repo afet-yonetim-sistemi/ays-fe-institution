@@ -21,6 +21,7 @@ const DataTableSearchField = <TData,>({
   table,
 }: DataTableSearchFieldProps<TData>) => {
   const schema = getValidationSchema(field.value)
+  
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value
     const validation = schema.safeParse(inputValue)
