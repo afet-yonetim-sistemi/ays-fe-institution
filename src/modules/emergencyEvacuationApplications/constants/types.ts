@@ -2,19 +2,28 @@ export interface EmergencyEvacuationApplications {
   content: any[]
   totalPageCount: number
 }
+
 export interface EmergencyEvacuationApplicationsTableProps {
   id: string
   referenceNumber: any
   firstName: string
   lastName: string
+  applicantFirstName?: string
+  applicantLastName?: string
   isInPerson: boolean
   status: string[]
   createdAt: string
   seatingCount: number
   phoneNumber: {
     lineNumber: string
+    countryCode: string
+  }
+  applicantPhoneNumber?: {
+    lineNumber: string
+    countryCode: string
   }
 }
+
 export interface Search {
   page: number
   per_page: number
