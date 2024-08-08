@@ -16,10 +16,7 @@ interface DataTableSearchFieldProps<TData>
   }
 }
 
-const DataTableSearchField = <TData,>({
-  field,
-  table,
-}: DataTableSearchFieldProps<TData>) => {
+const DataTableSearchField = <TData, >({ field, table }: DataTableSearchFieldProps<TData>) => {
   const schema = getValidationSchema(field.value)
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value
@@ -30,8 +27,17 @@ const DataTableSearchField = <TData,>({
     } else {
       toast({
         title: validation.error.errors[0].message,
-        variant: 'destructive',
+        variant: 'destructive'
       }) // Set the error message
+    }
+  }
+
+  const onInputHandle = (e: any) => {
+    if (field.type == 'number') {
+      const onlyNumber = ['seatingCount', 'referenceNumber']
+      if (onlyNumber.includes(field.value)) {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '')
+      }
     }
   }
 
@@ -47,6 +53,7 @@ const DataTableSearchField = <TData,>({
           ''
         }
         onChange={handleInputChange}
+        onInput={onInputHandle}
       />
       <Label
         htmlFor={field.value}
