@@ -36,7 +36,6 @@ const DataTableSearchField = <TData, >({
   }
 
   const onInputHandle = (e: any) => {
-    console.log(field.value)
     if (field.type == 'number') {
       const onlyNumber = ['seatingCount', 'referenceNumber']
       if (onlyNumber.includes(field.value)) {
