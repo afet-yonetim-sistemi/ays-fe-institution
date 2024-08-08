@@ -16,10 +16,7 @@ interface DataTableSearchFieldProps<TData>
   }
 }
 
-const DataTableSearchField = <TData, >({
-                                         field,
-                                         table
-                                       }: DataTableSearchFieldProps<TData>) => {
+const DataTableSearchField = <TData, >({ field, table }: DataTableSearchFieldProps<TData>) => {
   const schema = getValidationSchema(field.value)
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value
