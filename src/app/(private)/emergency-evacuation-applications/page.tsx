@@ -82,7 +82,7 @@ const Page = () => {
         >
           <div className="flex flex-col w-full gap-4">
             <h1 className="text-2xl font-medium">
-              {t('emergencyEvacuationApplications')}
+              {t('emergencyEvacuationApplications.title')}
             </h1>
             <DataTableToolbar table={table} filterFields={filterFields}>
               <FilterInput min={2} max={100} param="sourceCity" />

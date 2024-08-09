@@ -8,8 +8,6 @@
   "users": "Users",
   "home": "Home",
   "page": "Page",
-  "adminRegistrationApplications": "Admin Registration Applications",
-  "emergencyEvacuationApplications": "Emergency Evacuation Applications",
   "all": "All",
   "status": "Status",
   "waiting": "Waiting",
@@ -64,16 +62,11 @@
   "targetCity": "Target City",
   "targetDistrict": "Target District",
   "phoneNumber": "Phone Number",
-  "applicationDetailsTitle": "Admin Registration Application Details",
   "applicationInformation": "Application Information",
   "reason": "Application Reason",
   "institution": "Institution Name",
-  "applicationStatus": "Application Status",
   "rejectReason": "Application Rejection Reason",
-  "applicationCreatedUser": "User Who Created the Application",
-  "createDate": "Application Creation Date",
   "updatedUser": "User Who Updated the Application",
-  "updateDate": "Application Update Date",
   "applicationError": "Error while fetching application details. Please try again",
   "userInformation": "User Information",
   "applicantFirstName": "Applicant's First Name",
@@ -81,5 +74,20 @@
   "city": "City of Locate",
   "emailAddress": "E-mail Address",
   "seatingCountValidationMessage": "Only positive numbers with a maximum of {{field}} digits are allowed.",
-  "referenceNumberValidationMessage": "Only positive numerical values are allowed."
+  "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
+  "adminRegistrationApplications": {
+    "title": "Admin Registration Applications",
+    "detailsTitle": "Admin Registration Applications Details",
+    "reason": "Application Reason",
+    "createdAt": "Application Creation Date",
+    "updatedAt": "Application Update Date",
+    "createdUser": "User Who Created the Application",
+    "status": "Application Status"
+  },
+  "emergencyEvacuationApplications": {
+    "title": "Emergency Evacuation Applications",
+    "detailsTitle": "Emergency Evacuation Application Details",
+    "nameSurname": "Name and Surname",
+    "applicantNameSurname": "Name and Surname of Person to Contact"
+  }
 }

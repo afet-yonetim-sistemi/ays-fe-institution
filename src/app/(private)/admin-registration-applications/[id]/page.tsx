@@ -77,7 +77,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         <Form {...form}>
           <form className="space-y-6">
             <h1 className="text-2xl font-bold mb-6">
-              {t('applicationDetailsTitle')}
+              {t('adminRegistrationApplications.detailsTitle')}
             </h1>
 
             <Card className="mb-6">
@@ -91,7 +91,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="reason"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
-                        <FormLabel>{t('reason')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.reason')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -128,7 +128,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('applicationStatus')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.status')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -170,7 +170,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="createdUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('applicationCreatedUser')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.createdUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -189,7 +189,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="createDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('createDate')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -230,7 +230,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="updateDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('updateDate')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.updatedAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}

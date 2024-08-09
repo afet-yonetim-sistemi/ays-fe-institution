@@ -1,22 +1,5 @@
-export interface PhoneNumber {
-    countryCode: string;
-    lineNumber: string;
-  }
-  
-  export interface User {
-    id: string;
-    firstName: string;
-    lastName: string;
-    city: string;
-    emailAddress: string;
-    phoneNumber: PhoneNumber;
-  }
-  
-  export interface Institution {
-    id: string;
-    name: string;
-  }
-  
+import { Institution, User } from "@/types/types";
+
   export interface AdminRegistrationApplication {
     createdUser: string;
     createdAt: string;
