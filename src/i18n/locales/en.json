@@ -10,6 +10,7 @@
   "page": "Page",
   "adminRegistrationApplications": "Admin Registration Applications",
   "emergencyEvacuationApplications": "Emergency Evacuation Applications",
+  "roleListing": "Role Listing",
   "all": "All",
   "status": "Status",
   "waiting": "Waiting",
@@ -20,6 +21,7 @@
   "active": "Active",
   "passive": "Passive",
   "pending": "Pending",
+  "deleted": "Deleted",
   "inReview": "In Review",
   "inProgress": "In Progress",
   "receivedFirstApprove": "Received First Approve",
@@ -81,5 +83,8 @@
   "city": "City of Locate",
   "emailAddress": "E-mail Address",
   "seatingCountValidationMessage": "Only positive numbers with a maximum of {{field}} digits are allowed.",
-  "referenceNumberValidationMessage": "Only positive numerical values are allowed."
+  "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
+  "name": "Role Name",
+  "createdDateTime": "Creation Date and Time",
+  "updatedDateTime": "Update Date and Time"
 }

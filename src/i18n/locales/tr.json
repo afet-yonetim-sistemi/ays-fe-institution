@@ -10,6 +10,7 @@
   "page": "Sayfa",
   "adminRegistrationApplications": "Yönetici Kayıt Başvuruları",
   "emergencyEvacuationApplications": "Acil Durum Tahliye Başvurusu",
+  "roleListing": "Rol Listeleme",
   "all": "Hepsini Seç",
   "status": "Durum",
   "waiting": "Beklemede",
@@ -19,6 +20,7 @@
   "notVerified": "Doğrulanmadı",
   "active": "Aktif",
   "passive": "Pasif",
+  "deleted": "Silinmiş",
   "pending": "Bekleniyor",
   "inReview": "İnceleniyor",
   "inProgress": "İşlemde",
@@ -81,5 +83,8 @@
   "targetDistrict": "Tahliye Sağlanılacak İlçe",
   "phoneNumber": "Telefon Numarası",
   "seatingCountValidationMessage": "Sadece maksimum {{field}} haneli, pozitif sayı değerleri alabilir.",
-  "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir."
+  "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir.",
+  "name": "Rol Adı",
+  "createdDateTime": "Oluşturulma Tarihi ve Saati",
+  "updatedDateTime": "Güncellenme Tarihi ve Saat"
 }
