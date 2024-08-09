@@ -93,7 +93,7 @@ const Page = () => {
     if (tokenInfo) {
       router.push('/dashboard')
     }
-  }, [tokenInfo])
+  }, [tokenInfo, router])
 
   return tokenInfo ? (
     <></>

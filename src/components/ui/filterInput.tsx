@@ -8,7 +8,15 @@ import { z } from 'zod'
 import { toast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
 
-const FilterInput = ({ param, min = 2, max = 100 }: { param: string, min?: number, max?: number }) => {
+const FilterInput = ({
+  param,
+  min = 2,
+  max = 100,
+}: {
+  param: string
+  min?: number
+  max?: number
+}) => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -16,7 +24,10 @@ const FilterInput = ({ param, min = 2, max = 100 }: { param: string, min?: numbe
   const [search, setSearch] = useState(initialValue || '')
   const debouncedSearch = useDebounce(search, 500)
 
-  const schema = z.string().min(min, { message: i18next.t('minLength', { field: min }) }).max(max, { message: i18next.t('maxLength', { field: max }) })
+  const schema = z
+    .string()
+    .min(min, { message: i18next.t('minLength', { field: min }) })
+    .max(max, { message: i18next.t('maxLength', { field: max }) })
 
   useEffect(() => {
     const newSearchParams = new URLSearchParams()
@@ -24,19 +35,29 @@ const FilterInput = ({ param, min = 2, max = 100 }: { param: string, min?: numbe
       const validation = schema.safeParse(debouncedSearch)
       if (validation.success) {
         newSearchParams.set(param, debouncedSearch)
-        router.replace(`${pathname}?${newSearchParams.toString()}`, { scroll: false })
+        router.replace(`${pathname}?${newSearchParams.toString()}`, {
+          scroll: false,
+        })
       } else {
-        toast({ title: validation.error.errors[0].message, variant: 'destructive' })
+        toast({
+          title: validation.error.errors[0].message,
+          variant: 'destructive',
+        })
       }
     } else if (!debouncedSearch && initialValue) {
       newSearchParams.delete(param)
-      router.replace(`${pathname}?${newSearchParams.toString()}`, { scroll: false })
+      router.replace(`${pathname}?${newSearchParams.toString()}`, {
+        scroll: false,
+      })
     }
-  }, [debouncedSearch])
+  }, [debouncedSearch, initialValue, param, pathname, router, schema])
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.currentTarget.value)
-  }, [])
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearch(e.currentTarget.value)
+    },
+    [],
+  )
 
   return (
     <div className="relative">
@@ -45,7 +66,9 @@ const FilterInput = ({ param, min = 2, max = 100 }: { param: string, min?: numbe
         placeholder=""
         value={search}
         onChange={handleInputChange}
-        className={cn('block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer')}
+        className={cn(
+          'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+        )}
       />
       <Label
         htmlFor={param}

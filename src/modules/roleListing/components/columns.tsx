@@ -8,9 +8,7 @@ import Status from './status';
 export const columns: ColumnDef<RoleListingTableProps>[] = [
   {
     accessorKey: 'name',
-    header: ({ column }) => (
-      <DataTableSort column={column} label={i18next.t('name')} />
-    ),
+    header: () => i18next.t("name"),
     cell: ({ row }) => row.original.name,
     size: 200,
   },
@@ -22,8 +20,12 @@ export const columns: ColumnDef<RoleListingTableProps>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: () => i18next.t('createdDateTime'),
-    cell: ({ row }) => <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>,
+    header: ({ column }) => {
+      return <DataTableSort column={column} label={i18next.t('createdAt')} />
+    },
+    cell: ({ row }) => {
+      return <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
+    },
     size: 170,
   },
   {
