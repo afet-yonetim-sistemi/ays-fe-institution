@@ -77,6 +77,21 @@
   "emailAddress": "E-mail Address",
   "seatingCountValidationMessage": "Only positive numbers with a maximum of {{field}} digits are allowed.",
   "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
+  "adminRegistrationApplications": {
+    "title": "Admin Registration Applications",
+    "detailsTitle": "Admin Registration Applications Details",
+    "reason": "Application Reason",
+    "createdAt": "Application Creation Date",
+    "updatedAt": "Application Update Date",
+    "createdUser": "User Who Created the Application",
+    "status": "Application Status"
+  },
+  "emergencyEvacuationApplications": {
+    "title": "Emergency Evacuation Applications",
+    "detailsTitle": "Emergency Evacuation Application Details",
+    "nameSurname": "Name and Surname",
+    "applicantNameSurname": "Name and Surname of Person to Contact"
+  },
   "name": "Role Name",
   "createdDateTime": "Creation Date and Time",
   "updatedDateTime": "Update Date and Time",

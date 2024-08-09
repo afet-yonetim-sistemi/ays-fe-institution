@@ -76,6 +76,21 @@
   "phoneNumber": "Telefon Numarası",
   "seatingCountValidationMessage": "Sadece maksimum {{field}} haneli, pozitif sayı değerleri alabilir.",
   "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir.",
+  "adminRegistrationApplications": {
+    "title": "Yönetici Kayıt Başvuruları",
+    "detailsTitle": "Yönetici Kayıt Başvuru Detayı",
+    "reason": "Başvuru Nedeni",
+    "createdAt": "Başvuru Oluşturulma Tarihi",
+    "updatedAt": "Başvuru Güncellenme Tarihi",
+    "createdUser": "Başvuruyu Oluşturan Kullanıcı",
+    "status": "Başvuru Durumu"
+  },
+  "emergencyEvacuationApplications": {
+    "title": "Acil Durum Tahliye Başvurusu",
+    "detailsTitle": "Acil Durum Tahliye Başvurusu Detayları",
+    "nameSurname": "Ad ve Soyad",
+    "applicantNameSurname": "İletişime Geçilecek Kişinin Adı ve Soyadı"
+  },
   "name": "Rol Adı",
   "createdDateTime": "Oluşturulma Tarihi ve Saati",
   "updatedDateTime": "Güncellenme Tarihi ve Saat",
