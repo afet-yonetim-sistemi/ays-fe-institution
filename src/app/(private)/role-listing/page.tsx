@@ -10,7 +10,6 @@ import { postRoleListing } from '@/modules/roleListing/service'
 import { searchParamsSchema } from '@/modules/roleListing/constants/searchParamsSchema'
 import { RoleListing } from '@/modules/roleListing/constants/types'
 import { useDataTable } from '@/app/hocs/useDataTable'
-import { Toaster } from '@/components/ui/toaster'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { columns } from '@/modules/roleListing/components/columns'
 import filterFields from '@/modules/roleListing/constants/filterFields'
@@ -28,7 +27,6 @@ const Page = () => {
     totalPageCount: 0,
   })
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
   const searchParamsString = useMemo(() => JSON.stringify(search), [search])
 
   useEffect(() => {
@@ -45,8 +43,7 @@ const Page = () => {
       .then((responseData) => {
         setData(responseData.data.response)
       })
-      .catch((error) => {
-        setError(error.message)
+      .catch(() => {
         toast({
           title: t('error'),
           description: t('defaultError'),
