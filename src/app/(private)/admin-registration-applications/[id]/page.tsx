@@ -66,7 +66,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     }
 
     fetchDetails()
-  }, [params.id])
+  }, [params.id, t, toast])
 
   return (
     <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>

@@ -5,11 +5,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import i18next from 'i18next'
 import i18n from 'i18next'
 import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
 
-const DataTableSort = ({ column }: { column: any }) => {
+const DataTableSort = ({ column, label }: { column: any, label: string }) => {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -18,7 +17,7 @@ const DataTableSort = ({ column }: { column: any }) => {
           onClick={() => column.toggleSorting()}
         >
           <span className="flex items-center gap-2">
-            {i18next.t('createdAt')}
+            {label}
             <SortIcon sort={column.getIsSorted()} />
           </span>
         </TooltipTrigger>
