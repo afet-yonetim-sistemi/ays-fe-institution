@@ -1,10 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { RolePermission } from '../constants/types'
+import { RolePermission, RolePermissionWithLabel } from '../constants/types'
 import { Switch } from '@/components/ui/switch'
+import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
 
 interface PermissionCardProps {
   category: string
-  permissions: RolePermission[]
+  permissions: RolePermissionWithLabel[]
   isChecked: boolean
 }
 
@@ -14,19 +15,19 @@ export default function PermissionCard({
   isChecked,
 }: PermissionCardProps) {
   return (
-    <Card className="mb-6">
+    <Card className="mb-4">
       <CardHeader>
         <CardTitle className="text-lg">{category}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+        <div className="grid gap-y-6 grid-cols-1">
           {permissions.map((permission) => (
-            <div key={permission.id} className="flex items-center">
-              <Switch id={permission.id} checked={isChecked} disabled />
-              <label htmlFor={permission.id} className="ml-2">
-                {permission.name}
-              </label>
-            </div>
+            <FormItem key={permission.id}>
+              <FormControl>
+                <Switch disabled checked={isChecked} />
+              </FormControl>
+              <FormLabel className="ml-4">{permission.label}</FormLabel>
+            </FormItem>
           ))}
         </div>
       </CardContent>

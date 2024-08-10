@@ -95,5 +95,26 @@
     "createdUser": "Oluşturan Kullanıcı",
     "updatedUser": "Güncelleyen Kullanıcı",
     "information": "Rol Bilgileri"
+  },
+"permissions": {
+    "roleList": "Rolleri Listele",
+    "roleDetail": "Rol Detayları",
+    "roleCreate": "Rol Oluştur",
+    "roleUpdate": "Rol Güncelle",
+    "roleDelete": "Rol Sil",
+    "userList": "Kullanıcıları Listele",
+    "userDetail": "Kullanıcı Detayları",
+    "userCreate": "Kullanıcı Oluştur",
+    "userUpdate": "Kullanıcı Güncelle",
+    "userDelete": "Kullanıcı Sil",
+    "applicationRegistrationList": "Başvuruları Listele",
+    "applicationRegistrationDetail": "Başvuru Detayları",
+    "applicationRegistrationCreate": "Başvuru Oluştur",
+    "applicationRegistrationConclude": "Başvuruyu Tamamla",
+    "applicationEvacuationList": "Tahliyeleri Listele",
+    "applicationEvacuationDetail": "Tahliye Detayları",
+    "applicationEvacuationUpdate": "Tahliye Güncelle",
+    "institutionPage": "Kurum Sayfası",
+    "super": "Süper"
   }
 }

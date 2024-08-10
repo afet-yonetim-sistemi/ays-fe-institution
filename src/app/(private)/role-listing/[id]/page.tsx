@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
+import { formatPermissionName } from '@/lib/formatPermissionName'
 import {
   FormItem,
   FormField,
@@ -207,8 +208,13 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     ([category, permissions]) => (
                       <PermissionCard
                         key={category}
-                        category={category}
-                        permissions={permissions}
+                        category={t(category)}
+                        permissions={permissions.map((perm) => ({
+                          ...perm,
+                          label: t(
+                            `permissions.${formatPermissionName(perm.name)}`,
+                          ),
+                        }))}
                         isChecked={true}
                       />
                     ),

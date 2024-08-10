@@ -30,3 +30,25 @@ export enum Permission {
   //super
   SUPER = 'super',
 }
+
+export const PermissionLabels: Record<Permission, string> = {
+  [Permission.ROLE_LIST]: 'role.list.label',
+  [Permission.ROLE_DETAIL]: 'role.detail.label',
+  [Permission.ROLE_CREATE]: 'role.create.label',
+  [Permission.ROLE_UPDATE]: 'role.update.label',
+  [Permission.ROLE_DELETE]: 'role.delete.label',
+  [Permission.USER_LIST]: 'user.list.label',
+  [Permission.USER_DETAIL]: 'user.detail.label',
+  [Permission.USER_CREATE]: 'user.create.label',
+  [Permission.USER_UPDATE]: 'user.update.label',
+  [Permission.USER_DELETE]: 'user.delete.label',
+  [Permission.APPLICATION_LIST]: 'application.registration.list.label',
+  [Permission.APPLICATION_DETAIL]: 'application.registration.detail.label',
+  [Permission.APPLICATION_CREATE]: 'application.registration.create.label',
+  [Permission.APPLICATION_CONCLUDE]: 'application.registration.conclude.label',
+  [Permission.EVACUATION_LIST]: 'application.evacuation.list.label',
+  [Permission.EVACUATION_DETAIL]: 'application.evacuation.detail.label',
+  [Permission.EVACUATION_UPDATE]: 'application.evacuation.update.label',
+  [Permission.INSTITUTION]: 'institution.page.label',
+  [Permission.SUPER]: 'super.label',
+};
