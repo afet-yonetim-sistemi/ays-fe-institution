@@ -23,6 +23,7 @@ import { FormSchema } from '@/modules/emergencyEvacuationApplications/constants/
 import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
+import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
@@ -159,7 +160,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                       control={control}
                       name="isInPerson"
                       render={({ field }) => (
-                        <FormItem className="sm:col-span-3">
+                        <FormItem className="sm:col-span-3 mb-6">
                           <div className="flex items-center">
                             <FormLabel className="mr-2">
                               {t('emergencyEvacuationApplications.isInPerson')}
@@ -179,7 +180,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     />
                   </div>
                   {!emergencyEvacuationApplicationDetails.isInPerson && (
-                    <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 my-6">
+                    <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 mb-6">
                       <FormField
                         control={control}
                         name="applicantNameSurname"
@@ -375,9 +376,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                               {...field}
                               disabled
                               value={
-                                t(
-                                  emergencyEvacuationApplicationDetails.status.toLowerCase(),
-                                ) ?? ''
+                                emergencyEvacuationApplicationDetails.status
+                                  ? t(getStatusLabel(emergencyEvacuationApplicationDetails.status))
+                                  : ''
                               }
                             />
                           </FormControl>
