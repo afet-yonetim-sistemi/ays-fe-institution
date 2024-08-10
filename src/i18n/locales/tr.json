@@ -86,5 +86,9 @@
   "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir.",
   "name": "Rol Adı",
   "createdDateTime": "Oluşturulma Tarihi ve Saati",
-  "updatedDateTime": "Güncellenme Tarihi ve Saat"
+  "updatedDateTime": "Güncellenme Tarihi ve Saat",
+  "reject": "Reddet",
+  "approve": "Onayla",
+  "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
+  "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?"
 }

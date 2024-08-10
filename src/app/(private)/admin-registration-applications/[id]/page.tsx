@@ -18,9 +18,18 @@ import { FormSchema } from '@/modules/adminRegistrationApplications/constants/fo
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { DialogDescription } from '@radix-ui/react-dialog'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
@@ -35,7 +44,6 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     setAdminRegistrationApplicationDetails,
   ] = useState<AdminRegistrationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchDetails = () => {
@@ -44,7 +52,6 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
           if (response.data.isSuccess) {
             setAdminRegistrationApplicationDetails(response.data.response)
           } else {
-            setError(t('applicationError'))
             toast({
               title: t('error'),
               description: t('applicationError'),
@@ -52,8 +59,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
             })
           }
         })
-        .catch((error) => {
-          setError(error.message)
+        .catch(() => {
           toast({
             title: t('error'),
             description: t('applicationError'),
@@ -69,14 +75,77 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
-      {error && <Toaster />}
-      {!isLoading && !error && adminRegistrationApplicationDetails && (
+      {!isLoading && adminRegistrationApplicationDetails && (
         <Form {...form}>
           <form className="space-y-6">
-            <h1 className="text-2xl font-bold mb-6">
-              {t('applicationDetailsTitle')}
-            </h1>
-
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-2xl font-bold">
+                {t('applicationDetailsTitle')}
+              </h1>
+              {adminRegistrationApplicationDetails.status === 'COMPLETED' && (
+                <div className="flex space-x-8 ml-auto">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="destructive">{t('reject')}</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-xl">
+                      <DialogHeader>
+                        <DialogTitle>{t('rejectConfirm')}</DialogTitle>
+                        <DialogDescription />
+                      </DialogHeader>
+                      <div className="flex justify-center space-x-48 mt-4">
+                        <DialogClose asChild>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="flex-1"
+                          >
+                            {t('no')}
+                          </Button>
+                        </DialogClose>
+                        <DialogClose asChild>
+                          <Button type="button" className="flex-1">
+                            {t('yes')}
+                          </Button>
+                        </DialogClose>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="default"
+                        className="bg-green-500 text-white hover:bg-green-600"
+                      >
+                        {t('approve')}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-xl">
+                      <DialogHeader>
+                        <DialogTitle>{t('approveConfirm')}</DialogTitle>
+                        <DialogDescription />
+                      </DialogHeader>
+                      <div className="flex justify-center space-x-48 mt-4">
+                        <DialogClose asChild>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="flex-1"
+                          >
+                            {t('no')}
+                          </Button>
+                        </DialogClose>
+                        <DialogClose asChild>
+                          <Button type="button" className="flex-1">
+                            {t('yes')}
+                          </Button>
+                        </DialogClose>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              )}
+            </div>
             <Card className="mb-6">
               <CardHeader>
                 <CardTitle>{t('applicationInformation')}</CardTitle>
