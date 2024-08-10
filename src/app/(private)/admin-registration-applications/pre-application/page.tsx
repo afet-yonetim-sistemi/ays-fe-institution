@@ -3,7 +3,6 @@
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -12,7 +11,6 @@ import {
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import Title from '@/components/ui/title'
@@ -23,66 +21,137 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { useEffect, useState } from 'react'
+import {
+  approveAdminRegistrationApplication,
+  getPreApplicationSummary,
+} from '@/modules/adminRegistrationApplications/service'
+import { toast } from '@/components/ui/use-toast'
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { Toaster } from '@/components/ui/toaster'
+import { Card } from '@/components/ui/card'
 
 const Page = () => {
   const { t } = useTranslation()
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [institutionSummary, setInstitutionSummary] = useState<any>(null)
   const formSchema = z.object({
-    username: z.string().min(2, {
-      message: 'Username must be at least 2 characters.',
+    institutionId: z.string().min(1, { message: t('requiredField') }),
+    reason: z.string().min(40, {
+      message: t('minLength', { field: 40 }),
     }),
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      institutionId: '',
+      reason: '',
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    setIsLoading(true)
+    approveAdminRegistrationApplication(values)
+      .then(() => {
+        toast({
+          title: t('success'),
+          description: t('applicationSuccess'),
+        })
+      })
+      .catch((error) => {
+        setError(error.message)
+        toast({
+          title: t('error'),
+          description: t('applicationError'),
+          variant: 'destructive',
+        })
+      })
+      .finally(() => setIsLoading(false))
   }
+
+  useEffect(() => {
+    getPreApplicationSummary()
+      .then((response) => {
+        setInstitutionSummary(response.data.response)
+      })
+      .catch((error) => {
+        setError(error.message)
+        toast({
+          title: t('error'),
+          description: t('applicationError'),
+          variant: 'destructive',
+        })
+      })
+      .finally(() => setIsLoading(false))
+  }, [t])
+
   return (
     <>
-      <Title title={t('preApplicationTitle')} />
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <>
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Select>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Theme" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="light">Light</SelectItem>
-                        <SelectItem value="dark">Dark</SelectItem>
-                        <SelectItem value="system">System</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                </FormItem>
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              </>
-            )}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
+      <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+        <Title title={t('preApplicationTitle')} />
+
+        <Toaster />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <Card className="p-6 w-full">
+              <div className="grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
+                <FormField
+                  control={form.control}
+                  name="institutionId"
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="col-span-1">
+                        <FormLabel>{t('institution')}</FormLabel>
+                        <FormControl>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={t('selectInstitution')}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {institutionSummary?.map((item: any) => (
+                                <SelectItem key={item.id} value={item.id}>
+                                  {item.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="reason"
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="col-span-2">
+                        <FormLabel>{t('createReason')}</FormLabel>
+                        <FormControl>
+                          <Textarea minLength={40} maxLength={512} {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+              </div>
+            </Card>
+            <Button disabled={isLoading} type="submit" className={'min-w-20'}>
+              {isLoading ? <LoadingSpinner /> : t('create')}
+            </Button>
+          </form>
+        </Form>
+      </div>
     </>
   )
 }

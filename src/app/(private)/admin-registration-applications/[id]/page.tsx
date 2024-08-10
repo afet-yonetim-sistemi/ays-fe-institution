@@ -106,7 +106,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="institutionName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('institution')}</FormLabel>
+                        <FormLabel>{t('institutionName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
