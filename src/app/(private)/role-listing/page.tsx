@@ -77,7 +77,6 @@ const Page = () => {
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_LIST]}>
       <div className="space-y-1">
-        {error && <Toaster />}
         <DataTable
           className="px-2"
           table={table}
