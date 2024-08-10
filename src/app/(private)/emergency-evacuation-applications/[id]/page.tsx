@@ -15,7 +15,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import PrivateRoute from '@/app/hocs/isAuth'
@@ -73,25 +72,23 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     <PrivateRoute requiredPermissions={[Permission.EVACUATION_DETAIL]}>
       <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
         {isLoading && <LoadingSpinner />}
-        {error && <Toaster />}
         {!isLoading && !error && emergencyEvacuationApplicationDetails && (
           <Form {...form}>
             <form className="space-y-6">
               <h1 className="text-2xl font-bold mb-6">
                 {t('emergencyEvacuationApplications.detailsTitle')}
               </h1>
-
               <Card className="mb-6">
                 <CardHeader>
                   <CardTitle>{t('applicationInformation')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
                     <FormField
                       control={control}
                       name="referenceNumber"
                       render={({ field }) => (
-                        <FormItem className="sm:col-span-2">
+                        <FormItem className="sm:col-span-1">
                           <FormLabel>{t('referenceNumber')}</FormLabel>
                           <FormControl>
                             <Input
@@ -158,64 +155,92 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         </FormItem>
                       )}
                     />
-                    {emergencyEvacuationApplicationDetails.isInPerson ? null : (
-                      <>
-                        <FormField
-                          control={control}
-                          name="applicantNameSurname"
-                          render={({ field }) => (
-                            <FormItem className="sm:col-span-1">
-                              <FormLabel>
-                                {t(
-                                  'emergencyEvacuationApplications.applicantNameSurname',
-                                )}
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  disabled
-                                  defaultValue={
-                                    emergencyEvacuationApplicationDetails.applicantFirstName ??
-                                    '' +
-                                      emergencyEvacuationApplicationDetails.applicantLastName ??
-                                    ''
-                                  }
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={control}
-                          name="applicantPhoneNumber"
-                          render={({ field }) => (
-                            <FormItem className="sm:col-span-1">
-                              <FormLabel>
-                                {t(
-                                  'emergencyEvacuationApplications.applicantPhoneNumber',
-                                )}
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  disabled
-                                  defaultValue={
-                                    emergencyEvacuationApplicationDetails
-                                      ?.applicantPhoneNumber?.countryCode &&
-                                    emergencyEvacuationApplicationDetails
-                                      ?.applicantPhoneNumber?.lineNumber
-                                      ? formatPhoneNumber(
-                                          emergencyEvacuationApplicationDetails.applicantPhoneNumber,
-                                        )
-                                      : ''
-                                  }
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      </>
-                    )}
+                    <FormField
+                      control={control}
+                      name="isInPerson"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-3">
+                          <div className="flex items-center">
+                            <FormLabel className="mr-2">
+                              {t('emergencyEvacuationApplications.isInPerson')}
+                            </FormLabel>
+                            <FormControl>
+                              <Checkbox
+                                {...field}
+                                disabled
+                                checked={
+                                  emergencyEvacuationApplicationDetails.isInPerson
+                                }
+                              />
+                            </FormControl>
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  {!emergencyEvacuationApplicationDetails.isInPerson && (
+                    <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 my-6">
+                      <FormField
+                        control={control}
+                        name="applicantNameSurname"
+                        render={({ field }) => (
+                          <FormItem className="col-span-1">
+                            <FormLabel>
+                              {t(
+                                'emergencyEvacuationApplications.applicantNameSurname',
+                              )}
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                disabled
+                                defaultValue={
+                                  (emergencyEvacuationApplicationDetails.applicantFirstName ??
+                                    '') +
+                                  (emergencyEvacuationApplicationDetails.applicantFirstName &&
+                                  emergencyEvacuationApplicationDetails.applicantLastName
+                                    ? ' '
+                                    : '') +
+                                  (emergencyEvacuationApplicationDetails.applicantLastName ??
+                                    '')
+                                }
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={control}
+                        name="applicantPhoneNumber"
+                        render={({ field }) => (
+                          <FormItem className="col-span-1">
+                            <FormLabel>
+                              {t(
+                                'emergencyEvacuationApplications.applicantPhoneNumber',
+                              )}
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                disabled
+                                defaultValue={
+                                  emergencyEvacuationApplicationDetails
+                                    ?.applicantPhoneNumber?.countryCode &&
+                                  emergencyEvacuationApplicationDetails
+                                    ?.applicantPhoneNumber?.lineNumber
+                                    ? formatPhoneNumber(
+                                        emergencyEvacuationApplicationDetails.applicantPhoneNumber,
+                                      )
+                                    : ''
+                                }
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  )}
+                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
                     <FormField
                       control={control}
                       name="sourcecityAndDistrict"
@@ -239,27 +264,6 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                                   : '') +
                                 (emergencyEvacuationApplicationDetails.sourceDistrict ??
                                   '')
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="address"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>
-                            {t('emergencyEvacuationApplications.address')}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                emergencyEvacuationApplicationDetails.address ??
-                                ''
                               }
                             />
                           </FormControl>
@@ -297,6 +301,27 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     />
                     <FormField
                       control={control}
+                      name="address"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-2">
+                          <FormLabel>
+                            {t('emergencyEvacuationApplications.address')}
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                emergencyEvacuationApplicationDetails.address ??
+                                ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={control}
                       name="seatCount"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
@@ -316,23 +341,24 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     />
                     <FormField
                       control={control}
-                      name="isInPerson"
+                      name="confirmedSeatCount"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <div className="flex items-center">
-                            <FormLabel className="mr-2">
-                              {t('emergencyEvacuationApplications.isInPerson')}
-                            </FormLabel>
-                            <FormControl>
-                              <Checkbox
-                                {...field}
-                                disabled
-                                checked={
-                                  emergencyEvacuationApplicationDetails.isInPerson
-                                }
-                              />
-                            </FormControl>
-                          </div>
+                          <FormLabel>
+                            {t(
+                              'emergencyEvacuationApplications.confirmedSeatCount',
+                            )}
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                emergencyEvacuationApplicationDetails.seatingCount ??
+                                ''
+                              }
+                            />
+                          </FormControl>
                         </FormItem>
                       )}
                     />
@@ -406,32 +432,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     />
                     <FormField
                       control={control}
-                      name="confirmedSeatCount"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>
-                            {t(
-                              'emergencyEvacuationApplications.confirmedSeatCount',
-                            )}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                // emergencyEvacuationApplicationDetails.confirmedSeatCount ??
-                                ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
                       name="operatorNotes"
                       render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
+                        <FormItem className="sm:col-span-2">
                           <FormLabel>
                             {t('emergencyEvacuationApplications.notes')}
                           </FormLabel>
