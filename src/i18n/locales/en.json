@@ -85,6 +85,15 @@
   "seatingCountValidationMessage": "Only positive numbers with a maximum of {{field}} digits are allowed.",
   "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
   "name": "Role Name",
-  "createdDateTime": "Creation Date and Time",
-  "updatedDateTime": "Update Date and Time"
+  "createDateTime": "Creation Date and Time",
+  "updateDateTime": "Update Date and Time",
+  "role": {
+    "name": "Role Name",
+    "status": "Role Status",
+    "permissions": "Role Permissions",
+    "detailsTitle": "Role Details",
+    "createdUser": "User Who Created",
+    "updatedUser": "User Who Updated",
+    "information": "Role Information"
+  }
 }

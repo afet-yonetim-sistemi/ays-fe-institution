@@ -85,6 +85,15 @@
   "seatingCountValidationMessage": "Sadece maksimum {{field}} haneli, pozitif sayı değerleri alabilir.",
   "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir.",
   "name": "Rol Adı",
-  "createdDateTime": "Oluşturulma Tarihi ve Saati",
-  "updatedDateTime": "Güncellenme Tarihi ve Saat"
+  "createDateTime": "Oluşturulma Tarihi ve Saati",
+  "updateDateTime": "Güncellenme Tarihi ve Saati",
+  "role": {
+    "name": "Rol Adı",
+    "status": "Rol Durumu",
+    "permissions": "Rol Yetkileri",
+    "detailsTitle": "Rol Detayları",
+    "createdUser": "Oluşturan Kullanıcı",
+    "updatedUser": "Güncelleyen Kullanıcı",
+    "information": "Rol Bilgileri"
+  }
 }
