@@ -41,7 +41,7 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
-      return <DataTableSort column={column} />
+      return <DataTableSort column={column} label={i18next.t('createdAt')}/>
     },
     size: 155,
     cell: ({ row }) => {
