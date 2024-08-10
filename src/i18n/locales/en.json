@@ -105,32 +105,5 @@
   },
   "name": "Role Name",
   "createdDateTime": "Creation Date and Time",
-  "updatedDateTime": "Update Date and Time",
-  "adminRegistrationApplications": {
-    "title": "Admin Registration Applications",
-    "detailsTitle": "Admin Registration Applications Details",
-    "reason": "Application Reason",
-    "createdAt": "Application Creation Date",
-    "updatedAt": "Application Update Date",
-    "createdUser": "User Who Created the Application",
-    "status": "Application Status"
-  },
-  "emergencyEvacuationApplications": {
-    "title": "Emergency Evacuation Applications",
-    "detailsTitle": "Emergency Evacuation Application Details",
-    "nameSurname": "Name and Surname",
-    "applicantInformation": "Information of the Applicant",
-    "applicantNameSurname": "Name and Surname of Person to Contact",
-    "applicantPhoneNumber": "Phone Number of Person to Contact",
-    "sourceCityAndDistrict": "Current City / District",
-    "address": "Public Address",
-    "targetCityAndDistrict": "City / District to be Evacuated",
-    "seatCount": "Seat Count",
-    "isInPerson": "Individual Application?",
-    "status": "Application Status",
-    "createdAt": "Application Date and Time",
-    "anyHandicap": "Any Person with Handicap?",
-    "confirmedSeatCount": "Confirmed Seat Count",
-    "notes": "Operator Notes"
-  }
+  "updatedDateTime": "Update Date and Time"
 }
