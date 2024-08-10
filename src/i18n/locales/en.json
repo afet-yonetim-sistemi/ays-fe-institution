@@ -56,7 +56,7 @@
   "isInPerson": "Is In Person",
   "yes": "Yes",
   "no": "No",
-  "seatingCount": "Seating Count",
+  "seatingCount": "Seat Count",
   "sourceCity": "Source City",
   "sourceDistrict": "Source District",
   "targetCity": "Target City",
@@ -88,6 +88,17 @@
     "title": "Emergency Evacuation Applications",
     "detailsTitle": "Emergency Evacuation Application Details",
     "nameSurname": "Name and Surname",
-    "applicantNameSurname": "Name and Surname of Person to Contact"
+    "applicantNameSurname": "Name and Surname of Person to Contact",
+    "applicantPhoneNumber": "Phone Number of Person to Contact",
+    "sourceCityAndDistrict": "Current City / District",
+    "address": "Public Address",
+    "targetCityAndDistrict": "City / District to be Evacuated",
+    "seatCount": "Seat Count",
+    "isInPerson": "Individual Application?",
+    "status": "Application Status",
+    "createdAt": "Application Date and Time",
+    "anyHandicap": "Any Person with Handicap?",
+    "confirmedSeatCount": "Confirmed Seat Count",
+    "notes": "Operator Notes"
   }
 }
