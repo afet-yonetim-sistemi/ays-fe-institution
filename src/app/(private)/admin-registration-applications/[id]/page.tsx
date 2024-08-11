@@ -69,7 +69,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
   }, [params.id, t, toast])
 
   return (
-    <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
+    // <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
       {error && <Toaster />}
@@ -368,7 +368,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         </Form>
       )}
     </div>
-    </PrivateRoute>
+    // </PrivateRoute>
   )
 }
 
