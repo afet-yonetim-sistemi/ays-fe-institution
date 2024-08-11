@@ -34,7 +34,7 @@ export function postEmergencyEvacuationApplications(search: Search) {
   })
 }
 
-export const getEmergencyEvacuationApplication = async (
+export const getEmergencyEvacuationApplication = (
   id: string,
 ): Promise<AxiosResponse<ApiResponse>> => {
   return http.get<ApiResponse>(`/api/v1/emergency-evacuation-application/${id}`)
