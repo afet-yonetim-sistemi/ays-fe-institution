@@ -93,7 +93,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <DialogTitle>{t('rejectConfirm')}</DialogTitle>
                         <DialogDescription />
                       </DialogHeader>
-                      <div className="flex justify-center space-x-48 mt-4">
+                      <div className="flex justify-center space-x-10 mt-4">
                         <DialogClose asChild>
                           <Button
                             type="button"
@@ -125,7 +125,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <DialogTitle>{t('approveConfirm')}</DialogTitle>
                         <DialogDescription />
                       </DialogHeader>
-                      <div className="flex justify-center space-x-48 mt-4">
+                      <div className="flex justify-center space-x-10 mt-4">
                         <DialogClose asChild>
                           <Button
                             type="button"
