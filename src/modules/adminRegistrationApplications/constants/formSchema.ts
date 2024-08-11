@@ -5,31 +5,13 @@ const PhoneNumberSchema = z.object({
   lineNumber: z.string(),
 })
 
-const UserSchema = z.object({
-  id: z.string(),
+const AdminRegistrationApplicationSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
-  city: z.string(),
   emailAddress: z.string(),
+  city: z.string(),
+  password: z.string(),
   phoneNumber: PhoneNumberSchema,
-})
-
-const InstitutionSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-})
-
-const AdminRegistrationApplicationSchema = z.object({
-  createdUser: z.string(),
-  createdAt: z.string(),
-  updatedUser: z.string(),
-  updatedAt: z.string(),
-  id: z.string(),
-  reason: z.string(),
-  rejectReason: z.string().nullable(),
-  status: z.string(),
-  institution: InstitutionSchema,
-  user: UserSchema,
 })
 
 export const FormSchema = AdminRegistrationApplicationSchema
