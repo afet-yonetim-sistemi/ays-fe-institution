@@ -43,16 +43,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     const fetchDetails = () => {
       getAdminRegistrationApplication(params.id)
         .then((response) => {
-          if (response.data.isSuccess) {
-            setAdminRegistrationApplicationDetails(response.data.response)
-          } else {
-            setError(t('applicationError'))
-            toast({
-              title: t('error'),
-              description: t('applicationError'),
-              variant: 'destructive',
-            })
-          }
+          setAdminRegistrationApplicationDetails(response.data.response)
         })
         .catch((error) => {
           setError(error.message)
@@ -64,9 +55,10 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false))
     }
-
+  
     fetchDetails()
   }, [params.id, t, toast])
+  
 
   return (
     // <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>

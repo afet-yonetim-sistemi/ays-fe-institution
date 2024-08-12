@@ -44,16 +44,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     const fetchDetails = () => {
       getEmergencyEvacuationApplication(params.id)
         .then((response) => {
-          if (response.data.isSuccess) {
-            setEmergencyEvacuationApplicationDetails(response.data.response)
-          } else {
-            setError(t('applicationError'))
-            toast({
-              title: t('error'),
-              description: t('applicationError'),
-              variant: 'destructive',
-            })
-          }
+          setEmergencyEvacuationApplicationDetails(response.data.response)
         })
         .catch((error) => {
           setError(error.message)
@@ -65,7 +56,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false))
     }
-
+  
     fetchDetails()
   }, [params.id, t, toast])
 
