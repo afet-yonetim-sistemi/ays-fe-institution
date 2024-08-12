@@ -96,7 +96,13 @@
     "updatedUser": "Güncelleyen Kullanıcı",
     "information": "Rol Bilgileri"
   },
-"permissions": {
+  "permissions": {
+    "superAdmin": "Süper Yönetici",
+    "pages": "Sayfalar",
+    "userManagement": "Kullanıcı Yönetimi",
+    "roleManagement": "Rol Yönetimi",
+    "registrationApplicationManagement": "Kayıt Başvuru Yönetimi",
+    "evacuationApplicationManagement": "Tahliye Başvuru Yönetimi",
     "roleList": "Rolleri Listele",
     "roleDetail": "Rol Detayları",
     "roleCreate": "Rol Oluştur",
@@ -107,14 +113,15 @@
     "userCreate": "Kullanıcı Oluştur",
     "userUpdate": "Kullanıcı Güncelle",
     "userDelete": "Kullanıcı Sil",
-    "applicationRegistrationList": "Başvuruları Listele",
-    "applicationRegistrationDetail": "Başvuru Detayları",
-    "applicationRegistrationCreate": "Başvuru Oluştur",
-    "applicationRegistrationConclude": "Başvuruyu Tamamla",
-    "applicationEvacuationList": "Tahliyeleri Listele",
-    "applicationEvacuationDetail": "Tahliye Detayları",
-    "applicationEvacuationUpdate": "Tahliye Güncelle",
-    "institutionPage": "Kurum Sayfası",
-    "super": "Süper"
+    "applicationRegistrationList": "Kayıt Başvurularını Listele",
+    "applicationRegistrationDetail": "Kayıt Başvuru Detayları",
+    "applicationRegistrationCreate": "Kayıt Başvurusu Oluştur",
+    "applicationRegistrationConclude": "Kayıt Başvurusunu Tamamla",
+    "applicationEvacuationList": "Tahliye Başvurularını Listele",
+    "applicationEvacuationDetail": "Tahliye Başvuru Detayları",
+    "applicationEvacuationUpdate": "Tahliye Başvurusunu Güncelle",
+    "super": "Süper Yönetici",
+    "landingPage": "Açılış Sayfası",
+    "institutionPage": "Kurum Sayfası"
   }
 }

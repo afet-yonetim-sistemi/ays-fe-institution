@@ -29,14 +29,6 @@ export interface RolePermission {
   category: string
 }
 
-export interface RolePermissionWithLabel extends RolePermission {
-  label: string
-}
-
-export type GroupedPermissions = {
-  [category: string]: RolePermission[]
-}
-
 export interface RoleDetail {
   createdUser: string
   createdAt: string

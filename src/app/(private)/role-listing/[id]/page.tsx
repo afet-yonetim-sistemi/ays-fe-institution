@@ -18,10 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
-import {
-  GroupedPermissions,
-  RoleDetail,
-} from '@/modules/roleListing/constants/types'
+import { RoleDetail } from '@/modules/roleListing/constants/types'
 import { getRoleDetail } from '@/modules/roleListing/service'
 import { Permission } from '@/constants/permissions'
 import PrivateRoute from '@/app/hocs/isAuth'
@@ -65,15 +62,15 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     fetchDetails()
   }, [params.id, t, toast])
 
-  const groupedPermissions =
-    roleDetail?.permissions.reduce<GroupedPermissions>((acc, permission) => {
-      const { category } = permission
-      if (!acc[category]) {
-        acc[category] = []
-      }
-      acc[category].push(permission)
-      return acc
-    }, {} as GroupedPermissions) || {}
+  // const groupedPermissions =
+  //   roleDetail?.permissions.reduce<GroupedPermissions>((acc, permission) => {
+  //     const { category } = permission
+  //     if (!acc[category]) {
+  //       acc[category] = []
+  //     }
+  //     acc[category].push(permission)
+  //     return acc
+  //   }, {} as GroupedPermissions) || {}
 
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_DETAIL]}>
@@ -198,13 +195,12 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                   </div>
                 </CardContent>
               </Card>
-
               <Card className="mb-6">
                 <CardHeader>
                   <CardTitle>{t('role.permissions')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {Object.entries(groupedPermissions).map(
+                  {/* {Object.entries(groupedPermissions).map(
                     ([category, permissions]) => (
                       <PermissionCard
                         key={category}
@@ -218,7 +214,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         isChecked={true}
                       />
                     ),
-                  )}
+                  )} */}
                 </CardContent>
               </Card>
             </form>
