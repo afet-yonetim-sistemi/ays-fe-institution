@@ -33,7 +33,7 @@ import { Card } from '@/components/ui/card'
 import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
 import { useRouter } from 'next/navigation'
-import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formSchema'
+import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 
 const Page = () => {
   const { t } = useTranslation()
