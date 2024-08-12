@@ -6,11 +6,11 @@ const PhoneNumberSchema = z.object({
 })
 
 const AdminRegistrationApplicationSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  emailAddress: z.string(),
+  firstName: z.string().min(3).max(255),
+  lastName: z.string().min(3).max(255),
+  emailAddress: z.string().email(),
   city: z.string(),
-  password: z.string(),
+  password: z.string().min(8).max(16),
   phoneNumber: PhoneNumberSchema,
 })
 
