@@ -4,7 +4,8 @@ import * as React from 'react'
 import type { Table } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
 import { DataTableFilter } from '@/components/dataTable/dataTableFilter'
-import { Input } from '../ui/input'
+import QuickFilter from '@/components/dataTable/quickFilter'
+import DataTableSearchField from '@/components/dataTable/dataTableSearchField'
 
 interface DataTableToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,60 +20,47 @@ const DataTableToolbar = <TData,>({
   className,
   ...props
 }: DataTableToolbarProps<TData>) => {
-  // Memoize computation of searchableColumns and filterableColumns
-  const { searchableColumns, filterableColumns } = React.useMemo(() => {
-    return {
-      searchableColumns: filterFields.filter((field) => !field.options),
-      filterableColumns: filterFields.filter((field) => field.options),
-    }
-  }, [filterFields])
 
   return (
     <div
       className={cn(
-        'flex items-center justify-between space-x-2 overflow-auto p-1',
+        'flex items-center justify-between space-x-2 p-1',
         className,
       )}
       {...props}
     >
-      {children}
-      <div className="flex flex-1 items-center space-x-2">
-        {searchableColumns.length > 0 &&
-          searchableColumns.map(
-            (column) =>
-              table.getColumn(column.value ? String(column.value) : '') && (
-                <Input
-                  key={String(column.value)}
-                  placeholder={column.placeholder}
-                  value={
-                    (table
-                      .getColumn(String(column.value))
-                      ?.getFilterValue() as string) ?? ''
-                  }
-                  onChange={(event) =>
-                    table
-                      .getColumn(String(column.value))
-                      ?.setFilterValue(event.target.value)
-                  }
-                  className="h-8 w-40 lg:w-64"
+      <div className="grid grid-cols-2 md:grid-cols-4 w-full py-2 items-center gap-x-2 gap-y-3">
+        {filterFields.length > 0 &&
+          filterFields.map((field) => {
+            if (field.fieldsType == 'inputField')
+              return (
+                <DataTableSearchField
+                  key={String(field.value)}
+                  field={field}
+                  table={table}
                 />
-              ),
-          )}
-
-        {filterableColumns.length > 0 &&
-          filterableColumns.map(
-            (column) =>
-              table.getColumn(column.value ? String(column.value) : '') && (
+              )
+            else if (field.fieldsType == 'selectBoxField')
+              return (
                 <DataTableFilter
-                  key={String(column.value)}
+                  key={String(field.value)}
                   column={table.getColumn(
-                    column.value ? String(column.value) : '',
+                    field.value ? String(field.value) : '',
                   )}
-                  title={column.label}
-                  options={column.options ?? []}
+                  title={field.label}
+                  options={field.options ?? []}
                 />
-              ),
-          )}
+              )
+            else if (field.fieldsType == 'quickFilterField')
+              return (
+                <QuickFilter
+                  key={field.value}
+                  label={field.label}
+                  column={table.getColumn(field.value)}
+                />
+              )
+          })}
+        {children}
       </div>
     </div>
   )

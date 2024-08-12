@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react'
 import { getAdminRegistrationApplication } from '@/modules/adminRegistrationApplications/service'
 import { Input } from '@/components/ui/input'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
-import { formatDate } from '@/app/hocs/formatDate'
-import { formatPhoneNumber } from '@/app/hocs/formatPhoneNumber'
+import { formatDateTime } from '@/lib/formatDateTime'
 import {
   FormItem,
   FormField,
@@ -21,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/components/ui/use-toast'
+import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
@@ -64,7 +64,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     }
 
     fetchDetails()
-  }, [params.id])
+  }, [params.id, t, toast])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
@@ -192,9 +192,11 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             {...field}
                             disabled
                             defaultValue={
-                              formatDate(
-                                adminRegistrationApplicationDetails.createdAt,
-                              ) ?? ''
+                              adminRegistrationApplicationDetails.createdAt
+                                ? formatDateTime(
+                                    adminRegistrationApplicationDetails.createdAt,
+                                  )
+                                : ''
                             }
                           />
                         </FormControl>
@@ -231,9 +233,11 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             {...field}
                             disabled
                             defaultValue={
-                              formatDate(
-                                adminRegistrationApplicationDetails.updatedAt,
-                              ) ?? ''
+                              adminRegistrationApplicationDetails.updatedAt
+                                ? formatDateTime(
+                                    adminRegistrationApplicationDetails.updatedAt,
+                                  )
+                                : ''
                             }
                           />
                         </FormControl>
@@ -326,9 +330,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                                 ?.phoneNumber?.lineNumber
                                 ? formatPhoneNumber(
                                     adminRegistrationApplicationDetails.user
-                                      .phoneNumber.countryCode,
-                                    adminRegistrationApplicationDetails.user
-                                      .phoneNumber.lineNumber,
+                                      .phoneNumber,
                                   )
                                 : ''
                             }
