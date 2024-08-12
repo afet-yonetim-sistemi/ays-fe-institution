@@ -86,5 +86,9 @@
   "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
   "name": "Role Name",
   "createdDateTime": "Creation Date and Time",
-  "updatedDateTime": "Update Date and Time"
+  "updatedDateTime": "Update Date and Time",
+  "reject": "Reject",
+  "approve": "Approve",
+  "rejectConfirm": "Are you sure you want to reject this application?",
+  "approveConfirm": "Are you sure you want to approve this application?"
 }
