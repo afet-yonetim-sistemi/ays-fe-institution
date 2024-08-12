@@ -37,6 +37,8 @@
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
   "invalidEmailAndPassword": "Geçersiz e-posta veya şifre.",
   "defaultError": "Bir hata oluştu. Lütfen tekrar deneyin.",
+  "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",
+  "preApplicationError": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
   "clearSort": "Sıralamayı sıfırla",

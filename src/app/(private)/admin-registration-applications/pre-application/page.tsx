@@ -8,12 +8,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { Button } from '@/components/ui/button'
-import { useTranslation } from 'react-i18next'
-import Title from '@/components/ui/title'
 import {
   Select,
   SelectContent,
@@ -21,51 +15,55 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { Button } from '@/components/ui/button'
+import { useTranslation } from 'react-i18next'
+import Title from '@/components/ui/title'
 import { Textarea } from '@/components/ui/textarea'
 import { useEffect, useState } from 'react'
 import {
   approveAdminRegistrationApplication,
   getPreApplicationSummary,
 } from '@/modules/adminRegistrationApplications/service'
-import { toast } from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui/use-toast'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Toaster } from '@/components/ui/toaster'
 import { Card } from '@/components/ui/card'
+import PrivateRoute from '@/app/hocs/isAuth'
+import { Permission } from '@/constants/permissions'
+import { useRouter } from 'next/navigation'
+import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formSchema'
 
 const Page = () => {
   const { t } = useTranslation()
+  const { toast } = useToast()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [institutionSummary, setInstitutionSummary] = useState<any>(null)
-  const formSchema = z.object({
-    institutionId: z.string().min(1, { message: t('requiredField') }),
-    reason: z.string().min(40, {
-      message: t('minLength', { field: 40 }),
-    }),
-  })
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof PreApplicationFormSchema>>({
+    resolver: zodResolver(PreApplicationFormSchema),
     defaultValues: {
       institutionId: '',
       reason: '',
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof PreApplicationFormSchema>) {
     setIsLoading(true)
     approveAdminRegistrationApplication(values)
       .then(() => {
         toast({
           title: t('success'),
-          description: t('applicationSuccess'),
+          description: t('preApplicationSuccess'),
         })
+        router.push('/admin-registration-applications')
       })
-      .catch((error) => {
-        setError(error.message)
+      .catch(() => {
         toast({
           title: t('error'),
-          description: t('applicationError'),
+          description: t('preApplicationError'),
           variant: 'destructive',
         })
       })
@@ -77,23 +75,20 @@ const Page = () => {
       .then((response) => {
         setInstitutionSummary(response.data.response)
       })
-      .catch((error) => {
-        setError(error.message)
+      .catch(() => {
         toast({
           title: t('error'),
-          description: t('applicationError'),
+          description: t('defaultError'),
           variant: 'destructive',
         })
       })
       .finally(() => setIsLoading(false))
-  }, [t])
+  }, [t, toast])
 
   return (
-    <>
+    <PrivateRoute requiredPermissions={[Permission.APPLICATION_CREATE]}>
       <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
         <Title title={t('preApplicationTitle')} />
-
-        <Toaster />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <Card className="p-6 w-full">
@@ -152,7 +147,7 @@ const Page = () => {
           </form>
         </Form>
       </div>
-    </>
+    </PrivateRoute>
   )
 }
 
