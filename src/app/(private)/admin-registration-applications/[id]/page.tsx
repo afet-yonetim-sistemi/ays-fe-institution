@@ -43,7 +43,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     const fetchDetails = () => {
       getAdminRegistrationApplication(params.id)
         .then((response) => {
-          setAdminRegistrationApplicationDetails(response.data.response)
+          setAdminRegistrationApplicationDetails(response.response)
         })
         .catch((error) => {
           setError(error.message)

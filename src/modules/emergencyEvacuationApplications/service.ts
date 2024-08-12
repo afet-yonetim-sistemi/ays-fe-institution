@@ -36,6 +36,6 @@ export function postEmergencyEvacuationApplications(search: Search) {
 
 export const getEmergencyEvacuationApplication = (
   id: string,
-): Promise<AxiosResponse<ApiResponse>> => {
-  return http.get<ApiResponse>(`/api/v1/emergency-evacuation-application/${id}`)
+): Promise<ApiResponse> => {
+  return http.get<ApiResponse>(`/api/v1/emergency-evacuation-application/${id}`).then(response => response.data)
 }

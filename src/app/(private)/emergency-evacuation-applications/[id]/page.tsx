@@ -44,7 +44,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     const fetchDetails = () => {
       getEmergencyEvacuationApplication(params.id)
         .then((response) => {
-          setEmergencyEvacuationApplicationDetails(response.data.response)
+          setEmergencyEvacuationApplicationDetails(response.response)
         })
         .catch((error) => {
           setError(error.message)
