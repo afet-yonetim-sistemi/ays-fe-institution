@@ -1,5 +1,5 @@
 import http from '@/configs/axiosConfig'
-import { Search } from '@/modules/emergencyEvacuationApplications/constants/types'
+import { ApiResponse, Search } from '@/modules/emergencyEvacuationApplications/constants/types'
 
 export function postEmergencyEvacuationApplications(search: Search) {
   const sortBy = search.sort
@@ -31,4 +31,10 @@ export function postEmergencyEvacuationApplications(search: Search) {
       isInPerson: search.isInPerson,
     },
   })
+}
+
+export const getEmergencyEvacuationApplication = (
+  id: string,
+): Promise<ApiResponse> => {
+  return http.get<ApiResponse>(`/api/v1/emergency-evacuation-application/${id}`).then(response => response.data)
 }

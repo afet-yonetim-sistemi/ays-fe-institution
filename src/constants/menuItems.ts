@@ -17,13 +17,13 @@ export const MenuItems: Menu[] = [
   },
   {
     key: '/admin-registration-applications',
-    label: 'adminRegistrationApplications',
+    label: 'adminRegistrationApplications.title',
     icon: UserRoundCheck,
     requiredPermissions: [Permission.APPLICATION_LIST],
   },
   {
     key: '/emergency-evacuation-applications',
-    label: 'emergencyEvacuationApplications',
+    label: 'emergencyEvacuationApplications.title',
     icon: BusFront,
     requiredPermissions: [Permission.EVACUATION_LIST],
   },

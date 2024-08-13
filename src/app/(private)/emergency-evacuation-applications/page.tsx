@@ -73,11 +73,11 @@ const Page = () => {
     filterFields,
   })
   return (
-    <PrivateRoute requiredPermissions={[Permission.EVACUATION_LIST]}>
+<PrivateRoute requiredPermissions={[Permission.EVACUATION_LIST]}>
       <div className="space-y-1">
         <div className="flex items-center gap-4 mb-4">
           <h1 className="text-2xl font-medium">
-            {t('emergencyEvacuationApplications')}
+            {t('emergencyEvacuationApplications.title')}
           </h1>
           <Button
             variant="outline"
