@@ -1,6 +1,5 @@
 import http from '@/configs/axiosConfig'
 import { ApiResponse, Search } from '@/modules/emergencyEvacuationApplications/constants/types'
-import { AxiosResponse } from 'axios'
 
 export function postEmergencyEvacuationApplications(search: Search) {
   const sortBy = search.sort
