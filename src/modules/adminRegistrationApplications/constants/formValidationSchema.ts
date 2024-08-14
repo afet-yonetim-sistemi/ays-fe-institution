@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import i18n from '@/i18n'
 
 const PhoneNumberSchema = z.object({
   countryCode: z.string(),
@@ -32,4 +33,12 @@ const AdminRegistrationApplicationSchema = z.object({
   user: UserSchema,
 })
 
-export const FormSchema = AdminRegistrationApplicationSchema
+export const PreApplicationFormSchema = z.object({
+  institutionId: z.string().min(1, { message: i18n.t('requiredField') }),
+  reason: z.string().min(40, {
+    message: i18n.t('minLength', { field: 40 }),
+  }),
+})
+
+// Export the main form schema
+export const FormValidationSchema = AdminRegistrationApplicationSchema

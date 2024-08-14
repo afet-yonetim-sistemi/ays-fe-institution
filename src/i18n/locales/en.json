@@ -46,6 +46,8 @@
   "requiredField": "This field is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
+  "preApplicationSuccess": "Preliminary application created successfully.",
+  "preApplicationError": "An error occurred while creating the preliminary application. Please try again.",
   "invalidEmail": "Invalid E-mail.",
   "desc": "Click to sort descending",
   "asc": "Click to sort ascending",
@@ -66,7 +68,8 @@
   "phoneNumber": "Phone Number",
   "applicationInformation": "Application Information",
   "reason": "Application Reason",
-  "institution": "Institution Name",
+  "institutionName": "Institution Name",
+  "applicationStatus": "Application Status",
   "rejectReason": "Application Rejection Reason",
   "updatedUser": "User Who Updated the Application",
   "applicationError": "Error while fetching application details. Please try again",
@@ -109,5 +112,11 @@
   "reject": "Reject",
   "approve": "Approve",
   "rejectConfirm": "Are you sure you want to reject this application?",
-  "approveConfirm": "Are you sure you want to approve this application?"
+  "approveConfirm": "Are you sure you want to approve this application?",
+  "preApplication": "Create Pre-Application",
+  "preApplicationTitle": "Admin Registration Pre-Application Creation",
+  "institution": "Institution",
+  "createReason": "Creation Reason",
+  "selectInstitution": "Select Institution",
+  "create": "Create"
 }

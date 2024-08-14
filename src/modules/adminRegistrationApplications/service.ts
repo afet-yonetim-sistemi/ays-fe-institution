@@ -38,3 +38,12 @@ export const getAdminRegistrationApplication = (
 ): Promise<ApiResponse> => {
   return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`).then(response => response.data)
 }
+
+//TODO: edit this requests
+export const getPreApplicationSummary = () => {
+  return http.get<ApiResponse>(`/api/v1/institutions/summary`)
+}
+
+export const approveAdminRegistrationApplication = (data: {}) => {
+  return http.post(`/api/v1/admin-registration-application`, data)
+}
