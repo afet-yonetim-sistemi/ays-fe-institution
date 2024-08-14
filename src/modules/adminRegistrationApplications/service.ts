@@ -33,10 +33,10 @@ export function postAdminRegistrationApplications(search: Search) {
   })
 }
 
-export const getAdminRegistrationApplication = async (
+export const getAdminRegistrationApplication = (
   id: string,
-): Promise<AxiosResponse<ApiResponse>> => {
-  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
+): Promise<ApiResponse> => {
+  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`).then(response => response.data)
 }
 
 //TODO: edit this requests
