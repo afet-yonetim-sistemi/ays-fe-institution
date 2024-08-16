@@ -1,7 +1,5 @@
 'use client'
 
-import { getRegistrationApplication } from '@/api/controller/instutionController'
-import { PhoneInput } from '@/components/phoneInput'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -19,6 +17,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { PhoneInput } from '@/components/ui/phoneInput'
 import {
   Select,
   SelectContent,
@@ -27,7 +26,11 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { cityList } from '@/constants/trCity'
-import { FormSchema } from '@/modules/adminRegistrationApplications/constants/formSchema'
+import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formSchema'
+import {
+  getAdminRegistrationApplicationSummary,
+  postRegistrationApplication,
+} from '@/modules/adminRegistrationApplications/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import Image from 'next/image'
@@ -37,7 +40,11 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const RegisterCompletion = () => {
+interface Iprops {
+  id: string
+}
+
+const RegisterCompletion: React.FC<Iprops> = ({ id }) => {
   const [loading, setLoading] = useState(false)
   const [instName, setInstName] = useState<string>('')
   const [showPassword, setShowPassword] = useState(false)
@@ -45,28 +52,15 @@ const RegisterCompletion = () => {
   const router = useRouter()
   const { t } = useTranslation()
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      emailAddress: '',
-      phoneNumber: {
-        countryCode: '',
-        lineNumber: '',
-      },
-      city: '',
-      password: '',
-    },
+  const form = useForm<z.infer<typeof InstitutionFormSchema>>({
+    resolver: zodResolver(InstitutionFormSchema),
   })
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const response: any = await getRegistrationApplication(
-          '04930b1d-efab-45d5-a31d-077c4f30125f',
-        )
+        const response: any = await getAdminRegistrationApplicationSummary(id)
 
         if (response?.status == 200) {
           const data = response?.data.response
@@ -75,23 +69,15 @@ const RegisterCompletion = () => {
           router.push('/not-found')
         }
       } catch (error) {
-        console.log('Error fetching registration application:', error)
       } finally {
-        setTimeout(() => {
-          setLoading(false)
-        }, 1000)
+        setLoading(false)
       }
     }
     fetchData()
-  }, [])
+  }, [id])
 
-  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    console.log('Values:', values)
-
-    // await postRegistrationApplication(
-    //   '04930b1d-efab-45d5-a31d-077c4f30125f',
-    //   values,
-    // )
+  const onSubmit = async (values: z.infer<typeof InstitutionFormSchema>) => {
+    await postRegistrationApplication(id, values)
   }
 
   return (
@@ -195,8 +181,7 @@ const RegisterCompletion = () => {
                         <SelectContent>
                           {cityList.map((city) => (
                             <SelectItem key={city} value={city}>
-                              {' '}
-                              {city}{' '}
+                              {city}
                             </SelectItem>
                           ))}
                         </SelectContent>
