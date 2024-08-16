@@ -23,7 +23,7 @@ http.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error)
-  },
+  }
 )
 
 http.interceptors.response.use(
@@ -46,7 +46,7 @@ http.interceptors.response.use(
             '/api/v1/authentication/token/refresh',
             {
               refreshToken,
-            },
+            }
           )
           const token = response?.data?.response
 
@@ -61,7 +61,7 @@ http.interceptors.response.use(
         return Promise.reject(error)
       }
     }
-  },
+  }
 )
 
 export default http

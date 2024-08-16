@@ -30,8 +30,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { DialogDescription } from '@radix-ui/react-dialog'
-import PrivateRoute from '@/app/hocs/isAuth'
-import { Permission } from '@/constants/permissions'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
@@ -62,10 +60,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false))
     }
-  
+
     fetchDetails()
   }, [params.id, t, toast])
-  
 
   return (
     // <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
@@ -153,7 +150,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="reason"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
-                        <FormLabel>{t('adminRegistrationApplications.reason')}</FormLabel>
+                        <FormLabel>
+                          {t('adminRegistrationApplications.reason')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -190,14 +189,16 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('adminRegistrationApplications.status')}</FormLabel>
+                        <FormLabel>
+                          {t('adminRegistrationApplications.status')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             disabled
                             value={
                               t(
-                                adminRegistrationApplicationDetails.status.toLowerCase(),
+                                adminRegistrationApplicationDetails.status.toLowerCase()
                               ) ?? ''
                             }
                           />
@@ -232,7 +233,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="createdUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('adminRegistrationApplications.createdUser')}</FormLabel>
+                        <FormLabel>
+                          {t('adminRegistrationApplications.createdUser')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -251,7 +254,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="createDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('adminRegistrationApplications.createdAt')}</FormLabel>
+                        <FormLabel>
+                          {t('adminRegistrationApplications.createdAt')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -259,7 +264,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             defaultValue={
                               adminRegistrationApplicationDetails.createdAt
                                 ? formatDateTime(
-                                    adminRegistrationApplicationDetails.createdAt,
+                                    adminRegistrationApplicationDetails.createdAt
                                   )
                                 : ''
                             }
@@ -292,7 +297,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="updateDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('adminRegistrationApplications.updatedAt')}</FormLabel>
+                        <FormLabel>
+                          {t('adminRegistrationApplications.updatedAt')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -300,7 +307,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             defaultValue={
                               adminRegistrationApplicationDetails.updatedAt
                                 ? formatDateTime(
-                                    adminRegistrationApplicationDetails.updatedAt,
+                                    adminRegistrationApplicationDetails.updatedAt
                                   )
                                 : ''
                             }
@@ -395,7 +402,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                                 ?.phoneNumber?.lineNumber
                                 ? formatPhoneNumber(
                                     adminRegistrationApplicationDetails.user
-                                      .phoneNumber,
+                                      .phoneNumber
                                   )
                                 : ''
                             }

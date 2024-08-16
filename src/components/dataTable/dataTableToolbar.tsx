@@ -20,12 +20,11 @@ const DataTableToolbar = <TData,>({
   className,
   ...props
 }: DataTableToolbarProps<TData>) => {
-
   return (
     <div
       className={cn(
         'flex items-center justify-between space-x-2 p-1',
-        className,
+        className
       )}
       {...props}
     >
@@ -45,7 +44,7 @@ const DataTableToolbar = <TData,>({
                 <DataTableFilter
                   key={String(field.value)}
                   column={table.getColumn(
-                    field.value ? String(field.value) : '',
+                    field.value ? String(field.value) : ''
                   )}
                   title={field.label}
                   options={field.options ?? []}

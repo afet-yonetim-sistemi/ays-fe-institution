@@ -1,4 +1,9 @@
-import { BusFront, HomeIcon, UserRoundCheck, ClipboardPenLine } from 'lucide-react'
+import {
+  BusFront,
+  HomeIcon,
+  UserRoundCheck,
+  ClipboardPenLine,
+} from 'lucide-react'
 import React from 'react'
 import { Permission } from '@/constants/permissions'
 
