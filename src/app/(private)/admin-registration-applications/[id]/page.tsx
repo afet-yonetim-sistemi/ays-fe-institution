@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
+import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
@@ -35,7 +35,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const form = useForm({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(FormValidationSchema),
   })
   const { control } = form
 
@@ -61,11 +61,13 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         .finally(() => setIsLoading(false))
     }
 
+
     fetchDetails()
   }, [params.id, t, toast])
 
+
   return (
-    // <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
+    <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
       {!isLoading && adminRegistrationApplicationDetails && (
@@ -170,7 +172,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="institutionName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('institution')}</FormLabel>
+                        <FormLabel>{t('institutionName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -437,7 +439,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         </Form>
       )}
     </div>
-    // </PrivateRoute>
+    </PrivateRoute>
   )
 }
 

@@ -1,9 +1,14 @@
 'use client'
+'use client'
 
 import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { Check, ChevronDown, ChevronUp } from 'lucide-react'
+import * as React from 'react'
+import * as SelectPrimitive from '@radix-ui/react-select'
+import { Check, ChevronDown, ChevronUp } from 'lucide-react'
 
+import { cn } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 
 const Select = SelectPrimitive.Root
@@ -71,6 +76,7 @@ const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = 'popper', ...props }, ref) => (
+>(({ className, children, position = 'popper', ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
@@ -106,6 +112,7 @@ const SelectLabel = React.forwardRef<
   <SelectPrimitive.Label
     ref={ref}
     className={cn('py-1.5 pl-8 pr-2 text-sm font-semibold', className)}
+    className={cn('py-1.5 pl-8 pr-2 text-sm font-semibold', className)}
     {...props}
   />
 ))
@@ -140,6 +147,7 @@ const SelectSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
+    className={cn('-mx-1 my-1 h-px bg-muted', className)}
     className={cn('-mx-1 my-1 h-px bg-muted', className)}
     {...props}
   />
