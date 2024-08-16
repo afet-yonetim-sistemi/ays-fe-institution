@@ -52,7 +52,6 @@ export default function Menu() {
           setIsLoading(false)
         })
         .catch((error) => {
-          console.error('Error fetching data:', error)
           setIsLoading(false)
         })
     }
