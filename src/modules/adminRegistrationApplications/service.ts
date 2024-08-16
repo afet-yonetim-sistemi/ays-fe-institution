@@ -1,5 +1,4 @@
 import http from '@/configs/axiosConfig'
-import { AxiosResponse } from 'axios'
 import { ApiResponse } from './constants/types'
 
 interface Search {
@@ -7,6 +6,29 @@ interface Search {
   per_page: number
   sort: string | undefined
   status: string | undefined
+}
+
+interface RegisterApplicationForm {
+  firstName: string
+  lastName: string
+  emailAddress: string
+  city: string
+  password: string
+  phoneNumber: {
+    countryCode: string
+    lineNumber: string
+  }
+}
+
+interface GetRegisterSummary {
+  time: string
+  isSuccess: boolean
+  response: {
+    id: string
+    institution: {
+      name: string
+    }
+  }
 }
 export function postAdminRegistrationApplications(search: Search) {
   const sortBy = search.sort
@@ -33,14 +55,16 @@ export function postAdminRegistrationApplications(search: Search) {
   })
 }
 
-export const getAdminRegistrationApplication = async (
-  id: string,
-): Promise<AxiosResponse<ApiResponse>> => {
+export const getAdminRegistrationApplication = (id: string) => {
   return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
 }
 
-export const getAdminRegistrationApplicationSummary = async (
+export const getAdminRegistrationApplicationSummary = (
   id: string,
-): Promise<AxiosResponse<ApiResponse>> => {
-  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}/summary`)
-}
+): Promise<GetRegisterSummary> =>
+  http.get(`/api/v1/admin-registration-application/${id}/summary`)
+
+export const postRegistrationApplication = (
+  id: string,
+  form: RegisterApplicationForm,
+) => http.post(`api/v1/admin-registration-application/${id}/complete`, form)
