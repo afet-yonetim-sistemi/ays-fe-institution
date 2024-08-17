@@ -16,9 +16,10 @@ const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     const accessToken = store.getState().auth.accessToken
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`
+    if (!accessToken) {
+      return Promise.reject('Access denied: No token provided. Request has been canceled.')
     }
+    config.headers.Authorization = `Bearer ${accessToken}`
     return config
   },
   (error) => {
