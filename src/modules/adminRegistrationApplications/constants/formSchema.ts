@@ -36,15 +36,4 @@ const AdminRegistrationApplicationSchema = z.object({
   user: UserSchema,
 })
 
-const RegistrationCompletionSchema = z.object({
-  firstName: z.string().min(3).max(255),
-  lastName: z.string().min(3).max(255),
-  emailAddress: z.string().email(),
-  city: z.string(),
-  password: z.string().min(8).max(16),
-  phoneNumber: PhoneNumberSchema,
-})
-
 export const FormSchema = AdminRegistrationApplicationSchema
-
-export const InstitutionFormSchema = RegistrationCompletionSchema
