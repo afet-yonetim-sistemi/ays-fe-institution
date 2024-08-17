@@ -14,14 +14,14 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
   Card,
   CardHeader,
   CardDescription,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { PasswordInput } from '@/components/ui/passwordInput'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
@@ -29,12 +29,11 @@ import authService from '@/modules/auth/service'
 import {
   loginFailed,
   loginSuccess,
-  selectError,
-  selectToken,
+  selectToken
 } from '@/modules/auth/authSlice'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
-import { Toaster } from '@/components/ui/toaster'
+import ForgotPasswordModal from '@/components/ForgotPasswordModal'
 
 const Page = () => {
   const { t } = useTranslation()
@@ -42,7 +41,6 @@ const Page = () => {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const tokenInfo = useAppSelector(selectToken)
-  const error = useAppSelector(selectError)
 
   const [loading, setLoading] = useState(false)
 
@@ -56,7 +54,7 @@ const Page = () => {
       .min(1, t('requiredField'))
       .min(8, t('minLength', { field: 8 }))
       .max(50, t('maxLength', { field: 50 })),
-    sourcePage: z.string(),
+    sourcePage: z.string()
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -64,8 +62,8 @@ const Page = () => {
     defaultValues: {
       emailAddress: '',
       password: '',
-      sourcePage: 'INSTITUTION',
-    },
+      sourcePage: 'INSTITUTION'
+    }
   })
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -83,7 +81,7 @@ const Page = () => {
         toast({
           title: t('error'),
           description: t('invalidEmailAndPassword'),
-          variant: 'destructive',
+          variant: 'destructive'
         })
       })
       .finally(() => setLoading(false))
@@ -95,66 +93,64 @@ const Page = () => {
     }
   }, [tokenInfo, router])
 
-  return tokenInfo ? (
-    <></>
-  ) : (
-    <>
-      {error && <Toaster />}
-      <div className={'container'}>
-        <Card className={'w-[410px] h-fit'}>
-          <CardHeader className={'flex items-center'}>
-            <Image
-              src={'/aysfavicon360.png'}
-              alt={'AYS'}
-              width={100}
-              height={100}
-            />
-            <CardTitle>{t('welcome')}</CardTitle>
-            <CardDescription>{t('loginDescription')}</CardDescription>
-          </CardHeader>
-          <CardHeader>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-5"
-              >
-                <FormField
-                  control={form.control}
-                  name="emailAddress"
-                  disabled={loading}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('email')}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('email')} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  disabled={loading}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('password')}</FormLabel>
-                      <FormControl>
-                        <PasswordInput placeholder={t('password')} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" disabled={loading} className={'w-full'}>
-                  {loading ? <LoadingSpinner /> : t('login')}
-                </Button>
-              </form>
-            </Form>
-          </CardHeader>
-        </Card>
-      </div>
-    </>
+  if (tokenInfo) return
+
+  return (
+    <div className={'container'}>
+      <Card className={'w-[410px] h-fit'}>
+        <CardHeader className={'flex items-center'}>
+          <Image
+            src={'/aysfavicon360.png'}
+            alt={'AYS'}
+            width={100}
+            height={100}
+          />
+          <CardTitle>{t('welcome')}</CardTitle>
+          <CardDescription>{t('loginDescription')}</CardDescription>
+        </CardHeader>
+        <CardHeader>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-5"
+            >
+              <FormField
+                control={form.control}
+                name="emailAddress"
+                disabled={loading}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('email')}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t('email')} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                disabled={loading}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('password')}</FormLabel>
+                    <FormControl>
+                      <PasswordInput placeholder={t('password')} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" disabled={loading} className={'w-full'}>
+                {loading ? <LoadingSpinner /> : t('login')}
+              </Button>
+              <ForgotPasswordModal disabled={loading} loginEmail={form.watch('emailAddress')} />
+            </form>
+          </Form>
+        </CardHeader>
+      </Card>
+    </div>
   )
 }
 
