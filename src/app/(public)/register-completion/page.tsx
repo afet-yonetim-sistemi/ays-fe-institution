@@ -25,8 +25,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useToast } from '@/components/ui/use-toast'
 import { cityList } from '@/constants/trCity'
-import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formSchema'
 import {
   getAdminRegistrationApplicationSummary,
   postRegistrationApplication,
@@ -45,15 +45,55 @@ interface Iprops {
 }
 
 const RegisterCompletion: React.FC<Iprops> = ({ id }) => {
+  const { t } = useTranslation()
+  const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [instName, setInstName] = useState<string>('')
   const [showPassword, setShowPassword] = useState(false)
-  const togglePasswordVisibility = () => setShowPassword((prev) => !prev)
   const router = useRouter()
-  const { t } = useTranslation()
+
+  const PhoneNumberSchema = z.object({
+    countryCode: z.string().min(1),
+    lineNumber: z.string().min(1),
+  })
+
+  const InstitutionFormSchema = z.object({
+    firstName: z
+      .string()
+      .min(1, t('requiredField'))
+      .min(3, t('minLength', { field: 3 }))
+      .max(255, t('maxLength', { field: 255 })),
+    lastName: z
+      .string()
+      .min(1, t('requiredField'))
+      .min(3, t('minLength', { field: 3 }))
+      .max(255, t('maxLength', { field: 255 })),
+    emailAddress: z
+      .string()
+      .min(1, t('requiredField'))
+      .email(t('invalidEmail')),
+    city: z.string().min(1, t('requiredField')),
+    password: z
+      .string()
+      .min(1, t('requiredField'))
+      .min(8, t('minLength', { field: 8 }))
+      .max(50, t('maxLength', { field: 50 })),
+    phoneNumber: PhoneNumberSchema,
+  })
 
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
     resolver: zodResolver(InstitutionFormSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      emailAddress: '',
+      city: '',
+      password: '',
+      phoneNumber: {
+        countryCode: '',
+        lineNumber: '',
+      },
+    },
   })
 
   useEffect(() => {
@@ -76,15 +116,33 @@ const RegisterCompletion: React.FC<Iprops> = ({ id }) => {
     fetchData()
   }, [id])
 
-  const onSubmit = async (values: z.infer<typeof InstitutionFormSchema>) => {
-    await postRegistrationApplication(id, values)
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev)
+
+  const onSubmit = (values: z.infer<typeof InstitutionFormSchema>) => {
+    setLoading(true)
+    postRegistrationApplication(id, values)
+      .then((res) => {
+        const isSuccess = res.data?.isSuccess
+        if (isSuccess) {
+          form.reset()
+          router.push('/dashboard')
+        }
+      })
+      .catch((err) => {
+        toast({
+          title: t('error'),
+          description: t('error'),
+          variant: 'destructive',
+        })
+      })
+      .finally(() => setLoading(false))
   }
 
   return (
-    <div className="container mt-[200px]">
+    <div className="container mt-[140px]">
       {(loading && <LoadingSpinner />) || (
         <Card className="w-[410px] h-fit">
-          <CardHeader className="flex items-center">
+          <CardHeader className="flex items-center gap-2">
             <Image
               src={'/aysfavicon360.png'}
               alt="AYS"
@@ -153,16 +211,29 @@ const RegisterCompletion: React.FC<Iprops> = ({ id }) => {
                   control={form.control}
                   name="phoneNumber"
                   disabled={loading}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('phoneNumber')}</FormLabel>
-                      <FormControl>
-                        <PhoneInput onChange={field.onChange} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  render={({ field, fieldState }) => {
+                    const isError =
+                      (!field.value.countryCode || !field.value.lineNumber) &&
+                      fieldState.error
+
+                    return (
+                      <FormItem>
+                        <FormLabel
+                          className={`${isError ? 'text-destructive' : 'text-white'}`}
+                        >
+                          {t('phoneNumber')}
+                        </FormLabel>
+                        <FormControl>
+                          <PhoneInput onChange={field.onChange} />
+                        </FormControl>
+                        <div className="text-sm font-medium text-destructive">
+                          {isError && <div>{t('requiredField')}</div>}
+                        </div>
+                      </FormItem>
+                    )
+                  }}
                 />
+
                 <FormField
                   control={form.control}
                   name="city"
