@@ -33,7 +33,7 @@ import {
 } from '@/modules/auth/authSlice'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
-import ForgotPasswordModal from '@/components/ForgotPasswordModal'
+import ForgotPasswordModal from '@/components/password/ForgotPasswordModal'
 
 const Page = () => {
   const { t } = useTranslation()
