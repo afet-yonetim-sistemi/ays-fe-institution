@@ -52,6 +52,7 @@
   "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again.",
   "forgotPasswordInstruction": "Please use the verified email address associated with your account. We will send you a link to create a new password.",
   "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",
+  "passwordTitle": "Create Your Password",
   "send": "Send",
   "logout": "Logout",
   "requiredField": "This field is required.",

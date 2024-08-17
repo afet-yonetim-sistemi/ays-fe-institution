@@ -4,6 +4,7 @@
   "notFound": "Aradığınız Sayfa Bulunamadı.",
   "loginDescription": "Lütfen E-postanızı ve Şifrenizi giriniz.",
   "passwordDescription": "Lütfen yeni bir şifre oluşturun. Şifrenizin en az 8 karakter uzunluğunda olduğundan ve harfler, sayılar ve özel karakterler içerdiğinden emin olun.",
+  "passwordTitle": "Şifrenizi Oluşturun",
   "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
   "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
   "users": "Kullanıcılar",
