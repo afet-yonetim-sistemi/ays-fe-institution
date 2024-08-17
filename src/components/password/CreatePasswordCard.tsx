@@ -56,9 +56,6 @@ export default function CreatePasswordCard({ token }: { token: string }) {
           description: t('passwordSuccess'),
           variant: 'default'
         })
-        setTimeout(() => {
-          router.push('/login')
-        }, 3000)
       })
       .catch(() => {
         toast({
@@ -67,7 +64,11 @@ export default function CreatePasswordCard({ token }: { token: string }) {
           variant: 'destructive'
         })
       })
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setTimeout(() => {
+          router.push('/login')
+        }, 3000)
+      })
   }
 
   return (
@@ -80,7 +81,7 @@ export default function CreatePasswordCard({ token }: { token: string }) {
             width={100}
             height={100}
           />
-          <CardTitle>{t('welcome')}</CardTitle>
+          <CardTitle>{t('passwordTitle')}</CardTitle>
           <CardDescription>{t('passwordDescription')}</CardDescription>
         </CardHeader>
         <CardHeader>
