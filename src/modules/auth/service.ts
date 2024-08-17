@@ -5,14 +5,7 @@ const authService = {
   logout: (data: any) =>
     http.post('/api/v1/authentication/token/invalidate', {
       refreshToken: data
-    }),
-  forgotPassword: (email: string) => api.post('/api/v1/authentication/password/forgot', {
-    emailAddress: email
-  }),
-  resetPassword: (data: {
-    password: string,
-    passwordRepeat: string
-  }, token: string) => api.post(`/api/v1/authentication/password/${token}`, data)
+    })
 }
 
 export default authService
