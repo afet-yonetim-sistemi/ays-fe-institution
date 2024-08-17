@@ -15,7 +15,7 @@ import { PasswordInput } from '@/components/ui/passwordInput'
 import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 
-export default function CreatePasswordCard({ token }: { token: string }) {
+export default function CreatePasswordCard({ id }: { id: string }) {
   const { t } = useTranslation()
   const { toast } = useToast()
   const router = useRouter()
@@ -49,7 +49,7 @@ export default function CreatePasswordCard({ token }: { token: string }) {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     setLoading(true)
     passwordService
-      .resetPassword(values, token)
+      .resetPassword(values, id)
       .then(() => {
         toast({
           title: t('success'),

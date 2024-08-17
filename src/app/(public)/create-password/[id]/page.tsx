@@ -6,7 +6,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const id = params.id
   try {
     await passwordService.validatePasswordId(id)
-    return <CreatePasswordCard token={id} />
+    return <CreatePasswordCard id={id} />
   } catch (error) {
     notFound()
   }
