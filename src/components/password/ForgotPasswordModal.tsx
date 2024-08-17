@@ -13,8 +13,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import authService from '@/modules/auth/service'
 import { toast } from '@/components/ui/use-toast'
+import passwordService from '@/modules/password/service'
 
 const ForgotPasswordModal = ({ loginEmail, disabled }: { loginEmail?: string, disabled?: boolean }) => {
   const { t } = useTranslation()
@@ -29,7 +29,7 @@ const ForgotPasswordModal = ({ loginEmail, disabled }: { loginEmail?: string, di
   const handleSubmit = () => {
     setLoading(true)
 
-    authService.forgotPassword(email!).then(({ data }: any) => {
+    passwordService.forgotPassword(email!).then(({ data }: any) => {
       console.log(data)
       setIsOpen(false)
       toast({
