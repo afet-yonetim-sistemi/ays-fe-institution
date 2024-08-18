@@ -19,7 +19,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
-import { FormSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
+import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
 import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -29,7 +29,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const form = useForm({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(FormValidationSchema),
   })
   const { control } = form
 
