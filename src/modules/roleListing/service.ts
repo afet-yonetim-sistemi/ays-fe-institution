@@ -1,6 +1,5 @@
 import http from '@/configs/axiosConfig'
 import { ApiResponse, Search } from '../roleListing/constants/types'
-import { AxiosResponse } from 'axios'
 
 export function postRoleListing(search: Search) {
   const sortBy = search.sort
@@ -30,6 +29,6 @@ export function postRoleListing(search: Search) {
 
 export const getRoleDetail = async (
   id: string,
-): Promise<AxiosResponse<ApiResponse>> => {
-  return http.get<ApiResponse>(`/api/v1/role/${id}`)
+): Promise<ApiResponse> => {
+  return http.get<ApiResponse>(`/api/v1/role/${id}`).then(response => response.data)
 }

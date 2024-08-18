@@ -19,7 +19,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { RoleDetail, RolePermission } from '@/modules/roleListing/constants/types'
 import { getRoleDetail } from '@/modules/roleListing/service'
-import { Permission, PermissionCategory, permissionsByCategory } from '@/constants/permissions'
+import { Permission, permissionsByCategory } from '@/constants/permissions'
 import PrivateRoute from '@/app/hocs/isAuth'
 import PermissionCard from '@/modules/roleListing/components/PermissionCard'
 import { getLocalizedCategory, getLocalizedPermission } from '@/lib/localizePermission'
@@ -35,73 +35,22 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const initializePermissions = (): RolePermission[] => {
-    return Object.entries(permissionsByCategory).flatMap(([category, permissions]) =>
-      permissions.map((permission) => ({
-        id: permission,
-        name: permission,
-        category: category,
-        isActive: false,
-      }))
-    );
-  };
-
-  const categorizePermissions = (permissions: RolePermission[]) => {
-    return permissions.reduce<Record<string, RolePermission[]>>((acc, permission) => {
-      if (!acc[permission.category]) {
-        acc[permission.category] = [];
-      }
-      acc[permission.category].push(permission);
-      return acc;
-    }, {});
-  };
-  
-  const localizePermissions = (permissions: RolePermission[], t: (key: string) => string) => {
-    return permissions.map(permission => ({
-      ...permission,
-      name: getLocalizedPermission(permission.name, t),
-      category: getLocalizedCategory(permission.category, t)
-    }));
-  };
-
   useEffect(() => {
     const fetchDetails = () => {
       getRoleDetail(params.id)
         .then((response) => {
-          if (response.data.isSuccess) {
-            const fetchedRoleDetail = response.data.response;
-
+            const fetchedRoleDetail = response.response;
             const initialPermissions = initializePermissions();
-
-            const apiPermissionsMap: Record<string, { id: string; name: string }> = {};
-            fetchedRoleDetail.permissions.forEach(({ id, name }) => {
-              apiPermissionsMap[name] = { id, name };
-            });
-
-            const updatedPermissions = initialPermissions.map((permission) => {
-              const apiPermission = apiPermissionsMap[permission.name];
-              return {
-                ...permission,
-                id: apiPermission ? apiPermission.id : permission.id,
-                isActive: !!apiPermission,
-              };
-            });
-
-            console.log("updated: Permissions  ", updatedPermissions)
-
-            const localizedPermissions = localizePermissions(updatedPermissions, t);
-    
+            const processedApiPermissions = processApiPermissions(
+              fetchedRoleDetail.permissions,
+              initialPermissions,
+              t
+            );
+            const localizedPermissions = localizePermissions(processedApiPermissions, t)
             setRoleDetail({
               ...fetchedRoleDetail,
               permissions: localizedPermissions,
             });
-          } else {
-            toast({
-              title: t('error'),
-              description: t('applicationError'),
-              variant: 'destructive',
-            });
-          }
         })
         .catch(() => {
           toast({
@@ -112,11 +61,8 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false));
     }
-
     fetchDetails();
   }, [params.id, t, toast]);
-
-  const categorizedPermissions = roleDetail ? categorizePermissions(roleDetail.permissions) : {};
 
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_DETAIL]}>
@@ -246,7 +192,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                   <CardTitle>{t('role.permissions')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {Object.entries(categorizedPermissions).map(([category, permissions]) => (
+                  {Object.entries(categorizePermissions(roleDetail.permissions)).map(([category, permissions]) => (
                     <PermissionCard
                       key={category}
                       category={t(category)}
@@ -264,3 +210,51 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
 }
 
 export default Page
+
+const initializePermissions = (): RolePermission[] => {
+  return Object.entries(permissionsByCategory).flatMap(([category, permissions]) =>
+    permissions.map((permission) => ({
+      id: permission,
+      name: permission,
+      category: category,
+      isActive: false,
+    }))
+  );
+};
+
+const categorizePermissions = (permissions: RolePermission[]) => {
+  return permissions.reduce<Record<string, RolePermission[]>>((acc, permission) => {
+    if (!acc[permission.category]) {
+      acc[permission.category] = [];
+    }
+    acc[permission.category].push(permission);
+    return acc;
+  }, {});
+};
+
+const localizePermissions = (permissions: RolePermission[], t: (key: string) => string) => {
+  return permissions.map(permission => ({
+    ...permission,
+    name: getLocalizedPermission(permission.name, t),
+    category: getLocalizedCategory(permission.category, t)
+  }));
+};
+
+const processApiPermissions = (permissions: RolePermission[], initialPermissions: RolePermission[], t: (key: string) => string) => {
+  const apiPermissionsMap: Record<string, { id: string; name: string }> = {};
+  
+  permissions.forEach(({ id, name }) => {
+    apiPermissionsMap[name] = { id, name };
+  });
+
+  const updatedPermissions = initialPermissions.map((permission) => {
+    const apiPermission = apiPermissionsMap[permission.name];
+    return {
+      ...permission,
+      id: apiPermission ? apiPermission.id : permission.id,
+      isActive: !!apiPermission,
+    };
+  });
+
+  return updatedPermissions;
+};

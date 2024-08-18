@@ -18,7 +18,7 @@ export default function PermissionCard({
         <CardTitle className="text-lg">{category}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-y-6 grid-cols-1">
+        <div className="grid grid-cols-2 gap-4">
           {permissions.map((permission) => (
             <FormItem key={permission.id}>
               <FormControl>
