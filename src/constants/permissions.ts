@@ -56,7 +56,6 @@ export const permissionsByCategory: Record<PermissionCategory, Permission[]> = {
   ],
   [PermissionCategory.ROLE_MANAGEMENT]: [
     Permission.ROLE_LIST,
-    Permission.ROLE_DELETE,
     Permission.ROLE_CREATE,
     Permission.ROLE_DELETE,
     Permission.ROLE_UPDATE,
