@@ -103,28 +103,23 @@
     "roleManagement": "Role Management",
     "registrationApplicationManagement": "Registration Application Management",
     "evacuationApplicationManagement": "Evacuation Application Management",
-
     "roleList": "List Roles",
     "roleDetail": "Role Details",
     "roleCreate": "Create Role",
     "roleUpdate": "Update Role",
     "roleDelete": "Delete Role",
-
     "userList": "List Users",
     "userDetail": "User Details",
     "userCreate": "Create User",
     "userUpdate": "Update User",
     "userDelete": "Delete User",
-
     "applicationRegistrationList": "List Registration Applications",
     "applicationRegistrationDetail": "Registration Application Details",
     "applicationRegistrationCreate": "Create Registration Application",
     "applicationRegistrationConclude": "Conclude Registration Application",
-
     "applicationEvacuationList": "List Evacuation Applications",
     "applicationEvacuationDetail": "Evacuation Application Details",
     "applicationEvacuationUpdate": "Update Evacuation Application",
-
     "super": "Super Admin",
     "landingPage": "Landing Page",
     "institutionPage": "Institution Page"

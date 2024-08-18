@@ -27,6 +27,7 @@ export interface RolePermission {
   id: string
   name: string
   category: string
+  isActive: boolean
 }
 
 export interface RoleDetail {

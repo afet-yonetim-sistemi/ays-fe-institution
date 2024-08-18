@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
-import { formatPermissionName } from '@/lib/formatPermissionName'
 import {
   FormItem,
   FormField,
@@ -20,9 +19,10 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { RoleDetail } from '@/modules/roleListing/constants/types'
 import { getRoleDetail } from '@/modules/roleListing/service'
-import { Permission } from '@/constants/permissions'
+import { Permission, PermissionCategory, permissionsByCategory } from '@/constants/permissions'
 import PrivateRoute from '@/app/hocs/isAuth'
 import PermissionCard from '@/modules/roleListing/components/PermissionCard'
+import { getLocalizedCategory, getLocalizedPermission } from '@/lib/localizePermission'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
@@ -49,7 +49,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
             })
           }
         })
-        .catch((error) => {
+        .catch(() => {
           toast({
             title: t('error'),
             description: t('applicationError'),
@@ -61,16 +61,6 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
 
     fetchDetails()
   }, [params.id, t, toast])
-
-  // const groupedPermissions =
-  //   roleDetail?.permissions.reduce<GroupedPermissions>((acc, permission) => {
-  //     const { category } = permission
-  //     if (!acc[category]) {
-  //       acc[category] = []
-  //     }
-  //     acc[category].push(permission)
-  //     return acc
-  //   }, {} as GroupedPermissions) || {}
 
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_DETAIL]}>
@@ -200,21 +190,18 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                   <CardTitle>{t('role.permissions')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {/* {Object.entries(groupedPermissions).map(
-                    ([category, permissions]) => (
-                      <PermissionCard
-                        key={category}
-                        category={t(category)}
-                        permissions={permissions.map((perm) => ({
-                          ...perm,
-                          label: t(
-                            `permissions.${formatPermissionName(perm.name)}`,
-                          ),
-                        }))}
-                        isChecked={true}
-                      />
-                    ),
-                  )} */}
+                {Object.entries(permissionsByCategory).map(([category, permissions]) => (
+          <PermissionCard
+            key={category}
+            category={getLocalizedCategory(category as PermissionCategory, t)}
+            permissions={permissions.map(permission => ({
+              id: permission,
+              name: getLocalizedPermission(permission, t),
+              category: category as PermissionCategory,
+              isActive: true,
+            }))}
+          />
+        ))}
                 </CardContent>
               </Card>
             </form>

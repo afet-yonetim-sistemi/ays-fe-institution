@@ -6,13 +6,11 @@ import { RolePermission } from '../constants/types'
 interface PermissionCardProps {
   category: string
   permissions: RolePermission[]
-  isChecked: boolean
 }
 
 export default function PermissionCard({
   category,
   permissions,
-  isChecked,
 }: PermissionCardProps) {
   return (
     <Card className="mb-4">
@@ -24,7 +22,7 @@ export default function PermissionCard({
           {permissions.map((permission) => (
             <FormItem key={permission.id}>
               <FormControl>
-                <Switch disabled checked={isChecked} />
+                <Switch disabled checked={permission.isActive} />
               </FormControl>
               <FormLabel className="ml-4">{permission.name}</FormLabel>
             </FormItem>
