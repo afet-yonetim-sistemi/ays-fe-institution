@@ -102,7 +102,7 @@
     "isInPerson": "Individual Application?",
     "status": "Application Status",
     "createdAt": "Application Date and Time",
-    "anyHandicap": "Any Person with Handicap?",
+    "anyDisability": "Any Person with Disability?",
     "confirmedSeatCount": "Confirmed Seat Count",
     "notes": "Operator Notes"
   },
