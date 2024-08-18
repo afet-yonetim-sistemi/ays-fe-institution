@@ -1,3 +1,5 @@
+import { PhoneNumber } from "@/common/types"
+
 export interface EmergencyEvacuationApplications {
   content: any[]
   totalPageCount: number
@@ -31,4 +33,35 @@ export interface Search {
 
 export interface StatusProps {
   status: string
+}
+
+export interface EmergencyEvacuationApplication {
+  id: string
+  referenceNumber: string
+  firstName: string
+  lastName: string
+  phoneNumber: PhoneNumber
+  sourceCity: string
+  sourceDistrict: string
+  address: string
+  seatingCount: number
+  targetCity: string
+  targetDistrict: string
+  status: string
+  applicantFirstName: string
+  applicantLastName: string
+  applicantPhoneNumber: PhoneNumber
+  isInPerson: boolean
+  hasObstaclePersonExist: boolean
+  notes: string
+  createdUser: string
+  createdAt: string
+  updatedUser: string
+  updatedAt: string
+}
+
+export interface ApiResponse {
+  time: string
+  isSuccess: boolean
+  response: EmergencyEvacuationApplication
 }

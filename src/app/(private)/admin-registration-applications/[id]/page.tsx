@@ -14,19 +14,30 @@ import {
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormSchema } from '@/modules/adminRegistrationApplications/constants/formSchema'
+import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { DialogDescription } from '@radix-ui/react-dialog'
+import PrivateRoute from '@/app/hocs/isAuth'
+import { Permission } from '@/constants/permissions'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const form = useForm({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(FormValidationSchema),
   })
   const { control } = form
 
@@ -35,25 +46,14 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     setAdminRegistrationApplicationDetails,
   ] = useState<AdminRegistrationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchDetails = () => {
       getAdminRegistrationApplication(params.id)
         .then((response) => {
-          if (response.data.isSuccess) {
-            setAdminRegistrationApplicationDetails(response.data.response)
-          } else {
-            setError(t('applicationError'))
-            toast({
-              title: t('error'),
-              description: t('applicationError'),
-              variant: 'destructive',
-            })
-          }
+          setAdminRegistrationApplicationDetails(response.response)
         })
-        .catch((error) => {
-          setError(error.message)
+        .catch(() => {
           toast({
             title: t('error'),
             description: t('applicationError'),
@@ -66,17 +66,82 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     fetchDetails()
   }, [params.id, t, toast])
 
+
   return (
+    <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
-      {error && <Toaster />}
-      {!isLoading && !error && adminRegistrationApplicationDetails && (
+      {!isLoading && adminRegistrationApplicationDetails && (
         <Form {...form}>
           <form className="space-y-6">
-            <h1 className="text-2xl font-bold mb-6">
-              {t('applicationDetailsTitle')}
-            </h1>
-
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-2xl font-bold">
+                {t('adminRegistrationApplications.detailsTitle')}
+              </h1>
+              {adminRegistrationApplicationDetails.status === 'COMPLETED' && (
+                <div className="flex space-x-8 ml-auto">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="destructive">{t('reject')}</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-xl">
+                      <DialogHeader>
+                        <DialogTitle>{t('rejectConfirm')}</DialogTitle>
+                        <DialogDescription />
+                      </DialogHeader>
+                      <div className="flex justify-center space-x-10 mt-4">
+                        <DialogClose asChild>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="flex-1"
+                          >
+                            {t('no')}
+                          </Button>
+                        </DialogClose>
+                        <DialogClose asChild>
+                          <Button type="button" className="flex-1">
+                            {t('yes')}
+                          </Button>
+                        </DialogClose>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="default"
+                        className="bg-green-500 text-white hover:bg-green-600"
+                      >
+                        {t('approve')}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-xl">
+                      <DialogHeader>
+                        <DialogTitle>{t('approveConfirm')}</DialogTitle>
+                        <DialogDescription />
+                      </DialogHeader>
+                      <div className="flex justify-center space-x-10 mt-4">
+                        <DialogClose asChild>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="flex-1"
+                          >
+                            {t('no')}
+                          </Button>
+                        </DialogClose>
+                        <DialogClose asChild>
+                          <Button type="button" className="flex-1">
+                            {t('yes')}
+                          </Button>
+                        </DialogClose>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              )}
+            </div>
             <Card className="mb-6">
               <CardHeader>
                 <CardTitle>{t('applicationInformation')}</CardTitle>
@@ -88,7 +153,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="reason"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
-                        <FormLabel>{t('reason')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.reason')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -106,7 +171,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="institutionName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('institution')}</FormLabel>
+                        <FormLabel>{t('institutionName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -125,7 +190,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('applicationStatus')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.status')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -167,7 +232,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="createdUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('applicationCreatedUser')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.createdUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -186,7 +251,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="createDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('createDate')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -227,7 +292,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                     name="updateDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('updateDate')}</FormLabel>
+                        <FormLabel>{t('adminRegistrationApplications.updatedAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -365,6 +430,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         </Form>
       )}
     </div>
+    </PrivateRoute>
   )
 }
 
