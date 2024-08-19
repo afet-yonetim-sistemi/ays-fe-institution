@@ -4,8 +4,8 @@ import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
 
 export default function RootLayout({
-                                     children
-                                   }: Readonly<{ children: React.ReactNode }>) {
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <PrivateRoute requiredPermissions={[Permission.INSTITUTION]}>
       <div className="overflow-hidden h-screen">
