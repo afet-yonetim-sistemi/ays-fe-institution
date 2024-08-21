@@ -1,35 +1,11 @@
 import http from '@/configs/axiosConfig'
-import { ApiResponse } from './constants/types'
+import {
+  ApiResponse,
+  GetRegisterSummary,
+  RegisterApplicationForm,
+  Search,
+} from './constants/types'
 
-interface Search {
-  page: number
-  per_page: number
-  sort: string | undefined
-  status: string | undefined
-}
-
-interface RegisterApplicationForm {
-  firstName: string
-  lastName: string
-  emailAddress: string
-  city: string
-  password: string
-  phoneNumber: {
-    countryCode: string
-    lineNumber: string
-  }
-}
-
-interface GetRegisterSummary {
-  time: string
-  isSuccess: boolean
-  response: {
-    id: string
-    institution: {
-      name: string
-    }
-  }
-}
 export function postAdminRegistrationApplications(search: Search) {
   const sortBy = search.sort
     ? [
@@ -60,11 +36,11 @@ export const getAdminRegistrationApplication = (id: string) => {
 }
 
 export const getAdminRegistrationApplicationSummary = (
-  id: string,
+  id: string | null,
 ): Promise<GetRegisterSummary> =>
   http.get(`/api/v1/admin-registration-application/${id}/summary`)
 
 export const postRegistrationApplication = (
-  id: string,
+  id: string | null,
   form: RegisterApplicationForm,
 ) => http.post(`api/v1/admin-registration-application/${id}/complete`, form)
