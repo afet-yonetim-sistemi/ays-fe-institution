@@ -27,6 +27,7 @@ import {
 } from '@/components/ui/select'
 import { useToast } from '@/components/ui/use-toast'
 import { cityList } from '@/constants/trCity'
+import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formSchema'
 import {
   getAdminRegistrationApplicationSummary,
   postRegistrationApplication,
@@ -34,52 +35,21 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-interface Iprops {
-  id: string
-}
-
-const RegisterCompletion: React.FC<Iprops> = ({ id }) => {
+const RegisterCompletion: React.FC = () => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [instName, setInstName] = useState<string>('')
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
-
-  const PhoneNumberSchema = z.object({
-    countryCode: z.string().min(1),
-    lineNumber: z.string().min(1),
-  })
-
-  const InstitutionFormSchema = z.object({
-    firstName: z
-      .string()
-      .min(1, t('requiredField'))
-      .min(3, t('minLength', { field: 3 }))
-      .max(255, t('maxLength', { field: 255 })),
-    lastName: z
-      .string()
-      .min(1, t('requiredField'))
-      .min(3, t('minLength', { field: 3 }))
-      .max(255, t('maxLength', { field: 255 })),
-    emailAddress: z
-      .string()
-      .min(1, t('requiredField'))
-      .email(t('invalidEmail')),
-    city: z.string().min(1, t('requiredField')),
-    password: z
-      .string()
-      .min(1, t('requiredField'))
-      .min(8, t('minLength', { field: 8 }))
-      .max(50, t('maxLength', { field: 50 })),
-    phoneNumber: PhoneNumberSchema,
-  })
+  const searchParams = useSearchParams()
+  const id: string | null = searchParams.get('id')
 
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
     resolver: zodResolver(InstitutionFormSchema),
@@ -97,23 +67,22 @@ const RegisterCompletion: React.FC<Iprops> = ({ id }) => {
   })
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      try {
-        const response: any = await getAdminRegistrationApplicationSummary(id)
-
+    setLoading(true)
+    getAdminRegistrationApplicationSummary(id)
+      .then((response: any) => {
         if (response?.status == 200) {
           const data = response?.data.response
           setInstName(data.institution.name)
         } else {
           router.push('/not-found')
         }
-      } catch (error) {
-      } finally {
+      })
+      .catch((error) => {
+        router.push('/not-found')
+      })
+      .finally(() => {
         setLoading(false)
-      }
-    }
-    fetchData()
+      })
   }, [id])
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev)
