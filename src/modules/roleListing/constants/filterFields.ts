@@ -1,4 +1,4 @@
-import { StatusData } from "./status"
+import { StatusData } from './status'
 
 const filterFields: FilterFields = [
   {

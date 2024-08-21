@@ -52,13 +52,13 @@ export const useDataTable = <TData, TValue>({
     React.useMemo(() => {
       return {
         searchableColumns: filterFields.filter(
-          (field) => field.fieldsType == 'inputField',
+          (field) => field.fieldsType == 'inputField'
         ),
         filterableColumns: filterFields.filter(
-          (field) => field.fieldsType == 'selectBoxField',
+          (field) => field.fieldsType == 'selectBoxField'
         ),
         quickFilterableColumns: filterFields.filter(
-          (field) => field.fieldsType == 'quickFilterField',
+          (field) => field.fieldsType == 'quickFilterField'
         ),
       }
     }, [filterFields])
@@ -78,7 +78,7 @@ export const useDataTable = <TData, TValue>({
 
       return newSearchParams.toString()
     },
-    [searchParams],
+    [searchParams]
   )
 
   // Initial column filters
@@ -86,13 +86,13 @@ export const useDataTable = <TData, TValue>({
     return Array.from(searchParams.entries()).reduce<ColumnFiltersState>(
       (filters, [key, value]) => {
         const filterableColumn = filterableColumns.find(
-          (column) => column.value === key,
+          (column) => column.value === key
         )
         const searchableColumn = searchableColumns.find(
-          (column) => column.value === key,
+          (column) => column.value === key
         )
         const quickFilterableColumn = quickFilterableColumns.find(
-          (column) => column.value === key,
+          (column) => column.value === key
         )
         if (filterableColumn) {
           filters.push({
@@ -113,7 +113,7 @@ export const useDataTable = <TData, TValue>({
 
         return filters
       },
-      [],
+      []
     )
   }, [
     filterableColumns,
@@ -143,7 +143,7 @@ export const useDataTable = <TData, TValue>({
         sort: sorting[0]?.id
           ? `${sorting[0]?.id}.${sorting[0]?.desc ? 'desc' : 'asc'}`
           : null,
-      })}`,
+      })}`
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sorting])
@@ -154,10 +154,10 @@ export const useDataTable = <TData, TValue>({
       JSON.stringify(
         columnFilters.filter((filter) => {
           return searchableColumns.find((column) => column.value === filter.id)
-        }),
+        })
       ),
-      500,
-    ),
+      500
+    )
   ) as ColumnFiltersState
 
   const filterableColumnFilters = columnFilters.filter((filter) => {
@@ -193,7 +193,9 @@ export const useDataTable = <TData, TValue>({
     // Handle filterable column filters
     for (const column of filterableColumnFilters) {
       if (typeof column.value === 'object' && Array.isArray(column.value)) {
-        Object.assign(newParamsObject, { [column.id]: column.value.join('.') })
+        Object.assign(newParamsObject, {
+          [column.id]: column.value.join('.'),
+        })
       }
     }
     // Handle quick filterable filters
@@ -212,7 +214,7 @@ export const useDataTable = <TData, TValue>({
       if (
         (searchableColumns.find((column) => column.value === key) &&
           !debouncedSearchableColumnFilters.find(
-            (column) => column.id === key,
+            (column) => column.id === key
           )) ||
         (filterableColumns.find((column) => column.value === key) &&
           !filterableColumnFilters.find((column) => column.id === key)) ||

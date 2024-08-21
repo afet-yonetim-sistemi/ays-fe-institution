@@ -20,7 +20,7 @@ import { RefreshCw } from 'lucide-react'
 const Page = () => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
-    Object.fromEntries(searchParams.entries()),
+    Object.fromEntries(searchParams.entries())
   )
 
   const { t } = useTranslation()
@@ -73,17 +73,13 @@ const Page = () => {
     filterFields,
   })
   return (
-<PrivateRoute requiredPermissions={[Permission.EVACUATION_LIST]}>
+    <PrivateRoute requiredPermissions={[Permission.EVACUATION_LIST]}>
       <div className="space-y-1">
         <div className="flex items-center gap-4 mb-4">
           <h1 className="text-2xl font-medium">
             {t('emergencyEvacuationApplications.title')}
           </h1>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={fetchData}
-          >
+          <Button variant="outline" size="icon" onClick={fetchData}>
             <RefreshCw className="h-4 w-4" />
           </Button>
         </div>

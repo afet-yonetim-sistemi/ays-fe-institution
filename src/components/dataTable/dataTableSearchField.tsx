@@ -16,9 +16,12 @@ interface DataTableSearchFieldProps<TData>
   }
 }
 
-const DataTableSearchField = <TData, >({ field, table }: DataTableSearchFieldProps<TData>) => {
+const DataTableSearchField = <TData,>({
+  field,
+  table,
+}: DataTableSearchFieldProps<TData>) => {
   const schema = getValidationSchema(field.value)
-  
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value
     const validation = schema.safeParse(inputValue)
@@ -28,7 +31,7 @@ const DataTableSearchField = <TData, >({ field, table }: DataTableSearchFieldPro
     } else {
       toast({
         title: validation.error.errors[0].message,
-        variant: 'destructive'
+        variant: 'destructive',
       }) // Set the error message
     }
   }

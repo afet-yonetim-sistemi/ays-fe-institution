@@ -24,12 +24,12 @@ export default function Menu() {
   const hasPermission = (requiredPermissions?: Permission[]) => {
     if (!requiredPermissions) return true
     return requiredPermissions.every((permission) =>
-      userPermissions.includes(permission),
+      userPermissions.includes(permission)
     )
   }
 
   const filteredMenuItems = MenuItems.filter((menuItem) =>
-    hasPermission(menuItem.requiredPermissions),
+    hasPermission(menuItem.requiredPermissions)
   )
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function Menu() {
                 {
                   'bg-slate-200 text-black dark:bg-slate-600/50 dark:text-slate-50 font-semibold':
                     pathname === item.key,
-                },
+                }
               )}
             >
               <LinkIcon className="h-6 w-6" />
