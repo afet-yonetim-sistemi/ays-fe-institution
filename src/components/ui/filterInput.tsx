@@ -26,8 +26,12 @@ const FilterInput = ({
 
   const schema = z
     .string()
-    .min(min, { message: i18next.t('minLength', { field: min }) })
-    .max(max, { message: i18next.t('maxLength', { field: max }) })
+    .min(min, {
+      message: i18next.t('minLength', { field: min }),
+    })
+    .max(max, {
+      message: i18next.t('maxLength', { field: max }),
+    })
 
   useEffect(() => {
     const newSearchParams = new URLSearchParams()
@@ -56,7 +60,7 @@ const FilterInput = ({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(e.currentTarget.value)
     },
-    [],
+    []
   )
 
   return (
@@ -67,7 +71,7 @@ const FilterInput = ({
         value={search}
         onChange={handleInputChange}
         className={cn(
-          'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+          'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
         )}
       />
       <Label

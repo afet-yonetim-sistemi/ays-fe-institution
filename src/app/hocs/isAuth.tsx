@@ -18,7 +18,7 @@ const PrivateRoute = ({ children, requiredPermissions }: PrivateRouteProps) => {
   const userPermissions = useAppSelector(selectPermissions)
   const memoizedPermissions = useMemo(
     () => userPermissions ?? [],
-    [userPermissions],
+    [userPermissions]
   )
 
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false)
@@ -30,7 +30,7 @@ const PrivateRoute = ({ children, requiredPermissions }: PrivateRouteProps) => {
     }
     if (requiredPermissions) {
       const hasPermission = requiredPermissions.every((permission) =>
-        memoizedPermissions.includes(permission),
+        memoizedPermissions.includes(permission)
       )
 
       if (!hasPermission) {

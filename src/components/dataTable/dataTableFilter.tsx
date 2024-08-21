@@ -73,7 +73,7 @@ export function DataTableFilter<TData, TValue>({
                 }
                 const filterValues = Array.from(selectedValues)
                 column?.setFilterValue(
-                  filterValues.length ? filterValues : undefined,
+                  filterValues.length ? filterValues : undefined
                 )
               }}
               onSelect={(event) => event.preventDefault()}

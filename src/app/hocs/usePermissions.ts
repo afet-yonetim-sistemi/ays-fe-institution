@@ -9,7 +9,7 @@ const usePermissions = (requiredPermissions: Permission[]): boolean => {
   return useMemo(() => {
     const userPermissions = permissions ?? []
     return requiredPermissions.every((permission) =>
-      userPermissions.includes(permission),
+      userPermissions.includes(permission)
     )
   }, [permissions, requiredPermissions])
 }
