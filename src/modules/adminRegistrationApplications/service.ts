@@ -1,5 +1,4 @@
 import http from '@/configs/axiosConfig'
-import { AxiosResponse } from 'axios'
 import { ApiResponse } from './constants/types'
 
 interface Search {
