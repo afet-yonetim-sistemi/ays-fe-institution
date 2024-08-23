@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   approveAdminRegistrationApplicationWithId,
@@ -29,7 +29,11 @@ import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
 import ButtonDialog from '@/modules/adminRegistrationApplications/components/dialog'
 
-const Page = ({ params }: { params: { slug: string; id: string } }) => {
+const Page = ({
+  params,
+}: {
+  params: { slug: string; id: string }
+}): React.JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const router = useRouter()
@@ -120,6 +124,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                       onConfirm={handleReject}
                       variant={'destructive'}
                       reason={true}
+                      tooltipText={'rejectReasonLengthInfo'}
                     />
                     <ButtonDialog
                       triggerText={'approve'}

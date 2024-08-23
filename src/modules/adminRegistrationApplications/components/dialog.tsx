@@ -14,12 +14,19 @@ import { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 
 interface ButtonDialogProps {
   triggerText: string
   title: string
   confirmText?: string
   cancelText?: string
+  tooltipText?: string
   onConfirm: (reason?: string) => object | void
   onCancel?: () => void
   reason?: boolean
@@ -46,6 +53,7 @@ const ButtonDialog = ({
   reason = false,
   label,
   variant,
+  tooltipText,
 }: ButtonDialogProps): ReactElement => {
   const { t } = useTranslation()
   const [reasonText, setReasonText] = useState<string>('')
@@ -74,28 +82,40 @@ const ButtonDialog = ({
             />
           </>
         )}
-        <div className="flex justify-center space-x-10 mt-4">
-          <DialogClose asChild>
+        <div className="flex justify-center space-x-5 mt-4">
+          <DialogClose>
             <Button
               type="button"
               variant="outline"
-              className="flex-1"
+              className="w-36"
               onClick={onCancel}
             >
               {cancelText || t('no')}
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button
-              type="button"
-              className="flex-1"
-              onClick={handleConfirmClick}
-              disabled={
-                (reason && reasonText.length < 40) || reasonText.length > 512
-              }
-            >
-              {confirmText || t('yes')}
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    type="button"
+                    className="w-36"
+                    onClick={handleConfirmClick}
+                    disabled={
+                      (reason && reasonText.length < 40) ||
+                      reasonText.length > 512
+                    }
+                  >
+                    {confirmText || t('yes')}
+                  </Button>
+                </TooltipTrigger>
+                {tooltipText && (
+                  <TooltipContent>
+                    <p>{t(tooltipText)}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
           </DialogClose>
         </div>
       </DialogContent>
