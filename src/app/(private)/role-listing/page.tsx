@@ -13,6 +13,7 @@ import { useDataTable } from '@/app/hocs/useDataTable'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { columns } from '@/modules/roleListing/components/columns'
 import filterFields from '@/modules/roleListing/constants/filterFields'
+import usePermissions from '@/app/hocs/usePermissions'
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -22,6 +23,7 @@ const Page = () => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
+  const hasPermission = usePermissions([Permission.ROLE_LIST])
   const [data, setData] = useState<RoleListing>({
     content: [],
     totalPageCount: 0,
@@ -30,27 +32,29 @@ const Page = () => {
   const searchParamsString = useMemo(() => JSON.stringify(search), [search])
 
   useEffect(() => {
-    setIsLoading(true)
-    postRoleListing({
-      page: search.page,
-      per_page: search.per_page,
-      sort: search.sort,
-      status: search.status,
-      name: search.name,
-      createdAt: search.createdAt,
-      updatedAt: search.updatedAt,
-    })
-      .then((responseData) => {
-        setData(responseData.data.response)
+    if (hasPermission) {
+      setIsLoading(true)
+      postRoleListing({
+        page: search.page,
+        per_page: search.per_page,
+        sort: search.sort,
+        status: search.status,
+        name: search.name,
+        createdAt: search.createdAt,
+        updatedAt: search.updatedAt,
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
+        .then((responseData) => {
+          setData(responseData.data.response)
         })
-      })
-      .finally(() => setIsLoading(false))
+        .catch(() => {
+          toast({
+            title: t('error'),
+            description: t('defaultError'),
+            variant: 'destructive',
+          })
+        })
+        .finally(() => setIsLoading(false))
+    }
   }, [
     searchParamsString,
     search.createdAt,
@@ -62,6 +66,7 @@ const Page = () => {
     search.updatedAt,
     t,
     toast,
+    hasPermission
   ])
 
   const { table } = useDataTable({

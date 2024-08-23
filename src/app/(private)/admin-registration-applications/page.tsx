@@ -16,6 +16,7 @@ import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import filterFields from '@/modules/adminRegistrationApplications/constants/filterFields'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import usePermissions from '@/app/hocs/usePermissions'
 
 interface AdminRegistrationState {
   content: any[]
@@ -37,32 +38,44 @@ const Page = () => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
+  const hasPermission = usePermissions([Permission.APPLICATION_LIST])
+
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    setIsLoading(true)
-    postAdminRegistrationApplications({
-      page: search.page,
-      per_page: search.per_page,
-      sort: search.sort,
-      status: search.status,
-    })
-      .then((responseData) => {
-        setAdminRegistration(responseData.data.response)
+    if (hasPermission) {
+      setIsLoading(true)
+      postAdminRegistrationApplications({
+        page: search.page,
+        per_page: search.per_page,
+        sort: search.sort,
+        status: search.status,
       })
-      .catch((error) => {
-        setError(error.message)
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
+        .then((responseData) => {
+          setAdminRegistration(responseData.data.response)
         })
-      })
-      .finally(() => setIsLoading(false))
-  }, [search.page, search.per_page, search.sort, search.status, t, toast])
+        .catch((error) => {
+          setError(error.message)
+          toast({
+            title: t('error'),
+            description: t('defaultError'),
+            variant: 'destructive',
+          })
+        })
+        .finally(() => setIsLoading(false))
+    }
+  }, [
+    search.page,
+    search.per_page,
+    search.sort,
+    search.status,
+    t,
+    toast,
+    hasPermission,
+  ])
 
   const { table } = useDataTable({
     data: adminRegistration.content,

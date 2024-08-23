@@ -16,6 +16,7 @@ import { EmergencyEvacuationApplications } from '@/modules/emergencyEvacuationAp
 import FilterInput from '@/components/ui/filterInput'
 import { Button } from '@/components/ui/button'
 import { RefreshCw } from 'lucide-react'
+import usePermissions from '@/app/hocs/usePermissions'
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -25,6 +26,8 @@ const Page = () => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
+  const hasPermission = usePermissions([Permission.EVACUATION_LIST])
+
   const [data, setData] = useState<EmergencyEvacuationApplications>({
     content: [],
     totalPageCount: 0,
@@ -62,7 +65,9 @@ const Page = () => {
   }
 
   useEffect(() => {
-    fetchData()
+    if (hasPermission) {
+      fetchData()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParamsString])
 
@@ -73,17 +78,13 @@ const Page = () => {
     filterFields,
   })
   return (
-<PrivateRoute requiredPermissions={[Permission.EVACUATION_LIST]}>
+    <PrivateRoute requiredPermissions={[Permission.EVACUATION_LIST]}>
       <div className="space-y-1">
         <div className="flex items-center gap-4 mb-4">
           <h1 className="text-2xl font-medium">
             {t('emergencyEvacuationApplications.title')}
           </h1>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={fetchData}
-          >
+          <Button variant="outline" size="icon" onClick={fetchData}>
             <RefreshCw className="h-4 w-4" />
           </Button>
         </div>
