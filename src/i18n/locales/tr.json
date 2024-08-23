@@ -52,6 +52,8 @@
   "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",
   "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",
   "preApplicationError": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
+  "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",
+  "applicationApproveSuccess": "Başvuru başarıyla onaylandı.",
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
   "clearSort": "Sıralamayı sıfırla",

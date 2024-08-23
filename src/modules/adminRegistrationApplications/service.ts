@@ -49,3 +49,19 @@ export const getPreApplicationSummary = () => {
 export const approveAdminRegistrationApplication = (data: {}) => {
   return http.post(`/api/v1/admin-registration-application`, data)
 }
+
+export const rejectAdminRegistrationApplication = (
+  rejectReason: object,
+  id: string
+): Promise<ApiResponse> => {
+  return http.post(
+    `/api/v1/admin-registration-application/${id}/reject`,
+    rejectReason
+  )
+}
+
+export const approveAdminRegistrationApplicationWithId = (
+  id: string
+): Promise<ApiResponse> => {
+  return http.post(`/api/v1/admin-registration-application/${id}/approve`)
+}

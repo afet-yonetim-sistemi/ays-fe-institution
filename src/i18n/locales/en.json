@@ -50,6 +50,8 @@
   "notOnlyNumbers": "This field cannot consist only of numbers.",
   "preApplicationSuccess": "Preliminary application created successfully.",
   "preApplicationError": "An error occurred while creating the preliminary application. Please try again.",
+  "applicationRejectSuccess": "Application successfully rejected.",
+  "applicationApproveSuccess": "Application successfully approved.",
   "invalidEmail": "Invalid E-mail.",
   "desc": "Click to sort descending",
   "asc": "Click to sort ascending",
