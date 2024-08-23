@@ -56,7 +56,9 @@ export const columns: ColumnDef<EmergencyEvacuationApplicationsTableProps>[] = [
       return <DataTableSort column={column} label={i18next.t('createdAt')} />
     },
     cell: ({ row }) => {
-      return <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
+      return (
+        <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
+      )
     },
     size: 155,
   },

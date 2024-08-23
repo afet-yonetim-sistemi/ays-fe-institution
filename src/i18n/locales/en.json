@@ -46,6 +46,8 @@
   "requiredField": "This field is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
+  "notSpecialCharacters": "Text containing special characters cannot be sent.",
+  "notOnlyNumbers": "This field cannot consist only of numbers.",
   "preApplicationSuccess": "Preliminary application created successfully.",
   "preApplicationError": "An error occurred while creating the preliminary application. Please try again.",
   "invalidEmail": "Invalid E-mail.",

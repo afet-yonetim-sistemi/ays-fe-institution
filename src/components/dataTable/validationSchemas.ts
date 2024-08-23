@@ -8,7 +8,9 @@ export const getValidationSchema = (param: string) => {
         .string()
         .optional()
         .refine((val) => !val || (/^\d{1,3}$/.test(val) && Number(val) > 0), {
-          message: i18next.t('seatingCountValidationMessage', { field: 3 }),
+          message: i18next.t('seatingCountValidationMessage', {
+            field: 3,
+          }),
         })
     case 'referenceNumber':
       return z

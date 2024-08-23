@@ -1,4 +1,4 @@
-import { Institution, User } from "@/common/types"
+import { Institution, User } from '@/common/types'
 
 export interface AdminRegistrationApplication {
   createdUser: string

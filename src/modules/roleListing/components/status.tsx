@@ -26,7 +26,7 @@ const Status = ({ status }: StatusProps) => {
     <span
       className={cn(
         'inline-flex items-center rounded-md px-2 py-1 text-xs',
-        statusData?.color,
+        statusData?.color
       )}
     >
       {t(`${statusData.label}`)}

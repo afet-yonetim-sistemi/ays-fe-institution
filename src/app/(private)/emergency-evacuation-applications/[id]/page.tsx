@@ -56,7 +56,6 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false))
     }
-  
     fetchDetails()
   }, [params.id, t, toast])
 
@@ -138,7 +137,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                                 emergencyEvacuationApplicationDetails
                                   ?.phoneNumber?.lineNumber
                                   ? formatPhoneNumber(
-                                      emergencyEvacuationApplicationDetails.phoneNumber,
+                                      emergencyEvacuationApplicationDetails.phoneNumber
                                     )
                                   : ''
                               }
@@ -179,7 +178,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                           <FormItem className="col-span-1">
                             <FormLabel>
                               {t(
-                                'emergencyEvacuationApplications.applicantNameSurname',
+                                'emergencyEvacuationApplications.applicantNameSurname'
                               )}
                             </FormLabel>
                             <FormControl>
@@ -208,7 +207,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                           <FormItem className="col-span-1">
                             <FormLabel>
                               {t(
-                                'emergencyEvacuationApplications.applicantPhoneNumber',
+                                'emergencyEvacuationApplications.applicantPhoneNumber'
                               )}
                             </FormLabel>
                             <FormControl>
@@ -221,7 +220,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                                   emergencyEvacuationApplicationDetails
                                     ?.applicantPhoneNumber?.lineNumber
                                     ? formatPhoneNumber(
-                                        emergencyEvacuationApplicationDetails.applicantPhoneNumber,
+                                        emergencyEvacuationApplicationDetails.applicantPhoneNumber
                                       )
                                     : ''
                                 }
@@ -240,7 +239,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <FormItem className="sm:col-span-1">
                           <FormLabel>
                             {t(
-                              'emergencyEvacuationApplications.sourceCityAndDistrict',
+                              'emergencyEvacuationApplications.sourceCityAndDistrict'
                             )}
                           </FormLabel>
                           <FormControl>
@@ -269,7 +268,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <FormItem className="sm:col-span-1">
                           <FormLabel>
                             {t(
-                              'emergencyEvacuationApplications.targetCityAndDistrict',
+                              'emergencyEvacuationApplications.targetCityAndDistrict'
                             )}
                           </FormLabel>
                           <FormControl>
@@ -338,7 +337,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <FormItem className="sm:col-span-1">
                           <FormLabel>
                             {t(
-                              'emergencyEvacuationApplications.confirmedSeatCount',
+                              'emergencyEvacuationApplications.confirmedSeatCount'
                             )}
                           </FormLabel>
                           <FormControl>
@@ -368,7 +367,11 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                               disabled
                               value={
                                 emergencyEvacuationApplicationDetails.status
-                                  ? t(getStatusLabel(emergencyEvacuationApplicationDetails.status))
+                                  ? t(
+                                      getStatusLabel(
+                                        emergencyEvacuationApplicationDetails.status
+                                      )
+                                    )
                                   : ''
                               }
                             />
@@ -391,7 +394,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                               defaultValue={
                                 emergencyEvacuationApplicationDetails.createdAt
                                   ? formatDateTime(
-                                      emergencyEvacuationApplicationDetails.createdAt,
+                                      emergencyEvacuationApplicationDetails.createdAt
                                     )
                                   : ''
                               }

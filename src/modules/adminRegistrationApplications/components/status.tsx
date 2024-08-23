@@ -13,7 +13,7 @@ const Status = ({ status }: { status: string }) => {
     <span
       className={cn(
         'inline-flex items-center rounded-md px-2 py-1 text-xs',
-        getColorClass(status),
+        getColorClass(status)
       )}
     >
       {t(`${status.toLowerCase()}`)}

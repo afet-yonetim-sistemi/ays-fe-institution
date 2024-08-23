@@ -1,4 +1,4 @@
-import { PhoneNumber } from "@/common/types"
+import { PhoneNumber } from '@/common/types'
 
 export interface EmergencyEvacuationApplications {
   content: any[]
