@@ -18,7 +18,7 @@ import usePermissions from '@/app/hocs/usePermissions'
 const Page = () => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
-    Object.fromEntries(searchParams.entries()),
+    Object.fromEntries(searchParams.entries())
   )
 
   const { t } = useTranslation()

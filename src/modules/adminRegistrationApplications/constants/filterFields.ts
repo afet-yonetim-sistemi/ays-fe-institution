@@ -6,10 +6,10 @@ const filterFields: FilterFields = [
     value: 'status',
     options: StatusData.map((status) => ({
       label: status.label,
-      value: status.value
+      value: status.value,
     })),
-    fieldsType: 'selectBoxField'
-  }
+    fieldsType: 'selectBoxField',
+  },
 ]
 
 export default filterFields

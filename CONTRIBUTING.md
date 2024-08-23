@@ -94,7 +94,6 @@ Here are some additional standards to keep in mind:
 - Avoid including secret/credential information.
 - Code should comply with existing coding standards; no new standards should be introduced without justification.
 
-
 ## Pull Request Guidelines
 
 When submitting a pull request, please adhere to the following guidelines:

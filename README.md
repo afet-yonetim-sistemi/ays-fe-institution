@@ -42,6 +42,13 @@ npm run dev
 
 Note that you need to install [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) to run the project locally. We recommend using `version v18` of Node.js.
 
+### Useful Commands
+
+- **`npm run lint`**: Runs ESLint to check for code issues.
+- **`npm run lint:fix`**: Runs ESLint and fixes auto-fixable issues.
+- **`npm run format`**: Checks code formatting with Prettier.
+- **`npm run format:fix`**: Formats code according to Prettier rules.
+
 ##  Contributing
 
 Thank you for your interest in contributing to Afet Yönetim Sistemi project. We appreciate your help in making our project better and more useful to everyone. To contribute to the project, please read the [contributing guidelines](CONTRIBUTING.md) first.

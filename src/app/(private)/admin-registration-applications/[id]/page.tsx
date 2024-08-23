@@ -69,7 +69,6 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
       fetchDetails()
     }
   }, [params.id, t, toast, hasPermission])
-
   return (
     <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
       <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
@@ -204,7 +203,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                               disabled
                               value={
                                 t(
-                                  adminRegistrationApplicationDetails.status.toLowerCase(),
+                                  adminRegistrationApplicationDetails.status.toLowerCase()
                                 ) ?? ''
                               }
                             />
@@ -270,7 +269,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                               defaultValue={
                                 adminRegistrationApplicationDetails.createdAt
                                   ? formatDateTime(
-                                      adminRegistrationApplicationDetails.createdAt,
+                                      adminRegistrationApplicationDetails.createdAt
                                     )
                                   : ''
                               }
@@ -313,7 +312,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                               defaultValue={
                                 adminRegistrationApplicationDetails.updatedAt
                                   ? formatDateTime(
-                                      adminRegistrationApplicationDetails.updatedAt,
+                                      adminRegistrationApplicationDetails.updatedAt
                                     )
                                   : ''
                               }
@@ -408,7 +407,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                                   ?.phoneNumber?.lineNumber
                                   ? formatPhoneNumber(
                                       adminRegistrationApplicationDetails.user
-                                        .phoneNumber,
+                                        .phoneNumber
                                     )
                                   : ''
                               }

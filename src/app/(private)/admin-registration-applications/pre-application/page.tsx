@@ -56,12 +56,13 @@ const Page = () => {
   function onSubmit(values: z.infer<typeof PreApplicationFormSchema>) {
     setIsLoading(true)
     approveAdminRegistrationApplication(values)
-      .then(() => {
+      .then((res) => {
         toast({
           title: t('success'),
           description: t('preApplicationSuccess'),
+          variant: 'success',
         })
-        router.push('/admin-registration-applications')
+        router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch(() => {
         toast({
@@ -97,7 +98,7 @@ const Page = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <Card className="p-6 w-full">
-              <div className="grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
+              <div className="grid grid-cols-1 gap-y-6 lg:grid-cols-3 lg:gap-x-6">
                 <FormField
                   control={form.control}
                   name="institutionId"

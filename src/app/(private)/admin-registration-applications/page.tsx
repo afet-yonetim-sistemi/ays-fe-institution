@@ -33,7 +33,7 @@ const searchParamsSchema = z.object({
 const Page = () => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
-    Object.fromEntries(searchParams.entries()),
+    Object.fromEntries(searchParams.entries())
   )
 
   const { t } = useTranslation()
@@ -41,7 +41,10 @@ const Page = () => {
   const hasPermission = usePermissions([Permission.APPLICATION_LIST])
 
   const [adminRegistration, setAdminRegistration] =
-    useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
+    useState<AdminRegistrationState>({
+      content: [],
+      totalPageCount: 0,
+    })
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
