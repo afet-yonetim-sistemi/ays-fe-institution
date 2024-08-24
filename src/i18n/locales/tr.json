@@ -104,7 +104,7 @@
     "isInPerson": "Bireysel Başvuru Mu?",
     "status": "Başvuru Durumu",
     "createdAt": "Başvuru Tarihi ve Saati",
-    "anyHandicap": "Engel Durumu Olan Biri Var mı?",
+    "anyDisability": "Engel Durumu Olan Biri Var mı?",
     "confirmedSeatCount": "Teyit Edilen Koltuk Sayısı",
     "notes": "Operatör Notları"
   },
