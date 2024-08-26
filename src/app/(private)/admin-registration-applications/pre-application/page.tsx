@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import Title from '@/components/ui/title'
 import { Textarea } from '@/components/ui/textarea'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   approveAdminRegistrationApplication,
   getPreApplicationSummary,
@@ -35,7 +35,7 @@ import { Permission } from '@/constants/permissions'
 import { useRouter } from 'next/navigation'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 
-const Page = () => {
+const Page = (): React.JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const router = useRouter()
@@ -50,7 +50,7 @@ const Page = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof PreApplicationFormSchema>) {
+  const onSubmit = (values: z.infer<typeof PreApplicationFormSchema>): void => {
     setIsLoading(true)
     approveAdminRegistrationApplication(values)
       .then((res) => {
@@ -133,7 +133,7 @@ const Page = () => {
                       <FormItem className="col-span-2">
                         <FormLabel>{t('createReason')}</FormLabel>
                         <FormControl>
-                          <Textarea minLength={40} maxLength={512} {...field} />
+                          <Textarea {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
