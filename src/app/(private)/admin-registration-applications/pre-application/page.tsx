@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import Title from '@/components/ui/title'
 import { Textarea } from '@/components/ui/textarea'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   approveAdminRegistrationApplication,
   getPreApplicationSummary,
