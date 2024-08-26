@@ -37,6 +37,7 @@ export const PreApplicationFormSchema = z.object({
   institutionId: z.string().min(1, { message: i18n.t('requiredField') }),
   reason: z
     .string()
+    .trim()
     .min(40, {
       message: i18n.t('minLength', { field: 40 }),
     })
