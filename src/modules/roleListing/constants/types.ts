@@ -22,3 +22,27 @@ export interface Search {
 export interface StatusProps {
   status: string
 }
+
+export interface RolePermission {
+  id: string
+  name: string
+  category: string
+  isActive: boolean
+}
+
+export interface RoleDetail {
+  createdUser: string
+  createdAt: string
+  updatedUser: string
+  updatedAt: string
+  id: string
+  name: string
+  status: string
+  permissions: RolePermission[]
+}
+
+export interface ApiResponse {
+  time: string
+  isSuccess: boolean
+  response: RoleDetail
+}

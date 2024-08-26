@@ -7,7 +7,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <PrivateRoute requiredPermissions={[Permission.INSTITUTION]}>
+    <PrivateRoute requiredPermissions={[Permission.INSTITUTION_PAGE]}>
       <div className="overflow-hidden h-screen">
         <Navbar />
         <div className="grid w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] h-[calc(100dvh-3.5rem)]">

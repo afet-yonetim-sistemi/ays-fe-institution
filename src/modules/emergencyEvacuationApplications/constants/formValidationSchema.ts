@@ -30,4 +30,4 @@ const EmergencyEvacuationApplicationSchema = z.object({
   updatedAt: z.string(),
 })
 
-export const FormSchema = EmergencyEvacuationApplicationSchema
+export const FormValidationSchema = EmergencyEvacuationApplicationSchema
