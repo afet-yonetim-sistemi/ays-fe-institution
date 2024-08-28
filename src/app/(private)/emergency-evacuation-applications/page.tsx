@@ -16,7 +16,6 @@ import { EmergencyEvacuationApplications } from '@/modules/emergencyEvacuationAp
 import FilterInput from '@/components/ui/filterInput'
 import { Button } from '@/components/ui/button'
 import { RefreshCw } from 'lucide-react'
-import usePermissions from '@/app/hocs/usePermissions'
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -26,7 +25,6 @@ const Page = () => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
-  const hasPermission = usePermissions([Permission.EVACUATION_LIST])
 
   const [data, setData] = useState<EmergencyEvacuationApplications>({
     content: [],
@@ -65,9 +63,8 @@ const Page = () => {
   }
 
   useEffect(() => {
-    if (hasPermission) {
-      fetchData()
-    }
+    fetchData()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParamsString])
 

@@ -34,12 +34,10 @@ import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
 import { useRouter } from 'next/navigation'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
-import usePermissions from '@/app/hocs/usePermissions'
 
 const Page = () => {
   const { t } = useTranslation()
   const { toast } = useToast()
-  const hasPermission = usePermissions([Permission.APPLICATION_CREATE])
 
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
@@ -75,21 +73,19 @@ const Page = () => {
   }
 
   useEffect(() => {
-    if (hasPermission) {
-      getPreApplicationSummary()
-        .then((response) => {
-          setInstitutionSummary(response.data.response)
+    getPreApplicationSummary()
+      .then((response) => {
+        setInstitutionSummary(response.data.response)
+      })
+      .catch(() => {
+        toast({
+          title: t('error'),
+          description: t('defaultError'),
+          variant: 'destructive',
         })
-        .catch(() => {
-          toast({
-            title: t('error'),
-            description: t('defaultError'),
-            variant: 'destructive',
-          })
-        })
-        .finally(() => setIsLoading(false))
-    }
-  }, [t, toast, hasPermission])
+      })
+      .finally(() => setIsLoading(false))
+  }, [t, toast])
 
   return (
     <PrivateRoute requiredPermissions={[Permission.APPLICATION_CREATE]}>

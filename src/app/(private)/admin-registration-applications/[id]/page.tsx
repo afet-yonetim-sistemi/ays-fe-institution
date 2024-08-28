@@ -65,10 +65,8 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false))
     }
-    if (hasPermission) {
-      fetchDetails()
-    }
-  }, [params.id, t, toast, hasPermission])
+    fetchDetails()
+  }, [params.id, t, toast])
   return (
     <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
       <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">

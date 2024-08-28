@@ -24,12 +24,10 @@ import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApp
 import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
 import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
-import usePermissions from '@/app/hocs/usePermissions'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
-  const hasPermission = usePermissions([Permission.EVACUATION_DETAIL])
   const form = useForm({
     resolver: zodResolver(FormSchema),
   })
@@ -58,10 +56,8 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false))
     }
-    if (hasPermission) {
-      fetchDetails()
-    }
-  }, [params.id, t, toast, hasPermission])
+    fetchDetails()
+  }, [params.id, t, toast])
 
   return (
     <PrivateRoute requiredPermissions={[Permission.EVACUATION_DETAIL]}>
@@ -373,8 +369,8 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                                 emergencyEvacuationApplicationDetails.status
                                   ? t(
                                       getStatusLabel(
-                                        emergencyEvacuationApplicationDetails.status,
-                                      ),
+                                        emergencyEvacuationApplicationDetails.status
+                                      )
                                     )
                                   : ''
                               }
