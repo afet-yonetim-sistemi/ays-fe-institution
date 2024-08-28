@@ -36,7 +36,6 @@ import { Permission } from '@/constants/permissions'
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
-
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
   })
