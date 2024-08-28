@@ -25,7 +25,6 @@ const Page = () => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
-
   const [data, setData] = useState<EmergencyEvacuationApplications>({
     content: [],
     totalPageCount: 0,

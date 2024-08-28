@@ -37,7 +37,6 @@ const Page = () => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
-
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({
       content: [],

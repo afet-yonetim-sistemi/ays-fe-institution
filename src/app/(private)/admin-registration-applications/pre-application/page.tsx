@@ -38,7 +38,6 @@ import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplication
 const Page = () => {
   const { t } = useTranslation()
   const { toast } = useToast()
-
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [institutionSummary, setInstitutionSummary] = useState<any>(null)

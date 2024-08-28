@@ -32,12 +32,10 @@ import {
 import { DialogDescription } from '@radix-ui/react-dialog'
 import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
-import usePermissions from '@/app/hocs/usePermissions'
 
 const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
-  const hasPermission = usePermissions([Permission.APPLICATION_CREATE])
 
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
@@ -67,6 +65,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     }
     fetchDetails()
   }, [params.id, t, toast])
+
   return (
     <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
       <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
