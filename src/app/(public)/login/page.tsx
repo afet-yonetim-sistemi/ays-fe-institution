@@ -54,7 +54,7 @@ const Page = () => {
     password: z
       .string()
       .min(1, t('requiredField'))
-      .min(8, t('minLength', { field: 8 }))
+      .min(6, t('minLength', { field: 6 }))
       .max(50, t('maxLength', { field: 50 })),
     sourcePage: z.string(),
   })
