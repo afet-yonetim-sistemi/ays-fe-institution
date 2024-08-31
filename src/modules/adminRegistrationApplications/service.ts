@@ -44,3 +44,28 @@ export const postRegistrationApplication = (
   id: string | null,
   form: RegisterApplicationForm
 ) => http.post(`api/v1/admin-registration-application/${id}/complete`, form)
+
+//TODO: edit this requests
+export const getPreApplicationSummary = () => {
+  return http.get<ApiResponse>(`/api/v1/institutions/summary`)
+}
+
+export const approveAdminRegistrationApplication = (data: {}) => {
+  return http.post(`/api/v1/admin-registration-application`, data)
+}
+
+export const rejectAdminRegistrationApplication = (
+  rejectReason: object,
+  id: string
+): Promise<ApiResponse> => {
+  return http.post(
+    `/api/v1/admin-registration-application/${id}/reject`,
+    rejectReason
+  )
+}
+
+export const approveAdminRegistrationApplicationWithId = (
+  id: string
+): Promise<ApiResponse> => {
+  return http.post(`/api/v1/admin-registration-application/${id}/approve`)
+}
