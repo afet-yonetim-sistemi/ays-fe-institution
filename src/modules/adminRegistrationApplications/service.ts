@@ -32,7 +32,9 @@ export function postAdminRegistrationApplications(search: Search) {
 }
 
 export const getAdminRegistrationApplication = (id: string) => {
-  return http.get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
+  return http
+    .get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
+    .then((res) => res.data)
 }
 
 export const getAdminRegistrationApplicationSummary = (
