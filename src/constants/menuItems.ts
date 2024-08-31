@@ -1,4 +1,9 @@
-import { HomeIcon, UserRoundCheck } from 'lucide-react'
+import {
+  BusFront,
+  HomeIcon,
+  UserRoundCheck,
+  ClipboardPenLine,
+} from 'lucide-react'
 import React from 'react'
 import { Permission } from '@/constants/permissions'
 
@@ -17,8 +22,20 @@ export const MenuItems: Menu[] = [
   },
   {
     key: '/admin-registration-applications',
-    label: 'adminRegistrationApplications',
+    label: 'adminRegistrationApplications.title',
     icon: UserRoundCheck,
     requiredPermissions: [Permission.APPLICATION_LIST],
+  },
+  {
+    key: '/emergency-evacuation-applications',
+    label: 'emergencyEvacuationApplications.title',
+    icon: BusFront,
+    requiredPermissions: [Permission.EVACUATION_LIST],
+  },
+  {
+    key: '/role-listing',
+    label: 'roleListing',
+    icon: ClipboardPenLine,
+    requiredPermissions: [Permission.ROLE_LIST],
   },
 ]

@@ -1,15 +1,8 @@
 import { ColumnDef } from '@tanstack/table-core'
-import { formatDate } from '@/app/hocs/formatDate'
+import { formatDateTime } from '@/lib/formatDateTime'
 import Status from '@/modules/adminRegistrationApplications/components/status'
-import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
 import i18next from 'i18next'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import i18n from 'i18next'
+import DataTableSort from '@/components/dataTable/dataTableSort'
 
 export interface AdminRegistrationApplication {
   id: string
@@ -48,41 +41,13 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
-      const sortIcon = () => {
-        if (column.getIsSorted() == 'asc')
-          return <BiSortUp className="h-4 w-4" />
-        else if (column.getIsSorted() == 'desc')
-          return <BiSortDown className="h-4 w-4" />
-        else return <BiSort className="h-4 w-4" />
-      }
-      return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger
-              className="rounded transition-colors hover:bg-muted/90 w-full h-full p-2"
-              onClick={() => column.toggleSorting()}
-            >
-              <span className="flex items-center gap-2">
-                {i18next.t('createdAt')}
-                {sortIcon()}
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>
-              {i18n.t(
-                column.getIsSorted() == 'asc'
-                  ? 'desc'
-                  : column.getIsSorted() == 'desc'
-                    ? 'clearSort'
-                    : 'asc',
-              )}
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )
+      return <DataTableSort column={column} label={i18next.t('createdAt')} />
     },
-    size: 200,
+    size: 155,
     cell: ({ row }) => {
-      return <div className="px-2">{formatDate(row.getValue('createdAt'))}</div>
+      return (
+        <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
+      )
     },
   },
 ]

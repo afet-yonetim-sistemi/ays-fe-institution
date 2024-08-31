@@ -24,9 +24,52 @@ export enum Permission {
   EVACUATION_DETAIL = 'application:evacuation:detail',
   EVACUATION_UPDATE = 'application:evacuation:update',
 
-  //institution
-  INSTITUTION = 'institution:page',
-
   //super
   SUPER = 'super',
+
+  //page
+  LANDING_PAGE = 'landing:page',
+  INSTITUTION_PAGE = 'institution:page',
+}
+
+export enum PermissionCategory {
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  PAGES = 'PAGE',
+  USER_MANAGEMENT = 'USER_MANAGEMENT',
+  ROLE_MANAGEMENT = 'ROLE_MANAGEMENT',
+  REGISTRATION_APPLICATION_MANAGEMENT = 'REGISTRATION_APPLICATION_MANAGEMENT',
+  EVACUATION_APPLICATION_MANAGEMENT = 'EVACUATION_APPLICATION_MANAGEMENT',
+}
+
+export const permissionsByCategory: Record<PermissionCategory, Permission[]> = {
+  [PermissionCategory.SUPER_ADMIN]: [Permission.SUPER],
+  [PermissionCategory.PAGES]: [
+    Permission.LANDING_PAGE,
+    Permission.INSTITUTION_PAGE,
+  ],
+  [PermissionCategory.USER_MANAGEMENT]: [
+    Permission.USER_LIST,
+    Permission.USER_DETAIL,
+    Permission.USER_CREATE,
+    Permission.USER_UPDATE,
+    Permission.USER_DELETE,
+  ],
+  [PermissionCategory.ROLE_MANAGEMENT]: [
+    Permission.ROLE_LIST,
+    Permission.ROLE_DETAIL,
+    Permission.ROLE_CREATE,
+    Permission.ROLE_DELETE,
+    Permission.ROLE_UPDATE,
+  ],
+  [PermissionCategory.REGISTRATION_APPLICATION_MANAGEMENT]: [
+    Permission.APPLICATION_LIST,
+    Permission.APPLICATION_DETAIL,
+    Permission.APPLICATION_CREATE,
+    Permission.APPLICATION_CONCLUDE,
+  ],
+  [PermissionCategory.EVACUATION_APPLICATION_MANAGEMENT]: [
+    Permission.EVACUATION_LIST,
+    Permission.EVACUATION_DETAIL,
+    Permission.EVACUATION_UPDATE,
+  ],
 }

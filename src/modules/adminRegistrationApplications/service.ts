@@ -36,11 +36,11 @@ export const getAdminRegistrationApplication = (id: string) => {
 }
 
 export const getAdminRegistrationApplicationSummary = (
-  id: string | null,
+  id: string | null
 ): Promise<GetRegisterSummary> =>
   http.get(`/api/v1/admin-registration-application/${id}/summary`)
 
 export const postRegistrationApplication = (
   id: string | null,
-  form: RegisterApplicationForm,
+  form: RegisterApplicationForm
 ) => http.post(`api/v1/admin-registration-application/${id}/complete`, form)

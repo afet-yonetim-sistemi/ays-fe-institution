@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { loginSuccess, logout } from '@/modules/auth/authSlice'
 import { store } from '@/store/StoreProvider'
+import { checkPermissions } from '@/app/hocs/checkPermissions'
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -15,15 +16,21 @@ const http = axios.create({
 
 http.interceptors.request.use(
   (config) => {
-    const accessToken = store.getState().auth.accessToken
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`
+    if (checkPermissions()) {
+      throw new axios.Cancel()
     }
+    const accessToken = store.getState().auth.accessToken
+    if (!accessToken) {
+      return Promise.reject(
+        'Access denied: No token provided. Request has been canceled.'
+      )
+    }
+    config.headers.Authorization = `Bearer ${accessToken}`
     return config
   },
   (error) => {
     return Promise.reject(error)
-  },
+  }
 )
 
 http.interceptors.response.use(
@@ -46,7 +53,7 @@ http.interceptors.response.use(
             '/api/v1/authentication/token/refresh',
             {
               refreshToken,
-            },
+            }
           )
           const token = response?.data?.response
 
@@ -61,7 +68,7 @@ http.interceptors.response.use(
         return Promise.reject(error)
       }
     }
-  },
+  }
 )
 
 export default http

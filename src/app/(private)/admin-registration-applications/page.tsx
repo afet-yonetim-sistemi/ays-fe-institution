@@ -14,6 +14,8 @@ import { useDataTable } from '@/app/hocs/useDataTable'
 import * as z from 'zod'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import filterFields from '@/modules/adminRegistrationApplications/constants/filterFields'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 interface AdminRegistrationState {
   content: any[]
@@ -30,13 +32,16 @@ const searchParamsSchema = z.object({
 const Page = () => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
-    Object.fromEntries(searchParams.entries()),
+    Object.fromEntries(searchParams.entries())
   )
 
   const { t } = useTranslation()
   const { toast } = useToast()
   const [adminRegistration, setAdminRegistration] =
-    useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
+    useState<AdminRegistrationState>({
+      content: [],
+      totalPageCount: 0,
+    })
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -73,6 +78,12 @@ const Page = () => {
     <PrivateRoute requiredPermissions={[Permission.APPLICATION_LIST]}>
       <div className="space-y-1">
         {error && <Toaster />}
+        <div className={'float-right'}>
+          <Link href={'/admin-registration-applications/pre-application'}>
+            <Button>{t('preApplication')}</Button>
+          </Link>
+        </div>
+
         <DataTable
           className=""
           table={table}
@@ -81,7 +92,7 @@ const Page = () => {
         >
           <div className="flex flex-col w-full gap-4">
             <h1 className="text-2xl font-medium">
-              {t('adminRegistrationApplications')}
+              {t('adminRegistrationApplications.title')}
             </h1>
             <DataTableToolbar table={table} filterFields={filterFields} />
           </div>

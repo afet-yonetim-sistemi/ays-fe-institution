@@ -57,18 +57,20 @@ export function ListRegistration<TData, TValue>({
                       : {}
 
                   return (
-                    <TableHead
-                      key={header.id}
-                      className="h-10 px-2"
-                      style={styles}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
+                    header.column.getCanHide() && (
+                      <TableHead
+                        key={header.id}
+                        className="h-10 px-2"
+                        style={styles}
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    )
                   )
                 })}
               </TableRow>
@@ -86,19 +88,23 @@ export function ListRegistration<TData, TValue>({
             ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} className="cursor-pointer">
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className="px-2"
-                      width={cell.column.getSize()}
-                      onClick={() => handleRowClick(row)}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      cell.column.getCanHide() && (
+                        <TableCell
+                          key={cell.id}
+                          className="px-2 overflow-hidden text-ellipsis"
+                          width={cell.column.getSize()}
+                          onClick={() => handleRowClick(row)}
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      )
+                    )
+                  })}
                 </TableRow>
               ))
             ) : (

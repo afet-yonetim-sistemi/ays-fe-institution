@@ -4,6 +4,7 @@ import './globals.css'
 import i18n from '@/i18n'
 import { Providers } from '@/lib/providers'
 import { ThemeProvider } from '@/components/themeProvider'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Providers>{children}</Providers>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
