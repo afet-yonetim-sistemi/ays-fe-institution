@@ -16,23 +16,25 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { toast } from '@/components/ui/use-toast'
 import passwordService from '@/modules/password/service'
 
-const ForgotPasswordModal = ({
-  loginEmail,
-  disabled,
-}: {
+interface ForgotPasswordModalProps {
   loginEmail?: string
   disabled?: boolean
+}
+
+const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
+  loginEmail,
+  disabled,
 }) => {
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>(loginEmail || '')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     setLoading(true)
 
     passwordService
