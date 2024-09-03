@@ -35,21 +35,19 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import Image from 'next/image'
-import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const RegisterCompletion: React.FC = () => {
+const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [instName, setInstName] = useState<string>('')
   const [showPassword, setShowPassword] = useState(false)
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const id: string | null = searchParams.get('id')
+  // const router = useRouter()
+  // const { id } = router.query
 
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
     resolver: zodResolver(InstitutionFormSchema),
@@ -68,33 +66,38 @@ const RegisterCompletion: React.FC = () => {
 
   useEffect(() => {
     setLoading(true)
-    getAdminRegistrationApplicationSummary(id)
-      .then((response: any) => {
-        if (response?.status == 200) {
-          const data = response?.data.response
-          setInstName(data.institution.name)
-        } else {
-          router.push('/not-found')
-        }
-      })
-      .catch((error) => {
-        router.push('/not-found')
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [id])
+    console.log('working')
+
+    const fetchInstutition = () =>
+      getAdminRegistrationApplicationSummary(params.id)
+        .then((response: any) => {
+          if (response?.status == 200) {
+            const data = response?.data.response
+            setInstName(data.institution.name)
+          } else {
+            // router.push('/not-found')
+          }
+        })
+        .catch((error) => {
+          // router.push('/not-found')
+          console.log('error', error)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    fetchInstutition()
+  }, [params.id])
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev)
 
   const onSubmit = (values: z.infer<typeof InstitutionFormSchema>) => {
     setLoading(true)
-    postRegistrationApplication(id, values)
+    postRegistrationApplication(params.id, values)
       .then((res) => {
         const isSuccess = res.data?.isSuccess
         if (isSuccess) {
           form.reset()
-          router.push('/dashboard')
+          // router.push('/dashboard')
         }
       })
       .catch((err) => {
@@ -272,4 +275,4 @@ const RegisterCompletion: React.FC = () => {
   )
 }
 
-export default RegisterCompletion
+export default Page
