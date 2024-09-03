@@ -27,7 +27,7 @@ import { PasswordInput } from '@/components/ui/passwordInput'
 import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 
-export default function CreatePasswordCard({ id }: { id: string }) {
+const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const router = useRouter()
@@ -60,7 +60,7 @@ export default function CreatePasswordCard({ id }: { id: string }) {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof formSchema>): void => {
     setLoading(true)
     passwordService
       .resetPassword(values, id)
@@ -145,3 +145,5 @@ export default function CreatePasswordCard({ id }: { id: string }) {
     </div>
   )
 }
+
+export default CreatePasswordCard
