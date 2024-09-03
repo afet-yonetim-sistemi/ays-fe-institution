@@ -44,7 +44,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
         toast({
           title: t('success'),
           description: t('resetPasswordEmailSent'),
-          variant: 'default',
+          variant: 'success',
         })
       })
       .catch(() => {

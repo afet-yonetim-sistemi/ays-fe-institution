@@ -8,9 +8,21 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import passwordService from '@/modules/password/service'
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import Image from 'next/image'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { PasswordInput } from '@/components/ui/passwordInput'
 import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
@@ -22,28 +34,30 @@ export default function CreatePasswordCard({ id }: { id: string }) {
 
   const [loading, setLoading] = useState(false)
 
-  const formSchema = z.object({
-    password: z
-      .string()
-      .min(1, t('requiredField'))
-      .min(8, t('minLength', { field: 8 }))
-      .max(50, t('maxLength', { field: 50 })),
-    passwordRepeat: z
-      .string()
-      .min(1, t('requiredField'))
-      .min(8, t('minLength', { field: 8 }))
-      .max(50, t('maxLength', { field: 50 }))
-  }).refine((data) => data.password === data.passwordRepeat, {
-    message: t('passwordMismatch'),
-    path: ['passwordRepeat']
-  })
+  const formSchema = z
+    .object({
+      password: z
+        .string()
+        .min(1, t('requiredField'))
+        .min(8, t('minLength', { field: 8 }))
+        .max(50, t('maxLength', { field: 50 })),
+      passwordRepeat: z
+        .string()
+        .min(1, t('requiredField'))
+        .min(8, t('minLength', { field: 8 }))
+        .max(50, t('maxLength', { field: 50 })),
+    })
+    .refine((data) => data.password === data.passwordRepeat, {
+      message: t('passwordMismatch'),
+      path: ['passwordRepeat'],
+    })
 
   const passwordForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: '',
-      passwordRepeat: ''
-    }
+      passwordRepeat: '',
+    },
   })
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -54,14 +68,14 @@ export default function CreatePasswordCard({ id }: { id: string }) {
         toast({
           title: t('success'),
           description: t('passwordSuccess'),
-          variant: 'default'
+          variant: 'success',
         })
       })
       .catch(() => {
         toast({
           title: t('error'),
           description: t('passwordRequestInvalidOrExpired'),
-          variant: 'destructive'
+          variant: 'destructive',
         })
       })
       .finally(() => {
@@ -112,7 +126,10 @@ export default function CreatePasswordCard({ id }: { id: string }) {
                   <FormItem>
                     <FormLabel>{t('passwordRepeat')}</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder={t('passwordRepeat')} {...field} />
+                      <PasswordInput
+                        placeholder={t('passwordRepeat')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
