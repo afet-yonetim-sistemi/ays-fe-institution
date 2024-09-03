@@ -27,10 +27,19 @@ const ForgotPasswordModal = ({ loginEmail, disabled }: { loginEmail?: string, di
   }
 
   const handleSubmit = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      toast({
+        title: t('error'),
+        description: t('invalidEmail'),
+        variant: 'destructive'
+      })
+      return
+    }
+
     setLoading(true)
 
     passwordService.forgotPassword(email!).then(({ data }: any) => {
-      console.log(data)
       setIsOpen(false)
       toast({
         title: t('success'),
@@ -73,6 +82,7 @@ const ForgotPasswordModal = ({ loginEmail, disabled }: { loginEmail?: string, di
             </Label>
             <Input
               id="email"
+              type="email"
               value={email}
               onChange={handleEmailChange}
             />
