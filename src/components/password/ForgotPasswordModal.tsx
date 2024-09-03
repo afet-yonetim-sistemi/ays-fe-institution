@@ -6,7 +6,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -16,7 +16,13 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { toast } from '@/components/ui/use-toast'
 import passwordService from '@/modules/password/service'
 
-const ForgotPasswordModal = ({ loginEmail, disabled }: { loginEmail?: string, disabled?: boolean }) => {
+const ForgotPasswordModal = ({
+  loginEmail,
+  disabled,
+}: {
+  loginEmail?: string
+  disabled?: boolean
+}) => {
   const { t } = useTranslation()
   const [email, setEmail] = useState<string>(loginEmail || '')
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -27,34 +33,28 @@ const ForgotPasswordModal = ({ loginEmail, disabled }: { loginEmail?: string, di
   }
 
   const handleSubmit = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      toast({
-        title: t('error'),
-        description: t('invalidEmail'),
-        variant: 'destructive'
-      })
-      return
-    }
-
     setLoading(true)
 
-    passwordService.forgotPassword(email!).then(({ data }: any) => {
-      setIsOpen(false)
-      toast({
-        title: t('success'),
-        description: t('resetPasswordEmailSent'),
-        variant: 'default'
+    passwordService
+      .forgotPassword(email!)
+      .then(({ data }: any) => {
+        setIsOpen(false)
+        toast({
+          title: t('success'),
+          description: t('resetPasswordEmailSent'),
+          variant: 'default',
+        })
       })
-    }).catch(() => {
-      toast({
-        title: t('error'),
-        description: t('invalidEmailForgotPassword'),
-        variant: 'destructive'
+      .catch(() => {
+        toast({
+          title: t('error'),
+          description: t('invalidEmailForgotPassword'),
+          variant: 'destructive',
+        })
       })
-    }).finally(() => {
-      setLoading(false)
-    })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   useEffect(() => {
@@ -77,9 +77,7 @@ const ForgotPasswordModal = ({ loginEmail, disabled }: { loginEmail?: string, di
         </DialogHeader>
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
-            <Label htmlFor="email">
-              {t('email')}
-            </Label>
+            <Label htmlFor="email">{t('email')}</Label>
             <Input
               id="email"
               type="email"
@@ -89,7 +87,12 @@ const ForgotPasswordModal = ({ loginEmail, disabled }: { loginEmail?: string, di
           </div>
         </div>
         <DialogFooter className="justify-end">
-          <Button type="button" variant="secondary" onClick={handleSubmit} disabled={loading || !email}>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={handleSubmit}
+            disabled={loading || !email}
+          >
             {loading ? <LoadingSpinner /> : t('send')}
           </Button>
         </DialogFooter>
