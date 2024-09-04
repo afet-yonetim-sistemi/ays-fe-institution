@@ -28,7 +28,7 @@ i18n.init({
   },
 })
 
-const changeLanguage = (lng: string) => {
+const changeLanguage = (lng: string): void => {
   i18n.changeLanguage(lng)
   if (typeof window !== 'undefined') {
     localStorage.setItem('language', lng)

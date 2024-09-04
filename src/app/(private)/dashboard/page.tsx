@@ -1,7 +1,7 @@
 'use client'
 import PrivateRoute from '@/app/hocs/isAuth'
 
-const Page = () => {
+const Page = (): JSX.Element => {
   return (
     <PrivateRoute>
       <div></div>

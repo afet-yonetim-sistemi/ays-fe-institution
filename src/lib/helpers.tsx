@@ -1,4 +1,4 @@
-export function parseJwt(token: string) {
+export function parseJwt(token: string): Record<string, unknown> | undefined {
   if (!token) {
     return
   }

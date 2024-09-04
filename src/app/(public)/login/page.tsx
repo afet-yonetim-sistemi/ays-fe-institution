@@ -36,7 +36,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 
-const Page = () => {
+const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const dispatch = useAppDispatch()
@@ -68,12 +68,13 @@ const Page = () => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof formSchema>): void => {
     setLoading(true)
     authService
       .login(values)
       .then((res) => {
         dispatch(loginSuccess(res.data.response))
+        console.log(res)
         form.reset()
         router.push('/dashboard')
       })

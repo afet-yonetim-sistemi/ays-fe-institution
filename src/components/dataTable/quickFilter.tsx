@@ -13,7 +13,7 @@ interface DataTableQuickFilterProps<TData, TValue> {
 const QuickFilter = <TData, TValue>({
   label,
   column,
-}: DataTableQuickFilterProps<TData, TValue>) => {
+}: DataTableQuickFilterProps<TData, TValue>): JSX.Element => {
   const isChecked = column?.getFilterValue() === true
 
   return (

@@ -5,7 +5,7 @@ import { Permission } from '@/constants/permissions'
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>): JSX.Element {
   return (
     <PrivateRoute requiredPermissions={[Permission.INSTITUTION_PAGE]}>
       <div className="overflow-hidden h-screen">

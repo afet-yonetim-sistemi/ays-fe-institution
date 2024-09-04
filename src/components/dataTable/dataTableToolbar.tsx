@@ -10,6 +10,7 @@ import DataTableSearchField from '@/components/dataTable/dataTableSearchField'
 interface DataTableToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
   table: Table<TData>
+  // eslint-disable-next-line
   filterFields?: any[]
 }
 
@@ -19,6 +20,7 @@ const DataTableToolbar = <TData,>({
   children,
   className,
   ...props
+  // eslint-disable-next-line
 }: DataTableToolbarProps<TData>) => {
   return (
     <div

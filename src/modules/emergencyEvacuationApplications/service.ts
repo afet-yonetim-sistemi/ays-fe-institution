@@ -3,8 +3,11 @@ import {
   ApiResponse,
   Search,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
+import { AxiosResponse } from 'axios'
 
-export function postEmergencyEvacuationApplications(search: Search) {
+export function postEmergencyEvacuationApplications(
+  search: Search
+): Promise<AxiosResponse> {
   const sortBy = search.sort
     ? [
         {
