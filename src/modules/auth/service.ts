@@ -3,10 +3,12 @@ import http, { api } from '@/configs/axiosConfig'
 interface LoginResponseData {
   time: string
   isSuccess: boolean
-  response: {
-    accessToken: string
-    accessTokenExpiresAt: number
-    refreshToken: string
+  data: {
+    response: {
+      accessToken: string
+      accessTokenExpiresAt: number
+      refreshToken: string
+    }
   }
 }
 
@@ -17,7 +19,7 @@ interface LogoutResponseData {
 const authService = {
   login: (data: object): Promise<LoginResponseData> =>
     api.post('/api/v1/authentication/token', data),
-  logout: (data: object): Promise<LogoutResponseData> =>
+  logout: (data: string): Promise<LogoutResponseData> =>
     http.post('/api/v1/authentication/token/invalidate', {
       refreshToken: data,
     }),

@@ -74,7 +74,6 @@ const Page = (): JSX.Element => {
       .login(values)
       .then((res) => {
         dispatch(loginSuccess(res.data.response))
-        console.log(res)
         form.reset()
         router.push('/dashboard')
       })

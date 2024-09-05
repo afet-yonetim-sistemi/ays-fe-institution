@@ -1,4 +1,5 @@
-export function parseJwt(token: string): Record<string, unknown> | undefined {
+// eslint-disable-next-line
+export function parseJwt(token: string): any {
   if (!token) {
     return
   }

@@ -41,9 +41,8 @@ const authSlice = createSlice({
 
 export const { loginSuccess, loginFailed, logout } = authSlice.actions
 
-export const selectToken = (state: RootState): string | null =>
-  state.auth.accessToken
-export const selectRefreshToken = (state: RootState): string | null =>
+export const selectToken = (state: RootState): string => state.auth.accessToken
+export const selectRefreshToken = (state: RootState): string =>
   state.auth.refreshToken
 export const selectPermissions = (state: RootState): string[] =>
   state.auth.permissions

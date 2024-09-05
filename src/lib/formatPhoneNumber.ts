@@ -1,5 +1,5 @@
 interface PhoneNumber {
-  countryCode: string
+  countryCode?: string
   lineNumber: string
 }
 
