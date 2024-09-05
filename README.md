@@ -44,8 +44,7 @@ Note that you need to install [Node.js](https://nodejs.org/en/) and [npm](https:
 
 ### Useful Commands
 
-- **`npm run lint`**: Runs ESLint to check for code issues.
-- **`npm run lint:fix`**: Runs ESLint and fixes auto-fixable issues.
+- **`npm run eslint`**: Runs ESLint to check for code issues.
 - **`npm run format`**: Checks code formatting with Prettier.
 - **`npm run format:fix`**: Formats code according to Prettier rules.
 
