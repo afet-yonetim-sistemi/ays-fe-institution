@@ -40,7 +40,11 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const Page = ({ params }: { params: { slug: string; id: string } }) => {
+const Page = ({
+  params,
+}: {
+  params: { slug: string; id: string }
+}): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
@@ -68,8 +72,10 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
     setLoading(true)
     console.log('working')
 
-    const fetchInstutition = () =>
+    //TODO: add type for response
+    const fetchInstitution = (): Promise<void> =>
       getAdminRegistrationApplicationSummary(params.id)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((response: any) => {
           if (response?.status == 200) {
             const data = response?.data.response
@@ -85,12 +91,12 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         .finally(() => {
           setLoading(false)
         })
-    fetchInstutition()
+    fetchInstitution()
   }, [params.id])
 
-  const togglePasswordVisibility = () => setShowPassword((prev) => !prev)
+  const togglePasswordVisibility = (): void => setShowPassword((prev) => !prev)
 
-  const onSubmit = (values: z.infer<typeof InstitutionFormSchema>) => {
+  const onSubmit = (values: z.infer<typeof InstitutionFormSchema>): void => {
     setLoading(true)
     postRegistrationApplication(params.id, values)
       .then((res) => {
@@ -100,7 +106,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
           // router.push('/dashboard')
         }
       })
-      .catch((err) => {
+      .catch(() => {
         toast({
           title: t('error'),
           description: t('error'),

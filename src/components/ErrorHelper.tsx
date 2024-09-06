@@ -2,7 +2,11 @@ import { AlertCircle } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { useTranslation } from 'react-i18next'
 
-export default function ErrorHelper({ message }: { message: string }) {
+export default function ErrorHelper({
+  message,
+}: {
+  message: string
+}): JSX.Element {
   const { t } = useTranslation()
   //We can use here for permanent errors
   return (

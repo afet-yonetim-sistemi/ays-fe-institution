@@ -19,10 +19,13 @@ interface DataTableSearchFieldProps<TData>
 const DataTableSearchField = <TData,>({
   field,
   table,
+  // eslint-disable-next-line
 }: DataTableSearchFieldProps<TData>) => {
   const schema = getValidationSchema(field.value)
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const inputValue = event.target.value
     const validation = schema.safeParse(inputValue)
 
@@ -35,8 +38,8 @@ const DataTableSearchField = <TData,>({
       }) // Set the error message
     }
   }
-
-  const onInputHandle = (e: any) => {
+  // eslint-disable-next-line
+  const onInputHandle = (e: any): void => {
     if (field.type == 'number') {
       const onlyNumber = ['seatingCount', 'referenceNumber']
       if (onlyNumber.includes(field.value)) {

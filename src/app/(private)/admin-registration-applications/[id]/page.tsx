@@ -193,9 +193,11 @@ const Page = ({
                               {...field}
                               disabled
                               value={
-                                t(
-                                  adminRegistrationApplicationDetails.status.toLowerCase()
-                                ) ?? ''
+                                adminRegistrationApplicationDetails?.status
+                                  ? t(
+                                      adminRegistrationApplicationDetails.status.toLowerCase()
+                                    )
+                                  : ''
                               }
                             />
                           </FormControl>

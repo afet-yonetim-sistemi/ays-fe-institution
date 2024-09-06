@@ -36,6 +36,17 @@ export interface ApiResponse {
   response: AdminRegistrationApplication
 }
 
+export interface InstitutionsSummary {
+  id: string
+  name: string
+}
+
+export interface ApiSummaryResponse {
+  time: string
+  isSuccess: boolean
+  data: { response: InstitutionsSummary[] }
+}
+
 export interface RegisterApplicationForm {
   firstName: string
   lastName: string

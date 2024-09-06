@@ -1,12 +1,16 @@
 import http from '@/configs/axiosConfig'
 import {
   ApiResponse,
+  ApiSummaryResponse,
   GetRegisterSummary,
   RegisterApplicationForm,
   Search,
 } from './constants/types'
+import { AxiosResponse } from 'axios'
 
-export function postAdminRegistrationApplications(search: Search) {
+export function postAdminRegistrationApplications(
+  search: Search
+): Promise<AxiosResponse> {
   const sortBy = search.sort
     ? [
         {
@@ -31,6 +35,8 @@ export function postAdminRegistrationApplications(search: Search) {
   })
 }
 
+//TODO: Add type for data
+// eslint-disable-next-line
 export const getAdminRegistrationApplication = (id: string) => {
   return http
     .get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
@@ -42,17 +48,20 @@ export const getAdminRegistrationApplicationSummary = (
 ): Promise<GetRegisterSummary> =>
   http.get(`/api/v1/admin-registration-application/${id}/summary`)
 
+//TODO: Add type for data
 export const postRegistrationApplication = (
   id: string | null,
   form: RegisterApplicationForm
+  // eslint-disable-next-line
 ) => http.post(`api/v1/admin-registration-application/${id}/complete`, form)
 
-//TODO: edit this requests
-export const getPreApplicationSummary = () => {
-  return http.get<ApiResponse>(`/api/v1/institutions/summary`)
+export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
+  return http.get(`/api/v1/institutions/summary`)
 }
 
-export const approveAdminRegistrationApplication = (data: {}) => {
+export const approveAdminRegistrationApplication = (
+  data: object
+): Promise<AxiosResponse> => {
   return http.post(`/api/v1/admin-registration-application`, data)
 }
 

@@ -5,7 +5,7 @@ import { useAppSelector } from '@/store/hooks'
 import { selectToken } from '@/modules/auth/authSlice'
 import { useRouter } from 'next/navigation'
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const router = useRouter()
 
   const tokenInfo = useAppSelector(selectToken)

@@ -30,13 +30,15 @@ type PhoneInputProps = Omit<
   'onChange' | 'value'
 > &
   Omit<RPNInput.Props<typeof RPNInput.default>, 'onChange'> & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onChange?: (value: any) => void
   }
 
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
   React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ({ className, onChange, ...props }, ref) => {
-      const handleChange = (value: string | undefined) => {
+      const handleChange = (value: string | undefined): void => {
         if (!value) {
           onChange?.({ countryCode: '', lineNumber: '' })
           return
@@ -60,7 +62,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           {...props}
         />
       )
-    },
+    }
   )
 PhoneInput.displayName = 'PhoneInput'
 
@@ -71,7 +73,7 @@ const InputComponent = React.forwardRef<HTMLInputElement, InputProps>(
       {...props}
       ref={ref}
     />
-  ),
+  )
 )
 InputComponent.displayName = 'InputComponent'
 
@@ -89,12 +91,13 @@ const CountrySelect = ({
   value,
   onChange,
   options,
+  // eslint-disable-next-line
 }: CountrySelectProps) => {
   const handleSelect = React.useCallback(
     (country: RPNInput.Country) => {
       onChange(country)
     },
-    [onChange],
+    [onChange]
   )
 
   return (
@@ -110,7 +113,7 @@ const CountrySelect = ({
           <ChevronsUpDown
             className={cn(
               '-mr-2 h-4 w-4 opacity-50',
-              disabled ? 'hidden' : 'opacity-100',
+              disabled ? 'hidden' : 'opacity-100'
             )}
           />
         </Button>
@@ -143,7 +146,7 @@ const CountrySelect = ({
                       <CheckIcon
                         className={cn(
                           'ml-auto h-4 w-4',
-                          option.value === value ? 'opacity-100' : 'opacity-0',
+                          option.value === value ? 'opacity-100' : 'opacity-0'
                         )}
                       />
                     </CommandItem>
@@ -157,6 +160,7 @@ const CountrySelect = ({
   )
 }
 
+// eslint-disable-next-line
 const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
   const Flag = flags[country]
 
