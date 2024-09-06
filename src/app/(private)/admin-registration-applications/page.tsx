@@ -18,7 +18,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
 interface AdminRegistrationState {
-  content: any[]
+  content: []
   totalPageCount: number
 }
 
@@ -29,7 +29,7 @@ const searchParamsSchema = z.object({
   status: z.string().optional(),
 })
 
-const Page = () => {
+const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
     Object.fromEntries(searchParams.entries())

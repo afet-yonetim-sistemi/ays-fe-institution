@@ -40,11 +40,11 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: ({ column }) => {
+    header: ({ column }): JSX.Element => {
       return <DataTableSort column={column} label={i18next.t('createdAt')} />
     },
     size: 155,
-    cell: ({ row }) => {
+    cell: ({ row }): JSX.Element => {
       return (
         <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
       )

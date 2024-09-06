@@ -12,7 +12,10 @@ interface PrivateRouteProps {
   requiredPermissions?: Permission[]
 }
 
-const PrivateRoute = ({ children, requiredPermissions }: PrivateRouteProps) => {
+const PrivateRoute = ({
+  children,
+  requiredPermissions,
+}: PrivateRouteProps): JSX.Element | null => {
   const router = useRouter()
   const token = useAppSelector(selectToken)
   const userPermissions = useAppSelector(selectPermissions)
@@ -50,7 +53,7 @@ const PrivateRoute = ({ children, requiredPermissions }: PrivateRouteProps) => {
     )
   }
 
-  return children
+  return <>{children}</>
 }
 
 export default PrivateRoute

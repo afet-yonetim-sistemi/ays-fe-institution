@@ -16,7 +16,7 @@ const FilterInput = ({
   param: string
   min?: number
   max?: number
-}) => {
+}): JSX.Element => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
