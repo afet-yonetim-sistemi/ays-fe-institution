@@ -18,3 +18,14 @@ export interface ApiResponse {
   isSuccess: boolean
   response: AdminRegistrationApplication
 }
+
+export interface InstitutionsSummary {
+  id: string
+  name: string
+}
+
+export interface ApiSummaryResponse {
+  time: string
+  isSuccess: boolean
+  data: { response: InstitutionsSummary[] }
+}

@@ -25,7 +25,11 @@ import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuation
 import { Checkbox } from '@/components/ui/checkbox'
 import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
 
-const Page = ({ params }: { params: { slug: string; id: string } }) => {
+const Page = ({
+  params,
+}: {
+  params: { slug: string; id: string }
+}): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const form = useForm({
@@ -41,7 +45,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchDetails = () => {
+    const fetchDetails = (): void => {
       getEmergencyEvacuationApplication(params.id)
         .then((response) => {
           setEmergencyEvacuationApplicationDetails(response.response)
@@ -410,7 +414,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <FormItem className="sm:col-span-1">
                           <div className="flex items-center">
                             <FormLabel className="mr-2">
-                              {t('emergencyEvacuationApplications.anyDisability')}
+                              {t(
+                                'emergencyEvacuationApplications.anyDisability'
+                              )}
                             </FormLabel>
                             <FormControl>
                               <Checkbox

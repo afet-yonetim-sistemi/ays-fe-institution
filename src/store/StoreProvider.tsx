@@ -11,16 +11,18 @@ export default function StoreProvider({
   children,
 }: {
   children: React.ReactNode
-}) {
+}): JSX.Element {
   const storeRef = useRef<AppStore>()
   if (!storeRef.current) {
     storeRef.current = store
+    //eslint-disable-next-line
     //@ts-ignore
     storeRef.current.__persistor = persistStore(store)
   }
 
   return (
     <Provider store={storeRef.current}>
+      {/*eslint-disable-next-line*/}
       {/* @ts-ignore*/}
       <PersistGate loading={null} persistor={storeRef.current.__persistor}>
         {children}

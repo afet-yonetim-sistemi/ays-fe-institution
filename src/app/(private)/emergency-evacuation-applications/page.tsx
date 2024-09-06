@@ -17,7 +17,7 @@ import FilterInput from '@/components/ui/filterInput'
 import { Button } from '@/components/ui/button'
 import { RefreshCw } from 'lucide-react'
 
-const Page = () => {
+const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
     Object.fromEntries(searchParams.entries())
@@ -33,7 +33,7 @@ const Page = () => {
 
   const searchParamsString = JSON.stringify(search)
 
-  const fetchData = () => {
+  const fetchData = (): void => {
     setIsLoading(true)
     postEmergencyEvacuationApplications({
       page: search.page,

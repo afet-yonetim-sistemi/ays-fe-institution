@@ -10,12 +10,20 @@ import {
 } from '@/components/ui/select'
 import { changeLanguage } from '@/i18n'
 
-const lngs: any = {
+type Language = {
+  nativeName: string
+}
+
+type Languages = {
+  [key: string]: Language
+}
+
+const lngs: Languages = {
   en: { nativeName: 'English' },
   tr: { nativeName: 'Türkçe' },
 }
 
-function LanguageToggle() {
+function LanguageToggle(): JSX.Element {
   const { i18n } = useTranslation()
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language)
 
@@ -26,7 +34,7 @@ function LanguageToggle() {
     }
   }, [i18n])
 
-  const handleLanguageChange = (lng: string) => {
+  const handleLanguageChange = (lng: string): void => {
     setSelectedLanguage(lng)
     changeLanguage(lng)
     localStorage.setItem('language', lng)

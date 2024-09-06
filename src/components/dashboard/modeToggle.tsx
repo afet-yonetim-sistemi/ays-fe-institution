@@ -4,16 +4,9 @@ import * as React from 'react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import { MoonIcon, SunIcon } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
 
-export function ModeToggle() {
+export function ModeToggle(): JSX.Element {
   const { theme, setTheme } = useTheme()
   return (
     <Button

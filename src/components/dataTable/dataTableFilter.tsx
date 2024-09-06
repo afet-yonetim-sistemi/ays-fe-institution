@@ -29,7 +29,7 @@ export function DataTableFilter<TData, TValue>({
   column,
   title,
   options,
-}: DataTableFacetedFilterProps<TData, TValue>) {
+}: DataTableFacetedFilterProps<TData, TValue>): JSX.Element {
   const selectedValues = new Set(column?.getFilterValue() as string[])
   const { t } = useTranslation()
 

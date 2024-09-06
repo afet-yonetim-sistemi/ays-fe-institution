@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import Title from '@/components/ui/title'
 import { Textarea } from '@/components/ui/textarea'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   approveAdminRegistrationApplication,
   getPreApplicationSummary,
@@ -34,13 +34,16 @@ import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
 import { useRouter } from 'next/navigation'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
+import { InstitutionsSummary } from '@/modules/adminRegistrationApplications/constants/types'
 
-const Page = (): React.JSX.Element => {
+const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [institutionSummary, setInstitutionSummary] = useState<any>(null)
+  const [institutionSummary, setInstitutionSummary] = useState<
+    InstitutionsSummary[]
+  >([])
 
   const form = useForm<z.infer<typeof PreApplicationFormSchema>>({
     resolver: zodResolver(PreApplicationFormSchema),
@@ -74,7 +77,8 @@ const Page = (): React.JSX.Element => {
   useEffect(() => {
     getPreApplicationSummary()
       .then((response) => {
-        setInstitutionSummary(response.data.response)
+        const summaryData = response.data.response
+        setInstitutionSummary(summaryData)
       })
       .catch(() => {
         toast({
@@ -112,11 +116,13 @@ const Page = (): React.JSX.Element => {
                               />
                             </SelectTrigger>
                             <SelectContent>
-                              {institutionSummary?.map((item: any) => (
-                                <SelectItem key={item.id} value={item.id}>
-                                  {item.name}
-                                </SelectItem>
-                              ))}
+                              {institutionSummary?.map(
+                                (item: InstitutionsSummary) => (
+                                  <SelectItem key={item.id} value={item.id}>
+                                    {item.name}
+                                  </SelectItem>
+                                )
+                              )}
                             </SelectContent>
                           </Select>
                         </FormControl>

@@ -11,7 +11,7 @@ interface PermissionCardProps {
 export default function PermissionCard({
   category,
   permissions,
-}: PermissionCardProps) {
+}: PermissionCardProps): JSX.Element {
   return (
     <Card className="mb-4">
       <CardHeader>
