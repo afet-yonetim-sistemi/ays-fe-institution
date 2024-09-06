@@ -1,7 +1,8 @@
-import http from '@/configs/axiosConfig'
+import http, { api } from '@/configs/axiosConfig'
 import {
   ApiResponse,
   ApiSummaryResponse,
+  CompleteRegistration,
   GetRegisterSummary,
   RegisterApplicationForm,
   Search,
@@ -35,25 +36,24 @@ export function postAdminRegistrationApplications(
   })
 }
 
-//TODO: Add type for data
-// eslint-disable-next-line
-export const getAdminRegistrationApplication = (id: string) => {
+export const getAdminRegistrationApplication = (
+  id: string
+): Promise<ApiResponse> => {
   return http
-    .get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
+    .get(`/api/v1/admin-registration-application/${id}`)
     .then((res) => res.data)
 }
 
 export const getAdminRegistrationApplicationSummary = (
   id: string | null
 ): Promise<GetRegisterSummary> =>
-  http.get(`/api/v1/admin-registration-application/${id}/summary`)
+  api.get(`/api/v1/admin-registration-application/${id}/summary`)
 
-//TODO: Add type for data
 export const postRegistrationApplication = (
   id: string | null,
   form: RegisterApplicationForm
-  // eslint-disable-next-line
-) => http.post(`api/v1/admin-registration-application/${id}/complete`, form)
+): Promise<CompleteRegistration> =>
+  api.post(`api/v1/admin-registration-application/${id}/complete`, form)
 
 export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
   return http.get(`/api/v1/institutions/summary`)

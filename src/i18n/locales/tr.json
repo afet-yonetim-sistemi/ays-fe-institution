@@ -128,6 +128,7 @@
   "createReason": "Oluşturma Nedeni",
   "selectInstitution": "Kurum Seçiniz",
   "create": "Oluştur",
+  "successRegisterCompleted": "Başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
   "role": {
     "name": "Rol Adı",
     "status": "Rol Durumu",

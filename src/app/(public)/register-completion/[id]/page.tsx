@@ -39,6 +39,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
+import { useRouter } from 'next/navigation'
 
 const Page = ({
   params,
@@ -47,11 +48,10 @@ const Page = ({
 }): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [instName, setInstName] = useState<string>('')
   const [showPassword, setShowPassword] = useState(false)
-  // const router = useRouter()
-  // const { id } = router.query
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
     resolver: zodResolver(InstitutionFormSchema),
@@ -68,53 +68,43 @@ const Page = ({
     },
   })
 
-  useEffect(() => {
-    setLoading(true)
-    console.log('working')
-
-    //TODO: add type for response
-    const fetchInstitution = (): Promise<void> =>
-      getAdminRegistrationApplicationSummary(params.id)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .then((response: any) => {
-          if (response?.status == 200) {
-            const data = response?.data.response
-            setInstName(data.institution.name)
-          } else {
-            // router.push('/not-found')
-          }
-        })
-        .catch((error) => {
-          // router.push('/not-found')
-          console.log('error', error)
-        })
-        .finally(() => {
-          setLoading(false)
-        })
-    fetchInstitution()
-  }, [params.id])
-
   const togglePasswordVisibility = (): void => setShowPassword((prev) => !prev)
 
   const onSubmit = (values: z.infer<typeof InstitutionFormSchema>): void => {
     setLoading(true)
     postRegistrationApplication(params.id, values)
-      .then((res) => {
-        const isSuccess = res.data?.isSuccess
-        if (isSuccess) {
-          form.reset()
-          // router.push('/dashboard')
-        }
+      .then(() => {
+        toast({
+          title: t('success'),
+          description: t('successRegisterCompleted'),
+          variant: 'success',
+        })
+        form.reset()
+        router.push('/login')
       })
       .catch(() => {
         toast({
           title: t('error'),
-          description: t('error'),
+          description: t('defaultError'),
           variant: 'destructive',
         })
       })
       .finally(() => setLoading(false))
   }
+
+  useEffect(() => {
+    getAdminRegistrationApplicationSummary(params.id)
+      .then((response) => {
+        const data = response?.data.response
+        setInstName(data.institution.name)
+      })
+      .catch(() => {
+        router.push('/not-found')
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [params.id, router])
 
   return (
     <div className="container mt-[140px]">

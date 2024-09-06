@@ -62,12 +62,18 @@ export interface RegisterApplicationForm {
 export interface GetRegisterSummary {
   time: string
   isSuccess: boolean
-  response: {
-    id: string
-    institution: {
-      name: string
+  data: {
+    response: {
+      institution: {
+        name: string
+      }
     }
   }
+}
+
+export interface CompleteRegistration {
+  time: string
+  isSuccess: boolean
 }
 
 export interface Search {
