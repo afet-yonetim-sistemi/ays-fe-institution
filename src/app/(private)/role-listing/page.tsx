@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import PrivateRoute from '@/app/hocs/isAuth'
 import { useTranslation } from 'react-i18next'
 import { useToast } from '@/components/ui/use-toast'
@@ -14,7 +14,7 @@ import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { columns } from '@/modules/roleListing/components/columns'
 import filterFields from '@/modules/roleListing/constants/filterFields'
 
-const Page = () => {
+const Page = ():PrivateRoute => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
     Object.fromEntries(searchParams.entries())
@@ -27,9 +27,10 @@ const Page = () => {
     totalPageCount: 0,
   })
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const searchParamsString = useMemo(() => JSON.stringify(search), [search])
 
-  useEffect(() => {
+  const searchParamsString = JSON.stringify(search)
+
+  const fetchData = ():void => {
     setIsLoading(true)
     postRoleListing({
       page: search.page,
@@ -51,18 +52,13 @@ const Page = () => {
         })
       })
       .finally(() => setIsLoading(false))
-  }, [
-    searchParamsString,
-    search.createdAt,
-    search.name,
-    search.page,
-    search.per_page,
-    search.sort,
-    search.status,
-    search.updatedAt,
-    t,
-    toast,
-  ])
+  }
+
+  useEffect(() => {
+    if (search?.name == undefined || search?.name?.length >= 2) {
+      fetchData()
+    }
+  }, [searchParamsString])
 
   const { table } = useDataTable({
     data: data.content,
