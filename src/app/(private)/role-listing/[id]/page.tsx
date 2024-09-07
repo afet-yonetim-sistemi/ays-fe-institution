@@ -30,6 +30,7 @@ import {
 } from '@/lib/localizePermission'
 import { FormValidationSchema } from '@/modules/roleListing/constants/formValidationSchema'
 import { NextPage } from 'next'
+import { Button } from '@/components/ui/button'
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
@@ -43,6 +44,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  // const [isEditable, setIsEditable] = useState<boolean>(false)
 
   const initializePermissions = (): RolePermission[] => {
     return Object.entries(permissionsByCategory).flatMap(
@@ -144,9 +146,16 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         {!isLoading && roleDetail && (
           <Form {...form}>
             <form className="space-y-6">
-              <h1 className="text-2xl font-bold mb-6">
-                {t('role.detailsTitle')}
-              </h1>
+              <div className="flex justify-between items-center mb-6">
+                <h1 className="text-2xl font-bold">{t('role.detailsTitle')}</h1>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => console.log('hehe')}
+                >
+                  {t('update')}
+                </Button>
+              </div>
               <Card className="mb-6">
                 <CardHeader>
                   <CardTitle>{t('role.information')}</CardTitle>

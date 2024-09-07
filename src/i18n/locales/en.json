@@ -160,5 +160,6 @@
     "super": "Super Admin",
     "landingPage": "Landing Page",
     "institutionPage": "Institution Page"
-  }
+  },
+  "update": "Update"
 }
