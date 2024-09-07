@@ -1,13 +1,15 @@
-import { Permission, PermissionCategory } from "@/constants/permissions";
+import { Permission, PermissionCategory } from '@/constants/permissions'
 
 const permissionCategoryMap: Record<PermissionCategory, string> = {
   [PermissionCategory.SUPER_ADMIN]: 'superAdmin',
   [PermissionCategory.PAGES]: 'pages',
   [PermissionCategory.USER_MANAGEMENT]: 'userManagement',
   [PermissionCategory.ROLE_MANAGEMENT]: 'roleManagement',
-  [PermissionCategory.REGISTRATION_APPLICATION_MANAGEMENT]: 'registrationApplicationManagement',
-  [PermissionCategory.EVACUATION_APPLICATION_MANAGEMENT]: 'evacuationApplicationManagement',
-};
+  [PermissionCategory.REGISTRATION_APPLICATION_MANAGEMENT]:
+    'registrationApplicationManagement',
+  [PermissionCategory.EVACUATION_APPLICATION_MANAGEMENT]:
+    'evacuationApplicationManagement',
+}
 
 const permissionMap: Record<Permission, string> = {
   [Permission.SUPER]: 'super',
@@ -30,14 +32,20 @@ const permissionMap: Record<Permission, string> = {
   [Permission.EVACUATION_LIST]: 'applicationEvacuationList',
   [Permission.EVACUATION_DETAIL]: 'applicationEvacuationDetail',
   [Permission.EVACUATION_UPDATE]: 'applicationEvacuationUpdate',
-};
+}
 
-export const getLocalizedCategory = (category: string, t: (key: string) => string) => {
-  const key = permissionCategoryMap[category as PermissionCategory];
-  return t(`permissions.${key}`);
-};
+export const getLocalizedCategory = (
+  category: string,
+  t: (key: string) => string
+) => {
+  const key = permissionCategoryMap[category as PermissionCategory]
+  return t(`permissions.${key}`)
+}
 
-export const getLocalizedPermission = (permission: string, t: (key: string) => string) => {
-  const key = permissionMap[permission as Permission];
-  return t(`permissions.${key}`);
-};
+export const getLocalizedPermission = (
+  permission: string,
+  t: (key: string) => string
+) => {
+  const key = permissionMap[permission as Permission]
+  return t(`permissions.${key}`)
+}

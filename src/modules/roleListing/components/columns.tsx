@@ -21,7 +21,9 @@ export const columns: ColumnDef<RoleListingTableProps>[] = [
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
-      return <DataTableSort column={column} label={i18next.t('createDateTime')} />
+      return (
+        <DataTableSort column={column} label={i18next.t('createDateTime')} />
+      )
     },
     cell: ({ row }) => {
       return (
@@ -33,7 +35,9 @@ export const columns: ColumnDef<RoleListingTableProps>[] = [
   {
     accessorKey: 'updatedAt',
     header: () => i18next.t('updateDateTime'),
-    cell: ({ row }) => <div className="px-2">{formatDateTime(row.getValue('updatedAt'))}</div>,
+    cell: ({ row }) => (
+      <div className="px-2">{formatDateTime(row.getValue('updatedAt'))}</div>
+    ),
     size: 170,
   },
 ]

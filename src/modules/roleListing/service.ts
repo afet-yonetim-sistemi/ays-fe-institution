@@ -27,8 +27,8 @@ export function postRoleListing(search: Search) {
   })
 }
 
-export const getRoleDetail = async (
-  id: string,
-): Promise<ApiResponse> => {
-  return http.get<ApiResponse>(`/api/v1/role/${id}`).then(response => response.data)
+export const getRoleDetail = async (id: string): Promise<ApiResponse> => {
+  return http
+    .get<ApiResponse>(`/api/v1/role/${id}`)
+    .then((response) => response.data)
 }

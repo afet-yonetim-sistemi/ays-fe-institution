@@ -410,7 +410,9 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <FormItem className="sm:col-span-1">
                           <div className="flex items-center">
                             <FormLabel className="mr-2">
-                              {t('emergencyEvacuationApplications.anyDisability')}
+                              {t(
+                                'emergencyEvacuationApplications.anyDisability'
+                              )}
                             </FormLabel>
                             <FormControl>
                               <Checkbox
