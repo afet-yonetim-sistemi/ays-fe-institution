@@ -85,7 +85,7 @@
   "phoneNumber": "Telefon Numarası",
   "seatingCountValidationMessage": "Sadece maksimum {{field}} haneli, pozitif sayı değerleri alabilir.",
   "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir.",
-  "nameValidationMessage": "Sadece harf girişi yapılabilir.",
+  "nameValidationMessage": "Minimum 2, maksimum 255 karakter uzunluğunda ve özel karakter içermeyen bir değer alabilir.",
   "adminRegistrationApplications": {
     "title": "Yönetici Kayıt Başvuruları",
     "detailsTitle": "Yönetici Kayıt Başvuru Detayı",

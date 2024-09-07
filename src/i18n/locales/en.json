@@ -85,7 +85,7 @@
   "emailAddress": "E-mail Address",
   "seatingCountValidationMessage": "Only positive numbers with a maximum of {{field}} digits are allowed.",
   "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
-  "nameValidationMessage": "Only letters values are allowed.",
+  "nameValidationMessage": "It can take a value with a minimum length of 2 and a maximum length of 255 characters and no special characters.",
   "adminRegistrationApplications": {
     "title": "Admin Registration Applications",
     "detailsTitle": "Admin Registration Applications Details",
