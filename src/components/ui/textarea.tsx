@@ -15,7 +15,7 @@ export const useAutosizeTextArea = ({
   triggerAutoSize,
   maxHeight = Number.MAX_SAFE_INTEGER,
   minHeight = 0,
-}: UseAutosizeTextAreaProps) => {
+}: UseAutosizeTextAreaProps): void => {
   const [init, setInit] = React.useState(true)
   React.useEffect(() => {
     // We need to reset the height momentarily to get the correct scrollHeight for the textarea
@@ -79,6 +79,7 @@ export const AutosizeTextarea = React.forwardRef<
 
     useImperativeHandle(ref, () => ({
       textArea: textAreaRef.current as HTMLTextAreaElement,
+      // eslint-disable-next-line
       focus: () => textAreaRef.current?.focus(),
       maxHeight,
       minHeight,

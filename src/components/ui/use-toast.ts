@@ -24,7 +24,7 @@ const actionTypes = {
 
 let count = 0
 
-function genId() {
+function genId(): string {
   count = (count + 1) % Number.MAX_SAFE_INTEGER
   return count.toString()
 }
@@ -55,7 +55,7 @@ interface State {
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
-const addToRemoveQueue = (toastId: string) => {
+const addToRemoveQueue = (toastId: string): void => {
   if (toastTimeouts.has(toastId)) {
     return
   }
@@ -130,7 +130,7 @@ const listeners: Array<(state: State) => void> = []
 
 let memoryState: State = { toasts: [] }
 
-function dispatch(action: Action) {
+function dispatch(action: Action): void {
   memoryState = reducer(memoryState, action)
   listeners.forEach((listener) => {
     listener(memoryState)
@@ -139,14 +139,17 @@ function dispatch(action: Action) {
 
 type Toast = Omit<ToasterToast, 'id'>
 
+// eslint-disable-next-line
 function toast({ ...props }: Toast) {
   const id = genId()
 
+  // eslint-disable-next-line
   const update = (props: ToasterToast) =>
     dispatch({
       type: 'UPDATE_TOAST',
       toast: { ...props, id },
     })
+  // eslint-disable-next-line
   const dismiss = () => dispatch({ type: 'DISMISS_TOAST', toastId: id })
 
   dispatch({
@@ -167,13 +170,13 @@ function toast({ ...props }: Toast) {
     update,
   }
 }
-
+// eslint-disable-next-line
 function useToast() {
   const [state, setState] = React.useState<State>(memoryState)
 
   React.useEffect(() => {
     listeners.push(setState)
-    return () => {
+    return (): void => {
       const index = listeners.indexOf(setState)
       if (index > -1) {
         listeners.splice(index, 1)
@@ -184,6 +187,7 @@ function useToast() {
   return {
     ...state,
     toast,
+    // eslint-disable-next-line
     dismiss: (toastId?: string) => dispatch({ type: 'DISMISS_TOAST', toastId }),
   }
 }

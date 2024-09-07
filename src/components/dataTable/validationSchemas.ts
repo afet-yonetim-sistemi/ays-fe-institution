@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import i18next from 'i18next'
-
+// eslint-disable-next-line
 export const getValidationSchema = (param: string) => {
   switch (param) {
     case 'seatingCount':

@@ -1,7 +1,8 @@
 import http from '@/configs/axiosConfig'
 import { ApiResponse, Search } from '../roleListing/constants/types'
+import { AxiosResponse } from 'axios'
 
-export function postRoleListing(search: Search) {
+export function postRoleListing(search: Search): Promise<AxiosResponse> {
   const sortBy = search.sort
     ? [
         {

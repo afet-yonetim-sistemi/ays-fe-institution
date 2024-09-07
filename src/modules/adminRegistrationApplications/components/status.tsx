@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { StatusData } from '@/modules/adminRegistrationApplications/constants/status'
 
-const Status = ({ status }: { status: string }) => {
+const Status = ({ status }: { status: string }): JSX.Element => {
   const { t } = useTranslation()
-  const getColorClass = (status: string) => {
+  const getColorClass = (status: string): string => {
     const statusItem = StatusData.find((item) => item.value === status)
     return statusItem ? statusItem.color : ''
   }

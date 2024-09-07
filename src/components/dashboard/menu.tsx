@@ -12,7 +12,7 @@ import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { Permission } from '@/constants/permissions'
 
-export default function Menu() {
+export default function Menu(): JSX.Element {
   const pathname = usePathname()
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions) ?? []
@@ -21,7 +21,7 @@ export default function Menu() {
   const [APIversionInfo, setAPIVersionInfo] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const hasPermission = (requiredPermissions?: Permission[]) => {
+  const hasPermission = (requiredPermissions?: Permission[]): boolean => {
     if (!requiredPermissions) return true
     return requiredPermissions.every((permission) =>
       userPermissions.includes(permission)
@@ -40,7 +40,7 @@ export default function Menu() {
       setIsLoading(false)
     }
 
-    const fetchData = () => {
+    const fetchData = (): void => {
       http
         .get('/public/actuator/info')
         .then((response) => {
@@ -51,8 +51,7 @@ export default function Menu() {
           }
           setIsLoading(false)
         })
-        .catch((error) => {
-          console.error('Error fetching data:', error)
+        .catch(() => {
           setIsLoading(false)
         })
     }

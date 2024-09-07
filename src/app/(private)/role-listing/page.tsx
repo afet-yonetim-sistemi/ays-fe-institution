@@ -14,7 +14,7 @@ import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { columns } from '@/modules/roleListing/components/columns'
 import filterFields from '@/modules/roleListing/constants/filterFields'
 
-const Page = ():PrivateRoute => {
+const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
     Object.fromEntries(searchParams.entries())

@@ -6,10 +6,10 @@
     "dev": "next dev -p 5173",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --format stylish",
-    "lint:fix": "next lint --fix --format stylish",
     "format": "prettier --check './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "format:fix": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format:fix": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "prepare": "husky install",
+    "eslint": "npx eslint **/*.{ts,tsx} --max-warnings 0"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -58,6 +58,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "husky": "^9.1.5",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",

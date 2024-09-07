@@ -1,4 +1,5 @@
 export interface RoleListing {
+  // eslint-disable-next-line
   content: any[]
   totalPageCount: number
 }

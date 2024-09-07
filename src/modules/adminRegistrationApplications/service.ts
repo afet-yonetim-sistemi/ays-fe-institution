@@ -1,5 +1,6 @@
 import http from '@/configs/axiosConfig'
-import { ApiResponse } from './constants/types'
+import { ApiResponse, ApiSummaryResponse } from './constants/types'
+import { AxiosResponse } from 'axios'
 
 interface Search {
   page: number
@@ -7,7 +8,9 @@ interface Search {
   sort: string | undefined
   status: string | undefined
 }
-export function postAdminRegistrationApplications(search: Search) {
+export function postAdminRegistrationApplications(
+  search: Search
+): Promise<AxiosResponse> {
   const sortBy = search.sort
     ? [
         {
@@ -40,12 +43,13 @@ export const getAdminRegistrationApplication = (
     .then((response) => response.data)
 }
 
-//TODO: edit this requests
-export const getPreApplicationSummary = () => {
-  return http.get<ApiResponse>(`/api/v1/institutions/summary`)
+export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
+  return http.get(`/api/v1/institutions/summary`)
 }
 
-export const approveAdminRegistrationApplication = (data: {}) => {
+export const approveAdminRegistrationApplication = (
+  data: object
+): Promise<AxiosResponse> => {
   return http.post(`/api/v1/admin-registration-application`, data)
 }
 

@@ -37,7 +37,7 @@ const permissionMap: Record<Permission, string> = {
 export const getLocalizedCategory = (
   category: string,
   t: (key: string) => string
-) => {
+): string => {
   const key = permissionCategoryMap[category as PermissionCategory]
   return t(`permissions.${key}`)
 }
@@ -45,7 +45,7 @@ export const getLocalizedCategory = (
 export const getLocalizedPermission = (
   permission: string,
   t: (key: string) => string
-) => {
+): string => {
   const key = permissionMap[permission as Permission]
   return t(`permissions.${key}`)
 }

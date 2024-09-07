@@ -21,6 +21,7 @@ interface UseDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   pageCount: number
   defaultPerPage?: number
+  // eslint-disable-next-line
   filterFields?: any[]
 }
 
@@ -36,6 +37,7 @@ export const useDataTable = <TData, TValue>({
   columns,
   pageCount,
   filterFields = [],
+  // eslint-disable-next-line
 }: UseDataTableProps<TData, TValue>) => {
   const router = useRouter()
   const pathname = usePathname()

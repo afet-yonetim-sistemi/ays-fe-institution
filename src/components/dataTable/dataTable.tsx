@@ -21,8 +21,8 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   loading?: boolean
   enableRowClick?: boolean
 }
-
-export function ListRegistration<TData, TValue>({
+// eslint-disable-next-line
+export function ListRegistration<TData>({
   table,
   children,
   className,
@@ -33,7 +33,8 @@ export function ListRegistration<TData, TValue>({
   const pathname = usePathname()
   const router = useRouter()
 
-  const handleRowClick = (row: any) => {
+  //eslint-disable-next-line
+  const handleRowClick = (row: any): void => {
     if (enableRowClick) {
       router.push(`${pathname}/${row.original.id}`) // Row'daki id alanını kullanarak detay sayfasına yönlendirme
     }

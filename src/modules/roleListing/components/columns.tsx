@@ -20,12 +20,12 @@ export const columns: ColumnDef<RoleListingTableProps>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: ({ column }) => {
+    header: ({ column }): JSX.Element => {
       return (
         <DataTableSort column={column} label={i18next.t('createDateTime')} />
       )
     },
-    cell: ({ row }) => {
+    cell: ({ row }): JSX.Element => {
       return (
         <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
       )
