@@ -131,7 +131,8 @@
     "detailsTitle": "Rol Detayları",
     "createdUser": "Oluşturan Kullanıcı",
     "updatedUser": "Güncelleyen Kullanıcı",
-    "information": "Rol Bilgileri"
+    "information": "Rol Bilgileri",
+    "error": "Rol Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",
@@ -159,6 +160,7 @@
     "applicationEvacuationUpdate": "Tahliye Başvurusunu Güncelle",
     "super": "Süper Yönetici",
     "landingPage": "Açılış Sayfası",
-    "institutionPage": "Kurum Sayfası"
+    "institutionPage": "Kurum Sayfası",
+    "error": "Rol Yetki Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
   }
 }

@@ -131,7 +131,8 @@
     "detailsTitle": "Role Details",
     "createdUser": "User Who Created",
     "updatedUser": "User Who Updated",
-    "information": "Role Information"
+    "information": "Role Information",
+    "error": "Error while fetching role details. Please try again"
   },
   "permissions": {
     "superAdmin": "Super Admin",
@@ -159,6 +160,7 @@
     "applicationEvacuationUpdate": "Update Evacuation Application",
     "super": "Super Admin",
     "landingPage": "Landing Page",
-    "institutionPage": "Institution Page"
+    "institutionPage": "Institution Page",
+    "error": "Rol Yetki Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
   }
 }
