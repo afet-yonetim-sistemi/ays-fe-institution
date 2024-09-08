@@ -161,6 +161,6 @@
     "super": "Super Admin",
     "landingPage": "Landing Page",
     "institutionPage": "Institution Page",
-    "error": "Rol Yetki Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
+    "error": "Error while fetching role permission details. Please try again"
   }
 }
