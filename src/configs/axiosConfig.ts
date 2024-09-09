@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { loginSuccess, logout } from '@/modules/auth/authSlice'
 import { store } from '@/store/StoreProvider'
-import { checkPermissions } from '@/app/hocs/checkPermissions'
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -16,9 +15,6 @@ const http = axios.create({
 
 http.interceptors.request.use(
   (config) => {
-    if (checkPermissions()) {
-      throw new axios.Cancel()
-    }
     const accessToken = store.getState().auth.accessToken
     if (!accessToken) {
       return Promise.reject(
