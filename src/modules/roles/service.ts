@@ -1,8 +1,12 @@
 import http from '@/configs/axiosConfig'
-import { ApiResponse, Search } from '../roleListing/constants/types'
+import {
+  RoleApiResponse,
+  RolePermissionApiResponse,
+  Search,
+} from '../roles/constants/types'
 import { AxiosResponse } from 'axios'
 
-export function postRoleListing(search: Search): Promise<AxiosResponse> {
+export function postRoles(search: Search): Promise<AxiosResponse> {
   const sortBy = search.sort
     ? [
         {
@@ -28,8 +32,14 @@ export function postRoleListing(search: Search): Promise<AxiosResponse> {
   })
 }
 
-export const getRoleDetail = async (id: string): Promise<ApiResponse> => {
+export const getRoleDetail = async (id: string): Promise<RoleApiResponse> => {
   return http
-    .get<ApiResponse>(`/api/v1/role/${id}`)
+    .get<RoleApiResponse>(`/api/v1/role/${id}`)
+    .then((response) => response.data)
+}
+
+export const getPermissions = async (): Promise<RolePermissionApiResponse> => {
+  return http
+    .get<RolePermissionApiResponse>('/api/v1/permissions')
     .then((response) => response.data)
 }

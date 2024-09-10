@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
@@ -16,19 +16,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
-import {
-  RoleDetail,
-  RolePermission,
-} from '@/modules/roleListing/constants/types'
-import { getRoleDetail } from '@/modules/roleListing/service'
-import { Permission, permissionsByCategory } from '@/constants/permissions'
+import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
+import { getRoleDetail, getPermissions } from '@/modules/roles/service'
+import { Permission } from '@/constants/permissions'
 import PrivateRoute from '@/app/hocs/isAuth'
-import PermissionCard from '@/modules/roleListing/components/PermissionCard'
+import PermissionCard from '@/modules/roles/components/PermissionCard'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
 } from '@/lib/localizePermission'
-import { FormValidationSchema } from '@/modules/roleListing/constants/formValidationSchema'
+import { FormValidationSchema } from '@/modules/roles/constants/formValidationSchema'
 import { NextPage } from 'next'
 import { Button } from '@/components/ui/button'
 
@@ -46,17 +43,28 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [isLoading, setIsLoading] = useState(true)
   // const [isEditable, setIsEditable] = useState<boolean>(false)
 
-  const initializePermissions = (): RolePermission[] => {
-    return Object.entries(permissionsByCategory).flatMap(
-      ([category, permissions]) =>
-        permissions.map((permission) => ({
-          id: permission,
-          name: permission,
-          category: category,
+  const getAvailableRolePermissions = useCallback(async (): Promise<
+    RolePermission[]
+  > => {
+    return getPermissions()
+      .then((response) => {
+        const permissions = response.response
+        return permissions.map((permission: RolePermission) => ({
+          id: permission.id,
+          name: permission.name,
+          category: permission.category,
           isActive: false,
         }))
-    )
-  }
+      })
+      .catch(() => {
+        toast({
+          title: 'Error',
+          description: t('permissions.error'),
+          variant: 'destructive',
+        })
+        return []
+      })
+  }, [t, toast])
 
   const categorizePermissions = (
     permissions: RolePermission[]
@@ -84,19 +92,19 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     }))
   }
 
-  const processApiPermissions = (
+  const updatePermissionsActiveStatus = (
     permissions: RolePermission[],
     initialPermissions: RolePermission[]
   ): RolePermission[] => {
     const apiPermissionsMap: Record<string, { id: string; name: string }> = {}
 
     permissions.forEach(({ id, name }) => {
-      apiPermissionsMap[name] = { id, name }
+      apiPermissionsMap[id] = { id, name }
     })
 
     const updatedPermissions = initialPermissions.map(
       (permission): RolePermission => {
-        const apiPermission = apiPermissionsMap[permission.name]
+        const apiPermission = apiPermissionsMap[permission.id]
         return {
           ...permission,
           id: apiPermission ? apiPermission.id : permission.id,
@@ -109,35 +117,41 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }
 
   useEffect(() => {
-    const fetchDetails = (): void => {
+    const fetchDetails = async (): Promise<void> => {
+      const availablePermissions: RolePermission[] =
+        await getAvailableRolePermissions()
+
       getRoleDetail(params.id)
         .then((response) => {
           const fetchedRoleDetail = response.response
-          const initialPermissions = initializePermissions()
-          const processedApiPermissions = processApiPermissions(
+
+          const updatedPermissions = updatePermissionsActiveStatus(
             fetchedRoleDetail.permissions,
-            initialPermissions
+            availablePermissions
           )
+
           const localizedPermissions = localizePermissions(
-            processedApiPermissions,
+            updatedPermissions,
             t
           )
+
           setRoleDetail({
             ...fetchedRoleDetail,
             permissions: localizedPermissions,
           })
         })
+
         .catch(() => {
           toast({
             title: t('error'),
-            description: t('applicationError'),
+            description: t('role.error'),
             variant: 'destructive',
           })
         })
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
-  }, [params.id, t, toast])
+  }, [getAvailableRolePermissions, params.id, t, toast])
 
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_DETAIL]}>
