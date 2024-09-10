@@ -29,6 +29,8 @@ import { FormValidationSchema } from '@/modules/roles/constants/formValidationSc
 import { NextPage } from 'next'
 import { Button } from '@/components/ui/button'
 
+// TODO add dynamic switch changes, change cancel logic for switches (isActive to default), add save logic api call
+
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
 }) => {
@@ -37,11 +39,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
   })
-  const { control } = form
+  const { control, reset } = form
 
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  // const [isEditable, setIsEditable] = useState<boolean>(false)
+  const [isEditable, setIsEditable] = useState<boolean>(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [permissions, setPermissions] = useState<RolePermission[]>([])
 
   const getAvailableRolePermissions = useCallback(async (): Promise<
     RolePermission[]
@@ -139,6 +143,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             ...fetchedRoleDetail,
             permissions: localizedPermissions,
           })
+          setPermissions(localizedPermissions)
         })
 
         .catch(() => {
@@ -153,6 +158,34 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     fetchDetails()
   }, [getAvailableRolePermissions, params.id, t, toast])
 
+  const handleUpdateButtonClick = (): void => {
+    setIsEditable(true)
+  }
+
+  const handleCancelButtonClick = (): void => {
+    setIsEditable(false)
+    if (roleDetail) {
+      reset({
+        name: roleDetail.name,
+      })
+      setPermissions(roleDetail.permissions)
+    }
+  }
+
+  const handleSaveButtonClick = (): void => {
+    setIsEditable(false)
+  }
+
+  const handlePermissionToggle = (id: string): void => {
+    setPermissions((prevPermissions) =>
+      prevPermissions.map((permission) =>
+        permission.id === id
+          ? { ...permission, isActive: !permission.isActive }
+          : permission
+      )
+    )
+  }
+
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_DETAIL]}>
       <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
@@ -162,13 +195,34 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             <form className="space-y-6">
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold">{t('role.detailsTitle')}</h1>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => console.log('hehe')}
-                >
-                  {t('update')}
-                </Button>
+                <PrivateRoute requiredPermissions={[Permission.ROLE_UPDATE]}>
+                  {!isEditable ? (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleUpdateButtonClick}
+                    >
+                      {t('update')}
+                    </Button>
+                  ) : (
+                    <div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleCancelButtonClick}
+                      >
+                        {t('cancel')}
+                      </Button>{' '}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleSaveButtonClick}
+                      >
+                        {t('save')}
+                      </Button>
+                    </div>
+                  )}
+                </PrivateRoute>
               </div>
               <Card className="mb-6">
                 <CardHeader>
@@ -185,8 +239,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                           <FormControl>
                             <Input
                               {...field}
-                              disabled
-                              value={t(roleDetail.name) ?? ''}
+                              disabled={!isEditable}
+                              defaultValue={roleDetail.name ?? ''}
                             />
                           </FormControl>
                         </FormItem>
@@ -202,7 +256,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                             <Input
                               {...field}
                               disabled
-                              value={t(roleDetail.status.toLowerCase()) ?? ''}
+                              defaultValue={
+                                t(roleDetail.status.toLowerCase()) ?? ''
+                              }
                             />
                           </FormControl>
                         </FormItem>
@@ -295,6 +351,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       key={category}
                       category={t(category)}
                       permissions={permissions}
+                      isEditable={isEditable}
+                      onPermissionToggle={handlePermissionToggle}
                     />
                   ))}
                 </CardContent>

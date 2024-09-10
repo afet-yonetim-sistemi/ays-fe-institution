@@ -6,29 +6,37 @@ import { RolePermission } from '../constants/types'
 interface PermissionCardProps {
   category: string
   permissions: RolePermission[]
+  isEditable: boolean
+  onPermissionToggle: (id: string) => void
 }
 
-export default function PermissionCard({
+const PermissionCard: React.FC<PermissionCardProps> = ({
   category,
   permissions,
-}: PermissionCardProps): JSX.Element {
-  return (
-    <Card className="mb-4">
-      <CardHeader>
-        <CardTitle className="text-lg">{category}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-2 gap-4">
-          {permissions.map((permission) => (
-            <FormItem key={permission.id}>
-              <FormControl>
-                <Switch disabled checked={permission.isActive} />
-              </FormControl>
-              <FormLabel className="ml-4">{permission.name}</FormLabel>
-            </FormItem>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  )
-}
+  isEditable,
+  onPermissionToggle,
+}) => (
+  <Card className="mb-4">
+    <CardHeader>
+      <CardTitle className="text-lg">{category}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div className="grid grid-cols-2 gap-4">
+        {permissions.map((permission) => (
+          <FormItem key={permission.id} className="flex items-center">
+            <FormControl>
+              <Switch
+                disabled={!isEditable}
+                defaultChecked={permission.isActive}
+                onCheckedChange={() => onPermissionToggle(permission.id)}
+              />
+            </FormControl>
+            <FormLabel className="ml-4">{permission.name}</FormLabel>
+          </FormItem>
+        ))}
+      </div>
+    </CardContent>
+  </Card>
+)
+
+export default PermissionCard

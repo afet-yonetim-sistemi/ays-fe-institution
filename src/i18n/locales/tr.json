@@ -163,5 +163,7 @@
     "institutionPage": "Kurum Sayfası",
     "error": "Rol Yetki Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
   },
-  "update": "Güncelle"
+  "update": "Güncelle",
+  "cancel": "İptal",
+  "save": "Kaydet"
 }
