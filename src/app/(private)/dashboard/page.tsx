@@ -1,11 +1,6 @@
 'use client'
-import PrivateRoute from '@/app/hocs/isAuth'
 
 const Page = () => {
-  return (
-    <PrivateRoute>
-      <div></div>
-    </PrivateRoute>
-  )
+  return <div></div>
 }
 export default Page

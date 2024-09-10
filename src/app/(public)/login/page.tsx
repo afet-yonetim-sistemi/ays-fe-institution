@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
@@ -30,7 +30,6 @@ import {
   loginFailed,
   loginSuccess,
   selectError,
-  selectToken,
 } from '@/modules/auth/authSlice'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
@@ -41,7 +40,6 @@ const Page = () => {
   const { toast } = useToast()
   const dispatch = useAppDispatch()
   const router = useRouter()
-  const tokenInfo = useAppSelector(selectToken)
   const error = useAppSelector(selectError)
 
   const [loading, setLoading] = useState(false)
@@ -74,6 +72,7 @@ const Page = () => {
       .login(values)
       .then((res) => {
         dispatch(loginSuccess(res.data.response))
+        document.cookie = `token=${JSON.stringify(res.data.response)}; path=/;`
         form.reset()
         router.push('/dashboard')
       })
@@ -89,15 +88,7 @@ const Page = () => {
       .finally(() => setLoading(false))
   }
 
-  useEffect(() => {
-    if (tokenInfo) {
-      router.push('/dashboard')
-    }
-  }, [tokenInfo, router])
-
-  return tokenInfo ? (
-    <></>
-  ) : (
+  return (
     <>
       {error && <Toaster />}
       <div className={'container'}>
