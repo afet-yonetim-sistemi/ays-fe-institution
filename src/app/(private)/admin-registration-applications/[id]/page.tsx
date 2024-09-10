@@ -330,14 +330,12 @@ const Page = ({
                     <Button
                       type="button"
                       onClick={handleCopyLink}
-                      className="sm:col-span-2 flex items-center justify-start space-x-2 text-left"
+                      className="sm:col-span-2 text-left"
                     >
                       <span className="truncate flex-grow">
                         {registerCompletionUrl}
                       </span>
-                      <span className="">
-                        {t('adminRegistrationApplications.copyLink')}
-                      </span>
+                      <span>{t('adminRegistrationApplications.copyLink')}</span>
                     </Button>
                   </div>
                 </CardContent>
