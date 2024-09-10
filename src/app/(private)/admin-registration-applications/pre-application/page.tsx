@@ -32,13 +32,16 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Card } from '@/components/ui/card'
 import { useRouter } from 'next/navigation'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
+import { InstitutionsSummary } from '@/modules/adminRegistrationApplications/constants/types'
 
-const Page = () => {
+const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [institutionSummary, setInstitutionSummary] = useState<any>(null)
+  const [institutionSummary, setInstitutionSummary] = useState<
+    InstitutionsSummary[]
+  >([])
 
   const form = useForm<z.infer<typeof PreApplicationFormSchema>>({
     resolver: zodResolver(PreApplicationFormSchema),
@@ -48,15 +51,16 @@ const Page = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof PreApplicationFormSchema>) {
+  const onSubmit = (values: z.infer<typeof PreApplicationFormSchema>): void => {
     setIsLoading(true)
     approveAdminRegistrationApplication(values)
-      .then(() => {
+      .then((res) => {
         toast({
           title: t('success'),
           description: t('preApplicationSuccess'),
+          variant: 'success',
         })
-        router.push('/admin-registration-applications')
+        router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch(() => {
         toast({
@@ -71,7 +75,8 @@ const Page = () => {
   useEffect(() => {
     getPreApplicationSummary()
       .then((response) => {
-        setInstitutionSummary(response.data.response)
+        const summaryData = response.data.response
+        setInstitutionSummary(summaryData)
       })
       .catch(() => {
         toast({
@@ -89,7 +94,7 @@ const Page = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <Card className="p-6 w-full">
-            <div className="grid grid-cols-3 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
+            <div className="grid grid-cols-1 gap-y-6 lg:grid-cols-3 lg:gap-x-6">
               <FormField
                 control={form.control}
                 name="institutionId"
@@ -106,12 +111,12 @@ const Page = () => {
                             <SelectValue placeholder={t('selectInstitution')} />
                           </SelectTrigger>
                           <SelectContent>
-                            {institutionSummary?.map((item: any) => (
+                            {institutionSummary?.map((item: InstitutionsSummary) => (
                               <SelectItem key={item.id} value={item.id}>
                                 {item.name}
                               </SelectItem>
-                            ))}
-                          </SelectContent>
+                            )
+                          )}</SelectContent>
                         </Select>
                       </FormControl>
                       <FormMessage />
@@ -127,7 +132,7 @@ const Page = () => {
                     <FormItem className="col-span-2">
                       <FormLabel>{t('createReason')}</FormLabel>
                       <FormControl>
-                        <Textarea minLength={40} maxLength={512} {...field} />
+                        <Textarea  {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

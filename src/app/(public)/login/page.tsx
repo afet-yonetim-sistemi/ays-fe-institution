@@ -35,7 +35,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 
-const Page = () => {
+const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const dispatch = useAppDispatch()
@@ -52,7 +52,7 @@ const Page = () => {
     password: z
       .string()
       .min(1, t('requiredField'))
-      .min(8, t('minLength', { field: 8 }))
+      .min(6, t('minLength', { field: 6 }))
       .max(50, t('maxLength', { field: 50 })),
     sourcePage: z.string(),
   })
@@ -66,7 +66,7 @@ const Page = () => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof formSchema>): void => {
     setLoading(true)
     authService
       .login(values)

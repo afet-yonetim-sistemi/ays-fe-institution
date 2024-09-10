@@ -1,7 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { getAdminRegistrationApplication } from '@/modules/adminRegistrationApplications/service'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import {
+  approveAdminRegistrationApplicationWithId,
+  getAdminRegistrationApplication,
+  rejectAdminRegistrationApplication,
+} from '@/modules/adminRegistrationApplications/service'
 import { Input } from '@/components/ui/input'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import { formatDateTime } from '@/lib/formatDateTime'
@@ -20,20 +25,18 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { DialogDescription } from '@radix-ui/react-dialog'
+import PrivateRoute from '@/app/hocs/isAuth'
+import { Permission } from '@/constants/permissions'
+import ButtonDialog from '@/modules/adminRegistrationApplications/components/dialog'
 
-const Page = ({ params }: { params: { slug: string; id: string } }) => {
+const Page = ({
+  params,
+}: {
+  params: { slug: string; id: string }
+}): React.JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
+  const router = useRouter()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
   })
@@ -45,8 +48,47 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
   ] = useState<AdminRegistrationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  const handleReject = (rejectReason?: string): void | object => {
+    const reason = { rejectReason }
+    rejectAdminRegistrationApplication(reason, params.id)
+      .then(() => {
+        toast({
+          title: t('success'),
+          description: t('applicationRejectSuccess'),
+          variant: 'success',
+        })
+        router.push('/admin-registration-applications')
+      })
+      .catch(() => {
+        toast({
+          title: t('error'),
+          description: t('defaultError'),
+          variant: 'destructive',
+        })
+      })
+  }
+
+  const handleApprove = (): void | object => {
+    approveAdminRegistrationApplicationWithId(params.id)
+      .then(() => {
+        toast({
+          title: t('success'),
+          description: t('applicationApproveSuccess'),
+          variant: 'success',
+        })
+        router.push('/admin-registration-applications')
+      })
+      .catch(() => {
+        toast({
+          title: t('error'),
+          description: t('defaultError'),
+          variant: 'destructive',
+        })
+      })
+  }
+
   useEffect(() => {
-    const fetchDetails = () => {
+    const fetchDetails = (): void => {
       getAdminRegistrationApplication(params.id)
         .then((response) => {
           setAdminRegistrationApplicationDetails(response.response)
@@ -60,81 +102,35 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false))
     }
-
     fetchDetails()
   }, [params.id, t, toast])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
-      {isLoading && <LoadingSpinner />}
-      {!isLoading && adminRegistrationApplicationDetails && (
-        <Form {...form}>
-          <form className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl font-bold">
-                {t('adminRegistrationApplications.detailsTitle')}
-              </h1>
-              {adminRegistrationApplicationDetails.status === 'COMPLETED' && (
-                <div className="flex space-x-8 ml-auto">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="destructive">{t('reject')}</Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-xl">
-                      <DialogHeader>
-                        <DialogTitle>{t('rejectConfirm')}</DialogTitle>
-                        <DialogDescription />
-                      </DialogHeader>
-                      <div className="flex justify-center space-x-10 mt-4">
-                        <DialogClose asChild>
-                          <Button
-                            type="button"
-                            variant="outline"
-                            className="flex-1"
-                          >
-                            {t('no')}
-                          </Button>
-                        </DialogClose>
-                        <DialogClose asChild>
-                          <Button type="button" className="flex-1">
-                            {t('yes')}
-                          </Button>
-                        </DialogClose>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="default"
-                        className="bg-green-500 text-white hover:bg-green-600"
-                      >
-                        {t('approve')}
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-xl">
-                      <DialogHeader>
-                        <DialogTitle>{t('approveConfirm')}</DialogTitle>
-                        <DialogDescription />
-                      </DialogHeader>
-                      <div className="flex justify-center space-x-10 mt-4">
-                        <DialogClose asChild>
-                          <Button
-                            type="button"
-                            variant="outline"
-                            className="flex-1"
-                          >
-                            {t('no')}
-                          </Button>
-                        </DialogClose>
-                        <DialogClose asChild>
-                          <Button type="button" className="flex-1">
-                            {t('yes')}
-                          </Button>
-                        </DialogClose>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+        {isLoading && <LoadingSpinner />}
+        {!isLoading && adminRegistrationApplicationDetails && (
+          <Form {...form}>
+            <form className="space-y-6">
+              <div className="flex justify-between items-center mb-6">
+                <h1 className="text-2xl font-bold">
+                  {t('adminRegistrationApplications.detailsTitle')}
+                </h1>
+                {adminRegistrationApplicationDetails.status === 'COMPLETED' && (
+                  <div className="flex space-x-8 ml-auto">
+                    <ButtonDialog
+                      triggerText={'reject'}
+                      title={'rejectConfirm'}
+                      onConfirm={handleReject}
+                      variant={'destructive'}
+                      reason={true}
+                      tooltipText={'rejectReasonLengthInfo'}
+                    />
+                    <ButtonDialog
+                      triggerText={'approve'}
+                      title={'approveConfirm'}
+                      onConfirm={handleApprove}
+                      variant={'success'}
+                    />
                 </div>
               )}
             </div>
@@ -195,13 +191,13 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                           <Input
                             {...field}
                             disabled
-                            value={
-                              t(
-                                adminRegistrationApplicationDetails.status.toLowerCase(),
-                              ) ?? ''
-                            }
-                          />
-                        </FormControl>
+                            value={adminRegistrationApplicationDetails?.status
+                                  ? t(
+                                      adminRegistrationApplicationDetails.status.toLowerCase()
+                                    )
+                                  : ''
+                              }
+                            /></FormControl>
                       </FormItem>
                     )}
                   />
@@ -263,7 +259,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             defaultValue={
                               adminRegistrationApplicationDetails.createdAt
                                 ? formatDateTime(
-                                    adminRegistrationApplicationDetails.createdAt,
+                                    adminRegistrationApplicationDetails.createdAt
                                   )
                                 : ''
                             }
@@ -306,136 +302,136 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             defaultValue={
                               adminRegistrationApplicationDetails.updatedAt
                                 ? formatDateTime(
-                                    adminRegistrationApplicationDetails.updatedAt,
-                                  )
-                                : ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </CardContent>
-            </Card>
+                                    adminRegistrationApplicationDetails.updatedAt
+                                    )
+                                  : ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('userInformation')}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 mb-6">
-                  <FormField
-                    control={control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('firstName')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.firstName ?? ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('lastName')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.lastName ?? ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="userCity"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('city')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user?.city ??
-                              ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
-                  <FormField
-                    control={control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('phoneNumber')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.phoneNumber?.countryCode &&
-                              adminRegistrationApplicationDetails.user
-                                ?.phoneNumber?.lineNumber
-                                ? formatPhoneNumber(
-                                    adminRegistrationApplicationDetails.user
-                                      .phoneNumber,
-                                  )
-                                : ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="userEmailAddress"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('emailAddress')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.emailAddress ?? ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </form>
-        </Form>
-      )}
-    </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t('userInformation')}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 mb-6">
+                    <FormField
+                      control={control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('firstName')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  ?.firstName ?? ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('lastName')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  ?.lastName ?? ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={control}
+                      name="userCity"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('city')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  ?.city ?? ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+                    <FormField
+                      control={control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-1">
+                          <FormLabel>{t('phoneNumber')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  ?.phoneNumber?.countryCode &&
+                                adminRegistrationApplicationDetails.user
+                                  ?.phoneNumber?.lineNumber
+                                  ? formatPhoneNumber(
+                                      adminRegistrationApplicationDetails.user
+                                        .phoneNumber
+                                    )
+                                  : ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={control}
+                      name="userEmailAddress"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-1">
+                          <FormLabel>{t('emailAddress')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  ?.emailAddress ?? ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </form>
+          </Form>
+        )}
+      </div>
   )
 }
 

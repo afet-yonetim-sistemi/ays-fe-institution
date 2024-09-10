@@ -16,7 +16,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
 interface AdminRegistrationState {
-  content: any[]
+  content: []
   totalPageCount: number
 }
 
@@ -27,16 +27,19 @@ const searchParamsSchema = z.object({
   status: z.string().optional(),
 })
 
-const Page = () => {
+const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
   const search = searchParamsSchema.parse(
-    Object.fromEntries(searchParams.entries()),
+    Object.fromEntries(searchParams.entries())
   )
 
   const { t } = useTranslation()
   const { toast } = useToast()
   const [adminRegistration, setAdminRegistration] =
-    useState<AdminRegistrationState>({ content: [], totalPageCount: 0 })
+    useState<AdminRegistrationState>({
+      content: [],
+      totalPageCount: 0,
+    })
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 

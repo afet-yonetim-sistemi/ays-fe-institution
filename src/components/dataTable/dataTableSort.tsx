@@ -8,7 +8,8 @@ import {
 import i18n from 'i18next'
 import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
 
-const DataTableSort = ({ column, label }: { column: any, label: string }) => {
+// eslint-disable-next-line
+const DataTableSort = ({ column, label }: { column: any; label: string }) => {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -27,14 +28,14 @@ const DataTableSort = ({ column, label }: { column: any, label: string }) => {
               ? 'desc'
               : column.getIsSorted() == 'desc'
                 ? 'clearSort'
-                : 'asc',
+                : 'asc'
           )}
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   )
 }
-
+// eslint-disable-next-line
 const SortIcon = ({ sort }: { sort: string }) => {
   if (sort == 'asc') return <BiSortUp className="h-4 w-4" />
   else if (sort == 'desc') return <BiSortDown className="h-4 w-4" />

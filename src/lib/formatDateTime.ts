@@ -1,11 +1,7 @@
-import { DateTime } from "luxon";
+import { DateTime } from 'luxon'
 
-export const formatDateTime = (date: string | null) => {
-  if (!date) {
-    return "";
-  }
-  return DateTime
-    .fromISO(date, { zone: "UTC" })
+export const formatDateTime = (date: string): string => {
+  return DateTime.fromISO(date, { zone: 'UTC' })
     .setZone(DateTime.local().zoneName)
-    .toFormat("dd.MM.yyyy HH:mm");
-};
+    .toFormat('dd.MM.yyyy HH:mm')
+}

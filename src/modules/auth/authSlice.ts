@@ -24,7 +24,7 @@ const authSlice = createSlice({
       state.accessToken = action.payload.accessToken
       state.refreshToken = action.payload.refreshToken
       const userInfo = parseJwt(action.payload.accessToken)
-      state.permissions = userInfo?.userPermissions || []
+      state.permissions = (userInfo?.userPermissions as string[]) || []
       state.error = null
     },
     loginFailed: (state, action) => {
@@ -41,9 +41,11 @@ const authSlice = createSlice({
 
 export const { loginSuccess, loginFailed, logout } = authSlice.actions
 
-export const selectToken = (state: RootState) => state.auth.accessToken
-export const selectRefreshToken = (state: RootState) => state.auth.refreshToken
-export const selectPermissions = (state: RootState) => state.auth.permissions
-export const selectError = (state: RootState) => state.auth.error
+export const selectToken = (state: RootState): string => state.auth.accessToken
+export const selectRefreshToken = (state: RootState): string =>
+  state.auth.refreshToken
+export const selectPermissions = (state: RootState): string[] =>
+  state.auth.permissions
+export const selectError = (state: RootState): string | null => state.auth.error
 
 export default authSlice.reducer

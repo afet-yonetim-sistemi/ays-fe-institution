@@ -18,34 +18,36 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
     accessorKey: 'institution.name',
     header: () => i18next.t('organization'),
     cell: ({ row }) => row.original.institution.name,
-    size: 170
+    size: 170,
   },
   {
     accessorKey: 'reason',
     header: () => i18next.t('creationReason'),
     cell: ({ row }) => row.original.reason,
-    size: 500
+    size: 500,
   },
   {
     accessorKey: 'status',
     header: () => i18next.t('status'),
     cell: ({ row }) => <Status status={row.getValue('status')} />,
-    size: 140
+    size: 140,
   },
   {
     accessorKey: 'createdUser',
     header: () => i18next.t('createdUser'),
     cell: ({ row }) => row.original.createdUser,
-    size: 160
+    size: 160,
   },
   {
     accessorKey: 'createdAt',
-    header: ({ column }) => {
-      return <DataTableSort column={column} label={i18next.t('createdAt')}/>
+    header: ({ column }): JSX.Element => {
+      return <DataTableSort column={column} label={i18next.t('createdAt')} />
     },
     size: 155,
-    cell: ({ row }) => {
-      return <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
-    }
-  }
+    cell: ({ row }): JSX.Element => {
+      return (
+        <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
+      )
+    },
+  },
 ]

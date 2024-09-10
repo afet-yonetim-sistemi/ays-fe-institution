@@ -1,11 +1,13 @@
-import { PhoneNumber } from "@/common/types"
+import { PhoneNumber } from '@/common/types'
 
 export interface EmergencyEvacuationApplications {
+  // eslint-disable-next-line
   content: any[]
   totalPageCount: number
 }
 export interface EmergencyEvacuationApplicationsTableProps {
   id: string
+  // eslint-disable-next-line
   referenceNumber: any
   firstName: string
   lastName: string
@@ -22,6 +24,7 @@ export interface Search {
   per_page: number
   sort: string | undefined
   status: string | undefined
+  // eslint-disable-next-line
   referenceNumber: any
   seatingCount: number | null
   sourceCity: string | undefined

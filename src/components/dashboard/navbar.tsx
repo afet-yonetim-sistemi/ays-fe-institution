@@ -22,7 +22,7 @@ import { parseJwt } from '@/lib/helpers'
 import authService from '@/modules/auth/service'
 import { useRouter } from 'next/navigation'
 
-function Navbar() {
+function Navbar(): JSX.Element {
   const { t } = useTranslation()
   const token = useAppSelector(selectToken)
   const refreshToken = useAppSelector(selectRefreshToken)
@@ -30,7 +30,7 @@ function Navbar() {
   const router = useRouter()
   const userInfo = parseJwt(token)
 
-  const logout = () => {
+  const logout = (): void => {
     authService
       .logout(refreshToken)
       .then(() => {

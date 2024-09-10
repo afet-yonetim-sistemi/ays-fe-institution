@@ -17,7 +17,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
-}>) {
+}>): JSX.Element {
   return (
     <html lang={i18n.language}>
       <body className={inter.className}>
@@ -28,7 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Providers>{children}</Providers>
-          <Toaster/>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

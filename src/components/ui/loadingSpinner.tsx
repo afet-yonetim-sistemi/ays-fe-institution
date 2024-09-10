@@ -9,7 +9,7 @@ export const LoadingSpinner = ({
   size = 24,
   className,
   ...props
-}: ISVGProps) => {
+}: ISVGProps): JSX.Element => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

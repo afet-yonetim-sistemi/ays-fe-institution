@@ -1,4 +1,7 @@
-export const generatePagination = (currentPage: number, totalPages: number) => {
+export const generatePagination = (
+  currentPage: number,
+  totalPages: number
+): (number | string)[] => {
   if (totalPages <= 7) {
     return Array.from({ length: totalPages }, (_, i) => i + 1)
   }

@@ -1,4 +1,4 @@
-import { Institution, User } from "@/common/types"
+import { Institution, User } from '@/common/types'
 
 export interface AdminRegistrationApplication {
   createdUser: string
@@ -17,4 +17,15 @@ export interface ApiResponse {
   time: string
   isSuccess: boolean
   response: AdminRegistrationApplication
+}
+
+export interface InstitutionsSummary {
+  id: string
+  name: string
+}
+
+export interface ApiSummaryResponse {
+  time: string
+  isSuccess: boolean
+  data: { response: InstitutionsSummary[] }
 }

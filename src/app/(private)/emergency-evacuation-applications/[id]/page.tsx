@@ -17,17 +17,21 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
-import { FormSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
+import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
 import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
 import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
 
-const Page = ({ params }: { params: { slug: string; id: string } }) => {
+const Page = ({
+  params,
+}: {
+  params: { slug: string; id: string }
+}): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const form = useForm({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(FormValidationSchema),
   })
   const { control } = form
 
@@ -39,7 +43,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchDetails = () => {
+    const fetchDetails = (): void => {
       getEmergencyEvacuationApplication(params.id)
         .then((response) => {
           setEmergencyEvacuationApplicationDetails(response.response)
@@ -54,7 +58,6 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
         })
         .finally(() => setIsLoading(false))
     }
-
     fetchDetails()
   }, [params.id, t, toast])
 
@@ -135,7 +138,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                               emergencyEvacuationApplicationDetails?.phoneNumber
                                 ?.lineNumber
                                 ? formatPhoneNumber(
-                                    emergencyEvacuationApplicationDetails.phoneNumber,
+                                    emergencyEvacuationApplicationDetails.phoneNumber
                                   )
                                 : ''
                             }
@@ -176,7 +179,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <FormItem className="col-span-1">
                           <FormLabel>
                             {t(
-                              'emergencyEvacuationApplications.applicantNameSurname',
+                              'emergencyEvacuationApplications.applicantNameSurname'
                             )}
                           </FormLabel>
                           <FormControl>
@@ -205,7 +208,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                         <FormItem className="col-span-1">
                           <FormLabel>
                             {t(
-                              'emergencyEvacuationApplications.applicantPhoneNumber',
+                              'emergencyEvacuationApplications.applicantPhoneNumber'
                             )}
                           </FormLabel>
                           <FormControl>
@@ -218,7 +221,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                                 emergencyEvacuationApplicationDetails
                                   ?.applicantPhoneNumber?.lineNumber
                                   ? formatPhoneNumber(
-                                      emergencyEvacuationApplicationDetails.applicantPhoneNumber,
+                                      emergencyEvacuationApplicationDetails.applicantPhoneNumber
                                     )
                                   : ''
                               }
@@ -237,7 +240,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
                           {t(
-                            'emergencyEvacuationApplications.sourceCityAndDistrict',
+                            'emergencyEvacuationApplications.sourceCityAndDistrict'
                           )}
                         </FormLabel>
                         <FormControl>
@@ -266,7 +269,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
                           {t(
-                            'emergencyEvacuationApplications.targetCityAndDistrict',
+                            'emergencyEvacuationApplications.targetCityAndDistrict'
                           )}
                         </FormLabel>
                         <FormControl>
@@ -335,7 +338,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
                           {t(
-                            'emergencyEvacuationApplications.confirmedSeatCount',
+                            'emergencyEvacuationApplications.confirmedSeatCount'
                           )}
                         </FormLabel>
                         <FormControl>
@@ -392,7 +395,7 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                             defaultValue={
                               emergencyEvacuationApplicationDetails.createdAt
                                 ? formatDateTime(
-                                    emergencyEvacuationApplicationDetails.createdAt,
+                                    emergencyEvacuationApplicationDetails.createdAt
                                   )
                                 : ''
                             }
@@ -403,12 +406,12 @@ const Page = ({ params }: { params: { slug: string; id: string } }) => {
                   />
                   <FormField
                     control={control}
-                    name="anyHandicap"
+                    name="anyDisability"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <div className="flex items-center">
                           <FormLabel className="mr-2">
-                            {t('emergencyEvacuationApplications.anyHandicap')}
+                            {t('emergencyEvacuationApplications.anyDisability')}
                           </FormLabel>
                           <FormControl>
                             <Checkbox

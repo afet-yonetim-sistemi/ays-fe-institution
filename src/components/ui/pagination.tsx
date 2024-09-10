@@ -10,14 +10,14 @@ interface PaginationProps {
   totalPages: number
 }
 
-const Pagination = ({ totalPages }: PaginationProps) => {
+const Pagination = ({ totalPages }: PaginationProps): JSX.Element => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
   const currentPage = Number(searchParams.get('page')) || 1
   const allPages = generatePagination(currentPage, totalPages)
 
-  const createPageURL = (pageNumber: number | string) => {
+  const createPageURL = (pageNumber: number | string): void => {
     const params = new URLSearchParams(searchParams)
     params.set('page', pageNumber.toString())
     router.push(`${pathname}?${params.toString().replace(/%2C/g, ',')}`)
@@ -69,10 +69,11 @@ function PaginationNumber({
   position,
 }: {
   page: number | string
+  // eslint-disable-next-line
   onClick: any
   position?: 'first' | 'last' | 'middle' | 'single'
   isActive: boolean
-}) {
+}): JSX.Element {
   const className = cn(
     'flex h-10 w-10 border-none items-center justify-center text-sm border',
     {
@@ -82,7 +83,7 @@ function PaginationNumber({
       'hover:bg-gray-800/10 dark:hover:bg-gray-800':
         !isActive && position !== 'middle',
       'text-gray-300': position === 'middle',
-    },
+    }
   )
 
   return isActive || position === 'middle' ? (
@@ -99,10 +100,11 @@ function PaginationArrow({
   direction,
   isDisabled,
 }: {
+  // eslint-disable-next-line
   onClick: any
   direction: 'left' | 'right'
   isDisabled?: boolean
-}) {
+}): JSX.Element {
   const className = cn(
     'flex h-10 w-10 p-0 items-center justify-center rounded-md border',
     {
@@ -110,7 +112,7 @@ function PaginationArrow({
       'hover:bg-gray-800/10 dark:hover:bg-gray-800': !isDisabled,
       'mr-2 md:mr-4': direction === 'left',
       'ml-2 md:ml-4': direction === 'right',
-    },
+    }
   )
 
   const icon =
