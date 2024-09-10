@@ -92,7 +92,9 @@
     "createdAt": "Başvuru Oluşturulma Tarihi",
     "updatedAt": "Başvuru Güncellenme Tarihi",
     "createdUser": "Başvuruyu Oluşturan Kullanıcı",
-    "status": "Başvuru Durumu"
+    "status": "Başvuru Durumu",
+    "copyLink": "Başvuru Detayları Linkini Kopyala",
+    "linkCopied": "Link Kopyalandı"
   },
   "emergencyEvacuationApplications": {
     "title": "Acil Durum Tahliye Başvurusu",

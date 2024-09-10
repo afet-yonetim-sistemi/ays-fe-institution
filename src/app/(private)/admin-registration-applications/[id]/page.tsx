@@ -28,6 +28,13 @@ import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
 import ButtonDialog from '@/modules/adminRegistrationApplications/components/dialog'
+import { Button } from '@/components/ui/button'
+import { Link } from 'lucide-react'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 
 const Page = ({
   params,
@@ -47,6 +54,7 @@ const Page = ({
     setAdminRegistrationApplicationDetails,
   ] = useState<AdminRegistrationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [currentUrl, setCurrentUrl] = useState<string>('')
 
   const handleReject = (rejectReason?: string): void | object => {
     const reason = { rejectReason }
@@ -87,6 +95,17 @@ const Page = ({
       })
   }
 
+  const handleCopyLink = (): void => {
+    navigator.clipboard.writeText(currentUrl).then(() => {
+      toast({
+        title: t('success'),
+        description: `${currentUrl}\n${t('adminRegistrationApplications.linkCopied')}`,
+        variant: 'success',
+        className: 'whitespace-pre-line',
+      })
+    })
+  }
+
   useEffect(() => {
     const fetchDetails = (): void => {
       getAdminRegistrationApplication(params.id)
@@ -105,6 +124,10 @@ const Page = ({
     fetchDetails()
   }, [params.id, t, toast])
 
+  useEffect(() => {
+    setCurrentUrl(window.location.href)
+  }, [])
+
   return (
     <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
       <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
@@ -116,6 +139,22 @@ const Page = ({
                 <h1 className="text-2xl font-bold">
                   {t('adminRegistrationApplications.detailsTitle')}
                 </h1>
+                <div className="ml-2">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        type="button"
+                        onClick={handleCopyLink}
+                        className="p-2 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full"
+                      >
+                        <Link className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {t('adminRegistrationApplications.copyLink')}
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
                 {adminRegistrationApplicationDetails.status === 'COMPLETED' && (
                   <div className="flex space-x-8 ml-auto">
                     <ButtonDialog

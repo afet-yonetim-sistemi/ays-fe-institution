@@ -92,7 +92,9 @@
     "createdAt": "Application Creation Date",
     "updatedAt": "Application Update Date",
     "createdUser": "User Who Created the Application",
-    "status": "Application Status"
+    "status": "Application Status",
+    "copyLink": "Copy Link to the Application Details",
+    "linkCopied": "Copied the Link"
   },
   "emergencyEvacuationApplications": {
     "title": "Emergency Evacuation Applications",
