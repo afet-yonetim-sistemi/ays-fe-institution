@@ -1,9 +1,9 @@
-export interface RoleListing {
+export interface Roles {
   // eslint-disable-next-line
   content: any[]
   totalPageCount: number
 }
-export interface RoleListingTableProps {
+export interface RolesTableProps {
   name: string
   status: string
   createdAt: string
@@ -28,7 +28,7 @@ export interface RolePermission {
   id: string
   name: string
   category: string
-  isActive: boolean
+  isActive?: boolean
 }
 
 export interface RoleDetail {
@@ -42,8 +42,14 @@ export interface RoleDetail {
   permissions: RolePermission[]
 }
 
-export interface ApiResponse {
+export interface RoleApiResponse {
   time: string
   isSuccess: boolean
   response: RoleDetail
+}
+
+export interface RolePermissionApiResponse {
+  time: string
+  isSuccess: boolean
+  response: RolePermission[]
 }
