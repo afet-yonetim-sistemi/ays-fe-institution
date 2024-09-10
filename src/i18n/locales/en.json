@@ -8,7 +8,7 @@
   "users": "Users",
   "home": "Home",
   "page": "Page",
-  "roleListing": "Role Listing",
+  "roles": "Role Listing",
   "all": "All",
   "status": "Status",
   "waiting": "Waiting",
@@ -132,7 +132,8 @@
     "detailsTitle": "Role Details",
     "createdUser": "User Who Created",
     "updatedUser": "User Who Updated",
-    "information": "Role Information"
+    "information": "Role Information",
+    "error": "Error while fetching role details. Please try again"
   },
   "permissions": {
     "superAdmin": "Super Admin",
@@ -160,6 +161,7 @@
     "applicationEvacuationUpdate": "Update Evacuation Application",
     "super": "Super Admin",
     "landingPage": "Landing Page",
-    "institutionPage": "Institution Page"
+    "institutionPage": "Institution Page",
+    "error": "Error while fetching role permission details. Please try again"
   }
 }
