@@ -3,10 +3,10 @@ import {
   RoleApiResponse,
   RolePermissionApiResponse,
   Search,
-} from '../roleListing/constants/types'
+} from '../roles/constants/types'
 import { AxiosResponse } from 'axios'
 
-export function postRoleListing(search: Search): Promise<AxiosResponse> {
+export function postRoles(search: Search): Promise<AxiosResponse> {
   const sortBy = search.sort
     ? [
         {

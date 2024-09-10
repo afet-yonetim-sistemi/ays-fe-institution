@@ -1,9 +1,9 @@
-export interface RoleListing {
+export interface Roles {
   // eslint-disable-next-line
   content: any[]
   totalPageCount: number
 }
-export interface RoleListingTableProps {
+export interface RolesTableProps {
   name: string
   status: string
   createdAt: string

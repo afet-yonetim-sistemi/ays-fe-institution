@@ -16,19 +16,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
-import {
-  RoleDetail,
-  RolePermission,
-} from '@/modules/roleListing/constants/types'
-import { getRoleDetail, getPermissions } from '@/modules/roleListing/service'
+import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
+import { getRoleDetail, getPermissions } from '@/modules/roles/service'
 import { Permission } from '@/constants/permissions'
 import PrivateRoute from '@/app/hocs/isAuth'
-import PermissionCard from '@/modules/roleListing/components/PermissionCard'
+import PermissionCard from '@/modules/roles/components/PermissionCard'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
 } from '@/lib/localizePermission'
-import { FormValidationSchema } from '@/modules/roleListing/constants/formValidationSchema'
+import { FormValidationSchema } from '@/modules/roles/constants/formValidationSchema'
 import { NextPage } from 'next'
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
