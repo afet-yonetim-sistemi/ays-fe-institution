@@ -33,8 +33,8 @@ export const MenuItems: Menu[] = [
     requiredPermissions: [Permission.EVACUATION_LIST],
   },
   {
-    key: '/role-listing',
-    label: 'roleListing',
+    key: '/roles',
+    label: 'roles',
     icon: ClipboardPenLine,
     requiredPermissions: [Permission.ROLE_LIST],
   },

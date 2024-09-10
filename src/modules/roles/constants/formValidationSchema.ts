@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const RoleListingSchema = z.object({
+const RolesSchema = z.object({
   name: z.string(),
   status: z.string(),
   createdUser: z.string(),
@@ -9,4 +9,4 @@ const RoleListingSchema = z.object({
   updatedAt: z.string(),
 })
 
-export const FormValidationSchema = RoleListingSchema
+export const FormValidationSchema = RolesSchema

@@ -6,13 +6,13 @@ import { useTranslation } from 'react-i18next'
 import { useToast } from '@/components/ui/use-toast'
 import { useSearchParams } from 'next/navigation'
 import { Permission } from '@/constants/permissions'
-import { postRoleListing } from '@/modules/roleListing/service'
-import { searchParamsSchema } from '@/modules/roleListing/constants/searchParamsSchema'
-import { RoleListing } from '@/modules/roleListing/constants/types'
+import { postRoles } from '@/modules/roles/service'
+import { searchParamsSchema } from '@/modules/roles/constants/searchParamsSchema'
+import { Roles } from '@/modules/roles/constants/types'
 import { useDataTable } from '@/app/hocs/useDataTable'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
-import { columns } from '@/modules/roleListing/components/columns'
-import filterFields from '@/modules/roleListing/constants/filterFields'
+import { columns } from '@/modules/roles/components/columns'
+import filterFields from '@/modules/roles/constants/filterFields'
 
 const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
@@ -22,7 +22,7 @@ const Page = (): JSX.Element => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
-  const [data, setData] = useState<RoleListing>({
+  const [data, setData] = useState<Roles>({
     content: [],
     totalPageCount: 0,
   })
@@ -31,7 +31,7 @@ const Page = (): JSX.Element => {
 
   useEffect(() => {
     setIsLoading(true)
-    postRoleListing({
+    postRoles({
       page: search.page,
       per_page: search.per_page,
       sort: search.sort,
@@ -81,7 +81,7 @@ const Page = (): JSX.Element => {
           enableRowClick
         >
           <div className="flex flex-col w-full gap-4">
-            <h1 className="text-2xl font-medium">{t('roleListing')}</h1>
+            <h1 className="text-2xl font-medium">{t('roles')}</h1>
             <DataTableToolbar table={table} filterFields={filterFields} />
           </div>
         </DataTable>
