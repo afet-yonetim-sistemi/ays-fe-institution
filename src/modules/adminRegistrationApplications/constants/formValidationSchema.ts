@@ -3,7 +3,7 @@ import i18n from '@/i18n'
 
 const PhoneNumberSchema = z.object({
   countryCode: z.string(),
-  lineNumber: z.string(),
+  lineNumber: z.string().min(1, i18n.t('requiredField')),
 })
 
 const UserSchema = z.object({
