@@ -34,7 +34,7 @@ export const postRoles = (search: Search): Promise<AxiosResponse> => {
 
 export const updateRole = (
   id: string,
-  data: { roleName: string; permissionIds: string[] }
+  data: { name: string; permissionIds: string[] }
 ): Promise<AxiosResponse> => {
   return http.put(`/api/v1/role/${id}`, data)
 }

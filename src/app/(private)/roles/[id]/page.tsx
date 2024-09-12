@@ -17,7 +17,11 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
-import { getRoleDetail, getPermissions } from '@/modules/roles/service'
+import {
+  getRoleDetail,
+  getPermissions,
+  updateRole,
+} from '@/modules/roles/service'
 import { Permission } from '@/constants/permissions'
 import PrivateRoute from '@/app/hocs/isAuth'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
@@ -29,7 +33,7 @@ import { FormValidationSchema } from '@/modules/roles/constants/formValidationSc
 import { NextPage } from 'next'
 import { Button } from '@/components/ui/button'
 
-// TODO add calls when save button clicked
+// TODO clean up the code, wait for answer about if role name could include numbers or not
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
@@ -176,7 +180,35 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }
 
   const handleSaveButtonClick = (): void => {
-    setIsEditable(false)
+    if (!roleDetail) return
+
+    const updatedData = {
+      name: form.getValues('name'),
+      permissionIds: permissions
+        .filter((permission) => permission.isActive)
+        .map((permission) => permission.id),
+    }
+
+    console.log('updated datatat ', updatedData)
+
+    updateRole(params.id, updatedData)
+      .then(() => {
+        toast({
+          title: t('success'),
+          description: t('role.updatedSuccessfully'),
+          variant: 'success',
+        })
+      })
+      .catch(() => {
+        toast({
+          title: t('error'),
+          description: t('role.updateError'),
+          variant: 'destructive',
+        })
+      })
+      .finally(() => {
+        setIsEditable(false)
+      })
   }
 
   const handlePermissionToggle = (id: string): void => {
