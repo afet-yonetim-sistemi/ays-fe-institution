@@ -6,7 +6,7 @@ import {
 } from '../roles/constants/types'
 import { AxiosResponse } from 'axios'
 
-export function postRoles(search: Search): Promise<AxiosResponse> {
+export const postRoles = (search: Search): Promise<AxiosResponse> => {
   const sortBy = search.sort
     ? [
         {
@@ -30,6 +30,13 @@ export function postRoles(search: Search): Promise<AxiosResponse> {
       statuses: filterStatus,
     },
   })
+}
+
+export const updateRole = (
+  id: string,
+  data: { roleName: string; permissionIds: string[] }
+): Promise<AxiosResponse> => {
+  return http.put(`/api/v1/role/${id}`, data)
 }
 
 export const getRoleDetail = async (id: string): Promise<RoleApiResponse> => {
