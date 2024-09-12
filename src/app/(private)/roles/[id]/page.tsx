@@ -38,8 +38,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const { toast } = useToast()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
+    mode: 'onChange',
   })
-  const { control, reset } = form
+  const { control, reset, formState } = form
 
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -219,6 +220,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                         type="button"
                         variant="outline"
                         onClick={handleSaveButtonClick}
+                        disabled={formState.errors.name}
                       >
                         {t('save')}
                       </Button>
@@ -239,11 +241,18 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                         <FormItem className="sm:col-span-1">
                           <FormLabel>{t('name')}</FormLabel>
                           <FormControl>
-                            <Input
-                              {...field}
-                              disabled={!isEditable}
-                              defaultValue={roleDetail.name ?? ''}
-                            />
+                            <>
+                              <Input
+                                {...field}
+                                disabled={!isEditable}
+                                defaultValue={roleDetail.name ?? ''}
+                              />
+                              {form.formState.errors.name && (
+                                <p className="text-red-500 text-sm">
+                                  {form.formState.errors.name.message}
+                                </p>
+                              )}
+                            </>
                           </FormControl>
                         </FormItem>
                       )}
