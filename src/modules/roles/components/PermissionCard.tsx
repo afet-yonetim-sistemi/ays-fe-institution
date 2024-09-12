@@ -27,7 +27,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
             <FormControl>
               <Switch
                 disabled={!isEditable}
-                defaultChecked={permission.isActive}
+                checked={permission.isActive}
                 onCheckedChange={() => onPermissionToggle(permission.id)}
               />
             </FormControl>

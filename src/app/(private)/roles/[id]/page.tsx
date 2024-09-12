@@ -29,7 +29,7 @@ import { FormValidationSchema } from '@/modules/roles/constants/formValidationSc
 import { NextPage } from 'next'
 import { Button } from '@/components/ui/button'
 
-// TODO add dynamic switch changes, change cancel logic for switches (isActive to default), add save logic api call
+// TODO add calls when save button clicked
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
@@ -44,8 +44,10 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isEditable, setIsEditable] = useState<boolean>(false)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [permissions, setPermissions] = useState<RolePermission[]>([])
+  const [originalPermissions, setOriginalPermissions] = useState<
+    RolePermission[]
+  >([])
 
   const getAvailableRolePermissions = useCallback(async (): Promise<
     RolePermission[]
@@ -143,9 +145,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             ...fetchedRoleDetail,
             permissions: localizedPermissions,
           })
+          setOriginalPermissions(localizedPermissions)
           setPermissions(localizedPermissions)
         })
-
         .catch(() => {
           toast({
             title: t('error'),
@@ -168,7 +170,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       reset({
         name: roleDetail.name,
       })
-      setPermissions(roleDetail.permissions)
+      setPermissions(originalPermissions)
     }
   }
 
@@ -344,17 +346,17 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                   <CardTitle>{t('role.permissions')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {Object.entries(
-                    categorizePermissions(roleDetail.permissions)
-                  ).map(([category, permissions]) => (
-                    <PermissionCard
-                      key={category}
-                      category={t(category)}
-                      permissions={permissions}
-                      isEditable={isEditable}
-                      onPermissionToggle={handlePermissionToggle}
-                    />
-                  ))}
+                  {Object.entries(categorizePermissions(permissions)).map(
+                    ([category, permissions]) => (
+                      <PermissionCard
+                        key={category}
+                        category={t(category)}
+                        permissions={permissions}
+                        isEditable={isEditable}
+                        onPermissionToggle={handlePermissionToggle}
+                      />
+                    )
+                  )}
                 </CardContent>
               </Card>
             </form>
