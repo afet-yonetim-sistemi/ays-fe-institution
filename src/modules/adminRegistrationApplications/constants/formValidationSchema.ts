@@ -49,5 +49,4 @@ export const PreApplicationFormSchema = z.object({
     }),
 })
 
-// Export the main form schema
 export const FormValidationSchema = AdminRegistrationApplicationSchema
