@@ -33,7 +33,7 @@ import { FormValidationSchema } from '@/modules/roles/constants/formValidationSc
 import { NextPage } from 'next'
 import { Button } from '@/components/ui/button'
 
-// TODO clean up the code, wait for answer about if role name could include numbers or not
+// TODO CLEAN UP CODE
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
@@ -252,7 +252,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                         type="button"
                         variant="outline"
                         onClick={handleSaveButtonClick}
-                        disabled={formState.errors.name}
+                        disabled={Boolean(formState.errors.name)}
                       >
                         {t('save')}
                       </Button>
@@ -281,7 +281,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                               />
                               {form.formState.errors.name && (
                                 <p className="text-red-500 text-sm">
-                                  {form.formState.errors.name.message}
+                                  {form.formState.errors.name.message as string}
                                 </p>
                               )}
                             </>
