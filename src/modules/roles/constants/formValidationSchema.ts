@@ -1,6 +1,8 @@
 import { hasNoNumberNoSpecialChar } from '@/lib/hasNoNumberNoSpecialChar'
 import { z } from 'zod'
 
+// TODO add localization
+
 const RolesSchema = z.object({
   name: z
     .string()
