@@ -132,7 +132,10 @@
     "createdUser": "Oluşturan Kullanıcı",
     "updatedUser": "Güncelleyen Kullanıcı",
     "information": "Rol Bilgileri",
-    "error": "Rol Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
+    "error": "Rol Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin.",
+    "minLength": "Rol adı en az 2 karakter olmalıdır.",
+    "maxLength": "Rol adı en fazla 255 karakter olabilir.",
+    "noSpecialChar": "Rol adı sayı veya özel karakter içeremez."
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",

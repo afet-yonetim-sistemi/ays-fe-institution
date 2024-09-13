@@ -132,7 +132,10 @@
     "createdUser": "User Who Created",
     "updatedUser": "User Who Updated",
     "information": "Role Information",
-    "error": "Error while fetching role details. Please try again"
+    "error": "Error while fetching role details. Please try again",
+    "minLength": "Role name must be at least 2 characters long",
+    "maxLength": "Role name cannot exceed 255 characters",
+    "noSpecialChar": "Role name cannot contain numbers or special characters"
   },
   "permissions": {
     "superAdmin": "Super Admin",

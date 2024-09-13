@@ -1,15 +1,14 @@
 import { hasNoNumberNoSpecialChar } from '@/lib/hasNoNumberNoSpecialChar'
 import { z } from 'zod'
-
-// TODO add localization
+import i18n from '@/i18n'
 
 const RolesSchema = z.object({
   name: z
     .string()
-    .min(2, { message: 'Role name must be at least 2 characters long' })
-    .max(255, { message: 'Role name cannot exceed 255 characters' })
+    .min(2, { message: i18n.t('role.minLength') })
+    .max(255, { message: i18n.t('role.maxLength') })
     .refine(hasNoNumberNoSpecialChar, {
-      message: 'Role name cannot contain special characters or numbers',
+      message: i18n.t('role.noSpecialChar'),
     }),
   status: z.string(),
   createdUser: z.string(),
