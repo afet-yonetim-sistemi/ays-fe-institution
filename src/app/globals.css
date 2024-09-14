@@ -102,7 +102,3 @@
   justify-content: center;
   align-items: center;
 }
-
-label {
-  @apply text-black !important;
-}
