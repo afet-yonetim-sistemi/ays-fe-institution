@@ -10,7 +10,7 @@
   "users": "Kullanıcılar",
   "home": "Ana Sayfa",
   "page": "Sayfa",
-  "roles": "Rol Listeleme",
+  "roles": "Roller",
   "all": "Hepsini Seç",
   "status": "Durum",
   "waiting": "Beklemede",
@@ -107,7 +107,7 @@
     "status": "Başvuru Durumu"
   },
   "emergencyEvacuationApplications": {
-    "title": "Acil Durum Tahliye Başvurusu",
+    "title": "Acil Durum Tahliye Başvuruları",
     "detailsTitle": "Acil Durum Tahliye Başvurusu Detayları",
     "nameSurname": "Ad ve Soyad",
     "applicantNameSurname": "İletişime Geçilecek Kişinin Adı ve Soyadı",
