@@ -21,8 +21,8 @@ const authService = {
     api.post('/api/v1/authentication/token', data),
   logout: (data: string): Promise<LogoutResponseData> =>
     http.post('/api/v1/authentication/token/invalidate', {
-      refreshToken: data
-    })
+      refreshToken: data,
+    }),
 }
 
 export default authService

@@ -39,7 +39,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
 
     passwordService
       .forgotPassword(email!)
-      .then(({ data }: any) => {
+      .then(() => {
         setIsOpen(false)
         toast({
           title: t('success'),
