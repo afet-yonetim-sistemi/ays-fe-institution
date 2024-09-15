@@ -20,11 +20,11 @@ export const getValidationSchema = (param: string) => {
           message: i18next.t('referenceNumberValidationMessage'),
         })
     case 'name':
-        return z
+      return z
         .string()
         .optional()
         .refine((val) => !val || /^[a-zA-Z]+$/.test(val), {
-          message: i18next.t('nameValidationMessage')
+          message: i18next.t('nameValidationMessage'),
         })
     default:
       return z.string().optional()

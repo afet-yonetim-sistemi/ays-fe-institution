@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import PrivateRoute from '@/app/hocs/isAuth'
 import { useTranslation } from 'react-i18next'
 import { useToast } from '@/components/ui/use-toast'
@@ -13,6 +13,7 @@ import { useDataTable } from '@/app/hocs/useDataTable'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { columns } from '@/modules/roles/components/columns'
 import filterFields from '@/modules/roles/constants/filterFields'
+import FilterInput from '@/components/ui/filterInput'
 
 const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
@@ -28,9 +29,9 @@ const Page = (): JSX.Element => {
   })
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const searchParamsString = JSON.stringify(search)
+  const searchParamsString = useMemo(() => JSON.stringify(search), [search])
 
-  const fetchData = ():void => {
+  useEffect(() => {
     setIsLoading(true)
     postRoles({
       page: search.page,
@@ -52,13 +53,18 @@ const Page = (): JSX.Element => {
         })
       })
       .finally(() => setIsLoading(false))
-  }
-
-  useEffect(() => {
-    if (search?.name == undefined || search?.name?.length >= 2) {
-      fetchData()
-    }
-  }, [searchParamsString])
+  }, [
+    searchParamsString,
+    search.createdAt,
+    search.name,
+    search.page,
+    search.per_page,
+    search.sort,
+    search.status,
+    search.updatedAt,
+    t,
+    toast,
+  ])
 
   const { table } = useDataTable({
     data: data.content,
@@ -70,16 +76,16 @@ const Page = (): JSX.Element => {
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_LIST]}>
       <div className="space-y-1">
+        <h1 className="text-2xl font-medium">{t('roles')}</h1>
         <DataTable
           className="px-2"
           table={table}
           loading={isLoading}
           enableRowClick
         >
-          <div className="flex flex-col w-full gap-4">
-            <h1 className="text-2xl font-medium">{t('roles')}</h1>
-            <DataTableToolbar table={table} filterFields={filterFields} />
-          </div>
+          <DataTableToolbar table={table} filterFields={filterFields}>
+            <FilterInput min={2} max={255} param="name" />
+          </DataTableToolbar>
         </DataTable>
       </div>
     </PrivateRoute>
