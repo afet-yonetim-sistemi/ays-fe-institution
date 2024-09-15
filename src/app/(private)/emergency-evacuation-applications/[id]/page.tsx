@@ -24,6 +24,7 @@ import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApp
 import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
 import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
+import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
 
 const Page = ({
   params,
@@ -90,8 +91,11 @@ const Page = ({
                               {...field}
                               disabled
                               defaultValue={
-                                emergencyEvacuationApplicationDetails.referenceNumber ??
-                                ''
+                                emergencyEvacuationApplicationDetails.referenceNumber
+                                  ? formatReferenceNumber(
+                                      emergencyEvacuationApplicationDetails.referenceNumber
+                                    )
+                                  : ''
                               }
                             />
                           </FormControl>
@@ -137,9 +141,9 @@ const Page = ({
                               disabled
                               defaultValue={
                                 emergencyEvacuationApplicationDetails
-                                  ?.phoneNumber?.countryCode &&
+                                  .phoneNumber?.countryCode &&
                                 emergencyEvacuationApplicationDetails
-                                  ?.phoneNumber?.lineNumber
+                                  .phoneNumber?.lineNumber
                                   ? formatPhoneNumber(
                                       emergencyEvacuationApplicationDetails.phoneNumber
                                     )
@@ -220,9 +224,9 @@ const Page = ({
                                 disabled
                                 defaultValue={
                                   emergencyEvacuationApplicationDetails
-                                    ?.applicantPhoneNumber?.countryCode &&
+                                    .applicantPhoneNumber?.countryCode &&
                                   emergencyEvacuationApplicationDetails
-                                    ?.applicantPhoneNumber?.lineNumber
+                                    .applicantPhoneNumber?.lineNumber
                                     ? formatPhoneNumber(
                                         emergencyEvacuationApplicationDetails.applicantPhoneNumber
                                       )
