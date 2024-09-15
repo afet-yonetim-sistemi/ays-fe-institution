@@ -91,12 +91,11 @@ const Page = ({
                               {...field}
                               disabled
                               defaultValue={
-                                emergencyEvacuationApplicationDetails?.referenceNumber ?
-                                  formatReferenceNumber(
-                                    emergencyEvacuationApplicationDetails.referenceNumber
-                                  )
-                                  :
-                                  ''
+                                emergencyEvacuationApplicationDetails.referenceNumber
+                                  ? formatReferenceNumber(
+                                      emergencyEvacuationApplicationDetails.referenceNumber
+                                    )
+                                  : ''
                               }
                             />
                           </FormControl>
@@ -119,7 +118,7 @@ const Page = ({
                                 (emergencyEvacuationApplicationDetails.firstName ??
                                   '') +
                                 (emergencyEvacuationApplicationDetails.firstName &&
-                                  emergencyEvacuationApplicationDetails.lastName
+                                emergencyEvacuationApplicationDetails.lastName
                                   ? ' '
                                   : '') +
                                 (emergencyEvacuationApplicationDetails.lastName ??
@@ -142,12 +141,12 @@ const Page = ({
                               disabled
                               defaultValue={
                                 emergencyEvacuationApplicationDetails
-                                  ?.phoneNumber?.countryCode &&
-                                  emergencyEvacuationApplicationDetails
-                                    ?.phoneNumber?.lineNumber
+                                  .phoneNumber?.countryCode &&
+                                emergencyEvacuationApplicationDetails
+                                  .phoneNumber?.lineNumber
                                   ? formatPhoneNumber(
-                                    emergencyEvacuationApplicationDetails.phoneNumber
-                                  )
+                                      emergencyEvacuationApplicationDetails.phoneNumber
+                                    )
                                   : ''
                               }
                             />
@@ -198,7 +197,7 @@ const Page = ({
                                   (emergencyEvacuationApplicationDetails.applicantFirstName ??
                                     '') +
                                   (emergencyEvacuationApplicationDetails.applicantFirstName &&
-                                    emergencyEvacuationApplicationDetails.applicantLastName
+                                  emergencyEvacuationApplicationDetails.applicantLastName
                                     ? ' '
                                     : '') +
                                   (emergencyEvacuationApplicationDetails.applicantLastName ??
@@ -225,12 +224,12 @@ const Page = ({
                                 disabled
                                 defaultValue={
                                   emergencyEvacuationApplicationDetails
-                                    ?.applicantPhoneNumber?.countryCode &&
-                                    emergencyEvacuationApplicationDetails
-                                      ?.applicantPhoneNumber?.lineNumber
+                                    .applicantPhoneNumber?.countryCode &&
+                                  emergencyEvacuationApplicationDetails
+                                    .applicantPhoneNumber?.lineNumber
                                     ? formatPhoneNumber(
-                                      emergencyEvacuationApplicationDetails.applicantPhoneNumber
-                                    )
+                                        emergencyEvacuationApplicationDetails.applicantPhoneNumber
+                                      )
                                     : ''
                                 }
                               />
@@ -259,7 +258,7 @@ const Page = ({
                                 (emergencyEvacuationApplicationDetails.sourceCity ??
                                   '') +
                                 (emergencyEvacuationApplicationDetails.sourceCity &&
-                                  emergencyEvacuationApplicationDetails.sourceDistrict
+                                emergencyEvacuationApplicationDetails.sourceDistrict
                                   ? ' / '
                                   : '') +
                                 (emergencyEvacuationApplicationDetails.sourceDistrict ??
@@ -288,7 +287,7 @@ const Page = ({
                                 (emergencyEvacuationApplicationDetails.targetCity ??
                                   '') +
                                 (emergencyEvacuationApplicationDetails.targetCity &&
-                                  emergencyEvacuationApplicationDetails.targetDistrict
+                                emergencyEvacuationApplicationDetails.targetDistrict
                                   ? ' / '
                                   : '') +
                                 (emergencyEvacuationApplicationDetails.targetDistrict ??
@@ -377,10 +376,10 @@ const Page = ({
                               value={
                                 emergencyEvacuationApplicationDetails.status
                                   ? t(
-                                    getStatusLabel(
-                                      emergencyEvacuationApplicationDetails.status
+                                      getStatusLabel(
+                                        emergencyEvacuationApplicationDetails.status
+                                      )
                                     )
-                                  )
                                   : ''
                               }
                             />
@@ -403,8 +402,8 @@ const Page = ({
                               defaultValue={
                                 emergencyEvacuationApplicationDetails.createdAt
                                   ? formatDateTime(
-                                    emergencyEvacuationApplicationDetails.createdAt
-                                  )
+                                      emergencyEvacuationApplicationDetails.createdAt
+                                    )
                                   : ''
                               }
                             />
