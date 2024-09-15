@@ -327,16 +327,21 @@ const Page = ({
                         </FormItem>
                       )}
                     />
-                    <Button
-                      type="button"
-                      onClick={handleCopyLink}
-                      className="sm:col-span-2 text-left"
-                    >
-                      <span className="truncate flex-grow">
-                        {registerCompletionUrl}
-                      </span>
-                      <span>{t('adminRegistrationApplications.copyLink')}</span>
-                    </Button>
+                    {adminRegistrationApplicationDetails.status ===
+                      'WAITING' && (
+                      <Button
+                        type="button"
+                        onClick={handleCopyLink}
+                        className="sm:col-span-2 text-left"
+                      >
+                        <span className="truncate flex-grow">
+                          {registerCompletionUrl}
+                        </span>
+                        <span>
+                          {t('adminRegistrationApplications.copyLink')}
+                        </span>
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
