@@ -26,6 +26,7 @@ import {
 import { PasswordInput } from '@/components/ui/passwordInput'
 import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
 
 const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
   const { t } = useTranslation()
@@ -34,33 +35,15 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
 
   const [loading, setLoading] = useState(false)
 
-  const formSchema = z
-    .object({
-      password: z
-        .string()
-        .min(1, t('requiredField'))
-        .min(8, t('minLength', { field: 8 }))
-        .max(50, t('maxLength', { field: 50 })),
-      passwordRepeat: z
-        .string()
-        .min(1, t('requiredField'))
-        .min(8, t('minLength', { field: 8 }))
-        .max(50, t('maxLength', { field: 50 })),
-    })
-    .refine((data) => data.password === data.passwordRepeat, {
-      message: t('passwordMismatch'),
-      path: ['passwordRepeat'],
-    })
-
-  const passwordForm = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const passwordForm = useForm<z.infer<typeof FormValidationSchema>>({
+    resolver: zodResolver(FormValidationSchema),
     defaultValues: {
       password: '',
       passwordRepeat: '',
     },
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>): void => {
+  const onSubmit = (values: z.infer<typeof FormValidationSchema>): void => {
     setLoading(true)
     passwordService
       .resetPassword(values, id)
