@@ -33,13 +33,13 @@ import {
   postRegistrationApplication,
 } from '@/modules/adminRegistrationApplications/service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
+import { PasswordInput } from '@/components/ui/passwordInput'
 
 const Page = ({
   params,
@@ -50,7 +50,6 @@ const Page = ({
   const { toast } = useToast()
   const [loading, setLoading] = useState(true)
   const [instName, setInstName] = useState<string>('')
-  const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
 
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
@@ -67,8 +66,6 @@ const Page = ({
       },
     },
   })
-
-  const togglePasswordVisibility = (): void => setShowPassword((prev) => !prev)
 
   const onSubmit = (values: z.infer<typeof InstitutionFormSchema>): void => {
     setLoading(true)
@@ -160,7 +157,6 @@ const Page = ({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="emailAddress"
@@ -183,7 +179,6 @@ const Page = ({
                     const isError =
                       (!field.value.countryCode || !field.value.lineNumber) &&
                       fieldState.error
-
                     return (
                       <FormItem>
                         <FormLabel>{t('phoneNumber')}</FormLabel>
@@ -197,7 +192,6 @@ const Page = ({
                     )
                   }}
                 />
-
                 <FormField
                   control={form.control}
                   name="city"
@@ -221,7 +215,6 @@ const Page = ({
                           ))}
                         </SelectContent>
                       </Select>
-
                       <FormMessage />
                     </FormItem>
                   )}
@@ -234,27 +227,12 @@ const Page = ({
                     <FormItem>
                       <FormLabel>{t('password')}</FormLabel>
                       <FormControl>
-                        <div className="relative">
-                          <Input
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder={t('password')}
-                            autoComplete="new-password"
-                            {...field}
-                          />
-                          <Button
-                            type="button"
-                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
-                            onClick={togglePasswordVisibility}
-                          >
-                            {showPassword ? <EyeIcon /> : <EyeOffIcon />}
-                          </Button>
-                        </div>
+                        <PasswordInput placeholder={t('password')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-
                 <Button type="submit" disabled={loading} className={'w-full'}>
                   {loading ? <LoadingSpinner /> : t('register')}
                 </Button>
