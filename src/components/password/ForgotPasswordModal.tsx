@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { toast } from '@/components/ui/use-toast'
 import passwordService from '@/modules/password/service'
+import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 
 interface ForgotPasswordModalProps {
   loginEmail?: string
@@ -29,12 +30,19 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   const [email, setEmail] = useState<string>(loginEmail || '')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [emailError, setEmailError] = useState<string | null>(null)
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value)
+    setEmailError(null)
   }
 
   const handleSubmit = (): void => {
+    const validation = FormValidationSchema.shape.emailAddress.safeParse(email)
+    if (!validation.success) {
+      setEmailError(t('invalidEmail'))
+      return
+    }
     setLoading(true)
 
     passwordService
@@ -86,6 +94,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
               value={email}
               onChange={handleEmailChange}
             />
+            {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
           </div>
         </div>
         <DialogFooter className="justify-end">
