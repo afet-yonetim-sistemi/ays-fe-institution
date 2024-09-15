@@ -1,13 +1,14 @@
-import http from '@/configs/axiosConfig'
-import { ApiResponse, ApiSummaryResponse } from './constants/types'
+import http, { api } from '@/configs/axiosConfig'
+import {
+  ApiResponse,
+  ApiSummaryResponse,
+  CompleteRegistration,
+  GetRegisterSummary,
+  RegisterApplicationForm,
+  Search,
+} from './constants/types'
 import { AxiosResponse } from 'axios'
 
-interface Search {
-  page: number
-  per_page: number
-  sort: string | undefined
-  status: string | undefined
-}
 export function postAdminRegistrationApplications(
   search: Search
 ): Promise<AxiosResponse> {
@@ -39,9 +40,20 @@ export const getAdminRegistrationApplication = (
   id: string
 ): Promise<ApiResponse> => {
   return http
-    .get<ApiResponse>(`/api/v1/admin-registration-application/${id}`)
-    .then((response) => response.data)
+    .get(`/api/v1/admin-registration-application/${id}`)
+    .then((res) => res.data)
 }
+
+export const getAdminRegistrationApplicationSummary = (
+  id: string | null
+): Promise<GetRegisterSummary> =>
+  api.get(`/api/v1/admin-registration-application/${id}/summary`)
+
+export const postRegistrationApplication = (
+  id: string | null,
+  form: RegisterApplicationForm
+): Promise<CompleteRegistration> =>
+  api.post(`api/v1/admin-registration-application/${id}/complete`, form)
 
 export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
   return http.get(`/api/v1/institutions/summary`)
