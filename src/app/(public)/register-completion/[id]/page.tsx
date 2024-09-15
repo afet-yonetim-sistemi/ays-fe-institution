@@ -186,11 +186,7 @@ const Page = ({
 
                     return (
                       <FormItem>
-                        <FormLabel
-                          className={`${isError ? 'text-destructive' : 'text-white'}`}
-                        >
-                          {t('phoneNumber')}
-                        </FormLabel>
+                        <FormLabel>{t('phoneNumber')}</FormLabel>
                         <FormControl>
                           <PhoneInput onChange={field.onChange} />
                         </FormControl>
