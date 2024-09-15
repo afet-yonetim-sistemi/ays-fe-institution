@@ -101,6 +101,7 @@
   "emailAddress": "E-mail Address",
   "seatingCountValidationMessage": "Only positive numbers with a maximum of {{field}} digits are allowed.",
   "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
+  "nameValidationMessage": "Role name should have minimum 2, maximum 255 characters. Special characters not allowed.",
   "adminRegistrationApplications": {
     "title": "Admin Registration Applications",
     "detailsTitle": "Admin Registration Applications Details",

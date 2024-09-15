@@ -101,6 +101,7 @@
   "phoneNumber": "Telefon Numarası",
   "seatingCountValidationMessage": "Sadece maksimum {{field}} haneli, pozitif sayı değerleri alabilir.",
   "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir.",
+  "nameValidationMessage": "Rol adı en az 2, en fazla 255 karakterden oluşmalıdır. Özel karakterlere izin verilmez.",
   "adminRegistrationApplications": {
     "title": "Yönetici Kayıt Başvuruları",
     "detailsTitle": "Yönetici Kayıt Başvuru Detayı",
