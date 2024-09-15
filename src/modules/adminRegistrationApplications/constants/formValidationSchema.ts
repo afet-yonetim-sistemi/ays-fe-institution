@@ -3,7 +3,7 @@ import i18n from '@/i18n'
 
 const PhoneNumberSchema = z.object({
   countryCode: z.string(),
-  lineNumber: z.string(),
+  lineNumber: z.string().min(1, i18n.t('requiredField')),
 })
 
 const UserSchema = z.object({
@@ -51,3 +51,27 @@ export const PreApplicationFormSchema = z.object({
 
 // Export the main form schema
 export const FormValidationSchema = AdminRegistrationApplicationSchema
+
+export const InstitutionFormSchema = z.object({
+  firstName: z
+    .string()
+    .min(1, i18n.t('requiredField'))
+    .min(3, i18n.t('minLength', { field: 3 }))
+    .max(255, i18n.t('maxLength', { field: 255 })),
+  lastName: z
+    .string()
+    .min(1, i18n.t('requiredField'))
+    .min(3, i18n.t('minLength', { field: 3 }))
+    .max(255, i18n.t('maxLength', { field: 255 })),
+  emailAddress: z
+    .string()
+    .min(1, i18n.t('requiredField'))
+    .email(i18n.t('invalidEmail')),
+  city: z.string().min(1, i18n.t('requiredField')),
+  password: z
+    .string()
+    .min(1, i18n.t('requiredField'))
+    .min(6, i18n.t('minLength', { field: 6 }))
+    .max(50, i18n.t('maxLength', { field: 50 })),
+  phoneNumber: PhoneNumberSchema,
+})
