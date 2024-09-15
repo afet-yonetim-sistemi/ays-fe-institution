@@ -35,6 +35,8 @@ import {
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
+import ForgotPasswordModal from '@/components/password/ForgotPasswordModal'
+import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -46,21 +48,8 @@ const Page = (): JSX.Element => {
 
   const [loading, setLoading] = useState(false)
 
-  const formSchema = z.object({
-    emailAddress: z
-      .string()
-      .min(1, t('requiredField'))
-      .email(t('invalidEmail')),
-    password: z
-      .string()
-      .min(1, t('requiredField'))
-      .min(6, t('minLength', { field: 6 }))
-      .max(50, t('maxLength', { field: 50 })),
-    sourcePage: z.string(),
-  })
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof FormValidationSchema>>({
+    resolver: zodResolver(FormValidationSchema),
     defaultValues: {
       emailAddress: '',
       password: '',
@@ -68,7 +57,7 @@ const Page = (): JSX.Element => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>): void => {
+  const onSubmit = (values: z.infer<typeof FormValidationSchema>): void => {
     setLoading(true)
     authService
       .login(values)
@@ -149,6 +138,10 @@ const Page = (): JSX.Element => {
                 <Button type="submit" disabled={loading} className={'w-full'}>
                   {loading ? <LoadingSpinner /> : t('login')}
                 </Button>
+                <ForgotPasswordModal
+                  disabled={loading}
+                  loginEmail={form.watch('emailAddress')}
+                />
               </form>
             </Form>
           </CardHeader>
