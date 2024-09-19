@@ -239,7 +239,7 @@ const Page = ({
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
                   <FormField
                     control={control}
-                    name="sourcecityAndDistrict"
+                    name="sourceCityAndDistrict"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
