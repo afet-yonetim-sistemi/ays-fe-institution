@@ -1,43 +1,41 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { parseJwt } from '@/lib/helpers'
+import { getUserPermissions } from './lib/getUserPermissions'
+import { protectedRoutes, publicRoutes } from './configs/routes'
 
-const protectedRoutes: { [key: string]: string } = {
-  '/emergency-evacuation-applications': 'application:evacuation:list',
-  '/emergency-evacuation-applications/[id]': 'application:evacuation:detail',
-  '/admin-registration-applications': 'application:registration:list',
-  '/admin-registration-applications/pre-application':
-    'application:registration:create',
-  '/admin-registration-applications/[id]': 'application:registration:detail',
-  '/role-listing': 'role:list',
-  '/role-listing/[id]': 'role:detail',
-  '/dashboard': 'institution:page',
+const isPublicRoute = (pathname: string): boolean =>
+  publicRoutes.includes(pathname)
+
+const getMatchedRoutePattern = (pathname: string): string | undefined => {
+  return Object.keys(protectedRoutes).find((route) => {
+    const routePattern = new RegExp(`^${route.replace('[id]', '[^/]+')}$`)
+    return routePattern.test(pathname)
+  })
 }
-
-const publicRoutes = ['/login']
 
 export const middleware = (request: NextRequest): NextResponse => {
   const { nextUrl, url, cookies } = request
-
   const token = cookies.get('token')?.value
+  const { pathname } = nextUrl
 
-  const isPublicRoute = publicRoutes.some((route) => route === nextUrl.pathname)
-  if (!isPublicRoute && !token) {
-    // Token yoksa ve korunan bir route'a erişmeye çalışıyorsa, login sayfasına yönlendirin
+  if (!isPublicRoute(pathname) && !token) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
-  if ((token && nextUrl.pathname === '/login') || nextUrl.pathname === '/') {
+
+  if (token && (pathname === '/login' || pathname === '/')) {
     return NextResponse.redirect(new URL('/dashboard', url))
   }
 
-  //Permission kontrol
-  const matchedRoute = Object.keys(protectedRoutes).find((route) => {
-    const routePattern = new RegExp('^' + route.replace('[id]', '[^/]+') + '$')
-    return routePattern.test(nextUrl.pathname)
-  })
-  const requiredPermission = matchedRoute ? protectedRoutes[matchedRoute] : null
-  const userPermissions = (token &&
-    parseJwt(token?.toString())?.userPermissions) || ['']
-  if (token && !userPermissions.includes(requiredPermission)) {
+  const matchedRoutePattern = getMatchedRoutePattern(pathname)
+  const requiredPermission = matchedRoutePattern
+    ? protectedRoutes[matchedRoutePattern]
+    : null
+  const userPermissions = token ? getUserPermissions(token) : []
+
+  if (
+    token &&
+    requiredPermission &&
+    !userPermissions.includes(requiredPermission)
+  ) {
     return NextResponse.redirect(new URL('/not-found', request.url))
   }
 
@@ -46,14 +44,13 @@ export const middleware = (request: NextRequest): NextResponse => {
 
 export const config = {
   matcher: [
-    '/emergency-evacuation-applications/:id*',
     '/emergency-evacuation-applications',
+    '/emergency-evacuation-applications/:id',
     '/admin-registration-applications',
+    '/admin-registration-applications/:id',
     '/admin-registration-applications/pre-application',
-    '/admin-registration-applications/:id*',
-    '/role-listing',
-    '/role-listing/:id*',
+    '/roles',
+    '/roles/:id',
     '/dashboard',
-    '/login',
   ],
 }
