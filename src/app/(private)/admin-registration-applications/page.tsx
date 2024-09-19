@@ -81,7 +81,7 @@ const Page = (): JSX.Element => {
         </Link>
       </div>
 
-      <DataTable className="" table={table} loading={isLoading} enableRowClick>
+      <DataTable table={table} loading={isLoading} enableRowClick>
         <div className="flex flex-col w-full gap-4">
           <h1 className="text-2xl font-medium">
             {t('adminRegistrationApplications.title')}
