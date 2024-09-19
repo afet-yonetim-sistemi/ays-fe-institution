@@ -15,7 +15,7 @@ const protectedRoutes: { [key: string]: string } = {
 
 const publicRoutes = ['/login']
 
-export function middleware(request: NextRequest) {
+export const middleware = (request: NextRequest): NextResponse => {
   const { nextUrl, url, cookies } = request
 
   const token = cookies.get('token')?.value

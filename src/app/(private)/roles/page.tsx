@@ -72,21 +72,19 @@ const Page = (): JSX.Element => {
   })
 
   return (
-    <PrivateRoute requiredPermissions={[Permission.ROLE_LIST]}>
-      <div className="space-y-1">
-        <h1 className="text-2xl font-medium">{t('roles')}</h1>
-        <DataTable
-          className="px-2"
-          table={table}
-          loading={isLoading}
-          enableRowClick
-        >
-          <DataTableToolbar table={table} filterFields={filterFields}>
-            <FilterInput min={2} max={255} param="name" />
-          </DataTableToolbar>
-        </DataTable>
-      </div>
-    </PrivateRoute>
+    <div className="space-y-1">
+      <h1 className="text-2xl font-medium">{t('roles')}</h1>
+      <DataTable
+        className="px-2"
+        table={table}
+        loading={isLoading}
+        enableRowClick
+      >
+        <DataTableToolbar table={table} filterFields={filterFields}>
+          <FilterInput min={2} max={255} param="name" />
+        </DataTableToolbar>
+      </DataTable>
+    </div>
   )
 }
 

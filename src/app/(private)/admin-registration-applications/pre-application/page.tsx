@@ -111,12 +111,14 @@ const Page = (): JSX.Element => {
                             <SelectValue placeholder={t('selectInstitution')} />
                           </SelectTrigger>
                           <SelectContent>
-                            {institutionSummary?.map((item: InstitutionsSummary) => (
-                              <SelectItem key={item.id} value={item.id}>
-                                {item.name}
-                              </SelectItem>
-                            )
-                          )}</SelectContent>
+                            {institutionSummary?.map(
+                              (item: InstitutionsSummary) => (
+                                <SelectItem key={item.id} value={item.id}>
+                                  {item.name}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectContent>
                         </Select>
                       </FormControl>
                       <FormMessage />
@@ -132,7 +134,7 @@ const Page = (): JSX.Element => {
                     <FormItem className="col-span-2">
                       <FormLabel>{t('createReason')}</FormLabel>
                       <FormControl>
-                        <Textarea  {...field} />
+                        <Textarea {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

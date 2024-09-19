@@ -117,140 +117,117 @@ const Page = ({
   }, [params.id, t, toast])
 
   return (
-    <PrivateRoute requiredPermissions={[Permission.APPLICATION_DETAIL]}>
-      <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
-        {isLoading && <LoadingSpinner />}
-        {!isLoading && adminRegistrationApplicationDetails && (
-          <Form {...form}>
-            <form className="space-y-6">
-              <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">
-                  {t('adminRegistrationApplications.detailsTitle')}
-                </h1>
-                {adminRegistrationApplicationDetails.status === 'COMPLETED' && (
-                  <div className="flex space-x-8 ml-auto">
-                    <ButtonDialog
-                      triggerText={'reject'}
-                      title={'rejectConfirm'}
-                      onConfirm={handleReject}
-                      variant={'destructive'}
-                      reason={true}
-                      tooltipText={'rejectReasonLengthInfo'}
-                    />
-                    <ButtonDialog
-                      triggerText={'approve'}
-                      title={'approveConfirm'}
-                      onConfirm={handleApprove}
-                      variant={'success'}
-                    />
-                  </div>
-                )}
-              </div>
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle>{t('applicationInformation')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+    <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+      {isLoading && <LoadingSpinner />}
+      {!isLoading && adminRegistrationApplicationDetails && (
+        <Form {...form}>
+          <form className="space-y-6">
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-2xl font-bold">
+                {t('adminRegistrationApplications.detailsTitle')}
+              </h1>
+              {adminRegistrationApplicationDetails.status === 'COMPLETED' && (
+                <div className="flex space-x-8 ml-auto">
+                  <ButtonDialog
+                    triggerText={'reject'}
+                    title={'rejectConfirm'}
+                    onConfirm={handleReject}
+                    variant={'destructive'}
+                    reason={true}
+                    tooltipText={'rejectReasonLengthInfo'}
+                  />
+                  <ButtonDialog
+                    triggerText={'approve'}
+                    title={'approveConfirm'}
+                    onConfirm={handleApprove}
+                    variant={'success'}
+                  />
+                </div>
+              )}
+            </div>
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>{t('applicationInformation')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+                  <FormField
+                    control={control}
+                    name="reason"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-2">
+                        <FormLabel>
+                          {t('adminRegistrationApplications.reason')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={
+                              adminRegistrationApplicationDetails.reason ?? ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="institutionName"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>{t('institutionName')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={
+                              adminRegistrationApplicationDetails.institution
+                                ?.name ?? ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="status"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>
+                          {t('adminRegistrationApplications.status')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            value={
+                              adminRegistrationApplicationDetails?.status
+                                ? t(
+                                    adminRegistrationApplicationDetails.status.toLowerCase()
+                                  )
+                                : ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  {adminRegistrationApplicationDetails.status ===
+                    'REJECTED' && (
                     <FormField
                       control={control}
-                      name="reason"
+                      name="rejectReason"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-2">
-                          <FormLabel>
-                            {t('adminRegistrationApplications.reason')}
-                          </FormLabel>
+                          <FormLabel>{t('rejectReason')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
                               disabled
                               defaultValue={
-                                adminRegistrationApplicationDetails.reason ?? ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="institutionName"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('institutionName')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.institution
-                                  ?.name ?? ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="status"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>
-                            {t('adminRegistrationApplications.status')}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              value={
-                                adminRegistrationApplicationDetails?.status
-                                  ? t(
-                                      adminRegistrationApplicationDetails.status.toLowerCase()
-                                    )
-                                  : ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    {adminRegistrationApplicationDetails.status ===
-                      'REJECTED' && (
-                      <FormField
-                        control={control}
-                        name="rejectReason"
-                        render={({ field }) => (
-                          <FormItem className="sm:col-span-2">
-                            <FormLabel>{t('rejectReason')}</FormLabel>
-                            <FormControl>
-                              <Input
-                                {...field}
-                                disabled
-                                defaultValue={
-                                  adminRegistrationApplicationDetails.rejectReason ??
-                                  ''
-                                }
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    )}
-                    <FormField
-                      control={control}
-                      name="createdUser"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>
-                            {t('adminRegistrationApplications.createdUser')}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.createdUser ??
+                                adminRegistrationApplicationDetails.rejectReason ??
                                 ''
                               }
                             />
@@ -258,91 +235,110 @@ const Page = ({
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={control}
-                      name="createDate"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>
-                            {t('adminRegistrationApplications.createdAt')}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.createdAt
-                                  ? formatDateTime(
-                                      adminRegistrationApplicationDetails.createdAt
-                                    )
-                                  : ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="updatedUser"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('updatedUser')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.updatedUser ??
-                                ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="updateDate"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>
-                            {t('adminRegistrationApplications.updatedAt')}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.updatedAt
-                                  ? formatDateTime(
-                                      adminRegistrationApplicationDetails.updatedAt
-                                    )
-                                  : ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    {adminRegistrationApplicationDetails.status ===
-                      'WAITING' && (
-                      <Button
-                        type="button"
-                        onClick={handleCopyLink}
-                        className="sm:col-span-2 text-left"
-                      >
-                        <span className="truncate flex-grow">
-                          {registerCompletionUrl}
-                        </span>
-                        <span>
-                          {t('adminRegistrationApplications.copyLink')}
-                        </span>
-                      </Button>
+                  )}
+                  <FormField
+                    control={control}
+                    name="createdUser"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>
+                          {t('adminRegistrationApplications.createdUser')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={
+                              adminRegistrationApplicationDetails.createdUser ??
+                              ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
                     )}
-                  </div>
-                </CardContent>
-              </Card>
+                  />
+                  <FormField
+                    control={control}
+                    name="createDate"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>
+                          {t('adminRegistrationApplications.createdAt')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={
+                              adminRegistrationApplicationDetails.createdAt
+                                ? formatDateTime(
+                                    adminRegistrationApplicationDetails.createdAt
+                                  )
+                                : ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="updatedUser"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>{t('updatedUser')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={
+                              adminRegistrationApplicationDetails.updatedUser ??
+                              ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="updateDate"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>
+                          {t('adminRegistrationApplications.updatedAt')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={
+                              adminRegistrationApplicationDetails.updatedAt
+                                ? formatDateTime(
+                                    adminRegistrationApplicationDetails.updatedAt
+                                  )
+                                : ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  {adminRegistrationApplicationDetails.status === 'WAITING' && (
+                    <Button
+                      type="button"
+                      onClick={handleCopyLink}
+                      className="sm:col-span-2 text-left"
+                    >
+                      <span className="truncate flex-grow">
+                        {registerCompletionUrl}
+                      </span>
+                      <span>{t('adminRegistrationApplications.copyLink')}</span>
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
 
             <Card>
               <CardHeader>
