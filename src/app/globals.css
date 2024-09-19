@@ -28,12 +28,12 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-      --success: 144 74.5% 53.3%;
-      --success-foreground: 210 40% 98%;
+    --success: 144 74.5% 53.3%;
+    --success-foreground: 210 40% 98%;
 
-      --border: 214.3 31.8% 91.4%;
-      --input: 214.3 31.8% 91.4%;
-      --ring: 222.2 84% 4.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
   }
@@ -54,11 +54,11 @@
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
 
-      --success-dark: 120 74.5% 53.3%;
-      --success-dark-foreground: 210 40% 98%;
+    --success-dark: 120 74.5% 53.3%;
+    --success-dark-foreground: 210 40% 98%;
 
-      --muted: 217.2 32.6% 17.5%;
-      --muted-foreground: 215 20.2% 65.1%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
@@ -72,19 +72,19 @@
   }
 }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground overflow-auto;
-      height: 100%;
-    }
-    html {
-      @apply overflow-hidden;
-      height: 100%;
-    }
+@layer base {
+  * {
+    @apply border-border;
   }
+  body {
+    @apply bg-background text-foreground overflow-auto;
+    height: 100%;
+  }
+  html {
+    @apply overflow-hidden;
+    height: 100%;
+  }
+}
 
 .container {
   @apply mx-auto px-4 flex flex-col items-center justify-center;
@@ -92,13 +92,13 @@
 }
 
 .spinner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
