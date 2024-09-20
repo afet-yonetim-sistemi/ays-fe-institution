@@ -33,8 +33,6 @@ import { FormValidationSchema } from '@/modules/roles/constants/formValidationSc
 import { NextPage } from 'next'
 import { Button } from '@/components/ui/button'
 
-// TODO CLEAN UP CODE
-
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
 }) => {
@@ -183,21 +181,21 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     if (!roleDetail) return
 
     const updatedData = {
-      name: form.getValues('name'),
+      name: form.getValues('name') || roleDetail?.name,
       permissionIds: permissions
         .filter((permission) => permission.isActive)
         .map((permission) => permission.id),
     }
 
-    console.log('updated datatat ', updatedData)
-
     updateRole(params.id, updatedData)
-      .then(() => {
-        toast({
-          title: t('success'),
-          description: t('role.updatedSuccessfully'),
-          variant: 'success',
-        })
+      .then((response) => {
+        if (response.data.isSuccess) {
+          toast({
+            title: t('success'),
+            description: t('role.updatedSuccessfully'),
+            variant: 'success',
+          })
+        }
       })
       .catch(() => {
         toast({

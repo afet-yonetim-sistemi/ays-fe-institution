@@ -155,7 +155,9 @@
     "error": "Error while fetching role details. Please try again",
     "minLength": "Role name must be at least 2 characters long",
     "maxLength": "Role name cannot exceed 255 characters",
-    "noSpecialChar": "Role name cannot contain numbers or special characters"
+    "noSpecialChar": "Role name cannot contain numbers or special characters",
+    "updatedSuccessfully": "Role updated successfully",
+    "updateError": "Role update failed"
   },
   "permissions": {
     "superAdmin": "Super Admin",
