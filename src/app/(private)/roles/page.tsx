@@ -13,6 +13,7 @@ import { useDataTable } from '@/app/hocs/useDataTable'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { columns } from '@/modules/roles/components/columns'
 import filterFields from '@/modules/roles/constants/filterFields'
+import FilterInput from '@/components/ui/filterInput'
 
 const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
@@ -27,6 +28,7 @@ const Page = (): JSX.Element => {
     totalPageCount: 0,
   })
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const searchParamsString = useMemo(() => JSON.stringify(search), [search])
 
   useEffect(() => {
@@ -74,16 +76,16 @@ const Page = (): JSX.Element => {
   return (
     <PrivateRoute requiredPermissions={[Permission.ROLE_LIST]}>
       <div className="space-y-1">
+        <h1 className="text-2xl font-medium">{t('roles')}</h1>
         <DataTable
           className="px-2"
           table={table}
           loading={isLoading}
           enableRowClick
         >
-          <div className="flex flex-col w-full gap-4">
-            <h1 className="text-2xl font-medium">{t('roles')}</h1>
-            <DataTableToolbar table={table} filterFields={filterFields} />
-          </div>
+          <DataTableToolbar table={table} filterFields={filterFields}>
+            <FilterInput min={2} max={255} param="name" />
+          </DataTableToolbar>
         </DataTable>
       </div>
     </PrivateRoute>

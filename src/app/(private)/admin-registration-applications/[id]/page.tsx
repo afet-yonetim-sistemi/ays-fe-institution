@@ -28,6 +28,7 @@ import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import PrivateRoute from '@/app/hocs/isAuth'
 import { Permission } from '@/constants/permissions'
 import ButtonDialog from '@/modules/adminRegistrationApplications/components/dialog'
+import { Button } from '@/components/ui/button'
 
 const Page = ({
   params,
@@ -47,6 +48,8 @@ const Page = ({
     setAdminRegistrationApplicationDetails,
   ] = useState<AdminRegistrationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  const registerCompletionUrl = `${window.location.origin}/register-completion/${params.id}`
 
   const handleReject = (rejectReason?: string): void | object => {
     const reason = { rejectReason }
@@ -85,6 +88,16 @@ const Page = ({
           variant: 'destructive',
         })
       })
+  }
+
+  const handleCopyLink = (): void => {
+    navigator.clipboard.writeText(registerCompletionUrl).then(() => {
+      toast({
+        title: t('success'),
+        description: `${t('adminRegistrationApplications.linkCopied')}`,
+        variant: 'success',
+      })
+    })
   }
 
   useEffect(() => {
@@ -314,6 +327,21 @@ const Page = ({
                         </FormItem>
                       )}
                     />
+                    {adminRegistrationApplicationDetails.status ===
+                      'WAITING' && (
+                      <Button
+                        type="button"
+                        onClick={handleCopyLink}
+                        className="sm:col-span-2 text-left"
+                      >
+                        <span className="truncate flex-grow">
+                          {registerCompletionUrl}
+                        </span>
+                        <span>
+                          {t('adminRegistrationApplications.copyLink')}
+                        </span>
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>

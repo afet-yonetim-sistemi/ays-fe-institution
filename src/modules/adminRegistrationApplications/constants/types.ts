@@ -1,4 +1,21 @@
-import { Institution, User } from '@/common/types'
+export interface PhoneNumber {
+  countryCode: string
+  lineNumber: string
+}
+
+export interface User {
+  id: string
+  firstName: string
+  lastName: string
+  city: string
+  emailAddress: string
+  phoneNumber: PhoneNumber
+}
+
+export interface Institution {
+  id: string
+  name: string
+}
 
 export interface AdminRegistrationApplication {
   createdUser: string
@@ -28,4 +45,40 @@ export interface ApiSummaryResponse {
   time: string
   isSuccess: boolean
   data: { response: InstitutionsSummary[] }
+}
+
+export interface RegisterApplicationForm {
+  firstName: string
+  lastName: string
+  emailAddress: string
+  city: string
+  password: string
+  phoneNumber: {
+    countryCode: string
+    lineNumber: string
+  }
+}
+
+export interface GetRegisterSummary {
+  time: string
+  isSuccess: boolean
+  data: {
+    response: {
+      institution: {
+        name: string
+      }
+    }
+  }
+}
+
+export interface CompleteRegistration {
+  time: string
+  isSuccess: boolean
+}
+
+export interface Search {
+  page: number
+  per_page: number
+  sort: string | undefined
+  status: string | undefined
 }
