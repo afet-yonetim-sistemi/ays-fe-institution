@@ -10,7 +10,7 @@ import {
   FormLabel,
   Form,
 } from '@/components/ui/form'
-import { useForm } from 'react-hook-form'
+import { useForm, UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
@@ -56,6 +56,40 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [minPermissionError, setMinPermissionError] = useState<string | null>(
     null
   )
+
+  const createUpdatedData = (
+    form: UseFormReturn,
+    roleDetail: RoleDetail,
+    permissions: RolePermission[]
+  ): { name: string; permissionIds: string[] } => {
+    return {
+      name: form.getValues('name') || roleDetail.name,
+      permissionIds: permissions
+        .filter((permission) => permission.isActive)
+        .map((permission) => permission.id),
+    }
+  }
+
+  const hasNameChanged = (
+    updatedName: string,
+    originalName: string
+  ): boolean => {
+    return updatedName !== originalName
+  }
+
+  const havePermissionsChanged = (
+    updatedIds: string[],
+    originalPermissions: RolePermission[]
+  ): boolean => {
+    const originalPermissionIds = originalPermissions
+      .filter((permission) => permission.isActive)
+      .map((permission) => permission.id)
+
+    return (
+      updatedIds.length !== originalPermissionIds.length ||
+      updatedIds.some((id, index) => id !== originalPermissionIds[index])
+    )
+  }
 
   const getAvailableRolePermissions = useCallback(async (): Promise<
     RolePermission[]
@@ -168,10 +202,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     fetchDetails()
   }, [getAvailableRolePermissions, params.id, t, toast])
 
-  const handleUpdateButtonClick = (): void => {
-    setIsEditable(true)
-  }
-
   useEffect(() => {
     if (permissions) {
       const allActive = permissions.every((permission) => permission.isActive)
@@ -187,16 +217,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       }
     }
   }, [permissions, t])
-
-  const handleCancelButtonClick = (): void => {
-    setIsEditable(false)
-    if (roleDetail) {
-      reset({
-        name: roleDetail.name,
-      })
-      setPermissions(originalPermissions)
-    }
-  }
 
   const handlePermissionToggle = (id: string): void => {
     setPermissions((prevPermissions) =>
@@ -228,26 +248,31 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     )
   }
 
+  const handleUpdateButtonClick = (): void => {
+    setIsEditable(true)
+  }
+
+  const handleCancelButtonClick = (): void => {
+    setIsEditable(false)
+    if (roleDetail) {
+      reset({
+        name: roleDetail.name,
+      })
+      setPermissions(originalPermissions)
+    }
+  }
+
   const handleSaveButtonClick = (): void => {
     if (!roleDetail) return
 
-    const updatedData = {
-      name: form.getValues('name') || roleDetail.name,
-      permissionIds: permissions
-        .filter((permission) => permission.isActive)
-        .map((permission) => permission.id),
-    }
+    const updatedData = createUpdatedData(form, roleDetail, permissions)
 
-    const isNameChanged = updatedData.name !== roleDetail.name
-    const originalPermissionIds = roleDetail.permissions
-      .filter((permission) => permission.isActive)
-      .map((permission) => permission.id)
+    const isNameChanged = hasNameChanged(updatedData.name, roleDetail.name)
 
-    const isPermissionsChanged =
-      updatedData.permissionIds.length !== originalPermissionIds.length ||
-      updatedData.permissionIds.some(
-        (id, index) => id !== originalPermissionIds[index]
-      )
+    const isPermissionsChanged = havePermissionsChanged(
+      updatedData.permissionIds,
+      roleDetail.permissions
+    )
 
     if (!isNameChanged && !isPermissionsChanged) {
       toast({
