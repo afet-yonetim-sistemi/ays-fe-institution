@@ -53,6 +53,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     RolePermission[]
   >([])
   const [masterSwitch, setMasterSwitch] = useState<boolean>(false)
+  const [minPermissionError, setMinPermissionError] = useState<string | null>(
+    null
+  )
 
   const getAvailableRolePermissions = useCallback(async (): Promise<
     RolePermission[]
@@ -170,11 +173,20 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }
 
   useEffect(() => {
-    if (permissions.length > 0) {
+    if (permissions) {
       const allActive = permissions.every((permission) => permission.isActive)
+      const allInactive = permissions.every(
+        (permission) => !permission.isActive
+      )
+
       setMasterSwitch(allActive)
+      if (allInactive) {
+        setMinPermissionError(t('role.minPermissionError'))
+      } else {
+        setMinPermissionError(null)
+      }
     }
-  }, [permissions])
+  }, [permissions, t])
 
   const handleCancelButtonClick = (): void => {
     setIsEditable(false)
@@ -220,15 +232,49 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     if (!roleDetail) return
 
     const updatedData = {
-      name: form.getValues('name') || roleDetail?.name,
+      name: form.getValues('name') || roleDetail.name,
       permissionIds: permissions
         .filter((permission) => permission.isActive)
         .map((permission) => permission.id),
     }
 
+    const isNameChanged = updatedData.name !== roleDetail.name
+    const originalPermissionIds = roleDetail.permissions
+      .filter((permission) => permission.isActive)
+      .map((permission) => permission.id)
+
+    const isPermissionsChanged =
+      updatedData.permissionIds.length !== originalPermissionIds.length ||
+      updatedData.permissionIds.some(
+        (id, index) => id !== originalPermissionIds[index]
+      )
+
+    if (!isNameChanged && !isPermissionsChanged) {
+      toast({
+        title: t('error'),
+        description: t('role.noChangesError'),
+        variant: 'destructive',
+      })
+      setIsEditable(false)
+      return
+    }
+
     updateRole(params.id, updatedData)
       .then((response) => {
         if (response.data.isSuccess) {
+          const updatedPermissions = permissions.map((permission) => ({
+            ...permission,
+            isActive: updatedData.permissionIds.includes(permission.id),
+          }))
+
+          setRoleDetail({
+            ...roleDetail,
+            name: updatedData.name,
+            permissions: updatedPermissions,
+          })
+          setPermissions(updatedPermissions)
+          setOriginalPermissions(updatedPermissions)
+
           toast({
             title: t('success'),
             description: t('role.updatedSuccessfully'),
@@ -267,7 +313,12 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       {t('update')}
                     </Button>
                   ) : (
-                    <div>
+                    <div className="flex items-center gap-4">
+                      {minPermissionError && (
+                        <p className="text-red-500 text-sm">
+                          {minPermissionError}
+                        </p>
+                      )}
                       <Button
                         type="button"
                         variant="outline"
@@ -279,7 +330,10 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                         type="button"
                         variant="outline"
                         onClick={handleSaveButtonClick}
-                        disabled={Boolean(formState.errors.name)}
+                        disabled={
+                          Boolean(formState.errors.name) ||
+                          Boolean(minPermissionError)
+                        }
                       >
                         {t('save')}
                       </Button>

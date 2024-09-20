@@ -157,7 +157,9 @@
     "maxLength": "Role name cannot exceed 255 characters",
     "noSpecialChar": "Role name cannot contain numbers or special characters",
     "updatedSuccessfully": "Role updated successfully",
-    "updateError": "Role update failed"
+    "updateError": "Role update failed",
+    "minPermissionError": "Please select at least one permission in order to save",
+    "noChangesError": "Cannot update without making any changes"
   },
   "permissions": {
     "superAdmin": "Super Admin",

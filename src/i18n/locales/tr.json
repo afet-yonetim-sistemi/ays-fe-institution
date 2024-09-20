@@ -152,12 +152,14 @@
     "createdUser": "Oluşturan Kullanıcı",
     "updatedUser": "Güncelleyen Kullanıcı",
     "information": "Rol Bilgileri",
-    "error": "Rol Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin.",
+    "error": "Rol Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyiniz.",
     "minLength": "Rol adı en az 2 karakter olmalıdır.",
     "maxLength": "Rol adı en fazla 255 karakter olabilir.",
     "noSpecialChar": "Rol adı sayı veya özel karakter içeremez.",
     "updatedSuccessfully": "Rol başarıyla güncellendi.",
-    "updateError": "Rol güncellenemedi."
+    "updateError": "Rol güncellenemedi.",
+    "minPermissionError": "Kaydedebilmek için lütfen en az bir yetki seçiniz",
+    "noChangesError": "Herhangi bir değişiklik yapmadan güncelleyemezsiniz."
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",
