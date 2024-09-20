@@ -32,6 +32,7 @@ import {
 import { FormValidationSchema } from '@/modules/roles/constants/formValidationSchema'
 import { NextPage } from 'next'
 import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
@@ -51,6 +52,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [originalPermissions, setOriginalPermissions] = useState<
     RolePermission[]
   >([])
+  const [masterSwitch, setMasterSwitch] = useState<boolean>(false)
 
   const getAvailableRolePermissions = useCallback(async (): Promise<
     RolePermission[]
@@ -167,6 +169,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     setIsEditable(true)
   }
 
+  useEffect(() => {
+    if (permissions.length > 0) {
+      const allActive = permissions.every((permission) => permission.isActive)
+      setMasterSwitch(allActive)
+    }
+  }, [permissions])
+
   const handleCancelButtonClick = (): void => {
     setIsEditable(false)
     if (roleDetail) {
@@ -175,6 +184,36 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       })
       setPermissions(originalPermissions)
     }
+  }
+
+  const handlePermissionToggle = (id: string): void => {
+    setPermissions((prevPermissions) =>
+      prevPermissions.map((permission) =>
+        permission.id === id
+          ? { ...permission, isActive: !permission.isActive }
+          : permission
+      )
+    )
+  }
+
+  const handleCategoryToggle = (category: string, isActive: boolean): void => {
+    setPermissions((prevPermissions) =>
+      prevPermissions.map((permission) =>
+        permission.category === category
+          ? { ...permission, isActive }
+          : permission
+      )
+    )
+  }
+
+  const handleMasterSwitchChange = (isActive: boolean): void => {
+    setMasterSwitch(isActive)
+    setPermissions((prevPermissions) =>
+      prevPermissions.map((permission) => ({
+        ...permission,
+        isActive,
+      }))
+    )
   }
 
   const handleSaveButtonClick = (): void => {
@@ -207,16 +246,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .finally(() => {
         setIsEditable(false)
       })
-  }
-
-  const handlePermissionToggle = (id: string): void => {
-    setPermissions((prevPermissions) =>
-      prevPermissions.map((permission) =>
-        permission.id === id
-          ? { ...permission, isActive: !permission.isActive }
-          : permission
-      )
-    )
   }
 
   return (
@@ -382,20 +411,33 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
               </Card>
               <Card className="mb-6">
                 <CardHeader>
-                  <CardTitle>{t('role.permissions')}</CardTitle>
+                  <div className="flex items-center">
+                    <CardTitle>{t('role.permissions')}</CardTitle>
+                    <Switch
+                      className="ml-4"
+                      disabled={!isEditable}
+                      checked={masterSwitch}
+                      onCheckedChange={(isActive) =>
+                        handleMasterSwitchChange(isActive)
+                      }
+                    />
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  {Object.entries(categorizePermissions(permissions)).map(
-                    ([category, permissions]) => (
-                      <PermissionCard
-                        key={category}
-                        category={t(category)}
-                        permissions={permissions}
-                        isEditable={isEditable}
-                        onPermissionToggle={handlePermissionToggle}
-                      />
-                    )
-                  )}
+                  <div className="grid grid-cols-2 gap-4">
+                    {Object.entries(categorizePermissions(permissions)).map(
+                      ([category, permissions]) => (
+                        <PermissionCard
+                          key={category}
+                          category={t(category)}
+                          permissions={permissions}
+                          isEditable={isEditable}
+                          onPermissionToggle={handlePermissionToggle}
+                          onCategoryToggle={handleCategoryToggle}
+                        />
+                      )
+                    )}
+                  </div>
                 </CardContent>
               </Card>
             </form>
