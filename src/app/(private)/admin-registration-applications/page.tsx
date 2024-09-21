@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import PrivateRoute from '@/app/hocs/isAuth'
 import { postAdminRegistrationApplications } from '@/modules/adminRegistrationApplications/service'
 import { useTranslation } from 'react-i18next'
 import { pageSize } from '@/constants/common'
@@ -9,7 +8,6 @@ import { columns } from '@/modules/adminRegistrationApplications/components/colu
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 import { useSearchParams } from 'next/navigation'
-import { Permission } from '@/constants/permissions'
 import { useDataTable } from '@/app/hocs/useDataTable'
 import * as z from 'zod'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
@@ -75,30 +73,23 @@ const Page = (): JSX.Element => {
   })
 
   return (
-    <PrivateRoute requiredPermissions={[Permission.APPLICATION_LIST]}>
-      <div className="space-y-1">
-        {error && <Toaster />}
-        <div className={'float-right'}>
-          <Link href={'/admin-registration-applications/pre-application'}>
-            <Button>{t('preApplication')}</Button>
-          </Link>
-        </div>
-
-        <DataTable
-          className=""
-          table={table}
-          loading={isLoading}
-          enableRowClick
-        >
-          <div className="flex flex-col w-full gap-4">
-            <h1 className="text-2xl font-medium">
-              {t('adminRegistrationApplications.title')}
-            </h1>
-            <DataTableToolbar table={table} filterFields={filterFields} />
-          </div>
-        </DataTable>
+    <div className="space-y-1">
+      {error && <Toaster />}
+      <div className={'float-right'}>
+        <Link href={'/admin-registration-applications/pre-application'}>
+          <Button>{t('preApplication')}</Button>
+        </Link>
       </div>
-    </PrivateRoute>
+
+      <DataTable table={table} loading={isLoading} enableRowClick>
+        <div className="flex flex-col w-full gap-4">
+          <h1 className="text-2xl font-medium">
+            {t('adminRegistrationApplications.title')}
+          </h1>
+          <DataTableToolbar table={table} filterFields={filterFields} />
+        </div>
+      </DataTable>
+    </div>
   )
 }
 

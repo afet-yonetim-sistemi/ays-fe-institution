@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import PrivateRoute from '@/app/hocs/isAuth'
 import { useTranslation } from 'react-i18next'
 import { useToast } from '@/components/ui/use-toast'
 import { useSearchParams } from 'next/navigation'
-import { Permission } from '@/constants/permissions'
 import { postRoles } from '@/modules/roles/service'
 import { searchParamsSchema } from '@/modules/roles/constants/searchParamsSchema'
 import { Roles } from '@/modules/roles/constants/types'
@@ -74,21 +72,19 @@ const Page = (): JSX.Element => {
   })
 
   return (
-    <PrivateRoute requiredPermissions={[Permission.ROLE_LIST]}>
-      <div className="space-y-1">
-        <h1 className="text-2xl font-medium">{t('roles')}</h1>
-        <DataTable
-          className="px-2"
-          table={table}
-          loading={isLoading}
-          enableRowClick
-        >
-          <DataTableToolbar table={table} filterFields={filterFields}>
-            <FilterInput min={2} max={255} param="name" />
-          </DataTableToolbar>
-        </DataTable>
-      </div>
-    </PrivateRoute>
+    <div className="space-y-1">
+      <h1 className="text-2xl font-medium">{t('roles')}</h1>
+      <DataTable
+        className="px-2"
+        table={table}
+        loading={isLoading}
+        enableRowClick
+      >
+        <DataTableToolbar table={table} filterFields={filterFields}>
+          <FilterInput min={2} max={255} param="name" />
+        </DataTableToolbar>
+      </DataTable>
+    </div>
   )
 }
 

@@ -30,8 +30,6 @@ import {
 import { useToast } from '@/components/ui/use-toast'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Card } from '@/components/ui/card'
-import PrivateRoute from '@/app/hocs/isAuth'
-import { Permission } from '@/constants/permissions'
 import { useRouter } from 'next/navigation'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { InstitutionsSummary } from '@/modules/adminRegistrationApplications/constants/types'
@@ -91,70 +89,66 @@ const Page = (): JSX.Element => {
   }, [t, toast])
 
   return (
-    <PrivateRoute requiredPermissions={[Permission.APPLICATION_CREATE]}>
-      <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
-        <Title title={t('preApplicationTitle')} />
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <Card className="p-6 w-full">
-              <div className="grid grid-cols-1 gap-y-6 lg:grid-cols-3 lg:gap-x-6">
-                <FormField
-                  control={form.control}
-                  name="institutionId"
-                  render={({ field }) => (
-                    <>
-                      <FormItem className="col-span-1">
-                        <FormLabel>{t('institution')}</FormLabel>
-                        <FormControl>
-                          <Select
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                          >
-                            <SelectTrigger>
-                              <SelectValue
-                                placeholder={t('selectInstitution')}
-                              />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {institutionSummary?.map(
-                                (item: InstitutionsSummary) => (
-                                  <SelectItem key={item.id} value={item.id}>
-                                    {item.name}
-                                  </SelectItem>
-                                )
-                              )}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="reason"
-                  render={({ field }) => (
-                    <>
-                      <FormItem className="col-span-2">
-                        <FormLabel>{t('createReason')}</FormLabel>
-                        <FormControl>
-                          <Textarea {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
-              </div>
-            </Card>
-            <Button disabled={isLoading} type="submit" className={'min-w-20'}>
-              {isLoading ? <LoadingSpinner /> : t('create')}
-            </Button>
-          </form>
-        </Form>
-      </div>
-    </PrivateRoute>
+    <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+      <Title title={t('preApplicationTitle')} />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <Card className="p-6 w-full">
+            <div className="grid grid-cols-1 gap-y-6 lg:grid-cols-3 lg:gap-x-6">
+              <FormField
+                control={form.control}
+                name="institutionId"
+                render={({ field }) => (
+                  <>
+                    <FormItem className="col-span-1">
+                      <FormLabel>{t('institution')}</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('selectInstitution')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {institutionSummary?.map(
+                              (item: InstitutionsSummary) => (
+                                <SelectItem key={item.id} value={item.id}>
+                                  {item.name}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="reason"
+                render={({ field }) => (
+                  <>
+                    <FormItem className="col-span-2">
+                      <FormLabel>{t('createReason')}</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </>
+                )}
+              />
+            </div>
+          </Card>
+          <Button disabled={isLoading} type="submit" className={'min-w-20'}>
+            {isLoading ? <LoadingSpinner /> : t('create')}
+          </Button>
+        </form>
+      </Form>
+    </div>
   )
 }
 
