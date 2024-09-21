@@ -2,29 +2,54 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
 import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
 import { RolePermission } from '../constants/types'
+import React from 'react'
 
 interface PermissionCardProps {
   category: string
   permissions: RolePermission[]
+  isEditable: boolean
+  onPermissionToggle: (id: string) => void
+  onCategoryToggle: (category: string, isActive: boolean) => void
 }
 
-export default function PermissionCard({
+const PermissionCard: React.FC<PermissionCardProps> = ({
   category,
   permissions,
-}: PermissionCardProps): JSX.Element {
+  isEditable,
+  onPermissionToggle,
+  onCategoryToggle,
+}) => {
+  const areAllPermissionsActive = permissions.every(
+    (permission) => permission.isActive
+  )
+
   return (
-    <Card className="mb-4">
+    <Card>
       <CardHeader>
-        <CardTitle className="text-lg">{category}</CardTitle>
+        <CardTitle className="text-lg flex items-center">
+          <span className="mr-4">{category}</span>
+          <Switch
+            disabled={!isEditable}
+            checked={areAllPermissionsActive}
+            onCheckedChange={(isActive) => onCategoryToggle(category, isActive)}
+          />
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-1">
           {permissions.map((permission) => (
-            <FormItem key={permission.id}>
+            <FormItem key={permission.id} className="flex items-center">
               <FormControl>
-                <Switch disabled checked={permission.isActive} />
+                <Switch
+                  className="mt-2"
+                  disabled={!isEditable}
+                  checked={permission.isActive}
+                  onCheckedChange={() => onPermissionToggle(permission.id)}
+                />
               </FormControl>
-              <FormLabel className="ml-4">{permission.name}</FormLabel>
+              <FormLabel className="ml-3 items-center">
+                {permission.name}
+              </FormLabel>
             </FormItem>
           ))}
         </div>
@@ -32,3 +57,5 @@ export default function PermissionCard({
     </Card>
   )
 }
+
+export default PermissionCard

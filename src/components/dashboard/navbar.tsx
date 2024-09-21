@@ -35,6 +35,7 @@ function Navbar(): JSX.Element {
       .logout(refreshToken)
       .then(() => {
         dispatch({ type: 'auth/logout' })
+        document.cookie = 'token=; Max-Age=0; path=/;'
         router.push('/login')
       })
       .catch((error) => {
