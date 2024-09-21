@@ -1,4 +1,9 @@
 {
+  "common": {
+    "update": "Update",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
   "hello": "Hello",
   "welcome": "Welcome",
   "notFound": "Page not found.",
@@ -153,7 +158,7 @@
     "updatedUser": "User Who Updated",
     "information": "Role Information",
     "error": "Error while fetching role details. Please try again",
-    "minLength": "Role name must be at least 2 characters long",
+    "minLength": "Role name must be at least 2 characters",
     "maxLength": "Role name cannot exceed 255 characters",
     "noSpecialChar": "Role name cannot contain numbers or special characters",
     "updatedSuccessfully": "Role updated successfully",
@@ -189,8 +194,5 @@
     "landingPage": "Landing Page",
     "institutionPage": "Institution Page",
     "error": "Error while fetching role permission details. Please try again"
-  },
-  "update": "Update",
-  "cancel": "Cancel",
-  "save": "Save"
+  }
 }

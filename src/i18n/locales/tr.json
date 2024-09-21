@@ -1,4 +1,9 @@
 {
+  "common": {
+    "update": "Güncelle",
+    "cancel": "İptal",
+    "save": "Kaydet"
+  },
   "hello": "Merhaba",
   "welcome": "Hoş Geldiniz",
   "notFound": "Aradığınız Sayfa Bulunamadı.",
@@ -159,7 +164,7 @@
     "updatedSuccessfully": "Rol başarıyla güncellendi.",
     "updateError": "Rol güncelleme başarısız.",
     "minPermissionError": "Kaydedebilmek için lütfen en az bir yetki seçiniz",
-    "noChangesError": "Herhangi bir değişiklik yapmadan rolü güncelleyemezsiniz."
+    "noChangesError": "Değişiklik yapmadan rolü güncelleyemezsiniz."
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",
@@ -189,8 +194,5 @@
     "landingPage": "Açılış Sayfası",
     "institutionPage": "Kurum Sayfası",
     "error": "Rol Yetki Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
-  },
-  "update": "Güncelle",
-  "cancel": "İptal",
-  "save": "Kaydet"
+  }
 }

@@ -338,7 +338,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                   variant="outline"
                   onClick={handleUpdateButtonClick}
                 >
-                  {t('update')}
+                  {t('common.update')}
                 </Button>
               ) : (
                 <div className="flex items-center gap-4">
@@ -350,7 +350,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     variant="outline"
                     onClick={handleCancelButtonClick}
                   >
-                    {t('cancel')}
+                    {t('common.cancel')}
                   </Button>{' '}
                   <Button
                     type="button"
@@ -361,7 +361,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       Boolean(minPermissionError)
                     }
                   >
-                    {t('save')}
+                    {t('common.save')}
                   </Button>
                 </div>
               )}
