@@ -409,9 +409,7 @@ const Page = ({
                             disabled
                             defaultValue={
                               adminRegistrationApplicationDetails.user
-                                ?.phoneNumber?.countryCode &&
-                              adminRegistrationApplicationDetails.user
-                                ?.phoneNumber?.lineNumber
+                                ?.phoneNumber
                                 ? formatPhoneNumber(
                                     adminRegistrationApplicationDetails.user
                                       .phoneNumber

@@ -138,9 +138,6 @@ const Page = ({
                             disabled
                             defaultValue={
                               emergencyEvacuationApplicationDetails.phoneNumber
-                                ?.countryCode &&
-                              emergencyEvacuationApplicationDetails.phoneNumber
-                                ?.lineNumber
                                 ? formatPhoneNumber(
                                     emergencyEvacuationApplicationDetails.phoneNumber
                                   )
@@ -220,10 +217,7 @@ const Page = ({
                               {...field}
                               disabled
                               defaultValue={
-                                emergencyEvacuationApplicationDetails
-                                  .applicantPhoneNumber?.countryCode &&
-                                emergencyEvacuationApplicationDetails
-                                  .applicantPhoneNumber?.lineNumber
+                                emergencyEvacuationApplicationDetails.applicantPhoneNumber
                                   ? formatPhoneNumber(
                                       emergencyEvacuationApplicationDetails.applicantPhoneNumber
                                     )
