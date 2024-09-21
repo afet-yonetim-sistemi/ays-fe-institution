@@ -49,17 +49,18 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [isEditable, setIsEditable] = useState<boolean>(false)
+  const [isRoleEditable, setIsRoleEditable] = useState<boolean>(false)
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
-  const [originalPermissions, setOriginalPermissions] = useState<
+  const [originalRolePermissions, setOriginalRolePermissions] = useState<
     RolePermission[]
   >([])
-  const [masterSwitch, setMasterSwitch] = useState<boolean>(false)
+  const [masterPermissionsSwitch, setMasterPermissionsSwitch] =
+    useState<boolean>(false)
   const [minPermissionError, setMinPermissionError] = useState<string | null>(
     null
   )
 
-  const createUpdatedData = (
+  const createUpdatedRoleData = (
     form: UseFormReturn,
     roleDetail: RoleDetail,
     permissions: RolePermission[]
@@ -72,15 +73,15 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     }
   }
 
-  const hasNameChanged = (
-    updatedName: string,
-    originalName: string
+  const hasRoleNameChanged = (
+    updatedRoleName: string,
+    originalRoleName: string
   ): boolean => {
-    return updatedName !== originalName
+    return updatedRoleName !== originalRoleName
   }
 
-  const havePermissionsChanged = (
-    updatedIds: string[],
+  const haveRolePermissionsChanged = (
+    updatedPermissionIds: string[],
     originalPermissions: RolePermission[]
   ): boolean => {
     const originalPermissionIds = originalPermissions
@@ -88,8 +89,10 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .map((permission) => permission.id)
 
     return (
-      updatedIds.length !== originalPermissionIds.length ||
-      updatedIds.some((id, index) => id !== originalPermissionIds[index])
+      updatedPermissionIds.length !== originalPermissionIds.length ||
+      updatedPermissionIds.some(
+        (id, index) => id !== originalPermissionIds[index]
+      )
     )
   }
 
@@ -185,7 +188,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             ...fetchedRoleDetail,
             permissions: localizedPermissions,
           })
-          setOriginalPermissions(localizedPermissions)
+          setOriginalRolePermissions(localizedPermissions)
           setRolePermissions(localizedPermissions)
         })
         .catch(() => {
@@ -209,7 +212,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         (permission) => !permission.isActive
       )
 
-      setMasterSwitch(allActive)
+      setMasterPermissionsSwitch(allActive)
       if (allInactive) {
         setMinPermissionError(t('role.minPermissionError'))
       } else {
@@ -239,7 +242,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }
 
   const handleMasterSwitchChange = (isActive: boolean): void => {
-    setMasterSwitch(isActive)
+    setMasterPermissionsSwitch(isActive)
     setRolePermissions((prevPermissions) =>
       prevPermissions.map((permission) => ({
         ...permission,
@@ -249,27 +252,25 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }
 
   const handleUpdateButtonClick = (): void => {
-    setIsEditable(true)
+    setIsRoleEditable(true)
   }
 
   const handleCancelButtonClick = (): void => {
-    setIsEditable(false)
+    setIsRoleEditable(false)
     if (roleDetail) {
       reset({
         name: roleDetail.name,
       })
-      setRolePermissions(originalPermissions)
+      setRolePermissions(originalRolePermissions)
     }
   }
 
   const handleSaveButtonClick = (): void => {
     if (!roleDetail) return
 
-    const updatedData = createUpdatedData(form, roleDetail, rolePermissions)
-
-    const isNameChanged = hasNameChanged(updatedData.name, roleDetail.name)
-
-    const isPermissionsChanged = havePermissionsChanged(
+    const updatedData = createUpdatedRoleData(form, roleDetail, rolePermissions)
+    const isNameChanged = hasRoleNameChanged(updatedData.name, roleDetail.name)
+    const isPermissionsChanged = haveRolePermissionsChanged(
       updatedData.permissionIds,
       roleDetail.permissions
     )
@@ -280,7 +281,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         description: t('role.noChangesError'),
         variant: 'destructive',
       })
-      setIsEditable(false)
+      setIsRoleEditable(false)
       return
     }
 
@@ -298,7 +299,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             permissions: updatedPermissions,
           })
           setRolePermissions(updatedPermissions)
-          setOriginalPermissions(updatedPermissions)
+          setOriginalRolePermissions(updatedPermissions)
 
           toast({
             title: t('success'),
@@ -318,7 +319,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         })
       })
       .finally(() => {
-        setIsEditable(false)
+        setIsRoleEditable(false)
       })
   }
 
@@ -331,7 +332,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">{t('role.detailsTitle')}</h1>
               {userPermissions.includes(Permission.ROLE_UPDATE) &&
-              !isEditable ? (
+              !isRoleEditable ? (
                 <Button
                   type="button"
                   variant="outline"
@@ -381,7 +382,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                           <>
                             <Input
                               {...field}
-                              disabled={!isEditable}
+                              disabled={!isRoleEditable}
                               defaultValue={roleDetail.name ?? ''}
                             />
                             {form.formState.errors.name && (
@@ -493,8 +494,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                   <CardTitle>{t('role.permissions')}</CardTitle>
                   <Switch
                     className="ml-4"
-                    disabled={!isEditable}
-                    checked={masterSwitch}
+                    disabled={!isRoleEditable}
+                    checked={masterPermissionsSwitch}
                     onCheckedChange={(isActive) =>
                       handleMasterSwitchChange(isActive)
                     }
@@ -509,7 +510,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                         key={category}
                         category={t(category)}
                         permissions={permissions}
-                        isEditable={isEditable}
+                        isEditable={isRoleEditable}
                         onPermissionToggle={handlePermissionToggle}
                         onCategoryToggle={handleCategoryToggle}
                       />

@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
 import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
 import { RolePermission } from '../constants/types'
+import React from 'react'
 
 interface PermissionCardProps {
   category: string
