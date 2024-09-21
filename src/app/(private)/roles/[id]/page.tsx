@@ -18,8 +18,6 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
 import { getRoleDetail, getPermissions } from '@/modules/roles/service'
-import { Permission } from '@/constants/permissions'
-import PrivateRoute from '@/app/hocs/isAuth'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import {
   getLocalizedCategory,
@@ -152,149 +150,147 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }, [getAvailableRolePermissions, params.id, t, toast])
 
   return (
-    <PrivateRoute requiredPermissions={[Permission.ROLE_DETAIL]}>
-      <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
-        {isLoading && <LoadingSpinner />}
-        {!isLoading && roleDetail && (
-          <Form {...form}>
-            <form className="space-y-6">
-              <h1 className="text-2xl font-bold mb-6">
-                {t('role.detailsTitle')}
-              </h1>
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle>{t('role.information')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
-                    <FormField
-                      control={control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('name')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              value={t(roleDetail.name) ?? ''}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="status"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('role.status')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              value={t(roleDetail.status.toLowerCase()) ?? ''}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="createdUser"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('role.createdUser')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={roleDetail.createdUser ?? ''}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="createdAt"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('createDateTime')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                roleDetail.createdAt
-                                  ? formatDateTime(roleDetail.createdAt)
-                                  : ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="updatedUser"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('role.updatedUser')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={roleDetail.updatedUser ?? ''}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="updateAt"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('updateDateTime')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={
-                                roleDetail.updatedAt
-                                  ? formatDateTime(roleDetail.updatedAt)
-                                  : ''
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="mb-6">
-                <CardHeader>
-                  <CardTitle>{t('role.permissions')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {Object.entries(
-                    categorizePermissions(roleDetail.permissions)
-                  ).map(([category, permissions]) => (
-                    <PermissionCard
-                      key={category}
-                      category={t(category)}
-                      permissions={permissions}
-                    />
-                  ))}
-                </CardContent>
-              </Card>
-            </form>
-          </Form>
-        )}
-      </div>
-    </PrivateRoute>
+    <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+      {isLoading && <LoadingSpinner />}
+      {!isLoading && roleDetail && (
+        <Form {...form}>
+          <form className="space-y-6">
+            <h1 className="text-2xl font-bold mb-6">
+              {t('role.detailsTitle')}
+            </h1>
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>{t('role.information')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+                  <FormField
+                    control={control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>{t('name')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            value={t(roleDetail.name) ?? ''}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="status"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>{t('role.status')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            value={t(roleDetail.status.toLowerCase()) ?? ''}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="createdUser"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>{t('role.createdUser')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={roleDetail.createdUser ?? ''}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="createdAt"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>{t('createDateTime')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={
+                              roleDetail.createdAt
+                                ? formatDateTime(roleDetail.createdAt)
+                                : ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="updatedUser"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>{t('role.updatedUser')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={roleDetail.updatedUser ?? ''}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="updateAt"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>{t('updateDateTime')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled
+                            defaultValue={
+                              roleDetail.updatedAt
+                                ? formatDateTime(roleDetail.updatedAt)
+                                : ''
+                            }
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>{t('role.permissions')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {Object.entries(
+                  categorizePermissions(roleDetail.permissions)
+                ).map(([category, permissions]) => (
+                  <PermissionCard
+                    key={category}
+                    category={t(category)}
+                    permissions={permissions}
+                  />
+                ))}
+              </CardContent>
+            </Card>
+          </form>
+        </Form>
+      )}
+    </div>
   )
 }
 

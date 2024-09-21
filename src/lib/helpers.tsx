@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-export function parseJwt(token: string): any {
+export const parseJwt = (token: string): any => {
   if (!token) {
     return
   }
