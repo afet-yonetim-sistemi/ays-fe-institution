@@ -157,9 +157,9 @@
     "maxLength": "Rol adı en fazla 255 karakter olabilir.",
     "noSpecialChar": "Rol adı sayı veya özel karakter içeremez.",
     "updatedSuccessfully": "Rol başarıyla güncellendi.",
-    "updateError": "Rol güncellenemedi.",
+    "updateError": "Rol güncelleme başarısız.",
     "minPermissionError": "Kaydedebilmek için lütfen en az bir yetki seçiniz",
-    "noChangesError": "Herhangi bir değişiklik yapmadan güncelleyemezsiniz."
+    "noChangesError": "Herhangi bir değişiklik yapmadan rolü güncelleyemezsiniz."
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",

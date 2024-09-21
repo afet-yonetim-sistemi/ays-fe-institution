@@ -159,7 +159,7 @@
     "updatedSuccessfully": "Role updated successfully",
     "updateError": "Role update failed",
     "minPermissionError": "Please select at least one permission in order to save",
-    "noChangesError": "Cannot update without making any changes"
+    "noChangesError": "Cannot update the role without making any changes"
   },
   "permissions": {
     "superAdmin": "Super Admin",
@@ -193,5 +193,4 @@
   "update": "Update",
   "cancel": "Cancel",
   "save": "Save"
-
 }
