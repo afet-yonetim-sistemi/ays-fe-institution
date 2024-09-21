@@ -4,11 +4,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
-  FormItem,
-  FormField,
-  FormControl,
-  FormLabel,
   Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
-import { getRoleDetail, getPermissions } from '@/modules/roles/service'
+import { getPermissions, getRoleDetail } from '@/modules/roles/service'
 import { Permission } from '@/constants/permissions'
 import PrivateRoute from '@/app/hocs/isAuth'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
@@ -225,11 +225,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                             <Input
                               {...field}
                               disabled
-                              defaultValue={
+                              defaultValue={formatDateTime(
                                 roleDetail.createdAt
-                                  ? formatDateTime(roleDetail.createdAt)
-                                  : ''
-                              }
+                              )}
                             />
                           </FormControl>
                         </FormItem>
@@ -261,11 +259,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                             <Input
                               {...field}
                               disabled
-                              defaultValue={
+                              defaultValue={formatDateTime(
                                 roleDetail.updatedAt
-                                  ? formatDateTime(roleDetail.updatedAt)
-                                  : ''
-                              }
+                              )}
                             />
                           </FormControl>
                         </FormItem>

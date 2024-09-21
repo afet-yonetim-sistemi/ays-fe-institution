@@ -11,11 +11,11 @@ import { Input } from '@/components/ui/input'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
-  FormItem,
-  FormField,
-  FormControl,
-  FormLabel,
   Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -272,13 +272,9 @@ const Page = ({
                             <Input
                               {...field}
                               disabled
-                              defaultValue={
+                              defaultValue={formatDateTime(
                                 adminRegistrationApplicationDetails.createdAt
-                                  ? formatDateTime(
-                                      adminRegistrationApplicationDetails.createdAt
-                                    )
-                                  : ''
-                              }
+                              )}
                             />
                           </FormControl>
                         </FormItem>
@@ -315,13 +311,9 @@ const Page = ({
                             <Input
                               {...field}
                               disabled
-                              defaultValue={
+                              defaultValue={formatDateTime(
                                 adminRegistrationApplicationDetails.updatedAt
-                                  ? formatDateTime(
-                                      adminRegistrationApplicationDetails.updatedAt
-                                    )
-                                  : ''
-                              }
+                              )}
                             />
                           </FormControl>
                         </FormItem>

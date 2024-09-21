@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
-  FormItem,
-  FormField,
-  FormControl,
-  FormLabel,
   Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -399,13 +399,9 @@ const Page = ({
                             <Input
                               {...field}
                               disabled
-                              defaultValue={
+                              defaultValue={formatDateTime(
                                 emergencyEvacuationApplicationDetails.createdAt
-                                  ? formatDateTime(
-                                      emergencyEvacuationApplicationDetails.createdAt
-                                    )
-                                  : ''
-                              }
+                              )}
                             />
                           </FormControl>
                         </FormItem>
