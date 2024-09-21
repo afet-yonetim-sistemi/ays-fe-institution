@@ -1,6 +1,6 @@
-import { NextResponse, type NextRequest } from 'next/server'
-import { getUserPermissions } from './lib/getUserPermissions'
+import { type NextRequest, NextResponse } from 'next/server'
 import { protectedRoutes, publicRoutes } from './configs/routes'
+import { getUserPermissions } from '@/lib/getUserPermissions'
 
 const isPublicRoute = (pathname: string): boolean =>
   publicRoutes.includes(pathname)

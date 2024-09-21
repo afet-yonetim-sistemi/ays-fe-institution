@@ -1,4 +1,9 @@
 {
+  "common": {
+    "update": "Update",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
   "hello": "Hello",
   "welcome": "Welcome",
   "notFound": "Page not found.",
@@ -152,7 +157,14 @@
     "createdUser": "User Who Created",
     "updatedUser": "User Who Updated",
     "information": "Role Information",
-    "error": "Error while fetching role details. Please try again"
+    "error": "Error while fetching role details. Please try again",
+    "minLength": "Role name must be at least 2 characters",
+    "maxLength": "Role name cannot exceed 255 characters",
+    "noSpecialChar": "Role name cannot contain numbers or special characters",
+    "updatedSuccessfully": "Role updated successfully",
+    "updateError": "Role update failed",
+    "minPermissionError": "Please select at least one permission in order to save",
+    "noChangesError": "Cannot update the role without making any changes"
   },
   "permissions": {
     "superAdmin": "Super Admin",
