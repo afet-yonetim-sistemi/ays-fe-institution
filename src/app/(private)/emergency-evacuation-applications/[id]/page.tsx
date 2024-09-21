@@ -87,13 +87,9 @@ const Page = ({
                           <Input
                             {...field}
                             disabled
-                            defaultValue={
+                            defaultValue={formatReferenceNumber(
                               emergencyEvacuationApplicationDetails.referenceNumber
-                                ? formatReferenceNumber(
-                                    emergencyEvacuationApplicationDetails.referenceNumber
-                                  )
-                                : ''
-                            }
+                            )}
                           />
                         </FormControl>
                       </FormItem>
