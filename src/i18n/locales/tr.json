@@ -2,7 +2,8 @@
   "common": {
     "update": "Güncelle",
     "cancel": "İptal",
-    "save": "Kaydet"
+    "save": "Kaydet",
+    "delete": "Sil"
   },
   "hello": "Merhaba",
   "welcome": "Hoş Geldiniz",

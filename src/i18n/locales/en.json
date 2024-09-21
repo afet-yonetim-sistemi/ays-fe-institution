@@ -2,7 +2,8 @@
   "common": {
     "update": "Update",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "delete": "Delete"
   },
   "hello": "Hello",
   "welcome": "Welcome",

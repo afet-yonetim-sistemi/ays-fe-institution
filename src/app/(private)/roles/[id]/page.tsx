@@ -323,6 +323,10 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       })
   }
 
+  const handleDeleteButtonClick = (): void => {
+    console.log('filan')
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -331,40 +335,54 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">{t('role.detailsTitle')}</h1>
-              {userPermissions.includes(Permission.ROLE_UPDATE) &&
-              !isRoleEditable ? (
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleUpdateButtonClick}
-                >
-                  {t('common.update')}
-                </Button>
-              ) : (
-                <div className="flex items-center gap-4">
-                  {minPermissionError && (
-                    <p className="text-red-500 text-sm">{minPermissionError}</p>
+              <div className="flex items-center gap-4">
+                {userPermissions.includes(Permission.ROLE_DELETE) &&
+                  !isRoleEditable && (
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={handleDeleteButtonClick}
+                    >
+                      {t('common.delete')}
+                    </Button>
                   )}
+                {userPermissions.includes(Permission.ROLE_UPDATE) &&
+                !isRoleEditable ? (
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={handleCancelButtonClick}
+                    onClick={handleUpdateButtonClick}
                   >
-                    {t('common.cancel')}
-                  </Button>{' '}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleSaveButtonClick}
-                    disabled={
-                      Boolean(formState.errors.name) ||
-                      Boolean(minPermissionError)
-                    }
-                  >
-                    {t('common.save')}
+                    {t('common.update')}
                   </Button>
-                </div>
-              )}
+                ) : (
+                  <div className="flex items-center gap-4">
+                    {minPermissionError && (
+                      <p className="text-red-500 text-sm">
+                        {minPermissionError}
+                      </p>
+                    )}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleCancelButtonClick}
+                    >
+                      {t('common.cancel')}
+                    </Button>{' '}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleSaveButtonClick}
+                      disabled={
+                        Boolean(formState.errors.name) ||
+                        Boolean(minPermissionError)
+                      }
+                    >
+                      {t('common.save')}
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
             <Card className="mb-6">
               <CardHeader>
