@@ -4,11 +4,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
-  FormItem,
-  FormField,
-  FormControl,
-  FormLabel,
   Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
 } from '@/components/ui/form'
 import { useForm, UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -18,8 +18,8 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
 import {
-  getRoleDetail,
   getPermissions,
+  getRoleDetail,
   updateRole,
 } from '@/modules/roles/service'
 import { Permission } from '@/constants/permissions'
@@ -150,18 +150,14 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       apiPermissionsMap[id] = { id, name }
     })
 
-    const updatedPermissions = initialPermissions.map(
-      (permission): RolePermission => {
-        const apiPermission = apiPermissionsMap[permission.id]
-        return {
-          ...permission,
-          id: apiPermission ? apiPermission.id : permission.id,
-          isActive: !!apiPermission,
-        }
+    return initialPermissions.map((permission): RolePermission => {
+      const apiPermission = apiPermissionsMap[permission.id]
+      return {
+        ...permission,
+        id: apiPermission ? apiPermission.id : permission.id,
+        isActive: !!apiPermission,
       }
-    )
-
-    return updatedPermissions
+    })
   }
 
   useEffect(() => {
