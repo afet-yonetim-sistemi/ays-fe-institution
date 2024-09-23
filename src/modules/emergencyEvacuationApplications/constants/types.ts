@@ -1,10 +1,11 @@
-import { PhoneNumber } from '@/common/types'
+import { BaseApiResponse, PhoneNumber } from '@/common/types'
 
 export interface EmergencyEvacuationApplications {
   // eslint-disable-next-line
   content: any[]
   totalPageCount: number
 }
+
 export interface EmergencyEvacuationApplicationsTableProps {
   id: string
   // eslint-disable-next-line
@@ -19,6 +20,7 @@ export interface EmergencyEvacuationApplicationsTableProps {
     lineNumber: string
   }
 }
+
 export interface Search {
   page: number
   per_page: number
@@ -63,8 +65,6 @@ export interface EmergencyEvacuationApplication {
   updatedAt: string
 }
 
-export interface ApiResponse {
-  time: string
-  isSuccess: boolean
+export interface EmergencyApplicationApiResponse extends BaseApiResponse {
   response: EmergencyEvacuationApplication
 }

@@ -1,13 +1,13 @@
 import http, { api } from '@/configs/axiosConfig'
 import {
-  ApiResponse,
+  AdminApplicationApiResponse,
   ApiSummaryResponse,
-  CompleteRegistration,
   GetRegisterSummary,
   RegisterApplicationForm,
   Search,
 } from './constants/types'
 import { AxiosResponse } from 'axios'
+import { BaseApiResponse } from '@/common/types'
 
 export function postAdminRegistrationApplications(
   search: Search
@@ -36,9 +36,9 @@ export function postAdminRegistrationApplications(
   })
 }
 
-export const getAdminRegistrationApplication = (
+export const getAdminRegistrationApplication = async (
   id: string
-): Promise<ApiResponse> => {
+): Promise<AdminApplicationApiResponse> => {
   return http
     .get(`/api/v1/admin-registration-application/${id}`)
     .then((res) => res.data)
@@ -52,7 +52,7 @@ export const getAdminRegistrationApplicationSummary = (
 export const postRegistrationApplication = (
   id: string | null,
   form: RegisterApplicationForm
-): Promise<CompleteRegistration> =>
+): Promise<BaseApiResponse> =>
   api.post(`api/v1/admin-registration-application/${id}/complete`, form)
 
 export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
@@ -68,7 +68,7 @@ export const approveAdminRegistrationApplication = (
 export const rejectAdminRegistrationApplication = (
   rejectReason: object,
   id: string
-): Promise<ApiResponse> => {
+): Promise<AdminApplicationApiResponse> => {
   return http.post(
     `/api/v1/admin-registration-application/${id}/reject`,
     rejectReason
@@ -77,6 +77,6 @@ export const rejectAdminRegistrationApplication = (
 
 export const approveAdminRegistrationApplicationWithId = (
   id: string
-): Promise<ApiResponse> => {
+): Promise<AdminApplicationApiResponse> => {
   return http.post(`/api/v1/admin-registration-application/${id}/approve`)
 }

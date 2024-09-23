@@ -1,21 +1,4 @@
-export interface PhoneNumber {
-  countryCode: string
-  lineNumber: string
-}
-
-export interface User {
-  id: string
-  firstName: string
-  lastName: string
-  city: string
-  emailAddress: string
-  phoneNumber: PhoneNumber
-}
-
-export interface Institution {
-  id: string
-  name: string
-}
+import { BaseApiResponse, Institution, PhoneNumber, User } from '@/common/types'
 
 export interface AdminRegistrationApplication {
   createdUser: string
@@ -30,21 +13,12 @@ export interface AdminRegistrationApplication {
   user: User
 }
 
-export interface ApiResponse {
-  time: string
-  isSuccess: boolean
+export interface AdminApplicationApiResponse extends BaseApiResponse {
   response: AdminRegistrationApplication
 }
 
-export interface InstitutionsSummary {
-  id: string
-  name: string
-}
-
-export interface ApiSummaryResponse {
-  time: string
-  isSuccess: boolean
-  data: { response: InstitutionsSummary[] }
+export interface ApiSummaryResponse extends BaseApiResponse {
+  data: { response: Institution[] }
 }
 
 export interface RegisterApplicationForm {
@@ -53,15 +27,10 @@ export interface RegisterApplicationForm {
   emailAddress: string
   city: string
   password: string
-  phoneNumber: {
-    countryCode: string
-    lineNumber: string
-  }
+  phoneNumber: PhoneNumber
 }
 
-export interface GetRegisterSummary {
-  time: string
-  isSuccess: boolean
+export interface GetRegisterSummary extends BaseApiResponse {
   data: {
     response: {
       institution: {
@@ -69,11 +38,6 @@ export interface GetRegisterSummary {
       }
     }
   }
-}
-
-export interface CompleteRegistration {
-  time: string
-  isSuccess: boolean
 }
 
 export interface Search {

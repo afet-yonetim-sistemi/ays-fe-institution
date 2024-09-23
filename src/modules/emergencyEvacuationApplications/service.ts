@@ -1,6 +1,6 @@
 import http from '@/configs/axiosConfig'
 import {
-  ApiResponse,
+  EmergencyApplicationApiResponse,
   Search,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { AxiosResponse } from 'axios'
@@ -41,8 +41,10 @@ export function postEmergencyEvacuationApplications(
 
 export const getEmergencyEvacuationApplication = (
   id: string
-): Promise<ApiResponse> => {
+): Promise<EmergencyApplicationApiResponse> => {
   return http
-    .get<ApiResponse>(`/api/v1/emergency-evacuation-application/${id}`)
+    .get<EmergencyApplicationApiResponse>(
+      `/api/v1/emergency-evacuation-application/${id}`
+    )
     .then((response) => response.data)
 }

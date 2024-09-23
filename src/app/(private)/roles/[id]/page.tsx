@@ -287,7 +287,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
     updateRole(params.id, updatedData)
       .then((response) => {
-        if (response.data.isSuccess) {
+        if (response.isSuccess) {
           const updatedPermissions = rolePermissions.map((permission) => ({
             ...permission,
             isActive: updatedData.permissionIds.includes(permission.id),

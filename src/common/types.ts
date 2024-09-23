@@ -16,3 +16,10 @@ export interface PhoneNumber {
   countryCode: string
   lineNumber: string
 }
+
+export interface BaseApiResponse {
+  isSuccess: boolean
+  time: string
+  header?: string
+  message?: string
+}

@@ -1,8 +1,11 @@
+import { BaseApiResponse } from '@/common/types'
+
 export interface Roles {
   // eslint-disable-next-line
   content: any[]
   totalPageCount: number
 }
+
 export interface RolesTableProps {
   name: string
   status: string
@@ -42,14 +45,10 @@ export interface RoleDetail {
   permissions: RolePermission[]
 }
 
-export interface RoleApiResponse {
-  time: string
-  isSuccess: boolean
+export interface RoleApiResponse extends BaseApiResponse {
   response: RoleDetail
 }
 
-export interface RolePermissionApiResponse {
-  time: string
-  isSuccess: boolean
+export interface RolePermissionApiResponse extends BaseApiResponse {
   response: RolePermission[]
 }
