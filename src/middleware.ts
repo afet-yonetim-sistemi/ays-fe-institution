@@ -45,12 +45,12 @@ export const middleware = (request: NextRequest): NextResponse => {
 export const config = {
   matcher: [
     '/emergency-evacuation-applications',
-    '/emergency-evacuation-applications/:id',
+    '/emergency-evacuation-applications/:id*',
     '/admin-registration-applications',
-    '/admin-registration-applications/:id',
+    '/admin-registration-applications/:id*',
     '/admin-registration-applications/pre-application',
     '/roles',
-    '/roles/:id',
+    '/roles/:id*',
     '/dashboard',
   ],
 }

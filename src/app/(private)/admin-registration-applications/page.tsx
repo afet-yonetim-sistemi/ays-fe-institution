@@ -12,8 +12,11 @@ import { useDataTable } from '@/app/hocs/useDataTable'
 import * as z from 'zod'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import filterFields from '@/modules/adminRegistrationApplications/constants/filterFields'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { useAppSelector } from '@/store/hooks'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { Permission } from '@/constants/permissions'
+import Link from 'next/link'
 
 interface AdminRegistrationState {
   content: []
@@ -35,6 +38,7 @@ const Page = (): JSX.Element => {
 
   const { t } = useTranslation()
   const { toast } = useToast()
+  const userPermissions = useAppSelector(selectPermissions)
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({
       content: [],
@@ -75,19 +79,18 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-1">
       {error && <Toaster />}
-      <div className={'float-right'}>
-        <Link href={'/admin-registration-applications/pre-application'}>
-          <Button>{t('preApplication')}</Button>
-        </Link>
-      </div>
-
       <DataTable table={table} loading={isLoading} enableRowClick>
-        <div className="flex flex-col w-full gap-4">
+        <div className="flex items-center justify-between w-full gap-4">
           <h1 className="text-2xl font-medium">
             {t('adminRegistrationApplications.title')}
           </h1>
-          <DataTableToolbar table={table} filterFields={filterFields} />
+          {userPermissions.includes(Permission.APPLICATION_CREATE) && (
+            <Link href="/admin-registration-applications/pre-application">
+              <Button>{t('preApplication')}</Button>
+            </Link>
+          )}
         </div>
+        <DataTableToolbar table={table} filterFields={filterFields} />
       </DataTable>
     </div>
   )
