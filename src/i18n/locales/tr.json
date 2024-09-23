@@ -165,7 +165,8 @@
     "updatedSuccessfully": "Rol başarıyla güncellendi.",
     "updateError": "Rol güncelleme başarısız.",
     "minPermissionError": "Kaydedebilmek için lütfen en az bir yetki seçiniz",
-    "noChangesError": "Değişiklik yapmadan rolü güncelleyemezsiniz."
+    "noChangesError": "Değişiklik yapmadan rolü güncelleyemezsiniz.",
+    "deleteConfirm": "Rolü silmek istediğinize emin misiniz?"
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",

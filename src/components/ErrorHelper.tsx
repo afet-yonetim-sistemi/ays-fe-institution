@@ -8,7 +8,6 @@ export default function ErrorHelper({
   message: string
 }): JSX.Element {
   const { t } = useTranslation()
-  //We can use here for permanent errors
   return (
     <Alert variant="destructive" className={'m-5 w-1/3 absolute bg-white z-20'}>
       <AlertCircle className="h-4 w-4" />

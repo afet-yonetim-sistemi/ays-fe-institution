@@ -165,7 +165,8 @@
     "updatedSuccessfully": "Role updated successfully",
     "updateError": "Role update failed",
     "minPermissionError": "Please select at least one permission in order to save",
-    "noChangesError": "Cannot update the role without making any changes"
+    "noChangesError": "Cannot update the role without making any changes",
+    "deleteConfirm": "Are you sure you want to delete this role?"
   },
   "permissions": {
     "superAdmin": "Super Admin",

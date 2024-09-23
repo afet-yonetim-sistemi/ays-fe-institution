@@ -11,11 +11,11 @@ import { Input } from '@/components/ui/input'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
-  FormItem,
-  FormField,
-  FormControl,
-  FormLabel,
   Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
-import ButtonDialog from '@/modules/adminRegistrationApplications/components/dialog'
+import ButtonDialog from '@/components/ui/button-dialog'
 import { Button } from '@/components/ui/button'
 
 const Page = ({

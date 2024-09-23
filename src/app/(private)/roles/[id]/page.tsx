@@ -18,6 +18,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
 import {
+  deleteRole,
   getPermissions,
   getRoleDetail,
   updateRole,
@@ -34,12 +35,15 @@ import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
+import ButtonDialog from '@/components/ui/button-dialog'
+import { useRouter } from 'next/navigation'
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
 }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
+  const router = useRouter()
   const userPermissions = useAppSelector(selectPermissions)
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
@@ -323,8 +327,31 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       })
   }
 
-  const handleDeleteButtonClick = (): void => {
-    console.log('filan')
+  const handleDeleteConfirm = (): void => {
+    deleteRole(params.id)
+      .then((response) => {
+        if (response.isSuccess) {
+          toast({
+            title: t('success'),
+            description: t('applicationApproveSuccess'),
+            variant: 'success',
+          })
+          router.push('/roles')
+        } else {
+          toast({
+            title: t('error'),
+            description: t('defaultError'),
+            variant: 'destructive',
+          })
+        }
+      })
+      .catch(() => {
+        toast({
+          title: t('error'),
+          description: t('defaultError'),
+          variant: 'destructive',
+        })
+      })
   }
 
   return (
@@ -338,13 +365,12 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
               <div className="flex items-center gap-4">
                 {userPermissions.includes(Permission.ROLE_DELETE) &&
                   !isRoleEditable && (
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      onClick={handleDeleteButtonClick}
-                    >
-                      {t('common.delete')}
-                    </Button>
+                    <ButtonDialog
+                      triggerText={'Delete'}
+                      title={'role.deleteConfirm'}
+                      onConfirm={handleDeleteConfirm}
+                      variant={'destructive'}
+                    />
                   )}
                 {userPermissions.includes(Permission.ROLE_UPDATE) &&
                 !isRoleEditable ? (
@@ -368,7 +394,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       onClick={handleCancelButtonClick}
                     >
                       {t('common.cancel')}
-                    </Button>{' '}
+                    </Button>
                     <Button
                       type="button"
                       variant="outline"
