@@ -1,4 +1,4 @@
-import http, { api } from '@/configs/axiosConfig'
+import http from '@/configs/axiosConfig'
 import {
   AdminApplicationApiResponse,
   ApiSummaryResponse,
@@ -9,9 +9,9 @@ import {
 import { AxiosResponse } from 'axios'
 import { BaseApiResponse } from '@/common/types'
 
-export function postAdminRegistrationApplications(
+export const postAdminRegistrationApplications = (
   search: Search
-): Promise<AxiosResponse> {
+): Promise<AxiosResponse> => {
   const sortBy = search.sort
     ? [
         {
@@ -47,13 +47,13 @@ export const getAdminRegistrationApplication = async (
 export const getAdminRegistrationApplicationSummary = (
   id: string | null
 ): Promise<GetRegisterSummary> =>
-  api.get(`/api/v1/admin-registration-application/${id}/summary`)
+  http.get(`/api/v1/admin-registration-application/${id}/summary`)
 
 export const postRegistrationApplication = (
   id: string | null,
   form: RegisterApplicationForm
 ): Promise<BaseApiResponse> =>
-  api.post(`api/v1/admin-registration-application/${id}/complete`, form)
+  http.post(`api/v1/admin-registration-application/${id}/complete`, form)
 
 export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
   return http.get(`/api/v1/institutions/summary`)

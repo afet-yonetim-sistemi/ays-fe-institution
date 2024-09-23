@@ -1,4 +1,4 @@
-import http, { api } from '@/configs/axiosConfig'
+import http from '@/configs/axiosConfig'
 
 interface LoginResponseData {
   time: string
@@ -18,7 +18,7 @@ interface LogoutResponseData {
 
 const authService = {
   login: (data: object): Promise<LoginResponseData> =>
-    api.post('/api/v1/authentication/token', data),
+    http.post('/api/v1/authentication/token', data),
   logout: (data: string): Promise<LogoutResponseData> =>
     http.post('/api/v1/authentication/token/invalidate', {
       refreshToken: data,

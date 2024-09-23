@@ -2,9 +2,6 @@ import axios from 'axios'
 import { loginSuccess, logout } from '@/modules/auth/authSlice'
 import { store } from '@/store/StoreProvider'
 
-export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-})
 const http = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
@@ -45,7 +42,7 @@ http.interceptors.response.use(
           return Promise.reject(error)
         }
         try {
-          const response = await api.post(
+          const response = await http.post(
             '/api/v1/authentication/token/refresh',
             {
               refreshToken,

@@ -39,7 +39,7 @@ export function postEmergencyEvacuationApplications(
   })
 }
 
-export const getEmergencyEvacuationApplication = (
+export const getEmergencyEvacuationApplication = async (
   id: string
 ): Promise<EmergencyApplicationApiResponse> => {
   return http
