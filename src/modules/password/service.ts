@@ -1,9 +1,9 @@
 import { BaseApiResponse } from '@/common/types'
-import http from '@/configs/axiosConfig'
+import { api } from '@/configs/axiosConfig'
 
 const passwordService = {
   forgotPassword: (email: string): Promise<BaseApiResponse> =>
-    http.post('/api/v1/authentication/password/forgot', {
+    api.post('/api/v1/authentication/password/forgot', {
       emailAddress: email,
     }),
   resetPassword: (
@@ -13,9 +13,9 @@ const passwordService = {
     },
     id: string
   ): Promise<BaseApiResponse> =>
-    http.post(`/api/v1/authentication/password/${id}`, data),
+    api.post(`/api/v1/authentication/password/${id}`, data),
   validatePasswordId: (id: string): Promise<BaseApiResponse> =>
-    http.get(`/api/v1/authentication/password/${id}/validity`),
+    api.get(`/api/v1/authentication/password/${id}/validity`),
 }
 
 export default passwordService

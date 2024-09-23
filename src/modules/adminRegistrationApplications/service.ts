@@ -1,4 +1,4 @@
-import http from '@/configs/axiosConfig'
+import http, { api } from '@/configs/axiosConfig'
 import {
   AdminApplicationApiResponse,
   ApiSummaryResponse,
@@ -47,13 +47,13 @@ export const getAdminRegistrationApplication = async (
 export const getAdminRegistrationApplicationSummary = (
   id: string | null
 ): Promise<GetRegisterSummary> =>
-  http.get(`/api/v1/admin-registration-application/${id}/summary`)
+  api.get(`/api/v1/admin-registration-application/${id}/summary`)
 
 export const postRegistrationApplication = (
   id: string | null,
   form: RegisterApplicationForm
 ): Promise<BaseApiResponse> =>
-  http.post(`api/v1/admin-registration-application/${id}/complete`, form)
+  api.post(`api/v1/admin-registration-application/${id}/complete`, form)
 
 export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
   return http.get(`/api/v1/institutions/summary`)
