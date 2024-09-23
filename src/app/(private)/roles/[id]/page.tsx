@@ -333,7 +333,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         if (response.isSuccess) {
           toast({
             title: t('success'),
-            description: t('applicationApproveSuccess'),
+            description: t('role.deletedSuccessfully'),
             variant: 'success',
           })
           router.push('/roles')
@@ -366,7 +366,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                 {userPermissions.includes(Permission.ROLE_DELETE) &&
                   !isRoleEditable && (
                     <ButtonDialog
-                      triggerText={'Delete'}
+                      triggerText={'common.delete'}
                       title={'role.deleteConfirm'}
                       onConfirm={handleDeleteConfirm}
                       variant={'destructive'}
