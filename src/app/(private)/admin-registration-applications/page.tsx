@@ -7,7 +7,7 @@ import { pageSize } from '@/constants/common'
 import { columns } from '@/modules/adminRegistrationApplications/components/columns'
 import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useDataTable } from '@/app/hocs/useDataTable'
 import * as z from 'zod'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/store/hooks'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { Permission } from '@/constants/permissions'
+import Link from 'next/link'
 
 interface AdminRegistrationState {
   content: []
@@ -38,7 +39,6 @@ const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const userPermissions = useAppSelector(selectPermissions)
-  const router = useRouter()
   const [adminRegistration, setAdminRegistration] =
     useState<AdminRegistrationState>({
       content: [],
@@ -76,10 +76,6 @@ const Page = (): JSX.Element => {
     filterFields,
   })
 
-  const handlePreApplicationClick = (): void => {
-    router.push('/admin-registration-applications/pre-application')
-  }
-
   return (
     <div className="space-y-1">
       {error && <Toaster />}
@@ -89,9 +85,9 @@ const Page = (): JSX.Element => {
             {t('adminRegistrationApplications.title')}
           </h1>
           {userPermissions.includes(Permission.APPLICATION_CREATE) && (
-            <Button onClick={handlePreApplicationClick}>
-              {t('preApplication')}
-            </Button>
+            <Link href="/admin-registration-applications/pre-application">
+              <Button>{t('preApplication')}</Button>
+            </Link>
           )}
         </div>
         <DataTableToolbar table={table} filterFields={filterFields} />
