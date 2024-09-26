@@ -191,6 +191,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           setOriginalRolePermissions(localizedPermissions)
           setRolePermissions(localizedPermissions)
         })
+
         .catch(() => {
           toast({
             title: t('error'),
@@ -439,11 +440,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                           <Input
                             {...field}
                             disabled
-                            defaultValue={
-                              roleDetail.createdAt
-                                ? formatDateTime(roleDetail.createdAt)
-                                : ''
-                            }
+                            defaultValue={formatDateTime(roleDetail.createdAt)}
                           />
                         </FormControl>
                       </FormItem>
@@ -475,11 +472,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                           <Input
                             {...field}
                             disabled
-                            defaultValue={
-                              roleDetail.updatedAt
-                                ? formatDateTime(roleDetail.updatedAt)
-                                : ''
-                            }
+                            defaultValue={formatDateTime(roleDetail.updatedAt)}
                           />
                         </FormControl>
                       </FormItem>

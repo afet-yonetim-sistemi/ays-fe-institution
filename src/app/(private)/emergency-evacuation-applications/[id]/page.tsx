@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
-  FormItem,
-  FormField,
-  FormControl,
-  FormLabel,
   Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -87,13 +87,9 @@ const Page = ({
                           <Input
                             {...field}
                             disabled
-                            defaultValue={
+                            defaultValue={formatReferenceNumber(
                               emergencyEvacuationApplicationDetails.referenceNumber
-                                ? formatReferenceNumber(
-                                    emergencyEvacuationApplicationDetails.referenceNumber
-                                  )
-                                : ''
-                            }
+                            )}
                           />
                         </FormControl>
                       </FormItem>
@@ -138,9 +134,6 @@ const Page = ({
                             disabled
                             defaultValue={
                               emergencyEvacuationApplicationDetails.phoneNumber
-                                ?.countryCode &&
-                              emergencyEvacuationApplicationDetails.phoneNumber
-                                ?.lineNumber
                                 ? formatPhoneNumber(
                                     emergencyEvacuationApplicationDetails.phoneNumber
                                   )
@@ -220,10 +213,7 @@ const Page = ({
                               {...field}
                               disabled
                               defaultValue={
-                                emergencyEvacuationApplicationDetails
-                                  .applicantPhoneNumber?.countryCode &&
-                                emergencyEvacuationApplicationDetails
-                                  .applicantPhoneNumber?.lineNumber
+                                emergencyEvacuationApplicationDetails.applicantPhoneNumber
                                   ? formatPhoneNumber(
                                       emergencyEvacuationApplicationDetails.applicantPhoneNumber
                                     )
@@ -396,13 +386,9 @@ const Page = ({
                           <Input
                             {...field}
                             disabled
-                            defaultValue={
+                            defaultValue={formatDateTime(
                               emergencyEvacuationApplicationDetails.createdAt
-                                ? formatDateTime(
-                                    emergencyEvacuationApplicationDetails.createdAt
-                                  )
-                                : ''
-                            }
+                            )}
                           />
                         </FormControl>
                       </FormItem>
