@@ -18,6 +18,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
 import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
 import {
+  deleteRole,
   getPermissions,
   getRoleDetail,
   updateRole,
@@ -34,12 +35,15 @@ import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
+import ButtonDialog from '@/components/ui/button-dialog'
+import { useRouter } from 'next/navigation'
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
 }) => {
   const { t } = useTranslation()
   const { toast } = useToast()
+  const router = useRouter()
   const userPermissions = useAppSelector(selectPermissions)
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
@@ -288,7 +292,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
     updateRole(params.id, updatedData)
       .then((response) => {
-        if (response.data.isSuccess) {
+        if (response.isSuccess) {
           const updatedPermissions = rolePermissions.map((permission) => ({
             ...permission,
             isActive: updatedData.permissionIds.includes(permission.id),
@@ -324,6 +328,33 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       })
   }
 
+  const handleDeleteConfirm = (): void => {
+    deleteRole(params.id)
+      .then((response) => {
+        if (response.isSuccess) {
+          toast({
+            title: t('success'),
+            description: t('role.deletedSuccessfully'),
+            variant: 'success',
+          })
+          router.push('/roles')
+        } else {
+          toast({
+            title: t('error'),
+            description: t('defaultError'),
+            variant: 'destructive',
+          })
+        }
+      })
+      .catch(() => {
+        toast({
+          title: t('error'),
+          description: t('defaultError'),
+          variant: 'destructive',
+        })
+      })
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -332,40 +363,53 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">{t('role.detailsTitle')}</h1>
-              {userPermissions.includes(Permission.ROLE_UPDATE) &&
-              !isRoleEditable ? (
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleUpdateButtonClick}
-                >
-                  {t('common.update')}
-                </Button>
-              ) : (
-                <div className="flex items-center gap-4">
-                  {minPermissionError && (
-                    <p className="text-red-500 text-sm">{minPermissionError}</p>
+              <div className="flex items-center gap-4">
+                {userPermissions.includes(Permission.ROLE_DELETE) &&
+                  !isRoleEditable && (
+                    <ButtonDialog
+                      triggerText={'common.delete'}
+                      title={'role.deleteConfirm'}
+                      onConfirm={handleDeleteConfirm}
+                      variant={'destructive'}
+                    />
                   )}
+                {userPermissions.includes(Permission.ROLE_UPDATE) &&
+                !isRoleEditable ? (
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={handleCancelButtonClick}
+                    onClick={handleUpdateButtonClick}
                   >
-                    {t('common.cancel')}
-                  </Button>{' '}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleSaveButtonClick}
-                    disabled={
-                      Boolean(formState.errors.name) ||
-                      Boolean(minPermissionError)
-                    }
-                  >
-                    {t('common.save')}
+                    {t('common.update')}
                   </Button>
-                </div>
-              )}
+                ) : (
+                  <div className="flex items-center gap-4">
+                    {minPermissionError && (
+                      <p className="text-red-500 text-sm">
+                        {minPermissionError}
+                      </p>
+                    )}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleCancelButtonClick}
+                    >
+                      {t('common.cancel')}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleSaveButtonClick}
+                      disabled={
+                        Boolean(formState.errors.name) ||
+                        Boolean(minPermissionError)
+                      }
+                    >
+                      {t('common.save')}
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
             <Card className="mb-6">
               <CardHeader>

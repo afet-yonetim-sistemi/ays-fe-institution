@@ -32,16 +32,16 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Card } from '@/components/ui/card'
 import { useRouter } from 'next/navigation'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
-import { InstitutionsSummary } from '@/modules/adminRegistrationApplications/constants/types'
+import { Institution } from '@/common/types'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [institutionSummary, setInstitutionSummary] = useState<
-    InstitutionsSummary[]
-  >([])
+  const [institutionSummary, setInstitutionSummary] = useState<Institution[]>(
+    []
+  )
 
   const form = useForm<z.infer<typeof PreApplicationFormSchema>>({
     resolver: zodResolver(PreApplicationFormSchema),
@@ -111,13 +111,11 @@ const Page = (): JSX.Element => {
                             <SelectValue placeholder={t('selectInstitution')} />
                           </SelectTrigger>
                           <SelectContent>
-                            {institutionSummary?.map(
-                              (item: InstitutionsSummary) => (
-                                <SelectItem key={item.id} value={item.id}>
-                                  {item.name}
-                                </SelectItem>
-                              )
-                            )}
+                            {institutionSummary?.map((item: Institution) => (
+                              <SelectItem key={item.id} value={item.id}>
+                                {item.name}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </FormControl>

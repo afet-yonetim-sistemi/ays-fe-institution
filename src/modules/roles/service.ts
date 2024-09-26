@@ -5,6 +5,13 @@ import {
   Search,
 } from '../roles/constants/types'
 import { AxiosResponse } from 'axios'
+import { BaseApiResponse } from '@/common/types'
+
+export const getPermissions = async (): Promise<RolePermissionApiResponse> => {
+  return http
+    .get<RolePermissionApiResponse>('/api/v1/permissions')
+    .then((response) => response.data)
+}
 
 export const postRoles = (search: Search): Promise<AxiosResponse> => {
   const sortBy = search.sort
@@ -32,11 +39,11 @@ export const postRoles = (search: Search): Promise<AxiosResponse> => {
   })
 }
 
-export const updateRole = (
+export const updateRole = async (
   id: string,
   data: { name: string; permissionIds: string[] }
-): Promise<AxiosResponse> => {
-  return http.put(`/api/v1/role/${id}`, data)
+): Promise<BaseApiResponse> => {
+  return http.put(`/api/v1/role/${id}`, data).then((response) => response.data)
 }
 
 export const getRoleDetail = async (id: string): Promise<RoleApiResponse> => {
@@ -45,8 +52,6 @@ export const getRoleDetail = async (id: string): Promise<RoleApiResponse> => {
     .then((response) => response.data)
 }
 
-export const getPermissions = async (): Promise<RolePermissionApiResponse> => {
-  return http
-    .get<RolePermissionApiResponse>('/api/v1/permissions')
-    .then((response) => response.data)
+export const deleteRole = (id: string): Promise<BaseApiResponse> => {
+  return http.delete(`/api/v1/role/${id}`).then((response) => response.data)
 }

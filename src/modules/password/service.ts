@@ -1,13 +1,8 @@
+import { BaseApiResponse } from '@/common/types'
 import { api } from '@/configs/axiosConfig'
 
-interface PasswordResponse {
-  time: string
-  header: string
-  isSuccess: boolean
-}
-
 const passwordService = {
-  forgotPassword: (email: string): Promise<PasswordResponse> =>
+  forgotPassword: (email: string): Promise<BaseApiResponse> =>
     api.post('/api/v1/authentication/password/forgot', {
       emailAddress: email,
     }),
@@ -17,9 +12,9 @@ const passwordService = {
       passwordRepeat: string
     },
     id: string
-  ): Promise<PasswordResponse> =>
+  ): Promise<BaseApiResponse> =>
     api.post(`/api/v1/authentication/password/${id}`, data),
-  validatePasswordId: (id: string): Promise<PasswordResponse> =>
+  validatePasswordId: (id: string): Promise<BaseApiResponse> =>
     api.get(`/api/v1/authentication/password/${id}/validity`),
 }
 
