@@ -27,6 +27,9 @@ import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import ButtonDialog from '@/modules/adminRegistrationApplications/components/dialog'
 import { Button } from '@/components/ui/button'
+import { useAppSelector } from '@/store/hooks'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { Permission } from '@/constants/permissions'
 
 const Page = ({
   params,
@@ -35,6 +38,7 @@ const Page = ({
 }): React.JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
+  const userPermissions = useAppSelector(selectPermissions)
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
@@ -126,24 +130,25 @@ const Page = ({
               <h1 className="text-2xl font-bold">
                 {t('adminRegistrationApplications.detailsTitle')}
               </h1>
-              {adminRegistrationApplicationDetails.status === 'COMPLETED' && (
-                <div className="flex space-x-8 ml-auto">
-                  <ButtonDialog
-                    triggerText={'reject'}
-                    title={'rejectConfirm'}
-                    onConfirm={handleReject}
-                    variant={'destructive'}
-                    reason={true}
-                    tooltipText={'rejectReasonLengthInfo'}
-                  />
-                  <ButtonDialog
-                    triggerText={'approve'}
-                    title={'approveConfirm'}
-                    onConfirm={handleApprove}
-                    variant={'success'}
-                  />
-                </div>
-              )}
+              {adminRegistrationApplicationDetails.status === 'COMPLETED' &&
+                userPermissions.includes(Permission.APPLICATION_CONCLUDE) && (
+                  <div className="flex space-x-8 ml-auto">
+                    <ButtonDialog
+                      triggerText={'reject'}
+                      title={'rejectConfirm'}
+                      onConfirm={handleReject}
+                      variant={'destructive'}
+                      reason={true}
+                      tooltipText={'rejectReasonLengthInfo'}
+                    />
+                    <ButtonDialog
+                      triggerText={'approve'}
+                      title={'approveConfirm'}
+                      onConfirm={handleApprove}
+                      variant={'success'}
+                    />
+                  </div>
+                )}
             </div>
             <Card className="mb-6">
               <CardHeader>
