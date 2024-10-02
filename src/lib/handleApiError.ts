@@ -8,8 +8,8 @@ export const handleApiError = (
 ): void => {
   const { t } = i18n
 
-  let title = customMessage?.title || t('common.error')
-  let description = customMessage?.description || t('error.default')
+  let title = customMessage?.title ?? t('common.error')
+  let description = customMessage?.description ?? t('error.default')
 
   if (error?.response?.status === 429) {
     title = t('common.error')
