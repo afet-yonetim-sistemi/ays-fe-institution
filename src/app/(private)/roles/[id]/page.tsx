@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
@@ -363,53 +363,56 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">{t('role.detailsTitle')}</h1>
-              <div className="flex items-center gap-4">
-                {userPermissions.includes(Permission.ROLE_DELETE) &&
-                  !isRoleEditable && (
-                    <ButtonDialog
-                      triggerText={'common.delete'}
-                      title={'role.deleteConfirm'}
-                      onConfirm={handleDeleteConfirm}
-                      variant={'destructive'}
-                    />
-                  )}
-                {userPermissions.includes(Permission.ROLE_UPDATE) &&
-                !isRoleEditable ? (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleUpdateButtonClick}
-                  >
-                    {t('common.update')}
-                  </Button>
-                ) : (
-                  <div className="flex items-center gap-4">
-                    {minPermissionError && (
-                      <p className="text-red-500 text-sm">
-                        {minPermissionError}
-                      </p>
+              {roleDetail.status !== 'DELETED' && (
+                <div className="flex items-center gap-4">
+                  {userPermissions.includes(Permission.ROLE_DELETE) &&
+                    !isRoleEditable && (
+                      <ButtonDialog
+                        triggerText={'common.delete'}
+                        title={'role.deleteConfirm'}
+                        onConfirm={handleDeleteConfirm}
+                        variant={'destructive'}
+                      />
                     )}
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleCancelButtonClick}
-                    >
-                      {t('common.cancel')}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleSaveButtonClick}
-                      disabled={
-                        Boolean(formState.errors.name) ||
-                        Boolean(minPermissionError)
-                      }
-                    >
-                      {t('common.save')}
-                    </Button>
-                  </div>
-                )}
-              </div>
+                  {userPermissions.includes(Permission.ROLE_UPDATE) ? (
+                    !isRoleEditable ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleUpdateButtonClick}
+                      >
+                        {t('common.update')}
+                      </Button>
+                    ) : (
+                      <div className="flex items-center gap-4">
+                        {minPermissionError && (
+                          <p className="text-red-500 text-sm">
+                            {minPermissionError}
+                          </p>
+                        )}
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleCancelButtonClick}
+                        >
+                          {t('common.cancel')}
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleSaveButtonClick}
+                          disabled={
+                            Boolean(formState.errors.name) ||
+                            Boolean(minPermissionError)
+                          }
+                        >
+                          {t('common.save')}
+                        </Button>
+                      </div>
+                    )
+                  ) : null}
+                </div>
+              )}
             </div>
             <Card className="mb-6">
               <CardHeader>
