@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useToast } from '@/components/ui/use-toast'
 import { useDataTable } from '@/app/hocs/useDataTable'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { useSearchParams } from 'next/navigation'
@@ -23,7 +22,6 @@ const Page = (): JSX.Element => {
   )
 
   const { t } = useTranslation()
-  const { toast } = useToast()
   const [data, setData] = useState<EmergencyEvacuationApplications>({
     content: [],
     totalPageCount: 0,

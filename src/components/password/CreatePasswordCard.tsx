@@ -27,7 +27,6 @@ import { PasswordInput } from '@/components/ui/passwordInput'
 import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
-import { Description } from '@radix-ui/react-toast'
 import { handleApiError } from '@/lib/handleApiError'
 
 const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {

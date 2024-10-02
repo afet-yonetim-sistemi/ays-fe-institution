@@ -32,7 +32,6 @@ import {
   selectError,
 } from '@/modules/auth/authSlice'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 import ForgotPasswordModal from '@/components/password/ForgotPasswordModal'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
@@ -40,7 +39,6 @@ import { handleApiError } from '@/lib/handleApiError'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const dispatch = useAppDispatch()
   const router = useRouter()
   const error = useAppSelector(selectError)
