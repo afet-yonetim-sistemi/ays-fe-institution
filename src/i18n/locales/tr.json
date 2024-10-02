@@ -3,7 +3,12 @@
     "update": "Güncelle",
     "cancel": "İptal",
     "save": "Kaydet",
-    "delete": "Sil"
+    "delete": "Sil",
+    "error": "Hata"
+  },
+  "error": {
+    "default": "Bir hata oluştu. Lütfen tekrar deneyin.",
+    "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz"
   },
   "hello": "Merhaba",
   "welcome": "Hoş Geldiniz",
@@ -40,7 +45,6 @@
   "createdAt": "Oluşturulma Tarihi",
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",
-  "error": "Hata",
   "success": "Başarılı",
   "theme": {
     "light": "Açık",
@@ -69,7 +73,6 @@
   "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
   "invalidEmailAndPassword": "Geçersiz e-posta veya şifre.",
-  "defaultError": "Bir hata oluştu. Lütfen tekrar deneyin.",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",
   "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",
   "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",

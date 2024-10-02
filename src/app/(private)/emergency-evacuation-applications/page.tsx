@@ -14,6 +14,7 @@ import { EmergencyEvacuationApplications } from '@/modules/emergencyEvacuationAp
 import FilterInput from '@/components/ui/filterInput'
 import { Button } from '@/components/ui/button'
 import { RefreshCw } from 'lucide-react'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
@@ -49,12 +50,8 @@ const Page = (): JSX.Element => {
       .then((responseData) => {
         setData(responseData.data.response)
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error)
       })
       .finally(() => setIsLoading(false))
   }

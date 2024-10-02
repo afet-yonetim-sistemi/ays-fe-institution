@@ -11,6 +11,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { Permission } from '@/constants/permissions'
+import { handleApiError } from '@/lib/handleApiError'
 
 export default function Menu(): JSX.Element {
   const pathname = usePathname()
@@ -51,8 +52,9 @@ export default function Menu(): JSX.Element {
           }
           setIsLoading(false)
         })
-        .catch(() => {
+        .catch((error) => {
           setIsLoading(false)
+          handleApiError(error)
         })
     }
 

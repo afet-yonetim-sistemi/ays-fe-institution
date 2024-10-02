@@ -16,6 +16,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { toast } from '@/components/ui/use-toast'
 import passwordService from '@/modules/password/service'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
+import { handleApiError } from '@/lib/handleApiError'
 
 interface ForgotPasswordModalProps {
   loginEmail?: string
@@ -55,11 +56,9 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
           variant: 'success',
         })
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
+      .catch((error) => {
+        handleApiError(error, {
           description: t('invalidEmailForgotPassword'),
-          variant: 'destructive',
         })
       })
       .finally(() => {

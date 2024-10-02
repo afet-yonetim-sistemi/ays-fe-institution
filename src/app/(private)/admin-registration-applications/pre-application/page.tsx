@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import {
   Form,
   FormControl,
@@ -33,6 +34,7 @@ import { Card } from '@/components/ui/card'
 import { useRouter } from 'next/navigation'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { Institution } from '@/common/types'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -62,12 +64,8 @@ const Page = (): JSX.Element => {
         })
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('preApplicationError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error, { description: t('preApplicationError') })
       })
       .finally(() => setIsLoading(false))
   }
@@ -78,12 +76,8 @@ const Page = (): JSX.Element => {
         const summaryData = response.data.response
         setInstitutionSummary(summaryData)
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error)
       })
       .finally(() => setIsLoading(false))
   }, [t, toast])

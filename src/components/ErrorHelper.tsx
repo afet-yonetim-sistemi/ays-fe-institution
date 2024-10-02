@@ -11,7 +11,7 @@ export default function ErrorHelper({
   return (
     <Alert variant="destructive" className={'m-5 w-1/3 absolute bg-white z-20'}>
       <AlertCircle className="h-4 w-4" />
-      <AlertTitle>{t('error')}</AlertTitle>
+      <AlertTitle>{t('common.error')}</AlertTitle>
       <AlertDescription>{t(message)}</AlertDescription>
     </Alert>
   )

@@ -40,6 +40,7 @@ import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import { PasswordInput } from '@/components/ui/passwordInput'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = ({
   params,
@@ -79,12 +80,8 @@ const Page = ({
         form.reset()
         router.push('/login')
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error)
       })
       .finally(() => setLoading(false))
   }
@@ -95,8 +92,9 @@ const Page = ({
         const data = response?.data.response
         setInstName(data.institution.name)
       })
-      .catch(() => {
+      .catch((error) => {
         router.push('/not-found')
+        handleApiError(error)
       })
       .finally(() => {
         setLoading(false)

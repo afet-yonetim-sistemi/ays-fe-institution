@@ -23,6 +23,7 @@ import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuation
 import { Checkbox } from '@/components/ui/checkbox'
 import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = ({
   params,
@@ -51,11 +52,7 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          toast({
-            title: t('error'),
-            description: t('applicationError'),
-            variant: 'destructive',
-          })
+          handleApiError(error, { description: t('applicationError') })
         })
         .finally(() => setIsLoading(false))
     }

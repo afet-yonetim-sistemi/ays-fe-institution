@@ -1,9 +1,19 @@
-{
+{ 
+  "theme": {
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System"
+},
   "common": {
     "update": "Update",
     "cancel": "Cancel",
     "save": "Save",
-    "delete": "Delete"
+    "delete": "Delete",
+    "error": "Error"
+  },
+  "error": {
+    "default": "An error occurred. Please try again later.",
+    "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again"
   },
   "hello": "Hello",
   "welcome": "Welcome",
@@ -39,13 +49,7 @@
   "createdAt": "Created At",
   "createdUser": "Created User",
   "noResult": "No Results...",
-  "error": "Error",
   "success": "Success",
-  "theme": {
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
-  },
   "username": "Username",
   "firstname": "First Name",
   "lastname": "Last Name",
@@ -80,7 +84,6 @@
   "asc": "Click to sort ascending",
   "clearSort": "Clear sort",
   "invalidEmailAndPassword": "Invalid E-mail or Password.",
-  "defaultError": "An error occurred. Please try again later.",
   "referenceNumber": "Reference Number",
   "firstName": "First Name",
   "lastName": "Last Name",

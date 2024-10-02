@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
@@ -36,6 +36,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 import ForgotPasswordModal from '@/components/password/ForgotPasswordModal'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -65,14 +66,10 @@ const Page = (): JSX.Element => {
         form.reset()
         router.push('/dashboard')
       })
-      .catch((err) => {
-        dispatch(loginFailed(err.message))
+      .catch((error) => {
+        dispatch(loginFailed(error.message))
         form.setValue('password', '')
-        toast({
-          title: t('error'),
-          description: t('invalidEmailAndPassword'),
-          variant: 'destructive',
-        })
+        handleApiError(error, { description: t('invalidEmailAndPassword') })
       })
       .finally(() => setLoading(false))
   }

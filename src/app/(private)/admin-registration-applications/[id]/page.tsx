@@ -30,6 +30,7 @@ import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/store/hooks'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { Permission } from '@/constants/permissions'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = ({
   params,
@@ -64,12 +65,8 @@ const Page = ({
         })
         router.push('/admin-registration-applications')
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error)
       })
   }
 
@@ -83,12 +80,8 @@ const Page = ({
         })
         router.push('/admin-registration-applications')
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error)
       })
   }
 
@@ -108,12 +101,8 @@ const Page = ({
         .then((response) => {
           setAdminRegistrationApplicationDetails(response.response)
         })
-        .catch(() => {
-          toast({
-            title: t('error'),
-            description: t('applicationError'),
-            variant: 'destructive',
-          })
+        .catch((error) => {
+          handleApiError(error)
         })
         .finally(() => setIsLoading(false))
     }
