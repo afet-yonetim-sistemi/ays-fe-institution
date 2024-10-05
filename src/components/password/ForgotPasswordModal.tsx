@@ -58,7 +58,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
       })
       .catch((error) => {
         handleApiError(error, {
-          description: t('invalidEmailForgotPassword'),
+          description: t('error.invalidEmailForgotPassword'),
         })
       })
       .finally(() => {
@@ -67,7 +67,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   }
 
   useEffect(() => {
-    setEmail(loginEmail || '')
+    setEmail(loginEmail ?? '')
   }, [loginEmail])
 
   return (
