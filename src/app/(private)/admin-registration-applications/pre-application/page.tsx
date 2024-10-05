@@ -93,44 +93,40 @@ const Page = (): JSX.Element => {
                 control={form.control}
                 name="institutionId"
                 render={({ field }) => (
-                  <>
-                    <FormItem className="col-span-1">
-                      <FormLabel>{t('institution')}</FormLabel>
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('selectInstitution')} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {institutionSummary?.map((item: Institution) => (
-                              <SelectItem key={item.id} value={item.id}>
-                                {item.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  </>
+                  <FormItem className="col-span-1">
+                    <FormLabel>{t('institution')}</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('selectInstitution')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {institutionSummary?.map((item: Institution) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="reason"
                 render={({ field }) => (
-                  <>
-                    <FormItem className="col-span-2">
-                      <FormLabel>{t('createReason')}</FormLabel>
-                      <FormControl>
-                        <Textarea {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  </>
+                  <FormItem className="col-span-2">
+                    <FormLabel>{t('createReason')}</FormLabel>
+                    <FormControl>
+                      <Textarea {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
             </div>
