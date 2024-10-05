@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import {
   Form,
   FormControl,
@@ -65,7 +64,7 @@ const Page = (): JSX.Element => {
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch((error) => {
-        handleApiError(error, { description: t('preApplicationError') })
+        handleApiError(error, { description: t('error.preApplication') })
       })
       .finally(() => setIsLoading(false))
   }
@@ -80,7 +79,7 @@ const Page = (): JSX.Element => {
         handleApiError(error)
       })
       .finally(() => setIsLoading(false))
-  }, [t, toast])
+  }, [t])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
