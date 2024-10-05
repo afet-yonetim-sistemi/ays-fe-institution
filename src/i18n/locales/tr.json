@@ -1,5 +1,6 @@
 {
   "common": {
+    "create": "Oluştur",
     "update": "Güncelle",
     "cancel": "İptal",
     "save": "Kaydet",
@@ -8,7 +9,12 @@
   },
   "error": {
     "default": "Bir hata oluştu. Lütfen tekrar deneyin.",
-    "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz"
+    "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz",
+    "application": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
+    "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
+    "invalidEmailOrPassword": "Geçersiz e-posta veya şifre.",
+    "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş.",
+    "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin."
   },
   "hello": "Merhaba",
   "welcome": "Hoş Geldiniz",
@@ -63,20 +69,16 @@
   "createPassword": "Şifre Oluştur",
   "forgotPassword": "Şifrenizi mi unuttunuz?",
   "resetPasswordEmailSent": "Şifre sıfırlama bağlantısını içeren e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol edin.",
-  "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin.",
   "forgotPasswordInstruction": "Lütfen hesabınıza ait doğrulanmış email adresinizi kullanın. Size şifre oluşturmanız için bir link ileteceğiz.",
-  "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş.",
   "send": "Gönder",
   "logout": "Çıkış Yap",
   "register": "Kayıt ol",
   "requiredField": "Bu alan zorunludur.",
   "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
-  "invalidEmailAndPassword": "Geçersiz e-posta veya şifre.",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",
   "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",
   "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",
-  "preApplicationError": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
   "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",
   "applicationApproveSuccess": "Başvuru başarıyla onaylandı.",
   "rejectReasonLengthInfo": "Başvuru Reddedilme Nedeni en az 40 karakter olmalıdır.",
@@ -90,7 +92,6 @@
   "applicationStatus": "Başvuru Durumu",
   "rejectReason": "Başvuru Reddedilme Nedeni",
   "updatedUser": "Başvuruyu Güncelleyen Kullanıcı",
-  "applicationError": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
   "userInformation": "Kullanıcı  Bilgileri",
   "firstName": "Ad",
   "lastName": "Soyad",
@@ -151,7 +152,6 @@
   "institution": "Kurum",
   "createReason": "Oluşturma Nedeni",
   "selectInstitution": "Kurum Seçiniz",
-  "create": "Oluştur",
   "successRegisterCompleted": "Başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
   "role": {
     "name": "Rol Adı",

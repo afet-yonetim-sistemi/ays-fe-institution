@@ -131,7 +131,7 @@ const Page = (): JSX.Element => {
             </div>
           </Card>
           <Button disabled={isLoading} type="submit" className={'min-w-20'}>
-            {isLoading ? <LoadingSpinner /> : t('create')}
+            {isLoading ? <LoadingSpinner /> : t('common.create')}
           </Button>
         </form>
       </Form>
