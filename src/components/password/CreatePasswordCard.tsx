@@ -57,7 +57,7 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
       })
       .catch((error) => {
         handleApiError(error, {
-          description: t('passwordRequestInvalidOrExpired'),
+          description: t('error.passwordRequestInvalidOrExpired'),
         })
       })
       .finally(() => {
