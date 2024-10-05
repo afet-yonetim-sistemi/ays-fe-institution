@@ -37,6 +37,7 @@ import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import ButtonDialog from '@/components/ui/button-dialog'
 import { useRouter } from 'next/navigation'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
@@ -113,15 +114,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           isActive: false,
         }))
       })
-      .catch(() => {
-        toast({
-          title: 'Error',
-          description: t('permissions.error'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error, { description: t('permissions.error') })
         return []
       })
-  }, [t, toast])
+  }, [t])
 
   const categorizePermissions = (
     permissions: RolePermission[]
@@ -196,12 +193,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           setRolePermissions(localizedPermissions)
         })
 
-        .catch(() => {
-          toast({
-            title: t('error'),
-            description: t('role.error'),
-            variant: 'destructive',
-          })
+        .catch((error) => {
+          handleApiError(error, { description: t('role.error') })
         })
         .finally(() => setIsLoading(false))
     }
@@ -282,7 +275,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
     if (!isNameChanged && !isPermissionsChanged) {
       toast({
-        title: t('error'),
+        title: t('common.error'),
         description: t('role.noChangesError'),
         variant: 'destructive',
       })
@@ -315,13 +308,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           handleCancelButtonClick()
         }
       })
-      .catch(() => {
+      .catch((error) => {
         handleCancelButtonClick()
-        toast({
-          title: t('error'),
-          description: t('role.updateError'),
-          variant: 'destructive',
-        })
+        handleApiError(error, { description: t('role.updateError') })
       })
       .finally(() => {
         setIsRoleEditable(false)
@@ -340,18 +329,14 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           router.push('/roles')
         } else {
           toast({
-            title: t('error'),
-            description: t('defaultError'),
+            title: t('common.error'),
+            description: t('error.default'),
             variant: 'destructive',
           })
         }
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error)
       })
   }
 

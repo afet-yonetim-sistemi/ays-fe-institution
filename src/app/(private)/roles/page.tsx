@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useToast } from '@/components/ui/use-toast'
 import { useSearchParams } from 'next/navigation'
 import { postRoles } from '@/modules/roles/service'
 import { searchParamsSchema } from '@/modules/roles/constants/searchParamsSchema'
@@ -12,6 +11,8 @@ import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { columns } from '@/modules/roles/components/columns'
 import filterFields from '@/modules/roles/constants/filterFields'
 import FilterInput from '@/components/ui/filterInput'
+import { handleApiError } from '@/lib/handleApiError'
+import { Toaster } from '@/components/ui/toaster'
 
 const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
@@ -20,12 +21,12 @@ const Page = (): JSX.Element => {
   )
 
   const { t } = useTranslation()
-  const { toast } = useToast()
   const [data, setData] = useState<Roles>({
     content: [],
     totalPageCount: 0,
   })
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const searchParamsString = useMemo(() => JSON.stringify(search), [search])
 
@@ -43,12 +44,9 @@ const Page = (): JSX.Element => {
       .then((responseData) => {
         setData(responseData.data.response)
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        setErrorMessage(error.message)
+        handleApiError(error)
       })
       .finally(() => setIsLoading(false))
   }, [
@@ -61,7 +59,6 @@ const Page = (): JSX.Element => {
     search.status,
     search.updatedAt,
     t,
-    toast,
   ])
 
   const { table } = useDataTable({
@@ -74,6 +71,7 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-1">
       <h1 className="text-2xl font-medium">{t('roles')}</h1>
+      {errorMessage && <Toaster />}
       <DataTable
         className="px-2"
         table={table}

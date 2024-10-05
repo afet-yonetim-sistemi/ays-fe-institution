@@ -33,6 +33,7 @@ import { Card } from '@/components/ui/card'
 import { useRouter } from 'next/navigation'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { Institution } from '@/common/types'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -62,12 +63,8 @@ const Page = (): JSX.Element => {
         })
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('preApplicationError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error, { description: t('error.preApplication') })
       })
       .finally(() => setIsLoading(false))
   }
@@ -78,15 +75,11 @@ const Page = (): JSX.Element => {
         const summaryData = response.data.response
         setInstitutionSummary(summaryData)
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error)
       })
       .finally(() => setIsLoading(false))
-  }, [t, toast])
+  }, [t])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
@@ -99,50 +92,46 @@ const Page = (): JSX.Element => {
                 control={form.control}
                 name="institutionId"
                 render={({ field }) => (
-                  <>
-                    <FormItem className="col-span-1">
-                      <FormLabel>{t('institution')}</FormLabel>
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('selectInstitution')} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {institutionSummary?.map((item: Institution) => (
-                              <SelectItem key={item.id} value={item.id}>
-                                {item.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  </>
+                  <FormItem className="col-span-1">
+                    <FormLabel>{t('institution')}</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('selectInstitution')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {institutionSummary?.map((item: Institution) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="reason"
                 render={({ field }) => (
-                  <>
-                    <FormItem className="col-span-2">
-                      <FormLabel>{t('createReason')}</FormLabel>
-                      <FormControl>
-                        <Textarea {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  </>
+                  <FormItem className="col-span-2">
+                    <FormLabel>{t('createReason')}</FormLabel>
+                    <FormControl>
+                      <Textarea {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
             </div>
           </Card>
           <Button disabled={isLoading} type="submit" className={'min-w-20'}>
-            {isLoading ? <LoadingSpinner /> : t('create')}
+            {isLoading ? <LoadingSpinner /> : t('common.create')}
           </Button>
         </form>
       </Form>

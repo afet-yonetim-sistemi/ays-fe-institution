@@ -1,4 +1,5 @@
 'use client'
+
 import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -11,14 +12,15 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { Permission } from '@/constants/permissions'
+import { handleApiError } from '@/lib/handleApiError'
 
-export default function Menu(): JSX.Element {
+const Menu = (): JSX.Element => {
   const pathname = usePathname()
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions) ?? []
 
-  const UIVersion = packageInfo.version
-  const [APIversionInfo, setAPIVersionInfo] = useState('')
+  const uiVersion = packageInfo.version
+  const [apiVersionInfo, setApiVersionInfo] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const hasPermission = (requiredPermissions?: Permission[]): boolean => {
@@ -33,10 +35,10 @@ export default function Menu(): JSX.Element {
   )
 
   useEffect(() => {
-    const localStorageVersion = localStorage.getItem('APIversionInfo')
+    const localStorageVersion = localStorage.getItem('apiVersionInfo')
 
     if (localStorageVersion) {
-      setAPIVersionInfo(localStorageVersion)
+      setApiVersionInfo(localStorageVersion)
       setIsLoading(false)
     }
 
@@ -44,15 +46,16 @@ export default function Menu(): JSX.Element {
       http
         .get('/public/actuator/info')
         .then((response) => {
-          const fetchedAPIVersion = response.data.application.version
-          if (fetchedAPIVersion !== localStorageVersion) {
-            localStorage.setItem('APIversionInfo', fetchedAPIVersion)
-            setAPIVersionInfo(fetchedAPIVersion)
+          const fetchedApiVersion = response.data.application.version
+          if (fetchedApiVersion !== localStorageVersion) {
+            localStorage.setItem('apiVersionInfo', fetchedApiVersion)
+            setApiVersionInfo(fetchedApiVersion)
           }
           setIsLoading(false)
         })
-        .catch(() => {
+        .catch((error) => {
           setIsLoading(false)
+          handleApiError(error)
         })
     }
 
@@ -84,14 +87,16 @@ export default function Menu(): JSX.Element {
       </nav>
       <div className="flex justify-center py-2">
         <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2">
-          UI v{UIVersion} |{' '}
+          UI v{uiVersion} |{' '}
           {isLoading ? (
             <LoadingSpinner size={10} />
           ) : (
-            APIversionInfo && `API v${APIversionInfo}`
+            apiVersionInfo && `API v${apiVersionInfo}`
           )}
         </span>
       </div>
     </div>
   )
 }
+
+export default Menu

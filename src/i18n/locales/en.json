@@ -1,9 +1,25 @@
-{
+{ 
+  "theme": {
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System"
+},
   "common": {
+    "create": "Create",
     "update": "Update",
     "cancel": "Cancel",
     "save": "Save",
-    "delete": "Delete"
+    "delete": "Delete",
+    "error": "Error"
+  },
+  "error": {
+    "default": "An error occurred. Please try again later.",
+    "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again",
+    "application": "Error while fetching application details. Please try again",
+    "preApplication": "An error occurred while creating the preliminary application. Please try again.",
+    "invalidEmailOrPassword": "Invalid E-mail or Password.",
+    "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",
+    "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again."
   },
   "hello": "Hello",
   "welcome": "Welcome",
@@ -39,13 +55,7 @@
   "createdAt": "Created At",
   "createdUser": "Created User",
   "noResult": "No Results...",
-  "error": "Error",
   "success": "Success",
-  "theme": {
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
-  },
   "username": "Username",
   "firstname": "First Name",
   "lastname": "Last Name",
@@ -58,9 +68,7 @@
   "createPassword": "Create Password",
   "forgotPassword": "Forgot password?",
   "resetPasswordEmailSent": "A password reset link has been sent to the provided email address. Please check your inbox.",
-  "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again.",
   "forgotPasswordInstruction": "Please use the verified email address associated with your account. We will send you a link to create a new password.",
-  "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",
   "passwordTitle": "Create Your Password",
   "send": "Send",
   "logout": "Logout",
@@ -71,7 +79,6 @@
   "notSpecialCharacters": "Text containing special characters cannot be sent.",
   "notOnlyNumbers": "This field cannot consist only of numbers.",
   "preApplicationSuccess": "Preliminary application created successfully.",
-  "preApplicationError": "An error occurred while creating the preliminary application. Please try again.",
   "applicationRejectSuccess": "Application successfully rejected.",
   "applicationApproveSuccess": "Application successfully approved.",
   "rejectReasonLengthInfo": "Application Rejection Reason must be at least 40 characters.",
@@ -79,8 +86,6 @@
   "desc": "Click to sort descending",
   "asc": "Click to sort ascending",
   "clearSort": "Clear sort",
-  "invalidEmailAndPassword": "Invalid E-mail or Password.",
-  "defaultError": "An error occurred. Please try again later.",
   "referenceNumber": "Reference Number",
   "firstName": "First Name",
   "lastName": "Last Name",
@@ -99,7 +104,6 @@
   "applicationStatus": "Application Status",
   "rejectReason": "Application Rejection Reason",
   "updatedUser": "User Who Updated the Application",
-  "applicationError": "Error while fetching application details. Please try again",
   "userInformation": "User Information",
   "applicantFirstName": "Applicant's First Name",
   "applicantLastName": "Applicant's Last Name",
@@ -148,7 +152,6 @@
   "institution": "Institution",
   "createReason": "Creation Reason",
   "selectInstitution": "Select Institution",
-  "create": "Create",
   "successRegisterCompleted": "Your application has been completed successfully. After the necessary reviews, your application will be approved and you will be able to log in to the system.",
   "role": {
     "name": "Role Name",

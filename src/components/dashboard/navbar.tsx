@@ -21,6 +21,7 @@ import { selectRefreshToken, selectToken } from '@/modules/auth/authSlice'
 import { parseJwt } from '@/lib/helpers'
 import authService from '@/modules/auth/service'
 import { useRouter } from 'next/navigation'
+import { handleApiError } from '@/lib/handleApiError'
 
 function Navbar(): JSX.Element {
   const { t } = useTranslation()
@@ -39,7 +40,7 @@ function Navbar(): JSX.Element {
         router.push('/login')
       })
       .catch((error) => {
-        console.error(error)
+        handleApiError(error)
       })
   }
   return (
