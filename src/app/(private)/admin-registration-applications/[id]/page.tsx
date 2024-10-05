@@ -102,12 +102,12 @@ const Page = ({
           setAdminRegistrationApplicationDetails(response.response)
         })
         .catch((error) => {
-          handleApiError(error)
+          handleApiError(error, { description: t('error.application') })
         })
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
-  }, [params.id, t, toast])
+  }, [params.id, t])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
