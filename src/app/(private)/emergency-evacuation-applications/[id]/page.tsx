@@ -15,7 +15,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { useToast } from '@/components/ui/use-toast'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
 import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/constants/types'
@@ -23,6 +22,7 @@ import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuation
 import { Checkbox } from '@/components/ui/checkbox'
 import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = ({
   params,
@@ -30,7 +30,6 @@ const Page = ({
   params: { slug: string; id: string }
 }): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
   })
@@ -51,16 +50,12 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          toast({
-            title: t('error'),
-            description: t('applicationError'),
-            variant: 'destructive',
-          })
+          handleApiError(error, { description: t('error.application') })
         })
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
-  }, [params.id, t, toast])
+  }, [params.id, t])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">

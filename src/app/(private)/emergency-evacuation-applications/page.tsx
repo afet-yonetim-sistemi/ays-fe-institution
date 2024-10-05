@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useToast } from '@/components/ui/use-toast'
 import { useDataTable } from '@/app/hocs/useDataTable'
 import { DataTable, DataTableToolbar } from '@/components/dataTable'
 import { useSearchParams } from 'next/navigation'
@@ -14,6 +13,7 @@ import { EmergencyEvacuationApplications } from '@/modules/emergencyEvacuationAp
 import FilterInput from '@/components/ui/filterInput'
 import { Button } from '@/components/ui/button'
 import { RefreshCw } from 'lucide-react'
+import { handleApiError } from '@/lib/handleApiError'
 
 const Page = (): JSX.Element => {
   const searchParams = useSearchParams()
@@ -22,7 +22,6 @@ const Page = (): JSX.Element => {
   )
 
   const { t } = useTranslation()
-  const { toast } = useToast()
   const [data, setData] = useState<EmergencyEvacuationApplications>({
     content: [],
     totalPageCount: 0,
@@ -49,12 +48,8 @@ const Page = (): JSX.Element => {
       .then((responseData) => {
         setData(responseData.data.response)
       })
-      .catch(() => {
-        toast({
-          title: t('error'),
-          description: t('defaultError'),
-          variant: 'destructive',
-        })
+      .catch((error) => {
+        handleApiError(error)
       })
       .finally(() => setIsLoading(false))
   }
