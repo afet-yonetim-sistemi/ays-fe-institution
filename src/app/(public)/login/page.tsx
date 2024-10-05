@@ -67,7 +67,9 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         dispatch(loginFailed(error.message))
         form.setValue('password', '')
-        handleApiError(error, { description: t('invalidEmailAndPassword') })
+        handleApiError(error, {
+          description: t('error.invalidEmailOrPassword'),
+        })
       })
       .finally(() => setLoading(false))
   }
