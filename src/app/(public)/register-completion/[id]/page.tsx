@@ -50,12 +50,13 @@ const Page = ({
   const { t } = useTranslation()
   const { toast } = useToast()
   const [loading, setLoading] = useState(true)
-  const [instName, setInstName] = useState<string>('')
+  const [institutionName, setInstitutionName] = useState<string>('')
   const router = useRouter()
 
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
     resolver: zodResolver(InstitutionFormSchema),
     defaultValues: {
+      institutionName: '',
       firstName: '',
       lastName: '',
       emailAddress: '',
@@ -77,8 +78,8 @@ const Page = ({
           description: t('successRegisterCompleted'),
           variant: 'success',
         })
-        form.reset()
         router.push('/login')
+        form.reset()
       })
       .catch((error) => {
         handleApiError(error)
@@ -90,7 +91,7 @@ const Page = ({
     getAdminRegistrationApplicationSummary(params.id)
       .then((response) => {
         const data = response?.data.response
-        setInstName(data.institution.name)
+        setInstitutionName(data.institution.name)
       })
       .catch((error) => {
         router.push('/not-found')
@@ -118,15 +119,25 @@ const Page = ({
             </CardDescription>
           </CardHeader>
           <CardHeader>
-            <div>
-              <label> {t('institution')} </label>
-              <Input disabled placeholder={t('institution')} value={instName} />
-            </div>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
               >
+                <FormField
+                  control={form.control}
+                  name="institutionName"
+                  disabled
+                  render={() => (
+                    <FormItem>
+                      <FormLabel>{t('institution')}</FormLabel>
+                      <FormControl>
+                        <Input disabled value={institutionName} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="firstName"
