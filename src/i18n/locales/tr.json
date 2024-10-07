@@ -72,7 +72,7 @@
   "forgotPasswordInstruction": "Lütfen hesabınıza ait doğrulanmış email adresinizi kullanın. Size şifre oluşturmanız için bir link ileteceğiz.",
   "send": "Gönder",
   "logout": "Çıkış Yap",
-  "register": "Kayıt ol",
+  "completeRegister": "Kaydı Tamamla",
   "requiredField": "Bu alan zorunludur.",
   "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",

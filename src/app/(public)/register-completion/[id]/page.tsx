@@ -232,7 +232,7 @@ const Page = ({
                   )}
                 />
                 <Button type="submit" disabled={loading} className={'w-full'}>
-                  {loading ? <LoadingSpinner /> : t('register')}
+                  {loading ? <LoadingSpinner /> : t('completeRegister')}
                 </Button>
               </form>
             </Form>

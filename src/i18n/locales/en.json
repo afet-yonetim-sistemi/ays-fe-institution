@@ -1,9 +1,9 @@
-{ 
+{
   "theme": {
-  "light": "Light",
-  "dark": "Dark",
-  "system": "System"
-},
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "common": {
     "create": "Create",
     "update": "Update",
@@ -72,7 +72,7 @@
   "passwordTitle": "Create Your Password",
   "send": "Send",
   "logout": "Logout",
-  "register": "Register",
+  "completeRegister": "Complete Registration",
   "requiredField": "This field is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
