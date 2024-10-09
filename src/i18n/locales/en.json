@@ -10,7 +10,8 @@
     "cancel": "Cancel",
     "save": "Save",
     "delete": "Delete",
-    "error": "Error"
+    "error": "Error",
+    "city": "City"
   },
   "error": {
     "default": "An error occurred. Please try again later.",

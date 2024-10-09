@@ -49,7 +49,7 @@ const Page = ({
 }): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [institutionName, setInstitutionName] = useState<string>('')
   const router = useRouter()
 
@@ -69,8 +69,23 @@ const Page = ({
     },
   })
 
+  useEffect(() => {
+    getAdminRegistrationApplicationSummary(params.id)
+      .then((response) => {
+        const data = response?.data.response
+        setInstitutionName(data.institution.name)
+      })
+      .catch((error) => {
+        router.push('/not-found')
+        handleApiError(error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [params.id, router])
+
   const onSubmit = (values: z.infer<typeof InstitutionFormSchema>): void => {
-    setLoading(true)
+    setIsLoading(true)
     postRegistrationApplication(params.id, values)
       .then(() => {
         toast({
@@ -84,27 +99,13 @@ const Page = ({
       .catch((error) => {
         handleApiError(error)
       })
-      .finally(() => setLoading(false))
+      .finally(() => setIsLoading(false))
   }
-
-  useEffect(() => {
-    getAdminRegistrationApplicationSummary(params.id)
-      .then((response) => {
-        const data = response?.data.response
-        setInstitutionName(data.institution.name)
-      })
-      .catch((error) => {
-        router.push('/not-found')
-        handleApiError(error)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [params.id, router])
 
   return (
     <div className="container mt-[140px]">
-      {(loading && <LoadingSpinner />) || (
+      {isLoading && <LoadingSpinner />}
+      {!isLoading && institutionName && (
         <Card className="w-[410px] h-fit">
           <CardHeader className="flex items-center gap-2">
             <Image
@@ -141,7 +142,7 @@ const Page = ({
                 <FormField
                   control={form.control}
                   name="firstName"
-                  disabled={loading}
+                  disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('firstname')}</FormLabel>
@@ -155,7 +156,7 @@ const Page = ({
                 <FormField
                   control={form.control}
                   name="lastName"
-                  disabled={loading}
+                  disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('lastname')}</FormLabel>
@@ -169,7 +170,7 @@ const Page = ({
                 <FormField
                   control={form.control}
                   name="emailAddress"
-                  disabled={loading}
+                  disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('email')}</FormLabel>
@@ -183,7 +184,7 @@ const Page = ({
                 <FormField
                   control={form.control}
                   name="phoneNumber"
-                  disabled={loading}
+                  disabled={isLoading}
                   render={({ field, fieldState }) => {
                     const isError =
                       (!field.value.countryCode || !field.value.lineNumber) &&
@@ -206,14 +207,14 @@ const Page = ({
                   name="city"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('city')}</FormLabel>
+                      <FormLabel>{t('common.city')}</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t('city')} />
+                            <SelectValue placeholder={t('common.city')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -231,7 +232,7 @@ const Page = ({
                 <FormField
                   control={form.control}
                   name="password"
-                  disabled={loading}
+                  disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('password')}</FormLabel>
@@ -242,8 +243,8 @@ const Page = ({
                     </FormItem>
                   )}
                 />
-                <Button type="submit" disabled={loading} className={'w-full'}>
-                  {loading ? <LoadingSpinner /> : t('completeRegister')}
+                <Button type="submit" disabled={isLoading} className={'w-full'}>
+                  {isLoading ? <LoadingSpinner /> : t('completeRegister')}
                 </Button>
               </form>
             </Form>
