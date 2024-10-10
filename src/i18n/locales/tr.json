@@ -59,8 +59,6 @@
     "system": "Sistem"
   },
   "username": "Kullanıcı Adı",
-  "firstname": "Ad",
-  "lastname": "Soyad",
   "email": "E-posta",
   "password": "Şifre",
   "passwordRepeat": "Şifre Tekrar",

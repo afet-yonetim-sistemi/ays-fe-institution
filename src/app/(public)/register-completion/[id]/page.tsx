@@ -17,7 +17,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { PhoneInput } from '@/components/ui/phoneInput'
 import {
   Select,
   SelectContent,
@@ -34,7 +33,7 @@ import {
 } from '@/modules/adminRegistrationApplications/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
@@ -52,22 +51,12 @@ const Page = ({
   const [isLoading, setIsLoading] = useState(true)
   const [institutionName, setInstitutionName] = useState<string>('')
   const router = useRouter()
-
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
     resolver: zodResolver(InstitutionFormSchema),
-    defaultValues: {
-      institutionName: '',
-      firstName: '',
-      lastName: '',
-      emailAddress: '',
-      city: '',
-      password: '',
-      phoneNumber: {
-        countryCode: '',
-        lineNumber: '',
-      },
-    },
+    mode: 'onChange',
   })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { control, reset, formState } = form
 
   useEffect(() => {
     getAdminRegistrationApplicationSummary(params.id)
@@ -126,7 +115,7 @@ const Page = ({
                 className="space-y-5"
               >
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="institutionName"
                   disabled
                   render={() => (
@@ -140,14 +129,16 @@ const Page = ({
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="firstName"
                   disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('firstname')}</FormLabel>
+                      <FormLabel>{t('firstName')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('firstname')} {...field} />
+                        <>
+                          <Input {...field} placeholder={t('firstName')} />
+                        </>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -159,9 +150,9 @@ const Page = ({
                   disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('lastname')}</FormLabel>
+                      <FormLabel>{t('lastName')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('lastname')} {...field} />
+                        <Input placeholder={t('lastName')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -181,27 +172,27 @@ const Page = ({
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="phoneNumber"
-                  disabled={isLoading}
-                  render={({ field, fieldState }) => {
-                    const isError =
-                      (!field.value.countryCode || !field.value.lineNumber) &&
-                      fieldState.error
-                    return (
-                      <FormItem>
-                        <FormLabel>{t('phoneNumber')}</FormLabel>
-                        <FormControl>
-                          <PhoneInput onChange={field.onChange} />
-                        </FormControl>
-                        <div className="text-sm font-medium text-destructive">
-                          {isError && <div>{t('requiredField')}</div>}
-                        </div>
-                      </FormItem>
-                    )
-                  }}
-                />
+                {/*<FormField*/}
+                {/*  control={form.control}*/}
+                {/*  name="phoneNumber"*/}
+                {/*  disabled={isLoading}*/}
+                {/*  render={({ field, fieldState }) => {*/}
+                {/*    const isError =*/}
+                {/*      (!field.value.countryCode || !field.value.lineNumber) &&*/}
+                {/*      fieldState.error*/}
+                {/*    return (*/}
+                {/*      <FormItem>*/}
+                {/*        <FormLabel>{t('phoneNumber')}</FormLabel>*/}
+                {/*        <FormControl>*/}
+                {/*          <PhoneInput onChange={field.onChange} />*/}
+                {/*        </FormControl>*/}
+                {/*        <div className="text-sm font-medium text-destructive">*/}
+                {/*          {isError && <div>{t('requiredField')}</div>}*/}
+                {/*        </div>*/}
+                {/*      </FormItem>*/}
+                {/*    )*/}
+                {/*  }}*/}
+                {/*/>*/}
                 <FormField
                   control={form.control}
                   name="city"
