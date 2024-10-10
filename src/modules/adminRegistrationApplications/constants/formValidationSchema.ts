@@ -52,6 +52,7 @@ export const PreApplicationFormSchema = z.object({
 export const FormValidationSchema = AdminRegistrationApplicationSchema
 
 export const InstitutionFormSchema = z.object({
+  institutionName: z.string(),
   firstName: z
     .string()
     .min(1, i18n.t('requiredField'))
