@@ -1,7 +1,4 @@
-interface PhoneNumber {
-  countryCode?: string
-  lineNumber: string
-}
+import { PhoneNumber } from '@/common/types'
 
 export const formatPhoneNumber = (phoneNumber?: PhoneNumber | null): string => {
   if (!phoneNumber) return ''

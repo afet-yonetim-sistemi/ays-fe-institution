@@ -8,7 +8,7 @@ const RolesSchema = z.object({
     .min(2, { message: i18n.t('role.minLength') })
     .max(255, { message: i18n.t('role.maxLength') })
     .refine(hasNoNumberNoSpecialChar, {
-      message: i18n.t('role.noSpecialChar'),
+      message: i18n.t('noSpecialChar', { field: i18n.t('role.name') }),
     }),
   status: z.string(),
   createdUser: z.string(),
