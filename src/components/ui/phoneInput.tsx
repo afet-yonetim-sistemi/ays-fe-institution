@@ -1,11 +1,7 @@
 import { CheckIcon, ChevronsUpDown } from 'lucide-react'
-
 import * as React from 'react'
-
 import * as RPNInput from 'react-phone-number-input'
-
 import flags from 'react-phone-number-input/flags'
-
 import { Button } from '@/components/ui/button'
 import {
   Command,
@@ -45,8 +41,8 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
         }
 
         const parsedNumber = RPNInput.parsePhoneNumber(value)
-        const countryCode = parsedNumber?.countryCallingCode || ''
-        const lineNumber = parsedNumber?.nationalNumber || ''
+        const countryCode = parsedNumber?.countryCallingCode ?? ''
+        const lineNumber = parsedNumber?.nationalNumber ?? ''
 
         onChange?.({ countryCode, lineNumber })
       }
@@ -59,6 +55,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           countrySelectComponent={CountrySelect}
           inputComponent={InputComponent}
           onChange={handleChange}
+          defaultCountry="TR"
           {...props}
         />
       )
