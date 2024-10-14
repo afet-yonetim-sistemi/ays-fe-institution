@@ -1,4 +1,9 @@
 {
+  "theme": {
+    "light": "Açık",
+    "dark": "Karanlık",
+    "system": "Sistem"
+  },
   "common": {
     "create": "Oluştur",
     "update": "Güncelle",
@@ -18,6 +23,8 @@
     "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin."
   },
   "noSpecialChar": "{{field}} sayı veya özel karakter içeremez.",
+  "searchCountry": "Ülke ara...",
+  "noCountryFound": "Ülke bulunamadı",
   "hello": "Merhaba",
   "welcome": "Hoş Geldiniz",
   "notFound": "Aradığınız Sayfa Bulunamadı.",
@@ -54,11 +61,6 @@
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",
   "success": "Başarılı",
-  "theme": {
-    "light": "Açık",
-    "dark": "Karanlık",
-    "system": "Sistem"
-  },
   "username": "Kullanıcı Adı",
   "email": "E-posta",
   "password": "Şifre",

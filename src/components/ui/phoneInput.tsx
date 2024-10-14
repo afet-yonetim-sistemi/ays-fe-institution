@@ -20,6 +20,7 @@ import {
 
 import { cn } from '@/lib/utils'
 import { ScrollArea } from './scroll-area'
+import i18n from '@/i18n'
 
 type PhoneInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -119,8 +120,8 @@ const CountrySelect = ({
         <Command>
           <CommandList>
             <ScrollArea className="h-72">
-              <CommandInput placeholder="Search country..." />
-              <CommandEmpty>No country found.</CommandEmpty>
+              <CommandInput placeholder={i18n.t('searchCountry')} />
+              <CommandEmpty>{i18n.t('noCountryFound')}</CommandEmpty>
               <CommandGroup>
                 {options
                   .filter((x) => x.value)
