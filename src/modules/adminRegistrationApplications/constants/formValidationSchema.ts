@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import i18n from '@/i18n'
-import { hasNoNumberNoSpecialChar } from '@/lib/hasNoNumberNoSpecialChar'
+import { noNumberNoSpecialCharWithLengthValidation } from '@/lib/noNumberNoSpecialChar'
 
 const PhoneNumberSchema = z
   .object({
@@ -57,26 +57,14 @@ export const PreApplicationFormSchema = z.object({
 export const FormValidationSchema = AdminRegistrationApplicationSchema
 
 export const InstitutionFormSchema = z.object({
-  firstName: z
-    .string({
-      required_error: i18n.t('requiredField', { field: i18n.t('firstName') }),
-    })
-    .min(2, i18n.t('minLength', { field: 2 }))
-    .max(100, i18n.t('maxLength', { field: 100 }))
-    .refine(hasNoNumberNoSpecialChar, {
-      message: i18n.t('noSpecialChar', { field: i18n.t('firstName') }),
-    }),
-  lastName: z
-    .string({
-      required_error: i18n.t('requiredField', { field: i18n.t('lastName') }),
-    })
-    .min(2, i18n.t('minLength', { field: 2 }))
-    .max(100, i18n.t('maxLength', { field: 100 })),
+  firstName: noNumberNoSpecialCharWithLengthValidation('firstName', 2, 100),
+  lastName: noNumberNoSpecialCharWithLengthValidation('lastName', 2, 100),
   emailAddress: z
     .string({
-      required_error: i18n.t('requiredField', { field: i18n.t('email') }),
+      required_error: i18n.t('requiredField', {
+        field: i18n.t('emailAddress'),
+      }),
     })
-    .min(1, i18n.t('requiredField'))
     .email(i18n.t('invalidEmail')),
   city: z.string({
     required_error: i18n.t('requiredField', { field: i18n.t('city') }),
