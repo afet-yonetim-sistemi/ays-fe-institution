@@ -1,11 +1,17 @@
 {
+  "theme": {
+    "light": "Açık",
+    "dark": "Karanlık",
+    "system": "Sistem"
+  },
   "common": {
     "create": "Oluştur",
     "update": "Güncelle",
     "cancel": "İptal",
     "save": "Kaydet",
     "delete": "Sil",
-    "error": "Hata"
+    "error": "Hata",
+    "city": "Şehir"
   },
   "error": {
     "default": "Bir hata oluştu. Lütfen tekrar deneyin.",
@@ -16,6 +22,10 @@
     "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş.",
     "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin."
   },
+  "noSpecialChar": "{{field}} sayı veya özel karakter içeremez.",
+  "thisField": "Bu alan",
+  "searchCountry": "Ülke ara...",
+  "noCountryFound": "Ülke bulunamadı",
   "hello": "Merhaba",
   "welcome": "Hoş Geldiniz",
   "notFound": "Aradığınız Sayfa Bulunamadı.",
@@ -52,14 +62,7 @@
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",
   "success": "Başarılı",
-  "theme": {
-    "light": "Açık",
-    "dark": "Karanlık",
-    "system": "Sistem"
-  },
   "username": "Kullanıcı Adı",
-  "firstname": "Ad",
-  "lastname": "Soyad",
   "email": "E-posta",
   "password": "Şifre",
   "passwordRepeat": "Şifre Tekrar",
@@ -72,12 +75,13 @@
   "forgotPasswordInstruction": "Lütfen hesabınıza ait doğrulanmış email adresinizi kullanın. Size şifre oluşturmanız için bir link ileteceğiz.",
   "send": "Gönder",
   "logout": "Çıkış Yap",
-  "register": "Kayıt ol",
-  "requiredField": "Bu alan zorunludur.",
+  "completeRegister": "Kaydı Tamamla",
+  "requiredField": "{{field}} alanı zorunludur.",
   "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",
   "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",
+  "invalidPhoneNumber": "Geçersiz telefon numarası",
   "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",
   "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",
   "applicationApproveSuccess": "Başvuru başarıyla onaylandı.",
@@ -164,7 +168,6 @@
     "error": "Rol Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyiniz.",
     "minLength": "Rol adı en az 2 karakter olmalıdır.",
     "maxLength": "Rol adı en fazla 255 karakter olabilir.",
-    "noSpecialChar": "Rol adı sayı veya özel karakter içeremez.",
     "updatedSuccessfully": "Rol başarıyla güncellendi.",
     "updateError": "Rol güncelleme başarısız.",
     "minPermissionError": "Kaydedebilmek için lütfen en az bir yetki seçiniz",

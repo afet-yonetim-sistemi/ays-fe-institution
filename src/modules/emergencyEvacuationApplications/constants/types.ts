@@ -16,9 +16,7 @@ export interface EmergencyEvacuationApplicationsTableProps {
   status: string[]
   createdAt: string
   seatingCount: number
-  phoneNumber: {
-    lineNumber: string
-  }
+  phoneNumber: PhoneNumber
 }
 
 export interface Search {

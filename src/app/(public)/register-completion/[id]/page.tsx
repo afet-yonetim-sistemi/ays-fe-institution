@@ -17,7 +17,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { PhoneInput } from '@/components/ui/phoneInput'
 import {
   Select,
   SelectContent,
@@ -41,6 +40,7 @@ import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import { PasswordInput } from '@/components/ui/passwordInput'
 import { handleApiError } from '@/lib/handleApiError'
+import { PhoneInput } from '@/components/ui/phone-input'
 
 const Page = ({
   params,
@@ -49,27 +49,33 @@ const Page = ({
 }): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
-  const [loading, setLoading] = useState(true)
-  const [instName, setInstName] = useState<string>('')
+  const [isLoading, setIsLoading] = useState(true)
+  const [institutionName, setInstitutionName] = useState<string>('')
   const router = useRouter()
-
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
     resolver: zodResolver(InstitutionFormSchema),
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      emailAddress: '',
-      city: '',
-      password: '',
-      phoneNumber: {
-        countryCode: '',
-        lineNumber: '',
-      },
-    },
+    mode: 'onChange',
   })
 
+  const { control } = form
+
+  useEffect(() => {
+    getAdminRegistrationApplicationSummary(params.id)
+      .then((response) => {
+        const data = response?.data.response
+        setInstitutionName(data.institution.name)
+      })
+      .catch((error) => {
+        router.push('/not-found')
+        handleApiError(error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [params.id, router])
+
   const onSubmit = (values: z.infer<typeof InstitutionFormSchema>): void => {
-    setLoading(true)
+    setIsLoading(true)
     postRegistrationApplication(params.id, values)
       .then(() => {
         toast({
@@ -77,33 +83,20 @@ const Page = ({
           description: t('successRegisterCompleted'),
           variant: 'success',
         })
-        form.reset()
         router.push('/login')
       })
       .catch((error) => {
         handleApiError(error)
       })
-      .finally(() => setLoading(false))
-  }
-
-  useEffect(() => {
-    getAdminRegistrationApplicationSummary(params.id)
-      .then((response) => {
-        const data = response?.data.response
-        setInstName(data.institution.name)
-      })
-      .catch((error) => {
-        router.push('/not-found')
-        handleApiError(error)
-      })
       .finally(() => {
-        setLoading(false)
+        setIsLoading(false)
       })
-  }, [params.id, router])
+  }
 
   return (
     <div className="container mt-[140px]">
-      {(loading && <LoadingSpinner />) || (
+      {isLoading && <LoadingSpinner />}
+      {!isLoading && institutionName && (
         <Card className="w-[410px] h-fit">
           <CardHeader className="flex items-center gap-2">
             <Image
@@ -118,91 +111,82 @@ const Page = ({
             </CardDescription>
           </CardHeader>
           <CardHeader>
-            <div>
-              <label> {t('institution')} </label>
-              <Input disabled placeholder={t('institution')} value={instName} />
-            </div>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
               >
+                <FormItem>
+                  <FormLabel>{t('institution')}</FormLabel>
+                  <FormControl>
+                    <Input value={institutionName} disabled />
+                  </FormControl>
+                </FormItem>
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="firstName"
-                  disabled={loading}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('firstname')}</FormLabel>
+                      <FormLabel>{t('firstName')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('firstname')} {...field} />
+                        <Input {...field} placeholder={t('firstName')} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="lastName"
-                  disabled={loading}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('lastname')}</FormLabel>
+                      <FormLabel>{t('lastName')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('lastname')} {...field} />
+                        <Input {...field} placeholder={t('lastName')} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="emailAddress"
-                  disabled={loading}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('email')}</FormLabel>
+                      <FormLabel>{t('emailAddress')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('email')} {...field} />
+                        <Input {...field} placeholder={t('emailAddress')} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="phoneNumber"
-                  disabled={loading}
-                  render={({ field, fieldState }) => {
-                    const isError =
-                      (!field.value.countryCode || !field.value.lineNumber) &&
-                      fieldState.error
-                    return (
-                      <FormItem>
-                        <FormLabel>{t('phoneNumber')}</FormLabel>
-                        <FormControl>
-                          <PhoneInput onChange={field.onChange} />
-                        </FormControl>
-                        <div className="text-sm font-medium text-destructive">
-                          {isError && <div>{t('requiredField')}</div>}
-                        </div>
-                      </FormItem>
-                    )
-                  }}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('phoneNumber')}</FormLabel>
+                      <FormControl>
+                        <PhoneInput onChange={field.onChange} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="city"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('city')}</FormLabel>
+                      <FormLabel>{t('common.city')}</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t('city')} />
+                            <SelectValue placeholder={t('common.city')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -220,7 +204,6 @@ const Page = ({
                 <FormField
                   control={form.control}
                   name="password"
-                  disabled={loading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('password')}</FormLabel>
@@ -231,8 +214,8 @@ const Page = ({
                     </FormItem>
                   )}
                 />
-                <Button type="submit" disabled={loading} className={'w-full'}>
-                  {loading ? <LoadingSpinner /> : t('register')}
+                <Button type="submit" disabled={isLoading} className={'w-full'}>
+                  {isLoading ? <LoadingSpinner /> : t('completeRegister')}
                 </Button>
               </form>
             </Form>
