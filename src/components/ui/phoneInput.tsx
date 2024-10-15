@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { CheckIcon, ChevronsUpDown } from 'lucide-react'
 import * as React from 'react'
 import * as RPNInput from 'react-phone-number-input'
@@ -17,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-
 import { cn } from '@/lib/utils'
 import { ScrollArea } from './scroll-area'
 import i18n from '@/i18n'
@@ -27,13 +27,11 @@ type PhoneInputProps = Omit<
   'onChange' | 'value'
 > &
   Omit<RPNInput.Props<typeof RPNInput.default>, 'onChange'> & {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onChange?: (value: any) => void
+    onChange?: (value: unknown) => void
   }
 
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
   React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ({ className, onChange, ...props }, ref) => {
       const handleChange = (value: string | undefined): void => {
         if (!value) {
@@ -41,11 +39,15 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           return
         }
 
-        const parsedNumber = RPNInput.parsePhoneNumber(value)
-        const countryCode = parsedNumber?.countryCallingCode ?? ''
-        const lineNumber = parsedNumber?.nationalNumber ?? ''
+        if (!RPNInput.isValidPhoneNumber(value)) {
+          onChange?.({ countryCode: '', lineNumber: '' })
+        } else {
+          const parsedNumber = RPNInput.parsePhoneNumber(value)
+          const countryCode = parsedNumber?.countryCallingCode ?? ''
+          const lineNumber = parsedNumber?.nationalNumber ?? ''
 
-        onChange?.({ countryCode, lineNumber })
+          onChange?.({ countryCode, lineNumber })
+        }
       }
 
       return (
@@ -89,7 +91,6 @@ const CountrySelect = ({
   value,
   onChange,
   options,
-  // eslint-disable-next-line
 }: CountrySelectProps) => {
   const handleSelect = React.useCallback(
     (country: RPNInput.Country) => {
@@ -158,7 +159,6 @@ const CountrySelect = ({
   )
 }
 
-// eslint-disable-next-line
 const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
   const Flag = flags[country]
 

@@ -1,21 +1,15 @@
 import { z } from 'zod'
 import i18n from '@/i18n'
 import { hasNoNumberNoSpecialChar } from '@/lib/hasNoNumberNoSpecialChar'
-import { isValidPhoneNumber } from '@/lib/isValidPhoneNumber'
 
-const PhoneNumberSchema = z.object({
-  countryCode: z.string(),
-  lineNumber: z
-    .string({
-      required_error: i18n.t('requiredField', {
-        field: i18n.t('phoneNumber'),
-      }),
-      invalid_type_error: i18n.t('invalidPhoneNumberFormat'),
-    })
-    .refine((value) => isValidPhoneNumber(value), {
-      message: i18n.t('invalidPhoneNumber'),
-    }),
-})
+const PhoneNumberSchema = z
+  .object({
+    countryCode: z.string(),
+    lineNumber: z.string(),
+  })
+  .refine((phoneNumber) => phoneNumber.countryCode && phoneNumber.lineNumber, {
+    message: i18n.t('invalidPhoneNumber'),
+  })
 
 const UserSchema = z.object({
   id: z.string(),

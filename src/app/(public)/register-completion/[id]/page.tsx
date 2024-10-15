@@ -40,6 +40,7 @@ import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import { PasswordInput } from '@/components/ui/passwordInput'
 import { handleApiError } from '@/lib/handleApiError'
+import { PhoneInput } from '@/components/ui/phoneInput'
 
 const Page = ({
   params,
@@ -83,12 +84,14 @@ const Page = ({
           variant: 'success',
         })
         router.push('/login')
-        form.reset()
+        reset()
       })
       .catch((error) => {
         handleApiError(error)
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -114,87 +117,66 @@ const Page = ({
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
               >
-                <FormField
-                  control={control}
-                  name="institutionName"
-                  disabled
-                  render={() => (
-                    <FormItem>
-                      <FormLabel>{t('institution')}</FormLabel>
-                      <FormControl>
-                        <Input disabled value={institutionName} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <FormItem>
+                  <FormLabel>{t('institution')}</FormLabel>
+                  <FormControl>
+                    <Input value={institutionName} disabled />
+                  </FormControl>
+                </FormItem>
                 <FormField
                   control={control}
                   name="firstName"
-                  disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('firstName')}</FormLabel>
                       <FormControl>
-                        <>
-                          <Input {...field} placeholder={t('firstName')} />
-                        </>
+                        <Input {...field} placeholder={t('firstName')} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="lastName"
-                  disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('lastName')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('lastName')} {...field} />
+                        <Input {...field} placeholder={t('lastName')} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={control}
                   name="emailAddress"
-                  disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('email')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('email')} {...field} />
+                        <Input {...field} placeholder={t('email')} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                {/*<FormField*/}
-                {/*  control={form.control}*/}
-                {/*  name="phoneNumber"*/}
-                {/*  disabled={isLoading}*/}
-                {/*  render={({ field, fieldState }) => {*/}
-                {/*    const isError =*/}
-                {/*      (!field.value.countryCode || !field.value.lineNumber) &&*/}
-                {/*      fieldState.error*/}
-                {/*    return (*/}
-                {/*      <FormItem>*/}
-                {/*        <FormLabel>{t('phoneNumber')}</FormLabel>*/}
-                {/*        <FormControl>*/}
-                {/*          <PhoneInput onChange={field.onChange} />*/}
-                {/*        </FormControl>*/}
-                {/*        <div className="text-sm font-medium text-destructive">*/}
-                {/*          {isError && <div>{t('requiredField')}</div>}*/}
-                {/*        </div>*/}
-                {/*      </FormItem>*/}
-                {/*    )*/}
-                {/*  }}*/}
-                {/*/>*/}
                 <FormField
-                  control={form.control}
+                  control={control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('phoneNumber')}</FormLabel>
+                      <FormControl>
+                        <PhoneInput onChange={field.onChange} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={control}
                   name="city"
                   render={({ field }) => (
                     <FormItem>
@@ -223,7 +205,6 @@ const Page = ({
                 <FormField
                   control={form.control}
                   name="password"
-                  disabled={isLoading}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('password')}</FormLabel>
