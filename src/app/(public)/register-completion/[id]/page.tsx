@@ -33,14 +33,14 @@ import {
 } from '@/modules/adminRegistrationApplications/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import { PasswordInput } from '@/components/ui/passwordInput'
 import { handleApiError } from '@/lib/handleApiError'
-import { PhoneInput } from '@/components/ui/phoneInput'
+import { PhoneInput } from '@/components/ui/phone-input'
 
 const Page = ({
   params,
@@ -56,8 +56,8 @@ const Page = ({
     resolver: zodResolver(InstitutionFormSchema),
     mode: 'onChange',
   })
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { control, reset, formState } = form
+
+  const { control } = form
 
   useEffect(() => {
     getAdminRegistrationApplicationSummary(params.id)
@@ -84,7 +84,6 @@ const Page = ({
           variant: 'success',
         })
         router.push('/login')
-        reset()
       })
       .catch((error) => {
         handleApiError(error)
@@ -154,9 +153,9 @@ const Page = ({
                   name="emailAddress"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('email')}</FormLabel>
+                      <FormLabel>{t('emailAddress')}</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder={t('email')} />
+                        <Input {...field} placeholder={t('emailAddress')} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
