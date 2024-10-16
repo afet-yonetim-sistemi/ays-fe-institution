@@ -304,16 +304,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             description: t('role.updatedSuccessfully'),
             variant: 'success',
           })
+          setIsRoleEditable(false)
         } else {
-          handleCancelButtonClick()
+          handleApiError(undefined, { description: t('role.updateError') })
         }
       })
       .catch((error) => {
-        handleCancelButtonClick()
         handleApiError(error, { description: t('role.updateError') })
-      })
-      .finally(() => {
-        setIsRoleEditable(false)
       })
   }
 

@@ -3,7 +3,7 @@ import i18n from '@/i18n'
 import { AxiosError } from 'axios'
 
 export const handleApiError = (
-  error: AxiosError,
+  error?: AxiosError,
   customMessage?: { title?: string; description?: string }
 ): void => {
   const { t } = i18n
