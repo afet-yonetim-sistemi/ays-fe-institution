@@ -1,16 +1,17 @@
-{ 
+{
   "theme": {
-  "light": "Light",
-  "dark": "Dark",
-  "system": "System"
-},
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "common": {
     "create": "Create",
     "update": "Update",
     "cancel": "Cancel",
     "save": "Save",
     "delete": "Delete",
-    "error": "Error"
+    "error": "Error",
+    "city": "City"
   },
   "error": {
     "default": "An error occurred. Please try again later.",
@@ -21,6 +22,10 @@
     "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",
     "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again."
   },
+  "noSpecialChar": "{{field}} cannot contain numbers or special characters",
+  "thisField": "thisField",
+  "searchCountry": "Search country...",
+  "noCountryFound": "No country found.",
   "hello": "Hello",
   "welcome": "Welcome",
   "notFound": "Page not found.",
@@ -57,8 +62,8 @@
   "noResult": "No Results...",
   "success": "Success",
   "username": "Username",
-  "firstname": "First Name",
-  "lastname": "Last Name",
+  "firstName": "First Name",
+  "lastName": "Last Name",
   "email": "E-mail",
   "password": "Password",
   "passwordRepeat": "Password Repeat",
@@ -72,12 +77,13 @@
   "passwordTitle": "Create Your Password",
   "send": "Send",
   "logout": "Logout",
-  "register": "Register",
-  "requiredField": "This field is required.",
+  "completeRegister": "Complete Registration",
+  "requiredField": "{{field}} is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
   "notSpecialCharacters": "Text containing special characters cannot be sent.",
   "notOnlyNumbers": "This field cannot consist only of numbers.",
+  "invalidPhoneNumber": "Phone Number is invalid",
   "preApplicationSuccess": "Preliminary application created successfully.",
   "applicationRejectSuccess": "Application successfully rejected.",
   "applicationApproveSuccess": "Application successfully approved.",
@@ -87,8 +93,6 @@
   "asc": "Click to sort ascending",
   "clearSort": "Clear sort",
   "referenceNumber": "Reference Number",
-  "firstName": "First Name",
-  "lastName": "Last Name",
   "isInPerson": "Is In Person",
   "yes": "Yes",
   "no": "No",
@@ -164,7 +168,6 @@
     "error": "Error while fetching role details. Please try again",
     "minLength": "Role name must be at least 2 characters",
     "maxLength": "Role name cannot exceed 255 characters",
-    "noSpecialChar": "Role name cannot contain numbers or special characters",
     "updatedSuccessfully": "Role updated successfully",
     "updateError": "Role update failed",
     "minPermissionError": "Please select at least one permission in order to save",
