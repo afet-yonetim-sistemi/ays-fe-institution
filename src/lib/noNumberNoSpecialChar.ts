@@ -2,7 +2,7 @@ import i18n from '@/i18n'
 import { z } from 'zod'
 
 export const hasNoNumberNoSpecialChar = (str: string): boolean => {
-  const strRegex = /^[a-zA-ZçÇğĞıİşŞüÜöÖ\s]+$/
+  const strRegex = /^(?![^a-zA-ZÇçĞğİıÖöŞşÜü])[a-zA-ZÇçĞğİıÖöŞşÜü ,.'-]*$/
   return strRegex.test(str)
 }
 
