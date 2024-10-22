@@ -28,7 +28,7 @@ function LanguageToggle(): JSX.Element {
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language)
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') || 'tr'
+    const savedLanguage = localStorage.getItem('language') ?? 'tr'
     if (i18n.language !== savedLanguage) {
       i18n.changeLanguage(savedLanguage)
     }
@@ -43,7 +43,7 @@ function LanguageToggle(): JSX.Element {
   return (
     <div className="flex gap-2">
       <Select onValueChange={handleLanguageChange} value={selectedLanguage}>
-        <SelectTrigger className="">
+        <SelectTrigger>
           <SelectValue placeholder={lngs[i18n.language].nativeName} />
         </SelectTrigger>
         <SelectContent>
