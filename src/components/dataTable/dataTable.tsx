@@ -36,7 +36,7 @@ export function ListRegistration<TData>({
   //eslint-disable-next-line
   const handleRowClick = (row: any): void => {
     if (enableRowClick) {
-      router.push(`${pathname}/${row.original.id}`) // Row'daki id alanını kullanarak detay sayfasına yönlendirme
+      router.push(`${pathname}/${row.original.id}`)
     }
   }
 
