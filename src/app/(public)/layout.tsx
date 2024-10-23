@@ -6,7 +6,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>): JSX.Element {
   return (
     <div>
-      <nav className="fixed flex gap-2 right-4 top-4">
+      <nav className="fixed flex gap-2 right-8 top-4">
         <ModeToggle />
         <LanguageToggle />
       </nav>
