@@ -18,8 +18,8 @@ i18n.init({
   resources,
   lng:
     typeof window !== 'undefined'
-      ? localStorage.getItem('language') || 'tr'
-      : 'tr', // Check localStorage for saved language
+      ? localStorage.getItem('language') ?? 'en'
+      : 'en', // Check localStorage for saved language
   // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
   // if you're using a language detector, do not define the lng option
 
