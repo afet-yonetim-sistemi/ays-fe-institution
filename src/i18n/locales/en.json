@@ -173,7 +173,9 @@
     "minPermissionError": "Please select at least one permission in order to save",
     "noChangesError": "Cannot update the role without making any changes",
     "deleteConfirm": "Are you sure you want to delete this role?",
-    "deletedSuccessfully": "Role deleted successfully."
+    "deletedSuccessfully": "Role deleted successfully.",
+		"activatedSuccessfully": "Role activated successfully.",
+		"passivatedSuccessfully": "Role passivated successfully."
   },
   "permissions": {
     "superAdmin": "Super Admin",
@@ -187,6 +189,8 @@
     "roleCreate": "Create Role",
     "roleUpdate": "Update Role",
     "roleDelete": "Delete Role",
+		"roleActivate": "Activate",
+		"roleDeactivate": "Passivate",
     "userList": "List Users",
     "userDetail": "User Details",
     "userCreate": "Create User",
