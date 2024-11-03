@@ -1,6 +1,6 @@
 {
   "name": "ays-fe-institution",
-  "version": "1.1.0.MVP",
+  "version": "1.1.1.MVP",
   "private": true,
   "scripts": {
     "dev": "next dev -p 5173",
