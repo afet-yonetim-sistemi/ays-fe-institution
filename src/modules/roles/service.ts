@@ -55,3 +55,15 @@ export const getRoleDetail = async (id: string): Promise<RoleApiResponse> => {
 export const deleteRole = (id: string): Promise<BaseApiResponse> => {
   return http.delete(`/api/v1/role/${id}`).then((response) => response.data)
 }
+
+export const activateRole = (id: string): Promise<BaseApiResponse> => {
+  return http
+    .patch(`/api/v1/role/${id}/activate`)
+    .then((response) => response.data)
+}
+
+export const deactivateRole = (id: string): Promise<BaseApiResponse> => {
+  return http
+    .patch(`/api/v1/role/${id}/passivate`)
+    .then((response) => response.data)
+}

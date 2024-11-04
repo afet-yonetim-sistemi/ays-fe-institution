@@ -172,7 +172,11 @@
     "minPermissionError": "Kaydedebilmek için lütfen en az bir yetki seçiniz",
     "noChangesError": "Değişiklik yapmadan rolü güncelleyemezsiniz.",
     "deleteConfirm": "Rolü silmek istediğinize emin misiniz?",
-    "deletedSuccessfully": "Rol başarıyla silindi."
+    "deletedSuccessfully": "Rol başarıyla silindi.",
+    "activatedSuccessfully": "Rol başarıyla aktifleştirildi.",
+    "deactivatedSuccessfully": "Rol başarıyla pasifleştirildi.",
+    "activate": "Aktifleştir",
+    "deactivate": "Pasifleştir"
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",
