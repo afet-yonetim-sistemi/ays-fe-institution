@@ -350,11 +350,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           router.push('/roles')
         } else {
-          toast({
-            title: t('common.error'),
-            description: t('error.default'),
-            variant: 'destructive',
-          })
+          handleApiError(undefined, { description: t('error.default') })
         }
       })
       .catch((error) => {
@@ -373,11 +369,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           router.push('/roles')
         } else {
-          toast({
-            title: t('common.error'),
-            description: t('error.default'),
-            variant: 'destructive',
-          })
+          handleApiError(undefined, { description: t('error.default') })
         }
       })
       .catch((error) => {
@@ -407,7 +399,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                   ) : (
                     <Button
                       type="button"
-                      variant="success"
+                      variant="outline"
                       onClick={handleActivateRole}
                     >
                       {t('role.activate')}

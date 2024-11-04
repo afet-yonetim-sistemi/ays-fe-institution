@@ -177,7 +177,7 @@
     "activatedSuccessfully": "Role activated successfully.",
     "deactivatedSuccessfully": "Role passivated successfully.",
     "activate": "Activate",
-    "deactivate": "Passivate"
+    "deactivate": "Deactivate"
   },
   "permissions": {
     "superAdmin": "Super Admin",
