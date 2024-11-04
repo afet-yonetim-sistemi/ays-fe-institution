@@ -175,7 +175,7 @@
     "deleteConfirm": "Are you sure you want to delete this role?",
     "deletedSuccessfully": "Role deleted successfully.",
     "activatedSuccessfully": "Role activated successfully.",
-    "deactivatedSuccessfully": "Role passivated successfully.",
+    "deactivatedSuccessfully": "Role deactivated successfully.",
     "activate": "Activate",
     "deactivate": "Deactivate"
   },
