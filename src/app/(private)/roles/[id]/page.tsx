@@ -22,6 +22,8 @@ import {
   getPermissions,
   getRoleDetail,
   updateRole,
+  activateRole,
+  deactivateRole,
 } from '@/modules/roles/service'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import {
@@ -337,6 +339,44 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       })
   }
 
+  const handleActivateRole = (): void => {
+    activateRole(params.id)
+      .then((response) => {
+        if (response.isSuccess) {
+          toast({
+            title: t('success'),
+            description: t('role.activatedSuccessfully'),
+            variant: 'success',
+          })
+          router.push('/roles')
+        } else {
+          handleApiError(undefined, { description: t('error.default') })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error)
+      })
+  }
+
+  const handleDeactivateRole = (): void => {
+    deactivateRole(params.id)
+      .then((response) => {
+        if (response.isSuccess) {
+          toast({
+            title: t('success'),
+            description: t('role.deactivatedSuccessfully'),
+            variant: 'success',
+          })
+          router.push('/roles')
+        } else {
+          handleApiError(undefined, { description: t('error.default') })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error)
+      })
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -347,6 +387,24 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
               <h1 className="text-2xl font-bold">{t('role.detailsTitle')}</h1>
               {roleDetail.status !== 'DELETED' && (
                 <div className="flex items-center gap-4">
+                  {userPermissions.includes(Permission.ROLE_UPDATE) &&
+                  roleDetail.status === 'ACTIVE' ? (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleDeactivateRole}
+                    >
+                      {t('role.deactivate')}
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleActivateRole}
+                    >
+                      {t('role.activate')}
+                    </Button>
+                  )}
                   {userPermissions.includes(Permission.ROLE_DELETE) &&
                     !isRoleEditable && (
                       <ButtonDialog
