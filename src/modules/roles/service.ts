@@ -62,7 +62,7 @@ export const activateRole = (id: string): Promise<BaseApiResponse> => {
     .then((response) => response.data)
 }
 
-export const passivateRole = (id: string): Promise<BaseApiResponse> => {
+export const deactivateRole = (id: string): Promise<BaseApiResponse> => {
   return http
     .patch(`/api/v1/role/${id}/passivate`)
     .then((response) => response.data)

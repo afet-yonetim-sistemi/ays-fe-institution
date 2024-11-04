@@ -23,7 +23,7 @@ import {
   getRoleDetail,
   updateRole,
   activateRole,
-  passivateRole,
+  deactivateRole,
 } from '@/modules/roles/service'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import {
@@ -362,13 +362,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       })
   }
 
-  const handlePassivateRole = (): void => {
-    passivateRole(params.id)
+  const handleDeactivateRole = (): void => {
+    deactivateRole(params.id)
       .then((response) => {
         if (response.isSuccess) {
           toast({
             title: t('success'),
-            description: t('role.passivatedSuccessfully'),
+            description: t('role.deactivatedSuccessfully'),
             variant: 'success',
           })
           router.push('/roles')
@@ -400,9 +400,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={handlePassivateRole}
+                      onClick={handleDeactivateRole}
                     >
-                      {t('permissions.roleDeactivate')}
+                      {t('role.deactivate')}
                     </Button>
                   ) : (
                     <Button
@@ -410,7 +410,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       variant="success"
                       onClick={handleActivateRole}
                     >
-                      {t('permissions.roleActivate')}
+                      {t('role.activate')}
                     </Button>
                   )}
                   {userPermissions.includes(Permission.ROLE_DELETE) &&
