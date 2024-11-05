@@ -25,9 +25,9 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
       <div
         style={{
           maxWidth: '400px',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
           textOverflow: 'ellipsis',
-          overflowWrap: 'break-word',
-          wordBreak: 'break-word',
         }}
         title={row.original.reason}
       >

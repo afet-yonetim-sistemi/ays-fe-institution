@@ -24,11 +24,14 @@ const Page = (): JSX.Element => {
     adminRegistrationApplicationList,
     setAdminRegistrationApplicationList,
   ] = useState<AdminRegistrationApplication[]>([])
+  const [totalRows, setTotalRows] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 10
 
-  useEffect(() => {
+  const fetchData = (page: number) => {
     const searchParams: AdminRegistrationApplicationsSearchParams = {
-      page: 1,
-      per_page: 10,
+      page,
+      per_page: pageSize,
       sort: '',
       status: '',
     }
@@ -37,6 +40,7 @@ const Page = (): JSX.Element => {
       .then((response) => {
         if (response.data.isSuccess) {
           setAdminRegistrationApplicationList(response.data.response.content)
+          setTotalRows(response.data.response.totalElementCount)
         } else {
           handleApiError(response.data)
         }
@@ -44,7 +48,15 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         handleApiError(error)
       })
-  }, [])
+  }
+
+  useEffect(() => {
+    fetchData(currentPage)
+  }, [currentPage])
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
 
   return (
     <div className="space-y-4">
@@ -58,7 +70,14 @@ const Page = (): JSX.Element => {
           </Link>
         )}
       </div>
-      <DataTable columns={columns} data={adminRegistrationApplicationList} />
+      <DataTable
+        columns={columns}
+        data={adminRegistrationApplicationList}
+        totalRows={totalRows}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
+      />
       <Toaster />
     </div>
   )
