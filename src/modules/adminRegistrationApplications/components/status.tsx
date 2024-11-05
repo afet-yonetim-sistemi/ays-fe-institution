@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
-import { StatusData } from '@/modules/adminRegistrationApplications/constants/status'
+import { StatusData } from '@/constants/statusData'
 
 const Status = ({ status }: { status: string }): JSX.Element => {
   const { t } = useTranslation()

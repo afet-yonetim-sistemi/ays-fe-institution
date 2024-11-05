@@ -1,15 +1,15 @@
 import { BaseApiResponse, Institution, PhoneNumber, User } from '@/common/types'
 
 export interface AdminRegistrationApplication {
+  id: string
+  reason: string
+  status: string
+  institution: Institution
   createdUser: string
   createdAt: string
   updatedUser: string
   updatedAt: string
-  id: string
-  reason: string
   rejectReason: string | null
-  status: string
-  institution: Institution
   user: User
 }
 
@@ -40,7 +40,7 @@ export interface GetRegisterSummary extends BaseApiResponse {
   }
 }
 
-export interface Search {
+export interface AdminRegistrationApplicationsSearchParams {
   page: number
   per_page: number
   sort: string | undefined

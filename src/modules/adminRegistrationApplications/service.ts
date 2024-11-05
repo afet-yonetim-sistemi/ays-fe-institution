@@ -4,13 +4,13 @@ import {
   ApiSummaryResponse,
   GetRegisterSummary,
   RegisterApplicationForm,
-  Search,
+  AdminRegistrationApplicationsSearchParams,
 } from './constants/types'
 import { AxiosResponse } from 'axios'
 import { BaseApiResponse } from '@/common/types'
 
-export const postAdminRegistrationApplications = (
-  search: Search
+export const getAdminRegistrationApplications = (
+  search: AdminRegistrationApplicationsSearchParams
 ): Promise<AxiosResponse> => {
   const sortBy = search.sort
     ? [
@@ -27,7 +27,7 @@ export const postAdminRegistrationApplications = (
   return http.post('/api/v1/admin-registration-applications', {
     pageable: {
       page: search?.page || 1,
-      pageSize: search.per_page,
+      pageSize: 10,
       orders: sortBy,
     },
     filter: {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { StatusProps } from '../constants/types'
-import { StatusData } from '../constants/status'
+import { StatusData } from '@/constants/statusData'
 
 const Status = ({ status }: StatusProps): JSX.Element => {
   const [statusData, setStatusData] = useState<{

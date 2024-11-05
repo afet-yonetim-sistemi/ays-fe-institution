@@ -1,14 +1,14 @@
 import { ColumnDef } from '@tanstack/table-core'
 import { formatDateTime } from '@/lib/formatDateTime'
-import Status from '@/modules/adminRegistrationApplications/components/status'
 import i18next from 'i18next'
-import DataTableSort from '@/components/dataTable/dataTableSort'
+import { Institution } from '@/common/types'
+import Status from './status'
 
 export interface AdminRegistrationApplication {
   id: string
-  institution: { name: string }
   reason: string
   status: string
+  institution: Institution
   createdUser: string
   createdAt: string
 }
@@ -16,38 +16,42 @@ export interface AdminRegistrationApplication {
 export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   {
     accessorKey: 'institution.name',
-    header: () => i18next.t('organization'),
-    cell: ({ row }) => row.original.institution.name,
-    size: 170,
+    header: () => i18next.t('institution'),
   },
   {
     accessorKey: 'reason',
-    header: () => i18next.t('creationReason'),
-    cell: ({ row }) => row.original.reason,
-    size: 500,
+    header: 'Reason',
+    cell: ({ row }) => (
+      <div
+        style={{
+          maxWidth: '400px',
+          textOverflow: 'ellipsis',
+          overflowWrap: 'break-word',
+          wordBreak: 'break-word',
+        }}
+        title={row.original.reason}
+      >
+        {row.original.reason}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'status',
+    header: () => i18next.t('status'),
   },
   {
     accessorKey: 'status',
     header: () => i18next.t('status'),
     cell: ({ row }) => <Status status={row.getValue('status')} />,
-    size: 140,
+    size: 100,
   },
   {
     accessorKey: 'createdUser',
     header: () => i18next.t('createdUser'),
-    cell: ({ row }) => row.original.createdUser,
-    size: 160,
   },
   {
     accessorKey: 'createdAt',
-    header: ({ column }): JSX.Element => {
-      return <DataTableSort column={column} label={i18next.t('createdAt')} />
-    },
-    size: 155,
-    cell: ({ row }): JSX.Element => {
-      return (
-        <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
-      )
-    },
+    header: () => i18next.t('createdAt'),
+    cell: ({ row }) => formatDateTime(row.getValue('createdAt')),
   },
 ]
