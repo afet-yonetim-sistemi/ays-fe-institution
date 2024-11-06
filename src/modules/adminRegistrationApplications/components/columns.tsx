@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/table-core'
 import { formatDateTime } from '@/lib/formatDateTime'
 import i18next from 'i18next'
 import { Institution } from '@/common/types'
-import Status from './status'
+import Status from '@/components/ui/status'
 
 export interface AdminRegistrationApplication {
   id: string
@@ -34,10 +34,6 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
         {row.original.reason}
       </div>
     ),
-  },
-  {
-    accessorKey: 'status',
-    header: () => i18next.t('status'),
   },
   {
     accessorKey: 'status',

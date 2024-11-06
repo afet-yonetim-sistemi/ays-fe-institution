@@ -44,5 +44,5 @@ export interface AdminRegistrationApplicationsSearchParams {
   page: number
   per_page: number
   sort: string | undefined
-  status: string | undefined
+  statuses: string[]
 }

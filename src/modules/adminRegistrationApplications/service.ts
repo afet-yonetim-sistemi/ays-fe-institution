@@ -20,18 +20,15 @@ export const getAdminRegistrationApplications = (
         },
       ]
     : []
-  const filterStatus = search.status
-    ? search.status?.toUpperCase().split(`.`)
-    : []
 
   return http.post('/api/v1/admin-registration-applications', {
     pageable: {
-      page: search?.page || 1,
+      page: search.page || 1,
       pageSize: 10,
       orders: sortBy,
     },
     filter: {
-      statuses: filterStatus,
+      statuses: search.statuses,
     },
   })
 }

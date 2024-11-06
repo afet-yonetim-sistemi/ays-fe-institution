@@ -17,11 +17,13 @@ import {
 import { Button } from '@/components/ui/button'
 import { t } from 'i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  totalRows: number
+  totalElements: number
   pageSize: number
   currentPage: number
   onPageChange: (page: number) => void
@@ -30,18 +32,33 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-  totalRows,
+  totalElements,
   pageSize,
   currentPage,
   onPageChange,
 }: Readonly<DataTableProps<TData, TValue>>): JSX.Element {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const hasPageQuery = searchParams.get('page') !== null
+
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('page', currentPage.toString())
+
+    if (!hasPageQuery) {
+      router.replace(url.toString())
+    } else {
+      router.push(url.toString())
+    }
+  }, [currentPage, router, hasPageQuery])
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
 
-  const totalPages = Math.ceil(totalRows / pageSize)
+  const totalPages = Math.ceil(totalElements / pageSize)
 
   const handlePreviousPage = () => {
     if (currentPage > 1) onPageChange(currentPage - 1)
