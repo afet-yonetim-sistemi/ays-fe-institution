@@ -18,26 +18,29 @@ import { Button } from '@/components/ui/button'
 import { t } from 'i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   totalElements: number
   pageSize: number
   currentPage: number
   onPageChange: (page: number) => void
+  enableRowClick?: boolean
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { id: string }, TValue>({
   columns,
   data,
   totalElements,
   pageSize,
   currentPage,
   onPageChange,
+  enableRowClick = true,
 }: Readonly<DataTableProps<TData, TValue>>): JSX.Element {
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
   const hasPageQuery = searchParams.get('page') !== null
 
@@ -68,6 +71,12 @@ export function DataTable<TData, TValue>({
     if (currentPage < totalPages) onPageChange(currentPage + 1)
   }
 
+  const handleRowClick = (row: TData): void => {
+    if (enableRowClick) {
+      router.push(`${pathname}/${row.id}`)
+    }
+  }
+
   return (
     <>
       <div className="rounded-md border">
@@ -96,7 +105,8 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && t('selected')}
+                  onClick={() => handleRowClick(row.original)}
+                  className="cursor-pointer hover:accent"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
