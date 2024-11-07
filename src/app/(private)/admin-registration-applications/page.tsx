@@ -79,6 +79,11 @@ const Page = (): JSX.Element => {
     const statusParam = searchParams.get('status')
     const initialStatuses = statusParam ? statusParam.split(',') : []
 
+    if (isNaN(currentPage) || currentPage < 1) {
+      router.push('/not-found')
+      return
+    }
+
     setCurrentPage(currentPage)
     setFilterOptions({ statuses: initialStatuses })
     fetchData(currentPage, initialStatuses)
