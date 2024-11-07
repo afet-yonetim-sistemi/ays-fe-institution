@@ -16,7 +16,7 @@ import { getAdminRegistrationApplications } from '@/modules/adminRegistrationApp
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -26,6 +26,7 @@ const adminApplicationRegistrationStatuses = StatusData.filter((status) =>
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
+  const router = useRouter()
   const userPermissions = useAppSelector(selectPermissions)
   const [
     adminRegistrationApplicationList,
@@ -33,49 +34,58 @@ const Page = (): JSX.Element => {
   ] = useState<AdminRegistrationApplication[]>([])
   const [totalRows, setTotalRows] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
+  const [filterOptions, setFilterOptions] = useState<{ statuses: string[] }>({
+    statuses: [],
+  })
 
   const pageSize = 10
   const searchParams = useSearchParams()
 
-  const fetchData = useCallback(
-    (page: number) => {
-      const searchParams: AdminRegistrationApplicationsSearchParams = {
-        page,
-        per_page: pageSize,
-        sort: '',
-        statuses: selectedStatuses,
-      }
+  const fetchData = useCallback((page: number, statuses: string[]) => {
+    const searchParams: AdminRegistrationApplicationsSearchParams = {
+      page,
+      per_page: pageSize,
+      sort: '',
+      statuses,
+    }
 
-      getAdminRegistrationApplications(searchParams)
-        .then((response) => {
-          if (response.data.isSuccess) {
-            setAdminRegistrationApplicationList(response.data.response.content)
-            setTotalRows(response.data.response.totalElementCount)
-          } else {
-            handleApiError(response.data)
-          }
-        })
-        .catch((error) => {
-          handleApiError(error)
-        })
-    },
-    [selectedStatuses]
-  )
+    getAdminRegistrationApplications(searchParams)
+      .then((response) => {
+        if (response.data.isSuccess) {
+          setAdminRegistrationApplicationList(response.data.response.content)
+          setTotalRows(response.data.response.totalElementCount)
+        } else {
+          handleApiError(response.data)
+        }
+      })
+      .catch((error) => {
+        handleApiError(error)
+      })
+  }, [])
 
   useEffect(() => {
     const currentPage = parseInt(searchParams.get('page') ?? '1')
+    const statusParam = searchParams.get('status')
+    const initialStatuses = statusParam ? statusParam.split(',') : []
+
     setCurrentPage(currentPage)
-    fetchData(currentPage)
+    setFilterOptions({ statuses: initialStatuses })
+    fetchData(currentPage, initialStatuses)
   }, [searchParams, fetchData])
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
+    router.push(
+      `/admin-registration-applications?page=${page}&status=${filterOptions.statuses.join(',')}`
+    )
   }
 
   const handleStatusChange = (statuses: string[]) => {
-    setSelectedStatuses(statuses)
+    setFilterOptions({ statuses })
     setCurrentPage(1)
+    router.push(
+      `/admin-registration-applications?page=1&status=${statuses.join(',')}`
+    )
   }
 
   return (
@@ -95,7 +105,7 @@ const Page = (): JSX.Element => {
       <div>
         <StatusFilter
           statuses={adminApplicationRegistrationStatuses}
-          selectedStatuses={selectedStatuses}
+          selectedStatuses={filterOptions.statuses}
           onStatusChange={handleStatusChange}
         />
       </div>
