@@ -41,27 +41,38 @@ const Page = (): JSX.Element => {
   const pageSize = 10
   const searchParams = useSearchParams()
 
-  const fetchData = useCallback((page: number, statuses: string[]) => {
-    const searchParams: AdminRegistrationApplicationsSearchParams = {
-      page,
-      per_page: pageSize,
-      sort: '',
-      statuses,
-    }
+  const fetchData = useCallback(
+    (page: number, statuses: string[]) => {
+      const searchParams: AdminRegistrationApplicationsSearchParams = {
+        page,
+        per_page: pageSize,
+        sort: '',
+        statuses,
+      }
 
-    getAdminRegistrationApplications(searchParams)
-      .then((response) => {
-        if (response.data.isSuccess) {
-          setAdminRegistrationApplicationList(response.data.response.content)
-          setTotalRows(response.data.response.totalElementCount)
-        } else {
-          handleApiError(response.data)
-        }
-      })
-      .catch((error) => {
-        handleApiError(error)
-      })
-  }, [])
+      getAdminRegistrationApplications(searchParams)
+        .then((response) => {
+          if (response.data.isSuccess) {
+            const { content, totalElementCount, totalPageCount } =
+              response.data.response
+
+            if (page > totalPageCount) {
+              router.push('/not-found')
+              return
+            }
+
+            setAdminRegistrationApplicationList(content)
+            setTotalRows(totalElementCount)
+          } else {
+            handleApiError(response.data)
+          }
+        })
+        .catch((error) => {
+          handleApiError(error)
+        })
+    },
+    [router]
+  )
 
   useEffect(() => {
     const currentPage = parseInt(searchParams.get('page') ?? '1')
