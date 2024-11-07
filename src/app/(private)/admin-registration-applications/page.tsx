@@ -71,7 +71,8 @@ const Page = (): JSX.Element => {
     setCurrentPage(currentPage)
     setFilterOptions({ statuses: initialStatuses })
     fetchData(currentPage, initialStatuses)
-  }, [searchParams, fetchData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams])
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -82,7 +83,6 @@ const Page = (): JSX.Element => {
 
   const handleStatusChange = (statuses: string[]) => {
     setFilterOptions({ statuses })
-    setCurrentPage(1)
     router.push(
       `/admin-registration-applications?page=1&status=${statuses.join(',')}`
     )
