@@ -66,6 +66,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [minPermissionError, setMinPermissionError] = useState<string | null>(
     null
   )
+  const [refreshData, setRefreshData] = useState<boolean>(false)
 
   const createUpdatedRoleData = (
     form: UseFormReturn,
@@ -193,6 +194,15 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           setOriginalRolePermissions(localizedPermissions)
           setRolePermissions(localizedPermissions)
+
+          reset({
+            name: fetchedRoleDetail.name,
+            status: t(fetchedRoleDetail.status.toLowerCase()),
+            createdUser: fetchedRoleDetail.createdUser,
+            createdAt: formatDateTime(fetchedRoleDetail.createdAt),
+            updatedUser: fetchedRoleDetail.updatedUser,
+            updatedAt: formatDateTime(fetchedRoleDetail.updatedAt),
+          })
         })
 
         .catch((error) => {
@@ -201,7 +211,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
-  }, [getAvailableRolePermissions, params.id, t, toast])
+  }, [getAvailableRolePermissions, params.id, t, toast, refreshData, reset])
 
   useEffect(() => {
     if (rolePermissions) {
@@ -348,7 +358,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             description: t('role.activatedSuccessfully'),
             variant: 'success',
           })
-          router.push('/roles')
+          setRefreshData((prev) => !prev)
         } else {
           handleApiError(undefined, { description: t('error.default') })
         }
@@ -367,7 +377,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             description: t('role.deactivatedSuccessfully'),
             variant: 'success',
           })
-          router.push('/roles')
+          setRefreshData((prev) => !prev)
         } else {
           handleApiError(undefined, { description: t('error.default') })
         }
@@ -388,23 +398,21 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
               {roleDetail.status !== 'DELETED' && (
                 <div className="flex items-center gap-4">
                   {userPermissions.includes(Permission.ROLE_UPDATE) &&
-                  roleDetail.status === 'ACTIVE' ? (
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleDeactivateRole}
-                    >
-                      {t('role.deactivate')}
-                    </Button>
-                  ) : (
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleActivateRole}
-                    >
-                      {t('role.activate')}
-                    </Button>
-                  )}
+                    (roleDetail.status === 'ACTIVE' ? (
+                      <ButtonDialog
+                        triggerText={'role.deactivate'}
+                        title={'role.deactivateConfirm'}
+                        onConfirm={handleDeactivateRole}
+                        variant={'outline'}
+                      />
+                    ) : (
+                      <ButtonDialog
+                        triggerText={'role.activate'}
+                        title={'role.activateConfirm'}
+                        onConfirm={handleActivateRole}
+                        variant={'outline'}
+                      />
+                    ))}
                   {userPermissions.includes(Permission.ROLE_DELETE) &&
                     !isRoleEditable && (
                       <ButtonDialog

@@ -174,10 +174,12 @@
     "noChangesError": "Değişiklik yapmadan rolü güncelleyemezsiniz.",
     "deleteConfirm": "Rolü silmek istediğinize emin misiniz?",
     "deletedSuccessfully": "Rol başarıyla silindi.",
-    "activatedSuccessfully": "Rol başarıyla aktifleştirildi.",
-    "deactivatedSuccessfully": "Rol başarıyla pasifleştirildi.",
+    "activatedSuccessfully": "Aktifleştirme işleminiz başarıyla gerçekleşmiştir.",
+    "deactivatedSuccessfully": "Pasifleştirme işleminiz başarıyla gerçekleşmiştir.",
     "activate": "Aktifleştir",
-    "deactivate": "Pasifleştir"
+    "deactivate": "Pasifleştir",
+    "activateConfirm": "Aktifleştirme işlemine devam etmek istiyor musunuz?",
+    "deactivateConfirm": "Pasifleştirme işlemine devam etmek istiyor musunuz?"
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",

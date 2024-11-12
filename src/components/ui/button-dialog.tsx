@@ -57,12 +57,22 @@ const ButtonDialog = ({
 }: ButtonDialogProps): ReactElement => {
   const { t } = useTranslation()
   const [reasonText, setReasonText] = useState<string>('')
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleConfirmClick = (): void => {
     onConfirm(reason ? reasonText : undefined)
+    setIsOpen(false)
   }
+
+  const handleCancelClick = (): void => {
+    if (onCancel) {
+      onCancel()
+    }
+    setIsOpen(false)
+  }
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant={variant || 'default'}>{t(triggerText)}</Button>
       </DialogTrigger>
@@ -83,40 +93,38 @@ const ButtonDialog = ({
           </>
         )}
         <div className="flex justify-center space-x-5 mt-4">
-          <DialogClose>
+          <DialogClose asChild>
             <Button
               type="button"
               variant="outline"
               className="w-36"
-              onClick={onCancel}
+              onClick={handleCancelClick}
             >
               {cancelText || t('no')}
             </Button>
           </DialogClose>
-          <DialogClose asChild>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    type="button"
-                    className="w-36"
-                    onClick={handleConfirmClick}
-                    disabled={
-                      (reason && reasonText.length < 40) ||
-                      reasonText.length > 512
-                    }
-                  >
-                    {confirmText || t('yes')}
-                  </Button>
-                </TooltipTrigger>
-                {tooltipText && (
-                  <TooltipContent>
-                    <p>{t(tooltipText)}</p>
-                  </TooltipContent>
-                )}
-              </Tooltip>
-            </TooltipProvider>
-          </DialogClose>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  type="button"
+                  className="w-36"
+                  onClick={handleConfirmClick}
+                  disabled={
+                    (reason && reasonText.length < 40) ||
+                    reasonText.length > 512
+                  }
+                >
+                  {confirmText || t('yes')}
+                </Button>
+              </TooltipTrigger>
+              {tooltipText && (
+                <TooltipContent>
+                  <p>{t(tooltipText)}</p>
+                </TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </DialogContent>
     </Dialog>
