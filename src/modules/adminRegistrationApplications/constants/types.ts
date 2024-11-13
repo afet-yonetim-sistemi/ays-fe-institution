@@ -43,6 +43,9 @@ export interface GetRegisterSummary extends BaseApiResponse {
 export interface AdminRegistrationApplicationsSearchParams {
   page: number
   per_page: number
-  sort: string | undefined
+  sort?: {
+    column: string
+    direction: 'asc' | 'desc'
+  }
   statuses: string[]
 }

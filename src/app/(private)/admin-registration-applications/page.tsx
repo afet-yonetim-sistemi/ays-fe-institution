@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { Button } from '@/components/ui/button'
@@ -37,16 +38,30 @@ const Page = (): JSX.Element => {
   const [filterOptions, setFilterOptions] = useState<{ statuses: string[] }>({
     statuses: [],
   })
+  const [sortOptions, setSortOptions] = useState<{
+    column: string
+    direction: 'asc' | 'desc' | ''
+  }>({
+    column: '',
+    direction: '',
+  })
 
   const pageSize = 10
   const searchParams = useSearchParams()
 
   const fetchData = useCallback(
-    (page: number, statuses: string[]) => {
+    (
+      page: number,
+      statuses: string[],
+      sort: { column: string; direction: 'asc' | 'desc' | '' }
+    ) => {
+      console.log(sort.column)
       const searchParams: AdminRegistrationApplicationsSearchParams = {
         page,
         per_page: pageSize,
-        sort: '',
+        sort: sort.direction
+          ? { column: sort.column, direction: sort.direction }
+          : undefined,
         statuses,
       }
 
@@ -77,16 +92,20 @@ const Page = (): JSX.Element => {
   useEffect(() => {
     const currentPage = parseInt(searchParams.get('page') ?? '1')
     const statusParam = searchParams.get('status')
-    const initialStatuses = statusParam ? statusParam.split(',') : []
+    const sortParam = searchParams.get('sort')?.split(',')
 
-    if (isNaN(currentPage) || currentPage < 1) {
-      router.push('/not-found')
-      return
-    }
+    const initialStatuses = statusParam ? statusParam.split(',') : []
+    const initialSortOptions: {
+      column: string
+      direction: '' | 'asc' | 'desc'
+    } = sortParam
+      ? { column: sortParam[0], direction: sortParam[1] as '' | 'asc' | 'desc' }
+      : { column: '', direction: '' }
 
     setCurrentPage(currentPage)
     setFilterOptions({ statuses: initialStatuses })
-    fetchData(currentPage, initialStatuses)
+    setSortOptions(initialSortOptions)
+    fetchData(currentPage, initialStatuses, initialSortOptions)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
@@ -101,6 +120,26 @@ const Page = (): JSX.Element => {
     setFilterOptions({ statuses })
     router.push(
       `/admin-registration-applications?page=1&status=${statuses.join(',')}`
+    )
+  }
+
+  const handleSortChange = (column: any) => {
+    // `column` now represents the column object
+    const columnId = column.id // Use `column.id` as the column name string
+    console.log(column)
+    const newDirection: '' | 'asc' | 'desc' =
+      sortOptions.column === columnId
+        ? sortOptions.direction === 'asc'
+          ? 'desc'
+          : 'asc'
+        : 'asc'
+
+    setSortOptions({ column: columnId, direction: newDirection }) // Set `columnId` here
+    setCurrentPage(1)
+
+    // Update URL with the new sorting order using columnId
+    router.push(
+      `/admin-registration-applications?page=1&status=${filterOptions.statuses.join(',')}&sort=${columnId},${newDirection}`
     )
   }
 
@@ -126,7 +165,7 @@ const Page = (): JSX.Element => {
         />
       </div>
       <DataTable
-        columns={columns}
+        columns={columns(handleSortChange)}
         data={adminRegistrationApplicationList}
         totalElements={totalRows}
         pageSize={pageSize}

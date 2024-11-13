@@ -12,20 +12,21 @@ import { BaseApiResponse } from '@/common/types'
 export const getAdminRegistrationApplications = (
   search: AdminRegistrationApplicationsSearchParams
 ): Promise<AxiosResponse> => {
+  // Check if sort is defined and only add 'orders' if it is
   const sortBy = search.sort
     ? [
         {
-          property: search.sort.split('.')[0],
-          direction: search.sort.split('.')[1].toUpperCase(),
+          property: search.sort.column, // Access the column name correctly
+          direction: search.sort.direction.toUpperCase(), // Ensure direction is uppercase
         },
       ]
-    : []
+    : undefined
 
   return http.post('/api/v1/admin-registration-applications', {
     pageable: {
       page: search.page || 1,
-      pageSize: 10,
-      orders: sortBy,
+      pageSize: search.per_page || 10,
+      ...(sortBy ? { orders: sortBy } : {}), // Only add 'orders' if sortBy exists
     },
     filter: {
       statuses: search.statuses,

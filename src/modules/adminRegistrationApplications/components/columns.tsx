@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ColumnDef } from '@tanstack/table-core'
 import { formatDateTime } from '@/lib/formatDateTime'
 import i18next from 'i18next'
 import { Institution } from '@/common/types'
 import Status from '@/components/ui/status'
+import DataTableSort from '@/components/ui/data-table-sort'
 
 export interface AdminRegistrationApplication {
   id: string
@@ -13,7 +15,9 @@ export interface AdminRegistrationApplication {
   createdAt: string
 }
 
-export const columns: ColumnDef<AdminRegistrationApplication>[] = [
+export const columns: (
+  onSortClick: (column: any) => void
+) => ColumnDef<AdminRegistrationApplication>[] = (onSortClick) => [
   {
     accessorKey: 'institution.name',
     header: () => i18next.t('institution'),
@@ -47,7 +51,16 @@ export const columns: ColumnDef<AdminRegistrationApplication>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: () => i18next.t('createdAt'),
-    cell: ({ row }) => formatDateTime(row.getValue('createdAt')),
+    header: ({ column }) => (
+      <DataTableSort
+        column={column}
+        label={i18next.t('createdAt')}
+        onSortClick={onSortClick}
+      />
+    ),
+    cell: ({ row }) => (
+      <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
+    ),
+    size: 155,
   },
 ]
