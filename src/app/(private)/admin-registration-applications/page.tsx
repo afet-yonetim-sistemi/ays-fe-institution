@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { Button } from '@/components/ui/button'
@@ -118,28 +117,48 @@ const Page = (): JSX.Element => {
 
   const handleStatusChange = (statuses: string[]) => {
     setFilterOptions({ statuses })
+
+    const statusQuery = statuses.length ? `&status=${statuses.join(',')}` : ''
+    const sortQuery =
+      sortOptions.column && sortOptions.direction
+        ? `&sort=${sortOptions.column},${sortOptions.direction}`
+        : ''
+
     router.push(
-      `/admin-registration-applications?page=1&status=${statuses.join(',')}`
+      `/admin-registration-applications?page=1${statusQuery}${sortQuery}`
     )
   }
 
-  const handleSortChange = (column: any) => {
-    // `column` now represents the column object
-    const columnId = column.id // Use `column.id` as the column name string
-    console.log(column)
-    const newDirection: '' | 'asc' | 'desc' =
-      sortOptions.column === columnId
-        ? sortOptions.direction === 'asc'
-          ? 'desc'
-          : 'asc'
-        : 'asc'
+  const handleSortChange = (column: { id: string }) => {
+    const columnId = column.id
+    let newDirection: '' | 'asc' | 'desc' = ''
 
-    setSortOptions({ column: columnId, direction: newDirection }) // Set `columnId` here
+    if (sortOptions.column === columnId) {
+      newDirection =
+        sortOptions.direction === 'asc'
+          ? 'desc'
+          : sortOptions.direction === 'desc'
+            ? ''
+            : 'asc'
+    } else {
+      newDirection = 'asc'
+    }
+
+    if (newDirection === '') {
+      setSortOptions({ column: '', direction: '' })
+    } else {
+      setSortOptions({ column: columnId, direction: newDirection })
+    }
+
     setCurrentPage(1)
 
-    // Update URL with the new sorting order using columnId
+    const statusQuery = filterOptions.statuses.length
+      ? `&status=${filterOptions.statuses.join(',')}`
+      : ''
+    const sortQuery = newDirection ? `&sort=${columnId},${newDirection}` : ''
+
     router.push(
-      `/admin-registration-applications?page=1&status=${filterOptions.statuses.join(',')}&sort=${columnId},${newDirection}`
+      `/admin-registration-applications?page=1${statusQuery}${sortQuery}`
     )
   }
 

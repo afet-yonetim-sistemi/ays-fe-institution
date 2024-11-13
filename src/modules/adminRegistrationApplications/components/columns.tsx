@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ColumnDef } from '@tanstack/table-core'
+import { ColumnDef, Column } from '@tanstack/table-core'
 import { formatDateTime } from '@/lib/formatDateTime'
 import i18next from 'i18next'
 import { Institution } from '@/common/types'
@@ -16,7 +15,7 @@ export interface AdminRegistrationApplication {
 }
 
 export const columns: (
-  onSortClick: (column: any) => void
+  onSortClick: (column: Column<AdminRegistrationApplication>) => void
 ) => ColumnDef<AdminRegistrationApplication>[] = (onSortClick) => [
   {
     accessorKey: 'institution.name',
@@ -61,6 +60,5 @@ export const columns: (
     cell: ({ row }) => (
       <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
     ),
-    size: 155,
   },
 ]

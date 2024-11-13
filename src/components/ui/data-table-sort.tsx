@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import {
   Tooltip,
@@ -8,17 +7,19 @@ import {
 } from '@/components/ui/tooltip'
 import i18n from 'i18next'
 import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
+import { Column } from '@tanstack/table-core'
 
-// eslint-disable-next-line
-const DataTableSort = ({
+interface DataTableSortProps<T> {
+  column: Column<T>
+  label: string
+  onSortClick: (column: Column<T>) => void
+}
+
+const DataTableSort = <T extends object>({
   column,
   label,
   onSortClick,
-}: {
-  column: any
-  label: string
-  onSortClick: (column: any) => void
-}) => (
+}: DataTableSortProps<T>) => (
   <TooltipProvider>
     <Tooltip>
       <TooltipTrigger
@@ -46,11 +47,10 @@ const DataTableSort = ({
   </TooltipProvider>
 )
 
-// eslint-disable-next-line
-const SortIcon = ({ sort }: { sort: string }) => {
-  if (sort == 'asc') return <BiSortUp className="h-4 w-4" />
-  else if (sort == 'desc') return <BiSortDown className="h-4 w-4" />
-  else return <BiSort className="h-4 w-4" />
+const SortIcon = ({ sort }: { sort: string | boolean }) => {
+  if (sort === 'asc') return <BiSortUp className="h-4 w-4" />
+  if (sort === 'desc') return <BiSortDown className="h-4 w-4" />
+  return <BiSort className="h-4 w-4" />
 }
 
 export default DataTableSort
