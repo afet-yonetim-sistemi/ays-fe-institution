@@ -34,15 +34,15 @@ const Page = (): JSX.Element => {
   ] = useState<AdminRegistrationApplication[]>([])
   const [totalRows, setTotalRows] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-  const [filterOptions, setFilterOptions] = useState<{ statuses: string[] }>({
-    statuses: [],
-  })
-  const [sortOptions, setSortOptions] = useState<{
-    column: string
-    direction: 'asc' | 'desc' | ''
+  const [filters, setFilters] = useState<{
+    statuses: string[]
+    sort: {
+      column: string
+      direction: 'asc' | 'desc' | ''
+    }
   }>({
-    column: '',
-    direction: '',
+    statuses: [],
+    sort: { column: '', direction: '' },
   })
 
   const pageSize = 10
@@ -54,7 +54,6 @@ const Page = (): JSX.Element => {
       statuses: string[],
       sort: { column: string; direction: 'asc' | 'desc' | '' }
     ) => {
-      console.log(sort.column)
       const searchParams: AdminRegistrationApplicationsSearchParams = {
         page,
         per_page: pageSize,
@@ -102,8 +101,10 @@ const Page = (): JSX.Element => {
       : { column: '', direction: '' }
 
     setCurrentPage(currentPage)
-    setFilterOptions({ statuses: initialStatuses })
-    setSortOptions(initialSortOptions)
+    setFilters({
+      statuses: initialStatuses,
+      sort: initialSortOptions,
+    })
     fetchData(currentPage, initialStatuses, initialSortOptions)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
@@ -111,17 +112,20 @@ const Page = (): JSX.Element => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
     router.push(
-      `/admin-registration-applications?page=${page}&status=${filterOptions.statuses.join(',')}`
+      `/admin-registration-applications?page=${page}&status=${filters.statuses.join(',')}`
     )
   }
 
   const handleStatusChange = (statuses: string[]) => {
-    setFilterOptions({ statuses })
+    setFilters({
+      ...filters,
+      statuses,
+    })
 
     const statusQuery = statuses.length ? `&status=${statuses.join(',')}` : ''
     const sortQuery =
-      sortOptions.column && sortOptions.direction
-        ? `&sort=${sortOptions.column},${sortOptions.direction}`
+      filters.sort.column && filters.sort.direction
+        ? `&sort=${filters.sort.column},${filters.sort.direction}`
         : ''
 
     router.push(
@@ -131,13 +135,16 @@ const Page = (): JSX.Element => {
 
   const handleSortChange = (column: { id: string }) => {
     const columnId = column.id
+    const statusQuery = filters.statuses.length
+      ? `&status=${filters.statuses.join(',')}`
+      : ''
     let newDirection: '' | 'asc' | 'desc' = ''
 
-    if (sortOptions.column === columnId) {
+    if (filters.sort.column === columnId) {
       newDirection =
-        sortOptions.direction === 'asc'
+        filters.sort.direction === 'asc'
           ? 'desc'
-          : sortOptions.direction === 'desc'
+          : filters.sort.direction === 'desc'
             ? ''
             : 'asc'
     } else {
@@ -145,16 +152,17 @@ const Page = (): JSX.Element => {
     }
 
     if (newDirection === '') {
-      setSortOptions({ column: '', direction: '' })
+      setFilters({
+        ...filters,
+        sort: { column: '', direction: '' },
+      })
     } else {
-      setSortOptions({ column: columnId, direction: newDirection })
+      setFilters({
+        ...filters,
+        sort: { column: columnId, direction: newDirection },
+      })
     }
 
-    setCurrentPage(1)
-
-    const statusQuery = filterOptions.statuses.length
-      ? `&status=${filterOptions.statuses.join(',')}`
-      : ''
     const sortQuery = newDirection ? `&sort=${columnId},${newDirection}` : ''
 
     router.push(
@@ -179,7 +187,7 @@ const Page = (): JSX.Element => {
       <div>
         <StatusFilter
           statuses={adminApplicationRegistrationStatuses}
-          selectedStatuses={filterOptions.statuses}
+          selectedStatuses={filters.statuses}
           onStatusChange={handleStatusChange}
         />
       </div>
