@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
@@ -40,6 +40,7 @@ import { useAppSelector } from '@/store/hooks'
 import ButtonDialog from '@/components/ui/button-dialog'
 import { useRouter } from 'next/navigation'
 import { handleApiError } from '@/lib/handleApiError'
+import { useQuery, useMutation } from '@tanstack/react-query'
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
@@ -55,7 +56,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const { control, reset, formState } = form
 
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
   const [isRoleEditable, setIsRoleEditable] = useState<boolean>(false)
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
   const [originalRolePermissions, setOriginalRolePermissions] = useState<
@@ -66,7 +66,50 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [minPermissionError, setMinPermissionError] = useState<string | null>(
     null
   )
-  const [refreshData, setRefreshData] = useState<boolean>(false)
+
+  const {
+    data: roleDetailData,
+    isLoading: isRoleDetailLoading,
+    isError: isRoleDetailError,
+    refetch: refetchRoleDetail,
+  } = useQuery<RoleDetail | null, Error>({
+    queryKey: ['roleDetails', params.id],
+    queryFn: async () => {
+      const response = await getRoleDetail(params.id)
+        .then((response) => {
+          return response.response
+        })
+        .catch((error) => {
+          handleApiError(error, { description: t('role.error') })
+          return null
+        })
+      return response
+    },
+  })
+
+  const {
+    data: availablePermissions,
+    isLoading: isPermissionsLoading,
+    isError: isPermissionsError,
+  } = useQuery<RolePermission[], Error>({
+    queryKey: ['rolePermissions'],
+    queryFn: async () => {
+      return getPermissions()
+        .then((response) => {
+          const permissions = response.response
+          return permissions.map((permission: RolePermission) => ({
+            id: permission.id,
+            name: permission.name,
+            category: permission.category,
+            isActive: false,
+          }))
+        })
+        .catch((error) => {
+          handleApiError(error, { description: t('permissions.error') })
+          return []
+        })
+    },
+  })
 
   const createUpdatedRoleData = (
     form: UseFormReturn,
@@ -103,25 +146,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       )
     )
   }
-
-  const getAvailableRolePermissions = useCallback(async (): Promise<
-    RolePermission[]
-  > => {
-    return getPermissions()
-      .then((response) => {
-        const permissions = response.response
-        return permissions.map((permission: RolePermission) => ({
-          id: permission.id,
-          name: permission.name,
-          category: permission.category,
-          isActive: false,
-        }))
-      })
-      .catch((error) => {
-        handleApiError(error, { description: t('permissions.error') })
-        return []
-      })
-  }, [t])
 
   const categorizePermissions = (
     permissions: RolePermission[]
@@ -169,49 +193,39 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     })
   }
 
+  const isLoading = useMemo(
+    () =>
+      isRoleDetailLoading ||
+      isPermissionsLoading ||
+      isRoleDetailError ||
+      isPermissionsError,
+    [
+      isRoleDetailLoading,
+      isPermissionsLoading,
+      isRoleDetailError,
+      isPermissionsError,
+    ]
+  )
+
   useEffect(() => {
-    const fetchDetails = async (): Promise<void> => {
-      const availablePermissions: RolePermission[] =
-        await getAvailableRolePermissions()
-
-      getRoleDetail(params.id)
-        .then((response) => {
-          const fetchedRoleDetail = response.response
-
-          const updatedPermissions = updatePermissionsActiveStatus(
-            fetchedRoleDetail.permissions,
-            availablePermissions
-          )
-
-          const localizedPermissions = localizePermissions(
-            updatedPermissions,
-            t
-          )
-
-          setRoleDetail({
-            ...fetchedRoleDetail,
-            permissions: localizedPermissions,
-          })
-          setOriginalRolePermissions(localizedPermissions)
-          setRolePermissions(localizedPermissions)
-
-          reset({
-            name: fetchedRoleDetail.name,
-            status: t(fetchedRoleDetail.status.toLowerCase()),
-            createdUser: fetchedRoleDetail.createdUser,
-            createdAt: formatDateTime(fetchedRoleDetail.createdAt),
-            updatedUser: fetchedRoleDetail.updatedUser,
-            updatedAt: formatDateTime(fetchedRoleDetail.updatedAt),
-          })
-        })
-
-        .catch((error) => {
-          handleApiError(error, { description: t('role.error') })
-        })
-        .finally(() => setIsLoading(false))
+    if (roleDetailData) {
+      setRoleDetail(roleDetailData)
     }
-    fetchDetails()
-  }, [getAvailableRolePermissions, params.id, t, toast, refreshData, reset])
+  }, [roleDetailData])
+
+  useEffect(() => {
+    if (roleDetailData && availablePermissions) {
+      const updatedPermissions = updatePermissionsActiveStatus(
+        roleDetailData.permissions,
+        availablePermissions
+      )
+
+      const localizedPermissions = localizePermissions(updatedPermissions, t)
+
+      setOriginalRolePermissions(localizedPermissions)
+      setRolePermissions(localizedPermissions)
+    }
+  }, [roleDetailData, availablePermissions, t])
 
   useEffect(() => {
     if (rolePermissions) {
@@ -230,6 +244,20 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       }
     }
   }, [rolePermissions, t])
+
+  const handleRefetchRoleDetail = (): void => {
+    refetchRoleDetail()
+      .then((result) => {
+        if (result.data) {
+          reset({
+            status: t(result.data.status.toLowerCase()),
+          })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error, { description: t('role.error') })
+      })
+  }
 
   const handlePermissionToggle = (id: string): void => {
     setRolePermissions((prevPermissions) =>
@@ -349,43 +377,36 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       })
   }
 
-  const handleActivateRole = (): void => {
-    activateRole(params.id)
-      .then((response) => {
-        if (response.isSuccess) {
-          toast({
-            title: t('success'),
-            description: t('role.activatedSuccessfully'),
-            variant: 'success',
-          })
-          setRefreshData((prev) => !prev)
-        } else {
-          handleApiError(undefined, { description: t('error.default') })
-        }
+  const activateMutation = useMutation({
+    mutationFn: () => activateRole(params.id),
+    onSuccess: () => {
+      toast({
+        title: t('success'),
+        description: t('role.activatedSuccessfully'),
+        variant: 'success',
       })
-      .catch((error) => {
-        handleApiError(error)
-      })
-  }
+      handleRefetchRoleDetail()
+    },
+    onError: () =>
+      handleApiError(undefined, { description: t('error.default') }),
+  })
 
-  const handleDeactivateRole = (): void => {
-    deactivateRole(params.id)
-      .then((response) => {
-        if (response.isSuccess) {
-          toast({
-            title: t('success'),
-            description: t('role.deactivatedSuccessfully'),
-            variant: 'success',
-          })
-          setRefreshData((prev) => !prev)
-        } else {
-          handleApiError(undefined, { description: t('error.default') })
-        }
+  const deactivateMutation = useMutation({
+    mutationFn: () => deactivateRole(params.id),
+    onSuccess: () => {
+      toast({
+        title: t('success'),
+        description: t('role.deactivatedSuccessfully'),
+        variant: 'success',
       })
-      .catch((error) => {
-        handleApiError(error)
-      })
-  }
+      handleRefetchRoleDetail()
+    },
+    onError: () =>
+      handleApiError(undefined, { description: t('error.default') }),
+  })
+
+  const handleActivateRole = (): void => activateMutation.mutate()
+  const handleDeactivateRole = (): void => deactivateMutation.mutate()
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
@@ -398,6 +419,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
               {roleDetail.status !== 'DELETED' && (
                 <div className="flex items-center gap-4">
                   {userPermissions.includes(Permission.ROLE_UPDATE) &&
+                    !isRoleEditable &&
                     (roleDetail.status === 'ACTIVE' ? (
                       <ButtonDialog
                         triggerText={'role.deactivate'}
