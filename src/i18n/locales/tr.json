@@ -207,5 +207,9 @@
     "landingPage": "Açılış Sayfası",
     "institutionPage": "Kurum Sayfası",
     "error": "Rol Yetki Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
+  },
+  "languages": {
+    "en": "İngilizce",
+    "tr": "Türkçe"
   }
 }

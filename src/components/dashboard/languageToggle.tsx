@@ -1,6 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import React from 'react'
 import {
   Select,
   SelectContent,
@@ -9,48 +8,24 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { changeLanguage } from '@/i18n'
-
-type Language = {
-  nativeName: string
-}
-
-type Languages = {
-  [key: string]: Language
-}
-
-const lngs: Languages = {
-  en: { nativeName: 'English' },
-  tr: { nativeName: 'Türkçe' },
-}
+import { supportedLanguages } from '@/lib/languageDetector'
+import i18next from 'i18next'
 
 function LanguageToggle(): JSX.Element {
-  const { i18n } = useTranslation()
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language)
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') || 'tr'
-    if (i18n.language !== savedLanguage) {
-      i18n.changeLanguage(savedLanguage)
-    }
-  }, [i18n])
-
-  const handleLanguageChange = (lng: string): void => {
-    setSelectedLanguage(lng)
-    changeLanguage(lng)
-    localStorage.setItem('language', lng)
-  }
-
   return (
     <div className="flex gap-2">
-      <Select onValueChange={handleLanguageChange} value={selectedLanguage}>
-        <SelectTrigger className="">
-          <SelectValue placeholder={lngs[i18n.language].nativeName} />
+      <Select
+        onValueChange={(lng: string) => changeLanguage(lng)}
+        value={i18next.language}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder={i18next.t(i18next.language)} />
         </SelectTrigger>
         <SelectContent>
-          {Object.keys(lngs).map((lng) => {
+          {supportedLanguages.map((lng) => {
             return (
               <SelectItem key={lng} value={lng}>
-                {lngs[lng].nativeName}
+                {i18next.t(`languages.${lng}`)}
               </SelectItem>
             )
           })}
