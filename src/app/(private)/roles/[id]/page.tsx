@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { formatDateTime } from '@/lib/formatDateTime'
 import {
@@ -57,9 +57,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isRoleEditable, setIsRoleEditable] = useState<boolean>(false)
-  const [availablePermissions, setAvailablePermissions] = useState<
-    RolePermission[]
-  >([])
+
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
   const [originalRolePermissions, setOriginalRolePermissions] = useState<
     RolePermission[]
@@ -69,6 +67,25 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [minPermissionError, setMinPermissionError] = useState<string | null>(
     null
   )
+
+  const getAvailableRolePermissions = useCallback(async (): Promise<
+    RolePermission[]
+  > => {
+    return getPermissions()
+      .then((response) => {
+        const permissions = response.response
+        return permissions.map((permission: RolePermission) => ({
+          id: permission.id,
+          name: permission.name,
+          category: permission.category,
+          isActive: false,
+        }))
+      })
+      .catch((error) => {
+        handleApiError(error, { description: t('permissions.error') })
+        return []
+      })
+  }, [t])
 
   const createUpdatedRoleData = (
     form: UseFormReturn,
@@ -153,62 +170,39 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }
 
   useEffect(() => {
-    const fetchRoleDetails = async (): Promise<void> => {
+    const fetchDetails = async (): Promise<void> => {
+      const availablePermissions: RolePermission[] =
+        await getAvailableRolePermissions()
+
       getRoleDetail(params.id)
         .then((response) => {
           const fetchedRoleDetail = response.response
 
+          const updatedPermissions = updatePermissionsActiveStatus(
+            fetchedRoleDetail.permissions,
+            availablePermissions
+          )
+
+          const localizedPermissions = localizePermissions(
+            updatedPermissions,
+            t
+          )
+
           setRoleDetail({
             ...fetchedRoleDetail,
+            permissions: localizedPermissions,
           })
+          setOriginalRolePermissions(localizedPermissions)
+          setRolePermissions(localizedPermissions)
         })
+
         .catch((error) => {
           handleApiError(error, { description: t('role.error') })
         })
         .finally(() => setIsLoading(false))
     }
-
-    const fetchRolePermissions = async (): Promise<void> => {
-      getPermissions()
-        .then((response) => {
-          const permissions = response.response
-          const availablePermissions = permissions.map(
-            (permission: RolePermission) => ({
-              id: permission.id,
-              name: permission.name,
-              category: permission.category,
-              isActive: false,
-            })
-          )
-          setAvailablePermissions(availablePermissions)
-        })
-        .catch((error) => {
-          handleApiError(error, { description: t('permissions.error') })
-          return []
-        })
-    }
-
-    const fetchData = async (): Promise<void> => {
-      await Promise.all([fetchRoleDetails(), fetchRolePermissions()])
-      setIsLoading(false)
-    }
-
-    fetchData()
-  }, [params.id, t])
-
-  useEffect(() => {
-    if (roleDetail && availablePermissions) {
-      const updatedPermissions = updatePermissionsActiveStatus(
-        roleDetail.permissions,
-        availablePermissions
-      )
-
-      const localizedPermissions = localizePermissions(updatedPermissions, t)
-
-      setOriginalRolePermissions(localizedPermissions)
-      setRolePermissions(localizedPermissions)
-    }
-  }, [roleDetail, availablePermissions, t])
+    fetchDetails()
+  }, [getAvailableRolePermissions, params.id, t, toast])
 
   useEffect(() => {
     if (rolePermissions) {
@@ -350,13 +344,12 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     reset({
       status: t(status),
     })
-    setRoleDetail((prevRoleDetail) => {
-      if (!prevRoleDetail) return prevRoleDetail
-      return {
-        ...prevRoleDetail,
+    if (roleDetail) {
+      setRoleDetail({
+        ...roleDetail,
         status: t(status),
-      }
-    })
+      })
+    }
   }
 
   const handleActivateRole = (): void => {
