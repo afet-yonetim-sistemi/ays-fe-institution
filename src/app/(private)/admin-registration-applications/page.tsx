@@ -18,7 +18,7 @@ import { getAdminRegistrationApplications } from '@/modules/adminRegistrationApp
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -29,6 +29,7 @@ const adminApplicationRegistrationStatuses = StatusData.filter((status) =>
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
   const userPermissions = useAppSelector(selectPermissions)
   const [
@@ -112,7 +113,7 @@ const Page = (): JSX.Element => {
     const updatedParams = new URLSearchParams(searchParams)
     updatedParams.set('page', '1')
     updatedParams.set('status', statuses.join(','))
-    router.push(`/admin-registration-applications?${updatedParams.toString()}`)
+    router.push(`${pathname}?${updatedParams.toString()}`) // Use pathname here
   }
 
   const handleSortChange = (column: { id: string }) => {
@@ -129,7 +130,7 @@ const Page = (): JSX.Element => {
     const updatedParams = new URLSearchParams(searchParams)
     updatedParams.set('page', '1')
     updatedParams.set('sort', newDirection ? `${columnId},${newDirection}` : '')
-    router.push(`/admin-registration-applications?${updatedParams.toString()}`)
+    router.push(`${pathname}?${updatedParams.toString()}`)
   }
 
   return (
@@ -158,9 +159,7 @@ const Page = (): JSX.Element => {
         data={adminRegistrationApplicationList}
         totalElements={totalRows}
         pageSize={pageSize}
-        onPageChange={(page) =>
-          handlePageChange(page, '/admin-registration-applications')
-        }
+        onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.currentPage}
       />
       <Toaster />
