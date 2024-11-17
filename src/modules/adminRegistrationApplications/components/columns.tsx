@@ -15,8 +15,9 @@ export interface AdminRegistrationApplication {
 }
 
 export const columns: (
+  filters: { sort: { column: string; direction: 'asc' | 'desc' | '' } },
   onSortClick: (column: Column<AdminRegistrationApplication>) => void
-) => ColumnDef<AdminRegistrationApplication>[] = (onSortClick) => [
+) => ColumnDef<AdminRegistrationApplication>[] = (filters, onSortClick) => [
   {
     accessorKey: 'institution.name',
     header: () => i18next.t('institution'),
@@ -54,6 +55,7 @@ export const columns: (
       <DataTableSort
         column={column}
         label={i18next.t('createdAt')}
+        sortState={filters.sort}
         onSortClick={onSortClick}
       />
     ),
