@@ -1,4 +1,4 @@
-import { BaseApiResponse, Institution, PhoneNumber, User } from '@/common/types'
+import { BaseApiResponse, Institution, PhoneNumber, Sort, User } from '@/common/types'
 
 export interface AdminRegistrationApplication {
   id: string
@@ -43,9 +43,6 @@ export interface GetRegisterSummary extends BaseApiResponse {
 export interface AdminRegistrationApplicationsSearchParams {
   page: number
   per_page: number
-  sort?: {
-    column: string
-    direction: 'asc' | 'desc' | null
-  }
+  sort?: Sort
   statuses: string[]
 }
