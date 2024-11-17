@@ -7,6 +7,7 @@ import StatusFilter from '@/components/ui/status-filter'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
 import { StatusData } from '@/constants/statusData'
+import { usePagination } from '@/hooks/usePagination'
 import { handleApiError } from '@/lib/handleApiError'
 import {
   AdminRegistrationApplication,
@@ -46,6 +47,8 @@ const Page = (): JSX.Element => {
     currentPage: 1,
   })
 
+  const { handlePageChange } = usePagination()
+
   const fetchData = useCallback(
     (page: number, statuses: string[], sort: Sort) => {
       const searchParams: AdminRegistrationApplicationsSearchParams = {
@@ -59,7 +62,7 @@ const Page = (): JSX.Element => {
 
       getAdminRegistrationApplications(searchParams)
         .then((response) => {
-          if (!response.data.isSuccess) {
+          if (response.data.isSuccess) {
             const { content, totalElementCount, totalPageCount } =
               response.data.response
 
@@ -104,12 +107,6 @@ const Page = (): JSX.Element => {
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
-
-  const handlePageChange = (page: number) => {
-    const updatedParams = new URLSearchParams(searchParams)
-    updatedParams.set('page', page.toString())
-    router.push(`/admin-registration-applications?${updatedParams.toString()}`)
-  }
 
   const handleStatusChange = (statuses: string[]) => {
     const updatedParams = new URLSearchParams(searchParams)
@@ -161,7 +158,9 @@ const Page = (): JSX.Element => {
         data={adminRegistrationApplicationList}
         totalElements={totalRows}
         pageSize={pageSize}
-        onPageChange={handlePageChange}
+        onPageChange={(page) =>
+          handlePageChange(page, '/admin-registration-applications')
+        }
         currentPage={filters.currentPage}
       />
       <Toaster />
