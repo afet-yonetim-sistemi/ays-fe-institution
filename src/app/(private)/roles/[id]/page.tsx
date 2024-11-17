@@ -347,7 +347,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     if (roleDetail) {
       setRoleDetail({
         ...roleDetail,
-        status: t(status),
+        status: status.toUpperCase(),
       })
     }
   }

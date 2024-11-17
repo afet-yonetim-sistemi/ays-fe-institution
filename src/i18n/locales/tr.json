@@ -174,7 +174,7 @@
     "noChangesError": "Değişiklik yapmadan rolü güncelleyemezsiniz.",
     "deleteConfirm": "Rolü silmek istediğinize emin misiniz?",
     "deletedSuccessfully": "Rol başarıyla silindi.",
-    "activatedSuccessfully": "Rol pasifleştirme işleminiz başarıyla gerçekleşmiştir..",
+    "activatedSuccessfully": "Rol aktifleştirme işleminiz başarıyla gerçekleşmiştir..",
     "deactivatedSuccessfully": "Rol pasifleştirme işleminiz başarıyla gerçekleşmiştir.",
     "activate": "Aktifleştir",
     "deactivate": "Pasifleştir",
