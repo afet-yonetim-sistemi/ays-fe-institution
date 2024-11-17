@@ -1,4 +1,10 @@
-import { BaseApiResponse, Institution, PhoneNumber, Sort, User } from '@/common/types'
+import {
+  BaseApiResponse,
+  Institution,
+  PhoneNumber,
+  Sort,
+  User,
+} from '@/common/types'
 
 export interface AdminRegistrationApplication {
   id: string
