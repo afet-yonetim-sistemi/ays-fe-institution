@@ -21,6 +21,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSort } from '@/hooks/useSort' // import the useSort hook
 
 const adminApplicationRegistrationStatuses = StatusData.filter((status) =>
   ['WAITING', 'COMPLETED', 'REJECTED', 'APPROVED'].includes(status.value)
@@ -49,6 +50,7 @@ const Page = (): JSX.Element => {
   })
 
   const { handlePageChange } = usePagination()
+  const handleSortChange = useSort(filters.sort)
 
   const fetchData = useCallback(
     (page: number, statuses: string[], sort: Sort) => {
@@ -113,23 +115,6 @@ const Page = (): JSX.Element => {
     const updatedParams = new URLSearchParams(searchParams)
     updatedParams.set('page', '1')
     updatedParams.set('status', statuses.join(','))
-    router.push(`${pathname}?${updatedParams.toString()}`) // Use pathname here
-  }
-
-  const handleSortChange = (column: { id: string }) => {
-    const columnId = column.id
-    const newDirection =
-      filters.sort.column === columnId
-        ? filters.sort.direction === 'asc'
-          ? 'desc'
-          : filters.sort.direction === 'desc'
-            ? null
-            : 'asc'
-        : 'asc'
-
-    const updatedParams = new URLSearchParams(searchParams)
-    updatedParams.set('page', '1')
-    updatedParams.set('sort', newDirection ? `${columnId},${newDirection}` : '')
     router.push(`${pathname}?${updatedParams.toString()}`)
   }
 
