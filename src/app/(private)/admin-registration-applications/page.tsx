@@ -16,7 +16,7 @@ import { getAdminRegistrationApplications } from '@/modules/adminRegistrationApp
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -33,20 +33,20 @@ const Page = (): JSX.Element => {
     setAdminRegistrationApplicationList,
   ] = useState<AdminRegistrationApplication[]>([])
   const [totalRows, setTotalRows] = useState(0)
-  const [currentPage, setCurrentPage] = useState(1)
   const [filters, setFilters] = useState<{
     statuses: string[]
     sort: {
       column: string
       direction: 'asc' | 'desc' | ''
     }
+    currentPage: number
   }>({
     statuses: [],
     sort: { column: '', direction: '' },
+    currentPage: 1,
   })
 
   const pageSize = 10
-  const searchParams = useSearchParams()
 
   const fetchData = useCallback(
     (
@@ -87,57 +87,42 @@ const Page = (): JSX.Element => {
     [router]
   )
 
-  useEffect(() => {
-    const currentPage = parseInt(searchParams.get('page') ?? '1')
-    const statusParam = searchParams.get('status')
-    const sortParam = searchParams.get('sort')?.split(',')
-
-    const initialStatuses = statusParam ? statusParam.split(',') : []
-    const initialSortOptions: {
-      column: string
-      direction: '' | 'asc' | 'desc'
-    } = sortParam
-      ? { column: sortParam[0], direction: sortParam[1] as '' | 'asc' | 'desc' }
-      : { column: '', direction: '' }
-
-    setCurrentPage(currentPage)
-    setFilters({
-      statuses: initialStatuses,
-      sort: initialSortOptions,
-    })
-    fetchData(currentPage, initialStatuses, initialSortOptions)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-    router.push(
-      `/admin-registration-applications?page=${page}&status=${filters.statuses.join(',')}`
-    )
-  }
-
-  const handleStatusChange = (statuses: string[]) => {
-    setFilters({
-      ...filters,
-      statuses,
-    })
-
-    const statusQuery = statuses.length ? `&status=${statuses.join(',')}` : ''
+  const initialFetch = useCallback(() => {
+    const statusQuery = filters.statuses.length
+      ? `&status=${filters.statuses.join(',')}`
+      : ''
     const sortQuery =
       filters.sort.column && filters.sort.direction
         ? `&sort=${filters.sort.column},${filters.sort.direction}`
         : ''
 
-    router.push(
-      `/admin-registration-applications?page=1${statusQuery}${sortQuery}`
-    )
+    const queryString = `/admin-registration-applications?page=${filters.currentPage}${statusQuery}${sortQuery}`
+    router.push(queryString)
+
+    fetchData(filters.currentPage, filters.statuses, filters.sort)
+  }, [filters, fetchData, router])
+
+  useEffect(() => {
+    initialFetch()
+  }, [initialFetch])
+
+  const handlePageChange = (page: number) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      currentPage: page,
+    }))
+  }
+
+  const handleStatusChange = (statuses: string[]) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      statuses,
+      currentPage: 1,
+    }))
   }
 
   const handleSortChange = (column: { id: string }) => {
     const columnId = column.id
-    const statusQuery = filters.statuses.length
-      ? `&status=${filters.statuses.join(',')}`
-      : ''
     let newDirection: '' | 'asc' | 'desc' = ''
 
     if (filters.sort.column === columnId) {
@@ -151,23 +136,11 @@ const Page = (): JSX.Element => {
       newDirection = 'asc'
     }
 
-    if (newDirection === '') {
-      setFilters({
-        ...filters,
-        sort: { column: '', direction: '' },
-      })
-    } else {
-      setFilters({
-        ...filters,
-        sort: { column: columnId, direction: newDirection },
-      })
-    }
-
-    const sortQuery = newDirection ? `&sort=${columnId},${newDirection}` : ''
-
-    router.push(
-      `/admin-registration-applications?page=1${statusQuery}${sortQuery}`
-    )
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      sort: { column: columnId, direction: newDirection },
+      currentPage: 1,
+    }))
   }
 
   return (
@@ -197,7 +170,7 @@ const Page = (): JSX.Element => {
         totalElements={totalRows}
         pageSize={pageSize}
         onPageChange={handlePageChange}
-        currentPage={currentPage}
+        currentPage={filters.currentPage}
       />
       <Toaster />
     </div>
