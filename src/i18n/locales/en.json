@@ -174,10 +174,12 @@
     "noChangesError": "Cannot update the role without making any changes",
     "deleteConfirm": "Are you sure you want to delete this role?",
     "deletedSuccessfully": "Role deleted successfully.",
-    "activatedSuccessfully": "Role activated successfully.",
-    "deactivatedSuccessfully": "Role deactivated successfully.",
+    "activatedSuccessfully": "Role activation was successful.",
+    "deactivatedSuccessfully": "Role deactivation was successful.",
     "activate": "Activate",
-    "deactivate": "Deactivate"
+    "deactivate": "Deactivate",
+    "activateConfirm": "Are you sure you want to activate this role?",
+    "deactivateConfirm": "Are you sure you want to deactivate this role?"
   },
   "permissions": {
     "superAdmin": "Super Admin",
