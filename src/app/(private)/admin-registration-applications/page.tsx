@@ -39,11 +39,11 @@ const Page = (): JSX.Element => {
 
   const [filters, setFilters] = useState<{
     statuses: string[]
-    sort: { column: string; direction: 'asc' | 'desc' | '' }
+    sort: { column: string; direction: 'asc' | 'desc' | null }
     currentPage: number
   }>({
     statuses: [],
-    sort: { column: '', direction: '' },
+    sort: { column: '', direction: null },
     currentPage: 1,
   })
 
@@ -51,7 +51,7 @@ const Page = (): JSX.Element => {
     (
       page: number,
       statuses: string[],
-      sort: { column: string; direction: 'asc' | 'desc' | '' }
+      sort: { column: string; direction: 'asc' | 'desc' | null }
     ) => {
       const searchParams: AdminRegistrationApplicationsSearchParams = {
         page,
@@ -90,17 +90,17 @@ const Page = (): JSX.Element => {
     const statuses =
       statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
     const sortParam = searchParams.get('sort')
-    const [column = '', direction = ''] = sortParam ? sortParam.split(',') : []
+    const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
     setFilters({
       currentPage,
       statuses,
-      sort: { column, direction: direction as 'asc' | 'desc' | '' },
+      sort: { column, direction: direction as 'asc' | 'desc' | null },
     })
 
     fetchData(currentPage, statuses, {
       column,
-      direction: direction as 'asc' | 'desc' | '',
+      direction: direction as 'asc' | 'desc' | null,
     })
   }, [searchParams, fetchData])
 
@@ -128,7 +128,7 @@ const Page = (): JSX.Element => {
         ? filters.sort.direction === 'asc'
           ? 'desc'
           : filters.sort.direction === 'desc'
-            ? ''
+            ? null
             : 'asc'
         : 'asc'
 

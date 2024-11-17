@@ -45,7 +45,7 @@ export interface AdminRegistrationApplicationsSearchParams {
   per_page: number
   sort?: {
     column: string
-    direction: 'asc' | 'desc'
+    direction: 'asc' | 'desc' | null
   }
   statuses: string[]
 }

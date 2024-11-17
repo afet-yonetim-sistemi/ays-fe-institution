@@ -12,12 +12,11 @@ import { BaseApiResponse } from '@/common/types'
 export const getAdminRegistrationApplications = (
   search: AdminRegistrationApplicationsSearchParams
 ): Promise<AxiosResponse> => {
-  // Check if sort is defined and only add 'orders' if it is
-  const sortBy = search.sort
+  const sortBy = search.sort?.direction
     ? [
         {
-          property: search.sort.column, // Access the column name correctly
-          direction: search.sort.direction.toUpperCase(), // Ensure direction is uppercase
+          property: search.sort.column,
+          direction: search.sort.direction.toUpperCase(),
         },
       ]
     : undefined
@@ -26,7 +25,7 @@ export const getAdminRegistrationApplications = (
     pageable: {
       page: search.page || 1,
       pageSize: search.per_page || 10,
-      ...(sortBy ? { orders: sortBy } : {}), // Only add 'orders' if sortBy exists
+      ...(sortBy ? { orders: sortBy } : {}),
     },
     filter: {
       statuses: search.statuses,

@@ -15,7 +15,7 @@ export interface AdminRegistrationApplication {
 }
 
 export const columns: (
-  filters: { sort: { column: string; direction: 'asc' | 'desc' | '' } },
+  filters: { sort: { column: string; direction: 'asc' | 'desc' | null } },
   onSortClick: (column: Column<AdminRegistrationApplication>) => void
 ) => ColumnDef<AdminRegistrationApplication>[] = (filters, onSortClick) => [
   {
