@@ -21,7 +21,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSort } from '@/hooks/useSort' // import the useSort hook
+import { useSort } from '@/hooks/useSort'
 
 const adminApplicationRegistrationStatuses = StatusData.filter((status) =>
   ['WAITING', 'COMPLETED', 'REJECTED', 'APPROVED'].includes(status.value)
