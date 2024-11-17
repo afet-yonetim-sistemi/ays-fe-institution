@@ -1,5 +1,6 @@
 'use client'
 
+import { Sort } from '@/common/types'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import StatusFilter from '@/components/ui/status-filter'
@@ -34,12 +35,10 @@ const Page = (): JSX.Element => {
     setAdminRegistrationApplicationList,
   ] = useState<AdminRegistrationApplication[]>([])
   const [totalRows, setTotalRows] = useState(0)
-
   const pageSize = 10
-
   const [filters, setFilters] = useState<{
     statuses: string[]
-    sort: { column: string; direction: 'asc' | 'desc' | null }
+    sort: Sort
     currentPage: number
   }>({
     statuses: [],
@@ -48,11 +47,7 @@ const Page = (): JSX.Element => {
   })
 
   const fetchData = useCallback(
-    (
-      page: number,
-      statuses: string[],
-      sort: { column: string; direction: 'asc' | 'desc' | null }
-    ) => {
+    (page: number, statuses: string[], sort: Sort) => {
       const searchParams: AdminRegistrationApplicationsSearchParams = {
         page,
         per_page: pageSize,
@@ -64,7 +59,7 @@ const Page = (): JSX.Element => {
 
       getAdminRegistrationApplications(searchParams)
         .then((response) => {
-          if (response.data.isSuccess) {
+          if (!response.data.isSuccess) {
             const { content, totalElementCount, totalPageCount } =
               response.data.response
 
@@ -76,10 +71,12 @@ const Page = (): JSX.Element => {
             setAdminRegistrationApplicationList(content)
             setTotalRows(totalElementCount)
           } else {
-            handleApiError(response.data)
+            handleApiError()
           }
         })
-        .catch(handleApiError)
+        .catch((error) => {
+          handleApiError(error)
+        })
     },
     [router]
   )
