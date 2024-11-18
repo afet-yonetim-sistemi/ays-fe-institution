@@ -1,6 +1,5 @@
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
-import React from 'react'
 
 export default function RootLayout({
   children,
