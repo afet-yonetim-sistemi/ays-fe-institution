@@ -21,15 +21,18 @@ function LanguageToggle(): JSX.Element {
   }
   return (
     <div className="flex gap-2">
-      <Select onValueChange={(lng: string) => changeLanguage(lng)} value={lang}>
+      <Select
+        onValueChange={(language: string) => changeLanguage(language)}
+        value={lang}
+      >
         <SelectTrigger>
           <SelectValue placeholder={i18next.t(lang)} />
         </SelectTrigger>
         <SelectContent>
-          {supportedLanguages.map((lng) => {
+          {supportedLanguages.map((language) => {
             return (
-              <SelectItem key={lng} value={lng}>
-                {i18next.t(`languages.${lng}`)}
+              <SelectItem key={language} value={language}>
+                {i18next.t(`languages.${language}`)}
               </SelectItem>
             )
           })}

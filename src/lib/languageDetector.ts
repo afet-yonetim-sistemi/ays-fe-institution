@@ -1,3 +1,6 @@
+const supportedLanguages = ['en', 'tr']
+const fallbackLanguage = 'en'
+
 const detectLanguage = (): string => {
   if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
     const selectedLanguage = localStorage.getItem('language')
@@ -8,10 +11,9 @@ const detectLanguage = (): string => {
   return 'en'
 }
 
-export const supportedLanguages = ['en', 'tr']
-const fallbackLanguage = 'en'
-
 const detectedLanguage = detectLanguage()
-export const languageToUse = supportedLanguages.includes(detectedLanguage)
+const languageToUse = supportedLanguages.includes(detectedLanguage)
   ? detectedLanguage
   : fallbackLanguage
+
+export { languageToUse, supportedLanguages }
