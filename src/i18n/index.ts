@@ -20,12 +20,4 @@ i18n.init({
   },
 })
 
-const changeLanguage = (lng: string): void => {
-  i18n.changeLanguage(lng)
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('language', lng)
-  }
-}
-
 export default i18n
-export { changeLanguage }

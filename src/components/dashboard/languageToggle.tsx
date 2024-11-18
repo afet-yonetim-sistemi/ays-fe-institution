@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Select,
   SelectContent,
@@ -7,19 +7,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { changeLanguage } from '@/i18n'
 import { supportedLanguages } from '@/lib/languageDetector'
 import i18next from 'i18next'
 
 function LanguageToggle(): JSX.Element {
+  const [lang, setLang] = useState(i18next.language)
+  const changeLanguage = (lng: string): void => {
+    i18next.changeLanguage(lng).then((r) => r)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('language', lng)
+    }
+    setLang(lng)
+  }
   return (
     <div className="flex gap-2">
-      <Select
-        onValueChange={(lng: string) => changeLanguage(lng)}
-        value={i18next.language}
-      >
+      <Select onValueChange={(lng: string) => changeLanguage(lng)} value={lang}>
         <SelectTrigger>
-          <SelectValue placeholder={i18next.t(i18next.language)} />
+          <SelectValue placeholder={i18next.t(lang)} />
         </SelectTrigger>
         <SelectContent>
           {supportedLanguages.map((lng) => {
