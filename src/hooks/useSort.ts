@@ -1,10 +1,6 @@
+import { Sort } from '@/common/types'
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
-
-type Sort = {
-  column: string
-  direction: 'asc' | 'desc' | null
-}
 
 export const useSort = (sort: Sort) => {
   const router = useRouter()
@@ -12,18 +8,20 @@ export const useSort = (sort: Sort) => {
 
   const handleSortChange = (column: { id: string }) => {
     const columnId = column.id
+
     const newDirection =
-      sort.column === columnId
+      sort?.column === columnId
         ? sort.direction === 'asc'
           ? 'desc'
           : sort.direction === 'desc'
-            ? null
+            ? undefined
             : 'asc'
         : 'asc'
 
     const updatedParams = new URLSearchParams(searchParams)
     updatedParams.set('page', '1')
     updatedParams.set('sort', newDirection ? `${columnId},${newDirection}` : '')
+
     router.push(`?${updatedParams.toString()}`)
   }
 

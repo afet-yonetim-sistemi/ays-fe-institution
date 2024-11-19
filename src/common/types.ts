@@ -1,8 +1,9 @@
-export type SortDirection = 'asc' | 'desc' | null
-export interface Sort {
+export type SortDirection = 'asc' | 'desc' | undefined
+
+export type Sort = {
   column: string
   direction: SortDirection
-}
+} | undefined
 
 export interface User {
   id: string

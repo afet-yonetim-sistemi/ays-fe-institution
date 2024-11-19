@@ -12,7 +12,7 @@ import { Column } from '@tanstack/table-core'
 interface DataTableSortProps<T> {
   column: Column<T>
   label: string
-  sortState: { column: string; direction: 'asc' | 'desc' | null }
+  sortState: { column: string; direction: 'asc' | 'desc' | undefined }
   onSortClick: (column: Column<T>) => void
 }
 
@@ -22,8 +22,8 @@ const DataTableSort = <T extends object>({
   sortState,
   onSortClick,
 }: DataTableSortProps<T>) => {
-  const isCurrentColumn = column.id === sortState.column
-  const sortDirection = isCurrentColumn ? sortState.direction : null
+  const isCurrentColumn = sortState?.column === column.id
+  const sortDirection = isCurrentColumn ? sortState?.direction : undefined
 
   return (
     <TooltipProvider>
@@ -54,7 +54,7 @@ const DataTableSort = <T extends object>({
   )
 }
 
-const SortIcon = ({ sort }: { sort: string | null }) => {
+const SortIcon = ({ sort }: { sort: 'asc' | 'desc' | undefined }) => {
   if (sort === 'asc') return <BiSortUp className="h-4 w-4" />
   if (sort === 'desc') return <BiSortDown className="h-4 w-4" />
   return <BiSort className="h-4 w-4" />

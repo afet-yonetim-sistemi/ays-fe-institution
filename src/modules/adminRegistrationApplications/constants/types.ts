@@ -46,9 +46,9 @@ export interface GetRegisterSummary extends BaseApiResponse {
   }
 }
 
-export interface AdminRegistrationApplicationsSearchParams {
+export interface AdminRegistrationApplicationsFilter {
   page: number
-  per_page: number
+  pageSize: number
   sort?: Sort
   statuses: string[]
 }

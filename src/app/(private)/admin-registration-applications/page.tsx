@@ -1,6 +1,5 @@
 'use client'
 
-import { Sort } from '@/common/types'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import StatusFilter from '@/components/ui/status-filter'
@@ -13,7 +12,7 @@ import {
   AdminRegistrationApplication,
   columns,
 } from '@/modules/adminRegistrationApplications/components/columns'
-import { AdminRegistrationApplicationsSearchParams } from '@/modules/adminRegistrationApplications/constants/types'
+import { AdminRegistrationApplicationsFilter } from '@/modules/adminRegistrationApplications/constants/types'
 import { getAdminRegistrationApplications } from '@/modules/adminRegistrationApplications/service'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
@@ -39,37 +38,25 @@ const Page = (): JSX.Element => {
   ] = useState<AdminRegistrationApplication[]>([])
   const [totalRows, setTotalRows] = useState(0)
   const pageSize = 10
-  const [filters, setFilters] = useState<{
-    statuses: string[]
-    sort: Sort
-    currentPage: number
-  }>({
+  const [filters, setFilters] = useState<AdminRegistrationApplicationsFilter>({
+    page: 1,
+    pageSize,
     statuses: [],
-    sort: { column: '', direction: null },
-    currentPage: 1,
+    sort: undefined,
   })
 
   const { handlePageChange } = usePagination()
   const handleSortChange = useSort(filters.sort)
 
   const fetchData = useCallback(
-    (page: number, statuses: string[], sort: Sort) => {
-      const searchParams: AdminRegistrationApplicationsSearchParams = {
-        page,
-        per_page: pageSize,
-        sort: sort.direction
-          ? { column: sort.column, direction: sort.direction }
-          : undefined,
-        statuses,
-      }
-
-      getAdminRegistrationApplications(searchParams)
+    (filters: AdminRegistrationApplicationsFilter) => {
+      getAdminRegistrationApplications(filters)
         .then((response) => {
           if (response.data.isSuccess) {
             const { content, totalElementCount, totalPageCount } =
               response.data.response
 
-            if (page > totalPageCount) {
+            if (filters.page > totalPageCount) {
               router.push('/not-found')
               return
             }
@@ -95,17 +82,18 @@ const Page = (): JSX.Element => {
     const sortParam = searchParams.get('sort')
     const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
-    setFilters({
-      currentPage,
+    const updatedFilters: AdminRegistrationApplicationsFilter = {
+      page: currentPage,
+      pageSize,
       statuses,
-      sort: { column, direction: direction as 'asc' | 'desc' | null },
-    })
+      sort: column
+        ? { column, direction: direction as 'asc' | 'desc' | undefined }
+        : undefined,
+    }
 
-    fetchData(currentPage, statuses, {
-      column,
-      direction: direction as 'asc' | 'desc' | null,
-    })
-  }, [searchParams, fetchData])
+    setFilters(updatedFilters)
+    fetchData(updatedFilters)
+  }, [searchParams, fetchData, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()
@@ -140,12 +128,12 @@ const Page = (): JSX.Element => {
         />
       </div>
       <DataTable
-        columns={columns(filters, handleSortChange)}
+        columns={columns({ sort: filters.sort }, handleSortChange)}
         data={adminRegistrationApplicationList}
         totalElements={totalRows}
-        pageSize={pageSize}
+        pageSize={filters.pageSize}
         onPageChange={(page) => handlePageChange(page, pathname)}
-        currentPage={filters.currentPage}
+        currentPage={filters.page}
       />
       <Toaster />
     </div>
