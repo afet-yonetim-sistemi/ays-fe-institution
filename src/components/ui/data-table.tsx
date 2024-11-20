@@ -19,6 +19,7 @@ import { t } from 'i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { LoadingSpinner } from './loadingSpinner'
 
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -28,6 +29,7 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   currentPage: number
   onPageChange: (page: number) => void
   enableRowClick?: boolean
+  loading: boolean
 }
 
 export function DataTable<TData extends { id: string }, TValue>({
@@ -38,6 +40,7 @@ export function DataTable<TData extends { id: string }, TValue>({
   currentPage,
   onPageChange,
   enableRowClick = true,
+  loading,
 }: Readonly<DataTableProps<TData, TValue>>): JSX.Element {
   const router = useRouter()
   const pathname = usePathname()
@@ -101,33 +104,52 @@ export function DataTable<TData extends { id: string }, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  onClick={() => handleRowClick(row.original)}
-                  className="cursor-pointer hover:accent"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+            {(() => {
+              if (loading) {
+                return (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-24 text-center"
+                    >
+                      <div className="flex justify-center items-center h-full">
+                        <LoadingSpinner />
+                      </div>
                     </TableCell>
-                  ))}
+                  </TableRow>
+                )
+              }
+
+              if (table.getRowModel().rows?.length) {
+                return table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    onClick={() => handleRowClick(row.original)}
+                    className="cursor-pointer hover:accent"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              }
+
+              return (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    {t('noResult')}
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  {t('noResult')}
-                </TableCell>
-              </TableRow>
-            )}
+              )
+            })()}
           </TableBody>
         </Table>
       </div>

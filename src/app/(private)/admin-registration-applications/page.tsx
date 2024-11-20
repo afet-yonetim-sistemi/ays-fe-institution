@@ -36,6 +36,7 @@ const Page = (): JSX.Element => {
     adminRegistrationApplicationList,
     setAdminRegistrationApplicationList,
   ] = useState<AdminRegistrationApplication[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
   const pageSize = 10
   const [filters, setFilters] = useState<AdminRegistrationApplicationsFilter>({
@@ -50,6 +51,7 @@ const Page = (): JSX.Element => {
 
   const fetchData = useCallback(
     (filters: AdminRegistrationApplicationsFilter) => {
+      setIsLoading(true)
       getAdminRegistrationApplications(filters)
         .then((response) => {
           if (response.data.isSuccess) {
@@ -70,12 +72,15 @@ const Page = (): JSX.Element => {
         .catch((error) => {
           handleApiError(error)
         })
+        .finally(() => {
+          setIsLoading(false)
+        })
     },
     [router]
   )
 
   const syncFiltersWithQuery = useCallback(() => {
-    const currentPage = parseInt(searchParams.get('page') || '1', 10)
+    const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
     const statusesParam = searchParams.get('status')
     const statuses =
       statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
@@ -134,6 +139,7 @@ const Page = (): JSX.Element => {
         pageSize={filters.pageSize}
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
+        loading={isLoading}
       />
       <Toaster />
     </div>
