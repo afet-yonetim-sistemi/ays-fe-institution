@@ -1,6 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { useState } from 'react'
 import {
   Select,
   SelectContent,
@@ -8,49 +7,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { changeLanguage } from '@/i18n'
-
-type Language = {
-  nativeName: string
-}
-
-type Languages = {
-  [key: string]: Language
-}
-
-const lngs: Languages = {
-  en: { nativeName: 'English' },
-  tr: { nativeName: 'Türkçe' },
-}
+import { supportedLanguages } from '@/lib/languageDetector'
+import i18next from 'i18next'
 
 function LanguageToggle(): JSX.Element {
-  const { i18n } = useTranslation()
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language)
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') ?? 'tr'
-    if (i18n.language !== savedLanguage) {
-      i18n.changeLanguage(savedLanguage)
+  const [selectedLanguage, setSelectedLanguage] = useState(i18next.language)
+  const changeLanguage = (language: string): void => {
+    i18next.changeLanguage(language)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('language', language)
     }
-  }, [i18n])
-
-  const handleLanguageChange = (lng: string): void => {
-    setSelectedLanguage(lng)
-    changeLanguage(lng)
-    localStorage.setItem('language', lng)
+    setSelectedLanguage(language)
   }
-
   return (
     <div className="flex gap-2">
-      <Select onValueChange={handleLanguageChange} value={selectedLanguage}>
+      <Select
+        onValueChange={(language: string) => changeLanguage(language)}
+        value={selectedLanguage}
+      >
         <SelectTrigger>
-          <SelectValue placeholder={lngs[i18n.language].nativeName} />
+          <SelectValue placeholder={i18next.t(selectedLanguage)} />
         </SelectTrigger>
         <SelectContent>
-          {Object.keys(lngs).map((lng) => {
+          {supportedLanguages.map((language) => {
             return (
-              <SelectItem key={lng} value={lng}>
-                {lngs[lng].nativeName}
+              <SelectItem key={language} value={language}>
+                {i18next.t(`languages.${language}`)}
               </SelectItem>
             )
           })}

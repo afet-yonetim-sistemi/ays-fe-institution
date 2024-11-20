@@ -209,5 +209,9 @@
     "landingPage": "Landing Page",
     "institutionPage": "Institution Page",
     "error": "Error while fetching role permission details. Please try again"
+  },
+  "languages": {
+    "en": "English",
+    "tr": "Turkish"
   }
 }
