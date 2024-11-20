@@ -12,14 +12,12 @@ const resources = {
   },
 }
 
-i18n
-  .init({
-    resources,
-    lng: languageToUse,
-    interpolation: {
-      escapeValue: false,
-    },
-  })
-  .then((r) => r)
+i18n.init({
+  resources,
+  lng: languageToUse,
+  interpolation: {
+    escapeValue: false,
+  },
+})
 
 export default i18n

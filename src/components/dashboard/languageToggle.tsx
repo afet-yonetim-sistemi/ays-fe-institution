@@ -11,22 +11,22 @@ import { supportedLanguages } from '@/lib/languageDetector'
 import i18next from 'i18next'
 
 function LanguageToggle(): JSX.Element {
-  const [lang, setLang] = useState(i18next.language)
-  const changeLanguage = (lng: string): void => {
-    i18next.changeLanguage(lng).then((r) => r)
+  const [selectedLanguage, setSelectedLanguage] = useState(i18next.language)
+  const changeLanguage = (language: string): void => {
+    i18next.changeLanguage(language)
     if (typeof window !== 'undefined') {
-      localStorage.setItem('language', lng)
+      localStorage.setItem('language', language)
     }
-    setLang(lng)
+    setSelectedLanguage(language)
   }
   return (
     <div className="flex gap-2">
       <Select
         onValueChange={(language: string) => changeLanguage(language)}
-        value={lang}
+        value={selectedLanguage}
       >
         <SelectTrigger>
-          <SelectValue placeholder={i18next.t(lang)} />
+          <SelectValue placeholder={i18next.t(selectedLanguage)} />
         </SelectTrigger>
         <SelectContent>
           {supportedLanguages.map((language) => {
