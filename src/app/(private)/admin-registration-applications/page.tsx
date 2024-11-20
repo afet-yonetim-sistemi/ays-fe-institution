@@ -21,6 +21,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSort } from '@/hooks/useSort'
+import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 
 const adminApplicationRegistrationStatuses = StatusData.filter((status) =>
   ['WAITING', 'COMPLETED', 'REJECTED', 'APPROVED'].includes(status.value)
@@ -47,6 +48,7 @@ const Page = (): JSX.Element => {
   })
 
   const { handlePageChange } = usePagination()
+  const handleFilterChange = useHandleFilterChange()
   const handleSortChange = useSort(filters.sort)
 
   const fetchData = useCallback(
@@ -104,13 +106,6 @@ const Page = (): JSX.Element => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
-  const handleStatusChange = (statuses: string[]) => {
-    const updatedParams = new URLSearchParams(searchParams)
-    updatedParams.set('page', '1')
-    updatedParams.set('status', statuses.join(','))
-    router.push(`${pathname}?${updatedParams.toString()}`)
-  }
-
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -129,7 +124,7 @@ const Page = (): JSX.Element => {
         <StatusFilter
           statuses={adminApplicationRegistrationStatuses}
           selectedStatuses={filters.statuses}
-          onStatusChange={handleStatusChange}
+          onStatusChange={(statuses) => handleFilterChange('status', statuses)}
         />
       </div>
       <DataTable
