@@ -2,7 +2,7 @@ import http from '@/configs/axiosConfig'
 import {
   RoleApiResponse,
   RolePermissionApiResponse,
-  Search,
+  RolesFilter,
 } from '../roles/constants/types'
 import { AxiosResponse } from 'axios'
 import { BaseApiResponse } from '@/common/types'
@@ -13,28 +13,25 @@ export const getPermissions = async (): Promise<RolePermissionApiResponse> => {
     .then((response) => response.data)
 }
 
-export const postRoles = (search: Search): Promise<AxiosResponse> => {
-  const sortBy = search.sort
+export const getRoles = (filter: RolesFilter): Promise<AxiosResponse> => {
+  const sortBy = filter.sort?.direction
     ? [
         {
-          property: search.sort.split('.')[0],
-          direction: search.sort.split('.')[1].toUpperCase(),
+          property: filter.sort.column,
+          direction: filter.sort.direction.toUpperCase(),
         },
       ]
-    : []
-  const filterStatus = search.status
-    ? search.status?.toUpperCase().split(`.`)
-    : []
+    : undefined
 
   return http.post('/api/v1/roles', {
     pageable: {
-      page: search.page,
-      pageSize: search.per_page,
-      orders: sortBy,
+      page: filter.page || 1,
+      pageSize: filter.pageSize || 10,
+      ...(sortBy ? { orders: sortBy } : {}),
     },
     filter: {
-      name: search.name,
-      statuses: filterStatus,
+      name: filter.name && filter.name.trim() ? filter.name : undefined,
+      statuses: filter.statuses,
     },
   })
 }

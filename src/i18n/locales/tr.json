@@ -11,7 +11,9 @@
     "save": "Kaydet",
     "delete": "Sil",
     "error": "Hata",
-    "city": "Şehir"
+    "city": "Şehir",
+    "createdAt": "Oluşturulma Tarihi",
+    "updatedAt": "Güncellenme Tarihi"
   },
   "error": {
     "default": "Bir hata oluştu. Lütfen tekrar deneyin.",
@@ -57,7 +59,6 @@
   "receivedThirdApprove": "3. Onay Alındı",
   "cancelled": "İptal Edildi",
   "creationReason": "Oluşturulma Sebebi",
-  "createdAt": "Oluşturulma Tarihi",
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",
   "success": "Başarılı",

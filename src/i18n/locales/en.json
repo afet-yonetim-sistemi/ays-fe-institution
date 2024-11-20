@@ -11,7 +11,9 @@
     "save": "Save",
     "delete": "Delete",
     "error": "Error",
-    "city": "City"
+    "city": "City",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
   },
   "error": {
     "default": "An error occurred. Please try again later.",
@@ -56,7 +58,6 @@
   "receivedThirdApprove": "Received Third Approve",
   "cancelled": "Cancelled",
   "creationReason": "Creation Reason",
-  "createdAt": "Created At",
   "createdUser": "Created User",
   "noResult": "No Results...",
   "success": "Success",

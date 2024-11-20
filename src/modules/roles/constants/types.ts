@@ -1,4 +1,4 @@
-import { BaseApiResponse } from '@/common/types'
+import { BaseApiResponse, Sort } from '@/common/types'
 
 export interface Roles {
   // eslint-disable-next-line
@@ -13,14 +13,12 @@ export interface RolesTableProps {
   updatedAt: string
 }
 
-export interface Search {
+export interface RolesFilter {
   page: number
-  per_page: number
-  sort: string | undefined
-  name: string | undefined
-  status: string | undefined
-  createdAt: string | undefined
-  updatedAt: string | undefined
+  pageSize: number
+  sort?: Sort
+  name?: string
+  statuses: string[]
 }
 
 export interface StatusProps {
