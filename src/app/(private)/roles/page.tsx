@@ -49,8 +49,7 @@ const Page = (): JSX.Element => {
           if (response.data.isSuccess) {
             const { content, totalElementCount, totalPageCount } =
               response.data.response
-
-            if (filters.page > totalPageCount) {
+            if (filters.page > totalPageCount && totalPageCount > 0) {
               router.push('/not-found')
               return
             }
@@ -100,7 +99,7 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-medium">{t('roles')}</h1>
-      <div>
+      <div className="flex items-center gap-4">
         <StatusFilter
           statuses={roleStatuses}
           selectedStatuses={filters.statuses}
@@ -110,8 +109,8 @@ const Page = (): JSX.Element => {
           type="text"
           value={filters.name}
           onChange={(e) => handleFilterChange('name', e.target.value)}
-          placeholder={t('role.name')}
-          className="input"
+          placeholder={t('common.searchName')}
+          className="input w-60"
         />
       </div>
       <DataTable

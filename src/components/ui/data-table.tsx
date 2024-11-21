@@ -156,7 +156,7 @@ export function DataTable<TData extends { id: string }, TValue>({
       <div className="flex items-center justify-end p-4 space-x-2">
         <Button
           onClick={handlePreviousPage}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || totalPages === 0}
           size="sm"
         >
           <ChevronLeft size={16} />
@@ -216,7 +216,7 @@ export function DataTable<TData extends { id: string }, TValue>({
 
         <Button
           onClick={handleNextPage}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || totalPages === 0}
           size="sm"
         >
           <ChevronRight size={16} />
