@@ -1,40 +1,37 @@
 import http from '@/configs/axiosConfig'
 import {
   EmergencyApplicationApiResponse,
-  Search,
+  EmergencyEvacuationApplicationsFilter,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { AxiosResponse } from 'axios'
 
-export function postEmergencyEvacuationApplications(
-  search: Search
-): Promise<AxiosResponse> {
-  const sortBy = search.sort
+export const getEmergencyEvacuationApplications = (
+  filter: EmergencyEvacuationApplicationsFilter
+): Promise<AxiosResponse> => {
+  const sortBy = filter.sort?.direction
     ? [
         {
-          property: search.sort.split('.')[0],
-          direction: search.sort.split('.')[1].toUpperCase(),
+          property: filter.sort.column,
+          direction: filter.sort.direction.toUpperCase(),
         },
       ]
-    : []
-  const filterStatus = search.status
-    ? search.status?.toUpperCase().split(`.`)
-    : []
+    : undefined
 
   return http.post('/api/v1/emergency-evacuation-applications', {
     pageable: {
-      page: search.page,
-      pageSize: search.per_page,
-      orders: sortBy,
+      page: filter.page || 1,
+      pageSize: filter.pageSize || 10,
+      ...(sortBy ? { orders: sortBy } : {}),
     },
     filter: {
-      referenceNumber: search.referenceNumber,
-      sourceCity: search.sourceCity,
-      sourceDistrict: search.sourceDistrict,
-      seatingCount: search.seatingCount,
-      targetCity: search.targetCity,
-      targetDistrict: search.targetDistrict,
-      statuses: filterStatus,
-      isInPerson: search.isInPerson,
+      statuses: filter.statuses,
+      referenceNumber: filter.referenceNumber || undefined,
+      sourceCity: filter.sourceCity || undefined,
+      sourceDistrict: filter.sourceDistrict || undefined,
+      seatingCount: filter.seatingCount ?? undefined,
+      targetCity: filter.targetCity || undefined,
+      targetDistrict: filter.targetDistrict || undefined,
+      isInPerson: filter.isInPerson ?? undefined,
     },
   })
 }

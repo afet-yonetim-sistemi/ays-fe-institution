@@ -1,4 +1,4 @@
-import { BaseApiResponse, PhoneNumber } from '@/common/types'
+import { BaseApiResponse, PhoneNumber, Sort } from '@/common/types'
 
 export interface EmergencyEvacuationApplications {
   // eslint-disable-next-line
@@ -19,19 +19,18 @@ export interface EmergencyEvacuationApplicationsTableProps {
   phoneNumber: PhoneNumber
 }
 
-export interface Search {
+export interface EmergencyEvacuationApplicationsFilter {
   page: number
-  per_page: number
-  sort: string | undefined
-  status: string | undefined
-  // eslint-disable-next-line
-  referenceNumber: any
-  seatingCount: number | null
-  sourceCity: string | undefined
-  sourceDistrict: string | undefined
-  targetCity: string | undefined
-  targetDistrict: string | undefined
-  isInPerson: true | null
+  pageSize: number
+  sort?: Sort
+  statuses: string[]
+  referenceNumber?: string
+  sourceCity?: string
+  sourceDistrict?: string
+  seatingCount?: number
+  targetCity?: string
+  targetDistrict?: string
+  isInPerson?: boolean
 }
 
 export interface StatusProps {

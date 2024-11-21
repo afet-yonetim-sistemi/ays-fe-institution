@@ -5,10 +5,17 @@ import { StatusData } from '@/constants/statusData'
 
 const Status = ({ status }: { status: string }): JSX.Element => {
   const { t } = useTranslation()
+
   const getColorClass = (status: string): string => {
     const statusItem = StatusData.find((item) => item.value === status)
     return statusItem ? statusItem.color : ''
   }
+
+  const getTranslationKey = (status: string): string => {
+    const statusItem = StatusData.find((item) => item.value === status)
+    return statusItem ? statusItem.label : ''
+  }
+
   return (
     <span
       className={cn(
@@ -16,7 +23,7 @@ const Status = ({ status }: { status: string }): JSX.Element => {
         getColorClass(status)
       )}
     >
-      {t(`${status.toLowerCase()}`)}
+      {t(getTranslationKey(status))}
     </span>
   )
 }

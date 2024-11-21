@@ -35,7 +35,6 @@ const Page = (): JSX.Element => {
     page: 1,
     pageSize,
     statuses: [],
-    name: '',
     sort: undefined,
   })
 
@@ -74,7 +73,7 @@ const Page = (): JSX.Element => {
   const syncFiltersWithQuery = useCallback(() => {
     const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
     const statusesParam = searchParams.get('status')
-    const name = searchParams.get('name')?.trim() ?? ''
+    const name = searchParams.get('name') ?? ''
     const statuses =
       statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
     const sortParam = searchParams.get('sort')
@@ -84,7 +83,7 @@ const Page = (): JSX.Element => {
       page: currentPage,
       pageSize,
       statuses,
-      name,
+      name: name || '',
       sort: column
         ? { column, direction: direction as 'asc' | 'desc' | undefined }
         : undefined,
