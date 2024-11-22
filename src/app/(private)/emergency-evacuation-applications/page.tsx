@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import CheckboxFilter from '@/components/ui/checkbox-filter'
 import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
@@ -16,6 +17,7 @@ import {
   EmergencyEvacuationApplicationsFilter,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/service'
+import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -135,9 +137,18 @@ const Page = (): JSX.Element => {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-medium">
-        {t('emergencyEvacuationApplications.title')}
-      </h1>
+      <div className="flex items-center gap-4 mb-4">
+        <h1 className="text-2xl font-medium">
+          {t('emergencyEvacuationApplications.title')}
+        </h1>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => fetchData(filters)}
+        >
+          <RefreshCw className="h-4 w-4" />
+        </Button>
+      </div>
       <div className="flex items-center gap-4">
         <FilterInput
           id="referenceNumber"
