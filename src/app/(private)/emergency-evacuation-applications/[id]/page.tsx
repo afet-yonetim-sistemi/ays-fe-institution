@@ -20,9 +20,9 @@ import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/
 import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
-import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
 import { handleApiError } from '@/lib/handleApiError'
+import { getStatusLabel } from '@/lib/getStatusLabel'
 
 const Page = ({
   params,

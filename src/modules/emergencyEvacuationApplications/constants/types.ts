@@ -1,24 +1,5 @@
 import { BaseApiResponse, PhoneNumber, Sort } from '@/common/types'
 
-export interface EmergencyEvacuationApplications {
-  // eslint-disable-next-line
-  content: any[]
-  totalPageCount: number
-}
-
-export interface EmergencyEvacuationApplicationsTableProps {
-  id: string
-  // eslint-disable-next-line
-  referenceNumber: any
-  firstName: string
-  lastName: string
-  isInPerson: boolean
-  status: string[]
-  createdAt: string
-  seatingCount: number
-  phoneNumber: PhoneNumber
-}
-
 export interface EmergencyEvacuationApplicationsFilter {
   page: number
   pageSize: number
