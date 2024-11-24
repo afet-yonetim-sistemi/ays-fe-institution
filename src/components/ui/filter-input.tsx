@@ -38,7 +38,7 @@ const FilterInput: React.FC<FilterInputProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
 
-    if (id === 'seatCount' && type === 'number') {
+    if (id === 'seatingCount' && type === 'number') {
       const numValue = parseInt(newValue, 10)
       if (newValue && (isNaN(numValue) || numValue < 0 || numValue > 999)) {
         return
