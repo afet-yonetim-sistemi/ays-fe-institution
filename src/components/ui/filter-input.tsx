@@ -22,7 +22,6 @@ const FilterInput: React.FC<FilterInputProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const char = e.key
 
-    // Prevent input if it's not a number, backspace, or delete
     if (
       type === 'number' &&
       !/^[0-9]$/.test(char) &&
