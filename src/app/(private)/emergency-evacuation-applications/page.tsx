@@ -157,12 +157,14 @@ const Page = (): JSX.Element => {
           onChange={(e) =>
             handleFilterChange('referenceNumber', e.target.value)
           }
+          type="number"
         />
         <FilterInput
           id="seatingCount"
           label={t('seatingCount')}
           value={filters.seatingCount}
           onChange={(e) => handleFilterChange('seatingCount', e.target.value)}
+          type="number"
         />
         <StatusFilter
           statuses={emergencyEvacuationApplicationStatuses}
