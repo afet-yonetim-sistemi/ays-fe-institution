@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import i18n from '@/i18n'
 import { noNumberNoSpecialCharWithLengthValidation } from '@/lib/noNumberNoSpecialChar'
+import { emailRegex } from '@/constants/regex'
 
 const PhoneNumberSchema = z
   .object({
@@ -62,10 +63,10 @@ export const InstitutionFormSchema = z.object({
   emailAddress: z
     .string({
       required_error: i18n.t('requiredField', {
-        field: i18n.t('emailAddress'),
+        field: i18n.t('emailAddres'),
       }),
     })
-    .email(i18n.t('invalidEmail')),
+    .regex(emailRegex, i18n.t('invalidEmail')),
   city: z.string({
     required_error: i18n.t('requiredField', { field: i18n.t('city') }),
   }),
