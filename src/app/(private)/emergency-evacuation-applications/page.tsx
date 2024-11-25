@@ -143,7 +143,7 @@ const Page = (): JSX.Element => {
       if (value && !getStringFilterValidation().safeParse(value).success) {
         toast({
           title: t('common.error'),
-          description: t('changehere'),
+          description: t('filterValidation'),
           variant: 'destructive',
         })
         return

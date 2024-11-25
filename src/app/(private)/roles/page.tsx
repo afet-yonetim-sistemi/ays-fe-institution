@@ -94,7 +94,7 @@ const Page = (): JSX.Element => {
     if (name && !result.success) {
       toast({
         title: t('common.error'),
-        description: t(result.error.errors[0]?.message),
+        description: t('filterValidation'),
         variant: 'destructive',
       })
     } else {
