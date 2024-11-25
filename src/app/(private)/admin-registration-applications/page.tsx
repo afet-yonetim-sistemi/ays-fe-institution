@@ -120,13 +120,11 @@ const Page = (): JSX.Element => {
           )}
         </div>
       </div>
-      <div>
-        <StatusFilter
-          statuses={adminApplicationRegistrationStatuses}
-          selectedStatuses={filters.statuses}
-          onStatusChange={(statuses) => handleFilterChange('status', statuses)}
-        />
-      </div>
+      <StatusFilter
+        statuses={adminApplicationRegistrationStatuses}
+        selectedStatuses={filters.statuses}
+        onStatusChange={(statuses) => handleFilterChange('status', statuses)}
+      />
       <DataTable
         columns={columns({ sort: filters.sort }, handleSortChange)}
         data={adminRegistrationApplicationList}
