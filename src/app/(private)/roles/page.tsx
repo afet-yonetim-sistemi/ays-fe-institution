@@ -43,18 +43,21 @@ const Page = (): JSX.Element => {
       setIsLoading(true)
       getRoles(filters)
         .then((response) => {
-          if (response.data.isSuccess) {
-            const { content, totalElementCount, totalPageCount } =
-              response.data.response
-            if (filters.page > totalPageCount && totalPageCount > 0) {
-              router.push('/not-found')
-              return
-            }
-            setRoleList(content)
-            setTotalRows(totalElementCount)
-          } else {
+          if (!response.data.isSuccess) {
             handleApiError()
+            return
           }
+
+          const { content, totalElementCount, totalPageCount } =
+            response.data.response
+
+          if (filters.page > totalPageCount) {
+            router.push('/not-found')
+            return
+          }
+
+          setRoleList(content)
+          setTotalRows(totalElementCount)
         })
         .catch((error) => {
           handleApiError(error)

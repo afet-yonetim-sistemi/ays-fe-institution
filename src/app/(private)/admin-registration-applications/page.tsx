@@ -52,20 +52,21 @@ const Page = (): JSX.Element => {
       setIsLoading(true)
       getAdminRegistrationApplications(filters)
         .then((response) => {
-          if (response.data.isSuccess) {
-            const { content, totalElementCount, totalPageCount } =
-              response.data.response
-
-            if (filters.page > totalPageCount) {
-              router.push('/not-found')
-              return
-            }
-
-            setAdminRegistrationApplicationList(content)
-            setTotalRows(totalElementCount)
-          } else {
+          if (!response.data.isSuccess) {
             handleApiError()
+            return
           }
+
+          const { content, totalElementCount, totalPageCount } =
+            response.data.response
+
+          if (filters.page > totalPageCount) {
+            router.push('/not-found')
+            return
+          }
+
+          setAdminRegistrationApplicationList(content)
+          setTotalRows(totalElementCount)
         })
         .catch((error) => {
           handleApiError(error)
