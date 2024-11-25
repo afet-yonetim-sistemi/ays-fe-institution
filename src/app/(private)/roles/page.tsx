@@ -4,6 +4,7 @@ import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
 import StatusFilter from '@/components/ui/status-filter'
 import { Toaster } from '@/components/ui/toaster'
+import { toast } from '@/components/ui/use-toast'
 import { StatusData } from '@/constants/statusData'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
@@ -86,10 +87,18 @@ const Page = (): JSX.Element => {
         ? { column, direction: direction as 'asc' | 'desc' | undefined }
         : undefined,
     }
-
     setFilters(updatedFilters)
-    fetchData(updatedFilters)
-  }, [searchParams, fetchData, pageSize])
+
+    if (name && (name.length < 2 || name.length > 100)) {
+      toast({
+        title: t('common.error'),
+        description: t(''),
+        variant: 'default',
+      })
+    } else {
+      fetchData(updatedFilters)
+    }
+  }, [searchParams, fetchData, pageSize, t])
 
   useEffect(() => {
     syncFiltersWithQuery()
