@@ -5,6 +5,7 @@ import FilterInput from '@/components/ui/filter-input'
 import StatusFilter from '@/components/ui/status-filter'
 import { Toaster } from '@/components/ui/toaster'
 import { toast } from '@/components/ui/use-toast'
+import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { StatusData } from '@/constants/statusData'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
@@ -89,11 +90,12 @@ const Page = (): JSX.Element => {
     }
     setFilters(updatedFilters)
 
-    if (name && (name.length < 2 || name.length > 100)) {
+    const result = getStringFilterValidation().safeParse(updatedFilters.name)
+    if (name && !result.success) {
       toast({
         title: t('common.error'),
-        description: t(''),
-        variant: 'default',
+        description: t(result.error.errors[0]?.message),
+        variant: 'destructive',
       })
     } else {
       fetchData(updatedFilters)

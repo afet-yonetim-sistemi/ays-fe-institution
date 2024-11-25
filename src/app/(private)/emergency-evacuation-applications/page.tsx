@@ -6,6 +6,8 @@ import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
 import StatusFilter from '@/components/ui/status-filter'
 import { Toaster } from '@/components/ui/toaster'
+import { toast } from '@/components/ui/use-toast'
+import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { StatusData } from '@/constants/statusData'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
@@ -126,10 +128,30 @@ const Page = (): JSX.Element => {
         ? { column, direction: direction as 'asc' | 'desc' | undefined }
         : undefined,
     }
-
     setFilters(updatedFilters)
+
+    const fieldsToValidate = [
+      'sourceCity',
+      'sourceDistrict',
+      'targetCity',
+      'targetDistrict',
+    ]
+    for (const field of fieldsToValidate) {
+      const value = updatedFilters[
+        field as keyof typeof updatedFilters
+      ] as string
+      if (value && !getStringFilterValidation().safeParse(value).success) {
+        toast({
+          title: t('common.error'),
+          description: t('changehere'),
+          variant: 'destructive',
+        })
+        return
+      }
+    }
+
     fetchData(updatedFilters)
-  }, [searchParams, fetchData, pageSize])
+  }, [searchParams, fetchData, pageSize, t])
 
   useEffect(() => {
     syncFiltersWithQuery()
