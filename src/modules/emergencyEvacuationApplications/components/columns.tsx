@@ -71,9 +71,7 @@ export const columns: (
           onSortClick={onSortClick}
         />
       ),
-      cell: ({ row }) => (
-        <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
-      ),
+      cell: ({ row }) => formatDateTime(row.getValue('createdAt')),
     },
   ]
 }

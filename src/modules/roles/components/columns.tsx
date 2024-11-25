@@ -40,16 +40,12 @@ export const columns: (
           onSortClick={onSortClick}
         />
       ),
-      cell: ({ row }) => (
-        <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
-      ),
+      cell: ({ row }) => formatDateTime(row.getValue('createdAt')),
     },
     {
       accessorKey: 'updatedAt',
       header: () => i18next.t('common.updatedAt'),
-      cell: ({ row }) => (
-        <div className="px-2">{formatDateTime(row.getValue('updatedAt'))}</div>
-      ),
+      cell: ({ row }) => formatDateTime(row.getValue('updatedAt')),
     },
   ]
 }
