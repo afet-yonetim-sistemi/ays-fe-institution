@@ -24,7 +24,9 @@ export const getEmergencyEvacuationApplications = (
       ...(sortBy ? { orders: sortBy } : {}),
     },
     filter: {
-      statuses: filter.statuses,
+      ...(filter.statuses.length > 0
+        ? { statuses: filter.statuses }
+        : undefined),
       referenceNumber: filter.referenceNumber || undefined,
       sourceCity: filter.sourceCity || undefined,
       sourceDistrict: filter.sourceDistrict || undefined,

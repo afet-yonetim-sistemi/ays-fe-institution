@@ -28,7 +28,9 @@ export const getAdminRegistrationApplications = (
       ...(sortBy ? { orders: sortBy } : {}),
     },
     filter: {
-      statuses: filter.statuses,
+      ...(filter.statuses.length > 0
+        ? { statuses: filter.statuses }
+        : undefined),
     },
   })
 }
