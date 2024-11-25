@@ -4,6 +4,8 @@ import { formatDateTime } from '@/lib/formatDateTime'
 import Status from '@/components/ui/status'
 import DataTableSort from '@/components/ui/data-table-sort'
 import { Sort } from '@/common/types'
+import { roleStatuses } from '../constants/statuses'
+import { fallbackStatus } from '@/constants/fallBackStatus'
 
 export interface Role {
   id: string
@@ -27,7 +29,13 @@ export const columns: (
     {
       accessorKey: 'status',
       header: () => i18next.t('status'),
-      cell: ({ row }) => <Status status={row.getValue('status')} />,
+      cell: ({ row }) => {
+        const status =
+          roleStatuses.find(
+            (status) => status.value === row.getValue<string>('status')
+          ) || fallbackStatus
+        return <Status status={status} />
+      },
       size: 100,
     },
     {

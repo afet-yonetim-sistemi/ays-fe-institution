@@ -20,6 +20,7 @@ import Status from '@/components/ui/status'
 type StatusItem = {
   value: string
   label: string
+  color: string
 }
 
 interface StatusFilterProps {
@@ -78,7 +79,7 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
               onSelect={(event) => event.preventDefault()}
               className="cursor-pointer rounded-none border-l-2 border-transparent hover:border-l-2 hover:border-l-blue-700"
             >
-              <Status status={statusItem.value} />
+              <Status status={statusItem} />
             </DropdownMenuCheckboxItem>
           )
         })}

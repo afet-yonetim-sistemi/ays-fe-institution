@@ -5,7 +5,6 @@ import { DataTable } from '@/components/ui/data-table'
 import StatusFilter from '@/components/ui/status-filter'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
-import { StatusData } from '@/constants/statusData'
 import { usePagination } from '@/hooks/usePagination'
 import { handleApiError } from '@/lib/handleApiError'
 import {
@@ -22,10 +21,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSort } from '@/hooks/useSort'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
-
-const adminApplicationRegistrationStatuses = StatusData.filter((status) =>
-  ['WAITING', 'COMPLETED', 'REJECTED', 'APPROVED'].includes(status.value)
-)
+import { adminApplicationRegistrationStatuses } from '@/modules/adminRegistrationApplications/constants/statuses'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()

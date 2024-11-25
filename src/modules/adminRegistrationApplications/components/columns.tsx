@@ -4,6 +4,8 @@ import i18next from 'i18next'
 import { Institution, Sort } from '@/common/types'
 import Status from '@/components/ui/status'
 import DataTableSort from '@/components/ui/data-table-sort'
+import { adminApplicationRegistrationStatuses } from '../constants/statuses'
+import { fallbackStatus } from '@/constants/fallBackStatus'
 
 export interface AdminRegistrationApplication {
   id: string
@@ -45,7 +47,13 @@ export const columns: (
     {
       accessorKey: 'status',
       header: () => i18next.t('status'),
-      cell: ({ row }) => <Status status={row.getValue('status')} />,
+      cell: ({ row }) => {
+        const status =
+          adminApplicationRegistrationStatuses.find(
+            (status) => status.value === row.getValue<string>('status')
+          ) || fallbackStatus
+        return <Status status={status} />
+      },
       size: 100,
     },
     {

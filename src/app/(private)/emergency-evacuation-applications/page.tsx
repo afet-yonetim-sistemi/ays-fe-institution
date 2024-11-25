@@ -8,12 +8,12 @@ import StatusFilter from '@/components/ui/status-filter'
 import { Toaster } from '@/components/ui/toaster'
 import { toast } from '@/components/ui/use-toast'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
-import { StatusData } from '@/constants/statusData'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
 import { handleApiError } from '@/lib/handleApiError'
 import { columns } from '@/modules/emergencyEvacuationApplications/components/columns'
+import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
 import {
   EmergencyEvacuationApplication,
   EmergencyEvacuationApplicationsFilter,
@@ -23,18 +23,6 @@ import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
-const emergencyEvacuationApplicationStatuses = StatusData.filter((status) =>
-  [
-    'PENDING',
-    'IN_REVIEW',
-    'RECEIVED_FIRST_APPROVE',
-    'RECEIVED_SECOND_APPROVE',
-    'RECEIVED_THIRD_APPROVE',
-    'COMPLETED',
-    'CANCELLED',
-  ].includes(status.value)
-)
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()

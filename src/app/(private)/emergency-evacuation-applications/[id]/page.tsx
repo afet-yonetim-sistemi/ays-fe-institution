@@ -22,7 +22,7 @@ import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuation
 import { Checkbox } from '@/components/ui/checkbox'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
 import { handleApiError } from '@/lib/handleApiError'
-import { getStatusLabel } from '@/lib/getStatusLabel'
+import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
 
 const Page = ({
   params,
@@ -358,9 +358,11 @@ const Page = ({
                             value={
                               emergencyEvacuationApplicationDetails.status
                                 ? t(
-                                    getStatusLabel(
-                                      emergencyEvacuationApplicationDetails.status
-                                    )
+                                    emergencyEvacuationApplicationStatuses.find(
+                                      (status) =>
+                                        status.value ===
+                                        emergencyEvacuationApplicationDetails.status
+                                    )?.label || ''
                                   )
                                 : ''
                             }

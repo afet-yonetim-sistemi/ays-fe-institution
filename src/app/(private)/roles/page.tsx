@@ -6,21 +6,17 @@ import StatusFilter from '@/components/ui/status-filter'
 import { Toaster } from '@/components/ui/toaster'
 import { toast } from '@/components/ui/use-toast'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
-import { StatusData } from '@/constants/statusData'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
 import { handleApiError } from '@/lib/handleApiError'
 import { columns, Role } from '@/modules/roles/components/columns'
+import { roleStatuses } from '@/modules/roles/constants/statuses'
 import { RolesFilter } from '@/modules/roles/constants/types'
 import { getRoles } from '@/modules/roles/service'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
-const roleStatuses = StatusData.filter((status) =>
-  ['ACTIVE', 'PASSIVE', 'DELETED'].includes(status.value)
-)
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
