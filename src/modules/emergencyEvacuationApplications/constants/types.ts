@@ -14,10 +14,6 @@ export interface EmergencyEvacuationApplicationsFilter {
   isInPerson?: boolean
 }
 
-export interface StatusProps {
-  status: string
-}
-
 export interface EmergencyEvacuationApplication {
   id: string
   referenceNumber: string
