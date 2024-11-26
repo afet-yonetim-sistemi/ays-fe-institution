@@ -1,4 +1,6 @@
-export const emergencyEvacuationApplicationStatuses = [
+import { LabeledItem } from '@/common/types'
+
+export const emergencyEvacuationApplicationStatuses: LabeledItem[] = [
   { label: 'pending', value: 'PENDING', color: 'bg-gray-500 text-white' },
   { label: 'inReview', value: 'IN_REVIEW', color: 'bg-teal-500 text-white' },
   {

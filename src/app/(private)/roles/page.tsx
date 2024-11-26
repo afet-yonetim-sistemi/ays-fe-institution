@@ -2,7 +2,8 @@
 
 import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
-import StatusFilter from '@/components/ui/status-filter'
+import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
+import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { toast } from '@/components/ui/use-toast'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
@@ -109,10 +110,14 @@ const Page = (): JSX.Element => {
     <div className="space-y-4">
       <h1 className="text-2xl font-medium">{t('roles')}</h1>
       <div className="flex items-center gap-4">
-        <StatusFilter
-          statuses={roleStatuses}
-          selectedStatuses={filters.statuses}
-          onStatusChange={(statuses) => handleFilterChange('status', statuses)}
+        <MultiSelectDropdown
+          items={roleStatuses}
+          selectedItems={filters.statuses}
+          onSelectionChange={(statuses) =>
+            handleFilterChange('status', statuses)
+          }
+          label="status"
+          renderItem={(item) => <Status status={item} />}
         />
         <FilterInput
           id="name"

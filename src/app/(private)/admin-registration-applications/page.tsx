@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
-import StatusFilter from '@/components/ui/status-filter'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
 import { usePagination } from '@/hooks/usePagination'
@@ -22,6 +21,8 @@ import { useTranslation } from 'react-i18next'
 import { useSort } from '@/hooks/useSort'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { adminApplicationRegistrationStatuses } from '@/modules/adminRegistrationApplications/constants/statuses'
+import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
+import Status from '@/components/ui/status'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -117,10 +118,12 @@ const Page = (): JSX.Element => {
           )}
         </div>
       </div>
-      <StatusFilter
-        statuses={adminApplicationRegistrationStatuses}
-        selectedStatuses={filters.statuses}
-        onStatusChange={(statuses) => handleFilterChange('status', statuses)}
+      <MultiSelectDropdown
+        items={adminApplicationRegistrationStatuses}
+        selectedItems={filters.statuses}
+        onSelectionChange={(statuses) => handleFilterChange('status', statuses)}
+        label="status"
+        renderItem={(item) => <Status status={item} />}
       />
       <DataTable
         columns={columns({ sort: filters.sort }, handleSortChange)}

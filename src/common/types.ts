@@ -7,6 +7,12 @@ export type Sort =
     }
   | undefined
 
+export interface LabeledItem {
+  label: string
+  value: string
+  color: string
+}
+
 export interface User {
   id: string
   firstName: string

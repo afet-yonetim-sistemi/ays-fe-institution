@@ -1,13 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
+import { LabeledItem } from '@/common/types'
 
 interface StatusProps {
-  status: {
-    label: string
-    value: string
-    color: string
-  }
+  status: LabeledItem
 }
 
 const Status = ({ status }: StatusProps): JSX.Element => {

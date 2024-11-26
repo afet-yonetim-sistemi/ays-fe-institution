@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button'
 import CheckboxFilter from '@/components/ui/checkbox-filter'
 import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
-import StatusFilter from '@/components/ui/status-filter'
+import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
+import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { toast } from '@/components/ui/use-toast'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
@@ -179,10 +180,14 @@ const Page = (): JSX.Element => {
           onChange={(e) => handleFilterChange('seatingCount', e.target.value)}
           type="number"
         />
-        <StatusFilter
-          statuses={emergencyEvacuationApplicationStatuses}
-          selectedStatuses={filters.statuses}
-          onStatusChange={(statuses) => handleFilterChange('status', statuses)}
+        <MultiSelectDropdown
+          items={emergencyEvacuationApplicationStatuses}
+          selectedItems={filters.statuses}
+          onSelectionChange={(statuses) =>
+            handleFilterChange('status', statuses)
+          }
+          label="status"
+          renderItem={(item) => <Status status={item} />}
         />
         <CheckboxFilter
           label={t('isInPerson')}
