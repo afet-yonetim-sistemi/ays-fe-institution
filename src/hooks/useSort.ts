@@ -1,6 +1,5 @@
 import { Sort } from '@/common/types'
-import { useRouter } from 'next/navigation'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export const useSort = (sort: Sort) => {
   const router = useRouter()
