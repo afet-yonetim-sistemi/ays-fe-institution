@@ -15,12 +15,15 @@ export const useHandleFilterChange = () => {
       } else {
         updatedParams.delete(key)
       }
-    } else if (Array.isArray(value)) {
-      updatedParams.set(key, value.join(','))
-    } else {
-      updatedParams.set(key, value)
+      return router.push(`${pathname}?${updatedParams.toString()}`)
     }
 
+    if (Array.isArray(value)) {
+      updatedParams.set(key, value.join(','))
+      return router.push(`${pathname}?${updatedParams.toString()}`)
+    }
+
+    updatedParams.set(key, value)
     router.push(`${pathname}?${updatedParams.toString()}`)
   }
 }
