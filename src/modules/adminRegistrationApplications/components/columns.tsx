@@ -17,7 +17,7 @@ export interface AdminRegistrationApplication {
 }
 
 export const columns: (
-  filters: { sort: Sort | undefined },
+  filters: { sort: Sort },
   onSortClick: (column: Column<AdminRegistrationApplication>) => void
 ) => ColumnDef<AdminRegistrationApplication>[] = (filters, onSortClick) => {
   const sortState = filters.sort || { column: '', direction: undefined }

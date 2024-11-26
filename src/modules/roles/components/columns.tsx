@@ -16,7 +16,7 @@ export interface Role {
 }
 
 export const columns: (
-  filters: { sort: Sort | undefined },
+  filters: { sort: Sort },
   onSortClick: (column: Column<Role>) => void
 ) => ColumnDef<Role>[] = (filters, onSortClick) => {
   const sortState = filters.sort || { column: '', direction: undefined }

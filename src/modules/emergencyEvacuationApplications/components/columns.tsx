@@ -22,7 +22,7 @@ export interface EmergencyEvacuationApplication {
 }
 
 export const columns: (
-  filters: { sort: Sort | undefined },
+  filters: { sort: Sort },
   onSortClick: (column: Column<EmergencyEvacuationApplication>) => void
 ) => ColumnDef<EmergencyEvacuationApplication>[] = (filters, onSortClick) => {
   const sortState = filters.sort || { column: '', direction: undefined }
