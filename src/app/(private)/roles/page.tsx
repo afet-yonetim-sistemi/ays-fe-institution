@@ -1,5 +1,6 @@
 'use client'
 
+import { SortDirection } from '@/common/types'
 import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
@@ -85,7 +86,7 @@ const Page = (): JSX.Element => {
       statuses,
       name: name || '',
       sort: column
-        ? { column, direction: direction as 'asc' | 'desc' | undefined }
+        ? { column, direction: direction as SortDirection }
         : undefined,
     }
     setFilters(updatedFilters)

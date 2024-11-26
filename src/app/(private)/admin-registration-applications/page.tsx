@@ -23,6 +23,7 @@ import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { adminApplicationRegistrationStatuses } from '@/modules/adminRegistrationApplications/constants/statuses'
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
+import { SortDirection } from '@/common/types'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -92,7 +93,7 @@ const Page = (): JSX.Element => {
       pageSize,
       statuses,
       sort: column
-        ? { column, direction: direction as 'asc' | 'desc' | undefined }
+        ? { column, direction: direction as SortDirection }
         : undefined,
     }
 

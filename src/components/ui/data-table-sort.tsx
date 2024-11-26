@@ -8,11 +8,12 @@ import {
 import i18n from 'i18next'
 import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
 import { Column } from '@tanstack/table-core'
+import { SortDirection } from '@/common/types'
 
 interface DataTableSortProps<T> {
   column: Column<T>
   label: string
-  sortState: { column: string; direction: 'asc' | 'desc' | undefined }
+  sortState: { column: string; direction: SortDirection }
   onSortClick: (column: Column<T>) => void
 }
 
@@ -24,6 +25,13 @@ const DataTableSort = <T extends object>({
 }: DataTableSortProps<T>) => {
   const isCurrentColumn = sortState?.column === column.id
   const sortDirection = isCurrentColumn ? sortState?.direction : undefined
+
+  let tooltipMessage = 'asc'
+  if (sortDirection === 'asc') {
+    tooltipMessage = 'desc'
+  } else if (sortDirection === 'desc') {
+    tooltipMessage = 'clearSort'
+  }
 
   return (
     <TooltipProvider>
@@ -37,26 +45,18 @@ const DataTableSort = <T extends object>({
         >
           <span className="flex items-center gap-2">
             {label}
-            <SortIcon sort={sortDirection} />
+            <SortIcon sortDirection={sortDirection} />
           </span>
         </TooltipTrigger>
-        <TooltipContent>
-          {i18n.t(
-            sortDirection === 'asc'
-              ? 'desc'
-              : sortDirection === 'desc'
-                ? 'clearSort'
-                : 'asc'
-          )}
-        </TooltipContent>
+        <TooltipContent>{i18n.t(tooltipMessage)}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   )
 }
 
-const SortIcon = ({ sort }: { sort: 'asc' | 'desc' | undefined }) => {
-  if (sort === 'asc') return <BiSortUp className="h-4 w-4" />
-  if (sort === 'desc') return <BiSortDown className="h-4 w-4" />
+const SortIcon = ({ sortDirection }: { sortDirection: SortDirection }) => {
+  if (sortDirection === 'asc') return <BiSortUp className="h-4 w-4" />
+  if (sortDirection === 'desc') return <BiSortDown className="h-4 w-4" />
   return <BiSort className="h-4 w-4" />
 }
 

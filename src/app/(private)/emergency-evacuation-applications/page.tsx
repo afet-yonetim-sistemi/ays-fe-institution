@@ -1,5 +1,6 @@
 'use client'
 
+import { SortDirection } from '@/common/types'
 import { Button } from '@/components/ui/button'
 import CheckboxFilter from '@/components/ui/checkbox-filter'
 import { DataTable } from '@/components/ui/data-table'
@@ -117,7 +118,7 @@ const Page = (): JSX.Element => {
       targetDistrict: targetDistrict || '',
       isInPerson,
       sort: column
-        ? { column, direction: direction as 'asc' | 'desc' | undefined }
+        ? { column, direction: direction as SortDirection }
         : undefined,
     }
     setFilters(updatedFilters)
