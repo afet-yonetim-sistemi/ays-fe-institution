@@ -4,15 +4,15 @@ import { I18nextProvider } from 'react-i18next'
 import i18n from '@/i18n'
 import StoreProvider from '@/store/StoreProvider'
 import { TooltipProvider } from '@/components/ui/tooltip'
-import { ValidateRoute } from './validateRoute'
+import { ValidateRouteProvider } from '@/contexts/validateRouteProvider'
 
 export const Providers = (props: React.PropsWithChildren): JSX.Element => {
   return (
     <I18nextProvider i18n={i18n} defaultNS={'translation'}>
       <StoreProvider>
-        <ValidateRoute>
+        <ValidateRouteProvider>
           <TooltipProvider>{props.children}</TooltipProvider>
-        </ValidateRoute>
+        </ValidateRouteProvider>
       </StoreProvider>
     </I18nextProvider>
   )

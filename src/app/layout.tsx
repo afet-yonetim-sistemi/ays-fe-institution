@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import i18n from '@/i18n'
-import { Providers } from '@/lib/providers'
+import { Providers } from '@/contexts/providers'
 import { ThemeProvider } from '@/components/themeProvider'
 import { Toaster } from '@/components/ui/toaster'
 
