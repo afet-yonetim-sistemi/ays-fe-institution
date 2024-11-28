@@ -4,7 +4,7 @@ import { useAppSelector } from '@/store/hooks'
 import { matchRoute } from '@/lib/matchRoute'
 import { getUserPermissions } from '@/lib/getUserPermissions'
 import { selectToken } from '@/modules/auth/authSlice'
-import { protectedRoutes, publicRoutes } from '@/configs/routes'
+import { protectedRoutes } from '@/configs/routes'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import {
   ValidateRouteContext,
@@ -22,9 +22,6 @@ export const ValidateRouteProvider = ({
 
   const [loading, setLoading] = useState(true)
 
-  const publicMatch = matchRoute(pathname, publicRoutes)
-  const isPublic = Boolean(publicMatch)
-
   const protectedMatch = matchRoute(pathname, Object.keys(protectedRoutes))
   const isProtected = Boolean(protectedMatch)
   const requiredPermission = isProtected
@@ -39,12 +36,11 @@ export const ValidateRouteProvider = ({
   const contextValue: ValidateRouteContextType = useMemo(
     () => ({
       currentRoute: pathname,
-      isPublic,
       isProtected,
       requiredPermission,
       hasPermission,
     }),
-    [pathname, isPublic, isProtected, requiredPermission, hasPermission]
+    [pathname, isProtected, requiredPermission, hasPermission]
   )
 
   useEffect(() => {
@@ -57,13 +53,13 @@ export const ValidateRouteProvider = ({
         setLoading(false)
       }
     } else {
-      if (isProtected || (!isPublic && !token)) {
+      if (isProtected) {
         router.replace('/login')
       } else {
         setLoading(false)
       }
     }
-  }, [token, pathname, isPublic, isProtected, hasPermission, router, loading])
+  }, [token, pathname, isProtected, hasPermission, router, loading])
 
   if (loading) {
     return (

@@ -60,7 +60,6 @@ const Page = (): JSX.Element => {
       .login(values)
       .then((res) => {
         dispatch(loginSuccess(res.data.response))
-        form.reset()
         router.push('/dashboard')
       })
       .catch((error) => {

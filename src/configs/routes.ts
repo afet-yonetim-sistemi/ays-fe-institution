@@ -9,9 +9,3 @@ export const protectedRoutes: Record<string, string> = {
   '/roles/[id]': 'role:detail',
   '/dashboard': 'institution:page',
 }
-
-export const publicRoutes = [
-  '/login',
-  '/create-password/[id]',
-  '/register-completion/[id]',
-]
