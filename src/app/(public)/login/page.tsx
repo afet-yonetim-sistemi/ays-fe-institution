@@ -60,8 +60,6 @@ const Page = (): JSX.Element => {
       .login(values)
       .then((res) => {
         dispatch(loginSuccess(res.data.response))
-        document.cookie = `token=${JSON.stringify(res.data.response)}; path=/;`
-        form.reset()
         router.push('/dashboard')
       })
       .catch((error) => {
