@@ -1,30 +1,11 @@
-import { BaseApiResponse } from '@/common/types'
+import { BaseApiResponse, Sort } from '@/common/types'
 
-export interface Roles {
-  // eslint-disable-next-line
-  content: any[]
-  totalPageCount: number
-}
-
-export interface RolesTableProps {
-  name: string
-  status: string
-  createdAt: string
-  updatedAt: string
-}
-
-export interface Search {
+export interface RolesFilter {
   page: number
-  per_page: number
-  sort: string | undefined
-  name: string | undefined
-  status: string | undefined
-  createdAt: string | undefined
-  updatedAt: string | undefined
-}
-
-export interface StatusProps {
-  status: string
+  pageSize: number
+  sort?: Sort
+  name?: string
+  statuses: string[]
 }
 
 export interface RolePermission {

@@ -1,53 +1,76 @@
-import { ColumnDef } from '@tanstack/table-core'
+import { ColumnDef, Column } from '@tanstack/table-core'
 import { formatDateTime } from '@/lib/formatDateTime'
-import Status from '@/modules/adminRegistrationApplications/components/status'
 import i18next from 'i18next'
-import DataTableSort from '@/components/dataTable/dataTableSort'
+import { Institution, Sort } from '@/common/types'
+import Status from '@/components/ui/status'
+import DataTableSort from '@/components/ui/data-table-sort'
+import { adminApplicationRegistrationStatuses } from '../constants/statuses'
+import { fallbackStatus } from '@/constants/fallBackStatus'
 
 export interface AdminRegistrationApplication {
   id: string
-  institution: { name: string }
   reason: string
   status: string
+  institution: Institution
   createdUser: string
   createdAt: string
 }
 
-export const columns: ColumnDef<AdminRegistrationApplication>[] = [
-  {
-    accessorKey: 'institution.name',
-    header: () => i18next.t('organization'),
-    cell: ({ row }) => row.original.institution.name,
-    size: 170,
-  },
-  {
-    accessorKey: 'reason',
-    header: () => i18next.t('creationReason'),
-    cell: ({ row }) => row.original.reason,
-    size: 500,
-  },
-  {
-    accessorKey: 'status',
-    header: () => i18next.t('status'),
-    cell: ({ row }) => <Status status={row.getValue('status')} />,
-    size: 140,
-  },
-  {
-    accessorKey: 'createdUser',
-    header: () => i18next.t('createdUser'),
-    cell: ({ row }) => row.original.createdUser,
-    size: 160,
-  },
-  {
-    accessorKey: 'createdAt',
-    header: ({ column }): JSX.Element => {
-      return <DataTableSort column={column} label={i18next.t('createdAt')} />
+export const columns: (
+  filters: { sort: Sort },
+  onSortClick: (column: Column<AdminRegistrationApplication>) => void
+) => ColumnDef<AdminRegistrationApplication>[] = (filters, onSortClick) => {
+  const sortState = filters.sort || { column: '', direction: undefined }
+
+  return [
+    {
+      accessorKey: 'institution.name',
+      header: () => i18next.t('institution'),
     },
-    size: 155,
-    cell: ({ row }): JSX.Element => {
-      return (
-        <div className="px-2">{formatDateTime(row.getValue('createdAt'))}</div>
-      )
+    {
+      accessorKey: 'reason',
+      header: () => i18next.t('reason'),
+      cell: ({ row }) => (
+        <div
+          style={{
+            maxWidth: '400px',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+          }}
+          title={row.original.reason}
+        >
+          {row.original.reason}
+        </div>
+      ),
     },
-  },
-]
+    {
+      accessorKey: 'status',
+      header: () => i18next.t('status'),
+      cell: ({ row }) => {
+        const status =
+          adminApplicationRegistrationStatuses.find(
+            (status) => status.value === row.getValue<string>('status')
+          ) || fallbackStatus
+        return <Status status={status} />
+      },
+      size: 100,
+    },
+    {
+      accessorKey: 'createdUser',
+      header: () => i18next.t('createdUser'),
+    },
+    {
+      accessorKey: 'createdAt',
+      header: ({ column }) => (
+        <DataTableSort
+          column={column}
+          label={i18next.t('common.createdAt')}
+          sortState={sortState}
+          onSortClick={onSortClick}
+        />
+      ),
+      cell: ({ row }) => formatDateTime(row.getValue('createdAt')),
+    },
+  ]
+}

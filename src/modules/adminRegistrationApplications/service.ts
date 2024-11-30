@@ -4,34 +4,33 @@ import {
   ApiSummaryResponse,
   GetRegisterSummary,
   RegisterApplicationForm,
-  Search,
+  AdminRegistrationApplicationsFilter,
 } from './constants/types'
 import { AxiosResponse } from 'axios'
 import { BaseApiResponse } from '@/common/types'
 
-export const postAdminRegistrationApplications = (
-  search: Search
+export const getAdminRegistrationApplications = (
+  filter: AdminRegistrationApplicationsFilter
 ): Promise<AxiosResponse> => {
-  const sortBy = search.sort
+  const sortBy = filter.sort?.direction
     ? [
         {
-          property: search.sort.split('.')[0],
-          direction: search.sort.split('.')[1].toUpperCase(),
+          property: filter.sort.column,
+          direction: filter.sort.direction.toUpperCase(),
         },
       ]
-    : []
-  const filterStatus = search.status
-    ? search.status?.toUpperCase().split(`.`)
-    : []
+    : undefined
 
   return http.post('/api/v1/admin-registration-applications', {
     pageable: {
-      page: search?.page || 1,
-      pageSize: search.per_page,
-      orders: sortBy,
+      page: filter.page || 1,
+      pageSize: filter.pageSize || 10,
+      ...(sortBy ? { orders: sortBy } : {}),
     },
     filter: {
-      statuses: filterStatus,
+      ...(filter.statuses.length > 0
+        ? { statuses: filter.statuses }
+        : undefined),
     },
   })
 }

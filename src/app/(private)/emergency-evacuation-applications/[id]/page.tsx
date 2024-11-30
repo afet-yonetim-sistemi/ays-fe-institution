@@ -20,9 +20,9 @@ import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/
 import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
-import { getStatusLabel } from '@/modules/emergencyEvacuationApplications/components/status'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
 import { handleApiError } from '@/lib/handleApiError'
+import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
 
 const Page = ({
   params,
@@ -358,9 +358,11 @@ const Page = ({
                             value={
                               emergencyEvacuationApplicationDetails.status
                                 ? t(
-                                    getStatusLabel(
-                                      emergencyEvacuationApplicationDetails.status
-                                    )
+                                    emergencyEvacuationApplicationStatuses.find(
+                                      (status) =>
+                                        status.value ===
+                                        emergencyEvacuationApplicationDetails.status
+                                    )?.label || ''
                                   )
                                 : ''
                             }

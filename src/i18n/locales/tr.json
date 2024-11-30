@@ -11,7 +11,9 @@
     "save": "Kaydet",
     "delete": "Sil",
     "error": "Hata",
-    "city": "Şehir"
+    "city": "Şehir",
+    "createdAt": "Oluşturulma Tarihi",
+    "updatedAt": "Güncellenme Tarihi"
   },
   "error": {
     "default": "Bir hata oluştu. Lütfen tekrar deneyin.",
@@ -56,9 +58,7 @@
   "receivedSecondApprove": "2. Onay Alındı",
   "receivedThirdApprove": "3. Onay Alındı",
   "cancelled": "İptal Edildi",
-  "organization": "Organizasyon",
   "creationReason": "Oluşturulma Sebebi",
-  "createdAt": "Oluşturulma Tarihi",
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",
   "success": "Başarılı",
@@ -79,6 +79,7 @@
   "requiredField": "{{field}} alanı zorunludur.",
   "minLength": "Bu alan en az {{field}} karakter olmalıdır.",
   "maxLength": "Bu alan en fazla {{field}} karakter olmalıdır.",
+  "filterValidation": "Bu alan 2 ile 100 karakter arasında olmalıdır.",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",
   "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",
   "invalidPhoneNumber": "Geçersiz telefon numarası",
@@ -107,7 +108,7 @@
   "isInPerson": "Bireysel Başvuru",
   "yes": "Evet",
   "no": "Hayır",
-  "seatingCount": "Talep Edilen Koltuk Sayısı",
+  "seatingCount": "Koltuk Sayısı",
   "sourceCity": "Tahliye Edilecek Şehir",
   "sourceDistrict": "Tahliye Edilecek İlçe",
   "targetCity": "Tahliye Sağlanılacak Şehir",

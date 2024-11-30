@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import {
   DropdownMenu,
@@ -13,40 +15,51 @@ import {
 } from '@/components/ui/tooltip'
 import { ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Column } from '@tanstack/table-core'
 
-interface DataTableFacetedFilterProps<TData, TValue> {
-  column?: Column<TData, TValue>
-  title?: string
-  options: {
-    label: string
-    value: string
-    icon?: React.ComponentType<{ className?: string }>
-  }[]
+type DropdownItem<T> = {
+  value: T
+  label: string
+  color: string
 }
 
-export function DataTableFilter<TData, TValue>({
-  column,
-  title,
-  options,
-}: DataTableFacetedFilterProps<TData, TValue>): JSX.Element {
-  const selectedValues = new Set(column?.getFilterValue() as string[])
+interface MultiSelectDropdownProps<T> {
+  items: DropdownItem<T>[]
+  selectedItems: T[]
+  onSelectionChange: (selected: T[]) => void
+  renderItem: (item: DropdownItem<T>, isSelected: boolean) => React.ReactNode
+  label: string
+}
+
+const MultiSelectDropdown = <T extends string>({
+  items,
+  selectedItems,
+  onSelectionChange,
+  renderItem,
+  label,
+}: MultiSelectDropdownProps<T>) => {
   const { t } = useTranslation()
+
+  const handleSelectionChange = (value: T) => {
+    const updatedItems = selectedItems.includes(value)
+      ? selectedItems.filter((item) => item !== value)
+      : [...selectedItems, value]
+    onSelectionChange(updatedItems)
+  }
 
   return (
     <DropdownMenu>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger className="flex w-fit items-center gap-2 ">
+          <TooltipTrigger className="flex w-fit items-center gap-2">
             <DropdownMenuTrigger
               asChild
               className="hover:bg-muted/90 data-[state=open]:bg-blue-600/10 data-[state=open]:text-blue-600 rounded h-10 px-4 py-2"
             >
               <div className="flex gap-2 items-center">
-                {t(`${title}`)}
-                {selectedValues.size > 0 && (
+                {t(label)}
+                {selectedItems.length > 0 && (
                   <p className="px-1.5 py-1 text-xs text-white rounded-full text-center bg-blue-600">
-                    {selectedValues.size}
+                    {selectedItems.length}
                   </p>
                 )}
                 <ChevronDown size={14} />
@@ -54,32 +67,22 @@ export function DataTableFilter<TData, TValue>({
             </DropdownMenuTrigger>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>{t(`${title}`)}</p>
+            <p>{t(label)}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <DropdownMenuContent align="start" className="px-0">
-        {options.map((option) => {
-          const isSelected = selectedValues.has(option.value)
+        {items.map((item) => {
+          const isSelected = selectedItems.includes(item.value)
           return (
             <DropdownMenuCheckboxItem
-              key={option.value}
+              key={item.value}
               checked={isSelected}
-              onCheckedChange={() => {
-                if (isSelected) {
-                  selectedValues.delete(option.value)
-                } else {
-                  selectedValues.add(option.value)
-                }
-                const filterValues = Array.from(selectedValues)
-                column?.setFilterValue(
-                  filterValues.length ? filterValues : undefined
-                )
-              }}
+              onCheckedChange={() => handleSelectionChange(item.value)}
               onSelect={(event) => event.preventDefault()}
               className="cursor-pointer rounded-none border-l-2 border-transparent hover:border-l-2 hover:border-l-blue-700"
             >
-              {t(`${option.label}`)}
+              {renderItem(item, isSelected)}
             </DropdownMenuCheckboxItem>
           )
         })}
@@ -87,3 +90,5 @@ export function DataTableFilter<TData, TValue>({
     </DropdownMenu>
   )
 }
+
+export default MultiSelectDropdown

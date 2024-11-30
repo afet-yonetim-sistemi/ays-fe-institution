@@ -11,7 +11,9 @@
     "save": "Save",
     "delete": "Delete",
     "error": "Error",
-    "city": "City"
+    "city": "City",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
   },
   "error": {
     "default": "An error occurred. Please try again later.",
@@ -55,9 +57,7 @@
   "receivedSecondApprove": "Received Second Approve",
   "receivedThirdApprove": "Received Third Approve",
   "cancelled": "Cancelled",
-  "organization": "Organization",
   "creationReason": "Creation Reason",
-  "createdAt": "Created At",
   "createdUser": "Created User",
   "noResult": "No Results...",
   "success": "Success",
@@ -81,6 +81,7 @@
   "requiredField": "{{field}} is required.",
   "minLength": "This field must be at least {{field}} characters.",
   "maxLength": "This field must be at most {{field}} characters.",
+  "filterValidation": "This field must be between 2 and 100 characters.",
   "notSpecialCharacters": "Text containing special characters cannot be sent.",
   "notOnlyNumbers": "This field cannot consist only of numbers.",
   "invalidPhoneNumber": "Phone Number is invalid",
