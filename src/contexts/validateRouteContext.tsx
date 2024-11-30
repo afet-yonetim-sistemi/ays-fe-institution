@@ -4,7 +4,7 @@ export interface ValidateRouteContextType {
   isProtected: boolean
   currentRoute: string | null
   requiredPermission: string | null
-  hasPermission: boolean
+  userHasPermission: boolean
 }
 
 export const ValidateRouteContext = createContext<

@@ -1,10 +1,9 @@
 import React, { ReactNode, useState, useEffect, useMemo } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAppSelector } from '@/store/hooks'
-import { matchRoute } from '@/lib/matchRoute'
+import { getRouteStatus } from '@/lib/getRouteStatus'
 import { getUserPermissions } from '@/lib/getUserPermissions'
 import { selectToken } from '@/modules/auth/authSlice'
-import { protectedRoutes } from '@/configs/routes'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import {
   ValidateRouteContext,
@@ -19,47 +18,39 @@ export const ValidateRouteProvider = ({
   const router = useRouter()
   const pathname = usePathname()
   const token = useAppSelector(selectToken)
-
   const [loading, setLoading] = useState(true)
-
-  const protectedMatch = matchRoute(pathname, Object.keys(protectedRoutes))
-  const isProtected = Boolean(protectedMatch)
-  const requiredPermission = isProtected
-    ? protectedRoutes[protectedMatch?.route ?? '']
-    : null
-
+  const { isProtected, route, requiredPermission } = getRouteStatus(pathname)
   const userPermissions = token ? getUserPermissions(token) : []
-  const hasPermission = requiredPermission
+
+  const userHasPermission = requiredPermission
     ? userPermissions.includes(requiredPermission)
     : true
 
   const contextValue: ValidateRouteContextType = useMemo(
     () => ({
-      currentRoute: pathname,
+      currentRoute: route,
       isProtected,
       requiredPermission,
-      hasPermission,
+      userHasPermission,
     }),
-    [pathname, isProtected, requiredPermission, hasPermission]
+    [route, isProtected, requiredPermission, userHasPermission]
   )
 
   useEffect(() => {
     if (token) {
       if (['/login', '/'].includes(pathname)) {
         router.replace('/dashboard')
-      } else if (isProtected && !hasPermission) {
+      } else if (!userHasPermission) {
         router.replace('/not-found')
       } else {
         setLoading(false)
       }
+    } else if (isProtected) {
+      router.replace('/login')
     } else {
-      if (isProtected) {
-        router.replace('/login')
-      } else {
-        setLoading(false)
-      }
+      setLoading(false)
     }
-  }, [token, pathname, isProtected, hasPermission, router, loading])
+  }, [token, pathname, isProtected, userHasPermission, router, loading])
 
   if (loading) {
     return (
