@@ -62,7 +62,7 @@ const Page = (): JSX.Element => {
           const { content, totalElementCount, totalPageCount } =
             response.data.response
 
-          if (filters.page > totalPageCount) {
+          if (filters.page > totalPageCount && totalPageCount != 0) {
             router.push('/not-found')
             return
           }
