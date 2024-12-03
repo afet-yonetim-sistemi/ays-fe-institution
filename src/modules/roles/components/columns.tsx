@@ -16,10 +16,13 @@ export interface Role {
 }
 
 export const columns: (
-  filters: { sort: Sort },
+  filters: { sort: Sort[] },
   onSortClick: (column: Column<Role>) => void
 ) => ColumnDef<Role>[] = (filters, onSortClick) => {
-  const sortState = filters.sort || { column: '', direction: undefined }
+  const sortState = filters.sort?.find((s) => s?.column === 'createdAt') || {
+    column: '',
+    direction: undefined,
+  }
 
   return [
     {

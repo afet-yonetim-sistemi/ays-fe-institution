@@ -22,10 +22,13 @@ export interface EmergencyEvacuationApplication {
 }
 
 export const columns: (
-  filters: { sort: Sort },
+  filters: { sort: Sort[] },
   onSortClick: (column: Column<EmergencyEvacuationApplication>) => void
 ) => ColumnDef<EmergencyEvacuationApplication>[] = (filters, onSortClick) => {
-  const sortState = filters.sort || { column: '', direction: undefined }
+  const sortState = filters.sort?.find((s) => s?.column === 'createdAt') || {
+    column: '',
+    direction: undefined,
+  }
 
   return [
     {

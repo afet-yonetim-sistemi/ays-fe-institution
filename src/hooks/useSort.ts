@@ -1,25 +1,44 @@
 import { Sort } from '@/common/types'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export const useSort = (sort: Sort) => {
+export const useSort = (sorts: Sort[] = []) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const handleSortChange = (column: { id: string }) => {
     const columnId = column.id
+    const updatedSorts = sorts ? [...sorts] : []
 
-    const newDirection =
-      sort?.column === columnId
-        ? sort.direction === 'asc'
-          ? 'desc'
-          : sort.direction === 'desc'
-            ? undefined
-            : 'asc'
-        : 'asc'
+    const existingIndex = updatedSorts.findIndex((s) => s?.column === columnId)
+
+    if (existingIndex > -1) {
+      const existingSort = updatedSorts[existingIndex]
+      if (existingSort) {
+        existingSort.direction =
+          existingSort.direction === 'asc'
+            ? 'desc'
+            : existingSort.direction === 'desc'
+              ? undefined
+              : 'asc'
+
+        if (!existingSort.direction) {
+          updatedSorts.splice(existingIndex, 1)
+        }
+      }
+    } else {
+      updatedSorts.push({ column: columnId, direction: 'asc' })
+    }
+
+    const validSorts = updatedSorts.filter(
+      (s): s is Sort => s?.direction !== undefined
+    )
+    const sortQuery = validSorts
+      .map((s) => `${s?.column},${s?.direction}`)
+      .join(';')
 
     const updatedParams = new URLSearchParams(searchParams)
     updatedParams.set('page', '1')
-    updatedParams.set('sort', newDirection ? `${columnId},${newDirection}` : '')
+    updatedParams.set('sort', sortQuery)
 
     router.push(`?${updatedParams.toString()}`)
   }

@@ -17,10 +17,13 @@ export interface AdminRegistrationApplication {
 }
 
 export const columns: (
-  filters: { sort: Sort },
+  filters: { sort: Sort[] },
   onSortClick: (column: Column<AdminRegistrationApplication>) => void
 ) => ColumnDef<AdminRegistrationApplication>[] = (filters, onSortClick) => {
-  const sortState = filters.sort || { column: '', direction: undefined }
+  const sortState = filters.sort?.find((s) => s?.column === 'createdAt') || {
+    column: '',
+    direction: undefined,
+  }
 
   return [
     {
