@@ -64,7 +64,7 @@ const Page = (): JSX.Element => {
           const { content, totalElementCount, totalPageCount } =
             response.data.response
 
-          if (filters.page > totalPageCount) {
+          if (filters.page > totalPageCount && totalPageCount != 0) {
             router.push('/not-found')
             return
           }
@@ -164,7 +164,30 @@ const Page = (): JSX.Element => {
           <RefreshCw className="h-4 w-4" />
         </Button>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="grid grid-cols-2 2xl:grid-cols-3 gap-4">
+        <div className="flex items-center gap-4">
+          <MultiSelectDropdown
+            items={emergencyEvacuationApplicationStatuses}
+            selectedItems={filters.statuses}
+            onSelectionChange={(statuses) =>
+              handleFilterChange('status', statuses)
+            }
+            label="status"
+            renderItem={(item) => <Status status={item} />}
+          />
+          <CheckboxFilter
+            label={t('isInPerson')}
+            isChecked={filters.isInPerson ?? false}
+            onChange={(checked) => handleFilterChange('isInPerson', checked)}
+          />
+          <FilterInput
+            id="seatingCount"
+            label={t('seatingCount')}
+            value={filters.seatingCount}
+            onChange={(e) => handleFilterChange('seatingCount', e.target.value)}
+            type="number"
+          />
+        </div>
         <FilterInput
           id="referenceNumber"
           label={t('referenceNumber')}
@@ -173,27 +196,6 @@ const Page = (): JSX.Element => {
             handleFilterChange('referenceNumber', e.target.value)
           }
           type="number"
-        />
-        <FilterInput
-          id="seatingCount"
-          label={t('seatingCount')}
-          value={filters.seatingCount}
-          onChange={(e) => handleFilterChange('seatingCount', e.target.value)}
-          type="number"
-        />
-        <MultiSelectDropdown
-          items={emergencyEvacuationApplicationStatuses}
-          selectedItems={filters.statuses}
-          onSelectionChange={(statuses) =>
-            handleFilterChange('status', statuses)
-          }
-          label="status"
-          renderItem={(item) => <Status status={item} />}
-        />
-        <CheckboxFilter
-          label={t('isInPerson')}
-          isChecked={filters.isInPerson ?? false}
-          onChange={(checked) => handleFilterChange('isInPerson', checked)}
         />
         <FilterInput
           id="sourceCity"
