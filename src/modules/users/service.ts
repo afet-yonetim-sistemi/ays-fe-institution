@@ -19,7 +19,7 @@ export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
     pageable: {
       page: filter.page || 1,
       pageSize: filter.pageSize || 10,
-      ...(orders ? { orders: orders } : []),
+      ...(orders ? { orders } : []),
     },
     filter: {
       ...(filter.statuses.length > 0
