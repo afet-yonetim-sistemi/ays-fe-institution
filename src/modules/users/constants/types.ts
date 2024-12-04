@@ -1,4 +1,4 @@
-import { PhoneNumber, Sort } from '@/common/types'
+import { Sort } from '@/common/types'
 
 export interface UsersFilter {
   page: number
@@ -8,6 +8,7 @@ export interface UsersFilter {
   firstName?: string
   lastName?: string
   emailAddress?: string
-  phoneNumber?: PhoneNumber
+  countryCode?: number
+  lineNumber?: number
   city?: string
 }

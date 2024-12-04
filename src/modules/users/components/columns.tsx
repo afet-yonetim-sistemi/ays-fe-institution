@@ -23,10 +23,11 @@ export const columns: (
   filters: { sort: Sort[] },
   onSortClick: (column: Column<User>) => void
 ) => ColumnDef<User>[] = (filters, onSortClick) => {
-  const sortState = filters.sort?.find((s) => s?.column === 'createdAt') || {
-    column: '',
-    direction: undefined,
-  }
+  const getSortState = (columnName: string) =>
+    filters.sort?.find((s) => s?.column === columnName) || {
+      column: '',
+      direction: undefined,
+    }
 
   return [
     {
@@ -35,7 +36,7 @@ export const columns: (
         <DataTableSort
           column={column}
           label={i18next.t('user.firstName')}
-          sortState={sortState}
+          sortState={getSortState('firstName')}
           onSortClick={onSortClick}
         />
       ),
@@ -45,7 +46,7 @@ export const columns: (
       header: () => i18next.t('user.lastName'),
     },
     {
-      accessorKey: 'email',
+      accessorKey: 'emailAddress',
       header: () => i18next.t('user.email'),
     },
     {
@@ -75,7 +76,7 @@ export const columns: (
         <DataTableSort
           column={column}
           label={i18next.t('user.createdAt')}
-          sortState={sortState}
+          sortState={getSortState('createdAt')}
           onSortClick={onSortClick}
         />
       ),

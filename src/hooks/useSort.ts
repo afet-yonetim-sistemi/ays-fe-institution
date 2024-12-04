@@ -1,13 +1,15 @@
 import { Sort } from '@/common/types'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export const useSort = (sorts: Sort[] = []) => {
+export const useSort = (
+  initialSorts: Sort[] = []
+): ((column: { id: string }) => void) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const handleSortChange = (column: { id: string }) => {
     const columnId = column.id
-    const updatedSorts = sorts ? [...sorts] : []
+    const updatedSorts = initialSorts ? [...initialSorts] : []
 
     const existingIndex = updatedSorts.findIndex((s) => s?.column === columnId)
 
@@ -23,6 +25,8 @@ export const useSort = (sorts: Sort[] = []) => {
 
         if (!existingSort.direction) {
           updatedSorts.splice(existingIndex, 1)
+        } else {
+          updatedSorts[existingIndex] = existingSort
         }
       }
     } else {
@@ -32,6 +36,7 @@ export const useSort = (sorts: Sort[] = []) => {
     const validSorts = updatedSorts.filter(
       (s): s is Sort => s?.direction !== undefined
     )
+
     const sortQuery = validSorts
       .map((s) => `${s?.column},${s?.direction}`)
       .join(';')
