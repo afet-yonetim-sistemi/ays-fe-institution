@@ -6,6 +6,7 @@ import DataTableSort from '@/components/ui/data-table-sort'
 import { Sort } from '@/common/types'
 import { roleStatuses } from '../constants/statuses'
 import { fallbackStatus } from '@/constants/fallBackStatus'
+import { getSortState } from '@/lib/getSortState'
 
 export interface Role {
   id: string
@@ -19,11 +20,6 @@ export const columns: (
   filters: { sort: Sort[] },
   onSortClick: (column: Column<Role>) => void
 ) => ColumnDef<Role>[] = (filters, onSortClick) => {
-  const sortState = filters.sort?.find((s) => s?.column === 'createdAt') || {
-    column: '',
-    direction: undefined,
-  }
-
   return [
     {
       accessorKey: 'name',
@@ -47,7 +43,7 @@ export const columns: (
         <DataTableSort
           column={column}
           label={i18next.t('common.createdAt')}
-          sortState={sortState}
+          sortState={getSortState('createdAt', filters)}
           onSortClick={onSortClick}
         />
       ),

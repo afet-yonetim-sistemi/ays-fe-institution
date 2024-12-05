@@ -7,6 +7,7 @@ import DataTableSort from '@/components/ui/data-table-sort'
 import { fallbackStatus } from '@/constants/fallBackStatus'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import { userStatuses } from '../constants/statuses'
+import { getSortState } from '@/lib/getSortState'
 
 export interface User {
   id: string
@@ -23,12 +24,6 @@ export const columns: (
   filters: { sort: Sort[] },
   onSortClick: (column: Column<User>) => void
 ) => ColumnDef<User>[] = (filters, onSortClick) => {
-  const getSortState = (columnName: string) =>
-    filters.sort?.find((s) => s?.column === columnName) || {
-      column: '',
-      direction: undefined,
-    }
-
   return [
     {
       accessorKey: 'firstName',
@@ -36,7 +31,7 @@ export const columns: (
         <DataTableSort
           column={column}
           label={i18next.t('user.firstName')}
-          sortState={getSortState('firstName')}
+          sortState={getSortState('firstName', filters)}
           onSortClick={onSortClick}
         />
       ),
@@ -76,7 +71,7 @@ export const columns: (
         <DataTableSort
           column={column}
           label={i18next.t('user.createdAt')}
-          sortState={getSortState('createdAt')}
+          sortState={getSortState('createdAt', filters)}
           onSortClick={onSortClick}
         />
       ),
