@@ -43,7 +43,7 @@ const Page = (): JSX.Element => {
       page: 1,
       pageSize,
       statuses: [],
-      sort: undefined,
+      sort: [],
     }
   )
 
@@ -117,9 +117,7 @@ const Page = (): JSX.Element => {
       targetCity: targetCity || '',
       targetDistrict: targetDistrict || '',
       isInPerson,
-      sort: column
-        ? { column, direction: direction as SortDirection }
-        : undefined,
+      sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
 
@@ -223,7 +221,7 @@ const Page = (): JSX.Element => {
         />
       </div>
       <DataTable
-        columns={columns({ sort: filters.sort }, handleSortChange)}
+        columns={columns({ sort: filters.sort ?? [] }, handleSortChange)}
         data={emergencyEvacuationApplicationList}
         totalElements={totalRows}
         pageSize={pageSize}

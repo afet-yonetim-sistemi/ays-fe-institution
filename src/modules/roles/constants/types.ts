@@ -3,7 +3,7 @@ import { BaseApiResponse, Sort } from '@/common/types'
 export interface RolesFilter {
   page: number
   pageSize: number
-  sort?: Sort
+  sort?: Sort[]
   name?: string
   statuses: string[]
 }

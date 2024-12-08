@@ -3,6 +3,7 @@ import {
   HomeIcon,
   UserRoundCheck,
   ClipboardPenLine,
+  Users,
 } from 'lucide-react'
 import React from 'react'
 import { Permission } from '@/constants/permissions'
@@ -37,5 +38,11 @@ export const MenuItems: Menu[] = [
     label: 'roles',
     icon: ClipboardPenLine,
     requiredPermissions: [Permission.ROLE_LIST],
+  },
+  {
+    key: '/users',
+    label: 'user.title',
+    icon: Users,
+    requiredPermissions: [Permission.USER_LIST],
   },
 ]

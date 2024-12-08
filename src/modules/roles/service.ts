@@ -14,20 +14,19 @@ export const getPermissions = async (): Promise<RolePermissionApiResponse> => {
 }
 
 export const getRoles = (filter: RolesFilter): Promise<AxiosResponse> => {
-  const sortBy = filter.sort?.direction
-    ? [
-        {
-          property: filter.sort.column,
-          direction: filter.sort.direction.toUpperCase(),
-        },
-      ]
-    : undefined
+  const orders =
+    filter.sort && filter.sort.length > 0
+      ? filter.sort.map((sort) => ({
+          property: sort?.column,
+          direction: sort?.direction?.toUpperCase(),
+        }))
+      : undefined
 
   return http.post('/api/v1/roles', {
     pageable: {
       page: filter.page || 1,
       pageSize: filter.pageSize || 10,
-      ...(sortBy ? { orders: sortBy } : {}),
+      ...(orders ? { orders } : []),
     },
     filter: {
       name: filter.name || undefined,

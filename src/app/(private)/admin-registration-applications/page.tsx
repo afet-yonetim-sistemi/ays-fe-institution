@@ -42,7 +42,7 @@ const Page = (): JSX.Element => {
     page: 1,
     pageSize,
     statuses: [],
-    sort: undefined,
+    sort: [],
   })
 
   const { handlePageChange } = usePagination()
@@ -92,9 +92,7 @@ const Page = (): JSX.Element => {
       page: currentPage,
       pageSize,
       statuses,
-      sort: column
-        ? { column, direction: direction as SortDirection }
-        : undefined,
+      sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
 
     setFilters(updatedFilters)
@@ -127,7 +125,7 @@ const Page = (): JSX.Element => {
         renderItem={(item) => <Status status={item} />}
       />
       <DataTable
-        columns={columns({ sort: filters.sort }, handleSortChange)}
+        columns={columns({ sort: filters.sort ?? [] }, handleSortChange)}
         data={adminRegistrationApplicationList}
         totalElements={totalRows}
         pageSize={filters.pageSize}
