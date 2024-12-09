@@ -8,20 +8,19 @@ import { AxiosResponse } from 'axios'
 export const getEmergencyEvacuationApplications = (
   filter: EmergencyEvacuationApplicationsFilter
 ): Promise<AxiosResponse> => {
-  const sortBy = filter.sort?.direction
-    ? [
-        {
-          property: filter.sort.column,
-          direction: filter.sort.direction.toUpperCase(),
-        },
-      ]
-    : undefined
+  const orders =
+    filter.sort && filter.sort.length > 0
+      ? filter.sort.map((sort) => ({
+          property: sort?.column,
+          direction: sort?.direction?.toUpperCase(),
+        }))
+      : undefined
 
   return http.post('/api/v1/emergency-evacuation-applications', {
     pageable: {
       page: filter.page || 1,
       pageSize: filter.pageSize || 10,
-      ...(sortBy ? { orders: sortBy } : {}),
+      ...(orders ? { orders } : []),
     },
     filter: {
       ...(filter.statuses.length > 0

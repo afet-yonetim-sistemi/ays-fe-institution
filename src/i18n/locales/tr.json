@@ -36,7 +36,6 @@
   "passwordTitle": "Şifrenizi Oluşturun",
   "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
   "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
-  "users": "Kullanıcılar",
   "home": "Ana Sayfa",
   "page": "Sayfa",
   "roles": "Roller",
@@ -214,5 +213,17 @@
   "languages": {
     "en": "İngilizce",
     "tr": "Türkçe"
+  },
+  "user": {
+    "title": "Kullanıcılar",
+    "firstName": "Adı",
+    "lastName": "Soyadı",
+    "email": "E-Mail Adresi",
+    "phoneNumber": "Telefon Numarası",
+    "countryCode": "Ülke Kodu",
+    "lineNumber": "Telefon Numarası",
+    "city": "Bulunduğu Şehir",
+    "status": "Hesap Durumu",
+    "createdAt": "Oluşturulma Tarihi"
   }
 }

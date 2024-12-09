@@ -8,6 +8,7 @@ import Status from '@/components/ui/status'
 import DataTableSort from '@/components/ui/data-table-sort'
 import { emergencyEvacuationApplicationStatuses } from '../constants/statuses'
 import { fallbackStatus } from '@/constants/fallBackStatus'
+import { getSortState } from '@/lib/getSortState'
 
 export interface EmergencyEvacuationApplication {
   id: string
@@ -22,11 +23,9 @@ export interface EmergencyEvacuationApplication {
 }
 
 export const columns: (
-  filters: { sort: Sort },
+  filters: { sort: Sort[] },
   onSortClick: (column: Column<EmergencyEvacuationApplication>) => void
 ) => ColumnDef<EmergencyEvacuationApplication>[] = (filters, onSortClick) => {
-  const sortState = filters.sort || { column: '', direction: undefined }
-
   return [
     {
       accessorKey: 'referenceNumber',
@@ -75,7 +74,7 @@ export const columns: (
         <DataTableSort
           column={column}
           label={i18next.t('common.createdAt')}
-          sortState={sortState}
+          sortState={getSortState('createdAt', filters)}
           onSortClick={onSortClick}
         />
       ),

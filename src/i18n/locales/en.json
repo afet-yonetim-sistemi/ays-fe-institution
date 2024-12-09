@@ -35,7 +35,6 @@
   "passwordDescription": "Please create a new password. Must be between 6 and 50 characters in length.",
   "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
   "aysDescription": "Disaster Management System | Afet Yönetim Sistemi",
-  "users": "Users",
   "home": "Home",
   "page": "Page",
   "roles": "Roles",
@@ -214,5 +213,17 @@
   "languages": {
     "en": "English",
     "tr": "Turkish"
+  },
+  "user": {
+    "title": "Users",
+    "firstName": "Name",
+    "lastName": "Surname",
+    "email": "E-mail",
+    "phoneNumber": "Phone Number",
+    "countryCode": "Country Code",
+    "lineNumber": "Line Number",
+    "city": "City",
+    "status": "Status",
+    "createdAt": "Created At"
   }
 }

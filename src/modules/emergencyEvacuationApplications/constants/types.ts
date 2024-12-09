@@ -3,7 +3,7 @@ import { BaseApiResponse, PhoneNumber, Sort } from '@/common/types'
 export interface EmergencyEvacuationApplicationsFilter {
   page: number
   pageSize: number
-  sort?: Sort
+  sort?: Sort[]
   statuses: string[]
   referenceNumber?: string
   sourceCity?: string
