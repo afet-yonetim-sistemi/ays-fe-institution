@@ -179,7 +179,8 @@
     "activate": "Activate",
     "deactivate": "Deactivate",
     "activateConfirm": "Are you sure you want to activate this role?",
-    "deactivateConfirm": "Are you sure you want to deactivate this role?"
+    "deactivateConfirm": "Are you sure you want to deactivate this role?",
+    "create": "Create New Role"
   },
   "permissions": {
     "superAdmin": "Super Admin",
