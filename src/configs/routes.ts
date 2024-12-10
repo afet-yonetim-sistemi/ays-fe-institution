@@ -7,6 +7,7 @@ export const protectedRoutes: Record<string, string> = {
   '/admin-registration-applications/[id]': 'application:registration:detail',
   '/roles': 'role:list',
   '/roles/[id]': 'role:detail',
+  '/users': 'user:list',
   '/dashboard': 'institution:page',
 }
 
