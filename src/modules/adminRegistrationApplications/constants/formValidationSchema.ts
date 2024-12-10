@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import i18n from '@/i18n'
-import { noNumberNoSpecialCharWithLengthValidation } from '@/lib/noNumberNoSpecialChar'
+import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
 import { emailRegex } from '@/constants/regex'
 
 const PhoneNumberSchema = z
@@ -58,8 +58,8 @@ export const PreApplicationFormSchema = z.object({
 export const FormValidationSchema = AdminRegistrationApplicationSchema
 
 export const InstitutionFormSchema = z.object({
-  firstName: noNumberNoSpecialCharWithLengthValidation('firstName', 2, 100),
-  lastName: noNumberNoSpecialCharWithLengthValidation('lastName', 2, 100),
+  firstName: nameboxWithLengthValidation('firstName', 2, 100),
+  lastName: nameboxWithLengthValidation('lastName', 2, 100),
   emailAddress: z
     .string({
       required_error: i18n.t('requiredField', {
