@@ -1,4 +1,4 @@
-// 'use client'
+'use client'
 
 // import { useToast } from '@/components/ui/use-toast'
 // import { CreateRoleSchema } from '@/modules/roles/constants/formValidationSchema'
@@ -8,18 +8,18 @@
 // import { useForm } from 'react-hook-form'
 // import { useTranslation } from 'react-i18next'
 
-// const Page = (): JSX.Element => {
-//   const { t } = useTranslation()
-//   const { toast } = useToast()
-//   const router = useRouter()
-//   const [isLoading, setIsLoading] = useState(true)
-//   const form = useForm({
-//     resolver: zodResolver(CreateRoleSchema),
-//     mode: 'onChange',
-//   })
-//   const { control, reset, formState } = form
+const Page = (): JSX.Element => {
+  //   const { t } = useTranslation()
+  //   const { toast } = useToast()
+  //   const router = useRouter()
+  //   const [isLoading, setIsLoading] = useState(true)
+  //   const form = useForm({
+  //     resolver: zodResolver(CreateRoleSchema),
+  //     mode: 'onChange',
+  //   })
+  //   const { control, reset, formState } = form
 
-//   return <div></div>
-// }
+  return <div></div>
+}
 
-// export default Page
+export default Page
