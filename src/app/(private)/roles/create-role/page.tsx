@@ -10,6 +10,7 @@ import {
   FormLabel,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { handleApiError } from '@/lib/handleApiError'
 import {
   getLocalizedCategory,
@@ -18,7 +19,7 @@ import {
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import { CreateRoleSchema } from '@/modules/roles/constants/formValidationSchema'
 import { RolePermission } from '@/modules/roles/constants/types'
-import { getPermissions } from '@/modules/roles/service'
+import { getPermissions, createRole } from '@/modules/roles/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -30,7 +31,7 @@ const Page = (): JSX.Element => {
     resolver: zodResolver(CreateRoleSchema),
     mode: 'onChange',
   })
-  const { control, formState } = form
+  const { control, formState, watch } = form
 
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
   const [masterPermissionsSwitch, setMasterPermissionsSwitch] =
@@ -121,6 +122,26 @@ const Page = (): JSX.Element => {
     )
   }
 
+  const handleSave = (): void => {
+    const name = watch('name')
+    const activePermissionIds = rolePermissions
+      .filter((permission) => permission.isActive)
+      .map((permission) => permission.id)
+
+    if (!name || activePermissionIds.length === 0) {
+      setMinPermissionError(t('role.minPermissionError'))
+      return
+    }
+
+    createRole({ name, permissionIds: activePermissionIds })
+      .then(() => {
+        alert(t('role.createSuccess'))
+      })
+      .catch((error) => {
+        handleApiError(error, { description: t('role.createError') })
+      })
+  }
+
   return (
     <Form {...form}>
       <FormField
@@ -168,6 +189,9 @@ const Page = (): JSX.Element => {
           )}
         </div>
       </CardContent>
+      <div className="flex justify-end mt-4">
+        <Button onClick={handleSave}>{t('role.save')}</Button>
+      </div>
     </Form>
   )
 }
