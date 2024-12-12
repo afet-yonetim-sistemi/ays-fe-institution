@@ -1,13 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -31,7 +32,7 @@ const Page = (): JSX.Element => {
     resolver: zodResolver(CreateRoleSchema),
     mode: 'onChange',
   })
-  const { control, formState, watch } = form
+  const { control, watch, formState } = form
 
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
   const [masterPermissionsSwitch, setMasterPermissionsSwitch] =
@@ -142,56 +143,61 @@ const Page = (): JSX.Element => {
       })
   }
 
+  // Disable save button if form is invalid or if there's a permission error
+  const isSaveDisabled = !formState.isValid || minPermissionError !== null
+
   return (
     <Form {...form}>
       <FormField
         control={control}
         name="name"
         render={({ field }) => (
-          <FormItem className="sm:col-span-1">
+          <FormItem>
             <FormLabel>{t('name')}</FormLabel>
             <FormControl>
-              <>
-                <Input {...field} defaultValue={''} />
-                {formState.errors.name && (
-                  <p className="text-red-500 text-sm">
-                    {formState.errors.name.message as string}
-                  </p>
-                )}
-              </>
+              <Input {...field} />
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />
-      <div className="flex items-center mb-4">
-        <FormLabel>{t('role.masterPermissionSwitch')}</FormLabel>
-        <Switch
-          checked={masterPermissionsSwitch}
-          onCheckedChange={handleMasterSwitchChange}
-        />
-      </div>
-      {minPermissionError && (
-        <p className="text-red-500 text-sm mb-4">{minPermissionError}</p>
-      )}
-      <CardContent>
-        <div className="grid grid-cols-2 gap-4">
-          {Object.entries(categorizePermissions(rolePermissions)).map(
-            ([category, permissions]) => (
-              <PermissionCard
-                key={category}
-                category={category}
-                permissions={permissions}
-                isEditable={true}
-                onPermissionToggle={handlePermissionToggle}
-                onCategoryToggle={handleCategoryToggle}
+      <Card className="mb-6">
+        <CardHeader>
+          <div className="flex items-center">
+            <CardTitle>{t('role.permissions')}</CardTitle>
+            <div className="ml-4 flex items-center gap-2">
+              <Switch
+                checked={masterPermissionsSwitch}
+                onCheckedChange={(isActive) =>
+                  handleMasterSwitchChange(isActive)
+                }
               />
-            )
-          )}
-        </div>
-      </CardContent>
-      <div className="flex justify-end mt-4">
-        <Button onClick={handleSave}>{t('role.save')}</Button>
-      </div>
+              {minPermissionError && (
+                <p className="text-destructive text-sm">{minPermissionError}</p>
+              )}
+            </div>
+            <Button onClick={handleSave} disabled={isSaveDisabled}>
+              {t('common.save')}
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            {Object.entries(categorizePermissions(rolePermissions)).map(
+              ([category, permissions]) => (
+                <PermissionCard
+                  key={category}
+                  category={category}
+                  permissions={permissions}
+                  isEditable={true}
+                  onPermissionToggle={handlePermissionToggle}
+                  onCategoryToggle={handleCategoryToggle}
+                />
+              )
+            )}
+          </div>
+        </CardContent>
+      </Card>
     </Form>
   )
 }
