@@ -22,6 +22,7 @@ import { getPermissions } from '@/modules/roles/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { Switch } from '@/components/ui/switch'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -32,33 +33,58 @@ const Page = (): JSX.Element => {
   const { control, formState } = form
 
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
+  const [masterPermissionsSwitch, setMasterPermissionsSwitch] =
+    useState<boolean>(false)
+  const [minPermissionError, setMinPermissionError] = useState<string | null>(
+    null
+  )
 
   useEffect(() => {
-    const fetchPermissions = async () => {
-      getPermissions()
-        .then((response) => {
-          const permissions = response.response.map(
-            (permission: RolePermission) => ({
-              id: permission.id,
-              name: permission.name,
-              category: permission.category,
-              isActive: false,
-            })
-          )
-          const localizedPermissions = permissions.map((permission) => ({
-            ...permission,
-            name: getLocalizedPermission(permission.name, t),
-            category: getLocalizedCategory(permission.category, t),
-          }))
-          setRolePermissions(localizedPermissions)
-        })
-        .catch((error) => {
-          handleApiError(error, { description: t('permissions.error') })
-        })
-    }
-
-    fetchPermissions()
+    getPermissions()
+      .then((response) => {
+        const permissions = response.response.map(
+          (permission: RolePermission) => ({
+            id: permission.id,
+            name: permission.name,
+            category: permission.category,
+            isActive: false,
+          })
+        )
+        const localizedPermissions = permissions.map((permission) => ({
+          ...permission,
+          name: getLocalizedPermission(permission.name, t),
+          category: getLocalizedCategory(permission.category, t),
+        }))
+        setRolePermissions(localizedPermissions)
+      })
+      .catch((error) => {
+        handleApiError(error, { description: t('permissions.error') })
+      })
   }, [t])
+
+  useEffect(() => {
+    if (rolePermissions.length > 0) {
+      const allActive = rolePermissions.every(
+        (permission) => permission.isActive
+      )
+      const allInactive = rolePermissions.every(
+        (permission) => !permission.isActive
+      )
+
+      setMasterPermissionsSwitch(allActive)
+      setMinPermissionError(allInactive ? t('role.minPermissionError') : null)
+    }
+  }, [rolePermissions, t])
+
+  const handleMasterSwitchChange = (isActive: boolean): void => {
+    setMasterPermissionsSwitch(isActive)
+    setRolePermissions((prevPermissions) =>
+      prevPermissions.map((permission) => ({
+        ...permission,
+        isActive,
+      }))
+    )
+  }
 
   const categorizePermissions = (
     permissions: RolePermission[]
@@ -116,6 +142,16 @@ const Page = (): JSX.Element => {
           </FormItem>
         )}
       />
+      <div className="flex items-center mb-4">
+        <FormLabel>{t('role.masterPermissionSwitch')}</FormLabel>
+        <Switch
+          checked={masterPermissionsSwitch}
+          onCheckedChange={handleMasterSwitchChange}
+        />
+      </div>
+      {minPermissionError && (
+        <p className="text-red-500 text-sm mb-4">{minPermissionError}</p>
+      )}
       <CardContent>
         <div className="grid grid-cols-2 gap-4">
           {Object.entries(categorizePermissions(rolePermissions)).map(
