@@ -26,10 +26,12 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Switch } from '@/components/ui/switch'
 import { useToast } from '@/components/ui/use-toast'
+import { useRouter } from 'next/navigation'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const { toast } = useToast()
+  const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateRoleSchema),
     mode: 'onChange',
@@ -145,6 +147,7 @@ const Page = (): JSX.Element => {
           description: t('role.createdSuccessfully'),
           variant: 'success',
         })
+        router.push('/roles')
       })
       .catch((error) => {
         handleApiError(error, { description: t('role.createError') })
