@@ -24,7 +24,7 @@
     "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş.",
     "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin."
   },
-  "noSpecialChar": "{{field}} sayı veya özel karakter içeremez.",
+  "notValidNamebox": "{{field}} geçerli değil",
   "thisField": "Bu alan",
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",

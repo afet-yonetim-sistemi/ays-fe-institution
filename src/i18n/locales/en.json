@@ -24,7 +24,7 @@
     "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",
     "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again."
   },
-  "noSpecialChar": "{{field}} cannot contain numbers or special characters",
+  "notValidNamebox": "{{field}} is not valid",
   "thisField": "thisField",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
