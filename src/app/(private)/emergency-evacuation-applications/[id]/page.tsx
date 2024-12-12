@@ -23,6 +23,10 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
 import { handleApiError } from '@/lib/handleApiError'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
+import { Button } from '@/components/ui/button'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { Permission } from '@/constants/permissions'
+import { useAppSelector } from '@/store/hooks'
 
 const Page = ({
   params,
@@ -33,6 +37,7 @@ const Page = ({
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
   })
+  const userPermissions = useAppSelector(selectPermissions)
   const { control } = form
 
   const [
@@ -41,6 +46,8 @@ const Page = ({
   ] = useState<EmergencyEvacuationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isEmergencyApplicationEditable, setIsEmergencyApplicationEditable] =
+    useState<boolean>(false)
 
   useEffect(() => {
     const fetchDetails = (): void => {
@@ -57,15 +64,58 @@ const Page = ({
     fetchDetails()
   }, [params.id, t])
 
+  const handleUpdateButtonClick = (): void => {
+    return setIsEmergencyApplicationEditable(true) // pff deletethis
+  }
+
+  const handleCancelButtonClick = (): void => {
+    return
+  }
+
+  const handleSaveButtonClick = (): void => {
+    return
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && emergencyEvacuationApplicationDetails && (
         <Form {...form}>
           <form className="space-y-6">
-            <h1 className="text-2xl font-bold mb-6">
-              {t('emergencyEvacuationApplications.detailsTitle')}
-            </h1>
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-2xl font-bold">
+                {t('emergencyEvacuationApplications.detailsTitle')}
+              </h1>
+              {userPermissions.includes(Permission.EVACUATION_UPDATE) ? (
+                !isEmergencyApplicationEditable ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleUpdateButtonClick}
+                  >
+                    {t('common.update')}
+                  </Button>
+                ) : (
+                  <div className="flex items-center gap-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleCancelButtonClick}
+                    >
+                      {t('common.cancel')}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleSaveButtonClick}
+                      disabled={false}
+                    >
+                      {t('common.save')}
+                    </Button>
+                  </div>
+                )
+              ) : null}
+            </div>
             <Card className="mb-6">
               <CardHeader>
                 <CardTitle>{t('applicationInformation')}</CardTitle>
