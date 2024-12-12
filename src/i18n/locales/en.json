@@ -180,7 +180,9 @@
     "deactivate": "Deactivate",
     "activateConfirm": "Are you sure you want to activate this role?",
     "deactivateConfirm": "Are you sure you want to deactivate this role?",
-    "create": "Create New Role"
+    "create": "Create New Role",
+    "createdSuccessfully": "Role created successfully.",
+    "createError": "Rol create failed."
   },
   "permissions": {
     "superAdmin": "Super Admin",

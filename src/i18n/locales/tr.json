@@ -180,7 +180,9 @@
     "deactivate": "Pasifleştir",
     "activateConfirm": "Rol aktifleştirme işlemine devam etmek istiyor musunuz?",
     "deactivateConfirm": "Rol pasifleştirme işlemine devam etmek istiyor musunuz?",
-    "create": "Yeni Rol Oluştur"
+    "create": "Yeni Rol Oluştur",
+    "createdSuccessfully": "Rol başarıyla oluşturuldu.",
+    "createError": "Rol oluşturma başarısız."
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",
