@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { CardContent } from '@/components/ui/card'
 import {
   Form,
@@ -10,8 +10,11 @@ import {
   FormLabel,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-// import { useToast } from '@/components/ui/use-toast'
 import { handleApiError } from '@/lib/handleApiError'
+import {
+  getLocalizedCategory,
+  getLocalizedPermission,
+} from '@/lib/localizePermission'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import { CreateRoleSchema } from '@/modules/roles/constants/formValidationSchema'
 import { RolePermission } from '@/modules/roles/constants/types'
@@ -19,14 +22,9 @@ import { getPermissions } from '@/modules/roles/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-// import {
-//   getLocalizedCategory,
-//   getLocalizedPermission,
-// } from '@/lib/localizePermission'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  // const { toast } = useToast()
   const form = useForm({
     resolver: zodResolver(CreateRoleSchema),
     mode: 'onChange',
@@ -35,32 +33,32 @@ const Page = (): JSX.Element => {
 
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
 
-  const getAvailableRolePermissions = useCallback(async (): Promise<
-    RolePermission[]
-  > => {
-    return getPermissions()
-      .then((response) => {
-        const permissions = response.response
-        return permissions.map((permission: RolePermission) => ({
-          id: permission.id,
-          name: permission.name,
-          category: permission.category,
-          isActive: false,
-        }))
-      })
-      .catch((error) => {
-        handleApiError(error, { description: t('permissions.error') })
-        return []
-      })
-  }, [t])
-
   useEffect(() => {
     const fetchPermissions = async () => {
-      const permissions = await getAvailableRolePermissions()
-      setRolePermissions(permissions)
+      getPermissions()
+        .then((response) => {
+          const permissions = response.response.map(
+            (permission: RolePermission) => ({
+              id: permission.id,
+              name: permission.name,
+              category: permission.category,
+              isActive: false,
+            })
+          )
+          const localizedPermissions = permissions.map((permission) => ({
+            ...permission,
+            name: getLocalizedPermission(permission.name, t),
+            category: getLocalizedCategory(permission.category, t),
+          }))
+          setRolePermissions(localizedPermissions)
+        })
+        .catch((error) => {
+          handleApiError(error, { description: t('permissions.error') })
+        })
     }
+
     fetchPermissions()
-  }, [getAvailableRolePermissions])
+  }, [t])
 
   const categorizePermissions = (
     permissions: RolePermission[]
@@ -76,17 +74,6 @@ const Page = (): JSX.Element => {
       {}
     )
   }
-
-  // const localizePermissions = (
-  //   permissions: RolePermission[],
-  //   t: (key: string) => string
-  // ): RolePermission[] => {
-  //   return permissions.map((permission) => ({
-  //     ...permission,
-  //     name: getLocalizedPermission(permission.name, t),
-  //     category: getLocalizedCategory(permission.category, t),
-  //   }))
-  // }
 
   const handlePermissionToggle = (id: string): void => {
     setRolePermissions((prevPermissions) =>
@@ -135,7 +122,7 @@ const Page = (): JSX.Element => {
             ([category, permissions]) => (
               <PermissionCard
                 key={category}
-                category={t(category)}
+                category={category}
                 permissions={permissions}
                 isEditable={true}
                 onPermissionToggle={handlePermissionToggle}
