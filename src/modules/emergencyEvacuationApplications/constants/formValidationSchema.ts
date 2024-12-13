@@ -1,3 +1,4 @@
+import { t } from 'i18next'
 import { z } from 'zod'
 
 const PhoneNumberSchema = z.object({
@@ -14,7 +15,19 @@ const EmergencyEvacuationApplicationSchema = z.object({
   sourceCity: z.string(),
   sourceDistrict: z.string(),
   address: z.string(),
-  seatingCount: z.number(),
+  seatingCount: z
+    .number({
+      invalid_type_error: t(
+        'emergencyEvacuationApplications.seatingCountinvalidType'
+      ),
+    })
+    .int({
+      message: t('seatingCountValidationMessage', {
+        field: 3,
+      }),
+    })
+    .min(1, { message: t('seatingCountValidationMessage', { field: 3 }) })
+    .max(999, { message: t('seatingCountValidationMessage', { field: 3 }) }),
   targetCity: z.string(),
   targetDistrict: z.string(),
   status: z.string(),

@@ -136,13 +136,14 @@
     "sourceCityAndDistrict": "Bulunulan Şehir / İlçe",
     "address": "Açık Adres",
     "targetCityAndDistrict": "Tahliye Sağlanılacak Şehir / İlçe",
-    "seatCount": "Koltuk Sayısı",
+    "seatingCount": "Koltuk Sayısı",
     "isInPerson": "Bireysel Başvuru Mu?",
     "status": "Başvuru Durumu",
     "createdAt": "Başvuru Tarihi ve Saati",
     "anyDisability": "Engel Durumu Olan Biri Var mı?",
-    "confirmedSeatCount": "Teyit Edilen Koltuk Sayısı",
-    "notes": "Operatör Notları"
+    "confirmedSeatingCount": "Teyit Edilen Koltuk Sayısı",
+    "notes": "Operatör Notları",
+    "seatingCountinvalidType": "Lütfen uygun bir sayı girin"
   },
   "name": "Rol Adı",
   "createDateTime": "Oluşturulma Tarihi ve Saati",
