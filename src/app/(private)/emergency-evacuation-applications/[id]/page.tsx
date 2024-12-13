@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -36,9 +37,10 @@ const Page = ({
   const { t } = useTranslation()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
+    mode: 'onChange',
   })
   const userPermissions = useAppSelector(selectPermissions)
-  const { control } = form
+  const { control, reset } = form
 
   const [
     emergencyEvacuationApplicationDetails,
@@ -48,6 +50,10 @@ const Page = ({
   const [error, setError] = useState<string | null>(null)
   const [isEmergencyApplicationEditable, setIsEmergencyApplicationEditable] =
     useState<boolean>(false)
+
+  const canUpdateApplication =
+    emergencyEvacuationApplicationDetails?.status !== 'COMPLETED' &&
+    emergencyEvacuationApplicationDetails?.status !== 'CANCELLED'
 
   useEffect(() => {
     const fetchDetails = (): void => {
@@ -65,11 +71,20 @@ const Page = ({
   }, [params.id, t])
 
   const handleUpdateButtonClick = (): void => {
-    return setIsEmergencyApplicationEditable(true) // pff deletethis
+    return setIsEmergencyApplicationEditable(true)
   }
 
   const handleCancelButtonClick = (): void => {
-    return
+    setIsEmergencyApplicationEditable(false)
+    if (emergencyEvacuationApplicationDetails) {
+      reset({
+        seatingCount: emergencyEvacuationApplicationDetails.seatingCount,
+        hasObstaclePersonExist:
+          emergencyEvacuationApplicationDetails.hasObstaclePersonExist,
+        status: emergencyEvacuationApplicationDetails.status,
+        notes: emergencyEvacuationApplicationDetails.notes,
+      })
+    }
   }
 
   const handleSaveButtonClick = (): void => {
@@ -87,33 +102,35 @@ const Page = ({
                 {t('emergencyEvacuationApplications.detailsTitle')}
               </h1>
               {userPermissions.includes(Permission.EVACUATION_UPDATE) ? (
-                !isEmergencyApplicationEditable ? (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleUpdateButtonClick}
-                  >
-                    {t('common.update')}
-                  </Button>
-                ) : (
-                  <div className="flex items-center gap-4">
+                canUpdateApplication ? (
+                  !isEmergencyApplicationEditable ? (
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={handleCancelButtonClick}
+                      onClick={handleUpdateButtonClick}
                     >
-                      {t('common.cancel')}
+                      {t('common.update')}
                     </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleSaveButtonClick}
-                      disabled={false}
-                    >
-                      {t('common.save')}
-                    </Button>
-                  </div>
-                )
+                  ) : (
+                    <div className="flex items-center gap-4">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleCancelButtonClick}
+                      >
+                        {t('common.cancel')}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleSaveButtonClick}
+                        disabled={false}
+                      >
+                        {t('common.save')}
+                      </Button>
+                    </div>
+                  )
+                ) : null
               ) : null}
             </div>
             <Card className="mb-6">
@@ -353,31 +370,44 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="seatCount"
+                    name="seatingCount"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('seatingCount')}</FormLabel>
+                        <FormLabel>
+                          {t('emergencyEvacuationApplications.seatingCount')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
+                            type="number"
+                            min={1}
+                            max={999}
+                            disabled={!isEmergencyApplicationEditable}
                             defaultValue={
                               emergencyEvacuationApplicationDetails.seatingCount ??
                               ''
                             }
+                            onChange={(e) => {
+                              const value =
+                                e.target.value === ''
+                                  ? ''
+                                  : Number(e.target.value)
+                              field.onChange(value)
+                            }}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
                   <FormField
                     control={control}
-                    name="confirmedSeatCount"
+                    name="confirmedSeatingCount"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
                           {t(
-                            'emergencyEvacuationApplications.confirmedSeatCount'
+                            'emergencyEvacuationApplications.confirmedSeatingCount'
                           )}
                         </FormLabel>
                         <FormControl>
