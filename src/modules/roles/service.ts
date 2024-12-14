@@ -50,18 +50,25 @@ export const getRoleDetail = async (id: string): Promise<RoleApiResponse> => {
     .then((response) => response.data)
 }
 
-export const deleteRole = (id: string): Promise<BaseApiResponse> => {
+export const deleteRole = async (id: string): Promise<BaseApiResponse> => {
   return http.delete(`/api/v1/role/${id}`).then((response) => response.data)
 }
 
-export const activateRole = (id: string): Promise<BaseApiResponse> => {
+export const activateRole = async (id: string): Promise<BaseApiResponse> => {
   return http
     .patch(`/api/v1/role/${id}/activate`)
     .then((response) => response.data)
 }
 
-export const deactivateRole = (id: string): Promise<BaseApiResponse> => {
+export const deactivateRole = async (id: string): Promise<BaseApiResponse> => {
   return http
     .patch(`/api/v1/role/${id}/passivate`)
     .then((response) => response.data)
+}
+
+export const createRole = async (data: {
+  name: string
+  permissionIds: string[]
+}): Promise<BaseApiResponse> => {
+  return http.post(`/api/v1/role`, data).then((response) => response.data)
 }

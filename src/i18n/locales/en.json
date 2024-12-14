@@ -24,7 +24,7 @@
     "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",
     "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again."
   },
-  "noSpecialChar": "{{field}} cannot contain numbers or special characters",
+  "notValidNamebox": "{{field}} is not valid",
   "thisField": "thisField",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
@@ -179,7 +179,10 @@
     "activate": "Activate",
     "deactivate": "Deactivate",
     "activateConfirm": "Are you sure you want to activate this role?",
-    "deactivateConfirm": "Are you sure you want to deactivate this role?"
+    "deactivateConfirm": "Are you sure you want to deactivate this role?",
+    "create": "Create New Role",
+    "createdSuccessfully": "Role created successfully.",
+    "createError": "Rol create failed."
   },
   "permissions": {
     "superAdmin": "Super Admin",
