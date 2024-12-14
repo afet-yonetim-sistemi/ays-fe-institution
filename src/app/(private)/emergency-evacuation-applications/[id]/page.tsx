@@ -75,7 +75,6 @@ const Page = ({
   }
 
   const handleCancelButtonClick = (): void => {
-    setIsEmergencyApplicationEditable(false)
     if (emergencyEvacuationApplicationDetails) {
       reset({
         seatingCount: emergencyEvacuationApplicationDetails.seatingCount,
@@ -85,6 +84,7 @@ const Page = ({
         notes: emergencyEvacuationApplicationDetails.notes,
       })
     }
+    setIsEmergencyApplicationEditable(false)
   }
 
   const handleSaveButtonClick = (): void => {
@@ -380,8 +380,6 @@ const Page = ({
                           <Input
                             {...field}
                             type="number"
-                            min={1}
-                            max={999}
                             disabled={!isEmergencyApplicationEditable}
                             defaultValue={
                               emergencyEvacuationApplicationDetails.seatingCount ??
@@ -473,7 +471,7 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="anyDisability"
+                    name="hasObstaclePersonExist"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <div className="flex items-center">
@@ -483,10 +481,12 @@ const Page = ({
                           <FormControl>
                             <Checkbox
                               {...field}
-                              disabled
-                              checked={
+                              disabled={!isEmergencyApplicationEditable}
+                              defaultChecked={
                                 emergencyEvacuationApplicationDetails.hasObstaclePersonExist
                               }
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
                             />
                           </FormControl>
                         </div>
