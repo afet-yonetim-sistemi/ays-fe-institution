@@ -48,7 +48,7 @@ const Page = ({
     mode: 'onChange',
   })
   const userPermissions = useAppSelector(selectPermissions)
-  const { control, reset } = form
+  const { control, reset, formState } = form
 
   const [
     emergencyEvacuationApplicationDetails,
@@ -132,7 +132,7 @@ const Page = ({
                         type="button"
                         variant="outline"
                         onClick={handleSaveButtonClick}
-                        disabled={false}
+                        disabled={Boolean(formState.errors.seatingCount)}
                       >
                         {t('common.save')}
                       </Button>
