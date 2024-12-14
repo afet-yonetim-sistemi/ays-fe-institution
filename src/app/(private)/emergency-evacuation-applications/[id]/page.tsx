@@ -35,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 
 const Page = ({
   params,
@@ -521,12 +522,15 @@ const Page = ({
                           {t('emergencyEvacuationApplications.notes')}
                         </FormLabel>
                         <FormControl>
-                          <Input
+                          <Textarea
                             {...field}
-                            disabled
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.notes ?? ''
+                            value={
+                              field.value ||
+                              emergencyEvacuationApplicationDetails.notes ||
+                              ''
                             }
+                            onChange={(e) => field.onChange(e.target.value)}
+                            disabled={!isEmergencyApplicationEditable}
                           />
                         </FormControl>
                       </FormItem>
