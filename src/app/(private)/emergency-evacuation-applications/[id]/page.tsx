@@ -28,6 +28,13 @@ import { Button } from '@/components/ui/button'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { Permission } from '@/constants/permissions'
 import { useAppSelector } from '@/store/hooks'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const Page = ({
   params,
@@ -430,21 +437,33 @@ const Page = ({
                           {t('emergencyEvacuationApplications.status')}
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            disabled
+                          <Select
                             value={
-                              emergencyEvacuationApplicationDetails.status
-                                ? t(
-                                    emergencyEvacuationApplicationStatuses.find(
-                                      (status) =>
-                                        status.value ===
-                                        emergencyEvacuationApplicationDetails.status
-                                    )?.label || ''
-                                  )
-                                : ''
+                              field.value ||
+                              emergencyEvacuationApplicationDetails.status ||
+                              ''
                             }
-                          />
+                            onValueChange={(value: string) =>
+                              field.onChange(value)
+                            }
+                            disabled={!isEmergencyApplicationEditable}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder={t('status')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {emergencyEvacuationApplicationStatuses.map(
+                                (status) => (
+                                  <SelectItem
+                                    key={status.value}
+                                    value={status.value}
+                                  >
+                                    {t(status.label)}
+                                  </SelectItem>
+                                )
+                              )}
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                       </FormItem>
                     )}
@@ -495,7 +514,7 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="operatorNotes"
+                    name="notes"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormLabel>
