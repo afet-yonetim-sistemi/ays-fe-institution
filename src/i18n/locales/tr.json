@@ -144,7 +144,9 @@
     "confirmedSeatingCount": "Teyit Edilen Koltuk Sayısı",
     "notes": "Operatör Notları",
     "seatingCountinvalidType": "Lütfen uygun bir sayı girin",
-    "noChangesError": "Değişiklik yapmadan başvuruyu güncelleyemezsiniz."
+    "noChangesError": "Değişiklik yapmadan başvuruyu güncelleyemezsiniz.",
+    "updatedSuccessfully": "Tahliye başvurusu başarıyla güncellendi.",
+    "updateError": "Tahliye başvurusu güncelleme başarısız."
   },
   "name": "Rol Adı",
   "createDateTime": "Oluşturulma Tarihi ve Saati",

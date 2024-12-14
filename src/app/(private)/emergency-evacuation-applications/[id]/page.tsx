@@ -22,7 +22,10 @@ import {
   EmergencyEvacuationApplication,
   EvacuationApplicationEditableFields,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
-import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
+import {
+  getEmergencyEvacuationApplication,
+  updateEmergencyEvacuationApplication,
+} from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
 import { handleApiError } from '@/lib/handleApiError'
@@ -74,8 +77,14 @@ const Page = ({
       getEmergencyEvacuationApplication(params.id)
         .then((response) => {
           const details = response.response
-          setEmergencyEvacuationApplicationDetails(details)
-          setInitialApplicationValues(details)
+          const detailsWithoutNullHasObstacle = {
+            ...details,
+            hasObstaclePersonExist: details.hasObstaclePersonExist || false,
+          }
+          setEmergencyEvacuationApplicationDetails(
+            detailsWithoutNullHasObstacle
+          )
+          setInitialApplicationValues(detailsWithoutNullHasObstacle)
         })
         .catch((error) => {
           setError(error.message)
@@ -95,7 +104,7 @@ const Page = ({
       reset({
         seatingCount: emergencyEvacuationApplicationDetails.seatingCount,
         hasObstaclePersonExist:
-          emergencyEvacuationApplicationDetails.hasObstaclePersonExist,
+          emergencyEvacuationApplicationDetails.hasObstaclePersonExist || false,
         status: emergencyEvacuationApplicationDetails.status,
         notes: emergencyEvacuationApplicationDetails.notes,
       })
@@ -108,7 +117,7 @@ const Page = ({
       seatingCount:
         getValues('seatingCount') || initialApplicationValues?.seatingCount,
       hasObstaclePersonExist:
-        getValues('hasObstaclePersonExist') ||
+        getValues('hasObstaclePersonExist') ??
         initialApplicationValues?.hasObstaclePersonExist,
       status: getValues('status') || initialApplicationValues?.status,
       notes: getValues('notes') || initialApplicationValues?.notes,
@@ -131,7 +140,39 @@ const Page = ({
         description: t('emergencyEvacuationApplications.noChangesError'),
         variant: 'destructive',
       })
+      return
     }
+    updateEmergencyEvacuationApplication(params.id, currentValues)
+      .then((response) => {
+        if (response.isSuccess) {
+          setEmergencyEvacuationApplicationDetails({
+            ...emergencyEvacuationApplicationDetails!,
+            ...currentValues,
+          })
+          setInitialApplicationValues({
+            ...emergencyEvacuationApplicationDetails!,
+            ...currentValues,
+          })
+
+          toast({
+            title: t('success'),
+            description: t(
+              'emergencyEvacuationApplications.updatedSuccessfully'
+            ),
+            variant: 'success',
+          })
+          setIsEmergencyApplicationEditable(false)
+        } else {
+          handleApiError(undefined, {
+            description: t('emergencyEvacuationApplications.updateError'),
+          })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error, {
+          description: t('emergencyEvacuationApplications.updateError'),
+        })
+      })
   }
 
   return (

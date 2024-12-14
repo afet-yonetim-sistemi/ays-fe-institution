@@ -144,7 +144,9 @@
     "confirmedSeatingCount": "Confirmed Seating Count",
     "notes": "Operator Notes",
     "seatingCountinvalidType": "Please enter valid number",
-    "noChangesError": "Cannot update the application without making any changes"
+    "noChangesError": "Cannot update the application without making any changes",
+    "updatedSuccessfully": "Evacuation application updated successfully",
+    "updateError": "Evacuation application update failed"
   },
   "name": "Role Name",
   "createDateTime": "Creation Date and Time",
