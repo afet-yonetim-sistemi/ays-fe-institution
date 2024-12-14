@@ -18,7 +18,10 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
-import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/constants/types'
+import {
+  EmergencyEvacuationApplication,
+  EvacuationApplicationEditableFields,
+} from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
@@ -36,6 +39,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { toast } from '@/components/ui/use-toast'
 
 const Page = ({
   params,
@@ -48,12 +52,14 @@ const Page = ({
     mode: 'onChange',
   })
   const userPermissions = useAppSelector(selectPermissions)
-  const { control, reset, formState } = form
+  const { control, reset, formState, getValues } = form
 
   const [
     emergencyEvacuationApplicationDetails,
     setEmergencyEvacuationApplicationDetails,
   ] = useState<EmergencyEvacuationApplication | null>(null)
+  const [initialApplicationValues, setInitialApplicationValues] =
+    useState<EmergencyEvacuationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isEmergencyApplicationEditable, setIsEmergencyApplicationEditable] =
@@ -67,7 +73,9 @@ const Page = ({
     const fetchDetails = (): void => {
       getEmergencyEvacuationApplication(params.id)
         .then((response) => {
-          setEmergencyEvacuationApplicationDetails(response.response)
+          const details = response.response
+          setEmergencyEvacuationApplicationDetails(details)
+          setInitialApplicationValues(details)
         })
         .catch((error) => {
           setError(error.message)
@@ -96,7 +104,34 @@ const Page = ({
   }
 
   const handleSaveButtonClick = (): void => {
-    return
+    const currentValues: EvacuationApplicationEditableFields = {
+      seatingCount:
+        getValues('seatingCount') || initialApplicationValues?.seatingCount,
+      hasObstaclePersonExist:
+        getValues('hasObstaclePersonExist') ||
+        initialApplicationValues?.hasObstaclePersonExist,
+      status: getValues('status') || initialApplicationValues?.status,
+      notes: getValues('notes') || initialApplicationValues?.notes,
+    }
+
+    const editableFields: (keyof EvacuationApplicationEditableFields)[] = [
+      'seatingCount',
+      'hasObstaclePersonExist',
+      'status',
+      'notes',
+    ]
+
+    const isChanged = editableFields.some((key) => {
+      return currentValues[key] !== initialApplicationValues?.[key]
+    })
+
+    if (!isChanged) {
+      toast({
+        title: t('common.error'),
+        description: t('emergencyEvacuationApplications.noChangesError'),
+        variant: 'destructive',
+      })
+    }
   }
 
   return (
