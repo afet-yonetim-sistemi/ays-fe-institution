@@ -1,7 +1,7 @@
 import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 import { z } from 'zod'
 
-export const UserSchema = z.object({
+export const UserValidationSchema = z.object({
   id: z.string(),
   firstName: z.string(),
   lastName: z.string(),
