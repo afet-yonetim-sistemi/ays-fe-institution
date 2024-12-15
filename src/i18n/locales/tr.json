@@ -24,7 +24,7 @@
     "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş.",
     "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin."
   },
-  "noSpecialChar": "{{field}} sayı veya özel karakter içeremez.",
+  "notValidNamebox": "{{field}} geçerli değil",
   "cantStartOrEndWithWhitespace": "{{field}} boşluk karakteri ile başlayamaz veya bitemez",
   "thisField": "Bu alan",
   "searchCountry": "Ülke ara...",
@@ -184,7 +184,10 @@
     "activate": "Aktifleştir",
     "deactivate": "Pasifleştir",
     "activateConfirm": "Rol aktifleştirme işlemine devam etmek istiyor musunuz?",
-    "deactivateConfirm": "Rol pasifleştirme işlemine devam etmek istiyor musunuz?"
+    "deactivateConfirm": "Rol pasifleştirme işlemine devam etmek istiyor musunuz?",
+    "create": "Yeni Rol Oluştur",
+    "createdSuccessfully": "Rol başarıyla oluşturuldu.",
+    "createError": "Rol oluşturma başarısız."
   },
   "permissions": {
     "superAdmin": "Süper Yönetici",

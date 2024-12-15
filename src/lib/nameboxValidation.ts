@@ -1,12 +1,12 @@
 import i18n from '@/i18n'
 import { z } from 'zod'
 
-export const hasNoNumberNoSpecialChar = (str: string): boolean => {
+export const nameboxValidation = (str: string): boolean => {
   const strRegex = /^(?![^a-zA-ZÇçĞğİıÖöŞşÜü])[a-zA-ZÇçĞğİıÖöŞşÜü ,.'-]*$/
   return strRegex.test(str)
 }
 
-export const noNumberNoSpecialCharWithLengthValidation = (
+export const nameboxWithLengthValidation = (
   fieldName: string = 'thisField',
   minLength: number = 2,
   maxLength: number = 100
@@ -17,6 +17,6 @@ export const noNumberNoSpecialCharWithLengthValidation = (
     })
     .min(minLength, i18n.t('minLength', { field: minLength }))
     .max(maxLength, i18n.t('maxLength', { field: maxLength }))
-    .refine(hasNoNumberNoSpecialChar, {
-      message: i18n.t('noSpecialChar', { field: i18n.t(fieldName) }),
+    .refine(nameboxValidation, {
+      message: i18n.t('notValidNamebox', { field: i18n.t(fieldName) }),
     })

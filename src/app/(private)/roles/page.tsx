@@ -1,6 +1,7 @@
 'use client'
 
 import { SortDirection } from '@/common/types'
+import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
@@ -8,14 +9,18 @@ import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { toast } from '@/components/ui/use-toast'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
+import { Permission } from '@/constants/permissions'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
 import { handleApiError } from '@/lib/handleApiError'
+import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, Role } from '@/modules/roles/components/columns'
 import { roleStatuses } from '@/modules/roles/constants/statuses'
 import { RolesFilter } from '@/modules/roles/constants/types'
 import { getRoles } from '@/modules/roles/service'
+import { useAppSelector } from '@/store/hooks'
+import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,6 +30,7 @@ const Page = (): JSX.Element => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const userPermissions = useAppSelector(selectPermissions)
   const [roleList, setRoleList] = useState<Role[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
@@ -107,7 +113,16 @@ const Page = (): JSX.Element => {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-medium">{t('roles')}</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-medium">{t('roles')}</h1>
+        <div className="flex items-center space-x-4">
+          {userPermissions.includes(Permission.ROLE_CREATE) && (
+            <Link href="/roles/create-role">
+              <Button>{t('role.create')}</Button>
+            </Link>
+          )}
+        </div>
+      </div>
       <div className="flex items-center gap-4">
         <MultiSelectDropdown
           items={roleStatuses}
