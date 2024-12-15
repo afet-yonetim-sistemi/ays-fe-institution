@@ -1,3 +1,4 @@
+import i18n from '@/i18n'
 import { t } from 'i18next'
 import { z } from 'zod'
 
@@ -36,7 +37,20 @@ const EmergencyEvacuationApplicationSchema = z.object({
   applicantPhoneNumber: PhoneNumberSchema,
   isInPerson: z.boolean(),
   hasObstaclePersonExist: z.boolean().default(false).optional(),
-  notes: z.string(),
+  notes: z
+    .string()
+    .max(1000, { message: t('maxLength', { field: 1000 }) })
+    .refine((value) => !/^\s/.test(value), {
+      message: t('cantStartOrEndWithWhitespace', {
+        field: i18n.t('emergencyEvacuationApplications.notes'),
+      }),
+    })
+    .refine((value) => !/\s$/.test(value), {
+      message: t('cantStartOrEndWithWhitespace', {
+        field: i18n.t('emergencyEvacuationApplications.notes'),
+      }),
+    })
+    .optional(),
   createdUser: z.string(),
   createdAt: z.string(),
   updatedUser: z.string(),
