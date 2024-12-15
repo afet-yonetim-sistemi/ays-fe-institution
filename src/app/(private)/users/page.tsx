@@ -209,7 +209,6 @@ const Page = (): JSX.Element => {
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
         loading={isLoading}
-        enableRowClick={false}
       />
       <Toaster />
     </div>
