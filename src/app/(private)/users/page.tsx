@@ -21,12 +21,17 @@ import { userStatuses } from '@/modules/users/constants/statuses'
 import { Sort } from '@/common/types'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { toast } from '@/components/ui/use-toast'
+import { useAppSelector } from '@/store/hooks'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { Permission } from '@/constants/permissions'
+import Link from 'next/link'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const userPermissions = useAppSelector(selectPermissions)
   const [userList, setUserList] = useState<User[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
@@ -142,15 +147,24 @@ const Page = (): JSX.Element => {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-4 mb-4">
-        <h1 className="text-2xl font-medium">{t('user.title')}</h1>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => fetchData(filters)}
-        >
-          <RefreshCw className="h-4 w-4" />
-        </Button>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <h1 className="text-2xl font-medium">{t('user.title')}</h1>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => fetchData(filters)}
+          >
+            <RefreshCw className="h-4 w-4" />
+          </Button>
+        </div>
+        <div className="flex items-center space-x-4">
+          {userPermissions.includes(Permission.USER_CREATE) && (
+            <Link href="/users/create-user">
+              <Button>{t('user.create')}</Button>
+            </Link>
+          )}
+        </div>
       </div>
       <div className="grid grid-cols-4 2xl:grid-cols-7 gap-4">
         <MultiSelectDropdown

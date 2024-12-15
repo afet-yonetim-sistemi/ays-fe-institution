@@ -227,6 +227,7 @@
     "lineNumber": "Line Number",
     "city": "City",
     "status": "Status",
-    "createdAt": "Created At"
+    "createdAt": "Created At",
+    "create": "Create New User"
   }
 }

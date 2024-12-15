@@ -227,6 +227,7 @@
     "lineNumber": "Telefon Numarası",
     "city": "Bulunduğu Şehir",
     "status": "Hesap Durumu",
-    "createdAt": "Oluşturulma Tarihi"
+    "createdAt": "Oluşturulma Tarihi",
+    "create": "Yeni Kullanıcı Oluştur"
   }
 }
