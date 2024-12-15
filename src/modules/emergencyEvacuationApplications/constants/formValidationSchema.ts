@@ -1,9 +1,5 @@
+import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 import { z } from 'zod'
-
-const PhoneNumberSchema = z.object({
-  countryCode: z.string(),
-  lineNumber: z.string(),
-})
 
 const EmergencyEvacuationApplicationSchema = z.object({
   id: z.string(),
