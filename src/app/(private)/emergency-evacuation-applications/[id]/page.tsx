@@ -72,6 +72,9 @@ const Page = ({
     emergencyEvacuationApplicationDetails?.status !== 'COMPLETED' &&
     emergencyEvacuationApplicationDetails?.status !== 'CANCELLED'
 
+  const isSaveButtonDisabled =
+    Boolean(formState.errors.seatingCount) || Boolean(formState.errors.notes)
+
   useEffect(() => {
     const fetchDetails = (): void => {
       getEmergencyEvacuationApplication(params.id)
@@ -115,12 +118,12 @@ const Page = ({
   const handleSaveButtonClick = (): void => {
     const currentValues: EvacuationApplicationEditableFields = {
       seatingCount:
-        getValues('seatingCount') || initialApplicationValues?.seatingCount,
+        getValues('seatingCount') ?? initialApplicationValues?.seatingCount,
       hasObstaclePersonExist:
         getValues('hasObstaclePersonExist') ??
         initialApplicationValues?.hasObstaclePersonExist,
-      status: getValues('status') || initialApplicationValues?.status,
-      notes: getValues('notes') || initialApplicationValues?.notes,
+      status: getValues('status') ?? initialApplicationValues?.status,
+      notes: getValues('notes') ?? initialApplicationValues?.notes,
     }
 
     const editableFields: (keyof EvacuationApplicationEditableFields)[] = [
@@ -208,7 +211,7 @@ const Page = ({
                         type="button"
                         variant="outline"
                         onClick={handleSaveButtonClick}
-                        disabled={Boolean(formState.errors.seatingCount)}
+                        disabled={isSaveButtonDisabled}
                       >
                         {t('common.save')}
                       </Button>
@@ -600,15 +603,14 @@ const Page = ({
                         <FormControl>
                           <Textarea
                             {...field}
-                            value={
-                              field.value ||
-                              emergencyEvacuationApplicationDetails.notes ||
-                              ''
+                            disabled={!isEmergencyApplicationEditable}
+                            defaultValue={
+                              emergencyEvacuationApplicationDetails.notes ?? ''
                             }
                             onChange={(e) => field.onChange(e.target.value)}
-                            disabled={!isEmergencyApplicationEditable}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
