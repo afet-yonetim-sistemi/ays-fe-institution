@@ -1,6 +1,6 @@
-import { PhoneNumberSchema } from '@/constants/formValidationSchema'
-import { t } from 'i18next'
 import { z } from 'zod'
+import { t } from 'i18next'
+import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 
 const EmergencyEvacuationApplicationSchema = z.object({
   id: z.string(),
