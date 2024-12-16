@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,12 +18,31 @@ import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
-import { EmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/constants/types'
-import { getEmergencyEvacuationApplication } from '@/modules/emergencyEvacuationApplications/service'
+import {
+  EmergencyEvacuationApplication,
+  EvacuationApplicationEditableFields,
+} from '@/modules/emergencyEvacuationApplications/constants/types'
+import {
+  getEmergencyEvacuationApplication,
+  updateEmergencyEvacuationApplication,
+} from '@/modules/emergencyEvacuationApplications/service'
 import { Checkbox } from '@/components/ui/checkbox'
 import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
 import { handleApiError } from '@/lib/handleApiError'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
+import { Button } from '@/components/ui/button'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { Permission } from '@/constants/permissions'
+import { useAppSelector } from '@/store/hooks'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { toast } from '@/components/ui/use-toast'
 
 const Page = ({
   params,
@@ -32,21 +52,42 @@ const Page = ({
   const { t } = useTranslation()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
+    mode: 'onChange',
   })
-  const { control } = form
+  const userPermissions = useAppSelector(selectPermissions)
+  const { control, reset, formState, getValues } = form
 
   const [
     emergencyEvacuationApplicationDetails,
     setEmergencyEvacuationApplicationDetails,
   ] = useState<EmergencyEvacuationApplication | null>(null)
+  const [initialApplicationValues, setInitialApplicationValues] =
+    useState<EmergencyEvacuationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isEmergencyApplicationEditable, setIsEmergencyApplicationEditable] =
+    useState<boolean>(false)
+
+  const canUpdateApplication =
+    emergencyEvacuationApplicationDetails?.status !== 'COMPLETED' &&
+    emergencyEvacuationApplicationDetails?.status !== 'CANCELLED'
+
+  const isSaveButtonDisabled =
+    Boolean(formState.errors.seatingCount) || Boolean(formState.errors.notes)
 
   useEffect(() => {
     const fetchDetails = (): void => {
       getEmergencyEvacuationApplication(params.id)
         .then((response) => {
-          setEmergencyEvacuationApplicationDetails(response.response)
+          const details = response.response
+          const detailsWithoutNullHasObstacle = {
+            ...details,
+            hasObstaclePersonExist: details.hasObstaclePersonExist || false,
+          }
+          setEmergencyEvacuationApplicationDetails(
+            detailsWithoutNullHasObstacle
+          )
+          setInitialApplicationValues(detailsWithoutNullHasObstacle)
         })
         .catch((error) => {
           setError(error.message)
@@ -57,15 +98,128 @@ const Page = ({
     fetchDetails()
   }, [params.id, t])
 
+  const handleUpdateButtonClick = (): void => {
+    return setIsEmergencyApplicationEditable(true)
+  }
+
+  const handleCancelButtonClick = (): void => {
+    if (emergencyEvacuationApplicationDetails) {
+      reset({
+        seatingCount: emergencyEvacuationApplicationDetails.seatingCount,
+        hasObstaclePersonExist:
+          emergencyEvacuationApplicationDetails.hasObstaclePersonExist || false,
+        status: emergencyEvacuationApplicationDetails.status,
+        notes: emergencyEvacuationApplicationDetails.notes,
+      })
+    }
+    setIsEmergencyApplicationEditable(false)
+  }
+
+  const handleSaveButtonClick = (): void => {
+    const currentValues: EvacuationApplicationEditableFields = {
+      seatingCount:
+        getValues('seatingCount') ?? initialApplicationValues?.seatingCount,
+      hasObstaclePersonExist:
+        getValues('hasObstaclePersonExist') ??
+        initialApplicationValues?.hasObstaclePersonExist,
+      status: getValues('status') ?? initialApplicationValues?.status,
+      notes: getValues('notes') ?? initialApplicationValues?.notes,
+    }
+
+    const editableFields: (keyof EvacuationApplicationEditableFields)[] = [
+      'seatingCount',
+      'hasObstaclePersonExist',
+      'status',
+      'notes',
+    ]
+
+    const isChanged = editableFields.some((key) => {
+      return currentValues[key] !== initialApplicationValues?.[key]
+    })
+
+    if (!isChanged) {
+      toast({
+        title: t('common.error'),
+        description: t('emergencyEvacuationApplications.noChangesError'),
+        variant: 'destructive',
+      })
+      return
+    }
+    updateEmergencyEvacuationApplication(params.id, currentValues)
+      .then((response) => {
+        if (response.isSuccess) {
+          setEmergencyEvacuationApplicationDetails({
+            ...emergencyEvacuationApplicationDetails!,
+            ...currentValues,
+          })
+          setInitialApplicationValues({
+            ...emergencyEvacuationApplicationDetails!,
+            ...currentValues,
+          })
+
+          toast({
+            title: t('success'),
+            description: t(
+              'emergencyEvacuationApplications.updatedSuccessfully'
+            ),
+            variant: 'success',
+          })
+          setIsEmergencyApplicationEditable(false)
+        } else {
+          handleApiError(undefined, {
+            description: t('emergencyEvacuationApplications.updateError'),
+          })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error, {
+          description: t('emergencyEvacuationApplications.updateError'),
+        })
+      })
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && emergencyEvacuationApplicationDetails && (
         <Form {...form}>
           <form className="space-y-6">
-            <h1 className="text-2xl font-bold mb-6">
-              {t('emergencyEvacuationApplications.detailsTitle')}
-            </h1>
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-2xl font-bold">
+                {t('emergencyEvacuationApplications.detailsTitle')}
+              </h1>
+              {userPermissions.includes(Permission.EVACUATION_UPDATE) ? (
+                canUpdateApplication ? (
+                  !isEmergencyApplicationEditable ? (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleUpdateButtonClick}
+                    >
+                      {t('common.update')}
+                    </Button>
+                  ) : (
+                    <div className="flex items-center gap-4">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleCancelButtonClick}
+                      >
+                        {t('common.cancel')}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleSaveButtonClick}
+                        disabled={isSaveButtonDisabled}
+                      >
+                        {t('common.save')}
+                      </Button>
+                    </div>
+                  )
+                ) : null
+              ) : null}
+            </div>
             <Card className="mb-6">
               <CardHeader>
                 <CardTitle>{t('applicationInformation')}</CardTitle>
@@ -303,31 +457,42 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="seatCount"
+                    name="seatingCount"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('seatingCount')}</FormLabel>
+                        <FormLabel>
+                          {t('emergencyEvacuationApplications.seatingCount')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
+                            type="number"
+                            disabled={!isEmergencyApplicationEditable}
                             defaultValue={
                               emergencyEvacuationApplicationDetails.seatingCount ??
                               ''
                             }
+                            onChange={(e) => {
+                              const value =
+                                e.target.value === ''
+                                  ? ''
+                                  : Number(e.target.value)
+                              field.onChange(value)
+                            }}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
                   <FormField
                     control={control}
-                    name="confirmedSeatCount"
+                    name="confirmedSeatingCount"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
                           {t(
-                            'emergencyEvacuationApplications.confirmedSeatCount'
+                            'emergencyEvacuationApplications.confirmedSeatingCount'
                           )}
                         </FormLabel>
                         <FormControl>
@@ -352,21 +517,33 @@ const Page = ({
                           {t('emergencyEvacuationApplications.status')}
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            disabled
+                          <Select
                             value={
-                              emergencyEvacuationApplicationDetails.status
-                                ? t(
-                                    emergencyEvacuationApplicationStatuses.find(
-                                      (status) =>
-                                        status.value ===
-                                        emergencyEvacuationApplicationDetails.status
-                                    )?.label || ''
-                                  )
-                                : ''
+                              field.value ||
+                              emergencyEvacuationApplicationDetails.status ||
+                              ''
                             }
-                          />
+                            onValueChange={(value: string) =>
+                              field.onChange(value)
+                            }
+                            disabled={!isEmergencyApplicationEditable}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder={t('status')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {emergencyEvacuationApplicationStatuses.map(
+                                (status) => (
+                                  <SelectItem
+                                    key={status.value}
+                                    value={status.value}
+                                  >
+                                    {t(status.label)}
+                                  </SelectItem>
+                                )
+                              )}
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                       </FormItem>
                     )}
@@ -393,7 +570,7 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="anyDisability"
+                    name="hasObstaclePersonExist"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <div className="flex items-center">
@@ -403,10 +580,12 @@ const Page = ({
                           <FormControl>
                             <Checkbox
                               {...field}
-                              disabled
-                              checked={
+                              disabled={!isEmergencyApplicationEditable}
+                              defaultChecked={
                                 emergencyEvacuationApplicationDetails.hasObstaclePersonExist
                               }
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
                             />
                           </FormControl>
                         </div>
@@ -415,21 +594,23 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="operatorNotes"
+                    name="notes"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormLabel>
                           {t('emergencyEvacuationApplications.notes')}
                         </FormLabel>
                         <FormControl>
-                          <Input
+                          <Textarea
                             {...field}
-                            disabled
+                            disabled={!isEmergencyApplicationEditable}
                             defaultValue={
                               emergencyEvacuationApplicationDetails.notes ?? ''
                             }
+                            onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />

@@ -1,7 +1,9 @@
+import { BaseApiResponse } from '@/common/types'
 import http from '@/configs/axiosConfig'
 import {
   EmergencyApplicationApiResponse,
   EmergencyEvacuationApplicationsFilter,
+  EvacuationApplicationEditableFields,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { AxiosResponse } from 'axios'
 
@@ -44,5 +46,14 @@ export const getEmergencyEvacuationApplication = async (
     .get<EmergencyApplicationApiResponse>(
       `/api/v1/emergency-evacuation-application/${id}`
     )
+    .then((response) => response.data)
+}
+
+export const updateEmergencyEvacuationApplication = async (
+  id: string,
+  data: EvacuationApplicationEditableFields
+): Promise<BaseApiResponse> => {
+  return http
+    .put(`/api/v1/emergency-evacuation-application/${id}`, data)
     .then((response) => response.data)
 }
