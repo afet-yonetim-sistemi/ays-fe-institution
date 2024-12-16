@@ -12,6 +12,19 @@ const PhoneNumberSchema = z
     message: i18n.t('invalidPhoneNumber'),
   })
 
+  export const UserValidationSchema = z.object({
+    id: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    phoneNumber: PhoneNumberSchema,
+    city: z.string(),
+    status: z.string(),
+    createdUser: z.string(),
+    createdAt: z.string(),
+    updatedUser: z.string(),
+    updatedAt: z.string(),
+  })
+
 export const CreateUserValidationSchema = z.object({
   firstName: nameboxWithLengthValidation('firstName', 2, 100),
   lastName: nameboxWithLengthValidation('lastName', 2, 100),

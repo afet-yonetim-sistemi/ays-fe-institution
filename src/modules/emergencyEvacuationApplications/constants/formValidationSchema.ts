@@ -1,11 +1,6 @@
-import i18n from '@/i18n'
-import { t } from 'i18next'
 import { z } from 'zod'
-
-const PhoneNumberSchema = z.object({
-  countryCode: z.string(),
-  lineNumber: z.string(),
-})
+import { t } from 'i18next'
+import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 
 const EmergencyEvacuationApplicationSchema = z.object({
   id: z.string(),
@@ -42,12 +37,12 @@ const EmergencyEvacuationApplicationSchema = z.object({
     .max(1000, { message: t('maxLength', { field: 1000 }) })
     .refine((value) => !/^\s/.test(value), {
       message: t('cantStartOrEndWithWhitespace', {
-        field: i18n.t('emergencyEvacuationApplications.notes'),
+        field: t('emergencyEvacuationApplications.notes'),
       }),
     })
     .refine((value) => !/\s$/.test(value), {
       message: t('cantStartOrEndWithWhitespace', {
-        field: i18n.t('emergencyEvacuationApplications.notes'),
+        field: t('emergencyEvacuationApplications.notes'),
       }),
     })
     .optional(),
