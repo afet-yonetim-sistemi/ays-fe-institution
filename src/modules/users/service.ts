@@ -1,6 +1,6 @@
 import http from '@/configs/axiosConfig'
 import { AxiosResponse } from 'axios'
-import { UsersFilter } from './constants/types'
+import { UserApiResponse, UsersFilter } from './constants/types'
 
 export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
   const orders = filter.sort?.length
@@ -32,4 +32,10 @@ export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
       ...(Object.keys(phoneNumber).length > 0 ? { phoneNumber } : undefined),
     },
   })
+}
+
+export const getUser = async (id: string): Promise<UserApiResponse> => {
+  return http
+    .get<UserApiResponse>(`/api/v1/user/${id}`)
+    .then((response) => response.data)
 }
