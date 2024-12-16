@@ -39,6 +39,11 @@ export interface EmergencyEvacuationApplication {
   updatedAt: string
 }
 
+export type EvacuationApplicationEditableFields = Pick<
+  EmergencyEvacuationApplication,
+  'seatingCount' | 'hasObstaclePersonExist' | 'status' | 'notes'
+>
+
 export interface EmergencyApplicationApiResponse extends BaseApiResponse {
   response: EmergencyEvacuationApplication
 }
