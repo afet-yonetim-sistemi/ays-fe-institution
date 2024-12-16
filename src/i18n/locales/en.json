@@ -26,6 +26,7 @@
     "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again."
   },
   "notValidNamebox": "{{field}} is not valid",
+  "cantStartOrEndWithWhitespace": "{{field}} cannot start or end with space character",
   "thisField": "thisField",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
@@ -137,13 +138,17 @@
     "sourceCityAndDistrict": "Current City / District",
     "address": "Public Address",
     "targetCityAndDistrict": "City / District to be Evacuated",
-    "seatCount": "Seat Count",
+    "seatingCount": "Seating Count",
     "isInPerson": "Individual Application?",
     "status": "Application Status",
     "createdAt": "Application Date and Time",
     "anyDisability": "Any Person with Disability?",
-    "confirmedSeatCount": "Confirmed Seat Count",
-    "notes": "Operator Notes"
+    "confirmedSeatingCount": "Confirmed Seating Count",
+    "notes": "Operator Notes",
+    "seatingCountinvalidType": "Please enter valid number",
+    "noChangesError": "Cannot update the application without making any changes",
+    "updatedSuccessfully": "Evacuation application updated successfully",
+    "updateError": "Evacuation application update failed"
   },
   "name": "Role Name",
   "createDateTime": "Creation Date and Time",

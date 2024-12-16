@@ -26,6 +26,7 @@
     "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin."
   },
   "notValidNamebox": "{{field}} geçerli değil",
+  "cantStartOrEndWithWhitespace": "{{field}} boşluk karakteri ile başlayamaz veya bitemez",
   "thisField": "Bu alan",
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
@@ -137,13 +138,17 @@
     "sourceCityAndDistrict": "Bulunulan Şehir / İlçe",
     "address": "Açık Adres",
     "targetCityAndDistrict": "Tahliye Sağlanılacak Şehir / İlçe",
-    "seatCount": "Koltuk Sayısı",
+    "seatingCount": "Koltuk Sayısı",
     "isInPerson": "Bireysel Başvuru Mu?",
     "status": "Başvuru Durumu",
     "createdAt": "Başvuru Tarihi ve Saati",
     "anyDisability": "Engel Durumu Olan Biri Var mı?",
-    "confirmedSeatCount": "Teyit Edilen Koltuk Sayısı",
-    "notes": "Operatör Notları"
+    "confirmedSeatingCount": "Teyit Edilen Koltuk Sayısı",
+    "notes": "Operatör Notları",
+    "seatingCountinvalidType": "Lütfen uygun bir sayı girin",
+    "noChangesError": "Değişiklik yapmadan başvuruyu güncelleyemezsiniz.",
+    "updatedSuccessfully": "Tahliye başvurusu başarıyla güncellendi.",
+    "updateError": "Tahliye başvurusu güncelleme başarısız."
   },
   "name": "Rol Adı",
   "createDateTime": "Oluşturulma Tarihi ve Saati",
