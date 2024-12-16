@@ -19,7 +19,7 @@
     "default": "An error occurred. Please try again later.",
     "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again",
     "application": "Error while fetching application details. Please try again",
-    "user": "Error while fetching user details. Please try again",
+    "userDetailFetch": "Error while fetching user details. Please try again",
     "preApplication": "An error occurred while creating the preliminary application. Please try again.",
     "invalidEmailOrPassword": "Invalid E-mail or Password.",
     "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",

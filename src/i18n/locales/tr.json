@@ -19,7 +19,7 @@
     "default": "Bir hata oluştu. Lütfen tekrar deneyin.",
     "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz",
     "application": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
-    "user": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
+    "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
     "invalidEmailOrPassword": "Geçersiz e-posta veya şifre.",
     "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş.",

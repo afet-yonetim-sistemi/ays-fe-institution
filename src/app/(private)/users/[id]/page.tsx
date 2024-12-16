@@ -63,7 +63,7 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          handleApiError(error, { description: t('error.user') })
+          handleApiError(error, { description: t('error.userDetailFetch') })
         })
         .finally(() => setIsLoading(false))
     }
