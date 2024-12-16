@@ -1,5 +1,6 @@
-import { z } from 'zod'
+import i18n from '@/i18n'
 import { t } from 'i18next'
+import { z } from 'zod'
 import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 
 const EmergencyEvacuationApplicationSchema = z.object({
@@ -37,12 +38,12 @@ const EmergencyEvacuationApplicationSchema = z.object({
     .max(1000, { message: t('maxLength', { field: 1000 }) })
     .refine((value) => !/^\s/.test(value), {
       message: t('cantStartOrEndWithWhitespace', {
-        field: t('emergencyEvacuationApplications.notes'),
+        field: i18n.t('emergencyEvacuationApplications.notes'),
       }),
     })
     .refine((value) => !/\s$/.test(value), {
       message: t('cantStartOrEndWithWhitespace', {
-        field: t('emergencyEvacuationApplications.notes'),
+        field: i18n.t('emergencyEvacuationApplications.notes'),
       }),
     })
     .optional(),
