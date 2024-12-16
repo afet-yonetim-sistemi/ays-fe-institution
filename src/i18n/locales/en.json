@@ -243,6 +243,6 @@
     "create": "Create New User",
     "createdSuccessfully": "User created successfully.",
     "createError": "User create failed.",
-    "minPermissionError": "Please select at least one role in order to create"
+    "minRoleError": "Please select at least one role in order to create"
   }
 }
