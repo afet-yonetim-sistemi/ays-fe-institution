@@ -13,10 +13,6 @@
 // import { Input } from '@/components/ui/input'
 // import { Button } from '@/components/ui/button'
 // import { handleApiError } from '@/lib/handleApiError'
-// import {
-//   getLocalizedCategory,
-//   getLocalizedPermission,
-// } from '@/lib/localizePermission'
 // import { zodResolver } from '@hookform/resolvers/zod'
 // import { useForm } from 'react-hook-form'
 // import { useTranslation } from 'react-i18next'
@@ -24,6 +20,8 @@
 // import { useToast } from '@/components/ui/use-toast'
 // import { useRouter } from 'next/navigation'
 // import { CreateUserValidationSchema } from '@/modules/users/constants/formValidationSchema'
+// import { getRoleSummary } from '@/modules/roles/service'
+// import { UserRole } from '@/modules/users/constants/types'
 
 // const Page = (): JSX.Element => {
 //   const { t } = useTranslation()
@@ -35,91 +33,31 @@
 //   })
 //   const { control, watch, formState } = form
 
+//   const [roles, setRoles] = useState<UserRole[]>([])
+//   const [selectedRoles, setSelectedRoles] = useState<UserRole[]>([])
+
 //   const isSaveDisabled = !formState.isValid
 
 //   useEffect(() => {
-//     getPermissions()
+//     getRoleSummary()
 //       .then((response) => {
-//         const permissions = response.response.map(
-//           (permission: RolePermission) => ({
-//             id: permission.id,
-//             name: permission.name,
-//             category: permission.category,
+//         const availableRoles = response.response.map(
+//           (availableRole: UserRole) => ({
+//             id: availableRole.id,
+//             name: availableRole.name,
 //             isActive: false,
 //           })
 //         )
-//         const localizedPermissions = permissions.map((permission) => ({
-//           ...permission,
-//           name: getLocalizedPermission(permission.name, t),
-//           category: getLocalizedCategory(permission.category, t),
-//         }))
-//         setRolePermissions(localizedPermissions)
+//         setRoles(availableRoles)
 //       })
 //       .catch((error) => {
-//         handleApiError(error, { description: t('permissions.error') })
+//         handleApiError(error, { description: t('roleSummaryFetch.error') })
 //       })
 //   }, [t])
 
-//   useEffect(() => {
-//     if (rolePermissions.length > 0) {
-//       const allActive = rolePermissions.every(
-//         (permission) => permission.isActive
-//       )
-//       const allInactive = rolePermissions.every(
-//         (permission) => !permission.isActive
-//       )
+//   const handleRoleToggle = (id: string): void => {}
 
-//       setMasterPermissionsSwitch(allActive)
-//       setMinPermissionError(allInactive ? t('role.minPermissionError') : null)
-//     }
-//   }, [rolePermissions, t])
-
-//   const handleMasterSwitchChange = (isActive: boolean): void => {
-//     setMasterPermissionsSwitch(isActive)
-//     setRolePermissions((prevPermissions) =>
-//       prevPermissions.map((permission) => ({
-//         ...permission,
-//         isActive,
-//       }))
-//     )
-//   }
-
-//   const categorizePermissions = (
-//     permissions: RolePermission[]
-//   ): Record<string, RolePermission[]> => {
-//     return permissions.reduce<Record<string, RolePermission[]>>(
-//       (acc, permission) => {
-//         if (!acc[permission.category]) {
-//           acc[permission.category] = []
-//         }
-//         acc[permission.category].push(permission)
-//         return acc
-//       },
-//       {}
-//     )
-//   }
-
-//   const handlePermissionToggle = (id: string): void => {
-//     setRolePermissions((prevPermissions) =>
-//       prevPermissions.map((permission) =>
-//         permission.id === id
-//           ? { ...permission, isActive: !permission.isActive }
-//           : permission
-//       )
-//     )
-//   }
-
-//   const handleCategoryToggle = (category: string, isActive: boolean): void => {
-//     setRolePermissions((prevPermissions) =>
-//       prevPermissions.map((permission) =>
-//         permission.category === category
-//           ? { ...permission, isActive }
-//           : permission
-//       )
-//     )
-//   }
-
-//   const handleSave = (): void => {
+//   const handleCreate = (): void => {
 //     const name = watch('name')
 //     const activePermissionIds = rolePermissions
 //       .filter((permission) => permission.isActive)
