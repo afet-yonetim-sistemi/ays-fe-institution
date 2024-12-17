@@ -56,7 +56,8 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         handleApiError(error, { description: t('roleSummaryFetch.error') })
       })
-  }, [t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (selectedRoles.length === 0) {

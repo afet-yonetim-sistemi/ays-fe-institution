@@ -68,7 +68,8 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         handleApiError(error, { description: t('permissions.error') })
       })
-  }, [t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (rolePermissions.length > 0) {
