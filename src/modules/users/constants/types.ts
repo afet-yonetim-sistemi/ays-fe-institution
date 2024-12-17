@@ -13,7 +13,7 @@ export interface UsersFilter {
   city?: string
 }
 
-export interface UserRoles {
+export interface UserRole {
   id: string
   name: string
 }
@@ -30,7 +30,7 @@ export interface User {
   phoneNumber: PhoneNumber
   city: string
   status: string
-  roles: UserRoles[]
+  roles: UserRole[]
 }
 
 export interface UserApiResponse extends BaseApiResponse {
