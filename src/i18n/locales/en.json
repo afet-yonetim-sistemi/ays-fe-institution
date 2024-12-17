@@ -177,7 +177,7 @@
     "maxLength": "Role name cannot exceed 255 characters",
     "updatedSuccessfully": "Role updated successfully",
     "updateError": "Role update failed",
-    "minPermissionError": "Please select at least one permission in order to create",
+    "minPermissionError": "Please select at least one permission in order to continue",
     "noChangesError": "Cannot update the role without making any changes",
     "deleteConfirm": "Are you sure you want to delete this role?",
     "deletedSuccessfully": "Role deleted successfully.",
@@ -243,6 +243,6 @@
     "create": "Create New User",
     "createdSuccessfully": "User created successfully.",
     "createError": "User create failed.",
-    "minRoleError": "Please select at least one role in order to create"
+    "minRoleError": "Please select at least one role in order to continue"
   }
 }
