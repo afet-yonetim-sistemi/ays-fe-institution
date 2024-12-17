@@ -1,21 +1,14 @@
-import { PhoneNumberSchema } from '@/constants/formValidationSchema'
+import { z } from 'zod'
 import { emailRegex } from '@/constants/regex'
 import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
+import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 import { t } from 'i18next'
-import { z } from 'zod'
-
-const PhoneNumberSchemaWithRefine = PhoneNumberSchema.refine(
-  (phoneNumber) => phoneNumber.countryCode && phoneNumber.lineNumber,
-  {
-    message: t('invalidPhoneNumber'),
-  }
-)
 
 export const UserValidationSchema = z.object({
   id: z.string(),
   firstName: z.string(),
   lastName: z.string(),
-  phoneNumber: PhoneNumberSchemaWithRefine,
+  phoneNumber: PhoneNumberSchema,
   city: z.string(),
   status: z.string(),
   createdUser: z.string(),
@@ -34,6 +27,6 @@ export const CreateUserValidationSchema = z.object({
       }),
     })
     .regex(emailRegex, t('invalidEmail')),
-  phoneNumber: PhoneNumberSchemaWithRefine,
+  phoneNumber: PhoneNumberSchema,
   city: nameboxWithLengthValidation('city', 2, 100),
 })
