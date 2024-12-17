@@ -129,7 +129,7 @@ const Page = (): JSX.Element => {
     )
   }
 
-  const handleSave = (): void => {
+  const handleCreate = (): void => {
     const name = watch('name')
     const activePermissionIds = rolePermissions
       .filter((permission) => permission.isActive)
@@ -188,7 +188,7 @@ const Page = (): JSX.Element => {
                 )}
               </div>
             </div>
-            <Button onClick={handleSave} disabled={isSaveDisabled}>
+            <Button onClick={handleCreate} disabled={isSaveDisabled}>
               {t('common.save')}
             </Button>
           </div>
