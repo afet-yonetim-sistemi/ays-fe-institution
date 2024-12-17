@@ -22,6 +22,7 @@
 // import { CreateUserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 // import { getRoleSummary } from '@/modules/roles/service'
 // import { UserRole } from '@/modules/users/constants/types'
+// import { PhoneInput } from '@/components/ui/phone-input'
 
 // const Page = (): JSX.Element => {
 //   const { t } = useTranslation()
@@ -58,46 +59,109 @@
 //   const handleRoleToggle = (id: string): void => {}
 
 //   const handleCreate = (): void => {
-//     const name = watch('name')
-//     const activePermissionIds = rolePermissions
-//       .filter((permission) => permission.isActive)
-//       .map((permission) => permission.id)
-
-//     if (activePermissionIds.length === 0) {
-//       setMinPermissionError(t('role.minPermissionError'))
-//       return
-//     }
-
-//     createRole({ name, permissionIds: activePermissionIds })
-//       .then(() => {
-//         toast({
-//           title: t('success'),
-//           description: t('role.createdSuccessfully'),
-//           variant: 'success',
-//         })
-//         router.push('/roles')
-//       })
-//       .catch((error) => {
-//         handleApiError(error, { description: t('role.createError') })
-//       })
+//     // const name = watch('name')
+//     // const activePermissionIds = rolePermissions
+//     //   .filter((permission) => permission.isActive)
+//     //   .map((permission) => permission.id)
+//     // if (activePermissionIds.length === 0) {
+//     //   setMinPermissionError(t('role.minPermissionError'))
+//     //   return
+//     // }
+//     // createRole({ name, permissionIds: activePermissionIds })
+//     //   .then(() => {
+//     //     toast({
+//     //       title: t('success'),
+//     //       description: t('role.createdSuccessfully'),
+//     //       variant: 'success',
+//     //     })
+//     //     router.push('/roles')
+//     //   })
+//     //   .catch((error) => {
+//     //     handleApiError(error, { description: t('role.createError') })
+//     //   })
 //   }
 
 //   return (
 //     <Form {...form}>
-//       <FormField
-//         control={control}
-//         name="name"
-//         render={({ field }) => (
-//           <FormItem>
-//             <FormLabel>{t('name')}</FormLabel>
-//             <FormControl>
-//               <Input {...field} />
-//             </FormControl>
-//             <FormMessage />
-//           </FormItem>
-//         )}
-//       />
-//       <Card className="mb-6">
+//       <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+//         <Card className="m-3 p-2">
+//           <CardContent>
+//             <div className="grid grid-cols-1 gap-y-6">
+//               <FormField
+//                 control={control}
+//                 name="firstName"
+//                 render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>{t('firstName')}</FormLabel>
+//                     <FormControl>
+//                       <Input {...field} />
+//                     </FormControl>
+//                     <FormMessage />
+//                   </FormItem>
+//                 )}
+//               />
+
+//               <FormField
+//                 control={control}
+//                 name="lastName"
+//                 render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>{t('lastName')}</FormLabel>
+//                     <FormControl>
+//                       <Input {...field} />
+//                     </FormControl>
+//                     <FormMessage />
+//                   </FormItem>
+//                 )}
+//               />
+
+//               <FormField
+//                 control={control}
+//                 name="city"
+//                 render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>{t('city')}</FormLabel>
+//                     <FormControl>
+//                       <Input {...field} />
+//                     </FormControl>
+//                     <FormMessage />
+//                   </FormItem>
+//                 )}
+//               />
+//               <FormField
+//                 control={control}
+//                 name="phoneNumber"
+//                 render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>{t('phoneNumber')}</FormLabel>
+//                     <FormControl>
+//                       <PhoneInput
+//                         onChange={field.onChange}
+//                         disableCountrySelection={true}
+//                       />
+//                     </FormControl>
+//                     <FormMessage />
+//                   </FormItem>
+//                 )}
+//               />
+
+//               <FormField
+//                 control={control}
+//                 name="emailAddress"
+//                 render={({ field }) => (
+//                   <FormItem>
+//                     <FormLabel>{t('email')}</FormLabel>
+//                     <FormControl>
+//                       <Input {...field} />
+//                     </FormControl>
+//                     <FormMessage />
+//                   </FormItem>
+//                 )}
+//               />
+//             </div>
+//           </CardContent>
+//         </Card>
+//         {/* <Card className="mb-6">
 //         <CardHeader>
 //           <div className="flex justify-between items-center">
 //             <div className="flex items-center">
@@ -137,7 +201,8 @@
 //             )}
 //           </div>
 //         </CardContent>
-//       </Card>
+//       </Card> */}
+//       </div>
 //     </Form>
 //   )
 // }

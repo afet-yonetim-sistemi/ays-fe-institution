@@ -35,7 +35,5 @@ export const CreateUserValidationSchema = z.object({
     })
     .regex(emailRegex, t('invalidEmail')),
   phoneNumber: PhoneNumberSchemaWithRefine,
-  city: z.string({
-    required_error: t('requiredField', { field: t('city') }),
-  }),
+  city: nameboxWithLengthValidation('city', 2, 100),
 })
