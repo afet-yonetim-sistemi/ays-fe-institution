@@ -45,7 +45,7 @@ const Page = (): JSX.Element => {
     null
   )
 
-  const isSaveDisabled = !formState.isValid || minPermissionError !== null
+  const isCreateDisabled = !formState.isValid || minPermissionError !== null
 
   useEffect(() => {
     getPermissions()
@@ -188,8 +188,8 @@ const Page = (): JSX.Element => {
                 )}
               </div>
             </div>
-            <Button onClick={handleCreate} disabled={isSaveDisabled}>
-              {t('common.save')}
+            <Button onClick={handleCreate} disabled={isCreateDisabled}>
+              {t('common.create')}
             </Button>
           </div>
         </CardHeader>
