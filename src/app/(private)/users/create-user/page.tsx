@@ -131,7 +131,6 @@ const Page = (): JSX.Element => {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={control}
                 name="lastName"
@@ -145,7 +144,6 @@ const Page = (): JSX.Element => {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={control}
                 name="city"
@@ -175,7 +173,6 @@ const Page = (): JSX.Element => {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={control}
                 name="emailAddress"
