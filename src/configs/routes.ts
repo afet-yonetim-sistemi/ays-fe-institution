@@ -9,8 +9,8 @@ export const protectedRoutes: Record<string, string> = {
   '/roles/create-role': 'role:create',
   '/roles/[id]': 'role:detail',
   '/users': 'user:list',
-  '/users/[id]': 'user:detail',
   '/users/create-user': 'user:create',
+  '/users/[id]': 'user:detail',
   '/dashboard': 'institution:page',
 }
 
