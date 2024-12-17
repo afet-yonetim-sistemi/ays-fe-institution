@@ -35,9 +35,9 @@
 //   const { control, watch, formState } = form
 
 //   const [roles, setRoles] = useState<UserRole[]>([])
-//   const [selectedRoles, setSelectedRoles] = useState<UserRole[]>([])
+//   const [selectedRoles, setSelectedRoles] = useState<string[]>([])
 
-//   const isSaveDisabled = !formState.isValid
+//   const isCreateDisabled = !formState.isValid
 
 //   useEffect(() => {
 //     getRoleSummary()
@@ -56,35 +56,27 @@
 //       })
 //   }, [t])
 
-//   const handleRoleToggle = (id: string): void => {}
+//   const handleRoleToggle = (id: string): void => {
+//     setSelectedRoles((prevSelectedRoles) => {
+//       if (prevSelectedRoles.includes(id)) {
+//         // Remove the role ID if it's already selected
+//         return prevSelectedRoles.filter((roleId) => roleId !== id)
+//       }
+//       return [...prevSelectedRoles, id]
+//     })
+//   }
 
 //   const handleCreate = (): void => {
-//     // const name = watch('name')
-//     // const activePermissionIds = rolePermissions
-//     //   .filter((permission) => permission.isActive)
-//     //   .map((permission) => permission.id)
-//     // if (activePermissionIds.length === 0) {
-//     //   setMinPermissionError(t('role.minPermissionError'))
-//     //   return
-//     // }
-//     // createRole({ name, permissionIds: activePermissionIds })
-//     //   .then(() => {
-//     //     toast({
-//     //       title: t('success'),
-//     //       description: t('role.createdSuccessfully'),
-//     //       variant: 'success',
-//     //     })
-//     //     router.push('/roles')
-//     //   })
-//     //   .catch((error) => {
-//     //     handleApiError(error, { description: t('role.createError') })
-//     //   })
+//     console.log('selected roles IDs', selectedRoles)
 //   }
 
 //   return (
 //     <Form {...form}>
 //       <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
 //         <Card className="m-3 p-2">
+//           <CardHeader>
+//             <CardTitle>{t('user.information')}</CardTitle>
+//           </CardHeader>
 //           <CardContent>
 //             <div className="grid grid-cols-1 gap-y-6">
 //               <FormField
@@ -161,48 +153,33 @@
 //             </div>
 //           </CardContent>
 //         </Card>
-//         {/* <Card className="mb-6">
-//         <CardHeader>
-//           <div className="flex justify-between items-center">
-//             <div className="flex items-center">
-//               <CardTitle>{t('role.permissions')}</CardTitle>
-//               <div className="ml-4 flex items-center gap-2">
-//                 <Switch
-//                   checked={masterPermissionsSwitch}
-//                   onCheckedChange={(isActive) =>
-//                     handleMasterSwitchChange(isActive)
-//                   }
-//                 />
-//                 {minPermissionError && (
-//                   <p className="text-destructive text-sm">
-//                     {minPermissionError}
-//                   </p>
-//                 )}
-//               </div>
+//         <Card className="m-3 p-2">
+//           <CardHeader>
+//             <CardTitle>{t('user.roles')}</CardTitle>
+//           </CardHeader>
+//           <CardContent>
+//             <div className="grid grid-cols-1 gap-1">
+//               {roles.map((role) => (
+//                 <FormItem key={role.id} className="flex items-center">
+//                   <FormControl>
+//                     <Switch
+//                       className="mt-2"
+//                       checked={selectedRoles.includes(role.id)}
+//                       onCheckedChange={() => handleRoleToggle(role.id)}
+//                     />
+//                   </FormControl>
+//                   <FormLabel className="ml-3 items-center">
+//                     {role.name}
+//                   </FormLabel>
+//                 </FormItem>
+//               ))}
 //             </div>
-//             <Button onClick={handleSave} disabled={isSaveDisabled}>
-//               {t('common.save')}
-//             </Button>
-//           </div>
-//         </CardHeader>
-//         <CardContent>
-//           <div className="grid grid-cols-2 gap-4">
-//             {Object.entries(categorizePermissions(rolePermissions)).map(
-//               ([category, permissions]) => (
-//                 <PermissionCard
-//                   key={category}
-//                   category={category}
-//                   permissions={permissions}
-//                   isEditable={true}
-//                   onPermissionToggle={handlePermissionToggle}
-//                   onCategoryToggle={handleCategoryToggle}
-//                 />
-//               )
-//             )}
-//           </div>
-//         </CardContent>
-//       </Card> */}
+//           </CardContent>
+//         </Card>
 //       </div>
+//       <Button onClick={handleCreate} disabled={false}>
+//         {t('common.create')}
+//       </Button>
 //     </Form>
 //   )
 // }
