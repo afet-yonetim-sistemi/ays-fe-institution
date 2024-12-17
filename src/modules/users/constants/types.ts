@@ -33,6 +33,15 @@ export interface User {
   roles: UserRole[]
 }
 
+export interface CreateUserPayload {
+  firstName: string
+  lastName: string
+  emailAddress: string
+  phoneNumber: PhoneNumber
+  city: string
+  roleIds: string[]
+}
+
 export interface UserApiResponse extends BaseApiResponse {
   response: User
 }

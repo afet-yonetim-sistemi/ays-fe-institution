@@ -177,7 +177,7 @@
     "maxLength": "Rol adı en fazla 255 karakter olabilir.",
     "updatedSuccessfully": "Rol başarıyla güncellendi.",
     "updateError": "Rol güncelleme başarısız.",
-    "minPermissionError": "Kaydedebilmek için lütfen en az bir yetki seçiniz",
+    "minPermissionError": "Oluşturabilmek için lütfen en az bir yetki seçiniz",
     "noChangesError": "Değişiklik yapmadan rolü güncelleyemezsiniz.",
     "deleteConfirm": "Rolü silmek istediğinize emin misiniz?",
     "deletedSuccessfully": "Rol başarıyla silindi.",
@@ -240,6 +240,9 @@
     "updatedUser": "Güncelleyen Kullanıcı",
     "roles": "Kullanıcı Rolleri",
     "noRoles": "Kullanıcının rolü yok",
-    "create": "Yeni Kullanıcı Oluştur"
+    "create": "Yeni Kullanıcı Oluştur",
+    "createdSuccessfully": "Kullanıcı başarıyla oluşturuldu.",
+    "createError": "Kullanıcı oluşturma başarısız.",
+    "minRoleError": "Oluşturabilmek için lütfen en az bir rol seçiniz"
   }
 }
