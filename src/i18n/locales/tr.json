@@ -16,14 +16,15 @@
     "updatedAt": "Güncellenme Tarihi"
   },
   "error": {
-    "default": "Bir hata oluştu. Lütfen tekrar deneyin.",
-    "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz",
+    "default": "Bir hata oluştu. Lütfen tekrar deneyin",
+    "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyin",
     "application": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
-    "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
-    "invalidEmailOrPassword": "Geçersiz e-posta veya şifre.",
-    "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş.",
-    "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin."
+    "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyi",
+    "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin",
+    "invalidEmailOrPassword": "Geçersiz e-posta veya şifre",
+    "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş",
+    "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin"
   },
   "notValidNamebox": "{{field}} geçerli değil",
   "cantStartOrEndWithWhitespace": "{{field}} boşluk karakteri ile başlayamaz veya bitemez",
