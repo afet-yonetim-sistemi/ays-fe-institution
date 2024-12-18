@@ -107,7 +107,8 @@ const Page = ({
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
-  }, [params.id, t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.id])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
