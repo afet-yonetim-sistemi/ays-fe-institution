@@ -79,7 +79,7 @@ const Page = (): JSX.Element => {
         handleApiError(error)
       })
       .finally(() => setIsLoading(false))
-  }, [t])
+  }, [])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
