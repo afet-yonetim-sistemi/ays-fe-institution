@@ -3,6 +3,7 @@ import {
   RoleApiResponse,
   RolePermissionApiResponse,
   RolesFilter,
+  RoleSummaryApiResponse,
 } from '../roles/constants/types'
 import { AxiosResponse } from 'axios'
 import { BaseApiResponse } from '@/common/types'
@@ -71,4 +72,10 @@ export const createRole = async (data: {
   permissionIds: string[]
 }): Promise<BaseApiResponse> => {
   return http.post(`/api/v1/role`, data).then((response) => response.data)
+}
+
+export const getRoleSummary = async (): Promise<RoleSummaryApiResponse> => {
+  return http
+    .get<RoleSummaryApiResponse>('/api/v1/roles/summary')
+    .then((response) => response.data)
 }

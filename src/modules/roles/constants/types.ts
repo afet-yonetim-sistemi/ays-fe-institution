@@ -1,4 +1,5 @@
 import { BaseApiResponse, Sort } from '@/common/types'
+import { UserRole } from '@/modules/users/constants/types'
 
 export interface RolesFilter {
   page: number
@@ -32,4 +33,8 @@ export interface RoleApiResponse extends BaseApiResponse {
 
 export interface RolePermissionApiResponse extends BaseApiResponse {
   response: RolePermission[]
+}
+
+export interface RoleSummaryApiResponse extends BaseApiResponse {
+  response: UserRole[]
 }

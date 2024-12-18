@@ -1,6 +1,11 @@
 import http from '@/configs/axiosConfig'
 import { AxiosResponse } from 'axios'
-import { UserApiResponse, UsersFilter } from './constants/types'
+import {
+  CreateUserPayload,
+  UserApiResponse,
+  UsersFilter,
+} from './constants/types'
+import { BaseApiResponse } from '@/common/types'
 
 export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
   const orders = filter.sort?.length
@@ -38,4 +43,10 @@ export const getUser = async (id: string): Promise<UserApiResponse> => {
   return http
     .get<UserApiResponse>(`/api/v1/user/${id}`)
     .then((response) => response.data)
+}
+
+export const createUser = async (
+  data: CreateUserPayload
+): Promise<BaseApiResponse> => {
+  return http.post('/api/v1/user', data).then((response) => response.data)
 }

@@ -70,7 +70,7 @@ export const columns: (
       header: ({ column }) => (
         <DataTableSort
           column={column}
-          label={i18next.t('user.createdAt')}
+          label={i18next.t('common.createdAt')}
           sortState={getSortState('createdAt', filters)}
           onSortClick={onSortClick}
         />

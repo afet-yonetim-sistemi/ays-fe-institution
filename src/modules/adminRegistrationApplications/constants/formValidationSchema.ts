@@ -4,20 +4,13 @@ import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
 import { emailRegex } from '@/constants/regex'
 import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 
-const PhoneNumberSchemaWithRefine = PhoneNumberSchema.refine(
-  (phoneNumber) => phoneNumber.countryCode && phoneNumber.lineNumber,
-  {
-    message: i18n.t('invalidPhoneNumber'),
-  }
-)
-
 const UserSchema = z.object({
   id: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   city: z.string(),
   emailAddress: z.string(),
-  phoneNumber: PhoneNumberSchemaWithRefine,
+  phoneNumber: PhoneNumberSchema,
 })
 
 const InstitutionSchema = z.object({
@@ -75,5 +68,5 @@ export const InstitutionFormSchema = z.object({
     })
     .min(6, i18n.t('minLength', { field: 6 }))
     .max(50, i18n.t('maxLength', { field: 50 })),
-  phoneNumber: PhoneNumberSchemaWithRefine,
+  phoneNumber: PhoneNumberSchema,
 })

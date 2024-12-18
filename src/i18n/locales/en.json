@@ -20,6 +20,7 @@
     "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again",
     "application": "Error while fetching application details. Please try again",
     "userDetailFetch": "Error while fetching user details. Please try again",
+    "roleSummaryFetch": "Error while fetching available roles. Please try again",
     "preApplication": "An error occurred while creating the preliminary application. Please try again.",
     "invalidEmailOrPassword": "Invalid E-mail or Password.",
     "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",
@@ -176,7 +177,7 @@
     "maxLength": "Role name cannot exceed 255 characters",
     "updatedSuccessfully": "Role updated successfully",
     "updateError": "Role update failed",
-    "minPermissionError": "Please select at least one permission in order to save",
+    "minPermissionError": "Please select at least one permission in order to continue",
     "noChangesError": "Cannot update the role without making any changes",
     "deleteConfirm": "Are you sure you want to delete this role?",
     "deletedSuccessfully": "Role deleted successfully.",
@@ -238,6 +239,10 @@
     "createdUser": "User Who Created",
     "updatedUser": "User Who Updated",
     "roles": "User Roles",
-    "noRoles": "User do not have any roles"
+    "noRoles": "User do not have any roles",
+    "create": "Create New User",
+    "createdSuccessfully": "User created successfully.",
+    "createError": "User create failed.",
+    "minRoleError": "Please select at least one role in order to continue"
   }
 }

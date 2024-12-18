@@ -45,7 +45,7 @@ const Page = (): JSX.Element => {
     null
   )
 
-  const isSaveDisabled = !formState.isValid || minPermissionError !== null
+  const isCreateDisabled = !formState.isValid || minPermissionError !== null
 
   useEffect(() => {
     getPermissions()
@@ -68,7 +68,8 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         handleApiError(error, { description: t('permissions.error') })
       })
-  }, [t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (rolePermissions.length > 0) {
@@ -129,7 +130,7 @@ const Page = (): JSX.Element => {
     )
   }
 
-  const handleSave = (): void => {
+  const handleCreate = (): void => {
     const name = watch('name')
     const activePermissionIds = rolePermissions
       .filter((permission) => permission.isActive)
@@ -188,8 +189,8 @@ const Page = (): JSX.Element => {
                 )}
               </div>
             </div>
-            <Button onClick={handleSave} disabled={isSaveDisabled}>
-              {t('common.save')}
+            <Button onClick={handleCreate} disabled={isCreateDisabled}>
+              {t('common.create')}
             </Button>
           </div>
         </CardHeader>
