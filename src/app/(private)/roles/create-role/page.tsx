@@ -38,6 +38,9 @@ const Page = (): JSX.Element => {
   })
   const { control, watch, formState } = form
 
+  const [fetchedRolePermissions, setFetchedRolePermissions] = useState<
+    RolePermission[]
+  >([])
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
   const [masterPermissionsSwitch, setMasterPermissionsSwitch] =
     useState<boolean>(false)
@@ -58,18 +61,22 @@ const Page = (): JSX.Element => {
             isActive: false,
           })
         )
-        const localizedPermissions = permissions.map((permission) => ({
-          ...permission,
-          name: getLocalizedPermission(permission.name, t),
-          category: getLocalizedCategory(permission.category, t),
-        }))
-        setRolePermissions(localizedPermissions)
+        setFetchedRolePermissions(permissions)
       })
       .catch((error) => {
         handleApiError(error, { description: t('permissions.error') })
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    const localizedPermissions = fetchedRolePermissions.map((permission) => ({
+      ...permission,
+      name: getLocalizedPermission(permission.name, t),
+      category: getLocalizedCategory(permission.category, t),
+    }))
+    setRolePermissions(localizedPermissions)
+  }, [fetchedRolePermissions, t])
 
   useEffect(() => {
     if (rolePermissions.length > 0) {
