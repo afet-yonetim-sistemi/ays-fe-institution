@@ -25,6 +25,7 @@ import { useAppSelector } from '@/store/hooks'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { Permission } from '@/constants/permissions'
 import Link from 'next/link'
+import { debounce } from 'lodash'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -137,14 +138,22 @@ const Page = (): JSX.Element => {
         return
       }
     }
-
-    fetchData(updatedFilters)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, fetchData, pageSize])
+  }, [searchParams, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
+
+  useEffect(() => {
+    const debouncedFetchData = debounce((filters: UsersFilter) => {
+      fetchData(filters)
+    }, 500)
+    debouncedFetchData(filters)
+    return () => {
+      debouncedFetchData.cancel()
+    }
+  }, [filters, fetchData])
 
   return (
     <div className="space-y-4">
