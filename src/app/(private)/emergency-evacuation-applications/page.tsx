@@ -25,6 +25,7 @@ import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import debounce from 'lodash/debounce'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -64,7 +65,7 @@ const Page = (): JSX.Element => {
           const { content, totalElementCount, totalPageCount } =
             response.data.response
 
-          if (filters.page > totalPageCount && totalPageCount != 0) {
+          if (filters.page > totalPageCount && totalPageCount !== 0) {
             router.push('/not-found')
             return
           }
@@ -140,14 +141,25 @@ const Page = (): JSX.Element => {
         return
       }
     }
-
-    fetchData(updatedFilters)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, fetchData, pageSize])
+  }, [searchParams, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
+
+  useEffect(() => {
+    const debouncedFetchData = debounce(
+      (filters: EmergencyEvacuationApplicationsFilter) => {
+        fetchData(filters)
+      },
+      500
+    )
+    debouncedFetchData(filters)
+    return () => {
+      debouncedFetchData.cancel()
+    }
+  }, [filters, fetchData])
 
   return (
     <div className="space-y-4">
