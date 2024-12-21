@@ -75,7 +75,7 @@ const Page = ({
           handleApiError(error, { description: t('error.userDetailFetch') })
         })
         .finally(() => {
-          setIsLoading(false), console.log(showActivateUserButton)
+          setIsLoading(false)
         })
     }
     fetchDetails()
