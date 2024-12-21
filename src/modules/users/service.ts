@@ -51,7 +51,7 @@ export const createUser = async (
   return http.post('/api/v1/user', data).then((response) => response.data)
 }
 
-export const activateRole = async (id: string): Promise<BaseApiResponse> => {
+export const activateUser = async (id: string): Promise<BaseApiResponse> => {
   return http
     .patch(`/api/v1/user/${id}/activate`)
     .then((response) => response.data)
