@@ -13,7 +13,9 @@
     "error": "Hata",
     "city": "Şehir",
     "createdAt": "Oluşturulma Tarihi",
-    "updatedAt": "Güncellenme Tarihi"
+    "updatedAt": "Güncellenme Tarihi",
+    "activate": "Aktifleştir",
+    "deactivate": "Pasifleştir"
   },
   "error": {
     "default": "Bir hata oluştu. Lütfen tekrar deneyin",
@@ -183,8 +185,6 @@
     "deletedSuccessfully": "Rol başarıyla silindi.",
     "activatedSuccessfully": "Rol aktifleştirme işleminiz başarıyla gerçekleşmiştir.",
     "deactivatedSuccessfully": "Rol pasifleştirme işleminiz başarıyla gerçekleşmiştir.",
-    "activate": "Aktifleştir",
-    "deactivate": "Pasifleştir",
     "activateConfirm": "Rol aktifleştirme işlemine devam etmek istiyor musunuz?",
     "deactivateConfirm": "Rol pasifleştirme işlemine devam etmek istiyor musunuz?",
     "create": "Yeni Rol Oluştur",
@@ -243,6 +243,8 @@
     "create": "Yeni Kullanıcı Oluştur",
     "createdSuccessfully": "Kullanıcı başarıyla oluşturuldu.",
     "createError": "Kullanıcı oluşturma başarısız.",
-    "minRoleError": "Devam edebilmek için lütfen en az bir rol seçiniz"
+    "minRoleError": "Devam edebilmek için lütfen en az bir rol seçiniz",
+    "activatedSuccessfully": "Kullanıcı aktifleştirme işleminiz başarıyla gerçekleşmiştir",
+    "activateConfirm": "Kullanıcı aktifleştirme işlemine devam etmek istiyor musunuz?"
   }
 }
