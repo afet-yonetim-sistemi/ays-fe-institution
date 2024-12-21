@@ -245,6 +245,8 @@
     "createError": "Kullanıcı oluşturma başarısız.",
     "minRoleError": "Devam edebilmek için lütfen en az bir rol seçiniz",
     "activatedSuccessfully": "Kullanıcı aktifleştirme işleminiz başarıyla gerçekleşmiştir",
-    "activateConfirm": "Kullanıcı aktifleştirme işlemine devam etmek istiyor musunuz?"
+    "activateConfirm": "Kullanıcı aktifleştirme işlemine devam etmek istiyor musunuz?",
+    "deactivatedSuccessfully": "Kullanıcı pasifleştirme işleminiz başarıyla gerçekleşmiştir",
+    "deactivateConfirm": "Kullanıcı pasifleştirme işlemine devam etmek istiyor musunuz?"
   }
 }

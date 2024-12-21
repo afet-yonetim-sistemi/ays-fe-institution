@@ -244,7 +244,9 @@
     "createdSuccessfully": "User created successfully.",
     "createError": "User create failed.",
     "minRoleError": "Please select at least one role in order to continue",
-    "activatedSuccessfully": "User activation was successful.",
-    "activateConfirm": "Are you sure you want to activate this user?"
+    "activatedSuccessfully": "User activation was successful",
+    "activateConfirm": "Are you sure you want to activate this user?",
+    "deactivatedSuccessfully": "User deactivation was successful",
+    "deactivateConfirm": "Are you sure you want to deactivate this user?"
   }
 }
