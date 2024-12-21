@@ -58,6 +58,10 @@ const Page = ({
   const [error, setError] = useState<string | null>(null)
   //   const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
 
+  const showActivateUserButton =
+    userPermissions.includes(Permission.USER_UPDATE) &&
+    !['DELETED', 'ACTIVE'].includes(userDetails?.status ?? '')
+
   useEffect(() => {
     const fetchDetails = (): void => {
       getUser(params.id)
@@ -70,7 +74,9 @@ const Page = ({
           setError(error.message)
           handleApiError(error, { description: t('error.userDetailFetch') })
         })
-        .finally(() => setIsLoading(false))
+        .finally(() => {
+          setIsLoading(false), console.log(showActivateUserButton)
+        })
     }
     fetchDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -182,25 +188,16 @@ const Page = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">{t('user.detailsTitle')}</h1>
-              {userDetails.status !== 'DELETED' && (
-                <div className="flex items-center gap-4">
-                  {userPermissions.includes(Permission.USER_UPDATE) &&
-                    (userDetails.status === 'ACTIVE' ? null : (
-                      // <ButtonDialog
-                      //   triggerText={'user.deactivate'}
-                      //   title={'user.deactivateConfirm'}
-                      //   onConfirm={handleDeactivateUser}
-                      //   variant={'outline'}
-                      // />
-                      <ButtonDialog
-                        triggerText={'common.activate'}
-                        title={'user.activateConfirm'}
-                        onConfirm={handleActivateUser}
-                        variant={'outline'}
-                      />
-                    ))}
-                </div>
-              )}
+              <div className="flex items-center gap-4">
+                {showActivateUserButton && (
+                  <ButtonDialog
+                    triggerText={'common.activate'}
+                    title={'user.activateConfirm'}
+                    onConfirm={handleActivateUser}
+                    variant={'outline'}
+                  />
+                )}
+              </div>
               {/* {userPermissions.includes(Permission.USER_UPDATE) ? (
                 canUpdateUser ? (
                   !isUserEditable ? (
