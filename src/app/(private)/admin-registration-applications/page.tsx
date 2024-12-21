@@ -24,7 +24,7 @@ import { adminApplicationRegistrationStatuses } from '@/modules/adminRegistratio
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { SortDirection } from '@/common/types'
-import debounce from 'lodash/debounce'
+import { debounce } from 'lodash'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()

@@ -21,11 +21,11 @@ import {
   EmergencyEvacuationApplicationsFilter,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/service'
+import { debounce } from 'lodash'
 import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import debounce from 'lodash/debounce'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
