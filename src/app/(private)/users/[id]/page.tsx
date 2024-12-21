@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/select'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { User } from '@/modules/users/constants/types'
-import { activateUser, getUser } from '@/modules/users/service'
+import { activateUser, deactivateUser, getUser } from '@/modules/users/service'
 import { userStatuses } from '@/modules/users/constants/statuses'
 import { toast } from '@/components/ui/use-toast'
 import { Permission } from '@/constants/permissions'
@@ -61,6 +61,10 @@ const Page = ({
   const showActivateUserButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
     !['DELETED', 'ACTIVE'].includes(userDetails?.status ?? '')
+
+  const showDeactivateUserButton =
+    userPermissions.includes(Permission.USER_UPDATE) &&
+    !['DELETED', 'PASSIVE'].includes(userDetails?.status ?? '')
 
   useEffect(() => {
     const fetchDetails = (): void => {
@@ -180,6 +184,30 @@ const Page = ({
       })
   }
 
+  const handleDeactivateUser = (): void => {
+    deactivateUser(params.id)
+      .then((response) => {
+        if (response.isSuccess) {
+          toast({
+            title: t('success'),
+            description: t('user.deactivatedSuccessfully'),
+            variant: 'success',
+          })
+          if (userDetails) {
+            setUserDetails({
+              ...userDetails,
+              status: 'PASSIVE',
+            })
+          }
+        } else {
+          handleApiError(undefined, { description: t('error.default') })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error)
+      })
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -194,6 +222,14 @@ const Page = ({
                     triggerText={'common.activate'}
                     title={'user.activateConfirm'}
                     onConfirm={handleActivateUser}
+                    variant={'outline'}
+                  />
+                )}
+                {showDeactivateUserButton && (
+                  <ButtonDialog
+                    triggerText={'common.deactivate'}
+                    title={'user.deactivateConfirm'}
+                    onConfirm={handleDeactivateUser}
                     variant={'outline'}
                   />
                 )}
