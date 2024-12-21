@@ -28,7 +28,9 @@ const FilterInput: React.FC<FilterInputProps> = ({
       char !== 'Backspace' &&
       char !== 'Delete' &&
       char !== 'ArrowLeft' &&
-      char !== 'ArrowRight'
+      char !== 'ArrowRight' &&
+      !(e.ctrlKey || e.metaKey) &&
+      (char === 'a' || char === 'c' || char === 'v')
     ) {
       e.preventDefault()
     }
