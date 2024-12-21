@@ -139,7 +139,8 @@ const Page = (): JSX.Element => {
     }
 
     fetchData(updatedFilters)
-  }, [searchParams, fetchData, pageSize, t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, fetchData, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()

@@ -68,7 +68,8 @@ const Page = ({
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
-  }, [params.id, t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.id])
 
   //   const handleUpdateButtonClick = (): void => {
   //     return setIsUserEditable(true)

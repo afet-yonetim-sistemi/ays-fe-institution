@@ -68,6 +68,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     null
   )
 
+  const [fetchedRoleDetail, setFetchedRoleDetail] = useState<RoleDetail | null>(
+    null
+  )
+  const [availablePermissions, setAvailablePermissions] = useState<
+    RolePermission[]
+  >([])
+
   const getAvailableRolePermissions = useCallback(async (): Promise<
     RolePermission[]
   > => {
@@ -85,7 +92,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         handleApiError(error, { description: t('permissions.error') })
         return []
       })
-  }, [t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const createUpdatedRoleData = (
     form: UseFormReturn,
@@ -169,6 +177,28 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     })
   }
 
+  const enhanceRolePermissions = useCallback(
+    (
+      fetchedRoleDetail: RoleDetail,
+      availablePermissions: RolePermission[]
+    ): void => {
+      const updatedPermissions = updatePermissionsActiveStatus(
+        fetchedRoleDetail.permissions,
+        availablePermissions
+      )
+
+      const localizedPermissions = localizePermissions(updatedPermissions, t)
+
+      setRoleDetail({
+        ...fetchedRoleDetail,
+        permissions: localizedPermissions,
+      })
+      setOriginalRolePermissions(localizedPermissions)
+      setRolePermissions(localizedPermissions)
+    },
+    [t]
+  )
+
   useEffect(() => {
     const fetchDetails = async (): Promise<void> => {
       const availablePermissions: RolePermission[] =
@@ -177,32 +207,43 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       getRoleDetail(params.id)
         .then((response) => {
           const fetchedRoleDetail = response.response
+          setFetchedRoleDetail(fetchedRoleDetail)
+          setAvailablePermissions(availablePermissions)
 
-          const updatedPermissions = updatePermissionsActiveStatus(
-            fetchedRoleDetail.permissions,
-            availablePermissions
-          )
-
-          const localizedPermissions = localizePermissions(
-            updatedPermissions,
-            t
-          )
-
-          setRoleDetail({
-            ...fetchedRoleDetail,
-            permissions: localizedPermissions,
-          })
-          setOriginalRolePermissions(localizedPermissions)
-          setRolePermissions(localizedPermissions)
+          enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
         })
-
         .catch((error) => {
           handleApiError(error, { description: t('role.error') })
         })
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
-  }, [getAvailableRolePermissions, params.id, t, toast])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getAvailableRolePermissions, params.id, toast])
+
+  useEffect(() => {
+    if (fetchedRoleDetail && availablePermissions.length > 0) {
+      if (rolePermissions !== originalRolePermissions) {
+        const updatedPermissions = updatePermissionsActiveStatus(
+          fetchedRoleDetail.permissions,
+          availablePermissions
+        )
+
+        const localizedPermissions = localizePermissions(updatedPermissions, t)
+
+        setRoleDetail({
+          ...fetchedRoleDetail,
+          permissions: localizedPermissions,
+        })
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    enhanceRolePermissions,
+    fetchedRoleDetail,
+    availablePermissions,
+    rolePermissions,
+  ])
 
   useEffect(() => {
     if (rolePermissions) {
