@@ -13,7 +13,9 @@
     "error": "Error",
     "city": "City",
     "createdAt": "Created At",
-    "updatedAt": "Updated At"
+    "updatedAt": "Updated At",
+    "activate": "Activate",
+    "deactivate": "Deactivate"
   },
   "error": {
     "default": "An error occurred. Please try again later.",
@@ -183,8 +185,6 @@
     "deletedSuccessfully": "Role deleted successfully.",
     "activatedSuccessfully": "Role activation was successful.",
     "deactivatedSuccessfully": "Role deactivation was successful.",
-    "activate": "Activate",
-    "deactivate": "Deactivate",
     "activateConfirm": "Are you sure you want to activate this role?",
     "deactivateConfirm": "Are you sure you want to deactivate this role?",
     "create": "Create New Role",
@@ -243,6 +243,8 @@
     "create": "Create New User",
     "createdSuccessfully": "User created successfully.",
     "createError": "User create failed.",
-    "minRoleError": "Please select at least one role in order to continue"
+    "minRoleError": "Please select at least one role in order to continue",
+    "activatedSuccessfully": "User activation was successful.",
+    "activateConfirm": "Are you sure you want to activate this user?"
   }
 }

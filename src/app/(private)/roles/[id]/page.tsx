@@ -445,14 +445,14 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     !isRoleEditable &&
                     (roleDetail.status === 'ACTIVE' ? (
                       <ButtonDialog
-                        triggerText={'role.deactivate'}
+                        triggerText={'common.deactivate'}
                         title={'role.deactivateConfirm'}
                         onConfirm={handleDeactivateRole}
                         variant={'outline'}
                       />
                     ) : (
                       <ButtonDialog
-                        triggerText={'role.activate'}
+                        triggerText={'common.activate'}
                         title={'role.activateConfirm'}
                         onConfirm={handleActivateRole}
                         variant={'outline'}

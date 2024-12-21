@@ -26,8 +26,13 @@ import {
 } from '@/components/ui/select'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { User } from '@/modules/users/constants/types'
-import { getUser } from '@/modules/users/service'
+import { activateUser, getUser } from '@/modules/users/service'
 import { userStatuses } from '@/modules/users/constants/statuses'
+import { toast } from '@/components/ui/use-toast'
+import { Permission } from '@/constants/permissions'
+import ButtonDialog from '@/components/ui/button-dialog'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { useAppSelector } from '@/store/hooks'
 
 /* ********************************
 Commented out parts will be useful while implementing the user update feature
@@ -43,7 +48,7 @@ const Page = ({
     resolver: zodResolver(UserValidationSchema),
     mode: 'onChange',
   })
-  //   const userPermissions = useAppSelector(selectPermissions)
+  const userPermissions = useAppSelector(selectPermissions)
   //   const { control, reset, formState, getValues } = form // use this with update
   const { control } = form // delete this with update
 
@@ -52,6 +57,10 @@ const Page = ({
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   //   const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
+
+  const showActivateUserButton =
+    userPermissions.includes(Permission.USER_UPDATE) &&
+    !['DELETED', 'ACTIVE'].includes(userDetails?.status ?? '')
 
   useEffect(() => {
     const fetchDetails = (): void => {
@@ -65,7 +74,9 @@ const Page = ({
           setError(error.message)
           handleApiError(error, { description: t('error.userDetailFetch') })
         })
-        .finally(() => setIsLoading(false))
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
     fetchDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,6 +156,30 @@ const Page = ({
   //       })
   //   }
 
+  const handleActivateUser = (): void => {
+    activateUser(params.id)
+      .then((response) => {
+        if (response.isSuccess) {
+          toast({
+            title: t('success'),
+            description: t('user.activatedSuccessfully'),
+            variant: 'success',
+          })
+          if (userDetails) {
+            setUserDetails({
+              ...userDetails,
+              status: 'ACTIVE',
+            })
+          }
+        } else {
+          handleApiError(undefined, { description: t('error.default') })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error)
+      })
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -153,6 +188,16 @@ const Page = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">{t('user.detailsTitle')}</h1>
+              <div className="flex items-center gap-4">
+                {showActivateUserButton && (
+                  <ButtonDialog
+                    triggerText={'common.activate'}
+                    title={'user.activateConfirm'}
+                    onConfirm={handleActivateUser}
+                    variant={'outline'}
+                  />
+                )}
+              </div>
               {/* {userPermissions.includes(Permission.USER_UPDATE) ? (
                 canUpdateUser ? (
                   !isUserEditable ? (

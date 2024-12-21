@@ -50,3 +50,9 @@ export const createUser = async (
 ): Promise<BaseApiResponse> => {
   return http.post('/api/v1/user', data).then((response) => response.data)
 }
+
+export const activateUser = async (id: string): Promise<BaseApiResponse> => {
+  return http
+    .patch(`/api/v1/user/${id}/activate`)
+    .then((response) => response.data)
+}
