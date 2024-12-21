@@ -103,20 +103,18 @@ const Page = (): JSX.Element => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedFetchData = useCallback(
-    debounce((filters: AdminRegistrationApplicationsFilter) => {
-      fetchData(filters)
-    }, 500),
-    [fetchData]
-  )
-
   useEffect(() => {
+    const debouncedFetchData = debounce(
+      (filters: AdminRegistrationApplicationsFilter) => {
+        fetchData(filters)
+      },
+      500
+    )
     debouncedFetchData(filters)
     return () => {
       debouncedFetchData.cancel()
     }
-  }, [filters, debouncedFetchData])
+  }, [filters, fetchData])
 
   return (
     <div className="space-y-4">
