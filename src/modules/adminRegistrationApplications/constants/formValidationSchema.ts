@@ -32,7 +32,11 @@ const AdminRegistrationApplicationSchema = z.object({
 })
 
 export const PreApplicationFormSchema = z.object({
-  institutionId: z.string().min(1, { message: i18n.t('requiredField') }),
+  institutionId: z.string().min(1, {
+    message: i18n.t('requiredField', {
+      field: i18n.t('institution'),
+    }),
+  }),
   reason: z
     .string()
     .trim()
