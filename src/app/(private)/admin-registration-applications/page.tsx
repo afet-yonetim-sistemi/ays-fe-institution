@@ -24,6 +24,7 @@ import { adminApplicationRegistrationStatuses } from '@/modules/adminRegistratio
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { SortDirection } from '@/common/types'
+import { debounce } from 'lodash'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -62,7 +63,7 @@ const Page = (): JSX.Element => {
           const { content, totalElementCount, totalPageCount } =
             response.data.response
 
-          if (filters.page > totalPageCount && totalPageCount != 0) {
+          if (filters.page > totalPageCount && totalPageCount !== 0) {
             router.push('/not-found')
             return
           }
@@ -96,12 +97,24 @@ const Page = (): JSX.Element => {
     }
 
     setFilters(updatedFilters)
-    fetchData(updatedFilters)
-  }, [searchParams, fetchData, pageSize])
+  }, [searchParams, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
+
+  useEffect(() => {
+    const debouncedFetchData = debounce(
+      (filters: AdminRegistrationApplicationsFilter) => {
+        fetchData(filters)
+      },
+      500
+    )
+    debouncedFetchData(filters)
+    return () => {
+      debouncedFetchData.cancel()
+    }
+  }, [filters, fetchData])
 
   return (
     <div className="space-y-4">

@@ -20,6 +20,7 @@ import { roleStatuses } from '@/modules/roles/constants/statuses'
 import { RolesFilter } from '@/modules/roles/constants/types'
 import { getRoles } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
+import { debounce } from 'lodash'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
@@ -102,15 +103,23 @@ const Page = (): JSX.Element => {
         description: t('filterValidation'),
         variant: 'destructive',
       })
-    } else {
-      fetchData(updatedFilters)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, fetchData, pageSize])
+  }, [searchParams, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
+
+  useEffect(() => {
+    const debouncedFetchData = debounce((filters: RolesFilter) => {
+      fetchData(filters)
+    }, 500)
+    debouncedFetchData(filters)
+    return () => {
+      debouncedFetchData.cancel()
+    }
+  }, [filters, fetchData])
 
   return (
     <div className="space-y-4">
