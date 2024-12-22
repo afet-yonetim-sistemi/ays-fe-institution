@@ -62,3 +62,7 @@ export const deactivateUser = async (id: string): Promise<BaseApiResponse> => {
     .patch(`/api/v1/user/${id}/passivate`)
     .then((response) => response.data)
 }
+
+export const deleteUser = async (id: string): Promise<BaseApiResponse> => {
+  return http.delete(`/api/v1/user/${id}`).then((response) => response.data)
+}

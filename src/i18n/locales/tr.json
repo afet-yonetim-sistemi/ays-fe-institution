@@ -247,6 +247,8 @@
     "activatedSuccessfully": "Kullanıcı aktifleştirme işleminiz başarıyla gerçekleşmiştir",
     "activateConfirm": "Kullanıcı aktifleştirme işlemine devam etmek istiyor musunuz?",
     "deactivatedSuccessfully": "Kullanıcı pasifleştirme işleminiz başarıyla gerçekleşmiştir",
-    "deactivateConfirm": "Kullanıcı pasifleştirme işlemine devam etmek istiyor musunuz?"
+    "deactivateConfirm": "Kullanıcı pasifleştirme işlemine devam etmek istiyor musunuz?",
+    "deleteConfirm": "Kullanıcıyı silmek istediğinize emin misiniz?",
+    "deletedSuccessfully": "Kullanıcı başarıyla silindi"
   }
 }

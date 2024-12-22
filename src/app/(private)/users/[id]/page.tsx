@@ -26,13 +26,19 @@ import {
 } from '@/components/ui/select'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { User } from '@/modules/users/constants/types'
-import { activateUser, deactivateUser, getUser } from '@/modules/users/service'
+import {
+  activateUser,
+  deactivateUser,
+  deleteUser,
+  getUser,
+} from '@/modules/users/service'
 import { userStatuses } from '@/modules/users/constants/statuses'
-import { toast } from '@/components/ui/use-toast'
 import { Permission } from '@/constants/permissions'
 import ButtonDialog from '@/components/ui/button-dialog'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/use-toast'
 
 /* ********************************
 Commented out parts will be useful while implementing the user update feature
@@ -44,6 +50,8 @@ const Page = ({
   params: { slug: string; id: string }
 }): JSX.Element => {
   const { t } = useTranslation()
+  const { toast } = useToast()
+  const router = useRouter()
   const form = useForm({
     resolver: zodResolver(UserValidationSchema),
     mode: 'onChange',
@@ -58,13 +66,17 @@ const Page = ({
   const [error, setError] = useState<string | null>(null)
   //   const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
 
-  const showActivateUserButton =
+  const showActivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
     !['DELETED', 'ACTIVE'].includes(userDetails?.status ?? '')
 
-  const showDeactivateUserButton =
+  const showDeactivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
     !['DELETED', 'PASSIVE'].includes(userDetails?.status ?? '')
+
+  const showDeleteButton =
+    userPermissions.includes(Permission.USER_DELETE) &&
+    !['DELETED'].includes(userDetails?.status ?? '')
 
   useEffect(() => {
     const fetchDetails = (): void => {
@@ -208,6 +220,29 @@ const Page = ({
       })
   }
 
+  const handleDeleteUser = (): void => {
+    deleteUser(params.id)
+      .then((response) => {
+        if (response.isSuccess) {
+          toast({
+            title: t('success'),
+            description: t('user.deletedSuccessfully'),
+            variant: 'success',
+          })
+          router.push('/users')
+        } else {
+          toast({
+            title: t('common.error'),
+            description: t('error.default'),
+            variant: 'destructive',
+          })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error)
+      })
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -217,7 +252,7 @@ const Page = ({
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">{t('user.detailsTitle')}</h1>
               <div className="flex items-center gap-4">
-                {showActivateUserButton && (
+                {showActivateButton && (
                   <ButtonDialog
                     triggerText={'common.activate'}
                     title={'user.activateConfirm'}
@@ -225,12 +260,20 @@ const Page = ({
                     variant={'outline'}
                   />
                 )}
-                {showDeactivateUserButton && (
+                {showDeactivateButton && (
                   <ButtonDialog
                     triggerText={'common.deactivate'}
                     title={'user.deactivateConfirm'}
                     onConfirm={handleDeactivateUser}
                     variant={'outline'}
+                  />
+                )}
+                {showDeleteButton && (
+                  <ButtonDialog
+                    triggerText={'common.delete'}
+                    title={'user.deleteConfirm'}
+                    onConfirm={handleDeleteUser}
+                    variant={'destructive'}
                   />
                 )}
               </div>

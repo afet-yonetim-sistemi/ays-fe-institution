@@ -247,6 +247,8 @@
     "activatedSuccessfully": "User activation was successful",
     "activateConfirm": "Are you sure you want to activate this user?",
     "deactivatedSuccessfully": "User deactivation was successful",
-    "deactivateConfirm": "Are you sure you want to deactivate this user?"
+    "deactivateConfirm": "Are you sure you want to deactivate this user?",
+    "deleteConfirm": "Are you sure you want to delete this user?",
+    "deletedSuccessfully": "User deleted successfully."
   }
 }
