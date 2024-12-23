@@ -97,11 +97,6 @@ const Page = (): JSX.Element => {
     const firstName = searchParams.get('firstName') ?? ''
     const lastName = searchParams.get('lastName') ?? ''
     const emailAddress = searchParams.get('emailAddress') ?? ''
-    const countryCodeParam = searchParams.get('countryCode')
-    const countryCode =
-      countryCodeParam && countryCodeParam.trim()
-        ? parseInt(countryCodeParam, 10)
-        : undefined
     const lineNumberParam = searchParams.get('lineNumber')
     const lineNumber =
       lineNumberParam && lineNumberParam.trim()
@@ -117,7 +112,6 @@ const Page = (): JSX.Element => {
       firstName: firstName || '',
       lastName: lastName || '',
       emailAddress: emailAddress || '',
-      countryCode,
       lineNumber,
       city: city || '',
       sort,
@@ -185,7 +179,7 @@ const Page = (): JSX.Element => {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-4 2xl:grid-cols-7 gap-4">
+      <div className="grid grid-cols-3 2xl:grid-cols-6 gap-4">
         <MultiSelectDropdown
           items={userStatuses}
           selectedItems={filters.statuses}
@@ -212,13 +206,6 @@ const Page = (): JSX.Element => {
           label={t('user.email')}
           value={filters.emailAddress}
           onChange={(e) => handleFilterChange('emailAddress', e.target.value)}
-        />
-        <FilterInput
-          id="countryCode"
-          label={t('user.countryCode')}
-          value={filters.countryCode}
-          onChange={(e) => handleFilterChange('countryCode', e.target.value)}
-          type="number"
         />
         <FilterInput
           id="lineNumber"
