@@ -33,11 +33,11 @@ jobs:
       # Performs the project analysis using SonarQube Scanner.
       - uses: sonarsource/sonarqube-scan-action@v3
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Authentication token required to access the SonarQube server
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       # Checks the SonarQube Quality Gate status.
       - uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5 # Maximum allowed time for this step to run (5 minutes)
         env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Authentication token required to retrieve the Quality Gate result
