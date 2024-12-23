@@ -41,7 +41,6 @@ const Page = (): JSX.Element => {
     pageSize,
     statuses: [],
     sort: [],
-    name: '',
   })
 
   const { handlePageChange } = usePagination()

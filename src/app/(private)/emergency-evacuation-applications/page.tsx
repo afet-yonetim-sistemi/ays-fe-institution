@@ -121,7 +121,6 @@ const Page = (): JSX.Element => {
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, pageSize])
 
   useEffect(() => {

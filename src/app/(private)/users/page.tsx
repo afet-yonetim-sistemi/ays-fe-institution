@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { usePagination } from '@/hooks/usePagination'
 import { handleApiError } from '@/lib/handleApiError'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSort } from '@/hooks/useSort'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
@@ -123,37 +123,46 @@ const Page = (): JSX.Element => {
       sort,
     }
     setFilters(updatedFilters)
-
-    const fieldsToValidate = ['firstName', 'lastName', 'emailAddress', 'city']
-    for (const field of fieldsToValidate) {
-      const value = updatedFilters[
-        field as keyof typeof updatedFilters
-      ] as string
-      if (value && !getStringFilterValidation().safeParse(value).success) {
-        toast({
-          title: t('common.error'),
-          description: t('filterValidation'),
-          variant: 'destructive',
-        })
-        return
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
+  const debouncedFetchData = useMemo(
+    () =>
+      debounce((filters: UsersFilter) => {
+        const fieldsToValidate = [
+          'firstName',
+          'lastName',
+          'emailAddress',
+          'city',
+        ]
+
+        for (const field of fieldsToValidate) {
+          const value = filters[field as keyof UsersFilter]
+          if (value && !getStringFilterValidation().safeParse(value).success) {
+            toast({
+              title: t('common.error'),
+              description: t('filterValidation'),
+              variant: 'destructive',
+            })
+            return
+          }
+        }
+
+        fetchData(filters)
+      }, 500),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fetchData]
+  )
+
   useEffect(() => {
-    const debouncedFetchData = debounce((filters: UsersFilter) => {
-      fetchData(filters)
-    }, 500)
     debouncedFetchData(filters)
     return () => {
       debouncedFetchData.cancel()
     }
-  }, [filters, fetchData])
+  }, [filters, debouncedFetchData])
 
   return (
     <div className="space-y-4">
