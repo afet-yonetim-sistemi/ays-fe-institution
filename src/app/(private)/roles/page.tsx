@@ -23,7 +23,7 @@ import { useAppSelector } from '@/store/hooks'
 import { debounce } from 'lodash'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Page = (): JSX.Element => {
@@ -41,6 +41,7 @@ const Page = (): JSX.Element => {
     pageSize,
     statuses: [],
     sort: [],
+    name: '',
   })
 
   const { handlePageChange } = usePagination()
@@ -60,7 +61,7 @@ const Page = (): JSX.Element => {
           const { content, totalElementCount, totalPageCount } =
             response.data.response
 
-          if (filters.page > totalPageCount && totalPageCount != 0) {
+          if (filters.page > totalPageCount && totalPageCount !== 0) {
             router.push('/not-found')
             return
           }
@@ -95,31 +96,42 @@ const Page = (): JSX.Element => {
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
-
-    const result = getStringFilterValidation().safeParse(updatedFilters.name)
-    if (name && !result.success) {
-      toast({
-        title: t('common.error'),
-        description: t('filterValidation'),
-        variant: 'destructive',
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
+  const debouncedFetchData = useMemo(
+    () =>
+      debounce((filters: RolesFilter) => {
+        const result = getStringFilterValidation().safeParse(filters.name)
+        if (filters.name && !result.success) {
+          toast({
+            title: t('common.error'),
+            description: t('filterValidation'),
+            variant: 'destructive',
+          })
+          return
+        }
+        fetchData(filters)
+      }, 500),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fetchData]
+  )
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    handleFilterChange('name', value)
+    debouncedFetchData({ ...filters, name: value })
+  }
+
   useEffect(() => {
-    const debouncedFetchData = debounce((filters: RolesFilter) => {
-      fetchData(filters)
-    }, 500)
     debouncedFetchData(filters)
     return () => {
       debouncedFetchData.cancel()
     }
-  }, [filters, fetchData])
+  }, [filters, debouncedFetchData])
 
   return (
     <div className="space-y-4">
@@ -147,7 +159,7 @@ const Page = (): JSX.Element => {
           id="name"
           label={t('name')}
           value={filters.name}
-          onChange={(e) => handleFilterChange('name', e.target.value)}
+          onChange={handleNameChange}
         />
       </div>
       <DataTable
