@@ -120,12 +120,6 @@ const Page = (): JSX.Element => {
     [fetchData]
   )
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    handleFilterChange('name', value)
-    debouncedFetchData({ ...filters, name: value })
-  }
-
   useEffect(() => {
     debouncedFetchData(filters)
     return () => {
@@ -159,7 +153,7 @@ const Page = (): JSX.Element => {
           id="name"
           label={t('name')}
           value={filters.name}
-          onChange={handleNameChange}
+          onChange={(e) => handleFilterChange('name', e.target.value)}
         />
       </div>
       <DataTable
