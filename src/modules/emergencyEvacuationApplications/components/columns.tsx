@@ -13,9 +13,12 @@ import { getSortState } from '@/lib/getSortState'
 export interface EmergencyEvacuationApplication {
   id: string
   referenceNumber: string
-  firstName: string
-  lastName: string
-  phoneNumber: PhoneNumber
+  applicantFirstName?: string
+  applicantLastName?: string
+  applicantPhoneNumber?: PhoneNumber
+  firstName?: string
+  lastName?: string
+  phoneNumber?: PhoneNumber
   isInPerson: boolean
   seatingCount: number
   status: string
@@ -35,17 +38,28 @@ export const columns: (
     {
       accessorKey: 'firstName',
       header: () => i18next.t('applicantFirstName'),
-      cell: ({ row }) => row.original.firstName,
+      cell: ({ row }) =>
+        row.original.isInPerson
+          ? row.original.firstName
+          : row.original.applicantFirstName,
     },
     {
       accessorKey: 'lastName',
       header: () => i18next.t('applicantLastName'),
-      cell: ({ row }) => row.original.lastName,
+      cell: ({ row }) =>
+        row.original.isInPerson
+          ? row.original.lastName
+          : row.original.applicantLastName,
     },
     {
       accessorKey: 'phoneNumber',
       header: () => i18next.t('phoneNumber'),
-      cell: ({ row }) => formatPhoneNumber(row.original.phoneNumber),
+      cell: ({ row }) =>
+        formatPhoneNumber(
+          row.original.isInPerson
+            ? row.original.phoneNumber
+            : row.original.applicantPhoneNumber
+        ),
     },
     {
       accessorKey: 'isInPerson',
