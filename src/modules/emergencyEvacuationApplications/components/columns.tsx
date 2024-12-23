@@ -16,9 +16,9 @@ export interface EmergencyEvacuationApplication {
   applicantFirstName?: string
   applicantLastName?: string
   applicantPhoneNumber?: PhoneNumber
-  firstName: string
-  lastName: string
-  phoneNumber: PhoneNumber
+  firstName?: string
+  lastName?: string
+  phoneNumber?: PhoneNumber
   isInPerson: boolean
   seatingCount: number
   status: string
