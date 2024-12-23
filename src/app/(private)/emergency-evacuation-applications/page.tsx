@@ -24,7 +24,7 @@ import { getEmergencyEvacuationApplications } from '@/modules/emergencyEvacuatio
 import { debounce } from 'lodash'
 import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Page = (): JSX.Element => {
@@ -121,26 +121,6 @@ const Page = (): JSX.Element => {
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
-
-    const fieldsToValidate = [
-      'sourceCity',
-      'sourceDistrict',
-      'targetCity',
-      'targetDistrict',
-    ]
-    for (const field of fieldsToValidate) {
-      const value = updatedFilters[
-        field as keyof typeof updatedFilters
-      ] as string
-      if (value && !getStringFilterValidation().safeParse(value).success) {
-        toast({
-          title: t('common.error'),
-          description: t('filterValidation'),
-          variant: 'destructive',
-        })
-        return
-      }
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, pageSize])
 
@@ -148,18 +128,41 @@ const Page = (): JSX.Element => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
-  useEffect(() => {
-    const debouncedFetchData = debounce(
-      (filters: EmergencyEvacuationApplicationsFilter) => {
+  const debouncedFetchData = useMemo(
+    () =>
+      debounce((filters: EmergencyEvacuationApplicationsFilter) => {
+        const fieldsToValidate = [
+          'sourceCity',
+          'sourceDistrict',
+          'targetCity',
+          'targetDistrict',
+        ]
+
+        for (const field of fieldsToValidate) {
+          const value =
+            filters[field as keyof EmergencyEvacuationApplicationsFilter]
+          if (value && !getStringFilterValidation().safeParse(value).success) {
+            toast({
+              title: t('common.error'),
+              description: t('filterValidation'),
+              variant: 'destructive',
+            })
+            return
+          }
+        }
+
         fetchData(filters)
-      },
-      500
-    )
+      }, 500),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fetchData]
+  )
+
+  useEffect(() => {
     debouncedFetchData(filters)
     return () => {
       debouncedFetchData.cancel()
     }
-  }, [filters, fetchData])
+  }, [filters, debouncedFetchData])
 
   return (
     <div className="space-y-4">
