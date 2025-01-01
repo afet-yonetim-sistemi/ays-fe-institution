@@ -108,7 +108,7 @@ const Page = (): JSX.Element => {
       (filters: AdminRegistrationApplicationsFilter) => {
         fetchData(filters)
       },
-      100
+      500
     )
     debouncedFetchData(filters)
     return () => {
