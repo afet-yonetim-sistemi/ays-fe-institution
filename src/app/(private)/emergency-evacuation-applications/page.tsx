@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import CheckboxFilter from '@/components/ui/checkbox-filter'
 import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
+import { Input } from '@/components/ui/input'
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
@@ -210,9 +211,9 @@ const Page = (): JSX.Element => {
           }
           type="number"
         />
-        <FilterInput
+        <Input
           id="sourceCity"
-          label={t('sourceCity')}
+          // label={t('sourceCity')}
           value={filters.sourceCity}
           onChange={(e) => handleFilterChange('sourceCity', e.target.value)}
         />

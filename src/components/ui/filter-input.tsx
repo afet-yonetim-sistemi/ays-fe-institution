@@ -19,42 +19,7 @@ const FilterInput: React.FC<FilterInputProps> = ({
   placeholder = '',
   type = 'text',
 }) => {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const char = e.key
-
-    if (
-      type === 'number' &&
-      !/^[0-9]$/.test(char) &&
-      char !== 'Backspace' &&
-      char !== 'Delete' &&
-      char !== 'ArrowLeft' &&
-      char !== 'ArrowRight' &&
-      !(e.ctrlKey || e.metaKey) &&
-      (char === 'a' || char === 'c' || char === 'v')
-    ) {
-      e.preventDefault()
-    }
-  }
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-
-    if (id === 'seatingCount' && type === 'number') {
-      const numValue = parseInt(newValue, 10)
-      if (newValue && (isNaN(numValue) || numValue < 1 || numValue > 999)) {
-        return
-      }
-    }
-
-    if (id === 'referenceNumber' && type === 'number') {
-      const numValue = parseInt(newValue, 10)
-      if (
-        newValue &&
-        (isNaN(numValue) || numValue < 0 || numValue > 9999999999)
-      ) {
-        return
-      }
-    }
     onChange(e)
   }
 
@@ -65,7 +30,6 @@ const FilterInput: React.FC<FilterInputProps> = ({
         placeholder={placeholder}
         value={value ?? ''}
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
         type={type}
         className={cn(
           'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
