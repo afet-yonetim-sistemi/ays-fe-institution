@@ -221,7 +221,9 @@ const Page = (): JSX.Element => {
           id="sourceDistrict"
           label={t('sourceDistrict')}
           value={filters.sourceDistrict}
-          onChange={(e) => handleFilterChange('sourceDistrict', e.target.value)}
+          onChange={function (): void {
+            throw new Error('Function not implemented.')
+          }} // onChange={(e) => handleFilterChange('sourceDistrict', e.target.value)}
         />
         <FilterInput
           id="targetCity"
