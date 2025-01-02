@@ -1,12 +1,14 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
+import { debounce } from 'lodash'
+import { useMemo, useState } from 'react'
 
 interface FilterInputProps {
   id: string
   label: string
   value: string | number | undefined
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (value: string) => void
   placeholder?: string
   type?: string
 }
@@ -19,8 +21,18 @@ const FilterInput: React.FC<FilterInputProps> = ({
   placeholder = '',
   type = 'text',
 }) => {
+  const [localValue, setLocalValue] = useState(value ?? '')
+
+  // Debounce the onChange callback to minimize frequent calls
+  const debouncedChange = useMemo(
+    () => debounce((newValue: string) => onChange(newValue), 300),
+    [onChange]
+  )
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e)
+    const newValue = e.target.value
+    setLocalValue(newValue) // Update the local state immediately for user feedback
+    debouncedChange(newValue) // Call the debounced onChange function
   }
 
   return (
@@ -28,7 +40,7 @@ const FilterInput: React.FC<FilterInputProps> = ({
       <Input
         id={id}
         placeholder={placeholder}
-        value={value ?? ''}
+        value={localValue}
         onChange={handleChange}
         type={type}
         className={cn(
