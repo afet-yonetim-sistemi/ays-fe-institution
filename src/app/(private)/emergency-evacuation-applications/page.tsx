@@ -152,7 +152,7 @@ const Page = (): JSX.Element => {
         }
 
         fetchData(filters)
-      }, 500),
+      }, 3000),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [fetchData]
   )
