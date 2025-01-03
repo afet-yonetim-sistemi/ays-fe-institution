@@ -1,12 +1,14 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
+import { debounce } from 'lodash'
+import { useMemo, useState } from 'react'
 
 interface FilterInputProps {
   id: string
   label: string
   value: string | number | undefined
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (value: string) => void
   placeholder?: string
   type?: string
 }
@@ -19,43 +21,18 @@ const FilterInput: React.FC<FilterInputProps> = ({
   placeholder = '',
   type = 'text',
 }) => {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const char = e.key
+  const [localValue, setLocalValue] = useState(value ?? '')
 
-    if (
-      type === 'number' &&
-      !/^[0-9]$/.test(char) &&
-      char !== 'Backspace' &&
-      char !== 'Delete' &&
-      char !== 'ArrowLeft' &&
-      char !== 'ArrowRight' &&
-      !(e.ctrlKey || e.metaKey) &&
-      (char === 'a' || char === 'c' || char === 'v')
-    ) {
-      e.preventDefault()
-    }
-  }
+  // Debounce the onChange callback to minimize frequent calls
+  const debouncedChange = useMemo(
+    () => debounce((newValue: string) => onChange(newValue), 300),
+    [onChange]
+  )
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
-
-    if (id === 'seatingCount' && type === 'number') {
-      const numValue = parseInt(newValue, 10)
-      if (newValue && (isNaN(numValue) || numValue < 1 || numValue > 999)) {
-        return
-      }
-    }
-
-    if (id === 'referenceNumber' && type === 'number') {
-      const numValue = parseInt(newValue, 10)
-      if (
-        newValue &&
-        (isNaN(numValue) || numValue < 0 || numValue > 9999999999)
-      ) {
-        return
-      }
-    }
-    onChange(e)
+    setLocalValue(newValue) // Update the local state immediately for user feedback
+    debouncedChange(newValue) // Call the debounced onChange function
   }
 
   return (
@@ -63,9 +40,8 @@ const FilterInput: React.FC<FilterInputProps> = ({
       <Input
         id={id}
         placeholder={placeholder}
-        value={value ?? ''}
+        value={localValue}
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
         type={type}
         className={cn(
           'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'

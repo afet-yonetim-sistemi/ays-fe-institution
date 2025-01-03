@@ -152,7 +152,7 @@ const Page = (): JSX.Element => {
           id="name"
           label={t('name')}
           value={filters.name}
-          onChange={(e) => handleFilterChange('name', e.target.value)}
+          onChange={(value) => handleFilterChange('name', value)}
         />
       </div>
       <DataTable
