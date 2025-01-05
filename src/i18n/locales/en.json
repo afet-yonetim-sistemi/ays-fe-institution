@@ -239,7 +239,7 @@
     "createdUser": "User Who Created",
     "updatedUser": "User Who Updated",
     "roles": "User Roles",
-    "noRoles": "User do not have any roles",
+    "noRoles": "User does not have any roles",
     "create": "Create New User",
     "createdSuccessfully": "User created successfully.",
     "createError": "User create failed.",
