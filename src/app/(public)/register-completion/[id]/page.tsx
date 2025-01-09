@@ -168,7 +168,17 @@ const Page = ({
                     <FormItem>
                       <FormLabel>{t('phoneNumber')}</FormLabel>
                       <FormControl>
-                        <PhoneInput onChange={field.onChange} />
+                        <PhoneInput
+                          onChange={field.onChange}
+                          value={
+                            field.value as unknown as
+                              | ((string & { __tag: 'E164Number' }) & {
+                                  countryCode: string
+                                  lineNumber: string
+                                })
+                              | undefined
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

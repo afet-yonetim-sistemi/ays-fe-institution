@@ -28,12 +28,16 @@ type PhoneInputProps = Omit<
 > &
   Omit<RPNInput.Props<typeof RPNInput.default>, 'onChange'> & {
     onChange?: (value: unknown) => void
+    value: { countryCode: string; lineNumber: string } | undefined
     disableCountrySelection?: boolean
   }
 
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
   React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
-    ({ className, onChange, disableCountrySelection, ...props }, ref) => {
+    (
+      { className, onChange, value, disableCountrySelection, ...props },
+      ref
+    ) => {
       const handleChange = (value: string | undefined): void => {
         if (!value) {
           onChange?.({ countryCode: '', lineNumber: '' })
@@ -61,6 +65,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           )}
           inputComponent={InputComponent}
           onChange={handleChange}
+          value={value ? `+${value.countryCode}${value.lineNumber}` : undefined}
           defaultCountry="TR"
           {...props}
         />
