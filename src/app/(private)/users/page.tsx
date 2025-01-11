@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { usePagination } from '@/hooks/usePagination'
 import { handleApiError } from '@/lib/handleApiError'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSort } from '@/hooks/useSort'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
@@ -97,11 +97,6 @@ const Page = (): JSX.Element => {
     const firstName = searchParams.get('firstName') ?? ''
     const lastName = searchParams.get('lastName') ?? ''
     const emailAddress = searchParams.get('emailAddress') ?? ''
-    const countryCodeParam = searchParams.get('countryCode')
-    const countryCode =
-      countryCodeParam && countryCodeParam.trim()
-        ? parseInt(countryCodeParam, 10)
-        : undefined
     const lineNumberParam = searchParams.get('lineNumber')
     const lineNumber =
       lineNumberParam && lineNumberParam.trim()
@@ -117,43 +112,51 @@ const Page = (): JSX.Element => {
       firstName: firstName || '',
       lastName: lastName || '',
       emailAddress: emailAddress || '',
-      countryCode,
       lineNumber,
       city: city || '',
       sort,
     }
     setFilters(updatedFilters)
-
-    const fieldsToValidate = ['firstName', 'lastName', 'emailAddress', 'city']
-    for (const field of fieldsToValidate) {
-      const value = updatedFilters[
-        field as keyof typeof updatedFilters
-      ] as string
-      if (value && !getStringFilterValidation().safeParse(value).success) {
-        toast({
-          title: t('common.error'),
-          description: t('filterValidation'),
-          variant: 'destructive',
-        })
-        return
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, pageSize])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
+  const debouncedFetchData = useMemo(
+    () =>
+      debounce((filters: UsersFilter) => {
+        const fieldsToValidate = [
+          'firstName',
+          'lastName',
+          'emailAddress',
+          'city',
+        ]
+
+        for (const field of fieldsToValidate) {
+          const value = filters[field as keyof UsersFilter]
+          if (value && !getStringFilterValidation().safeParse(value).success) {
+            toast({
+              title: t('common.error'),
+              description: t('filterValidation'),
+              variant: 'destructive',
+            })
+            return
+          }
+        }
+
+        fetchData(filters)
+      }, 500),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fetchData]
+  )
+
   useEffect(() => {
-    const debouncedFetchData = debounce((filters: UsersFilter) => {
-      fetchData(filters)
-    }, 500)
     debouncedFetchData(filters)
     return () => {
       debouncedFetchData.cancel()
     }
-  }, [filters, fetchData])
+  }, [filters, debouncedFetchData])
 
   return (
     <div className="space-y-4">
@@ -176,7 +179,7 @@ const Page = (): JSX.Element => {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-4 2xl:grid-cols-7 gap-4">
+      <div className="grid grid-cols-3 2xl:grid-cols-6 gap-4">
         <MultiSelectDropdown
           items={userStatuses}
           selectedItems={filters.statuses}
@@ -203,13 +206,6 @@ const Page = (): JSX.Element => {
           label={t('user.email')}
           value={filters.emailAddress}
           onChange={(e) => handleFilterChange('emailAddress', e.target.value)}
-        />
-        <FilterInput
-          id="countryCode"
-          label={t('user.countryCode')}
-          value={filters.countryCode}
-          onChange={(e) => handleFilterChange('countryCode', e.target.value)}
-          type="number"
         />
         <FilterInput
           id="lineNumber"
