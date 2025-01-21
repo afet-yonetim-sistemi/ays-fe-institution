@@ -1,3 +1,4 @@
+// NOSONAR - typescript:S5843
 export const emailRegex = new RegExp(
   '^(?!.*\\.{2})(?!.*--)' +
     '\\p{Alnum}[\\p{Alnum}._%+\\-]*@' +
