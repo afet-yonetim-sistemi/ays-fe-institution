@@ -26,6 +26,8 @@ export const CreateUserValidationSchema = z.object({
         field: t('emailAddress'),
       }),
     })
+    .min(6, t('minLength', { field: 6 }))
+    .max(50, t('maxLength', { field: 254 }))
     .regex(emailRegex, t('invalidEmail')),
   phoneNumber: PhoneNumberSchema,
   city: nameboxWithLengthValidation('city', 2, 100),
