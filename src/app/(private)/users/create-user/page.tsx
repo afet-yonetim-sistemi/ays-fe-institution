@@ -191,13 +191,18 @@ const Page = (): JSX.Element => {
         </Card>
         <Card className="m-3 p-2">
           <CardHeader>
-            <div className="flex items-center">
-              <CardTitle>{t('user.roles')}</CardTitle>
-              <div className="ml-4 flex items-center gap-2">
-                {minRoleError && (
-                  <p className="text-destructive text-sm">{minRoleError}</p>
-                )}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <CardTitle>{t('user.roles')}</CardTitle>
+                <div className="ml-4 flex items-center gap-2">
+                  {minRoleError && (
+                    <p className="text-destructive text-sm">{minRoleError}</p>
+                  )}
+                </div>
               </div>
+              <Button onClick={handleCreate} disabled={isCreateDisabled}>
+                {t('common.create')}
+              </Button>
             </div>
           </CardHeader>
           <CardContent>
@@ -220,9 +225,6 @@ const Page = (): JSX.Element => {
           </CardContent>
         </Card>
       </div>
-      <Button onClick={handleCreate} disabled={isCreateDisabled}>
-        {t('common.create')}
-      </Button>
     </Form>
   )
 }
