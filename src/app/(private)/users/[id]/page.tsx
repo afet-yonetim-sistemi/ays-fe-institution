@@ -68,11 +68,11 @@ const Page = ({
 
   const showActivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
-    !['DELETED', 'ACTIVE'].includes(userDetails?.status ?? '')
+    !['NOT_VERIFIED', 'DELETED', 'ACTIVE'].includes(userDetails?.status ?? '')
 
   const showDeactivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
-    !['DELETED', 'PASSIVE'].includes(userDetails?.status ?? '')
+    !['NOT_VERIFIED', 'DELETED', 'PASSIVE'].includes(userDetails?.status ?? '')
 
   const showDeleteButton =
     userPermissions.includes(Permission.USER_DELETE) &&
