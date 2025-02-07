@@ -125,7 +125,11 @@ export function DataTable<TData extends { id: string }, TValue>({
                   <TableRow
                     key={row.id}
                     onClick={() => handleRowClick(row.original)}
-                    className="cursor-pointer hover:accent"
+                    className={
+                      enableRowClick
+                        ? 'cursor-pointer hover:accent'
+                        : 'cursor-default'
+                    }
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

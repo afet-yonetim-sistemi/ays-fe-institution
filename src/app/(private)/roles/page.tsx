@@ -163,6 +163,7 @@ const Page = (): JSX.Element => {
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
         loading={isLoading}
+        enableRowClick={userPermissions.includes(Permission.ROLE_DETAIL)}
       />
       <Toaster />
     </div>

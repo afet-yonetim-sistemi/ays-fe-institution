@@ -10,10 +10,12 @@ import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { toast } from '@/components/ui/use-toast'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
+import { Permission } from '@/constants/permissions'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
 import { handleApiError } from '@/lib/handleApiError'
+import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns } from '@/modules/emergencyEvacuationApplications/components/columns'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
 import {
@@ -21,6 +23,7 @@ import {
   EmergencyEvacuationApplicationsFilter,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/service'
+import { useAppSelector } from '@/store/hooks'
 import { debounce } from 'lodash'
 import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -32,6 +35,7 @@ const Page = (): JSX.Element => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const userPermissions = useAppSelector(selectPermissions)
   const [
     emergencyEvacuationApplicationList,
     setEmergencyEvacuationApplicationList,
@@ -243,6 +247,7 @@ const Page = (): JSX.Element => {
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
         loading={isLoading}
+        enableRowClick={userPermissions.includes(Permission.EVACUATION_DETAIL)}
       />
       <Toaster />
     </div>
