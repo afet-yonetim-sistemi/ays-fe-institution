@@ -145,6 +145,7 @@ const Page = (): JSX.Element => {
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
         loading={isLoading}
+        enableRowClick={userPermissions.includes(Permission.APPLICATION_DETAIL)}
       />
       <Toaster />
     </div>
