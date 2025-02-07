@@ -2,7 +2,10 @@ import { z } from 'zod'
 import i18n from '@/i18n'
 import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
 import { emailRegex } from '@/constants/regex'
-import { PhoneNumberSchema } from '@/constants/formValidationSchema'
+import {
+  PasswordSchema,
+  PhoneNumberSchema,
+} from '@/constants/formValidationSchema'
 
 const UserSchema = z.object({
   id: z.string(),
@@ -66,11 +69,6 @@ export const InstitutionFormSchema = z.object({
   city: z.string({
     required_error: i18n.t('requiredField', { field: i18n.t('city') }),
   }),
-  password: z
-    .string({
-      required_error: i18n.t('requiredField', { field: i18n.t('password') }),
-    })
-    .min(6, i18n.t('minLength', { field: 6 }))
-    .max(50, i18n.t('maxLength', { field: 50 })),
+  password: PasswordSchema,
   phoneNumber: PhoneNumberSchema,
 })

@@ -1,20 +1,13 @@
 import { z } from 'zod'
-import i18n from '@/i18n'
+import { t } from 'i18next'
+import { PasswordSchema } from '@/constants/formValidationSchema'
 
-const PasswordSchema = z
+export const FormValidationSchema = z
   .object({
-    password: z
-      .string()
-      .min(6, i18n.t('minLength', { field: 6 }))
-      .max(50, i18n.t('maxLength', { field: 50 })),
-    passwordRepeat: z
-      .string()
-      .min(6, i18n.t('minLength', { field: 6 }))
-      .max(50, i18n.t('maxLength', { field: 50 })),
+    password: PasswordSchema,
+    passwordRepeat: PasswordSchema,
   })
   .refine((data) => data.password === data.passwordRepeat, {
-    message: i18n.t('passwordMismatch'),
+    message: t('passwordMismatch'),
     path: ['passwordRepeat'],
   })
-
-export const FormValidationSchema = PasswordSchema
