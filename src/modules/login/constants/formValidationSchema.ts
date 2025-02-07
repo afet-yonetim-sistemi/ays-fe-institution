@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import i18n from '@/i18n'
 import { emailRegex } from '@/constants/regex'
+import { PasswordSchema } from '@/constants/formValidationSchema'
 
 const LoginFormSchema = z.object({
   emailAddress: z
@@ -10,12 +11,7 @@ const LoginFormSchema = z.object({
       }),
     })
     .regex(emailRegex, i18n.t('invalidEmail')),
-  password: z
-    .string({
-      required_error: i18n.t('requiredField', { field: i18n.t('password') }),
-    })
-    .min(6, i18n.t('minLength', { field: 6 }))
-    .max(50, i18n.t('maxLength', { field: 50 })),
+  password: PasswordSchema,
   sourcePage: z.string(),
 })
 

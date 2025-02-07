@@ -9,3 +9,10 @@ export const PhoneNumberSchema = z
   .refine((phoneNumber) => phoneNumber.countryCode && phoneNumber.lineNumber, {
     message: t('invalidPhoneNumber'),
   })
+
+export const PasswordSchema = z
+  .string({
+    required_error: t('requiredField', { field: t('password') }),
+  })
+  .min(8, t('minLength', { field: 8 }))
+  .max(128, t('maxLength', { field: 128 }))
