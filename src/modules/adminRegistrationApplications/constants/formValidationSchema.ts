@@ -43,6 +43,9 @@ export const PreApplicationFormSchema = z.object({
     .min(40, {
       message: i18n.t('minLength', { field: 40 }),
     })
+    .max(512, {
+      message: i18n.t('maxLength', { field: 512 }),
+    })
     .refine((value) => !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(value), {
       message: i18n.t('notSpecialCharacters'),
     })
