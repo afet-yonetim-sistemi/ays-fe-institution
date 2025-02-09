@@ -25,12 +25,13 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
-import { User } from '@/modules/users/constants/types'
+import { CreateEditUserPayload, User } from '@/modules/users/constants/types'
 import {
   activateUser,
   deactivateUser,
   deleteUser,
   getUser,
+  updateUser,
 } from '@/modules/users/service'
 import { userStatuses } from '@/modules/users/constants/statuses'
 import { Permission } from '@/constants/permissions'
@@ -39,10 +40,7 @@ import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
-
-/* ********************************
-Commented out parts will be useful while implementing the user update feature
-******************************** */
+import { Button } from '@/components/ui/button'
 
 const Page = ({
   params,
@@ -57,14 +55,15 @@ const Page = ({
     mode: 'onChange',
   })
   const userPermissions = useAppSelector(selectPermissions)
-  //   const { control, reset, formState, getValues } = form // use this with update
-  const { control } = form // delete this with update
+  const { control, reset, formState, getValues } = form
 
   const [userDetails, setUserDetails] = useState<User | null>(null)
-  //   const [initialUserValues, setInitialUserValues] = useState<User | null>(null)
+  const [initialUserValues, setInitialUserValues] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  //   const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
+  const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
+
+  const canUpdateUser = userDetails?.status !== 'DELETED'
 
   const showActivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
@@ -84,7 +83,7 @@ const Page = ({
         .then((response) => {
           const details = response.response
           setUserDetails(details)
-          //   setInitialUserValues(details)
+          setInitialUserValues(details)
         })
         .catch((error) => {
           setError(error.message)
@@ -98,79 +97,69 @@ const Page = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id])
 
-  //   const handleUpdateButtonClick = (): void => {
-  //     return setIsUserEditable(true)
-  //   }
+  const handleUpdateButtonClick = (): void => {
+    return setIsUserEditable(true)
+  }
 
-  //   const handleCancelButtonClick = (): void => {
-  //     if (userDetails) {
-  //       //   reset({})
-  //     }
-  //     setIsUserEditable(false)
-  //   }
+  const handleCancelButtonClick = (): void => {
+    if (userDetails) {
+      reset({})
+    }
+    setIsUserEditable(false)
+  }
 
-  //   const handleSaveButtonClick = (): void => {
-  //     const currentValues: EvacuationApplicationEditableFields = {
-  //       seatingCount:
-  //         getValues('seatingCount') || initialApplicationValues?.seatingCount,
-  //       hasObstaclePersonExist:
-  //         getValues('hasObstaclePersonExist') ??
-  //         initialApplicationValues?.hasObstaclePersonExist,
-  //       status: getValues('status') || initialApplicationValues?.status,
-  //       notes: getValues('notes') || initialApplicationValues?.notes,
-  //     }
+  const handleSaveButtonClick = (): void => {
+    const currentValues: CreateEditUserPayload = {
+      firstName: getValues('firstName') ?? initialUserValues?.firstName,
+      lastName: getValues('lastName') ?? initialUserValues?.lastName,
+      emailAddress:
+        getValues('emailAddress') ?? initialUserValues?.emailAddress,
+      city: getValues('city') ?? initialUserValues?.city,
+    }
 
-  //     const editableFields: (keyof EvacuationApplicationEditableFields)[] = [
-  //       'seatingCount',
-  //       'hasObstaclePersonExist',
-  //       'status',
-  //       'notes',
-  //     ]
+    const isChanged = Object.keys(currentValues).some((key) => {
+      return currentValues[key] !== initialUserValues?.[key]
+    })
 
-  //     const isChanged = editableFields.some((key) => {
-  //       return currentValues[key] !== initialApplicationValues?.[key]
-  //     })
+    if (!isChanged) {
+      toast({
+        title: t('common.error'),
+        description: t('user.noChangesError'),
+        variant: 'destructive',
+      })
+      return
+    }
 
-  //     if (!isChanged) {
-  //       toast({
-  //         title: t('common.error'),
-  //         description: t('emergencyEvacuationApplications.noChangesError'),
-  //         variant: 'destructive',
-  //       })
-  //       return
-  //     }
-  //     updateEmergencyEvacuationApplication(params.id, currentValues)
-  //       .then((response) => {
-  //         if (response.isSuccess) {
-  //           setEmergencyEvacuationApplicationDetails({
-  //             ...emergencyEvacuationApplicationDetails!,
-  //             ...currentValues,
-  //           })
-  //           setInitialApplicationValues({
-  //             ...emergencyEvacuationApplicationDetails!,
-  //             ...currentValues,
-  //           })
+    updateUser(params.id, currentValues)
+      .then((response) => {
+        if (response.isSuccess) {
+          setUserDetails({
+            ...userDetails!,
+            ...currentValues,
+          })
+          setInitialUserValues({
+            ...userDetails!,
+            ...currentValues,
+          })
 
-  //           toast({
-  //             title: t('success'),
-  //             description: t(
-  //               'emergencyEvacuationApplications.updatedSuccessfully'
-  //             ),
-  //             variant: 'success',
-  //           })
-  //           setIsEmergencyApplicationEditable(false)
-  //         } else {
-  //           handleApiError(undefined, {
-  //             description: t('emergencyEvacuationApplications.updateError'),
-  //           })
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         handleApiError(error, {
-  //           description: t('emergencyEvacuationApplications.updateError'),
-  //         })
-  //       })
-  //   }
+          toast({
+            title: t('success'),
+            description: t('user.updatedSuccessfully'),
+            variant: 'success',
+          })
+          setIsUserEditable(false)
+        } else {
+          handleApiError(undefined, {
+            description: t('user.updateError'),
+          })
+        }
+      })
+      .catch((error) => {
+        handleApiError(error, {
+          description: t('user.updateError'),
+        })
+      })
+  }
 
   const handleActivateUser = (): void => {
     activateUser(params.id)
@@ -277,7 +266,7 @@ const Page = ({
                   />
                 )}
               </div>
-              {/* {userPermissions.includes(Permission.USER_UPDATE) ? (
+              {userPermissions.includes(Permission.USER_UPDATE) ? (
                 canUpdateUser ? (
                   !isUserEditable ? (
                     <Button
@@ -307,7 +296,7 @@ const Page = ({
                     </div>
                   )
                 ) : null
-              ) : null} */}
+              ) : null}
             </div>
             <Card className="mb-6">
               <CardHeader>

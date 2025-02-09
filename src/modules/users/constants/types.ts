@@ -33,7 +33,7 @@ export interface User {
   roles: UserRole[]
 }
 
-export interface CreateUserPayload {
+export interface CreateEditUserPayload {
   firstName: string
   lastName: string
   emailAddress: string

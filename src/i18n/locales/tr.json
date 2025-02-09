@@ -249,6 +249,9 @@
     "deactivatedSuccessfully": "Kullanıcı pasifleştirme işleminiz başarıyla gerçekleşmiştir",
     "deactivateConfirm": "Kullanıcı pasifleştirme işlemine devam etmek istiyor musunuz?",
     "deleteConfirm": "Kullanıcıyı silmek istediğinize emin misiniz?",
-    "deletedSuccessfully": "Kullanıcı başarıyla silindi"
+    "deletedSuccessfully": "Kullanıcı başarıyla silindi",
+    "noChangesError": "Değişiklik yapmadan kullanıcıyı güncelleyemezsiniz.",
+    "updatedSuccessfully": "Kullanıcı başarıyla güncellendi.",
+    "updateError": "Kullanıcı güncelleme başarısız."
   }
 }
