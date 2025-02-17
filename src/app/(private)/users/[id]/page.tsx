@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
-import { User } from '@/modules/users/constants/types'
+import { User, UserEditableFields } from '@/modules/users/constants/types'
 import {
   activateUser,
   deactivateUser,
