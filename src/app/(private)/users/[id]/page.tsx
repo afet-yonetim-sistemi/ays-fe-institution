@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
-import { CreateEditUserPayload, User } from '@/modules/users/constants/types'
+import { User } from '@/modules/users/constants/types'
 import {
   activateUser,
   deactivateUser,
@@ -116,7 +116,7 @@ const Page = ({
   }
 
   const handleSaveButtonClick = (): void => {
-    const currentValues: CreateEditUserPayload = {
+    const currentValues: UserEditableFields = {
       firstName: getValues('firstName') ?? initialUserValues?.firstName,
       lastName: getValues('lastName') ?? initialUserValues?.lastName,
       emailAddress:
@@ -124,21 +124,29 @@ const Page = ({
       city: getValues('city') ?? initialUserValues?.city,
       phoneNumber:
         getValues('phoneNumber') ?? initialUserValues?.phoneNumber.lineNumber,
-      roleIds: getValues('roles') ?? initialUserValues?.roles,
+      // roleIds: getValues('roles') ?? initialUserValues?.roles,
     }
 
-    // const isChanged = Object.keys(currentValues).some((key) => {
-    //   return currentValues[key] !== initialUserValues?.[key]
-    // })
+    const editableFields: (keyof UserEditableFields)[] = [
+      'firstName',
+      'lastName',
+      'emailAddress',
+      'city',
+      'phoneNumber',
+    ]
 
-    // if (!isChanged) {
-    //   toast({
-    //     title: t('common.error'),
-    //     description: t('user.noChangesError'),
-    //     variant: 'destructive',
-    //   })
-    //   return
-    // }
+    const isChanged = editableFields.some((key) => {
+      return currentValues[key] !== initialUserValues?.[key]
+    })
+
+    if (!isChanged) {
+      toast({
+        title: t('common.error'),
+        description: t('user.noChangesError'),
+        variant: 'destructive',
+      })
+      return
+    }
 
     updateUser(params.id, currentValues)
       .then((response) => {

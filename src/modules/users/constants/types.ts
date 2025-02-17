@@ -42,6 +42,11 @@ export interface CreateEditUserPayload {
   roleIds: string[]
 }
 
+export type UserEditableFields = Pick<
+  User,
+  'firstName' | 'lastName' | 'emailAddress' | 'phoneNumber' | 'city'
+>
+
 export interface UserApiResponse extends BaseApiResponse {
   response: User
 }
