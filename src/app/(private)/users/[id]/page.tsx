@@ -67,15 +67,22 @@ const Page = ({
 
   const showActivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
-    !['NOT_VERIFIED', 'DELETED', 'ACTIVE'].includes(userDetails?.status ?? '')
+    !['NOT_VERIFIED', 'DELETED', 'ACTIVE'].includes(
+      userDetails?.status ?? ''
+    ) &&
+    !isUserEditable
 
   const showDeactivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
-    !['NOT_VERIFIED', 'DELETED', 'PASSIVE'].includes(userDetails?.status ?? '')
+    !['NOT_VERIFIED', 'DELETED', 'PASSIVE'].includes(
+      userDetails?.status ?? ''
+    ) &&
+    !isUserEditable
 
   const showDeleteButton =
     userPermissions.includes(Permission.USER_DELETE) &&
-    !['DELETED'].includes(userDetails?.status ?? '')
+    !['DELETED'].includes(userDetails?.status ?? '') &&
+    !isUserEditable
 
   useEffect(() => {
     const fetchDetails = (): void => {
@@ -115,20 +122,23 @@ const Page = ({
       emailAddress:
         getValues('emailAddress') ?? initialUserValues?.emailAddress,
       city: getValues('city') ?? initialUserValues?.city,
+      phoneNumber:
+        getValues('phoneNumber') ?? initialUserValues?.phoneNumber.lineNumber,
+      roleIds: getValues('roles') ?? initialUserValues?.roles,
     }
 
-    const isChanged = Object.keys(currentValues).some((key) => {
-      return currentValues[key] !== initialUserValues?.[key]
-    })
+    // const isChanged = Object.keys(currentValues).some((key) => {
+    //   return currentValues[key] !== initialUserValues?.[key]
+    // })
 
-    if (!isChanged) {
-      toast({
-        title: t('common.error'),
-        description: t('user.noChangesError'),
-        variant: 'destructive',
-      })
-      return
-    }
+    // if (!isChanged) {
+    //   toast({
+    //     title: t('common.error'),
+    //     description: t('user.noChangesError'),
+    //     variant: 'destructive',
+    //   })
+    //   return
+    // }
 
     updateUser(params.id, currentValues)
       .then((response) => {
@@ -265,38 +275,38 @@ const Page = ({
                     variant={'destructive'}
                   />
                 )}
+                {userPermissions.includes(Permission.USER_UPDATE) ? (
+                  canUpdateUser ? (
+                    !isUserEditable ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleUpdateButtonClick}
+                      >
+                        {t('common.update')}
+                      </Button>
+                    ) : (
+                      <div className="flex items-center gap-4">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleCancelButtonClick}
+                        >
+                          {t('common.cancel')}
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleSaveButtonClick}
+                          disabled={Boolean(formState.errors.seatingCount)}
+                        >
+                          {t('common.save')}
+                        </Button>
+                      </div>
+                    )
+                  ) : null
+                ) : null}
               </div>
-              {userPermissions.includes(Permission.USER_UPDATE) ? (
-                canUpdateUser ? (
-                  !isUserEditable ? (
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleUpdateButtonClick}
-                    >
-                      {t('common.update')}
-                    </Button>
-                  ) : (
-                    <div className="flex items-center gap-4">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleCancelButtonClick}
-                      >
-                        {t('common.cancel')}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleSaveButtonClick}
-                        disabled={Boolean(formState.errors.seatingCount)}
-                      >
-                        {t('common.save')}
-                      </Button>
-                    </div>
-                  )
-                ) : null
-              ) : null}
             </div>
             <Card className="mb-6">
               <CardHeader>
@@ -313,8 +323,9 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
+                            disabled={!isUserEditable}
                             defaultValue={userDetails.firstName ?? ''}
+                            onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
                       </FormItem>
@@ -329,8 +340,9 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
+                            disabled={!isUserEditable}
                             defaultValue={userDetails.lastName ?? ''}
+                            onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
                       </FormItem>
@@ -345,8 +357,9 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
+                            disabled={!isUserEditable}
                             defaultValue={userDetails.emailAddress ?? ''}
+                            onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
                       </FormItem>
@@ -357,7 +370,7 @@ const Page = ({
                     name="phoneNumber"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('phoneNumber')}</FormLabel>
+                        <FormLabel>{t('TODOphoneNumber')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -381,8 +394,9 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
+                            disabled={!isUserEditable}
                             defaultValue={userDetails.city ?? ''}
+                            onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
                       </FormItem>
@@ -400,7 +414,7 @@ const Page = ({
                             onValueChange={(value: string) =>
                               field.onChange(value)
                             }
-                            disabled={true} // change with !isUserEditable
+                            disabled
                           >
                             <SelectTrigger>
                               <SelectValue placeholder={t('status')} />
@@ -495,7 +509,7 @@ const Page = ({
             </Card>
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>{t('user.roles')}</CardTitle>
+                <CardTitle>{t('TODOuser.roles')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
