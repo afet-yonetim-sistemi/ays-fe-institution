@@ -25,7 +25,11 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
-import { User, UserEditableFields } from '@/modules/users/constants/types'
+import {
+  User,
+  UserEditableFields,
+  UserRole,
+} from '@/modules/users/constants/types'
 import {
   activateUser,
   deactivateUser,
@@ -41,6 +45,8 @@ import { useAppSelector } from '@/store/hooks'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
 import { Button } from '@/components/ui/button'
+import { getRoleSummary } from '@/modules/roles/service'
+import { Switch } from '@/components/ui/switch'
 
 const Page = ({
   params,
@@ -57,13 +63,17 @@ const Page = ({
   const userPermissions = useAppSelector(selectPermissions)
   const { control, reset, formState, getValues } = form
 
+  const [roles, setRoles] = useState<UserRole[]>([])
+  const [selectedRoles, setSelectedRoles] = useState<string[]>([])
   const [userDetails, setUserDetails] = useState<User | null>(null)
   const [initialUserValues, setInitialUserValues] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
+  const [minRoleError, setMinRoleError] = useState<string | null>(null)
 
   const canUpdateUser = userDetails?.status !== 'DELETED'
+  const isSaveButtonDisabled = !formState.isValid || minRoleError !== null
 
   const showActivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
@@ -85,6 +95,32 @@ const Page = ({
     !isUserEditable
 
   useEffect(() => {
+    getRoleSummary()
+      .then((response) => {
+        const availableRoles = response.response.map(
+          (availableRole: UserRole) => ({
+            id: availableRole.id,
+            name: availableRole.name,
+            isActive: false,
+          })
+        )
+        setRoles(availableRoles)
+      })
+      .catch((error) => {
+        handleApiError(error, { description: t('error.roleSummaryFetch') })
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (selectedRoles.length === 0) {
+      setMinRoleError(t('user.minRoleError'))
+    } else {
+      setMinRoleError(null)
+    }
+  }, [selectedRoles, t])
+
+  useEffect(() => {
     const fetchDetails = (): void => {
       getUser(params.id)
         .then((response) => {
@@ -104,6 +140,15 @@ const Page = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id])
 
+  const handleRoleToggle = (id: string): void => {
+    setSelectedRoles((prevSelectedRoles) => {
+      if (prevSelectedRoles.includes(id)) {
+        return prevSelectedRoles.filter((roleId) => roleId !== id)
+      }
+      return [...prevSelectedRoles, id]
+    })
+  }
+
   const handleUpdateButtonClick = (): void => {
     return setIsUserEditable(true)
   }
@@ -122,9 +167,13 @@ const Page = ({
       emailAddress:
         getValues('emailAddress') ?? initialUserValues?.emailAddress,
       city: getValues('city') ?? initialUserValues?.city,
-      phoneNumber:
-        getValues('phoneNumber') ?? initialUserValues?.phoneNumber.lineNumber,
-      // roleIds: getValues('roles') ?? initialUserValues?.roles,
+      phoneNumber: {
+        countryCode: '90',
+        lineNumber:
+          getValues('phoneNumber') ??
+          initialUserValues?.phoneNumber?.lineNumber,
+      },
+      roleIds: selectedRoles,
     }
 
     const editableFields: (keyof UserEditableFields)[] = [
@@ -133,9 +182,24 @@ const Page = ({
       'emailAddress',
       'city',
       'phoneNumber',
+      'roleIds',
     ]
 
     const isChanged = editableFields.some((key) => {
+      if (key === 'phoneNumber') {
+        return (
+          currentValues.phoneNumber.lineNumber !==
+          initialUserValues?.phoneNumber?.lineNumber
+        )
+      }
+      if (key === 'roleIds') {
+        const initialRoleIds =
+          initialUserValues?.roles.map((role) => role.id) || []
+        return (
+          JSON.stringify(currentValues.roleIds.sort()) !==
+          JSON.stringify(initialRoleIds.sort())
+        )
+      }
       return currentValues[key] !== initialUserValues?.[key]
     })
 
@@ -378,17 +442,29 @@ const Page = ({
                     name="phoneNumber"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('TODOphoneNumber')}</FormLabel>
+                        <FormLabel>{t('phoneNumber')}</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              userDetails.phoneNumber
-                                ? formatPhoneNumber(userDetails.phoneNumber)
-                                : ''
-                            }
-                          />
+                          {isUserEditable ? (
+                            <div className="flex">
+                              <Input value="+90" disabled className="w-14" />
+                              <Input
+                                {...field}
+                                defaultValue={
+                                  userDetails.phoneNumber?.lineNumber ?? ''
+                                }
+                              />
+                            </div>
+                          ) : (
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                userDetails.phoneNumber
+                                  ? formatPhoneNumber(userDetails.phoneNumber)
+                                  : ''
+                              }
+                            />
+                          )}
                         </FormControl>
                       </FormItem>
                     )}
@@ -517,14 +593,36 @@ const Page = ({
             </Card>
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>{t('TODOuser.roles')}</CardTitle>
+                <CardTitle>{t('user.roles')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
                   <FormItem className="sm:col-span-1">
                     <FormControl>
                       <div className="space-y-2">
-                        {userDetails.roles?.length > 0 ? (
+                        {isUserEditable ? (
+                          <div className="grid grid-cols-1 gap-1">
+                            {roles.map((role) => (
+                              <FormItem
+                                key={role.id}
+                                className="flex items-center"
+                              >
+                                <FormControl>
+                                  <Switch
+                                    className="mt-2"
+                                    checked={selectedRoles.includes(role.id)}
+                                    onCheckedChange={() =>
+                                      handleRoleToggle(role.id)
+                                    }
+                                  />
+                                </FormControl>
+                                <FormLabel className="ml-3 items-center">
+                                  {role.name}
+                                </FormLabel>
+                              </FormItem>
+                            ))}
+                          </div>
+                        ) : userDetails.roles?.length > 0 ? (
                           userDetails.roles.map((role) => (
                             <div key={role.id}>{role.name}</div>
                           ))
