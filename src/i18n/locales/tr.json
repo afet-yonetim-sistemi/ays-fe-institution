@@ -26,7 +26,8 @@
     "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin",
     "invalidEmailOrPassword": "Geçersiz e-posta veya şifre",
     "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş",
-    "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin"
+    "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin",
+    "phoneNumberLengthError": "Telefon numarası 10 haneli olmalıdır."
   },
   "notValidNamebox": "{{field}} geçerli değil",
   "cantStartOrEndWithWhitespace": "{{field}} boşluk karakteri ile başlayamaz veya bitemez",
