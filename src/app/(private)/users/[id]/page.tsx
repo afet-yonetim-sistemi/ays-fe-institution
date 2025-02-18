@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -73,7 +74,35 @@ const Page = ({
   const [minRoleError, setMinRoleError] = useState<string | null>(null)
 
   const canUpdateUser = userDetails?.status !== 'DELETED'
-  const isSaveButtonDisabled = !formState.isValid || minRoleError !== null
+  const isSaveButtonDisabled =
+    Boolean(formState.errors.firstName) ||
+    Boolean(formState.errors.lastName) ||
+    Boolean(formState.errors.emailAddress) ||
+    Boolean(formState.errors.phoneNumber) ||
+    Boolean(formState.errors.city) ||
+    selectedRoles.length === 0
+
+  useEffect(() => {
+    console.log('Form Errors:', JSON.stringify(formState.errors, null, 2))
+  }, [formState.errors])
+
+  const fetchDetails = (): void => {
+    setIsLoading(true)
+    getUser(params.id)
+      .then((response) => {
+        const details = response.response
+        setUserDetails(details)
+        setInitialUserValues(details)
+        setSelectedRoles(details.roles.map((role) => role.id))
+      })
+      .catch((error) => {
+        setError(error.message)
+        handleApiError(error, { description: t('error.userDetailFetch') })
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
 
   const showActivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
@@ -121,21 +150,6 @@ const Page = ({
   }, [selectedRoles, t])
 
   useEffect(() => {
-    const fetchDetails = (): void => {
-      getUser(params.id)
-        .then((response) => {
-          const details = response.response
-          setUserDetails(details)
-          setInitialUserValues(details)
-        })
-        .catch((error) => {
-          setError(error.message)
-          handleApiError(error, { description: t('error.userDetailFetch') })
-        })
-        .finally(() => {
-          setIsLoading(false)
-        })
-    }
     fetchDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id])
@@ -155,8 +169,14 @@ const Page = ({
 
   const handleCancelButtonClick = (): void => {
     if (userDetails) {
-      reset({})
+      reset({
+        firstName: userDetails.firstName,
+        lastName: userDetails.lastName,
+        emailAddress: userDetails.emailAddress,
+        city: userDetails.city,
+      })
     }
+
     setIsUserEditable(false)
   }
 
@@ -230,6 +250,7 @@ const Page = ({
             variant: 'success',
           })
           setIsUserEditable(false)
+          fetchDetails()
         } else {
           handleApiError(undefined, {
             description: t('user.updateError'),
@@ -370,7 +391,7 @@ const Page = ({
                           type="button"
                           variant="outline"
                           onClick={handleSaveButtonClick}
-                          disabled={Boolean(formState.errors.seatingCount)}
+                          disabled={isSaveButtonDisabled}
                         >
                           {t('common.save')}
                         </Button>
@@ -400,6 +421,7 @@ const Page = ({
                             onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -417,6 +439,7 @@ const Page = ({
                             onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -434,6 +457,7 @@ const Page = ({
                             onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -449,6 +473,7 @@ const Page = ({
                               <Input value="+90" disabled className="w-14" />
                               <Input
                                 {...field}
+                                type="number"
                                 defaultValue={
                                   userDetails.phoneNumber?.lineNumber ?? ''
                                 }
@@ -458,7 +483,7 @@ const Page = ({
                             <Input
                               {...field}
                               disabled
-                              defaultValue={
+                              value={
                                 userDetails.phoneNumber
                                   ? formatPhoneNumber(userDetails.phoneNumber)
                                   : ''
@@ -466,6 +491,7 @@ const Page = ({
                             />
                           )}
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -483,6 +509,7 @@ const Page = ({
                             onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -593,7 +620,14 @@ const Page = ({
             </Card>
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>{t('user.roles')}</CardTitle>
+                <div className="flex items-center">
+                  <CardTitle>{t('user.roles')}</CardTitle>
+                  <div className="ml-4 flex items-center gap-2">
+                    {isUserEditable && minRoleError && (
+                      <p className="text-destructive text-sm">{minRoleError}</p>
+                    )}
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
