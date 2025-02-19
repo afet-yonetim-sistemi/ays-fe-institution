@@ -20,10 +20,9 @@ import { Switch } from '@/components/ui/switch'
 import { useToast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
 import { CreateUserValidationSchema } from '@/modules/users/constants/formValidationSchema'
-import { getRoleSummary } from '@/modules/roles/service'
-import { UserRole } from '@/modules/users/constants/types'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { createUser } from '@/modules/users/service'
+import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -35,29 +34,11 @@ const Page = (): JSX.Element => {
   })
   const { control, watch, formState } = form
 
-  const [roles, setRoles] = useState<UserRole[]>([])
+  const roles = useFetchRoleSummary()
   const [selectedRoles, setSelectedRoles] = useState<string[]>([])
   const [minRoleError, setMinRoleError] = useState<string | null>(null)
 
   const isCreateDisabled = !formState.isValid || minRoleError !== null
-
-  useEffect(() => {
-    getRoleSummary()
-      .then((response) => {
-        const availableRoles = response.response.map(
-          (availableRole: UserRole) => ({
-            id: availableRole.id,
-            name: availableRole.name,
-            isActive: false,
-          })
-        )
-        setRoles(availableRoles)
-      })
-      .catch((error) => {
-        handleApiError(error, { description: t('error.roleSummaryFetch') })
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (selectedRoles.length === 0) {

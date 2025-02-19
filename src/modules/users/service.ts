@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios'
 import {
   CreateUserPayload,
   UserApiResponse,
+  UserEditableFields,
   UsersFilter,
 } from './constants/types'
 import { BaseApiResponse } from '@/common/types'
@@ -65,4 +66,11 @@ export const deactivateUser = async (id: string): Promise<BaseApiResponse> => {
 
 export const deleteUser = async (id: string): Promise<BaseApiResponse> => {
   return http.delete(`/api/v1/user/${id}`).then((response) => response.data)
+}
+
+export const updateUser = async (
+  id: string,
+  data: UserEditableFields
+): Promise<BaseApiResponse> => {
+  return http.put(`/api/v1/user/${id}`, data).then((response) => response.data)
 }
