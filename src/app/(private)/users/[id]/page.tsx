@@ -364,6 +364,13 @@ const Page = ({
     )
   }
 
+  const renderUserRoles = () => {
+    if (!userDetails?.roles?.length) {
+      return <div className="text-destructive">{t('user.noRoles')}</div>
+    }
+    return userDetails.roles.map((role) => <div key={role.id}>{role.name}</div>)
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -655,14 +662,8 @@ const Page = ({
                               </FormItem>
                             ))}
                           </div>
-                        ) : userDetails.roles?.length > 0 ? (
-                          userDetails.roles.map((role) => (
-                            <div key={role.id}>{role.name}</div>
-                          ))
                         ) : (
-                          <div className="text-destructive">
-                            {t('user.noRoles')}
-                          </div>
+                          renderUserRoles()
                         )}
                       </div>
                     </FormControl>
