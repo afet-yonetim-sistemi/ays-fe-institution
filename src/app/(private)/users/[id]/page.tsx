@@ -171,6 +171,7 @@ const Page = ({
         emailAddress: userDetails.emailAddress,
         city: userDetails.city,
       })
+      setSelectedRoles(userDetails.roles.map((role) => role.id))
     }
 
     setIsUserEditable(false)
