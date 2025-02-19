@@ -26,11 +26,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
-import {
-  User,
-  UserEditableFields,
-  UserRole,
-} from '@/modules/users/constants/types'
+import { User, UserEditableFields } from '@/modules/users/constants/types'
 import {
   activateUser,
   deactivateUser,
@@ -46,8 +42,8 @@ import { useAppSelector } from '@/store/hooks'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
 import { Button } from '@/components/ui/button'
-import { getRoleSummary } from '@/modules/roles/service'
 import { Switch } from '@/components/ui/switch'
+import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 
 const Page = ({
   params,
@@ -64,7 +60,7 @@ const Page = ({
   const userPermissions = useAppSelector(selectPermissions)
   const { control, reset, formState, getValues } = form
 
-  const [roles, setRoles] = useState<UserRole[]>([])
+  const roles = useFetchRoleSummary()
   const [selectedRoles, setSelectedRoles] = useState<string[]>([])
   const [userDetails, setUserDetails] = useState<User | null>(null)
   const [initialUserValues, setInitialUserValues] = useState<User | null>(null)
@@ -118,24 +114,6 @@ const Page = ({
     userPermissions.includes(Permission.USER_DELETE) &&
     !['DELETED'].includes(userDetails?.status ?? '') &&
     !isUserEditable
-
-  useEffect(() => {
-    getRoleSummary()
-      .then((response) => {
-        const availableRoles = response.response.map(
-          (availableRole: UserRole) => ({
-            id: availableRole.id,
-            name: availableRole.name,
-            isActive: false,
-          })
-        )
-        setRoles(availableRoles)
-      })
-      .catch((error) => {
-        handleApiError(error, { description: t('error.roleSummaryFetch') })
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (selectedRoles.length === 0) {
