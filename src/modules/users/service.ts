@@ -1,7 +1,7 @@
 import http from '@/configs/axiosConfig'
 import { AxiosResponse } from 'axios'
 import {
-  CreateEditUserPayload,
+  CreateUserPayload,
   UserApiResponse,
   UserEditableFields,
   UsersFilter,
@@ -47,7 +47,7 @@ export const getUser = async (id: string): Promise<UserApiResponse> => {
 }
 
 export const createUser = async (
-  data: CreateEditUserPayload
+  data: CreateUserPayload
 ): Promise<BaseApiResponse> => {
   return http.post('/api/v1/user', data).then((response) => response.data)
 }
