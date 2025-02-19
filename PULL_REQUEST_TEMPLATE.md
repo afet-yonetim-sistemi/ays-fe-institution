@@ -1,8 +1,8 @@
 ### Checklist
 
-Before submitting your pull request, ensure the following:
+Before adding reviewers to your pull request, ensure the following:
 
-- [ ] **Change Type:**
+- **Change Type:**
 - [ ] Bug fix
 - [ ] Feature addition
 - [ ] Documentation update
@@ -15,14 +15,21 @@ Before submitting your pull request, ensure the following:
 
 - [ ] **Title and Branch Naming Conventions:**
 
-  - The pull request title follows the
-    standard: [Pull Request Naming Conventions](CONTRIBUTING.md#pull-request-naming-conventions).
-  - The branch name follows one of the conventions outlined in
-    the [Branch Naming Conventions](CONTRIBUTING.md#branch-naming-conventions).
+  - The pull request title follows the standard:  
+    [Pull Request Naming Conventions](CONTRIBUTING.md#pull-request-naming-conventions).  
+    - ***Example:*** `AYS-345 | Add User Authentication`
+
+  - The branch name follows one of the conventions outlined in the  
+    [Branch Naming Conventions](CONTRIBUTING.md#branch-naming-conventions).  
+    - ***Example:*** `feature/AYS-345/add-user-authentication`
 
 - [ ] **Local Testing:**
 
   - I have tested my changes locally on my browser, and they are working as expected.
+
+- [ ] **Pipeline:**
+
+  - I have confirmed that PR pipeline is green.
 
 - [ ] **Code Quality:**
 
@@ -34,13 +41,11 @@ Before submitting your pull request, ensure the following:
 
   - Necessary documentation has been added or existing documentation has been updated.
 
+- [ ] **Labels and Associations:**
+
+  - No specific actions are required in the Labels and Associations section for this pull request.
+
 - [ ] **Reviewers and Assignees:**
 
   - Default reviewers have been assigned to this pull request.
   - Assignees have been added if necessary.
-
-  - [ ] **Related Issue:**
-  - Closes #AYS-345 (If there is a relevant issue)
-
-- [ ] **Labels and Associations:**
-  - No specific actions are required in the Labels and Associations section for this pull request.
