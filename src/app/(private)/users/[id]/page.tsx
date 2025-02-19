@@ -215,9 +215,12 @@ const Page = ({
       if (key === 'roleIds') {
         const initialRoleIds =
           initialUserValues?.roles.map((role) => role.id) || []
+
         return (
-          JSON.stringify(currentValues.roleIds.sort()) !==
-          JSON.stringify(initialRoleIds.sort())
+          JSON.stringify(
+            currentValues.roleIds.toSorted((a, b) => a.localeCompare(b))
+          ) !==
+          JSON.stringify(initialRoleIds.toSorted((a, b) => a.localeCompare(b)))
         )
       }
       return currentValues[key] !== initialUserValues?.[key]
