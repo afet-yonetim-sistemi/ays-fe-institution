@@ -117,7 +117,7 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-medium">{t('HEHEYTORELLAroles1')}</h1>
+        <h1 className="text-2xl font-medium">{t('HEHEYTORELLAroles2')}</h1>
         <div className="flex items-center space-x-4">
           {userPermissions.includes(Permission.ROLE_CREATE) && (
             <Link href="/roles/create-role">
