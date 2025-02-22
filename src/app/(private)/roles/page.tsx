@@ -20,10 +20,9 @@ import { roleStatuses } from '@/modules/roles/constants/statuses'
 import { RolesFilter } from '@/modules/roles/constants/types'
 import { getRoles } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
-import { debounce } from 'lodash'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Page = (): JSX.Element => {
@@ -101,30 +100,19 @@ const Page = (): JSX.Element => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
-  const debouncedFetchData = useMemo(
-    () =>
-      debounce((filters: RolesFilter) => {
-        const result = getStringFilterValidation().safeParse(filters.name)
-        if (filters.name && !result.success) {
-          toast({
-            title: t('common.error'),
-            description: t('filterValidation'),
-            variant: 'destructive',
-          })
-          return
-        }
-        fetchData(filters)
-      }, 500),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fetchData]
-  )
-
   useEffect(() => {
-    debouncedFetchData(filters)
-    return () => {
-      debouncedFetchData.cancel()
+    const result = getStringFilterValidation().safeParse(filters.name)
+    if (filters.name && !result.success) {
+      toast({
+        title: t('common.error'),
+        description: t('filterValidation'),
+        variant: 'destructive',
+      })
+      return
     }
-  }, [filters, debouncedFetchData])
+    fetchData(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
 
   return (
     <div className="space-y-4">
