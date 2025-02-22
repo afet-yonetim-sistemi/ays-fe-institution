@@ -1,8 +1,7 @@
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
 import { useCallback } from 'react'
 
 export const useHandleFilterChange = () => {
-  const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -17,17 +16,19 @@ export const useHandleFilterChange = () => {
         } else {
           updatedParams.delete(key)
         }
-        return router.push(`${pathname}?${updatedParams.toString()}`)
-      }
-
-      if (Array.isArray(value)) {
+      } else if (Array.isArray(value)) {
         updatedParams.set(key, value.join(','))
-        return router.push(`${pathname}?${updatedParams.toString()}`)
+      } else {
+        updatedParams.set(key, value)
       }
 
-      updatedParams.set(key, value)
-      router.push(`${pathname}?${updatedParams.toString()}`)
+      // Update the URL without causing a full page re-render
+      window.history.replaceState(
+        null,
+        '',
+        `${pathname}?${updatedParams.toString()}`
+      )
     },
-    [router, pathname, searchParams]
+    [pathname, searchParams]
   )
 }
