@@ -23,7 +23,7 @@ export const useHandleFilterChange = () => {
       }
 
       // Update the URL without causing a full page re-render
-      window.history.replaceState(
+      window.history.pushState(
         null,
         '',
         `${pathname}?${updatedParams.toString()}`
