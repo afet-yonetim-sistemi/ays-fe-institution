@@ -31,7 +31,6 @@ const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
   const statusesParam = searchParams.get('status')
   const name = searchParams.get('name') ?? ''
   const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
-
   const sortParam = searchParams.get('sort')
   const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
@@ -58,7 +57,7 @@ const Page = (): JSX.Element => {
     getInitialFilters(searchParams)
   )
 
-  const [inputValue, setInputValue] = useState(filters.name || '')
+  const [inputValue, setInputValue] = useState(filters.name ?? '')
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
@@ -66,7 +65,7 @@ const Page = (): JSX.Element => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedHandleFilterChange = useCallback(
-    debounce((key: string, value: string | string[] | boolean) => {
+    debounce((key: string, value: string) => {
       handleFilterChange(key, value)
     }, 1000),
     [handleFilterChange]
