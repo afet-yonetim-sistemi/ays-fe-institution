@@ -22,11 +22,11 @@ import { getRoles } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { debounce } from 'lodash'
 
-const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
+const parseRoleSearchParams = (searchParams: URLSearchParams) => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const statusesParam = searchParams.get('status')
   const name = searchParams.get('name') ?? ''
@@ -35,10 +35,23 @@ const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
   const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
   return {
+    currentPage,
+    statuses,
+    name,
+    column,
+    direction,
+  }
+}
+
+const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
+  const { currentPage, statuses, name, column, direction } =
+    parseRoleSearchParams(searchParams)
+
+  return {
     page: currentPage,
     pageSize: 10,
     statuses,
-    name: name || '',
+    name: name ?? '',
     sort: column ? [{ column, direction: direction as SortDirection }] : [],
   }
 }
@@ -57,29 +70,23 @@ const Page = (): JSX.Element => {
     getInitialFilters(searchParams)
   )
 
-  const [inputValue, setInputValue] = useState(filters.name ?? '')
+  const [nameInputValue, setNameInputValue] = useState(filters.name ?? '')
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
   const handleSortChange = useSort(filters.sort)
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedHandleFilterChange = useCallback(
-    debounce((key: string, value: string) => {
+  const debouncedHandleFilterChange = useMemo(() => {
+    return debounce((key: string, value: string) => {
       handleFilterChange(key, value)
-    }, 1000),
-    [handleFilterChange]
-  )
+    }, 750)
+  }, [handleFilterChange])
 
   useEffect(() => {
     return () => {
       debouncedHandleFilterChange.cancel()
     }
   }, [debouncedHandleFilterChange])
-
-  useEffect(() => {
-    setInputValue(filters.name ?? '')
-  }, [filters.name])
 
   const fetchData = useCallback(
     (filters: RolesFilter) => {
@@ -113,12 +120,8 @@ const Page = (): JSX.Element => {
   )
 
   const syncFiltersWithQuery = useCallback(() => {
-    const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
-    const statusesParam = searchParams.get('status')
-    const name = searchParams.get('name') ?? ''
-    const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
-    const sortParam = searchParams.get('sort')
-    const [column = '', direction] = sortParam ? sortParam.split(',') : []
+    const { currentPage, statuses, name, column, direction } =
+      parseRoleSearchParams(searchParams)
 
     const updatedFilters: RolesFilter = {
       page: currentPage,
@@ -151,7 +154,7 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-medium">{t('feelsgood')}</h1>
+        <h1 className="text-2xl font-medium">{t('roles')}</h1>
         <div className="flex items-center space-x-4">
           {userPermissions.includes(Permission.ROLE_CREATE) && (
             <Link href="/roles/create-role">
@@ -173,9 +176,9 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="name"
           label={t('name')}
-          value={inputValue}
+          value={nameInputValue}
           onChange={(e) => {
-            setInputValue(e.target.value)
+            setNameInputValue(e.target.value)
             debouncedHandleFilterChange('name', e.target.value)
           }}
         />
