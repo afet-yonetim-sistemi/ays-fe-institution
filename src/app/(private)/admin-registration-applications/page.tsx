@@ -74,7 +74,6 @@ const Page = (): JSX.Element => {
   const handleFilterChange = useHandleFilterChange()
   const handleSortChange = useSort(filters.sort)
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fetchData = useCallback(
     (filters: AdminRegistrationApplicationsFilter) => {
       setIsLoading(true)
@@ -105,6 +104,11 @@ const Page = (): JSX.Element => {
     },
     [router]
   )
+
+  useEffect(() => {
+    fetchData(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
 
   const syncFiltersWithQuery = useCallback(() => {
     const { currentPage, statuses, column, direction } =
