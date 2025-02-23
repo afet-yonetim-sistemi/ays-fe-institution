@@ -22,9 +22,9 @@ import { getRoles } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { debounce } from 'lodash'
+import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 
 const parseRoleSearchParams = (searchParams: URLSearchParams) => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
@@ -74,19 +74,9 @@ const Page = (): JSX.Element => {
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
+  const debouncedHandleInputFilterChange =
+    useDebouncedInputFilter(handleFilterChange)
   const handleSortChange = useSort(filters.sort)
-
-  const debouncedHandleFilterChange = useMemo(() => {
-    return debounce((key: string, value: string) => {
-      handleFilterChange(key, value)
-    }, 750)
-  }, [handleFilterChange])
-
-  useEffect(() => {
-    return () => {
-      debouncedHandleFilterChange.cancel()
-    }
-  }, [debouncedHandleFilterChange])
 
   const fetchData = useCallback(
     (filters: RolesFilter) => {
@@ -138,6 +128,10 @@ const Page = (): JSX.Element => {
   }, [syncFiltersWithQuery])
 
   useEffect(() => {
+    setNameInputValue(filters.name ?? '')
+  }, [filters.name])
+
+  useEffect(() => {
     const result = getStringFilterValidation().safeParse(filters.name)
     if (filters.name && !result.success) {
       toast({
@@ -179,7 +173,7 @@ const Page = (): JSX.Element => {
           value={nameInputValue}
           onChange={(e) => {
             setNameInputValue(e.target.value)
-            debouncedHandleFilterChange('name', e.target.value)
+            debouncedHandleInputFilterChange('name', e.target.value)
           }}
         />
       </div>
