@@ -65,7 +65,6 @@ const Page = (): JSX.Element => {
   const [roleList, setRoleList] = useState<Role[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-
   const [filters, setFilters] = useState<RolesFilter>(() =>
     getInitialFilters(searchParams)
   )
@@ -117,7 +116,7 @@ const Page = (): JSX.Element => {
       page: currentPage,
       pageSize: 10,
       statuses,
-      name: name || '',
+      name: name ?? '',
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
