@@ -24,19 +24,20 @@ import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { debounce } from 'lodash'
 
-// Function to parse URL and initialize filters
 const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const statusesParam = searchParams.get('status')
   const name = searchParams.get('name') ?? ''
-  const statuses = statusesParam?.trim()?.split(',') || []
+  const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
+
   const sortParam = searchParams.get('sort')
   const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
   return {
     page: currentPage,
-    pageSize: 10, // You can make this dynamic if needed
+    pageSize: 10,
     statuses,
     name: name || '',
     sort: column ? [{ column, direction: direction as SortDirection }] : [],
@@ -53,14 +54,33 @@ const Page = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
 
-  // Initialize filters directly from the URL
   const [filters, setFilters] = useState<RolesFilter>(() =>
     getInitialFilters(searchParams)
   )
 
+  const [inputValue, setInputValue] = useState(filters.name || '')
+
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
   const handleSortChange = useSort(filters.sort)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedHandleFilterChange = useCallback(
+    debounce((key: string, value: string | string[] | boolean) => {
+      handleFilterChange(key, value)
+    }, 1000),
+    [handleFilterChange]
+  )
+
+  useEffect(() => {
+    return () => {
+      debouncedHandleFilterChange.cancel()
+    }
+  }, [debouncedHandleFilterChange])
+
+  useEffect(() => {
+    setInputValue(filters.name ?? '')
+  }, [filters.name])
 
   const fetchData = useCallback(
     (filters: RolesFilter) => {
@@ -97,7 +117,7 @@ const Page = (): JSX.Element => {
     const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
     const statusesParam = searchParams.get('status')
     const name = searchParams.get('name') ?? ''
-    const statuses = statusesParam?.trim()?.split(',') || []
+    const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
     const sortParam = searchParams.get('sort')
     const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
@@ -154,8 +174,11 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="name"
           label={t('name')}
-          value={filters.name}
-          onChange={(e) => handleFilterChange('name', e.target.value)}
+          value={inputValue}
+          onChange={(e) => {
+            setInputValue(e.target.value)
+            debouncedHandleFilterChange('name', e.target.value)
+          }}
         />
       </div>
       <DataTable
