@@ -24,7 +24,35 @@ import { adminApplicationRegistrationStatuses } from '@/modules/adminRegistratio
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { SortDirection } from '@/common/types'
-import { debounce } from 'lodash'
+
+const parseARASearchParams = (searchParams: URLSearchParams) => {
+  const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
+  const statusesParam = searchParams.get('status')
+  const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
+  const sortParam = searchParams.get('sort')
+  const [column = '', direction] = sortParam ? sortParam.split(',') : []
+
+  return {
+    currentPage,
+    statuses,
+    column,
+    direction,
+  }
+}
+
+const getInitialFilters = (
+  searchParams: URLSearchParams
+): AdminRegistrationApplicationsFilter => {
+  const { currentPage, statuses, column, direction } =
+    parseARASearchParams(searchParams)
+
+  return {
+    page: currentPage,
+    pageSize: 10,
+    statuses,
+    sort: column ? [{ column, direction: direction as SortDirection }] : [],
+  }
+}
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -38,13 +66,9 @@ const Page = (): JSX.Element => {
   ] = useState<AdminRegistrationApplication[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const pageSize = 10
-  const [filters, setFilters] = useState<AdminRegistrationApplicationsFilter>({
-    page: 1,
-    pageSize,
-    statuses: [],
-    sort: [],
-  })
+  const [filters, setFilters] = useState<AdminRegistrationApplicationsFilter>(
+    () => getInitialFilters(searchParams)
+  )
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
@@ -81,40 +105,27 @@ const Page = (): JSX.Element => {
     [router]
   )
 
+  useEffect(() => {
+    fetchData(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
+
   const syncFiltersWithQuery = useCallback(() => {
-    const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
-    const statusesParam = searchParams.get('status')
-    const statuses =
-      statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
-    const sortParam = searchParams.get('sort')
-    const [column = '', direction] = sortParam ? sortParam.split(',') : []
+    const { currentPage, statuses, column, direction } =
+      parseARASearchParams(searchParams)
 
     const updatedFilters: AdminRegistrationApplicationsFilter = {
       page: currentPage,
-      pageSize,
+      pageSize: 10,
       statuses,
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
-
     setFilters(updatedFilters)
-  }, [searchParams, pageSize])
+  }, [searchParams])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
-
-  useEffect(() => {
-    const debouncedFetchData = debounce(
-      (filters: AdminRegistrationApplicationsFilter) => {
-        fetchData(filters)
-      },
-      500
-    )
-    debouncedFetchData(filters)
-    return () => {
-      debouncedFetchData.cancel()
-    }
-  }, [filters, fetchData])
 
   return (
     <div className="space-y-4">

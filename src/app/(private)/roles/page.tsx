@@ -20,11 +20,41 @@ import { roleStatuses } from '@/modules/roles/constants/statuses'
 import { RolesFilter } from '@/modules/roles/constants/types'
 import { getRoles } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
-import { debounce } from 'lodash'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
+
+const parseRolesSearchParams = (searchParams: URLSearchParams) => {
+  const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
+  const statusesParam = searchParams.get('status')
+  const name = searchParams.get('name') ?? ''
+  const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
+  const sortParam = searchParams.get('sort')
+  const [column = '', direction] = sortParam ? sortParam.split(',') : []
+
+  return {
+    currentPage,
+    statuses,
+    name,
+    column,
+    direction,
+  }
+}
+
+const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
+  const { currentPage, statuses, name, column, direction } =
+    parseRolesSearchParams(searchParams)
+
+  return {
+    page: currentPage,
+    pageSize: 10,
+    statuses,
+    name: name ?? '',
+    sort: column ? [{ column, direction: direction as SortDirection }] : [],
+  }
+}
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -35,16 +65,16 @@ const Page = (): JSX.Element => {
   const [roleList, setRoleList] = useState<Role[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const pageSize = 10
-  const [filters, setFilters] = useState<RolesFilter>({
-    page: 1,
-    pageSize,
-    statuses: [],
-    sort: [],
-  })
+  const [filters, setFilters] = useState<RolesFilter>(() =>
+    getInitialFilters(searchParams)
+  )
+
+  const [nameInputValue, setNameInputValue] = useState(filters.name ?? '')
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
+  const debouncedHandleInputFilterChange =
+    useDebouncedInputFilter(handleFilterChange)
   const handleSortChange = useSort(filters.sort)
 
   const fetchData = useCallback(
@@ -79,52 +109,40 @@ const Page = (): JSX.Element => {
   )
 
   const syncFiltersWithQuery = useCallback(() => {
-    const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
-    const statusesParam = searchParams.get('status')
-    const name = searchParams.get('name') ?? ''
-    const statuses =
-      statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
-    const sortParam = searchParams.get('sort')
-    const [column = '', direction] = sortParam ? sortParam.split(',') : []
+    const { currentPage, statuses, name, column, direction } =
+      parseRolesSearchParams(searchParams)
 
     const updatedFilters: RolesFilter = {
       page: currentPage,
-      pageSize,
+      pageSize: 10,
       statuses,
-      name: name || '',
+      name: name ?? '',
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
-  }, [searchParams, pageSize])
+  }, [searchParams])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
-  const debouncedFetchData = useMemo(
-    () =>
-      debounce((filters: RolesFilter) => {
-        const result = getStringFilterValidation().safeParse(filters.name)
-        if (filters.name && !result.success) {
-          toast({
-            title: t('common.error'),
-            description: t('filterValidation'),
-            variant: 'destructive',
-          })
-          return
-        }
-        fetchData(filters)
-      }, 500),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fetchData]
-  )
+  useEffect(() => {
+    setNameInputValue(filters.name ?? '')
+  }, [filters.name])
 
   useEffect(() => {
-    debouncedFetchData(filters)
-    return () => {
-      debouncedFetchData.cancel()
+    const result = getStringFilterValidation().safeParse(filters.name)
+    if (filters.name && !result.success) {
+      toast({
+        title: t('common.error'),
+        description: t('filterValidation'),
+        variant: 'destructive',
+      })
+      return
     }
-  }, [filters, debouncedFetchData])
+    fetchData(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
 
   return (
     <div className="space-y-4">
@@ -151,15 +169,18 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="name"
           label={t('name')}
-          value={filters.name}
-          onChange={(e) => handleFilterChange('name', e.target.value)}
+          value={nameInputValue}
+          onChange={(e) => {
+            setNameInputValue(e.target.value)
+            debouncedHandleInputFilterChange('name', e.target.value)
+          }}
         />
       </div>
       <DataTable
         columns={columns({ sort: filters.sort ?? [] }, handleSortChange)}
         data={roleList}
         totalElements={totalRows}
-        pageSize={pageSize}
+        pageSize={filters.pageSize}
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
         loading={isLoading}

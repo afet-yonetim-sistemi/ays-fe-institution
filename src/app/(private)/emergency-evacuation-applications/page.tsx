@@ -11,6 +11,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { toast } from '@/components/ui/use-toast'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { Permission } from '@/constants/permissions'
+import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
@@ -24,11 +25,78 @@ import {
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/service'
 import { useAppSelector } from '@/store/hooks'
-import { debounce } from 'lodash'
 import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+const parseEEASearchParams = (searchParams: URLSearchParams) => {
+  const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
+  const statusesParam = searchParams.get('status')
+  const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
+  const sortParam = searchParams.get('sort')
+  const [column = '', direction] = sortParam ? sortParam.split(',') : []
+
+  const isInPersonParam = searchParams.get('isInPerson')
+  const isInPerson = isInPersonParam === 'true' ? true : undefined
+
+  const seatingCountParam = searchParams.get('seatingCount')
+  const seatingCount = seatingCountParam?.trim()
+    ? parseInt(seatingCountParam, 10)
+    : undefined
+
+  const referenceNumber = searchParams.get('referenceNumber') ?? ''
+  const sourceCity = searchParams.get('sourceCity') ?? ''
+  const sourceDistrict = searchParams.get('sourceDistrict') ?? ''
+  const targetCity = searchParams.get('targetCity') ?? ''
+  const targetDistrict = searchParams.get('targetDistrict') ?? ''
+
+  return {
+    currentPage,
+    statuses,
+    referenceNumber,
+    sourceCity,
+    sourceDistrict,
+    seatingCount,
+    targetCity,
+    targetDistrict,
+    isInPerson,
+    column,
+    direction,
+  }
+}
+
+const getInitialFilters = (
+  searchParams: URLSearchParams
+): EmergencyEvacuationApplicationsFilter => {
+  const {
+    currentPage,
+    statuses,
+    referenceNumber,
+    sourceCity,
+    sourceDistrict,
+    seatingCount,
+    targetCity,
+    targetDistrict,
+    isInPerson,
+    column,
+    direction,
+  } = parseEEASearchParams(searchParams)
+
+  return {
+    page: currentPage,
+    pageSize: 10,
+    statuses,
+    isInPerson,
+    seatingCount,
+    referenceNumber: referenceNumber || '',
+    sourceCity: sourceCity || '',
+    sourceDistrict: sourceDistrict || '',
+    targetCity: targetCity || '',
+    targetDistrict: targetDistrict || '',
+    sort: column ? [{ column, direction: direction as SortDirection }] : [],
+  }
+}
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -42,18 +110,32 @@ const Page = (): JSX.Element => {
   ] = useState<EmergencyEvacuationApplication[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const pageSize = 10
   const [filters, setFilters] = useState<EmergencyEvacuationApplicationsFilter>(
-    {
-      page: 1,
-      pageSize,
-      statuses: [],
-      sort: [],
-    }
+    () => getInitialFilters(searchParams)
+  )
+  const [seatingCountInput, setSeatingCountInput] = useState(
+    filters.seatingCount ?? ''
+  )
+  const [referenceNumberInput, setReferenceNumberInput] = useState(
+    filters.referenceNumber ?? ''
+  )
+  const [sourceCityInput, setSourceCityInput] = useState(
+    filters.sourceCity ?? ''
+  )
+  const [sourceDistrictInput, setSourceDistrictInput] = useState(
+    filters.sourceDistrict ?? ''
+  )
+  const [targetCityInput, setTargetCityInput] = useState(
+    filters.targetCity ?? ''
+  )
+  const [targetDistrictInput, setTargetDistrictInput] = useState(
+    filters.targetDistrict ?? ''
   )
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
+  const debouncedHandleInputFilterChange =
+    useDebouncedInputFilter(handleFilterChange)
   const handleSortChange = useSort(filters.sort)
 
   const fetchData = useCallback(
@@ -88,84 +170,72 @@ const Page = (): JSX.Element => {
   )
 
   const syncFiltersWithQuery = useCallback(() => {
-    const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
-    const statusesParam = searchParams.get('status')
-    const statuses =
-      statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
-    const sortParam = searchParams.get('sort')
-    const [column = '', direction] = sortParam ? sortParam.split(',') : []
-
-    const referenceNumber = searchParams.get('referenceNumber') ?? ''
-    const sourceCity = searchParams.get('sourceCity') ?? ''
-    const sourceDistrict = searchParams.get('sourceDistrict') ?? ''
-
-    const seatingCountParam = searchParams.get('seatingCount')
-    const seatingCount =
-      seatingCountParam && seatingCountParam.trim()
-        ? parseInt(seatingCountParam, 10)
-        : undefined
-
-    const targetCity = searchParams.get('targetCity') ?? ''
-    const targetDistrict = searchParams.get('targetDistrict') ?? ''
-
-    const isInPersonParam = searchParams.get('isInPerson')
-    const isInPerson = isInPersonParam === 'true' ? true : undefined
+    const {
+      currentPage,
+      statuses,
+      isInPerson,
+      seatingCount,
+      referenceNumber,
+      sourceCity,
+      sourceDistrict,
+      targetCity,
+      targetDistrict,
+      column,
+      direction,
+    } = parseEEASearchParams(searchParams)
 
     const updatedFilters: EmergencyEvacuationApplicationsFilter = {
       page: currentPage,
-      pageSize,
+      pageSize: 10,
       statuses,
+      isInPerson,
+      seatingCount,
       referenceNumber: referenceNumber || '',
       sourceCity: sourceCity || '',
       sourceDistrict: sourceDistrict || '',
-      seatingCount,
       targetCity: targetCity || '',
       targetDistrict: targetDistrict || '',
-      isInPerson,
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
-  }, [searchParams, pageSize])
+  }, [searchParams])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
-  const debouncedFetchData = useMemo(
-    () =>
-      debounce((filters: EmergencyEvacuationApplicationsFilter) => {
-        const fieldsToValidate = [
-          'sourceCity',
-          'sourceDistrict',
-          'targetCity',
-          'targetDistrict',
-        ]
-
-        for (const field of fieldsToValidate) {
-          const value =
-            filters[field as keyof EmergencyEvacuationApplicationsFilter]
-          if (value && !getStringFilterValidation().safeParse(value).success) {
-            toast({
-              title: t('common.error'),
-              description: t('filterValidation'),
-              variant: 'destructive',
-            })
-            return
-          }
-        }
-
-        fetchData(filters)
-      }, 500),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fetchData]
-  )
+  useEffect(() => {
+    setReferenceNumberInput(filters.referenceNumber ?? '')
+    setSourceCityInput(filters.sourceCity ?? '')
+    setSourceDistrictInput(filters.sourceDistrict ?? '')
+    setTargetCityInput(filters.targetCity ?? '')
+    setTargetDistrictInput(filters.targetDistrict ?? '')
+    setSeatingCountInput(filters.seatingCount ?? '')
+  }, [filters])
 
   useEffect(() => {
-    debouncedFetchData(filters)
-    return () => {
-      debouncedFetchData.cancel()
+    const fieldsToValidate: (keyof EmergencyEvacuationApplicationsFilter)[] = [
+      'sourceCity',
+      'sourceDistrict',
+      'targetCity',
+      'targetDistrict',
+    ]
+
+    for (const field of fieldsToValidate) {
+      const value = filters[field]
+      if (value && !getStringFilterValidation().safeParse(value).success) {
+        toast({
+          title: t('common.error'),
+          description: t('filterValidation'),
+          variant: 'destructive',
+        })
+        return
+      }
     }
-  }, [filters, debouncedFetchData])
+
+    fetchData(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
 
   return (
     <div className="space-y-4">
@@ -200,50 +270,66 @@ const Page = (): JSX.Element => {
           <FilterInput
             id="seatingCount"
             label={t('seatingCount')}
-            value={filters.seatingCount}
-            onChange={(e) => handleFilterChange('seatingCount', e.target.value)}
+            value={seatingCountInput}
+            onChange={(e) => {
+              setSeatingCountInput(e.target.value)
+              debouncedHandleInputFilterChange('seatingCount', e.target.value)
+            }}
             type="number"
           />
         </div>
         <FilterInput
           id="referenceNumber"
           label={t('referenceNumber')}
-          value={filters.referenceNumber}
-          onChange={(e) =>
-            handleFilterChange('referenceNumber', e.target.value)
-          }
+          value={referenceNumberInput}
+          onChange={(e) => {
+            setReferenceNumberInput(e.target.value)
+            debouncedHandleInputFilterChange('referenceNumber', e.target.value)
+          }}
           type="number"
         />
         <FilterInput
           id="sourceCity"
           label={t('sourceCity')}
-          value={filters.sourceCity}
-          onChange={(e) => handleFilterChange('sourceCity', e.target.value)}
+          value={sourceCityInput}
+          onChange={(e) => {
+            setSourceCityInput(e.target.value)
+            debouncedHandleInputFilterChange('sourceCity', e.target.value)
+          }}
         />
         <FilterInput
           id="sourceDistrict"
           label={t('sourceDistrict')}
-          value={filters.sourceDistrict}
-          onChange={(e) => handleFilterChange('sourceDistrict', e.target.value)}
+          value={sourceDistrictInput}
+          onChange={(e) => {
+            setSourceDistrictInput(e.target.value)
+            debouncedHandleInputFilterChange('sourceDistrict', e.target.value)
+          }}
         />
         <FilterInput
           id="targetCity"
           label={t('targetCity')}
-          value={filters.targetCity}
-          onChange={(e) => handleFilterChange('targetCity', e.target.value)}
+          value={targetCityInput}
+          onChange={(e) => {
+            setTargetCityInput(e.target.value)
+            debouncedHandleInputFilterChange('targetCity', e.target.value)
+          }}
         />
         <FilterInput
           id="targetDistrict"
           label={t('targetDistrict')}
-          value={filters.targetDistrict}
-          onChange={(e) => handleFilterChange('targetDistrict', e.target.value)}
+          value={targetDistrictInput}
+          onChange={(e) => {
+            setTargetDistrictInput(e.target.value)
+            debouncedHandleInputFilterChange('targetDistrict', e.target.value)
+          }}
         />
       </div>
       <DataTable
         columns={columns({ sort: filters.sort ?? [] }, handleSortChange)}
         data={emergencyEvacuationApplicationList}
         totalElements={totalRows}
-        pageSize={pageSize}
+        pageSize={filters.pageSize}
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
         loading={isLoading}

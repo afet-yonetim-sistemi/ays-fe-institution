@@ -1,29 +1,34 @@
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
+import { useCallback } from 'react'
 
 export const useHandleFilterChange = () => {
-  const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  return (key: string, value: string | string[] | boolean) => {
-    const updatedParams = new URLSearchParams(searchParams)
-    updatedParams.set('page', '1')
+  return useCallback(
+    (key: string, value: string | string[] | boolean) => {
+      const updatedParams = new URLSearchParams(searchParams)
+      updatedParams.set('page', '1')
 
-    if (typeof value === 'boolean') {
-      if (value) {
-        updatedParams.set(key, 'true')
+      if (typeof value === 'boolean') {
+        if (value) {
+          updatedParams.set(key, 'true')
+        } else {
+          updatedParams.delete(key)
+        }
+      } else if (Array.isArray(value)) {
+        updatedParams.set(key, value.join(','))
       } else {
-        updatedParams.delete(key)
+        updatedParams.set(key, value)
       }
-      return router.push(`${pathname}?${updatedParams.toString()}`)
-    }
 
-    if (Array.isArray(value)) {
-      updatedParams.set(key, value.join(','))
-      return router.push(`${pathname}?${updatedParams.toString()}`)
-    }
-
-    updatedParams.set(key, value)
-    router.push(`${pathname}?${updatedParams.toString()}`)
-  }
+      // Update the URL without causing a full page re-render
+      window.history.pushState(
+        null,
+        '',
+        `${pathname}?${updatedParams.toString()}`
+      )
+    },
+    [pathname, searchParams]
+  )
 }

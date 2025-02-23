@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { usePagination } from '@/hooks/usePagination'
 import { handleApiError } from '@/lib/handleApiError'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSort } from '@/hooks/useSort'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
@@ -25,7 +25,67 @@ import { useAppSelector } from '@/store/hooks'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { Permission } from '@/constants/permissions'
 import Link from 'next/link'
-import { debounce } from 'lodash'
+import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
+
+const parseUsersSearchParams = (searchParams: URLSearchParams) => {
+  const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
+  const statusesParam = searchParams.get('status')
+  const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
+  const sortParam = searchParams.get('sort')
+  const sort: Sort[] = sortParam?.trim()
+    ? sortParam.split(';').map((s) => {
+        const [column, direction] = s.split(',')
+        return { column, direction } as Sort
+      })
+    : []
+
+  const firstName = searchParams.get('firstName') ?? ''
+  const lastName = searchParams.get('lastName') ?? ''
+  const emailAddress = searchParams.get('emailAddress') ?? ''
+
+  const lineNumberParam = searchParams.get('lineNumber')
+  const lineNumber = lineNumberParam?.trim()
+    ? parseInt(lineNumberParam, 10)
+    : undefined
+
+  const city = searchParams.get('city') ?? ''
+
+  return {
+    currentPage,
+    statuses,
+    firstName,
+    lastName,
+    emailAddress,
+    lineNumber,
+    city,
+    sort,
+  }
+}
+
+const getInitialFilters = (searchParams: URLSearchParams): UsersFilter => {
+  const {
+    currentPage,
+    statuses,
+    firstName,
+    lastName,
+    emailAddress,
+    lineNumber,
+    city,
+    sort,
+  } = parseUsersSearchParams(searchParams)
+
+  return {
+    page: currentPage,
+    pageSize: 10,
+    statuses,
+    firstName: firstName || '',
+    lastName: lastName || '',
+    emailAddress: emailAddress || '',
+    lineNumber,
+    city: city || '',
+    sort,
+  }
+}
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -36,16 +96,24 @@ const Page = (): JSX.Element => {
   const [userList, setUserList] = useState<User[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const pageSize = 10
-  const [filters, setFilters] = useState<UsersFilter>({
-    page: 1,
-    pageSize,
-    statuses: [],
-    sort: [],
-  })
+  const [filters, setFilters] = useState<UsersFilter>(() =>
+    getInitialFilters(searchParams)
+  )
+
+  const [firstNameInput, setFirstNameInput] = useState(filters.firstName ?? '')
+  const [lastNameInput, setLastNameInput] = useState(filters.lastName ?? '')
+  const [emailAddressInput, setEmailAddressInput] = useState(
+    filters.emailAddress ?? ''
+  )
+  const [lineNumberInput, setLineNumberInput] = useState(
+    filters.lineNumber ?? ''
+  )
+  const [cityInput, setCityInput] = useState(filters.city ?? '')
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
+  const debouncedHandleInputFilterChange =
+    useDebouncedInputFilter(handleFilterChange)
   const handleSortChange = useSort(filters.sort)
 
   const fetchData = useCallback(
@@ -80,34 +148,20 @@ const Page = (): JSX.Element => {
   )
 
   const syncFiltersWithQuery = useCallback(() => {
-    const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
-    const statusesParam = searchParams.get('status')
-    const statuses =
-      statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
-
-    const sortParam = searchParams.get('sort')
-    const sort: Sort[] =
-      sortParam && sortParam.trim()
-        ? sortParam.split(';').map((s) => {
-            const [column, direction] = s.split(',')
-            return { column, direction } as Sort
-          })
-        : []
-
-    const firstName = searchParams.get('firstName') ?? ''
-    const lastName = searchParams.get('lastName') ?? ''
-    const emailAddress = searchParams.get('emailAddress') ?? ''
-    const lineNumberParam = searchParams.get('lineNumber')
-    const lineNumber =
-      lineNumberParam && lineNumberParam.trim()
-        ? parseInt(lineNumberParam, 10)
-        : undefined
-
-    const city = searchParams.get('city') ?? ''
+    const {
+      currentPage,
+      statuses,
+      firstName,
+      lastName,
+      emailAddress,
+      lineNumber,
+      city,
+      sort,
+    } = parseUsersSearchParams(searchParams)
 
     const updatedFilters: UsersFilter = {
       page: currentPage,
-      pageSize,
+      pageSize: 10,
       statuses,
       firstName: firstName || '',
       lastName: lastName || '',
@@ -117,46 +171,43 @@ const Page = (): JSX.Element => {
       sort,
     }
     setFilters(updatedFilters)
-  }, [searchParams, pageSize])
+  }, [searchParams])
 
   useEffect(() => {
     syncFiltersWithQuery()
   }, [syncFiltersWithQuery])
 
-  const debouncedFetchData = useMemo(
-    () =>
-      debounce((filters: UsersFilter) => {
-        const fieldsToValidate = [
-          'firstName',
-          'lastName',
-          'emailAddress',
-          'city',
-        ]
-
-        for (const field of fieldsToValidate) {
-          const value = filters[field as keyof UsersFilter]
-          if (value && !getStringFilterValidation().safeParse(value).success) {
-            toast({
-              title: t('common.error'),
-              description: t('filterValidation'),
-              variant: 'destructive',
-            })
-            return
-          }
-        }
-
-        fetchData(filters)
-      }, 500),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fetchData]
-  )
+  useEffect(() => {
+    setFirstNameInput(filters.firstName ?? '')
+    setLastNameInput(filters.lastName ?? '')
+    setEmailAddressInput(filters.emailAddress ?? '')
+    setLineNumberInput(filters.lineNumber ?? '')
+    setCityInput(filters.city ?? '')
+  }, [filters])
 
   useEffect(() => {
-    debouncedFetchData(filters)
-    return () => {
-      debouncedFetchData.cancel()
+    const fieldsToValidate: (keyof UsersFilter)[] = [
+      'firstName',
+      'lastName',
+      'emailAddress',
+      'city',
+    ]
+
+    for (const field of fieldsToValidate) {
+      const value = filters[field]
+      if (value && !getStringFilterValidation().safeParse(value).success) {
+        toast({
+          title: t('common.error'),
+          description: t('filterValidation'),
+          variant: 'destructive',
+        })
+        return
+      }
     }
-  }, [filters, debouncedFetchData])
+
+    fetchData(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
 
   return (
     <div className="space-y-4">
@@ -192,40 +243,55 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="firstName"
           label={t('user.firstName')}
-          value={filters.firstName}
-          onChange={(e) => handleFilterChange('firstName', e.target.value)}
+          value={firstNameInput}
+          onChange={(e) => {
+            setFirstNameInput(e.target.value)
+            debouncedHandleInputFilterChange('firstName', e.target.value)
+          }}
         />
         <FilterInput
           id="lastName"
           label={t('user.lastName')}
-          value={filters.lastName}
-          onChange={(e) => handleFilterChange('lastName', e.target.value)}
+          value={lastNameInput}
+          onChange={(e) => {
+            setLastNameInput(e.target.value)
+            debouncedHandleInputFilterChange('lastName', e.target.value)
+          }}
         />
         <FilterInput
           id="emailAddress"
           label={t('user.email')}
-          value={filters.emailAddress}
-          onChange={(e) => handleFilterChange('emailAddress', e.target.value)}
+          value={emailAddressInput}
+          onChange={(e) => {
+            setEmailAddressInput(e.target.value)
+            debouncedHandleInputFilterChange('emailAddress', e.target.value)
+          }}
         />
         <FilterInput
           id="lineNumber"
           label={t('user.lineNumber')}
-          value={filters.lineNumber}
-          onChange={(e) => handleFilterChange('lineNumber', e.target.value)}
+          value={lineNumberInput}
+          onChange={(e) => {
+            setLineNumberInput(e.target.value)
+            debouncedHandleInputFilterChange('lineNumber', e.target.value)
+          }}
           type="number"
         />
         <FilterInput
           id="city"
           label={t('user.city')}
-          value={filters.city}
-          onChange={(e) => handleFilterChange('city', e.target.value)}
+          value={cityInput}
+          onChange={(e) => {
+            setCityInput(e.target.value)
+            debouncedHandleInputFilterChange('city', e.target.value)
+          }}
         />
       </div>
       <DataTable
         columns={columns({ sort: filters.sort ?? [] }, handleSortChange)}
         data={userList}
         totalElements={totalRows}
-        pageSize={pageSize}
+        pageSize={filters.pageSize}
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
         loading={isLoading}
