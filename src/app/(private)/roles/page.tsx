@@ -25,6 +25,25 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+// Function to parse URL and initialize filters
+const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
+  const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
+  const statusesParam = searchParams.get('status')
+  const name = searchParams.get('name') ?? ''
+  const statuses =
+    statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
+  const sortParam = searchParams.get('sort')
+  const [column = '', direction] = sortParam ? sortParam.split(',') : []
+
+  return {
+    page: currentPage,
+    pageSize: 10, // You can make this dynamic if needed
+    statuses,
+    name: name || '',
+    sort: column ? [{ column, direction: direction as SortDirection }] : [],
+  }
+}
+
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -34,13 +53,11 @@ const Page = (): JSX.Element => {
   const [roleList, setRoleList] = useState<Role[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const pageSize = 10
-  const [filters, setFilters] = useState<RolesFilter>({
-    page: 1,
-    pageSize,
-    statuses: [],
-    sort: [],
-  })
+
+  // Initialize filters directly from the URL
+  const [filters, setFilters] = useState<RolesFilter>(() =>
+    getInitialFilters(searchParams)
+  )
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
@@ -88,13 +105,13 @@ const Page = (): JSX.Element => {
 
     const updatedFilters: RolesFilter = {
       page: currentPage,
-      pageSize,
+      pageSize: 10,
       statuses,
       name: name || '',
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
-  }, [searchParams, pageSize])
+  }, [searchParams])
 
   useEffect(() => {
     syncFiltersWithQuery()
@@ -147,7 +164,7 @@ const Page = (): JSX.Element => {
         columns={columns({ sort: filters.sort ?? [] }, handleSortChange)}
         data={roleList}
         totalElements={totalRows}
-        pageSize={pageSize}
+        pageSize={filters.pageSize}
         onPageChange={(page) => handlePageChange(page, pathname)}
         currentPage={filters.page}
         loading={isLoading}
