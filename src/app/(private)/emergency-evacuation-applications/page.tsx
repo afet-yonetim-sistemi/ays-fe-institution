@@ -37,21 +37,19 @@ const parseEEASearchParams = (searchParams: URLSearchParams) => {
   const sortParam = searchParams.get('sort')
   const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
-  const referenceNumber = searchParams.get('referenceNumber') ?? ''
-  const sourceCity = searchParams.get('sourceCity') ?? ''
-  const sourceDistrict = searchParams.get('sourceDistrict') ?? ''
+  const isInPersonParam = searchParams.get('isInPerson')
+  const isInPerson = isInPersonParam === 'true' ? true : undefined
 
-  // idk might fail
   const seatingCountParam = searchParams.get('seatingCount')
   const seatingCount = seatingCountParam?.trim()
     ? parseInt(seatingCountParam, 10)
     : undefined
 
+  const referenceNumber = searchParams.get('referenceNumber') ?? ''
+  const sourceCity = searchParams.get('sourceCity') ?? ''
+  const sourceDistrict = searchParams.get('sourceDistrict') ?? ''
   const targetCity = searchParams.get('targetCity') ?? ''
   const targetDistrict = searchParams.get('targetDistrict') ?? ''
-
-  const isInPersonParam = searchParams.get('isInPerson')
-  const isInPerson = isInPersonParam === 'true' ? true : undefined
 
   return {
     currentPage,
@@ -89,13 +87,13 @@ const getInitialFilters = (
     page: currentPage,
     pageSize: 10,
     statuses,
+    isInPerson,
+    seatingCount,
     referenceNumber: referenceNumber || '',
     sourceCity: sourceCity || '',
     sourceDistrict: sourceDistrict || '',
-    seatingCount,
     targetCity: targetCity || '',
     targetDistrict: targetDistrict || '',
-    isInPerson,
     sort: column ? [{ column, direction: direction as SortDirection }] : [],
   }
 }
@@ -115,7 +113,9 @@ const Page = (): JSX.Element => {
   const [filters, setFilters] = useState<EmergencyEvacuationApplicationsFilter>(
     () => getInitialFilters(searchParams)
   )
-
+  const [seatingCountInput, setSeatingCountInput] = useState(
+    filters.seatingCount ?? ''
+  )
   const [referenceNumberInput, setReferenceNumberInput] = useState(
     filters.referenceNumber ?? ''
   )
@@ -130,9 +130,6 @@ const Page = (): JSX.Element => {
   )
   const [targetDistrictInput, setTargetDistrictInput] = useState(
     filters.targetDistrict ?? ''
-  )
-  const [seatingCountInput, setSeatingCountInput] = useState(
-    filters.seatingCount ?? ''
   )
 
   const { handlePageChange } = usePagination()
@@ -176,13 +173,13 @@ const Page = (): JSX.Element => {
     const {
       currentPage,
       statuses,
+      isInPerson,
+      seatingCount,
       referenceNumber,
       sourceCity,
       sourceDistrict,
-      seatingCount,
       targetCity,
       targetDistrict,
-      isInPerson,
       column,
       direction,
     } = parseEEASearchParams(searchParams)
@@ -191,13 +188,13 @@ const Page = (): JSX.Element => {
       page: currentPage,
       pageSize: 10,
       statuses,
+      isInPerson,
+      seatingCount,
       referenceNumber: referenceNumber || '',
       sourceCity: sourceCity || '',
       sourceDistrict: sourceDistrict || '',
-      seatingCount,
       targetCity: targetCity || '',
       targetDistrict: targetDistrict || '',
-      isInPerson,
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
@@ -213,7 +210,7 @@ const Page = (): JSX.Element => {
     setSourceDistrictInput(filters.sourceDistrict ?? '')
     setTargetCityInput(filters.targetCity ?? '')
     setTargetDistrictInput(filters.targetDistrict ?? '')
-    setSeatingCountInput(filters.seatingCount?.toString() ?? '')
+    setSeatingCountInput(filters.seatingCount ?? '')
   }, [filters])
 
   useEffect(() => {
