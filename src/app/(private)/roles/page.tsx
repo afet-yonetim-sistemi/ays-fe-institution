@@ -26,7 +26,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 
-const parseRoleSearchParams = (searchParams: URLSearchParams) => {
+const parseRolesSearchParams = (searchParams: URLSearchParams) => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const statusesParam = searchParams.get('status')
   const name = searchParams.get('name') ?? ''
@@ -45,7 +45,7 @@ const parseRoleSearchParams = (searchParams: URLSearchParams) => {
 
 const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
   const { currentPage, statuses, name, column, direction } =
-    parseRoleSearchParams(searchParams)
+    parseRolesSearchParams(searchParams)
 
   return {
     page: currentPage,
@@ -110,7 +110,7 @@ const Page = (): JSX.Element => {
 
   const syncFiltersWithQuery = useCallback(() => {
     const { currentPage, statuses, name, column, direction } =
-      parseRoleSearchParams(searchParams)
+      parseRolesSearchParams(searchParams)
 
     const updatedFilters: RolesFilter = {
       page: currentPage,
