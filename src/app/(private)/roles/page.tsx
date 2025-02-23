@@ -30,8 +30,7 @@ const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const statusesParam = searchParams.get('status')
   const name = searchParams.get('name') ?? ''
-  const statuses =
-    statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
+  const statuses = statusesParam?.trim()?.split(',') || []
   const sortParam = searchParams.get('sort')
   const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
@@ -98,8 +97,7 @@ const Page = (): JSX.Element => {
     const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
     const statusesParam = searchParams.get('status')
     const name = searchParams.get('name') ?? ''
-    const statuses =
-      statusesParam && statusesParam.trim() ? statusesParam.split(',') : []
+    const statuses = statusesParam?.trim()?.split(',') || []
     const sortParam = searchParams.get('sort')
     const [column = '', direction] = sortParam ? sortParam.split(',') : []
 
