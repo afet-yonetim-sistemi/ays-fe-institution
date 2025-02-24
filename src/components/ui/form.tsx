@@ -1,6 +1,6 @@
-import * as React from 'react'
 import * as LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
+import * as React from 'react'
 import {
   Controller,
   ControllerProps,
@@ -10,8 +10,9 @@ import {
   useFormContext,
 } from 'react-hook-form'
 
-import { cn } from '@/lib/utils'
 import { Label } from '@/components/ui/label'
+import { cn } from '@/lib/utils'
+import { useMemo } from 'react'
 
 const Form = FormProvider
 
@@ -32,8 +33,10 @@ const FormField = <
 >({
   ...props
 }: ControllerProps<TFieldValues, TName>): JSX.Element => {
+  const contextValue = useMemo(() => ({ name: props.name }), [props.name])
+
   return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
+    <FormFieldContext.Provider value={contextValue}>
       <Controller {...props} />
     </FormFieldContext.Provider>
   )
@@ -76,9 +79,10 @@ const FormItem = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const id = React.useId()
+  const contextValue = useMemo(() => ({ id }), [id])
 
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <FormItemContext.Provider value={contextValue}>
       <div ref={ref} className={cn('space-y-2', className)} {...props} />
     </FormItemContext.Provider>
   )
@@ -166,12 +170,12 @@ const FormMessage = React.forwardRef<
 FormMessage.displayName = 'FormMessage'
 
 export {
-  useFormField,
   Form,
-  FormItem,
-  FormLabel,
   FormControl,
   FormDescription,
-  FormMessage,
   FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField,
 }
