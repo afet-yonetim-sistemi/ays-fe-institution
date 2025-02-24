@@ -30,7 +30,7 @@ export const getRoles = (filter: RolesFilter): Promise<AxiosResponse> => {
       ...(orders ? { orders } : []),
     },
     filter: {
-      name: filter.name || undefined,
+      name: String(filter.name) || undefined,
       ...(filter.statuses.length > 0
         ? { statuses: filter.statuses }
         : undefined),

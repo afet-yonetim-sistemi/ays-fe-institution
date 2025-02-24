@@ -28,12 +28,12 @@ export const getEmergencyEvacuationApplications = (
       ...(filter.statuses.length > 0
         ? { statuses: filter.statuses }
         : undefined),
-      referenceNumber: filter.referenceNumber || undefined,
-      sourceCity: filter.sourceCity || undefined,
-      sourceDistrict: filter.sourceDistrict || undefined,
+      referenceNumber: String(filter.referenceNumber) || undefined,
+      sourceCity: String(filter.sourceCity) || undefined,
+      sourceDistrict: String(filter.sourceDistrict) || undefined,
       seatingCount: filter.seatingCount ?? undefined,
-      targetCity: filter.targetCity || undefined,
-      targetDistrict: filter.targetDistrict || undefined,
+      targetCity: String(filter.targetCity) || undefined,
+      targetDistrict: String(filter.targetDistrict) || undefined,
       isInPerson: filter.isInPerson ?? undefined,
     },
   })
