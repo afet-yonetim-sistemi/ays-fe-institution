@@ -431,6 +431,47 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       })
   }
 
+  const renderRoleUpdateButtons = () => {
+    if (!userPermissions.includes(Permission.ROLE_UPDATE)) return null
+
+    if (!isRoleEditable) {
+      return (
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleUpdateButtonClick}
+        >
+          {t('common.update')}
+        </Button>
+      )
+    }
+
+    return (
+      <div className="flex items-center gap-4">
+        {minPermissionError && (
+          <p className="text-red-500 text-sm">{minPermissionError}</p>
+        )}
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleCancelButtonClick}
+        >
+          {t('common.cancel')}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleSaveButtonClick}
+          disabled={
+            Boolean(formState.errors.name) || Boolean(minPermissionError)
+          }
+        >
+          {t('common.save')}
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -467,43 +508,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                         variant={'destructive'}
                       />
                     )}
-                  {userPermissions.includes(Permission.ROLE_UPDATE) ? (
-                    !isRoleEditable ? (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleUpdateButtonClick}
-                      >
-                        {t('common.update')}
-                      </Button>
-                    ) : (
-                      <div className="flex items-center gap-4">
-                        {minPermissionError && (
-                          <p className="text-red-500 text-sm">
-                            {minPermissionError}
-                          </p>
-                        )}
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={handleCancelButtonClick}
-                        >
-                          {t('common.cancel')}
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={handleSaveButtonClick}
-                          disabled={
-                            Boolean(formState.errors.name) ||
-                            Boolean(minPermissionError)
-                          }
-                        >
-                          {t('common.save')}
-                        </Button>
-                      </div>
-                    )
-                  ) : null}
+                  {renderRoleUpdateButtons()}
                 </div>
               )}
             </div>
