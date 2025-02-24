@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { formatDateTime } from '@/lib/formatDateTime'
+import { useEffect, useState } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -11,13 +11,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
-import { handleApiError } from '@/lib/handleApiError'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@/components/ui/button'
+import ButtonDialog from '@/components/ui/button-dialog'
 import {
   Select,
   SelectContent,
@@ -25,7 +24,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Switch } from '@/components/ui/switch'
+import { useToast } from '@/components/ui/use-toast'
+import { Permission } from '@/constants/permissions'
+import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
+import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
+import { handleApiError } from '@/lib/handleApiError'
+import { selectPermissions } from '@/modules/auth/authSlice'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
+import { userStatuses } from '@/modules/users/constants/statuses'
 import { User, UserEditableFields } from '@/modules/users/constants/types'
 import {
   activateUser,
@@ -34,16 +41,8 @@ import {
   getUser,
   updateUser,
 } from '@/modules/users/service'
-import { userStatuses } from '@/modules/users/constants/statuses'
-import { Permission } from '@/constants/permissions'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { useRouter } from 'next/navigation'
-import { useToast } from '@/components/ui/use-toast'
-import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
-import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 
 const Page = ({
   params,

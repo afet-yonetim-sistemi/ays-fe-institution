@@ -1,13 +1,12 @@
-import { ColumnDef, Column } from '@tanstack/table-core'
-import { formatDateTime } from '@/lib/formatDateTime'
-import i18next from 'i18next'
 import { PhoneNumber, Sort } from '@/common/types'
-import Status from '@/components/ui/status'
 import DataTableSort from '@/components/ui/data-table-sort'
+import Status from '@/components/ui/status'
 import { fallbackStatus } from '@/constants/fallBackStatus'
-import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
-import { userStatuses } from '../constants/statuses'
+import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
 import { getSortState } from '@/lib/getSortState'
+import { Column, ColumnDef } from '@tanstack/table-core'
+import i18next from 'i18next'
+import { userStatuses } from '../constants/statuses'
 
 export interface User {
   id: string

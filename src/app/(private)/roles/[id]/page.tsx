@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
-import { Input } from '@/components/ui/input'
-import { formatDateTime } from '@/lib/formatDateTime'
+import { Button } from '@/components/ui/button'
+import ButtonDialog from '@/components/ui/button-dialog'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -10,36 +10,36 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form'
-import { useForm, UseFormReturn } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useTranslation } from 'react-i18next'
+import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { Switch } from '@/components/ui/switch'
 import { useToast } from '@/components/ui/use-toast'
-import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
-import {
-  deleteRole,
-  getPermissions,
-  getRoleDetail,
-  updateRole,
-  activateRole,
-  deactivateRole,
-} from '@/modules/roles/service'
-import PermissionCard from '@/modules/roles/components/PermissionCard'
+import { Permission } from '@/constants/permissions'
+import { formatDateTime } from '@/lib/dataFormatters'
+import { handleApiError } from '@/lib/handleApiError'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
 } from '@/lib/localizePermission'
-import { FormValidationSchema } from '@/modules/roles/constants/formValidationSchema'
-import { NextPage } from 'next'
-import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
-import { Permission } from '@/constants/permissions'
 import { selectPermissions } from '@/modules/auth/authSlice'
+import PermissionCard from '@/modules/roles/components/PermissionCard'
+import { FormValidationSchema } from '@/modules/roles/constants/formValidationSchema'
+import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
+import {
+  activateRole,
+  deactivateRole,
+  deleteRole,
+  getPermissions,
+  getRoleDetail,
+  updateRole,
+} from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
-import ButtonDialog from '@/components/ui/button-dialog'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { NextPage } from 'next'
 import { useRouter } from 'next/navigation'
-import { handleApiError } from '@/lib/handleApiError'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useForm, UseFormReturn } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
