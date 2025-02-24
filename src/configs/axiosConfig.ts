@@ -19,53 +19,67 @@ http.interceptors.request.use(
     const accessToken = store.getState().auth.accessToken
     if (!accessToken) {
       return Promise.reject(
-        'Access denied: No token provided. Request has been canceled.'
+        new Error(
+          'Access denied: No token provided. Request has been canceled.'
+        )
       )
     }
     config.headers.Authorization = `Bearer ${accessToken}`
     return config
   },
   (error) => {
-    return Promise.reject(error)
+    return Promise.reject(
+      error instanceof Error ? error : new Error('Request error')
+    )
   }
 )
 
 http.interceptors.response.use(
-  function (response) {
-    return response
-  },
+  (response) => response,
   async (error) => {
     const originalRequest = error.config
+
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
+
       try {
         const refreshToken = store.getState().auth.refreshToken
 
         if (!refreshToken) {
           store.dispatch(logout())
-          return Promise.reject(error)
+          return Promise.reject(new Error('No refresh token available'))
         }
+
         try {
           const response = await api.post(
             '/api/v1/authentication/token/refresh',
-            {
-              refreshToken,
-            }
+            { refreshToken }
           )
           const token = response?.data?.response
 
           store.dispatch(loginSuccess(token))
           originalRequest.headers.Authorization = `Bearer ${token?.accessToken}`
           return http(originalRequest)
-        } catch (refreshError) {
+        } catch (refreshError: unknown) {
           store.dispatch(logout())
-          return Promise.reject(refreshError)
+          return Promise.reject(
+            refreshError instanceof Error
+              ? refreshError
+              : new Error('Token refresh failed')
+          )
         }
-      } catch (error) {
-        return Promise.reject(error)
+      } catch (error: unknown) {
+        return Promise.reject(
+          error instanceof Error
+            ? error
+            : new Error('An unexpected error occurred during token refresh')
+        )
       }
     }
-    return Promise.reject(error)
+
+    return Promise.reject(
+      error instanceof Error ? error : new Error('An unexpected error occurred')
+    )
   }
 )
 

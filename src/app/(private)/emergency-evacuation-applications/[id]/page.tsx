@@ -181,6 +181,35 @@ const Page = ({
       })
   }
 
+  const renderUpdateButtons = () => {
+    if (!userPermissions.includes(Permission.EVACUATION_UPDATE)) return null
+    if (!canUpdateApplication) return null
+
+    return !isEmergencyApplicationEditable ? (
+      <Button type="button" variant="outline" onClick={handleUpdateButtonClick}>
+        {t('common.update')}
+      </Button>
+    ) : (
+      <div className="flex items-center gap-4">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleCancelButtonClick}
+        >
+          {t('common.cancel')}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleSaveButtonClick}
+          disabled={isSaveButtonDisabled}
+        >
+          {t('common.save')}
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -191,37 +220,7 @@ const Page = ({
               <h1 className="text-2xl font-bold">
                 {t('emergencyEvacuationApplications.detailsTitle')}
               </h1>
-              {userPermissions.includes(Permission.EVACUATION_UPDATE) ? (
-                canUpdateApplication ? (
-                  !isEmergencyApplicationEditable ? (
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleUpdateButtonClick}
-                    >
-                      {t('common.update')}
-                    </Button>
-                  ) : (
-                    <div className="flex items-center gap-4">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleCancelButtonClick}
-                      >
-                        {t('common.cancel')}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleSaveButtonClick}
-                        disabled={isSaveButtonDisabled}
-                      >
-                        {t('common.save')}
-                      </Button>
-                    </div>
-                  )
-                ) : null
-              ) : null}
+              {renderUpdateButtons()}
             </div>
             <Card className="mb-6">
               <CardHeader>

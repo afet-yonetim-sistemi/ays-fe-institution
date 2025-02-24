@@ -31,10 +31,10 @@ export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
       ...(filter.statuses.length > 0
         ? { statuses: filter.statuses }
         : undefined),
-      firstName: filter.firstName || undefined,
-      lastName: filter.lastName || undefined,
-      emailAddress: filter.emailAddress || undefined,
-      city: filter.city || undefined,
+      firstName: String(filter.firstName) || undefined,
+      lastName: String(filter.lastName) || undefined,
+      emailAddress: String(filter.emailAddress) || undefined,
+      city: String(filter.city) || undefined,
       ...(Object.keys(phoneNumber).length > 0 ? { phoneNumber } : undefined),
     },
   })

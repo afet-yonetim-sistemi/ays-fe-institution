@@ -31,7 +31,7 @@ interface ButtonDialogProps {
   onCancel?: () => void
   reason?: boolean
   label?: string
-  variant?:
+  variant:
     | 'link'
     | 'default'
     | 'destructive'
@@ -74,7 +74,7 @@ const ButtonDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant || 'default'}>{t(triggerText)}</Button>
+        <Button variant={variant ?? 'default'}>{t(triggerText)}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
@@ -83,7 +83,7 @@ const ButtonDialog = ({
         </DialogHeader>
         {reason && (
           <>
-            <Label htmlFor={'reason'}>{label || t('rejectReason')}</Label>
+            <Label htmlFor={'reason'}>{label ?? t('rejectReason')}</Label>
             <Textarea
               minLength={40}
               maxLength={512}
@@ -100,7 +100,7 @@ const ButtonDialog = ({
               className="w-36"
               onClick={handleCancelClick}
             >
-              {cancelText || t('no')}
+              {cancelText ?? t('no')}
             </Button>
           </DialogClose>
           <TooltipProvider>
@@ -115,7 +115,7 @@ const ButtonDialog = ({
                     reasonText.length > 512
                   }
                 >
-                  {confirmText || t('yes')}
+                  {confirmText ?? t('yes')}
                 </Button>
               </TooltipTrigger>
               {tooltipText && (

@@ -9,9 +9,9 @@ export const store = makeStore()
 
 export default function StoreProvider({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}): JSX.Element {
+}>): JSX.Element {
   const storeRef = useRef<AppStore>()
   if (!storeRef.current) {
     storeRef.current = store

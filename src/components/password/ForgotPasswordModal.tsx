@@ -28,7 +28,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   disabled,
 }) => {
   const { t } = useTranslation()
-  const [email, setEmail] = useState<string>(loginEmail || '')
+  const [email, setEmail] = useState<string>(loginEmail ?? '')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [emailError, setEmailError] = useState<string | null>(null)
@@ -47,7 +47,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
     setLoading(true)
 
     passwordService
-      .forgotPassword(email!)
+      .forgotPassword(email)
       .then(() => {
         setIsOpen(false)
         toast({
