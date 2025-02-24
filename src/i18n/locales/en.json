@@ -38,7 +38,7 @@
   "welcome": "Welcome",
   "notFound": "Page not found.",
   "loginDescription": "Please enter your E-mail and Password.",
-  "passwordDescription": "Please create a new password. Must be between 6 and 50 characters in length.",
+  "passwordDescription": "Please create a new password. Must be between 8 and 128 characters in length.",
   "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
   "aysDescription": "Disaster Management System | Afet Yönetim Sistemi",
   "home": "Home",

@@ -38,7 +38,7 @@
   "welcome": "Hoş Geldiniz",
   "notFound": "Aradığınız Sayfa Bulunamadı.",
   "loginDescription": "Lütfen E-postanızı ve Şifrenizi giriniz.",
-  "passwordDescription": "Lütfen yeni bir şifre oluşturun. Şifre uzunluğu 6 ile 50 karakter arasında olmalıdır.",
+  "passwordDescription": "Lütfen yeni bir şifre oluşturun. Şifre uzunluğu 8 ile 128 karakter arasında olmalıdır.",
   "passwordTitle": "Şifrenizi Oluşturun",
   "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
   "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
