@@ -24,5 +24,6 @@ export const formatReferenceNumber = (
   number: string | null | undefined
 ): string => {
   if (!number) return ''
-  return number.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')
+  if (number.length < 10) return number
+  return `${number[0]} ${number.slice(1, 4)} ${number.slice(4, 7)} ${number.slice(7)}`
 }
