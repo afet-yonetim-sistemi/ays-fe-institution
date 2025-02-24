@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Input } from '@/components/ui/input'
-import { formatDateTime } from '@/lib/formatDateTime'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -11,29 +11,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useTranslation } from 'react-i18next'
+import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
-import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
-import {
-  EmergencyEvacuationApplication,
-  EvacuationApplicationEditableFields,
-} from '@/modules/emergencyEvacuationApplications/constants/types'
-import {
-  getEmergencyEvacuationApplication,
-  updateEmergencyEvacuationApplication,
-} from '@/modules/emergencyEvacuationApplications/service'
-import { Checkbox } from '@/components/ui/checkbox'
-import { formatReferenceNumber } from '@/lib/formatReferenceNumber'
-import { handleApiError } from '@/lib/handleApiError'
-import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
-import { Button } from '@/components/ui/button'
-import { selectPermissions } from '@/modules/auth/authSlice'
-import { Permission } from '@/constants/permissions'
-import { useAppSelector } from '@/store/hooks'
 import {
   Select,
   SelectContent,
@@ -43,6 +22,29 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
+import { Permission } from '@/constants/permissions'
+import {
+  formatDateTime,
+  formatPhoneNumber,
+  formatReferenceNumber,
+} from '@/lib/dataFormatters'
+import { handleApiError } from '@/lib/handleApiError'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
+import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
+import {
+  EmergencyEvacuationApplication,
+  EvacuationApplicationEditableFields,
+} from '@/modules/emergencyEvacuationApplications/constants/types'
+import {
+  getEmergencyEvacuationApplication,
+  updateEmergencyEvacuationApplication,
+} from '@/modules/emergencyEvacuationApplications/service'
+import { useAppSelector } from '@/store/hooks'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 const Page = ({
   params,

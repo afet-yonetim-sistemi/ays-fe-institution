@@ -1,15 +1,8 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import {
-  approveAdminRegistrationApplicationWithId,
-  getAdminRegistrationApplication,
-  rejectAdminRegistrationApplication,
-} from '@/modules/adminRegistrationApplications/service'
-import { Input } from '@/components/ui/input'
-import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
-import { formatDateTime } from '@/lib/formatDateTime'
+import { Button } from '@/components/ui/button'
+import ButtonDialog from '@/components/ui/button-dialog'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -17,20 +10,26 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useTranslation } from 'react-i18next'
+import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/components/ui/use-toast'
-import { formatPhoneNumber } from '@/lib/formatPhoneNumber'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { Button } from '@/components/ui/button'
-import { useAppSelector } from '@/store/hooks'
-import { selectPermissions } from '@/modules/auth/authSlice'
 import { Permission } from '@/constants/permissions'
+import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
 import { handleApiError } from '@/lib/handleApiError'
+import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
+import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
+import {
+  approveAdminRegistrationApplicationWithId,
+  getAdminRegistrationApplication,
+  rejectAdminRegistrationApplication,
+} from '@/modules/adminRegistrationApplications/service'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { useAppSelector } from '@/store/hooks'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 const Page = ({
   params,

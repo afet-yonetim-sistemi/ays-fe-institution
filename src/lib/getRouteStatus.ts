@@ -1,7 +1,12 @@
 import { protectedRoutes, publicRoutes } from '@/configs/routes'
 
-export const createRouteRegex = (route: string): RegExp =>
-  new RegExp('^' + route.replace(/\[([^\]]+)\]/g, '([\\w-]+)') + '$')
+export const createRouteRegex = (route: string): RegExp => {
+  const escapedRoute = route.replace(/[-/\\^$*+?.()|{}]/g, '\\$&')
+
+  const regexPattern = escapedRoute.replace(/\[(\w+)\]/g, '([^/]+)')
+
+  return new RegExp(`^${regexPattern}$`)
+}
 
 export const getRouteStatus = (
   pathname: string
