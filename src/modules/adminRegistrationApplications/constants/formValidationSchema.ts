@@ -49,10 +49,10 @@ export const PreApplicationFormSchema = z.object({
     .max(512, {
       message: i18n.t('maxLength', { field: 512 }),
     })
-    .refine((value) => !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(value), {
+    .refine((value) => !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`]/.test(value), {
       message: i18n.t('notSpecialCharacters'),
     })
-    .refine((value) => /[^0-9]+/.test(value), {
+    .refine((value) => /\D/.test(value), {
       message: i18n.t('notOnlyNumbers'),
     }),
 })
