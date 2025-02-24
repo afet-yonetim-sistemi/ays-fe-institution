@@ -19,13 +19,13 @@ const FilterInput: React.FC<FilterInputProps> = React.memo(
 
       if (
         type === 'number' &&
-        !/^[0-9]$/.test(char) &&
+        !/^\d$/.test(char) &&
         char !== 'Backspace' &&
         char !== 'Delete' &&
         char !== 'ArrowLeft' &&
         char !== 'ArrowRight' &&
         !(e.ctrlKey || e.metaKey) &&
-        (char === 'a' || char === 'c' || char === 'v')
+        ['a', 'c', 'v', 'z'].includes(char)
       ) {
         e.preventDefault()
       }
