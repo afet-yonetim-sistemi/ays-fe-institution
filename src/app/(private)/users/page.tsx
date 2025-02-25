@@ -18,7 +18,7 @@ import { getUsers } from '@/modules/users/service'
 import FilterInput from '@/components/ui/filter-input'
 import { RefreshCw } from 'lucide-react'
 import { userStatuses } from '@/modules/users/constants/statuses'
-import { Sort } from '@/common/types'
+import { FilterValidationOptions, Sort } from '@/common/types'
 import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { toast } from '@/components/ui/use-toast'
 import { useAppSelector } from '@/store/hooks'
@@ -186,6 +186,12 @@ const Page = (): JSX.Element => {
   }, [filters])
 
   useEffect(() => {
+    const validationRules: Partial<
+      Record<keyof UsersFilter, FilterValidationOptions>
+    > = {
+      emailAddress: { min: 0, max: 254 },
+    }
+
     const fieldsToValidate: (keyof UsersFilter)[] = [
       'firstName',
       'lastName',
@@ -195,13 +201,22 @@ const Page = (): JSX.Element => {
 
     for (const field of fieldsToValidate) {
       const value = filters[field]
-      if (value && !getStringFilterValidation().safeParse(value).success) {
-        toast({
-          title: t('common.error'),
-          description: t('filterValidation'),
-          variant: 'destructive',
-        })
-        return
+      const rules = validationRules[field] || {}
+
+      if (value) {
+        const result = getStringFilterValidation(rules).safeParse(value)
+
+        if (!result.success) {
+          const errorMessage =
+            result.error.errors[0]?.message || t('common.error')
+
+          toast({
+            title: t('common.error'),
+            description: errorMessage,
+            variant: 'destructive',
+          })
+          return
+        }
       }
     }
 

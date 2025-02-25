@@ -10,7 +10,13 @@ const LoginFormSchema = z.object({
         field: i18n.t('emailAddress'),
       }),
     })
-    .regex(emailRegex, i18n.t('invalidEmail')),
+    .regex(emailRegex, i18n.t('invalidEmail'))
+    .min(6, {
+      message: i18n.t('minLength', { field: 6 }),
+    })
+    .max(254, {
+      message: i18n.t('maxLength', { field: 254 }),
+    }),
   password: PasswordSchema,
   sourcePage: z.string(),
 })
