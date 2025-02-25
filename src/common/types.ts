@@ -38,3 +38,8 @@ export interface BaseApiResponse {
   header?: string
   message?: string
 }
+
+export interface FilterValidationOptions {
+  min?: number
+  max?: number
+}

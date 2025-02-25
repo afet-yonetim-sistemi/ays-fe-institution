@@ -223,13 +223,21 @@ const Page = (): JSX.Element => {
 
     for (const field of fieldsToValidate) {
       const value = filters[field]
-      if (value && !getStringFilterValidation().safeParse(value).success) {
-        toast({
-          title: t('common.error'),
-          description: t('filterValidation'),
-          variant: 'destructive',
-        })
-        return
+
+      if (value) {
+        const result = getStringFilterValidation().safeParse(value)
+
+        if (!result.success) {
+          const errorMessage =
+            result.error.errors[0]?.message || t('common.error')
+
+          toast({
+            title: t('common.error'),
+            description: errorMessage,
+            variant: 'destructive',
+          })
+          return
+        }
       }
     }
 

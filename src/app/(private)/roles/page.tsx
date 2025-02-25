@@ -133,9 +133,10 @@ const Page = (): JSX.Element => {
   useEffect(() => {
     const result = getStringFilterValidation().safeParse(filters.name)
     if (filters.name && !result.success) {
+      const errorMessage = result.error.errors[0]?.message || t('common.error')
       toast({
         title: t('common.error'),
-        description: t('filterValidation'),
+        description: errorMessage,
         variant: 'destructive',
       })
       return
