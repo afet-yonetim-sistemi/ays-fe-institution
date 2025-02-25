@@ -190,6 +190,7 @@ const Page = (): JSX.Element => {
       Record<keyof UsersFilter, FilterValidationOptions>
     > = {
       emailAddress: { min: 0, max: 254 },
+      lineNumber: { min: 0, max: 13 },
     }
 
     const fieldsToValidate: (keyof UsersFilter)[] = [
@@ -197,14 +198,16 @@ const Page = (): JSX.Element => {
       'lastName',
       'emailAddress',
       'city',
+      'lineNumber',
     ]
 
     for (const field of fieldsToValidate) {
       const value = filters[field]
       const rules = validationRules[field] || {}
+      const stringValue = String(value)
 
       if (value) {
-        const result = getStringFilterValidation(rules).safeParse(value)
+        const result = getStringFilterValidation(rules).safeParse(stringValue)
 
         if (!result.success) {
           const errorMessage =
