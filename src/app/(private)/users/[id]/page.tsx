@@ -111,7 +111,7 @@ const Page = ({
 
   const showDeleteButton =
     userPermissions.includes(Permission.USER_DELETE) &&
-    !['DELETED'].includes(userDetails?.status ?? '') &&
+    !['DELETED', 'NOT_VERIFIED'].includes(userDetails?.status ?? '') &&
     !isUserEditable
 
   useEffect(() => {
