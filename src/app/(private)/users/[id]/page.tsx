@@ -68,7 +68,6 @@ const Page = ({
   const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
   const [minRoleError, setMinRoleError] = useState<string | null>(null)
 
-  const canUpdateUser = userDetails?.status !== 'DELETED'
   const isSaveButtonDisabled =
     Boolean(formState.errors.firstName) ||
     Boolean(formState.errors.lastName) ||
@@ -113,6 +112,10 @@ const Page = ({
     userPermissions.includes(Permission.USER_DELETE) &&
     !['DELETED'].includes(userDetails?.status ?? '') &&
     !isUserEditable
+
+  const showUpdateButton =
+    userPermissions.includes(Permission.USER_UPDATE) &&
+    !['NOT_VERIFIED', 'DELETED'].includes(userDetails?.status ?? '')
 
   useEffect(() => {
     if (selectedRoles.length === 0) {
@@ -313,7 +316,7 @@ const Page = ({
   }
 
   const renderUpdateButtons = () => {
-    if (!userPermissions.includes(Permission.USER_UPDATE) || !canUpdateUser) {
+    if (!showUpdateButton) {
       return null
     }
 
