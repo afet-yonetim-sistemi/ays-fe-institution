@@ -345,13 +345,6 @@ const Page = ({
     )
   }
 
-  const renderUserRoles = () => {
-    if (!userDetails?.roles?.length) {
-      return <div className="text-destructive">{t('user.noRoles')}</div>
-    }
-    return userDetails.roles.map((role) => <div key={role.id}>{role.name}</div>)
-  }
-
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
       {isLoading && <LoadingSpinner />}
@@ -621,31 +614,28 @@ const Page = ({
                   <FormItem className="sm:col-span-1">
                     <FormControl>
                       <div className="space-y-2">
-                        {isUserEditable ? (
-                          <div className="grid grid-cols-1 gap-1">
-                            {roles.map((role) => (
-                              <FormItem
-                                key={role.id}
-                                className="flex items-center"
-                              >
-                                <FormControl>
-                                  <Switch
-                                    className="mt-2"
-                                    checked={selectedRoles.includes(role.id)}
-                                    onCheckedChange={() =>
-                                      handleRoleToggle(role.id)
-                                    }
-                                  />
-                                </FormControl>
-                                <FormLabel className="ml-3 items-center">
-                                  {role.name}
-                                </FormLabel>
-                              </FormItem>
-                            ))}
-                          </div>
-                        ) : (
-                          renderUserRoles()
-                        )}
+                        <div className="grid grid-cols-1 gap-1">
+                          {roles.map((role) => (
+                            <FormItem
+                              key={role.id}
+                              className="flex items-center"
+                            >
+                              <FormControl>
+                                <Switch
+                                  className="mt-2"
+                                  checked={selectedRoles.includes(role.id)}
+                                  onCheckedChange={() =>
+                                    handleRoleToggle(role.id)
+                                  }
+                                  disabled={!isUserEditable}
+                                />
+                              </FormControl>
+                              <FormLabel className="ml-3 items-center">
+                                {role.name}
+                              </FormLabel>
+                            </FormItem>
+                          ))}
+                        </div>
                       </div>
                     </FormControl>
                   </FormItem>
