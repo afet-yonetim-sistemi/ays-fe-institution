@@ -5,6 +5,7 @@
     "system": "Sistem"
   },
   "common": {
+    "AYS": "Afet Yönetim Sistemi",
     "create": "Oluştur",
     "update": "Güncelle",
     "cancel": "İptal",

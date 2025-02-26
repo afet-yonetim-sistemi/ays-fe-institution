@@ -1,27 +1,28 @@
 'use client'
 
-import React from 'react'
-import { Button } from '../ui/button'
-import Menu from './menu'
-import { MenuIcon } from 'lucide-react'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
-import { ModeToggle } from './modeToggle'
-import LanguageToggle from './languageToggle'
-import { Avatar, AvatarFallback } from '../ui/avatar'
-import { LuUser2 } from 'react-icons/lu'
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useTranslation } from 'react-i18next'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { selectRefreshToken, selectToken } from '@/modules/auth/authSlice'
-import { parseJwt } from '@/lib/helpers'
-import authService from '@/modules/auth/service'
-import { useRouter } from 'next/navigation'
 import { handleApiError } from '@/lib/handleApiError'
+import { parseJwt } from '@/lib/helpers'
+import { selectRefreshToken, selectToken } from '@/modules/auth/authSlice'
+import authService from '@/modules/auth/service'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { MenuIcon } from 'lucide-react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { LuUser2 } from 'react-icons/lu'
+import { Avatar, AvatarFallback } from '../ui/avatar'
+import { Button } from '../ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import LanguageToggle from './languageToggle'
+import Menu from './menu'
+import { ModeToggle } from './modeToggle'
 
 function Navbar(): JSX.Element {
   const { t } = useTranslation()
@@ -59,9 +60,17 @@ function Navbar(): JSX.Element {
           <Menu />
         </SheetContent>
       </Sheet>
-      <div className="w-full flex-1">
-        <div className="text-center md:text-left">AYS</div>
+      <div className="w-full flex-1 flex items-center space-x-2">
+        <Image
+          src="/aysLogo40px.svg"
+          alt="AYS Logo"
+          width={40}
+          height={40}
+          priority
+        />
+        <div className="text-center md:text-left">{t('common.AYS')}</div>
       </div>
+
       <div className="flex space-x-2">
         <LanguageToggle />
         <ModeToggle />
