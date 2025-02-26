@@ -68,7 +68,6 @@ const Page = ({
   const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
   const [minRoleError, setMinRoleError] = useState<string | null>(null)
 
-  const canUpdateUser = userDetails?.status !== 'DELETED'
   const isSaveButtonDisabled =
     Boolean(formState.errors.firstName) ||
     Boolean(formState.errors.lastName) ||
@@ -113,6 +112,10 @@ const Page = ({
     userPermissions.includes(Permission.USER_DELETE) &&
     !['DELETED'].includes(userDetails?.status ?? '') &&
     !isUserEditable
+
+  const showUpdateButton =
+    userPermissions.includes(Permission.USER_UPDATE) &&
+    !['NOT_VERIFIED', 'DELETED'].includes(userDetails?.status ?? '')
 
   useEffect(() => {
     if (selectedRoles.length === 0) {
@@ -313,7 +316,7 @@ const Page = ({
   }
 
   const renderUpdateButtons = () => {
-    if (!userPermissions.includes(Permission.USER_UPDATE) || !canUpdateUser) {
+    if (!showUpdateButton) {
       return null
     }
 
@@ -340,13 +343,6 @@ const Page = ({
         </Button>
       </div>
     )
-  }
-
-  const renderUserRoles = () => {
-    if (!userDetails?.roles?.length) {
-      return <div className="text-destructive">{t('user.noRoles')}</div>
-    }
-    return userDetails.roles.map((role) => <div key={role.id}>{role.name}</div>)
   }
 
   return (
@@ -618,31 +614,28 @@ const Page = ({
                   <FormItem className="sm:col-span-1">
                     <FormControl>
                       <div className="space-y-2">
-                        {isUserEditable ? (
-                          <div className="grid grid-cols-1 gap-1">
-                            {roles.map((role) => (
-                              <FormItem
-                                key={role.id}
-                                className="flex items-center"
-                              >
-                                <FormControl>
-                                  <Switch
-                                    className="mt-2"
-                                    checked={selectedRoles.includes(role.id)}
-                                    onCheckedChange={() =>
-                                      handleRoleToggle(role.id)
-                                    }
-                                  />
-                                </FormControl>
-                                <FormLabel className="ml-3 items-center">
-                                  {role.name}
-                                </FormLabel>
-                              </FormItem>
-                            ))}
-                          </div>
-                        ) : (
-                          renderUserRoles()
-                        )}
+                        <div className="grid grid-cols-1 gap-1">
+                          {roles.map((role) => (
+                            <FormItem
+                              key={role.id}
+                              className="flex items-center"
+                            >
+                              <FormControl>
+                                <Switch
+                                  className="mt-2"
+                                  checked={selectedRoles.includes(role.id)}
+                                  onCheckedChange={() =>
+                                    handleRoleToggle(role.id)
+                                  }
+                                  disabled={!isUserEditable}
+                                />
+                              </FormControl>
+                              <FormLabel className="ml-3 items-center">
+                                {role.name}
+                              </FormLabel>
+                            </FormItem>
+                          ))}
+                        </div>
                       </div>
                     </FormControl>
                   </FormItem>
