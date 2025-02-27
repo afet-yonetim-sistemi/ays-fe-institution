@@ -70,7 +70,6 @@ function Navbar(): JSX.Element {
         />
         <div className="text-center md:text-left">{t('common.AYS')}</div>
       </div>
-
       <div className="flex space-x-2">
         <LanguageToggle />
         <ModeToggle />
