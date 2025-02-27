@@ -5,7 +5,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>): JSX.Element {
   return (
-    <div>
+    <div className="overflow-auto scrollbar-gutter-stable h-screen">
       <nav className="fixed flex gap-2 right-8 top-4">
         <ModeToggle />
         <LanguageToggle />
