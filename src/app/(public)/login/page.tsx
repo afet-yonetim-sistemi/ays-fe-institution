@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import LanguageToggle from '@/components/dashboard/languageToggle'
+import { ModeToggle } from '@/components/dashboard/modeToggle'
+import ForgotPasswordModal from '@/components/password/ForgotPasswordModal'
 import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -17,25 +19,25 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import {
-  Card,
-  CardHeader,
-  CardDescription,
-  CardTitle,
-} from '@/components/ui/card'
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import authService from '@/modules/auth/service'
+import { Toaster } from '@/components/ui/toaster'
+import { handleApiError } from '@/lib/handleApiError'
 import {
   loginFailed,
   loginSuccess,
   selectError,
 } from '@/modules/auth/authSlice'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Toaster } from '@/components/ui/toaster'
-import ForgotPasswordModal from '@/components/password/ForgotPasswordModal'
+import authService from '@/modules/auth/service'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
-import { handleApiError } from '@/lib/handleApiError'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -76,6 +78,10 @@ const Page = (): JSX.Element => {
     <>
       {error && <Toaster />}
       <div className={'container'}>
+        <nav className="fixed flex gap-2 right-8 top-4">
+          <ModeToggle />
+          <LanguageToggle />
+        </nav>
         <Card className={'w-[410px] h-fit'}>
           <CardHeader className={'flex items-center'}>
             <Image
