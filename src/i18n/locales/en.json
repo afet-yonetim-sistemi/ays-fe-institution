@@ -5,6 +5,7 @@
     "system": "System"
   },
   "common": {
+    "AYS": "Disaster Management System",
     "create": "Create",
     "update": "Update",
     "cancel": "Cancel",
