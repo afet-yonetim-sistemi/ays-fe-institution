@@ -1,20 +1,12 @@
 'use client'
 
-import { useTranslation } from 'react-i18next'
-import { useToast } from '@/components/ui/use-toast'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import passwordService from '@/modules/password/service'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import Image from 'next/image'
 import {
   Form,
   FormControl,
@@ -23,11 +15,21 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { PasswordInput } from '@/components/ui/passwordInput'
-import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
+import { PasswordInput } from '@/components/ui/passwordInput'
+import { useToast } from '@/components/ui/use-toast'
 import { handleApiError } from '@/lib/handleApiError'
+import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
+import passwordService from '@/modules/password/service'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
+import LanguageToggle from '../dashboard/languageToggle'
+import { ModeToggle } from '../dashboard/modeToggle'
 
 const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
   const { t } = useTranslation()
@@ -69,6 +71,10 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
 
   return (
     <div className={'container'}>
+      <nav className="fixed flex gap-2 right-8 top-4">
+        <ModeToggle />
+        <LanguageToggle />
+      </nav>
       <Card className={'w-[410px] h-fit'}>
         <CardHeader className={'flex items-center'}>
           <Image
