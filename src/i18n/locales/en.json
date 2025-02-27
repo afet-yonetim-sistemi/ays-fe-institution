@@ -243,6 +243,7 @@
     "roles": "User Roles",
     "noRoles": "User does not have any roles",
     "create": "Create New User",
+    "createTitle": "User Creation",
     "createdSuccessfully": "User created successfully.",
     "createError": "User create failed.",
     "minRoleError": "Please select at least one role in order to continue",
