@@ -326,117 +326,119 @@ const Page = ({
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('userInformation')}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 mb-6">
-                  <FormField
-                    control={control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('firstName')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.firstName ?? ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('lastName')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.lastName ?? ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="userCity"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('city')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user?.city ??
-                              ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
-                  <FormField
-                    control={control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('phoneNumber')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.phoneNumber
-                                ? formatPhoneNumber(
-                                    adminRegistrationApplicationDetails.user
-                                      .phoneNumber
-                                  )
-                                : ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="userEmailAddress"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('emailAddress')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.user
-                                ?.emailAddress ?? ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </CardContent>
-            </Card>
+            {adminRegistrationApplicationDetails.user && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t('userInformation')}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 mb-6">
+                    <FormField
+                      control={control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('firstName')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  .firstName ?? ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('lastName')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  .lastName ?? ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={control}
+                      name="userCity"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('city')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user.city ??
+                                ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+                    <FormField
+                      control={control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-1">
+                          <FormLabel>{t('phoneNumber')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  .phoneNumber
+                                  ? formatPhoneNumber(
+                                      adminRegistrationApplicationDetails.user
+                                        .phoneNumber
+                                    )
+                                  : ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={control}
+                      name="userEmailAddress"
+                      render={({ field }) => (
+                        <FormItem className="sm:col-span-1">
+                          <FormLabel>{t('emailAddress')}</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              defaultValue={
+                                adminRegistrationApplicationDetails.user
+                                  .emailAddress ?? ''
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </form>
         </Form>
       )}
