@@ -189,6 +189,7 @@
     "activateConfirm": "Rol aktifleştirme işlemine devam etmek istiyor musunuz?",
     "deactivateConfirm": "Rol pasifleştirme işlemine devam etmek istiyor musunuz?",
     "create": "Yeni Rol Oluştur",
+    "createTitle": "Rol Oluşturma",
     "createdSuccessfully": "Rol başarıyla oluşturuldu.",
     "createError": "Rol oluşturma başarısız."
   },
