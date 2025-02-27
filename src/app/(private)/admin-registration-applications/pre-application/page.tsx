@@ -1,5 +1,8 @@
 'use client'
 
+import { Institution } from '@/common/types'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -8,6 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import {
   Select,
   SelectContent,
@@ -15,25 +19,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { Button } from '@/components/ui/button'
-import { useTranslation } from 'react-i18next'
-import Title from '@/components/ui/title'
 import { Textarea } from '@/components/ui/textarea'
-import { useEffect, useState } from 'react'
+import { useToast } from '@/components/ui/use-toast'
+import { handleApiError } from '@/lib/handleApiError'
+import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   approveAdminRegistrationApplication,
   getPreApplicationSummary,
 } from '@/modules/adminRegistrationApplications/service'
-import { useToast } from '@/components/ui/use-toast'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Card } from '@/components/ui/card'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
-import { Institution } from '@/common/types'
-import { handleApiError } from '@/lib/handleApiError'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -83,7 +82,12 @@ const Page = (): JSX.Element => {
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
-      <Title title={t('preApplicationTitle')} />
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">{t('preApplicationTitle')}</h1>
+        <Button disabled={isLoading} type="submit" className={'min-w-20'}>
+          {isLoading ? <LoadingSpinner /> : t('common.create')}
+        </Button>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <Card className="p-6 w-full">
@@ -130,9 +134,6 @@ const Page = (): JSX.Element => {
               />
             </div>
           </Card>
-          <Button disabled={isLoading} type="submit" className={'min-w-20'}>
-            {isLoading ? <LoadingSpinner /> : t('common.create')}
-          </Button>
         </form>
       </Form>
     </div>
