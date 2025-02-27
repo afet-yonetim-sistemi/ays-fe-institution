@@ -243,6 +243,7 @@
     "roles": "Kullanıcı Rolleri",
     "noRoles": "Kullanıcının rolü yok",
     "create": "Yeni Kullanıcı Oluştur",
+    "createTitle": "Kullanıcı Oluşturma",
     "createdSuccessfully": "Kullanıcı başarıyla oluşturuldu.",
     "createError": "Kullanıcı oluşturma başarısız.",
     "minRoleError": "Devam edebilmek için lütfen en az bir rol seçiniz",
