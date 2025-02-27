@@ -1,12 +1,12 @@
+import { Permission } from '@/constants/permissions'
 import {
   BusFront,
+  ClipboardPenLine,
   HomeIcon,
   UserRoundCheck,
-  ClipboardPenLine,
   Users,
 } from 'lucide-react'
 import React from 'react'
-import { Permission } from '@/constants/permissions'
 
 interface Menu {
   key: string
@@ -22,6 +22,18 @@ export const MenuItems: Menu[] = [
     icon: HomeIcon,
   },
   {
+    key: '/users',
+    label: 'user.title',
+    icon: Users,
+    requiredPermissions: [Permission.USER_LIST],
+  },
+  {
+    key: '/roles',
+    label: 'roles',
+    icon: ClipboardPenLine,
+    requiredPermissions: [Permission.ROLE_LIST],
+  },
+  {
     key: '/admin-registration-applications',
     label: 'adminRegistrationApplications.title',
     icon: UserRoundCheck,
@@ -32,17 +44,5 @@ export const MenuItems: Menu[] = [
     label: 'emergencyEvacuationApplications.title',
     icon: BusFront,
     requiredPermissions: [Permission.EVACUATION_LIST],
-  },
-  {
-    key: '/roles',
-    label: 'roles',
-    icon: ClipboardPenLine,
-    requiredPermissions: [Permission.ROLE_LIST],
-  },
-  {
-    key: '/users',
-    label: 'user.title',
-    icon: Users,
-    requiredPermissions: [Permission.USER_LIST],
   },
 ]
