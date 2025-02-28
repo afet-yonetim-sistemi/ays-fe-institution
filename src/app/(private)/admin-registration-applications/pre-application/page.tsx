@@ -81,15 +81,15 @@ const Page = (): JSX.Element => {
   }, [])
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">{t('preApplicationTitle')}</h1>
-        <Button disabled={isLoading} type="submit" className={'min-w-20'}>
-          {isLoading ? <LoadingSpinner /> : t('common.create')}
-        </Button>
-      </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-2xl font-bold">{t('preApplicationTitle')}</h1>
+            <Button disabled={isLoading} type="submit" className={'min-w-20'}>
+              {isLoading ? <LoadingSpinner /> : t('common.create')}
+            </Button>
+          </div>
           <Card className="p-6 w-full">
             <div className="grid grid-cols-1 gap-y-6 lg:grid-cols-3 lg:gap-x-6">
               <FormField
@@ -134,9 +134,9 @@ const Page = (): JSX.Element => {
               />
             </div>
           </Card>
-        </form>
-      </Form>
-    </div>
+        </div>
+      </form>
+    </Form>
   )
 }
 
