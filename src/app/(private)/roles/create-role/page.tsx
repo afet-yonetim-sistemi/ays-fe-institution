@@ -164,65 +164,63 @@ const Page = (): JSX.Element => {
 
   return (
     <Form {...form}>
-      <form className="space-y-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">{t('role.createTitle')}</h1>
-          <Button onClick={handleCreate} disabled={isCreateDisabled}>
-            {t('common.create')}
-          </Button>
-        </div>
-        <FormField
-          control={control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('name')}</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Card className="mb-6">
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <CardTitle>{t('role.permissions')}</CardTitle>
-                <div className="ml-4 flex items-center gap-2">
-                  <Switch
-                    checked={masterPermissionsSwitch}
-                    onCheckedChange={(isActive) =>
-                      handleMasterSwitchChange(isActive)
-                    }
-                  />
-                  {minPermissionError && (
-                    <p className="text-destructive text-sm">
-                      {minPermissionError}
-                    </p>
-                  )}
-                </div>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">{t('role.createTitle')}</h1>
+        <Button onClick={handleCreate} disabled={isCreateDisabled}>
+          {t('common.create')}
+        </Button>
+      </div>
+      <FormField
+        control={control}
+        name="name"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{t('name')}</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Card className="mb-6">
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <CardTitle>{t('role.permissions')}</CardTitle>
+              <div className="ml-4 flex items-center gap-2">
+                <Switch
+                  checked={masterPermissionsSwitch}
+                  onCheckedChange={(isActive) =>
+                    handleMasterSwitchChange(isActive)
+                  }
+                />
+                {minPermissionError && (
+                  <p className="text-destructive text-sm">
+                    {minPermissionError}
+                  </p>
+                )}
               </div>
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              {Object.entries(categorizePermissions(rolePermissions)).map(
-                ([category, permissions]) => (
-                  <PermissionCard
-                    key={category}
-                    category={category}
-                    permissions={permissions}
-                    isEditable={true}
-                    onPermissionToggle={handlePermissionToggle}
-                    onCategoryToggle={handleCategoryToggle}
-                  />
-                )
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      </form>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            {Object.entries(categorizePermissions(rolePermissions)).map(
+              ([category, permissions]) => (
+                <PermissionCard
+                  key={category}
+                  category={category}
+                  permissions={permissions}
+                  isEditable={true}
+                  onPermissionToggle={handlePermissionToggle}
+                  onCategoryToggle={handleCategoryToggle}
+                />
+              )
+            )}
+          </div>
+        </CardContent>
+      </Card>
     </Form>
   )
 }
