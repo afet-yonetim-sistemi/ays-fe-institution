@@ -1,4 +1,3 @@
-import { t } from 'i18next'
 import { z } from 'zod'
 
 export const PhoneNumberSchema = z
@@ -7,12 +6,12 @@ export const PhoneNumberSchema = z
     lineNumber: z.string(),
   })
   .refine((phoneNumber) => phoneNumber.countryCode && phoneNumber.lineNumber, {
-    message: t('invalidPhoneNumber'),
+    message: 'invalidPhoneNumber',
   })
 
 export const PasswordSchema = z
   .string({
-    required_error: t('requiredField', { field: t('password') }),
+    required_error: 'requiredField',
   })
-  .min(8, t('minLength', { field: 8 }))
-  .max(128, t('maxLength', { field: 128 }))
+  .min(8, { message: 'minLength' })
+  .max(128, { message: 'maxLength' })
