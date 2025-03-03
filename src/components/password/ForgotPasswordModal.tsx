@@ -51,14 +51,14 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
       .then(() => {
         setIsOpen(false)
         toast({
-          title: t('success'),
-          description: t('resetPasswordEmailSent'),
+          title: 'success',
+          description: 'resetPasswordEmailSent',
           variant: 'success',
         })
       })
       .catch((error) => {
         handleApiError(error, {
-          description: t('error.invalidEmailForgotPassword'),
+          description: 'error.invalidEmailForgotPassword',
         })
       })
       .finally(() => {

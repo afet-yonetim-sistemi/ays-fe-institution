@@ -151,8 +151,8 @@ const Page = (): JSX.Element => {
     createRole({ name, permissionIds: activePermissionIds })
       .then(() => {
         toast({
-          title: t('success'),
-          description: t('role.createdSuccessfully'),
+          title: 'success',
+          description: 'role.createdSuccessfully',
           variant: 'success',
         })
         router.push('/roles')

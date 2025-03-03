@@ -80,8 +80,8 @@ const Page = ({
     postRegistrationApplication(params.id, values)
       .then(() => {
         toast({
-          title: t('success'),
-          description: t('successRegisterCompleted'),
+          title: 'success',
+          description: 'successRegisterCompleted',
           variant: 'success',
         })
         router.push('/login')

@@ -142,8 +142,8 @@ const Page = ({
 
     if (!isChanged) {
       toast({
-        title: t('common.error'),
-        description: t('emergencyEvacuationApplications.noChangesError'),
+        title: 'common.error',
+        description: 'emergencyEvacuationApplications.noChangesError',
         variant: 'destructive',
       })
       return
@@ -161,10 +161,8 @@ const Page = ({
           })
 
           toast({
-            title: t('success'),
-            description: t(
-              'emergencyEvacuationApplications.updatedSuccessfully'
-            ),
+            title: 'success',
+            description: 'emergencyEvacuationApplications.updatedSuccessfully',
             variant: 'success',
           })
           setIsEmergencyApplicationEditable(false)

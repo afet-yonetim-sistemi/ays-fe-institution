@@ -319,8 +319,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
     if (!isNameChanged && !isPermissionsChanged) {
       toast({
-        title: t('common.error'),
-        description: t('role.noChangesError'),
+        title: 'common.error',
+        description: 'role.noChangesError',
         variant: 'destructive',
       })
       setIsRoleEditable(false)
@@ -344,8 +344,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           setOriginalRolePermissions(updatedPermissions)
 
           toast({
-            title: t('success'),
-            description: t('role.updatedSuccessfully'),
+            title: 'success',
+            description: 'role.updatedSuccessfully',
             variant: 'success',
           })
           setIsRoleEditable(false)
@@ -363,15 +363,15 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('role.deletedSuccessfully'),
+            title: 'success',
+            description: 'role.deletedSuccessfully',
             variant: 'success',
           })
           router.push('/roles')
         } else {
           toast({
-            title: t('common.error'),
-            description: t('error.default'),
+            title: 'common.error',
+            description: 'error.default',
             variant: 'destructive',
           })
         }
@@ -398,8 +398,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('role.activatedSuccessfully'),
+            title: 'success',
+            description: 'role.activatedSuccessfully',
             variant: 'success',
           })
           refreshRoleStatus('active')
@@ -417,8 +417,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('role.deactivatedSuccessfully'),
+            title: 'success',
+            description: 'role.deactivatedSuccessfully',
             variant: 'success',
           })
           refreshRoleStatus('passive')
