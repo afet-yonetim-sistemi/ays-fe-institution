@@ -93,7 +93,7 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          handleApiError(error, { description: t('error.application') })
+          handleApiError(error, { description: 'error.application' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -142,8 +142,8 @@ const Page = ({
 
     if (!isChanged) {
       toast({
-        title: t('common.error'),
-        description: t('emergencyEvacuationApplications.noChangesError'),
+        title: 'common.error',
+        description: 'emergencyEvacuationApplications.noChangesError',
         variant: 'destructive',
       })
       return
@@ -161,22 +161,20 @@ const Page = ({
           })
 
           toast({
-            title: t('success'),
-            description: t(
-              'emergencyEvacuationApplications.updatedSuccessfully'
-            ),
+            title: 'success',
+            description: 'emergencyEvacuationApplications.updatedSuccessfully',
             variant: 'success',
           })
           setIsEmergencyApplicationEditable(false)
         } else {
           handleApiError(undefined, {
-            description: t('emergencyEvacuationApplications.updateError'),
+            description: 'emergencyEvacuationApplications.updateError',
           })
         }
       })
       .catch((error) => {
         handleApiError(error, {
-          description: t('emergencyEvacuationApplications.updateError'),
+          description: 'emergencyEvacuationApplications.updateError',
         })
       })
   }

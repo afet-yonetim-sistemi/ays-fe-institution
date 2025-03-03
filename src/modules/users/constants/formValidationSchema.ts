@@ -2,27 +2,24 @@ import { z } from 'zod'
 import { emailRegex } from '@/constants/regex'
 import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
 import { PhoneNumberSchema } from '@/constants/formValidationSchema'
-import { t } from 'i18next'
 
 export const UserValidationSchema = z.object({
   id: z.string(),
-  firstName: nameboxWithLengthValidation('firstName', 2, 100),
-  lastName: nameboxWithLengthValidation('lastName', 2, 100),
+  firstName: nameboxWithLengthValidation(2, 100),
+  lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: t('requiredField', {
-        field: t('emailAddress'),
-      }),
+      required_error: 'requiredField',
     })
-    .min(6, t('minLength', { field: 6 }))
-    .max(254, t('maxLength', { field: 254 }))
-    .regex(emailRegex, t('invalidEmail')),
+    .min(6, { message: 'minLength' })
+    .max(254, { message: 'maxLength' })
+    .regex(emailRegex, { message: 'invalidEmail' }),
   phoneNumber: z
     .string({
-      required_error: t('requiredField', { field: t('phoneNumber') }),
+      required_error: 'requiredField',
     })
-    .length(10, t('error.phoneNumberLengthError')),
-  city: nameboxWithLengthValidation('city', 2, 100),
+    .length(10, 'error.phoneNumberLengthError'),
+  city: nameboxWithLengthValidation(2, 100),
   status: z.string(),
   createdUser: z.string(),
   createdAt: z.string(),
@@ -31,17 +28,15 @@ export const UserValidationSchema = z.object({
 })
 
 export const CreateUserValidationSchema = z.object({
-  firstName: nameboxWithLengthValidation('firstName', 2, 100),
-  lastName: nameboxWithLengthValidation('lastName', 2, 100),
+  firstName: nameboxWithLengthValidation(2, 100),
+  lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: t('requiredField', {
-        field: t('emailAddress'),
-      }),
+      required_error: 'requiredField',
     })
-    .min(6, t('minLength', { field: 6 }))
-    .max(254, t('maxLength', { field: 254 }))
-    .regex(emailRegex, t('invalidEmail')),
+    .min(6, { message: 'minLength' })
+    .max(254, { message: 'maxLength' })
+    .regex(emailRegex, { message: 'invalidEmail' }),
   phoneNumber: PhoneNumberSchema,
-  city: nameboxWithLengthValidation('city', 2, 100),
+  city: nameboxWithLengthValidation(2, 100),
 })

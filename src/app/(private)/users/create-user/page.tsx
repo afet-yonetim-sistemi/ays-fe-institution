@@ -79,14 +79,14 @@ const Page = (): JSX.Element => {
     createUser(payload)
       .then(() => {
         toast({
-          title: t('success'),
-          description: t('user.createdSuccessfully'),
+          title: 'success',
+          description: 'user.createdSuccessfully',
           variant: 'success',
         })
         router.push('/users')
       })
       .catch((error) => {
-        handleApiError(error, { description: t('user.createError') })
+        handleApiError(error, { description: 'user.createError' })
       })
   }
 

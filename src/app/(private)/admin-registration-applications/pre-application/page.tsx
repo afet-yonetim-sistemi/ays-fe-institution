@@ -56,14 +56,14 @@ const Page = (): JSX.Element => {
     approveAdminRegistrationApplication(values)
       .then((res) => {
         toast({
-          title: t('success'),
-          description: t('preApplicationSuccess'),
+          title: 'success',
+          description: 'preApplicationSuccess',
           variant: 'success',
         })
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch((error) => {
-        handleApiError(error, { description: t('error.preApplication') })
+        handleApiError(error, { description: 'error.preApplication' })
       })
       .finally(() => setIsLoading(false))
   }

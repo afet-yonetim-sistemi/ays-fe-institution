@@ -64,7 +64,7 @@ const Page = (): JSX.Element => {
         setFetchedRolePermissions(permissions)
       })
       .catch((error) => {
-        handleApiError(error, { description: t('permissions.error') })
+        handleApiError(error, { description: 'permissions.error' })
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -151,14 +151,14 @@ const Page = (): JSX.Element => {
     createRole({ name, permissionIds: activePermissionIds })
       .then(() => {
         toast({
-          title: t('success'),
-          description: t('role.createdSuccessfully'),
+          title: 'success',
+          description: 'role.createdSuccessfully',
           variant: 'success',
         })
         router.push('/roles')
       })
       .catch((error) => {
-        handleApiError(error, { description: t('role.createError') })
+        handleApiError(error, { description: 'role.createError' })
       })
   }
 

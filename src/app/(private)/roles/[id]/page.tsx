@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
@@ -89,7 +90,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         }))
       })
       .catch((error) => {
-        handleApiError(error, { description: t('permissions.error') })
+        handleApiError(error, { description: 'permissions.error' })
         return []
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -213,7 +214,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
         })
         .catch((error) => {
-          handleApiError(error, { description: t('role.error') })
+          handleApiError(error, { description: 'role.error' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -319,8 +320,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
     if (!isNameChanged && !isPermissionsChanged) {
       toast({
-        title: t('common.error'),
-        description: t('role.noChangesError'),
+        title: 'common.error',
+        description: 'role.noChangesError',
         variant: 'destructive',
       })
       setIsRoleEditable(false)
@@ -344,17 +345,17 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           setOriginalRolePermissions(updatedPermissions)
 
           toast({
-            title: t('success'),
-            description: t('role.updatedSuccessfully'),
+            title: 'success',
+            description: 'role.updatedSuccessfully',
             variant: 'success',
           })
           setIsRoleEditable(false)
         } else {
-          handleApiError(undefined, { description: t('role.updateError') })
+          handleApiError(undefined, { description: 'role.updateError' })
         }
       })
       .catch((error) => {
-        handleApiError(error, { description: t('role.updateError') })
+        handleApiError(error, { description: 'role.updateError' })
       })
   }
 
@@ -363,15 +364,15 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('role.deletedSuccessfully'),
+            title: 'success',
+            description: 'role.deletedSuccessfully',
             variant: 'success',
           })
           router.push('/roles')
         } else {
           toast({
-            title: t('common.error'),
-            description: t('error.default'),
+            title: 'common.error',
+            description: 'error.default',
             variant: 'destructive',
           })
         }
@@ -398,13 +399,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('role.activatedSuccessfully'),
+            title: 'success',
+            description: 'role.activatedSuccessfully',
             variant: 'success',
           })
           refreshRoleStatus('active')
         } else {
-          handleApiError(undefined, { description: t('error.default') })
+          handleApiError(undefined, { description: 'error.default' })
         }
       })
       .catch((error) => {
@@ -417,13 +418,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('role.deactivatedSuccessfully'),
+            title: 'success',
+            description: 'role.deactivatedSuccessfully',
             variant: 'success',
           })
           refreshRoleStatus('passive')
         } else {
-          handleApiError(undefined, { description: t('error.default') })
+          handleApiError(undefined, { description: 'error.default' })
         }
       })
       .catch((error) => {
@@ -525,19 +526,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       <FormItem className="sm:col-span-1">
                         <FormLabel>{t('name')}</FormLabel>
                         <FormControl>
-                          <>
-                            <Input
-                              {...field}
-                              disabled={!isRoleEditable}
-                              defaultValue={roleDetail.name ?? ''}
-                            />
-                            {form.formState.errors.name && (
-                              <p className="text-red-500 text-sm">
-                                {form.formState.errors.name.message as string}
-                              </p>
-                            )}
-                          </>
+                          <Input
+                            {...field}
+                            disabled={!isRoleEditable}
+                            defaultValue={roleDetail.name ?? ''}
+                          />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />

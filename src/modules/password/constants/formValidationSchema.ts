@@ -1,6 +1,5 @@
-import { z } from 'zod'
-import { t } from 'i18next'
 import { PasswordSchema } from '@/constants/formValidationSchema'
+import { z } from 'zod'
 
 export const FormValidationSchema = z
   .object({
@@ -8,6 +7,6 @@ export const FormValidationSchema = z
     passwordRepeat: PasswordSchema,
   })
   .refine((data) => data.password === data.passwordRepeat, {
-    message: t('passwordMismatch'),
+    message: 'passwordMismatch',
     path: ['passwordRepeat'],
   })

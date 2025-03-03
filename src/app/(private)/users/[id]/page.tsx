@@ -87,7 +87,7 @@ const Page = ({
       })
       .catch((error) => {
         setError(error.message)
-        handleApiError(error, { description: t('error.userDetailFetch') })
+        handleApiError(error, { description: 'error.userDetailFetch' })
       })
       .finally(() => {
         setIsLoading(false)
@@ -205,8 +205,8 @@ const Page = ({
 
     if (!isChanged) {
       toast({
-        title: t('common.error'),
-        description: t('user.noChangesError'),
+        title: 'common.error',
+        description: 'user.noChangesError',
         variant: 'destructive',
       })
       return
@@ -225,21 +225,21 @@ const Page = ({
           })
 
           toast({
-            title: t('success'),
-            description: t('user.updatedSuccessfully'),
+            title: 'success',
+            description: 'user.updatedSuccessfully',
             variant: 'success',
           })
           setIsUserEditable(false)
           fetchDetails()
         } else {
           handleApiError(undefined, {
-            description: t('user.updateError'),
+            description: 'user.updateError',
           })
         }
       })
       .catch((error) => {
         handleApiError(error, {
-          description: t('user.updateError'),
+          description: 'user.updateError',
         })
       })
   }
@@ -249,8 +249,8 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('user.activatedSuccessfully'),
+            title: 'success',
+            description: 'user.activatedSuccessfully',
             variant: 'success',
           })
           if (userDetails) {
@@ -260,7 +260,7 @@ const Page = ({
             })
           }
         } else {
-          handleApiError(undefined, { description: t('error.default') })
+          handleApiError(undefined, { description: 'error.default' })
         }
       })
       .catch((error) => {
@@ -273,8 +273,8 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('user.deactivatedSuccessfully'),
+            title: 'success',
+            description: 'user.deactivatedSuccessfully',
             variant: 'success',
           })
           if (userDetails) {
@@ -284,7 +284,7 @@ const Page = ({
             })
           }
         } else {
-          handleApiError(undefined, { description: t('error.default') })
+          handleApiError(undefined, { description: 'error.default' })
         }
       })
       .catch((error) => {
@@ -297,15 +297,15 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: t('success'),
-            description: t('user.deletedSuccessfully'),
+            title: 'success',
+            description: 'user.deletedSuccessfully',
             variant: 'success',
           })
           router.push('/users')
         } else {
           toast({
-            title: t('common.error'),
-            description: t('error.default'),
+            title: 'common.error',
+            description: 'error.default',
             variant: 'destructive',
           })
         }

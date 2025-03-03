@@ -9,9 +9,11 @@ import {
   ToastViewport,
 } from '@/components/ui/toast'
 import { useToast } from '@/components/ui/use-toast'
+import { useTranslation } from 'react-i18next'
 
 export function Toaster(): JSX.Element {
   const { toasts } = useToast()
+  const { t } = useTranslation()
 
   return (
     <ToastProvider>
@@ -19,9 +21,9 @@ export function Toaster(): JSX.Element {
         return (
           <Toast key={id} {...props}>
             <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
+              {title && <ToastTitle>{t(title)}</ToastTitle>}
               {description && (
-                <ToastDescription>{description}</ToastDescription>
+                <ToastDescription>{t(description as string)}</ToastDescription>
               )}
             </div>
             {action}

@@ -228,11 +228,10 @@ const Page = (): JSX.Element => {
         const result = getStringFilterValidation().safeParse(value)
 
         if (!result.success) {
-          const errorMessage =
-            result.error.errors[0]?.message || t('common.error')
+          const errorMessage = result.error.errors[0]?.message || 'common.error'
 
           toast({
-            title: t('common.error'),
+            title: 'common.error',
             description: errorMessage,
             variant: 'destructive',
           })

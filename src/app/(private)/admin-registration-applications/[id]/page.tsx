@@ -58,8 +58,8 @@ const Page = ({
     rejectAdminRegistrationApplication(reason, params.id)
       .then(() => {
         toast({
-          title: t('success'),
-          description: t('applicationRejectSuccess'),
+          title: 'success',
+          description: 'applicationRejectSuccess',
           variant: 'success',
         })
         router.push('/admin-registration-applications')
@@ -73,8 +73,8 @@ const Page = ({
     approveAdminRegistrationApplicationWithId(params.id)
       .then(() => {
         toast({
-          title: t('success'),
-          description: t('applicationApproveSuccess'),
+          title: 'success',
+          description: 'applicationApproveSuccess',
           variant: 'success',
         })
         router.push('/admin-registration-applications')
@@ -87,8 +87,8 @@ const Page = ({
   const handleCopyLink = (): void => {
     navigator.clipboard.writeText(registerCompletionUrl).then(() => {
       toast({
-        title: t('success'),
-        description: `${t('adminRegistrationApplications.linkCopied')}`,
+        title: 'success',
+        description: 'adminRegistrationApplications.linkCopied',
         variant: 'success',
       })
     })
@@ -101,7 +101,7 @@ const Page = ({
           setAdminRegistrationApplicationDetails(response.response)
         })
         .catch((error) => {
-          handleApiError(error, { description: t('error.application') })
+          handleApiError(error, { description: 'error.application' })
         })
         .finally(() => setIsLoading(false))
     }

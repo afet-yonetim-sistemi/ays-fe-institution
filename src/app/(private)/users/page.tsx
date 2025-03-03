@@ -214,7 +214,7 @@ const Page = (): JSX.Element => {
             result.error.errors[0]?.message || t('common.error')
 
           toast({
-            title: t('common.error'),
+            title: 'common.error',
             description: errorMessage,
             variant: 'destructive',
           })
