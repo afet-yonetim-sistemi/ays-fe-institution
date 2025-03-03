@@ -86,7 +86,7 @@ const Page = (): JSX.Element => {
         router.push('/users')
       })
       .catch((error) => {
-        handleApiError(error, { description: t('user.createError') })
+        handleApiError(error, { description: 'user.createError' })
       })
   }
 

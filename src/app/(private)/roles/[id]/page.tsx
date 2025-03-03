@@ -89,7 +89,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         }))
       })
       .catch((error) => {
-        handleApiError(error, { description: t('permissions.error') })
+        handleApiError(error, { description: 'permissions.error' })
         return []
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -213,7 +213,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
         })
         .catch((error) => {
-          handleApiError(error, { description: t('role.error') })
+          handleApiError(error, { description: 'role.error' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -350,11 +350,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           setIsRoleEditable(false)
         } else {
-          handleApiError(undefined, { description: t('role.updateError') })
+          handleApiError(undefined, { description: 'role.updateError' })
         }
       })
       .catch((error) => {
-        handleApiError(error, { description: t('role.updateError') })
+        handleApiError(error, { description: 'role.updateError' })
       })
   }
 
@@ -404,7 +404,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           refreshRoleStatus('active')
         } else {
-          handleApiError(undefined, { description: t('error.default') })
+          handleApiError(undefined, { description: 'error.default' })
         }
       })
       .catch((error) => {
@@ -423,7 +423,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           refreshRoleStatus('passive')
         } else {
-          handleApiError(undefined, { description: t('error.default') })
+          handleApiError(undefined, { description: 'error.default' })
         }
       })
       .catch((error) => {

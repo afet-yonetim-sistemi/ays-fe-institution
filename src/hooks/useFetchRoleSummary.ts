@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { getRoleSummary } from '@/modules/roles/service'
 import { handleApiError } from '@/lib/handleApiError'
-import { useTranslation } from 'react-i18next'
 import { UserRole } from '@/modules/users/constants/types'
 
 const useFetchRoleSummary = () => {
-  const { t } = useTranslation()
   const [roles, setRoles] = useState<UserRole[]>([])
 
   useEffect(() => {
@@ -19,9 +17,8 @@ const useFetchRoleSummary = () => {
         setRoles(availableRoles)
       })
       .catch((err) => {
-        handleApiError(err, { description: t('error.roleSummaryFetch') })
+        handleApiError(err, { description: 'error.roleSummaryFetch' })
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return roles

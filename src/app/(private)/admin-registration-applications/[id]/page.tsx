@@ -101,7 +101,7 @@ const Page = ({
           setAdminRegistrationApplicationDetails(response.response)
         })
         .catch((error) => {
-          handleApiError(error, { description: t('error.application') })
+          handleApiError(error, { description: 'error.application' })
         })
         .finally(() => setIsLoading(false))
     }

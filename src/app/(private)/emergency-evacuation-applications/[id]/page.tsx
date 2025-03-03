@@ -93,7 +93,7 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          handleApiError(error, { description: t('error.application') })
+          handleApiError(error, { description: 'error.application' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -168,13 +168,13 @@ const Page = ({
           setIsEmergencyApplicationEditable(false)
         } else {
           handleApiError(undefined, {
-            description: t('emergencyEvacuationApplications.updateError'),
+            description: 'emergencyEvacuationApplications.updateError',
           })
         }
       })
       .catch((error) => {
         handleApiError(error, {
-          description: t('emergencyEvacuationApplications.updateError'),
+          description: 'emergencyEvacuationApplications.updateError',
         })
       })
   }

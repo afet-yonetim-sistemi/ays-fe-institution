@@ -87,7 +87,7 @@ const Page = ({
       })
       .catch((error) => {
         setError(error.message)
-        handleApiError(error, { description: t('error.userDetailFetch') })
+        handleApiError(error, { description: 'error.userDetailFetch' })
       })
       .finally(() => {
         setIsLoading(false)
@@ -233,13 +233,13 @@ const Page = ({
           fetchDetails()
         } else {
           handleApiError(undefined, {
-            description: t('user.updateError'),
+            description: 'user.updateError',
           })
         }
       })
       .catch((error) => {
         handleApiError(error, {
-          description: t('user.updateError'),
+          description: 'user.updateError',
         })
       })
   }
@@ -260,7 +260,7 @@ const Page = ({
             })
           }
         } else {
-          handleApiError(undefined, { description: t('error.default') })
+          handleApiError(undefined, { description: 'error.default' })
         }
       })
       .catch((error) => {
@@ -284,7 +284,7 @@ const Page = ({
             })
           }
         } else {
-          handleApiError(undefined, { description: t('error.default') })
+          handleApiError(undefined, { description: 'error.default' })
         }
       })
       .catch((error) => {

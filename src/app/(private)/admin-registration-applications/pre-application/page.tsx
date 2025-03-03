@@ -63,7 +63,7 @@ const Page = (): JSX.Element => {
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch((error) => {
-        handleApiError(error, { description: t('error.preApplication') })
+        handleApiError(error, { description: 'error.preApplication' })
       })
       .finally(() => setIsLoading(false))
   }
