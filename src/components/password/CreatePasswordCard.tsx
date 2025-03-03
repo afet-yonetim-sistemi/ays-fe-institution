@@ -52,14 +52,14 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
       .resetPassword(values, id)
       .then(() => {
         toast({
-          title: t('success'),
-          description: t('passwordSuccess'),
+          title: 'success',
+          description: 'passwordSuccess',
           variant: 'success',
         })
       })
       .catch((error) => {
         handleApiError(error, {
-          description: t('error.passwordRequestInvalidOrExpired'),
+          description: 'error.passwordRequestInvalidOrExpired',
         })
       })
       .finally(() => {
