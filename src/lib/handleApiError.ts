@@ -1,19 +1,16 @@
 import { toast } from '@/components/ui/use-toast'
-import i18n from '@/i18n'
 import { AxiosError } from 'axios'
 
 export const handleApiError = (
   error?: AxiosError,
   customMessage?: { title?: string; description?: string }
 ): void => {
-  const { t } = i18n
-
-  let title = customMessage?.title ?? t('common.error')
-  let description = customMessage?.description ?? t('error.default')
+  let title = customMessage?.title ?? 'common.error'
+  let description = customMessage?.description ?? 'error.default'
 
   if (error?.response?.status === 429) {
-    title = t('common.error')
-    description = t('error.tooManyRequest')
+    title = 'common.error'
+    description = 'error.tooManyRequest'
   }
 
   toast({
