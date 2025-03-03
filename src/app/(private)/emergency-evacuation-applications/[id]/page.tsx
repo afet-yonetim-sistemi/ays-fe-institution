@@ -21,8 +21,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { toast } from '@/components/ui/use-toast'
 import { Permission } from '@/constants/permissions'
+import { toast } from '@/hooks/useToast'
 import {
   formatDateTime,
   formatPhoneNumber,

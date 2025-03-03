@@ -28,8 +28,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useToast } from '@/components/ui/use-toast'
 import { cityList } from '@/constants/trCity'
+import { useToast } from '@/hooks/useToast'
 import { handleApiError } from '@/lib/handleApiError'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {

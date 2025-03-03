@@ -1,7 +1,7 @@
 'use client'
 
-import { Input } from '@/components/ui/input'
-import { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import ButtonDialog from '@/components/ui/button-dialog'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
@@ -11,12 +11,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
-import { Button } from '@/components/ui/button'
-import ButtonDialog from '@/components/ui/button-dialog'
 import {
   Select,
   SelectContent,
@@ -25,9 +21,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
-import { useToast } from '@/components/ui/use-toast'
 import { Permission } from '@/constants/permissions'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
+import { useToast } from '@/hooks/useToast'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
 import { handleApiError } from '@/lib/handleApiError'
 import { selectPermissions } from '@/modules/auth/authSlice'
@@ -42,7 +38,11 @@ import {
   updateUser,
 } from '@/modules/users/service'
 import { useAppSelector } from '@/store/hooks'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 const Page = ({
   params,

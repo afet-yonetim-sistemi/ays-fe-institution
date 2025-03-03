@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,15 +8,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useTranslation } from 'react-i18next'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { toast } from '@/components/ui/use-toast'
-import passwordService from '@/modules/password/service'
-import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
+import { useToast } from '@/hooks/useToast'
 import { handleApiError } from '@/lib/handleApiError'
+import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
+import passwordService from '@/modules/password/service'
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface ForgotPasswordModalProps {
   loginEmail?: string
@@ -28,6 +28,8 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   disabled,
 }) => {
   const { t } = useTranslation()
+  const { toast } = useToast()
+
   const [email, setEmail] = useState<string>(loginEmail ?? '')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)

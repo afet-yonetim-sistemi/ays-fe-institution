@@ -1,4 +1,4 @@
-import { toast } from '@/components/ui/use-toast'
+import { toast } from '@/hooks/useToast'
 import { AxiosError } from 'axios'
 
 export const handleApiError = (
