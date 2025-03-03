@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
@@ -525,19 +526,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       <FormItem className="sm:col-span-1">
                         <FormLabel>{t('name')}</FormLabel>
                         <FormControl>
-                          <>
-                            <Input
-                              {...field}
-                              disabled={!isRoleEditable}
-                              defaultValue={roleDetail.name ?? ''}
-                            />
-                            {form.formState.errors.name && (
-                              <p className="text-red-500 text-sm">
-                                {form.formState.errors.name.message as string}
-                              </p>
-                            )}
-                          </>
+                          <Input
+                            {...field}
+                            disabled={!isRoleEditable}
+                            defaultValue={roleDetail.name ?? ''}
+                          />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />

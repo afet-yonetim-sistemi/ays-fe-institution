@@ -1,4 +1,3 @@
-import { t } from 'i18next'
 import { z } from 'zod'
 import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 
@@ -13,17 +12,14 @@ const EmergencyEvacuationApplicationSchema = z.object({
   address: z.string(),
   seatingCount: z
     .number({
-      invalid_type_error: t(
-        'emergencyEvacuationApplications.seatingCountinvalidType'
-      ),
+      invalid_type_error:
+        'emergencyEvacuationApplications.seatingCountinvalidType',
     })
     .int({
-      message: t('seatingCountValidationMessage', {
-        field: 3,
-      }),
+      message: 'seatingCountValidationMessage',
     })
-    .min(1, { message: t('seatingCountValidationMessage', { field: 3 }) })
-    .max(999, { message: t('seatingCountValidationMessage', { field: 3 }) }),
+    .min(1, { message: 'minLength' })
+    .max(999, { message: 'maxLength' }),
   targetCity: z.string(),
   targetDistrict: z.string(),
   status: z.string(),
@@ -34,16 +30,12 @@ const EmergencyEvacuationApplicationSchema = z.object({
   hasObstaclePersonExist: z.boolean().default(false).optional(),
   notes: z
     .string()
-    .max(1000, { message: t('maxLength', { field: 1000 }) })
+    .max(1000, { message: 'maxLength' })
     .refine((value) => !/^\s/.test(value), {
-      message: t('cantStartOrEndWithWhitespace', {
-        field: t('emergencyEvacuationApplications.notes'),
-      }),
+      message: 'cantStartOrEndWithWhitespace',
     })
     .refine((value) => !/\s$/.test(value), {
-      message: t('cantStartOrEndWithWhitespace', {
-        field: t('emergencyEvacuationApplications.notes'),
-      }),
+      message: 'cantStartOrEndWithWhitespace',
     })
     .optional(),
   createdUser: z.string(),

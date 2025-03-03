@@ -1,11 +1,10 @@
-import { z } from 'zod'
-import i18n from '@/i18n'
-import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
-import { emailRegex } from '@/constants/regex'
 import {
   PasswordSchema,
   PhoneNumberSchema,
 } from '@/constants/formValidationSchema'
+import { emailRegex } from '@/constants/regex'
+import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
+import { z } from 'zod'
 
 const UserSchema = z.object({
   id: z.string(),
@@ -36,47 +35,35 @@ const AdminRegistrationApplicationSchema = z.object({
 
 export const PreApplicationFormSchema = z.object({
   institutionId: z.string().min(1, {
-    message: i18n.t('requiredField', {
-      field: i18n.t('institution'),
-    }),
+    message: 'requiredField',
   }),
   reason: z
     .string()
     .trim()
-    .min(40, {
-      message: i18n.t('minLength', { field: 40 }),
-    })
-    .max(512, {
-      message: i18n.t('maxLength', { field: 512 }),
-    })
+    .min(40, { message: 'minLength' })
+    .max(512, { message: 'maxLength' })
     .refine((value) => !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`]/.test(value), {
-      message: i18n.t('notSpecialCharacters'),
+      message: 'notSpecialCharacters',
     })
     .refine((value) => /\D/.test(value), {
-      message: i18n.t('notOnlyNumbers'),
+      message: 'notOnlyNumbers',
     }),
 })
 
 export const FormValidationSchema = AdminRegistrationApplicationSchema
 
 export const InstitutionFormSchema = z.object({
-  firstName: nameboxWithLengthValidation('firstName', 2, 100),
-  lastName: nameboxWithLengthValidation('lastName', 2, 100),
+  firstName: nameboxWithLengthValidation(2, 100),
+  lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: i18n.t('requiredField', {
-        field: i18n.t('emailAddress'),
-      }),
+      required_error: 'requiredField',
     })
-    .regex(emailRegex, i18n.t('invalidEmail'))
-    .min(6, {
-      message: i18n.t('minLength', { field: 6 }),
-    })
-    .max(254, {
-      message: i18n.t('maxLength', { field: 254 }),
-    }),
+    .min(6, { message: 'minLength' })
+    .max(254, { message: 'maxLength' })
+    .regex(emailRegex, { message: 'invalidEmail' }),
   city: z.string({
-    required_error: i18n.t('requiredField', { field: i18n.t('city') }),
+    required_error: 'requiredField',
   }),
   password: PasswordSchema,
   phoneNumber: PhoneNumberSchema,
