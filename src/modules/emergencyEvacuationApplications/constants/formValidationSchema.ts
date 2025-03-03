@@ -18,8 +18,8 @@ const EmergencyEvacuationApplicationSchema = z.object({
     .int({
       message: 'seatingCountValidationMessage',
     })
-    .min(1, { message: 'minLength' })
-    .max(999, { message: 'maxLength' }),
+    .min(1, { message: 'seatingCountValidationMessage' })
+    .max(999, { message: 'seatingCountValidationMessage' }),
   targetCity: z.string(),
   targetDistrict: z.string(),
   status: z.string(),
