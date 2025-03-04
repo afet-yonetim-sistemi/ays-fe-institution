@@ -6,13 +6,15 @@
     "cancel": "Cancel",
     "save": "Save",
     "delete": "Delete",
-    "error": "Error",
     "city": "City",
     "createdAt": "Created At",
     "updatedAt": "Updated At",
     "activate": "Activate",
     "deactivate": "Deactivate",
-    "defaultError": "An error occurred. Please try again later."
+    "error": {
+      "defaultTitle": "Error",
+      "defaultDescription": "An error occurred. Please try again later."
+    }
   },
   "error": {
     "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again",

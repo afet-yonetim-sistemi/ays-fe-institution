@@ -6,13 +6,15 @@
     "cancel": "İptal",
     "save": "Kaydet",
     "delete": "Sil",
-    "error": "Hata",
     "city": "Şehir",
     "createdAt": "Oluşturulma Tarihi",
     "updatedAt": "Güncellenme Tarihi",
     "activate": "Aktifleştir",
     "deactivate": "Pasifleştir",
-    "defaultError": "Bir hata oluştu. Lütfen tekrar deneyin"
+    "error": {
+      "defaultTitle": "Hata",
+      "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyin."
+    }
   },
   "error": {
     "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyin",
