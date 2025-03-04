@@ -8,7 +8,7 @@ import {
   ToastTitle,
   ToastViewport,
 } from '@/components/ui/toast'
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '@/hooks/useToast'
 import { useTranslation } from 'react-i18next'
 
 export function Toaster(): JSX.Element {

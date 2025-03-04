@@ -17,7 +17,6 @@ import {
 } from '@/components/ui/form'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { useToast } from '@/components/ui/use-toast'
 import { handleApiError } from '@/lib/handleApiError'
 import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
@@ -30,6 +29,7 @@ import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 import LanguageToggle from '../dashboard/languageToggle'
 import { ModeToggle } from '../dashboard/modeToggle'
+import { useToast } from '@/hooks/useToast'
 
 const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
   const { t } = useTranslation()

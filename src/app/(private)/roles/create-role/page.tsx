@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
@@ -11,7 +11,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
+import { useToast } from '@/hooks/useToast'
 import { handleApiError } from '@/lib/handleApiError'
 import {
   getLocalizedCategory,
@@ -20,13 +21,12 @@ import {
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import { CreateRoleSchema } from '@/modules/roles/constants/formValidationSchema'
 import { RolePermission } from '@/modules/roles/constants/types'
-import { getPermissions, createRole } from '@/modules/roles/service'
+import { createRole, getPermissions } from '@/modules/roles/service'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Switch } from '@/components/ui/switch'
-import { useToast } from '@/components/ui/use-toast'
-import { useRouter } from 'next/navigation'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()

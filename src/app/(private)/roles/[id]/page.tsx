@@ -14,8 +14,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
-import { useToast } from '@/components/ui/use-toast'
 import { Permission } from '@/constants/permissions'
+import { useToast } from '@/hooks/useToast'
 import { formatDateTime } from '@/lib/dataFormatters'
 import { handleApiError } from '@/lib/handleApiError'
 import {
