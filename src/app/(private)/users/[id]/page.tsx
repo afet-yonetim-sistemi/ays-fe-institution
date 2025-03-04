@@ -25,7 +25,7 @@ import { Permission } from '@/constants/permissions'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { userStatuses } from '@/modules/users/constants/statuses'
@@ -87,7 +87,7 @@ const Page = ({
       })
       .catch((error) => {
         setError(error.message)
-        handleApiError(error, { description: 'error.userDetailFetch' })
+        handleErrorToast(error, { description: 'error.userDetailFetch' })
       })
       .finally(() => {
         setIsLoading(false)
@@ -204,7 +204,7 @@ const Page = ({
     })
 
     if (!isChanged) {
-      handleApiError(undefined, { description: 'user.noChangesError' })
+      handleErrorToast(undefined, { description: 'user.noChangesError' })
       return
     }
 
@@ -228,13 +228,13 @@ const Page = ({
           setIsUserEditable(false)
           fetchDetails()
         } else {
-          handleApiError(undefined, {
+          handleErrorToast(undefined, {
             description: 'user.updateError',
           })
         }
       })
       .catch((error) => {
-        handleApiError(error, {
+        handleErrorToast(error, {
           description: 'user.updateError',
         })
       })
@@ -256,11 +256,11 @@ const Page = ({
             })
           }
         } else {
-          handleApiError()
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -280,11 +280,11 @@ const Page = ({
             })
           }
         } else {
-          handleApiError()
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -299,11 +299,11 @@ const Page = ({
           })
           router.push('/users')
         } else {
-          handleApiError()
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 

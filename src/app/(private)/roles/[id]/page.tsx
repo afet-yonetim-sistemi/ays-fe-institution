@@ -17,7 +17,7 @@ import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
@@ -90,7 +90,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         }))
       })
       .catch((error) => {
-        handleApiError(error, { description: 'permissions.error' })
+        handleErrorToast(error, { description: 'permissions.error' })
         return []
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -214,7 +214,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
         })
         .catch((error) => {
-          handleApiError(error, { description: 'role.error' })
+          handleErrorToast(error, { description: 'role.error' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -319,7 +319,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     )
 
     if (!isNameChanged && !isPermissionsChanged) {
-      handleApiError(undefined, { description: 'role.noChangesError' })
+      handleErrorToast(undefined, { description: 'role.noChangesError' })
       setIsRoleEditable(false)
       return
     }
@@ -347,11 +347,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           setIsRoleEditable(false)
         } else {
-          handleApiError(undefined, { description: 'role.updateError' })
+          handleErrorToast(undefined, { description: 'role.updateError' })
         }
       })
       .catch((error) => {
-        handleApiError(error, { description: 'role.updateError' })
+        handleErrorToast(error, { description: 'role.updateError' })
       })
   }
 
@@ -366,11 +366,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           router.push('/roles')
         } else {
-          handleApiError()
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -397,11 +397,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           refreshRoleStatus('active')
         } else {
-          handleApiError()
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -416,11 +416,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           refreshRoleStatus('passive')
         } else {
-          handleApiError()
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 

@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/form'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -58,7 +58,7 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
         })
       })
       .catch((error) => {
-        handleApiError(error, {
+        handleErrorToast(error, {
           description: 'error.passwordRequestInvalidOrExpired',
         })
       })

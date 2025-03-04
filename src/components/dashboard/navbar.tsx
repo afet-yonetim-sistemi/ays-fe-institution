@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { parseJwt } from '@/lib/helpers'
 import { selectRefreshToken, selectToken } from '@/modules/auth/authSlice'
 import authService from '@/modules/auth/service'
@@ -41,7 +41,7 @@ function Navbar(): JSX.Element {
         router.push('/login')
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
   return (

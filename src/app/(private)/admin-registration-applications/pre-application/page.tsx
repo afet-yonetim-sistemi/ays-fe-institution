@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   approveAdminRegistrationApplication,
@@ -63,7 +63,7 @@ const Page = (): JSX.Element => {
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch((error) => {
-        handleApiError(error, { description: 'error.preApplication' })
+        handleErrorToast(error, { description: 'error.preApplication' })
       })
       .finally(() => setIsLoading(false))
   }
@@ -75,7 +75,7 @@ const Page = (): JSX.Element => {
         setInstitutionSummary(summaryData)
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
       .finally(() => setIsLoading(false))
   }, [])

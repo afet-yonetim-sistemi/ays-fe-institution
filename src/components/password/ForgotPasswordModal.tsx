@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
 import React, { useEffect, useState } from 'react'
@@ -59,7 +59,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
         })
       })
       .catch((error) => {
-        handleApiError(error, {
+        handleErrorToast(error, {
           description: 'error.invalidEmailForgotPassword',
         })
       })

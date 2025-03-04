@@ -28,7 +28,7 @@ import {
   formatPhoneNumber,
   formatReferenceNumber,
 } from '@/lib/dataFormatters'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
@@ -93,7 +93,7 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          handleApiError(error, { description: 'error.application' })
+          handleErrorToast(error, { description: 'error.application' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -141,7 +141,7 @@ const Page = ({
     })
 
     if (!isChanged) {
-      handleApiError(undefined, {
+      handleErrorToast(undefined, {
         description: 'emergencyEvacuationApplications.noChangesError',
       })
       return
@@ -165,13 +165,13 @@ const Page = ({
           })
           setIsEmergencyApplicationEditable(false)
         } else {
-          handleApiError(undefined, {
+          handleErrorToast(undefined, {
             description: 'emergencyEvacuationApplications.updateError',
           })
         }
       })
       .catch((error) => {
-        handleApiError(error, {
+        handleErrorToast(error, {
           description: 'emergencyEvacuationApplications.updateError',
         })
       })

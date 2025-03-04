@@ -12,7 +12,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { Permission } from '@/constants/permissions'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 
 const Menu = (): JSX.Element => {
   const pathname = usePathname()
@@ -55,7 +55,7 @@ const Menu = (): JSX.Element => {
         })
         .catch((error) => {
           setIsLoading(false)
-          handleApiError(error)
+          handleErrorToast(error)
         })
     }
 

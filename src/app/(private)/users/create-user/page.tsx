@@ -15,7 +15,7 @@ import { PhoneInput } from '@/components/ui/phone-input'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { CreateUserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { createUser } from '@/modules/users/service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -86,7 +86,7 @@ const Page = (): JSX.Element => {
         router.push('/users')
       })
       .catch((error) => {
-        handleApiError(error, { description: 'user.createError' })
+        handleErrorToast(error, { description: 'user.createError' })
       })
   }
 

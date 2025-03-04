@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/select'
 import { cityList } from '@/constants/trCity'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   getAdminRegistrationApplicationSummary,
@@ -87,7 +87,7 @@ const Page = ({
         router.push('/login')
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
       .finally(() => {
         setIsLoading(false)

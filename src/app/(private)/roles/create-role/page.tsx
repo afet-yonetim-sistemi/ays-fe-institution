@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
@@ -64,7 +64,7 @@ const Page = (): JSX.Element => {
         setFetchedRolePermissions(permissions)
       })
       .catch((error) => {
-        handleApiError(error, { description: 'permissions.error' })
+        handleErrorToast(error, { description: 'permissions.error' })
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -158,7 +158,7 @@ const Page = (): JSX.Element => {
         router.push('/roles')
       })
       .catch((error) => {
-        handleApiError(error, { description: 'role.createError' })
+        handleErrorToast(error, { description: 'role.createError' })
       })
   }
 
