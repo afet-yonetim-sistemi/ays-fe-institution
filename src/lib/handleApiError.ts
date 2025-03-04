@@ -6,7 +6,7 @@ export const handleApiError = (
   customMessage?: { title?: string; description?: string }
 ): void => {
   let title = customMessage?.title ?? 'common.error'
-  let description = customMessage?.description ?? 'error.default'
+  let description = customMessage?.description ?? 'common.defaultError'
 
   if (error?.response?.status === 429) {
     title = 'common.error'

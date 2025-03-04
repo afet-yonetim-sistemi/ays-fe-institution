@@ -370,11 +370,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           router.push('/roles')
         } else {
-          toast({
-            title: 'common.error',
-            description: 'error.default',
-            variant: 'destructive',
-          })
+          handleApiError()
         }
       })
       .catch((error) => {
@@ -405,7 +401,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           refreshRoleStatus('active')
         } else {
-          handleApiError(undefined, { description: 'error.default' })
+          handleApiError()
         }
       })
       .catch((error) => {
@@ -424,7 +420,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           })
           refreshRoleStatus('passive')
         } else {
-          handleApiError(undefined, { description: 'error.default' })
+          handleApiError()
         }
       })
       .catch((error) => {

@@ -1,9 +1,4 @@
 {
-  "theme": {
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
-  },
   "common": {
     "AYS": "Disaster Management System",
     "create": "Create",
@@ -16,10 +11,10 @@
     "createdAt": "Created At",
     "updatedAt": "Updated At",
     "activate": "Activate",
-    "deactivate": "Deactivate"
+    "deactivate": "Deactivate",
+    "defaultError": "An error occurred. Please try again later."
   },
   "error": {
-    "default": "An error occurred. Please try again later.",
     "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again",
     "application": "Error while fetching application details. Please try again",
     "userDetailFetch": "Error while fetching user details. Please try again",

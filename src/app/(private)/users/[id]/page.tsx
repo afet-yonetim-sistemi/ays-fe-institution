@@ -260,7 +260,7 @@ const Page = ({
             })
           }
         } else {
-          handleApiError(undefined, { description: 'error.default' })
+          handleApiError()
         }
       })
       .catch((error) => {
@@ -284,7 +284,7 @@ const Page = ({
             })
           }
         } else {
-          handleApiError(undefined, { description: 'error.default' })
+          handleApiError()
         }
       })
       .catch((error) => {
@@ -303,11 +303,7 @@ const Page = ({
           })
           router.push('/users')
         } else {
-          toast({
-            title: 'common.error',
-            description: 'error.default',
-            variant: 'destructive',
-          })
+          handleApiError()
         }
       })
       .catch((error) => {
