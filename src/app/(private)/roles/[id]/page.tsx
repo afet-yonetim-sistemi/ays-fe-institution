@@ -319,11 +319,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     )
 
     if (!isNameChanged && !isPermissionsChanged) {
-      toast({
-        title: 'common.error',
-        description: 'role.noChangesError',
-        variant: 'destructive',
-      })
+      handleApiError(undefined, { description: 'role.noChangesError' })
       setIsRoleEditable(false)
       return
     }

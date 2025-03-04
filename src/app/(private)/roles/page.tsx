@@ -13,7 +13,6 @@ import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
-import { toast } from '@/hooks/useToast'
 import { handleApiError } from '@/lib/handleApiError'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, Role } from '@/modules/roles/components/columns'
@@ -132,13 +131,11 @@ const Page = (): JSX.Element => {
 
   useEffect(() => {
     const result = getStringFilterValidation().safeParse(filters.name)
+
     if (filters.name && !result.success) {
-      const errorMessage = result.error.errors[0]?.message || 'common.error'
-      toast({
-        title: 'common.error',
-        description: errorMessage,
-        variant: 'destructive',
-      })
+      const errorMessage = result.error.errors[0]?.message
+
+      handleApiError(undefined, { description: errorMessage })
       return
     }
     fetchData(filters)

@@ -14,7 +14,6 @@ import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
-import { toast } from '@/hooks/useToast'
 import { handleApiError } from '@/lib/handleApiError'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns } from '@/modules/emergencyEvacuationApplications/components/columns'
@@ -228,13 +227,9 @@ const Page = (): JSX.Element => {
         const result = getStringFilterValidation().safeParse(value)
 
         if (!result.success) {
-          const errorMessage = result.error.errors[0]?.message || 'common.error'
+          const errorMessage = result.error.errors[0]?.message
 
-          toast({
-            title: 'common.error',
-            description: errorMessage,
-            variant: 'destructive',
-          })
+          handleApiError(undefined, { description: errorMessage })
           return
         }
       }

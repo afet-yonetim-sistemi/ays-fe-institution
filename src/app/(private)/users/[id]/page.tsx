@@ -204,11 +204,7 @@ const Page = ({
     })
 
     if (!isChanged) {
-      toast({
-        title: 'common.error',
-        description: 'user.noChangesError',
-        variant: 'destructive',
-      })
+      handleApiError(undefined, { description: 'user.noChangesError' })
       return
     }
 

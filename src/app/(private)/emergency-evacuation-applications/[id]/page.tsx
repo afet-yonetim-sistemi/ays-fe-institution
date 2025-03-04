@@ -141,10 +141,8 @@ const Page = ({
     })
 
     if (!isChanged) {
-      toast({
-        title: 'common.error',
+      handleApiError(undefined, {
         description: 'emergencyEvacuationApplications.noChangesError',
-        variant: 'destructive',
       })
       return
     }
