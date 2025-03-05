@@ -70,14 +70,14 @@
     "title": "Roller"
   },
   "status": {
-    "title": "Durum"
+    "title": "Durum",
+    "waiting": "Beklemede",
+    "completed": "Tamamlandı",
+    "rejected": "Reddedildi"
   },
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
   "adminRegistrationDescription": "Lütfen bilgilerinizi girerek Kayıt Başvurunuzu tamamlayınız.",
-  "waiting": "Beklemede",
-  "completed": "Tamamlandı",
-  "rejected": "Reddedildi",
   "approved": "Onaylandı",
   "notVerified": "Doğrulanmadı",
   "active": "Aktif",

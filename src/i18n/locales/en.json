@@ -70,14 +70,14 @@
     "title": "Roles"
   },
   "status": {
-    "title": "Status"
+    "title": "Status",
+    "waiting": "Waiting",
+    "completed": "Completed",
+    "rejected": "Rejected"
   },
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
   "adminRegistrationDescription": "Please complete your Registration Application by entering your information.",
-  "waiting": "Waiting",
-  "completed": "Completed",
-  "rejected": "Rejected",
   "approved": "Approved",
   "notVerified": "Not Verified",
   "active": "Active",
