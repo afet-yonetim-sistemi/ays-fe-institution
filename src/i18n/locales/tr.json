@@ -58,7 +58,8 @@
       "button": "Şifre Oluştur",
       "repeat": "Şifre Tekrar",
       "error": "Şifre sıfırlama isteğiniz geçersiz veya süresi dolmuş.",
-      "success": "Yeni şifreniz başarıyla oluşturuldu. Giriş sayfasına yönlendiriliyorsunuz."
+      "success": "Yeni şifreniz başarıyla oluşturuldu. Giriş sayfasına yönlendiriliyorsunuz.",
+      "mismatch": "Şifreler uyuşmuyor"
     }
   },
   "notValidNamebox": "Geçersiz girdi",
@@ -88,7 +89,6 @@
   "noResult": "Sonuç Yok...",
   "success": "Başarılı",
   "username": "Kullanıcı Adı",
-  "passwordMismatch": "Şifreler uyuşmuyor",
   "logout": "Çıkış Yap",
   "completeRegister": "Kaydı Tamamla",
   "requiredField": "Bu alan alanı zorunludur.",

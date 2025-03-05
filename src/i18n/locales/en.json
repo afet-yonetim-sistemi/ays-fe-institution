@@ -58,7 +58,8 @@
       "button": "Create Password",
       "repeat": "Password Repeat",
       "error": "Your password reset request is invalid or has expired.",
-      "success": "Your new password has been successfully created. You are being redirected to the login page."
+      "success": "Your new password has been successfully created. You are being redirected to the login page.",
+      "mismatch": "Passwords do not match"
     }
   },
   "notValidNamebox": "This field is not valid",
@@ -90,7 +91,6 @@
   "username": "Username",
   "firstName": "First Name",
   "lastName": "Last Name",
-  "passwordMismatch": "Passwords do not match",
   "logout": "Logout",
   "completeRegister": "Complete Registration",
   "requiredField": "This field is required.",
