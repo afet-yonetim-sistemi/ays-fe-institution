@@ -84,7 +84,6 @@
   "passwordMismatch": "Şifreler uyuşmuyor",
   "passwordSuccess": "Yeni şifre başarıyla oluşturuldu , giriş sayfasına yönlendiriliyorsunuz",
   "createPassword": "Şifre Oluştur",
-  "forgotPassword": "Şifrenizi mi unuttunuz?",
   "resetPasswordEmailSent": "Şifre sıfırlama bağlantısını içeren e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol edin.",
   "forgotPasswordInstruction": "Lütfen hesabınıza ait doğrulanmış email adresinizi kullanın. Size şifre oluşturmanız için bir link ileteceğiz.",
   "send": "Gönder",
