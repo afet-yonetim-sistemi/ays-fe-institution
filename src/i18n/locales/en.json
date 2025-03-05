@@ -50,7 +50,8 @@
     "forgot": {
       "title": "Forgot password",
       "description": "Please use the verified email address associated with your account. We will send you a link to create a new password.",
-      "error": "No account is registered with this email. Please check and try again."
+      "error": "No account is registered with this email. Please check and try again.",
+      "success": "The password reset link has been sent to your email address. Please check your inbox."
     }
   },
   "notValidNamebox": "This field is not valid",
@@ -87,7 +88,6 @@
   "passwordMismatch": "Passwords do not match",
   "passwordSuccess": "Your new password has been successfully created. You are being redirected to the login page.",
   "createPassword": "Create Password",
-  "resetPasswordEmailSent": "A password reset link has been sent to the provided email address. Please check your inbox.",
   "passwordTitle": "Create Your Password",
   "send": "Send",
   "logout": "Logout",

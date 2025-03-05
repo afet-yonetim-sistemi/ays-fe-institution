@@ -50,7 +50,8 @@
     "forgot": {
       "title": "Şifrenizi mi unuttunuz?",
       "description": "Lütfen hesabınıza kayıtlı doğrulanmış eposta adresinizi kullanınız. Size şifre oluşturmanız için size bir bağlantı ileteceğiz.",
-      "error": "Bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen kontrol edip tekrar deneyiniz."
+      "error": "Bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen kontrol edip tekrar deneyiniz.",
+      "success": "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol ediniz."
     }
   },
   "notValidNamebox": "Geçersiz girdi",
@@ -86,7 +87,6 @@
   "passwordMismatch": "Şifreler uyuşmuyor",
   "passwordSuccess": "Yeni şifre başarıyla oluşturuldu , giriş sayfasına yönlendiriliyorsunuz",
   "createPassword": "Şifre Oluştur",
-  "resetPasswordEmailSent": "Şifre sıfırlama bağlantısını içeren e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol edin.",
   "logout": "Çıkış Yap",
   "completeRegister": "Kaydı Tamamla",
   "requiredField": "Bu alan alanı zorunludur.",
