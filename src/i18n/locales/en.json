@@ -22,6 +22,9 @@
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
       "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again"
+    },
+    "validation": {
+      "invalid": "This field is not valid"
     }
   },
   "metaData": {
@@ -65,7 +68,6 @@
   "roles": {
     "title": "Roles"
   },
-  "notValidNamebox": "This field is not valid",
   "cantStartOrEndWithWhitespace": "This field cannot start or end with space character",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",

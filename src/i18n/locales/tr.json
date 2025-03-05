@@ -22,6 +22,9 @@
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
       "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz."
+    },
+    "validation": {
+      "invalid": "Geçersiz girdi"
     }
   },
   "metaData": {
@@ -65,7 +68,6 @@
   "roles": {
     "title": "Roller"
   },
-  "notValidNamebox": "Geçersiz girdi",
   "cantStartOrEndWithWhitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",

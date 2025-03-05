@@ -16,5 +16,5 @@ export const nameboxWithLengthValidation = (
     .min(minLength, { message: 'minLength' })
     .max(maxLength, { message: 'maxLength' })
     .refine(nameboxValidation, {
-      message: 'notValidNamebox',
+      message: 'common.validation.invalid',
     })
