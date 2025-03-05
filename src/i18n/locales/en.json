@@ -12,6 +12,7 @@
     "activate": "Activate",
     "deactivate": "Deactivate",
     "home": "Home",
+    "welcome": "Welcome",
     "error": {
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
@@ -32,7 +33,6 @@
   "cantStartOrEndWithWhitespace": "This field cannot start or end with space character",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
-  "welcome": "Welcome",
   "notFound": "Page not found.",
   "loginDescription": "Please enter your E-mail and Password.",
   "passwordDescription": "Please create a new password. Must be between 8 and 128 characters in length.",

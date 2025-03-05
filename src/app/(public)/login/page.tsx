@@ -82,7 +82,7 @@ const Page = (): JSX.Element => {
             width={100}
             height={100}
           />
-          <CardTitle>{t('welcome')}</CardTitle>
+          <CardTitle>{t('common.welcome')}</CardTitle>
           <CardDescription>{t('loginDescription')}</CardDescription>
         </CardHeader>
         <CardHeader>

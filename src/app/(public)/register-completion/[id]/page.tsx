@@ -111,7 +111,7 @@ const Page = ({
                 width={100}
                 height={100}
               />
-              <CardTitle> {t('welcome')} </CardTitle>
+              <CardTitle> {t('common.welcome')} </CardTitle>
               <CardDescription className="text-center">
                 {t('adminRegistrationDescription')}
               </CardDescription>

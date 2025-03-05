@@ -12,6 +12,7 @@
     "activate": "Aktifleştir",
     "deactivate": "Pasifleştir",
     "home": "Ana Sayfa",
+    "welcome": "Hoş Geldiniz",
     "error": {
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyin.",
@@ -32,7 +33,6 @@
   "cantStartOrEndWithWhitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
-  "welcome": "Hoş Geldiniz",
   "notFound": "Aradığınız Sayfa Bulunamadı.",
   "loginDescription": "Lütfen E-postanızı ve Şifrenizi giriniz.",
   "passwordDescription": "Lütfen yeni bir şifre oluşturun. Şifre uzunluğu 8 ile 128 karakter arasında olmalıdır.",
