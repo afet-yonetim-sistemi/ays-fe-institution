@@ -24,7 +24,8 @@
       "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz."
     },
     "validation": {
-      "invalid": "Geçersiz girdi"
+      "invalid": "Geçersiz girdi",
+      "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez"
     }
   },
   "metaData": {
@@ -68,11 +69,12 @@
   "roles": {
     "title": "Roller"
   },
-  "cantStartOrEndWithWhitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
+  "status": {
+    "title": "Durum"
+  },
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
   "adminRegistrationDescription": "Lütfen bilgilerinizi girerek Kayıt Başvurunuzu tamamlayınız.",
-  "status": "Durum",
   "waiting": "Beklemede",
   "completed": "Tamamlandı",
   "rejected": "Reddedildi",
