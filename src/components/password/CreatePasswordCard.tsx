@@ -115,10 +115,10 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
                 disabled={loading}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('passwordRepeat')}</FormLabel>
+                    <FormLabel>{t('password.create.repeat')}</FormLabel>
                     <FormControl>
                       <PasswordInput
-                        placeholder={t('passwordRepeat')}
+                        placeholder={t('password.create.repeat')}
                         {...field}
                       />
                     </FormControl>

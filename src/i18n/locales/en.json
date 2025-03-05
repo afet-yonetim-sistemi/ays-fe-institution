@@ -56,6 +56,7 @@
       "title": "Create Your Password",
       "description": "Please create a new password. The password must be between 8 and 128 characters in length.",
       "button": "Create Password",
+      "repeat": "Password Repeat",
       "error": "Your password reset request is invalid or has expired.",
       "success": "Your new password has been successfully created. You are being redirected to the login page."
     }
@@ -89,7 +90,6 @@
   "username": "Username",
   "firstName": "First Name",
   "lastName": "Last Name",
-  "passwordRepeat": "Password Repeat",
   "passwordMismatch": "Passwords do not match",
   "logout": "Logout",
   "completeRegister": "Complete Registration",
