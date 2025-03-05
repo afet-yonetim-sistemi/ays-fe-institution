@@ -83,8 +83,8 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
             width={100}
             height={100}
           />
-          <CardTitle>{t('passwordTitle')}</CardTitle>
-          <CardDescription>{t('passwordDescription')}</CardDescription>
+          <CardTitle>{t('password.create.title')}</CardTitle>
+          <CardDescription>{t('password.create.description')}</CardDescription>
         </CardHeader>
         <CardHeader>
           <Form {...passwordForm}>

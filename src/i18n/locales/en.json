@@ -53,6 +53,8 @@
       "success": "The password reset link has been sent to your email address. Please check your inbox."
     },
     "create": {
+      "title": "Create Your Password",
+      "description": "Please create a new password. The password must be between 8 and 128 characters in length.",
       "error": "Your password reset request is invalid or has expired.",
       "success": "Your new password has been successfully created. You are being redirected to the login page."
     }
@@ -61,7 +63,6 @@
   "cantStartOrEndWithWhitespace": "This field cannot start or end with space character",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
-  "passwordDescription": "Please create a new password. Must be between 8 and 128 characters in length.",
   "roles": "Roles",
   "adminRegistrationDescription": "Please complete your Registration Application by entering your information.",
   "status": "Status",
@@ -90,7 +91,6 @@
   "passwordRepeat": "Password Repeat",
   "passwordMismatch": "Passwords do not match",
   "createPassword": "Create Password",
-  "passwordTitle": "Create Your Password",
   "send": "Send",
   "logout": "Logout",
   "completeRegister": "Complete Registration",

@@ -53,16 +53,16 @@
       "success": "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol ediniz."
     },
     "create": {
+      "title": "Şifrenizi Oluşturun",
+      "description": "Lütfen yeni bir şifre oluşturunuz. Şifre uzunluğu 8 ile 128 karakter arasında olmalıdır.",
       "error": "Şifre sıfırlama isteğiniz geçersiz veya süresi dolmuş.",
-      "passwordSuccess": "Yeni şifreniz başarıyla oluşturuldu. Giriş sayfasına yönlendiriliyorsunuz."
+      "success": "Yeni şifreniz başarıyla oluşturuldu. Giriş sayfasına yönlendiriliyorsunuz."
     }
   },
   "notValidNamebox": "Geçersiz girdi",
   "cantStartOrEndWithWhitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
-  "passwordDescription": "Lütfen yeni bir şifre oluşturun. Şifre uzunluğu 8 ile 128 karakter arasında olmalıdır.",
-  "passwordTitle": "Şifrenizi Oluşturun",
   "roles": "Roller",
   "adminRegistrationDescription": "Lütfen bilgilerinizi girerek Kayıt Başvurunuzu tamamlayınız.",
   "status": "Durum",
