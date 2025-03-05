@@ -16,5 +16,9 @@ export const adminApplicationRegistrationStatuses: LabeledItem[] = [
     value: 'REJECTED',
     color: 'bg-red-500 text-white',
   },
-  { label: 'approved', value: 'APPROVED', color: 'bg-sky-500 text-white' },
+  {
+    label: 'status.approved',
+    value: 'APPROVED',
+    color: 'bg-sky-500 text-white',
+  },
 ]
