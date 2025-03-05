@@ -500,7 +500,7 @@ const Page = ({
                             disabled
                           >
                             <SelectTrigger>
-                              <SelectValue placeholder={t('status')} />
+                              <SelectValue placeholder={t('status.title')} />
                             </SelectTrigger>
                             <SelectContent>
                               {userStatuses.map((status) => (

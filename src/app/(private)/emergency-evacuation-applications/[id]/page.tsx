@@ -527,7 +527,7 @@ const Page = ({
                             disabled={!isEmergencyApplicationEditable}
                           >
                             <SelectTrigger>
-                              <SelectValue placeholder={t('status')} />
+                              <SelectValue placeholder={t('status.title')} />
                             </SelectTrigger>
                             <SelectContent>
                               {emergencyEvacuationApplicationStatuses.map(
