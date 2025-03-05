@@ -105,7 +105,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
             onClick={handleSubmit}
             disabled={loading || !email}
           >
-            {loading ? <LoadingSpinner /> : t('send')}
+            {loading ? <LoadingSpinner /> : t('common.send')}
           </Button>
         </DialogFooter>
       </DialogContent>
