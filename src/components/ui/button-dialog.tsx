@@ -100,7 +100,7 @@ const ButtonDialog = ({
               className="w-36"
               onClick={handleCancelClick}
             >
-              {cancelText ?? t('no')}
+              {cancelText ?? t('common.no')}
             </Button>
           </DialogClose>
           <TooltipProvider>
@@ -115,7 +115,7 @@ const ButtonDialog = ({
                     reasonText.length > 512
                   }
                 >
-                  {confirmText ?? t('yes')}
+                  {confirmText ?? t('common.yes')}
                 </Button>
               </TooltipTrigger>
               {tooltipText && (

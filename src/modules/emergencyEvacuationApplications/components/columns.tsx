@@ -66,7 +66,8 @@ export const columns: (
     {
       accessorKey: 'isInPerson',
       header: () => i18next.t('isInPerson'),
-      cell: ({ row }) => i18next.t(row.original.isInPerson ? 'yes' : 'no'),
+      cell: ({ row }) =>
+        i18next.t(row.original.isInPerson ? 'common.yes' : 'common.no'),
     },
     {
       accessorKey: 'seatingCount',

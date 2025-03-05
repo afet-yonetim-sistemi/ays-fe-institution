@@ -13,6 +13,8 @@
     "deactivate": "Deactivate",
     "home": "Home",
     "welcome": "Welcome",
+    "yes": "Yes",
+    "no": "No",
     "error": {
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
@@ -94,8 +96,6 @@
   "clearSort": "Clear sort",
   "referenceNumber": "Reference Number",
   "isInPerson": "Is In Person",
-  "yes": "Yes",
-  "no": "No",
   "seatingCount": "Seat Count",
   "sourceCity": "Source City",
   "sourceDistrict": "Source District",

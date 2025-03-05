@@ -13,6 +13,8 @@
     "deactivate": "Pasifleştir",
     "home": "Ana Sayfa",
     "welcome": "Hoş Geldiniz",
+    "yes": "Evet",
+    "no": "Hayır",
     "error": {
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyin.",
@@ -105,8 +107,6 @@
   "applicantFirstName": "Başvuru Yapan Kişinin Adı",
   "applicantLastName": "Başvuru Yapan Kişinin Soyadı",
   "isInPerson": "Bireysel Başvuru",
-  "yes": "Evet",
-  "no": "Hayır",
   "seatingCount": "Koltuk Sayısı",
   "sourceCity": "Tahliye Edilecek Şehir",
   "sourceDistrict": "Tahliye Edilecek İlçe",
