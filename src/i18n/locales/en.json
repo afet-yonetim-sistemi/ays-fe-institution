@@ -38,11 +38,14 @@
   "notFound": {
     "title": "Page not found."
   },
+  "login": {
+    "title": "Login",
+    "description": "Please enter your E-mail and Password."
+  },
   "notValidNamebox": "This field is not valid",
   "cantStartOrEndWithWhitespace": "This field cannot start or end with space character",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
-  "loginDescription": "Please enter your E-mail and Password.",
   "passwordDescription": "Please create a new password. Must be between 8 and 128 characters in length.",
   "roles": "Roles",
   "adminRegistrationDescription": "Please complete your Registration Application by entering your information.",
@@ -74,7 +77,6 @@
   "passwordRepeat": "Password Repeat",
   "passwordMismatch": "Passwords do not match",
   "passwordSuccess": "Your new password has been successfully created. You are being redirected to the login page.",
-  "login": "Login",
   "createPassword": "Create Password",
   "forgotPassword": "Forgot password?",
   "resetPasswordEmailSent": "A password reset link has been sent to the provided email address. Please check your inbox.",

@@ -38,11 +38,14 @@
   "notFound": {
     "title": "Sayfa Bulunamadı."
   },
+  "login": {
+    "title": "Oturum Aç",
+    "description": "Lütfen E-postanızı ve Şifrenizi giriniz."
+  },
   "notValidNamebox": "Geçersiz girdi",
   "cantStartOrEndWithWhitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
-  "loginDescription": "Lütfen E-postanızı ve Şifrenizi giriniz.",
   "passwordDescription": "Lütfen yeni bir şifre oluşturun. Şifre uzunluğu 8 ile 128 karakter arasında olmalıdır.",
   "passwordTitle": "Şifrenizi Oluşturun",
   "roles": "Roller",
@@ -73,7 +76,6 @@
   "passwordRepeat": "Şifre Tekrar",
   "passwordMismatch": "Şifreler uyuşmuyor",
   "passwordSuccess": "Yeni şifre başarıyla oluşturuldu , giriş sayfasına yönlendiriliyorsunuz",
-  "login": "Oturum Aç",
   "createPassword": "Şifre Oluştur",
   "forgotPassword": "Şifrenizi mi unuttunuz?",
   "resetPasswordEmailSent": "Şifre sıfırlama bağlantısını içeren e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol edin.",

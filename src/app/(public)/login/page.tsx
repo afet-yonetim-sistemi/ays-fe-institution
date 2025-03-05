@@ -83,7 +83,7 @@ const Page = (): JSX.Element => {
             height={100}
           />
           <CardTitle>{t('common.welcome')}</CardTitle>
-          <CardDescription>{t('loginDescription')}</CardDescription>
+          <CardDescription>{t('login.description')}</CardDescription>
         </CardHeader>
         <CardHeader>
           <Form {...form}>
@@ -117,7 +117,7 @@ const Page = (): JSX.Element => {
                 )}
               />
               <Button type="submit" disabled={loading} className={'w-full'}>
-                {loading ? <LoadingSpinner /> : t('login')}
+                {loading ? <LoadingSpinner /> : t('login.title')}
               </Button>
               <ForgotPasswordModal
                 disabled={loading}
