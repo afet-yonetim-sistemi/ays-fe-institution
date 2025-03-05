@@ -60,7 +60,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
       })
       .catch((error) => {
         handleErrorToast(error, {
-          description: 'error.invalidEmailForgotPassword',
+          description: 'password.forgot.error',
         })
       })
       .finally(() => {

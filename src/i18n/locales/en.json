@@ -33,7 +33,6 @@
     "roleSummaryFetch": "Error while fetching available roles. Please try again",
     "preApplication": "An error occurred while creating the preliminary application. Please try again.",
     "passwordRequestInvalidOrExpired": "Your password reset request is invalid or has expired.",
-    "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again.",
     "phoneNumberLengthError": "Phone number must be 10 digits long."
   },
   "notFound": {
@@ -49,7 +48,8 @@
   "password": {
     "forgot": {
       "title": "Forgot password",
-      "description": "Please use the verified email address associated with your account. We will send you a link to create a new password."
+      "description": "Please use the verified email address associated with your account. We will send you a link to create a new password.",
+      "error": "No account is registered with this email. Please check and try again."
     }
   },
   "notValidNamebox": "This field is not valid",

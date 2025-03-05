@@ -33,7 +33,6 @@
     "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyi",
     "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin",
     "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş",
-    "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin",
     "phoneNumberLengthError": "Telefon numarası 10 haneli olmalıdır."
   },
   "notFound": {
@@ -49,7 +48,8 @@
   "password": {
     "forgot": {
       "title": "Şifrenizi mi unuttunuz?",
-      "description": "Lütfen hesabınıza kayıtlı doğrulanmış eposta adresinizi kullanınız. Size şifre oluşturmanız için size bir bağlantı ileteceğiz."
+      "description": "Lütfen hesabınıza kayıtlı doğrulanmış eposta adresinizi kullanınız. Size şifre oluşturmanız için size bir bağlantı ileteceğiz.",
+      "error": "Bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen kontrol edip tekrar deneyiniz."
     }
   },
   "notValidNamebox": "Geçersiz girdi",
