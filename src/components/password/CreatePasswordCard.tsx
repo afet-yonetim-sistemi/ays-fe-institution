@@ -127,7 +127,7 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
                 )}
               />
               <Button type="submit" disabled={loading} className={'w-full'}>
-                {loading ? <LoadingSpinner /> : t('createPassword')}
+                {loading ? <LoadingSpinner /> : t('password.create.button')}
               </Button>
             </form>
           </Form>

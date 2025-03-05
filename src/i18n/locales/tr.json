@@ -55,6 +55,7 @@
     "create": {
       "title": "Şifrenizi Oluşturun",
       "description": "Lütfen yeni bir şifre oluşturunuz. Şifre uzunluğu 8 ile 128 karakter arasında olmalıdır.",
+      "button": "Şifre Oluştur",
       "error": "Şifre sıfırlama isteğiniz geçersiz veya süresi dolmuş.",
       "success": "Yeni şifreniz başarıyla oluşturuldu. Giriş sayfasına yönlendiriliyorsunuz."
     }
@@ -88,7 +89,6 @@
   "username": "Kullanıcı Adı",
   "passwordRepeat": "Şifre Tekrar",
   "passwordMismatch": "Şifreler uyuşmuyor",
-  "createPassword": "Şifre Oluştur",
   "logout": "Çıkış Yap",
   "completeRegister": "Kaydı Tamamla",
   "requiredField": "Bu alan alanı zorunludur.",
