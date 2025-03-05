@@ -35,11 +35,13 @@
     "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin",
     "phoneNumberLengthError": "Telefon numarası 10 haneli olmalıdır."
   },
+  "notFound": {
+    "title": "Sayfa Bulunamadı."
+  },
   "notValidNamebox": "Geçersiz girdi",
   "cantStartOrEndWithWhitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
-  "notFound": "Aradığınız Sayfa Bulunamadı.",
   "loginDescription": "Lütfen E-postanızı ve Şifrenizi giriniz.",
   "passwordDescription": "Lütfen yeni bir şifre oluşturun. Şifre uzunluğu 8 ile 128 karakter arasında olmalıdır.",
   "passwordTitle": "Şifrenizi Oluşturun",

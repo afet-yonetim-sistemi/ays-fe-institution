@@ -35,11 +35,13 @@
     "invalidEmailForgotPassword": "The email address you entered is invalid or not registered. Please make sure you have entered the correct email address and try again.",
     "phoneNumberLengthError": "Phone number must be 10 digits long."
   },
+  "notFound": {
+    "title": "Page not found."
+  },
   "notValidNamebox": "This field is not valid",
   "cantStartOrEndWithWhitespace": "This field cannot start or end with space character",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
-  "notFound": "Page not found.",
   "loginDescription": "Please enter your E-mail and Password.",
   "passwordDescription": "Please create a new password. Must be between 8 and 128 characters in length.",
   "page": "Page",
