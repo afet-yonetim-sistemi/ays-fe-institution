@@ -48,7 +48,8 @@
   },
   "password": {
     "forgot": {
-      "title": "Şifrenizi mi unuttunuz?"
+      "title": "Şifrenizi mi unuttunuz?",
+      "description": "Lütfen hesabınıza kayıtlı doğrulanmış eposta adresinizi kullanınız. Size şifre oluşturmanız için size bir bağlantı ileteceğiz."
     }
   },
   "notValidNamebox": "Geçersiz girdi",
@@ -85,7 +86,6 @@
   "passwordSuccess": "Yeni şifre başarıyla oluşturuldu , giriş sayfasına yönlendiriliyorsunuz",
   "createPassword": "Şifre Oluştur",
   "resetPasswordEmailSent": "Şifre sıfırlama bağlantısını içeren e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol edin.",
-  "forgotPasswordInstruction": "Lütfen hesabınıza ait doğrulanmış email adresinizi kullanın. Size şifre oluşturmanız için bir link ileteceğiz.",
   "send": "Gönder",
   "logout": "Çıkış Yap",
   "completeRegister": "Kaydı Tamamla",

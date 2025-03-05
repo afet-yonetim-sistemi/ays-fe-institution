@@ -83,7 +83,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
         <DialogHeader>
           <DialogTitle>{t('password.forgot.title')}</DialogTitle>
           <DialogDescription>
-            {t('forgotPasswordInstruction')}
+            {t('password.forgot.description')}
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
