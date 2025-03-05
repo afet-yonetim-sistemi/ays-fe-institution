@@ -62,11 +62,13 @@
       "mismatch": "Şifreler uyuşmuyor"
     }
   },
+  "roles": {
+    "title": "Roller"
+  },
   "notValidNamebox": "Geçersiz girdi",
   "cantStartOrEndWithWhitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
-  "roles": "Roller",
   "adminRegistrationDescription": "Lütfen bilgilerinizi girerek Kayıt Başvurunuzu tamamlayınız.",
   "status": "Durum",
   "waiting": "Beklemede",

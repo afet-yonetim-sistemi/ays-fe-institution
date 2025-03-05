@@ -62,11 +62,13 @@
       "mismatch": "Passwords do not match"
     }
   },
+  "roles": {
+    "title": "Roles"
+  },
   "notValidNamebox": "This field is not valid",
   "cantStartOrEndWithWhitespace": "This field cannot start or end with space character",
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
-  "roles": "Roles",
   "adminRegistrationDescription": "Please complete your Registration Application by entering your information.",
   "status": "Status",
   "waiting": "Waiting",
