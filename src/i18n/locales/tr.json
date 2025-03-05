@@ -19,8 +19,8 @@
     "password": "Şifre",
     "error": {
       "defaultTitle": "Hata",
-      "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyin.",
-      "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyin"
+      "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
+      "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz."
     }
   },
   "metaData": {
@@ -41,9 +41,14 @@
   },
   "login": {
     "title": "Oturum Aç",
-    "description": "Devam etmek için lütfen e-posta adresinizi ve şifrenizi girin.",
+    "description": "Devam etmek için lütfen e-posta adresinizi ve şifrenizi giriniz.",
     "error": {
-      "incorrectCredentials": "Hatalı e-posta veya şifre. Lütfen tekrar deneyin."
+      "incorrectCredentials": "Hatalı e-posta veya şifre. Lütfen tekrar deneyiniz."
+    }
+  },
+  "password": {
+    "forgot": {
+      "title": "Şifrenizi mi unuttunuz?"
     }
   },
   "notValidNamebox": "Geçersiz girdi",

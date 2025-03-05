@@ -76,12 +76,12 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button disabled={disabled} className={'w-full'} variant="link">
-          {t('forgotPassword')}
+          {t('password.forgot.title')}
         </Button>
       </DialogTrigger>
       <DialogContent className="w-11/12 sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t('forgotPassword')}</DialogTitle>
+          <DialogTitle>{t('password.forgot.title')}</DialogTitle>
           <DialogDescription>
             {t('forgotPasswordInstruction')}
           </DialogDescription>
