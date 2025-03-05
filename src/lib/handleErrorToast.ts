@@ -10,7 +10,7 @@ export const handleErrorToast = (
     customMessage?.description ?? 'common.error.defaultDescription'
 
   if (error?.response?.status === 429) {
-    description = 'error.tooManyRequest'
+    description = 'common.error.tooManyRequest'
   }
 
   toast({

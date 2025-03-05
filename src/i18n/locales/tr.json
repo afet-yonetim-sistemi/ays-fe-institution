@@ -13,11 +13,11 @@
     "deactivate": "Pasifleştir",
     "error": {
       "defaultTitle": "Hata",
-      "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyin."
+      "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyin.",
+      "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyin"
     }
   },
   "error": {
-    "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyin",
     "application": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyi",
