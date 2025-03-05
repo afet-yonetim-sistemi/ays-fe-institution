@@ -135,7 +135,7 @@ const Page = (): JSX.Element => {
               name="emailAddress"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('email')}</FormLabel>
+                  <FormLabel>{t('common.email')}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>

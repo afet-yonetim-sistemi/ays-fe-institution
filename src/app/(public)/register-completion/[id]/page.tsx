@@ -212,10 +212,10 @@ const Page = ({
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('password')}</FormLabel>
+                        <FormLabel>{t('common.password')}</FormLabel>
                         <FormControl>
                           <PasswordInput
-                            placeholder={t('password')}
+                            placeholder={t('common.password')}
                             {...field}
                           />
                         </FormControl>

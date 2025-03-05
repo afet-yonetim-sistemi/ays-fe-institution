@@ -15,6 +15,8 @@
     "welcome": "Hoş Geldiniz",
     "yes": "Evet",
     "no": "Hayır",
+    "email": "E-posta",
+    "password": "Şifre",
     "error": {
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyin.",
@@ -39,9 +41,9 @@
   },
   "login": {
     "title": "Oturum Aç",
-    "description": "Devam etmek için lütfen e-posta adresinizi ve parolanızı girin.",
+    "description": "Devam etmek için lütfen e-posta adresinizi ve şifrenizi girin.",
     "error": {
-      "incorrectCredentials": "Hatalı e-posta veya parola. Lütfen tekrar deneyin."
+      "incorrectCredentials": "Hatalı e-posta veya şifre. Lütfen tekrar deneyin."
     }
   },
   "notValidNamebox": "Geçersiz girdi",
@@ -73,8 +75,6 @@
   "noResult": "Sonuç Yok...",
   "success": "Başarılı",
   "username": "Kullanıcı Adı",
-  "email": "E-posta",
-  "password": "Şifre",
   "passwordRepeat": "Şifre Tekrar",
   "passwordMismatch": "Şifreler uyuşmuyor",
   "passwordSuccess": "Yeni şifre başarıyla oluşturuldu , giriş sayfasına yönlendiriliyorsunuz",

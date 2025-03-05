@@ -15,6 +15,8 @@
     "welcome": "Welcome",
     "yes": "Yes",
     "no": "No",
+    "email": "Email",
+    "password": "Password",
     "error": {
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
@@ -74,8 +76,6 @@
   "username": "Username",
   "firstName": "First Name",
   "lastName": "Last Name",
-  "email": "E-mail",
-  "password": "Password",
   "passwordRepeat": "Password Repeat",
   "passwordMismatch": "Passwords do not match",
   "passwordSuccess": "Your new password has been successfully created. You are being redirected to the login page.",

@@ -98,9 +98,12 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
                 disabled={loading}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('password')}</FormLabel>
+                    <FormLabel>{t('common.password')}</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder={t('password')} {...field} />
+                      <PasswordInput
+                        placeholder={t('common.password')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

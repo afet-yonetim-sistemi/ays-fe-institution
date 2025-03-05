@@ -88,7 +88,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
         </DialogHeader>
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
-            <Label htmlFor="email">{t('email')}</Label>
+            <Label htmlFor="email">{t('common.email')}</Label>
             <Input
               id="email"
               type="email"
