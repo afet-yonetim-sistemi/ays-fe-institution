@@ -11,6 +11,7 @@
     "updatedAt": "Güncellenme Tarihi",
     "activate": "Aktifleştir",
     "deactivate": "Pasifleştir",
+    "home": "Ana Sayfa",
     "error": {
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyin.",
@@ -38,7 +39,6 @@
   "passwordTitle": "Şifrenizi Oluşturun",
   "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
   "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
-  "home": "Ana Sayfa",
   "page": "Sayfa",
   "roles": "Roller",
   "adminRegistrationDescription": "Lütfen bilgilerinizi girerek Kayıt Başvurunuzu tamamlayınız.",

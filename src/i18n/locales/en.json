@@ -11,6 +11,7 @@
     "updatedAt": "Updated At",
     "activate": "Activate",
     "deactivate": "Deactivate",
+    "home": "Home",
     "error": {
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
@@ -37,7 +38,6 @@
   "passwordDescription": "Please create a new password. Must be between 8 and 128 characters in length.",
   "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
   "aysDescription": "Disaster Management System | Afet Yönetim Sistemi",
-  "home": "Home",
   "page": "Page",
   "roles": "Roles",
   "adminRegistrationDescription": "Please complete your Registration Application by entering your information.",

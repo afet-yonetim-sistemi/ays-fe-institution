@@ -18,7 +18,7 @@ interface Menu {
 export const MenuItems: Menu[] = [
   {
     key: '/dashboard',
-    label: 'home',
+    label: 'common.home',
     icon: HomeIcon,
   },
   {
