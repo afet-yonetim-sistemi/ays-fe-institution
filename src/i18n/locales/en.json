@@ -86,9 +86,11 @@
     "receivedThirdApprove": "Received Third Approve",
     "cancelled": "Cancelled"
   },
+  "adminRegistrationCompletion": {
+    "description": "Please complete your admin registration application by entering your information."
+  },
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
-  "adminRegistrationDescription": "Please complete your Registration Application by entering your information.",
   "creationReason": "Creation Reason",
   "createdUser": "Created User",
   "noResult": "No Results...",

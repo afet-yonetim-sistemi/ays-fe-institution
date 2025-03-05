@@ -86,9 +86,11 @@
     "receivedThirdApprove": "3. Onay Alındı",
     "cancelled": "İptal Edildi"
   },
+  "adminRegistrationCompletion": {
+    "description": "Lütfen bilgilerinizi girerek yönetici kayıt başvurunuzu tamamlayınız."
+  },
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
-  "adminRegistrationDescription": "Lütfen bilgilerinizi girerek Kayıt Başvurunuzu tamamlayınız.",
   "creationReason": "Oluşturulma Sebebi",
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",

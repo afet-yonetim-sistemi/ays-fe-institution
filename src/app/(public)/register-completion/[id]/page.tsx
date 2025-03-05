@@ -113,7 +113,7 @@ const Page = ({
               />
               <CardTitle> {t('common.welcome')} </CardTitle>
               <CardDescription className="text-center">
-                {t('adminRegistrationDescription')}
+                {t('adminRegistrationCompletion.description')}
               </CardDescription>
             </CardHeader>
             <CardHeader>
