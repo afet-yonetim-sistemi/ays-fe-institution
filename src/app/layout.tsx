@@ -8,9 +8,10 @@ import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
+// TODO metadata in Next.js is a static export and is evaluated at build time. However, i18n runs at runtime,
 export const metadata: Metadata = {
-  title: i18n.t('aysTitle'),
-  description: i18n.t('aysDescription'),
+  title: i18n.t('metaData.aysTitle'),
+  description: i18n.t('metaData.aysDescription'),
 }
 
 export default function RootLayout({

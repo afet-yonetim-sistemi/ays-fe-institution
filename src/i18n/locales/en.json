@@ -21,6 +21,10 @@
       "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again"
     }
   },
+  "metaData": {
+    "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
+    "aysDescription": "Disaster Management System | Afet Yönetim Sistemi"
+  },
   "error": {
     "application": "Error while fetching application details. Please try again",
     "userDetailFetch": "Error while fetching user details. Please try again",
@@ -38,8 +42,6 @@
   "notFound": "Page not found.",
   "loginDescription": "Please enter your E-mail and Password.",
   "passwordDescription": "Please create a new password. Must be between 8 and 128 characters in length.",
-  "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
-  "aysDescription": "Disaster Management System | Afet Yönetim Sistemi",
   "page": "Page",
   "roles": "Roles",
   "adminRegistrationDescription": "Please complete your Registration Application by entering your information.",

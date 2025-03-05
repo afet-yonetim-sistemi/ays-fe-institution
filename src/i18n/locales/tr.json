@@ -21,6 +21,10 @@
       "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyin"
     }
   },
+  "metaData": {
+    "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
+    "aysDescription": "Afet Yönetim Sistemi | Disaster Management System"
+  },
   "error": {
     "application": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
@@ -39,8 +43,6 @@
   "loginDescription": "Lütfen E-postanızı ve Şifrenizi giriniz.",
   "passwordDescription": "Lütfen yeni bir şifre oluşturun. Şifre uzunluğu 8 ile 128 karakter arasında olmalıdır.",
   "passwordTitle": "Şifrenizi Oluşturun",
-  "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
-  "aysDescription": "Afet Yönetim Sistemi | Disaster Management System",
   "page": "Sayfa",
   "roles": "Roller",
   "adminRegistrationDescription": "Lütfen bilgilerinizi girerek Kayıt Başvurunuzu tamamlayınız.",
