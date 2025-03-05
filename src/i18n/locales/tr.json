@@ -30,7 +30,6 @@
     "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyi",
     "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin",
-    "invalidEmailOrPassword": "Geçersiz e-posta veya şifre",
     "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş",
     "invalidEmailForgotPassword": "Girdiğiniz e-posta adresi geçerli değil veya bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen tekrar deneyin",
     "phoneNumberLengthError": "Telefon numarası 10 haneli olmalıdır."
@@ -40,7 +39,10 @@
   },
   "login": {
     "title": "Oturum Aç",
-    "description": "Lütfen E-postanızı ve Şifrenizi giriniz."
+    "description": "Devam etmek için lütfen e-posta adresinizi ve parolanızı girin.",
+    "error": {
+      "incorrectCredentials": "Hatalı e-posta veya parola. Lütfen tekrar deneyin."
+    }
   },
   "notValidNamebox": "Geçersiz girdi",
   "cantStartOrEndWithWhitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",

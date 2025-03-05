@@ -62,7 +62,7 @@ const Page = (): JSX.Element => {
         dispatch(loginFailed(error.message))
         form.setValue('password', '')
         handleErrorToast(error, {
-          description: 'error.invalidEmailOrPassword',
+          description: 'login.error.incorrectCredentials',
         })
       })
       .finally(() => setLoading(false))
