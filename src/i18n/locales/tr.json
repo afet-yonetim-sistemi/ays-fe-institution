@@ -33,7 +33,6 @@
     "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyi",
     "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin",
-    "passwordRequestInvalidOrExpired": "Şifre sıfırlama talebiniz geçersiz veya süresi dolmuş",
     "phoneNumberLengthError": "Telefon numarası 10 haneli olmalıdır."
   },
   "notFound": {
@@ -52,6 +51,10 @@
       "description": "Lütfen hesabınıza kayıtlı doğrulanmış eposta adresinizi kullanınız. Size şifre oluşturmanız için size bir bağlantı ileteceğiz.",
       "error": "Bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen kontrol edip tekrar deneyiniz.",
       "success": "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol ediniz."
+    },
+    "create": {
+      "error": "Şifre sıfırlama isteğiniz geçersiz veya süresi dolmuş.",
+      "passwordSuccess": "Yeni şifreniz başarıyla oluşturuldu. Giriş sayfasına yönlendiriliyorsunuz."
     }
   },
   "notValidNamebox": "Geçersiz girdi",
@@ -85,7 +88,6 @@
   "username": "Kullanıcı Adı",
   "passwordRepeat": "Şifre Tekrar",
   "passwordMismatch": "Şifreler uyuşmuyor",
-  "passwordSuccess": "Yeni şifre başarıyla oluşturuldu , giriş sayfasına yönlendiriliyorsunuz",
   "createPassword": "Şifre Oluştur",
   "logout": "Çıkış Yap",
   "completeRegister": "Kaydı Tamamla",

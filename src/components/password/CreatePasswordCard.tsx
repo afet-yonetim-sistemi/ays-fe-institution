@@ -53,13 +53,13 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
       .then(() => {
         toast({
           title: 'success',
-          description: 'passwordSuccess',
+          description: 'password.create.success',
           variant: 'success',
         })
       })
       .catch((error) => {
         handleErrorToast(error, {
-          description: 'error.passwordRequestInvalidOrExpired',
+          description: 'password.create.error',
         })
       })
       .finally(() => {
