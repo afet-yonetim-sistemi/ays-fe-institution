@@ -61,7 +61,7 @@ export const InstitutionFormSchema = z.object({
     })
     .min(6, { message: 'minLength' })
     .max(254, { message: 'maxLength' })
-    .regex(emailRegex, { message: 'invalidEmail' }),
+    .regex(emailRegex, { message: 'validation.email' }),
   city: z.string({
     required_error: 'requiredField',
   }),

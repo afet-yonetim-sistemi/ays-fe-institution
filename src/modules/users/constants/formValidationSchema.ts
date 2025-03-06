@@ -13,7 +13,7 @@ export const UserValidationSchema = z.object({
     })
     .min(6, { message: 'minLength' })
     .max(254, { message: 'maxLength' })
-    .regex(emailRegex, { message: 'invalidEmail' }),
+    .regex(emailRegex, { message: 'validation.email' }),
   phoneNumber: z
     .string({
       required_error: 'requiredField',
@@ -36,7 +36,7 @@ export const CreateUserValidationSchema = z.object({
     })
     .min(6, { message: 'minLength' })
     .max(254, { message: 'maxLength' })
-    .regex(emailRegex, { message: 'invalidEmail' }),
+    .regex(emailRegex, { message: 'validation.email' }),
   phoneNumber: PhoneNumberSchema,
   city: nameboxWithLengthValidation(2, 100),
 })

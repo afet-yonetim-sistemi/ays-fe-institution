@@ -27,7 +27,8 @@
     },
     "validation": {
       "invalid": "This field is not valid",
-      "whitespace": "This field cannot start or end with space character"
+      "whitespace": "This field cannot start or end with space character",
+      "email": "Invalid E-mail"
     }
   },
   "metaData": {
@@ -111,7 +112,6 @@
   "applicationRejectSuccess": "Application successfully rejected.",
   "applicationApproveSuccess": "Application successfully approved.",
   "rejectReasonLengthInfo": "Application Rejection Reason must be at least 40 characters.",
-  "invalidEmail": "Invalid E-mail.",
   "desc": "Click to sort descending",
   "asc": "Click to sort ascending",
   "clearSort": "Clear sort",

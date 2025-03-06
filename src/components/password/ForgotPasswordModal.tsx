@@ -43,7 +43,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   const handleSubmit = (): void => {
     const validation = FormValidationSchema.shape.emailAddress.safeParse(email)
     if (!validation.success) {
-      setEmailError(t('invalidEmail'))
+      setEmailError(t('validation.email'))
       return
     }
     setLoading(true)

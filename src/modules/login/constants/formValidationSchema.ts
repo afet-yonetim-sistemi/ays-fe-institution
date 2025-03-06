@@ -7,7 +7,7 @@ const LoginFormSchema = z.object({
     .string({
       required_error: 'requiredField',
     })
-    .regex(emailRegex, { message: 'invalidEmail' })
+    .regex(emailRegex, { message: 'validation.email' })
     .min(6, { message: 'minLength' })
     .max(254, { message: 'maxLength' }),
   password: PasswordSchema,

@@ -27,7 +27,8 @@
     },
     "validation": {
       "invalid": "Geçersiz girdi",
-      "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez"
+      "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
+      "email": "Geçersiz e-posta adresi"
     }
   },
   "metaData": {
@@ -110,7 +111,6 @@
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
   "clearSort": "Sıralamayı sıfırla",
-  "invalidEmail": "Geçersiz e-posta adresi.",
   "applicationInformation": "Başvuru Bilgileri",
   "reason": "Başvuru Nedeni",
   "institutionName": "Kurum Adı",
