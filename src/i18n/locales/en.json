@@ -89,7 +89,8 @@
   },
   "adminRegistrationCompletion": {
     "description": "Please complete your admin registration application by entering your information.",
-    "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system."
+    "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system.",
+    "button": "Complete Registration"
   },
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
@@ -100,7 +101,6 @@
   "firstName": "First Name",
   "lastName": "Last Name",
   "logout": "Logout",
-  "completeRegister": "Complete Registration",
   "requiredField": "This field is required.",
   "minLength": "This field is too short.",
   "maxLength": "This field is too long.",

@@ -87,18 +87,17 @@
     "receivedThirdApprove": "3. Onay Alındı",
     "cancelled": "İptal Edildi"
   },
-  "adminRegistrationCompletion": {
+  "adminRegistration": {
     "description": "Lütfen bilgilerinizi girerek yönetici kayıt başvurunuzu tamamlayınız.",
-    "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz."
+    "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
+    "button": "Kaydı Tamamla"
   },
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
   "creationReason": "Oluşturulma Sebebi",
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",
-  "username": "Kullanıcı Adı",
   "logout": "Çıkış Yap",
-  "completeRegister": "Kaydı Tamamla",
   "requiredField": "Bu alan alanı zorunludur.",
   "minLength": "Bu alan çok kısa.",
   "maxLength": "Bu alan çok uzun.",
