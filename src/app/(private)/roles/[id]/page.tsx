@@ -341,7 +341,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           setOriginalRolePermissions(updatedPermissions)
 
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'role.updatedSuccessfully',
             variant: 'success',
           })
@@ -360,7 +360,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'role.deletedSuccessfully',
             variant: 'success',
           })
@@ -391,7 +391,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'role.activatedSuccessfully',
             variant: 'success',
           })
@@ -410,7 +410,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'role.deactivatedSuccessfully',
             variant: 'success',
           })

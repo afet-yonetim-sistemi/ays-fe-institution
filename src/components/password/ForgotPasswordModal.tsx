@@ -53,7 +53,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
       .then(() => {
         setIsOpen(false)
         toast({
-          title: 'success',
+          title: 'common.success',
           description: 'password.forgot.success',
           variant: 'success',
         })

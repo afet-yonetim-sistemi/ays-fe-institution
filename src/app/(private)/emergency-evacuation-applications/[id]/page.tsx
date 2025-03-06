@@ -159,7 +159,7 @@ const Page = ({
           })
 
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'emergencyEvacuationApplications.updatedSuccessfully',
             variant: 'success',
           })

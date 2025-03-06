@@ -52,7 +52,7 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
       .resetPassword(values, id)
       .then(() => {
         toast({
-          title: 'success',
+          title: 'common.success',
           description: 'password.create.success',
           variant: 'success',
         })

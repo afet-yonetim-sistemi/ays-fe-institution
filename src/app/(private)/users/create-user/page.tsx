@@ -79,7 +79,7 @@ const Page = (): JSX.Element => {
     createUser(payload)
       .then(() => {
         toast({
-          title: 'success',
+          title: 'common.success',
           description: 'user.createdSuccessfully',
           variant: 'success',
         })

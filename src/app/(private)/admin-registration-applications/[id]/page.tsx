@@ -58,7 +58,7 @@ const Page = ({
     rejectAdminRegistrationApplication(reason, params.id)
       .then(() => {
         toast({
-          title: 'success',
+          title: 'common.success',
           description: 'applicationRejectSuccess',
           variant: 'success',
         })
@@ -73,7 +73,7 @@ const Page = ({
     approveAdminRegistrationApplicationWithId(params.id)
       .then(() => {
         toast({
-          title: 'success',
+          title: 'common.success',
           description: 'applicationApproveSuccess',
           variant: 'success',
         })
@@ -87,7 +87,7 @@ const Page = ({
   const handleCopyLink = (): void => {
     navigator.clipboard.writeText(registerCompletionUrl).then(() => {
       toast({
-        title: 'success',
+        title: 'common.success',
         description: 'adminRegistrationApplications.linkCopied',
         variant: 'success',
       })

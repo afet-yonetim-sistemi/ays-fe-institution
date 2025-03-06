@@ -221,7 +221,7 @@ const Page = ({
           })
 
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'user.updatedSuccessfully',
             variant: 'success',
           })
@@ -245,7 +245,7 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'user.activatedSuccessfully',
             variant: 'success',
           })
@@ -269,7 +269,7 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'user.deactivatedSuccessfully',
             variant: 'success',
           })
@@ -293,7 +293,7 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'user.deletedSuccessfully',
             variant: 'success',
           })

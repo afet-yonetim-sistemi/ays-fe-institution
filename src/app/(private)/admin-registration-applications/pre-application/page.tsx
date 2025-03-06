@@ -56,7 +56,7 @@ const Page = (): JSX.Element => {
     approveAdminRegistrationApplication(values)
       .then((res) => {
         toast({
-          title: 'success',
+          title: 'common.success',
           description: 'preApplicationSuccess',
           variant: 'success',
         })

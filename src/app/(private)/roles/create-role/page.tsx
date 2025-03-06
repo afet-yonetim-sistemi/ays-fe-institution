@@ -151,7 +151,7 @@ const Page = (): JSX.Element => {
     createRole({ name, permissionIds: activePermissionIds })
       .then(() => {
         toast({
-          title: 'success',
+          title: 'common.success',
           description: 'role.createdSuccessfully',
           variant: 'success',
         })

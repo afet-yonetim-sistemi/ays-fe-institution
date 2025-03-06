@@ -18,6 +18,7 @@
     "no": "Hayır",
     "email": "E-posta",
     "password": "Şifre",
+    "success": "Başarılı",
     "error": {
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
@@ -94,7 +95,6 @@
   "creationReason": "Oluşturulma Sebebi",
   "createdUser": "Oluşturan Kullanıcı",
   "noResult": "Sonuç Yok...",
-  "success": "Başarılı",
   "username": "Kullanıcı Adı",
   "logout": "Çıkış Yap",
   "completeRegister": "Kaydı Tamamla",

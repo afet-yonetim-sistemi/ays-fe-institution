@@ -80,7 +80,7 @@ const Page = ({
     postRegistrationApplication(params.id, values)
       .then(() => {
         toast({
-          title: 'success',
+          title: 'common.success',
           description: 'successRegisterCompleted',
           variant: 'success',
         })
