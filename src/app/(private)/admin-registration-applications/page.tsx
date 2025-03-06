@@ -145,7 +145,7 @@ const Page = (): JSX.Element => {
         items={adminApplicationRegistrationStatuses}
         selectedItems={filters.statuses}
         onSelectionChange={(statuses) => handleFilterChange('status', statuses)}
-        label="status"
+        label="status.title"
         renderItem={(item) => <Status status={item} />}
       />
       <DataTable

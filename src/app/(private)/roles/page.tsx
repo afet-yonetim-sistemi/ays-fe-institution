@@ -145,7 +145,7 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-medium">{t('roles')}</h1>
+        <h1 className="text-2xl font-medium">{t('roles.title')}</h1>
         <div className="flex items-center space-x-4">
           {userPermissions.includes(Permission.ROLE_CREATE) && (
             <Link href="/roles/create-role">
@@ -161,7 +161,7 @@ const Page = (): JSX.Element => {
           onSelectionChange={(statuses) =>
             handleFilterChange('status', statuses)
           }
-          label="status"
+          label="status.title"
           renderItem={(item) => <Status status={item} />}
         />
         <FilterInput

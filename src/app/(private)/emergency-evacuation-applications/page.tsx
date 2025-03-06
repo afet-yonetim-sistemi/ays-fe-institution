@@ -261,7 +261,7 @@ const Page = (): JSX.Element => {
             onSelectionChange={(statuses) =>
               handleFilterChange('status', statuses)
             }
-            label="status"
+            label="status.title"
             renderItem={(item) => <Status status={item} />}
           />
           <CheckboxFilter
