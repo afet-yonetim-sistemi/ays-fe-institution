@@ -9,14 +9,14 @@ export const UserValidationSchema = z.object({
   lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
     .min(6, { message: 'minLength' })
     .max(254, { message: 'maxLength' })
     .regex(emailRegex, { message: 'validation.email' }),
   phoneNumber: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
     .length(10, 'error.phoneNumberLengthError'),
   city: nameboxWithLengthValidation(2, 100),
@@ -32,7 +32,7 @@ export const CreateUserValidationSchema = z.object({
   lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
     .min(6, { message: 'minLength' })
     .max(254, { message: 'maxLength' })

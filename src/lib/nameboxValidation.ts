@@ -11,10 +11,10 @@ export const nameboxWithLengthValidation = (
 ): z.ZodEffects<z.ZodString, string, string> =>
   z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
     .min(minLength, { message: 'minLength' })
     .max(maxLength, { message: 'maxLength' })
     .refine(nameboxValidation, {
-      message: 'common.validation.invalid',
+      message: 'validation.invalid',
     })

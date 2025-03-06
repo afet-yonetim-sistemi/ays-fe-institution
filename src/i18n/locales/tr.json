@@ -24,12 +24,13 @@
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
       "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz."
-    },
-    "validation": {
-      "invalid": "Geçersiz girdi",
-      "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
-      "email": "Geçersiz e-posta adresi"
     }
+  },
+  "validation": {
+    "invalid": "Geçersiz girdi",
+    "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
+    "email": "Geçersiz e-posta adresi",
+    "required": "Bu alan alanı zorunludur."
   },
   "metaData": {
     "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
@@ -98,7 +99,6 @@
   "noCountryFound": "Ülke bulunamadı",
   "noResult": "Sonuç Yok...",
   "logout": "Çıkış Yap",
-  "requiredField": "Bu alan alanı zorunludur.",
   "minLength": "Bu alan çok kısa.",
   "maxLength": "Bu alan çok uzun.",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",

@@ -32,7 +32,7 @@ const EmergencyEvacuationApplicationSchema = z.object({
     .string()
     .max(1000, { message: 'maxLength' })
     .refine((value) => !/^\s/.test(value), {
-      message: 'common.validation.whitespace',
+      message: 'validation.whitespace',
     })
     .optional(),
   createdUser: z.string(),

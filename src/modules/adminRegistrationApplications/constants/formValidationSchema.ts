@@ -35,7 +35,7 @@ const AdminRegistrationApplicationSchema = z.object({
 
 export const PreApplicationFormSchema = z.object({
   institutionId: z.string().min(1, {
-    message: 'requiredField',
+    message: 'validation.required',
   }),
   reason: z
     .string()
@@ -57,13 +57,13 @@ export const InstitutionFormSchema = z.object({
   lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
     .min(6, { message: 'minLength' })
     .max(254, { message: 'maxLength' })
     .regex(emailRegex, { message: 'validation.email' }),
   city: z.string({
-    required_error: 'requiredField',
+    required_error: 'validation.required',
   }),
   password: PasswordSchema,
   phoneNumber: PhoneNumberSchema,
