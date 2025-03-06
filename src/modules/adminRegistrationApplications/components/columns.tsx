@@ -57,7 +57,7 @@ export const columns: (
     },
     {
       accessorKey: 'createdUser',
-      header: () => i18next.t('createdUser'),
+      header: () => i18next.t('common.createdUser'),
     },
     {
       accessorKey: 'createdAt',

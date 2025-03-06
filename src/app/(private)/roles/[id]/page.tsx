@@ -549,7 +549,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="createdUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('role.createdUser')}</FormLabel>
+                        <FormLabel>{t('common.createdUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}

@@ -523,7 +523,7 @@ const Page = ({
                       name="createdUser"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('user.createdUser')}</FormLabel>
+                          <FormLabel>{t('common.createdUser')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
