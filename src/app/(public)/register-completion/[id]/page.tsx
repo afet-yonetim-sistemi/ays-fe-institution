@@ -81,7 +81,7 @@ const Page = ({
       .then(() => {
         toast({
           title: 'common.success',
-          description: 'successRegisterCompleted',
+          description: 'adminRegistrationCompletion.success',
           variant: 'success',
         })
         router.push('/login')

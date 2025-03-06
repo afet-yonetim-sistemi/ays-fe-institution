@@ -88,7 +88,8 @@
     "cancelled": "Cancelled"
   },
   "adminRegistrationCompletion": {
-    "description": "Please complete your admin registration application by entering your information."
+    "description": "Please complete your admin registration application by entering your information.",
+    "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system."
   },
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
@@ -180,7 +181,6 @@
   "institution": "Institution",
   "createReason": "Creation Reason",
   "selectInstitution": "Select Institution",
-  "successRegisterCompleted": "Your application has been completed successfully. After the necessary reviews, your application will be approved and you will be able to log in to the system.",
   "role": {
     "name": "Role Name",
     "status": "Role Status",

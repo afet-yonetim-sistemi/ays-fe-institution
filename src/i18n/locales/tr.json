@@ -88,7 +88,8 @@
     "cancelled": "İptal Edildi"
   },
   "adminRegistrationCompletion": {
-    "description": "Lütfen bilgilerinizi girerek yönetici kayıt başvurunuzu tamamlayınız."
+    "description": "Lütfen bilgilerinizi girerek yönetici kayıt başvurunuzu tamamlayınız.",
+    "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz."
   },
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
@@ -180,7 +181,6 @@
   "institution": "Kurum",
   "createReason": "Oluşturma Nedeni",
   "selectInstitution": "Kurum Seçiniz",
-  "successRegisterCompleted": "Başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
   "role": {
     "name": "Rol Adı",
     "status": "Rol Durumu",
