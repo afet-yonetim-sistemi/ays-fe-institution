@@ -18,7 +18,7 @@ export const UserValidationSchema = z.object({
     .string({
       required_error: 'validation.required',
     })
-    .length(10, 'error.phoneNumberLengthError'),
+    .length(10, 'validation.phoneNumberLength'),
   city: nameboxWithLengthValidation(2, 100),
   status: z.string(),
   createdUser: z.string(),

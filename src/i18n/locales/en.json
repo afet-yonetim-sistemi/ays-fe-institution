@@ -32,7 +32,8 @@
     "email": "Invalid E-mail",
     "required": "This field is required",
     "minLength": "This field is too short",
-    "maxLength": "This field is too long"
+    "maxLength": "This field is too long",
+    "phoneNumberLength": "Phone number must be 10 digits long"
   },
   "metaData": {
     "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
@@ -42,8 +43,7 @@
     "application": "Error while fetching application details. Please try again",
     "userDetailFetch": "Error while fetching user details. Please try again",
     "roleSummaryFetch": "Error while fetching available roles. Please try again",
-    "preApplication": "An error occurred while creating the preliminary application. Please try again.",
-    "phoneNumberLengthError": "Phone number must be 10 digits long."
+    "preApplication": "An error occurred while creating the preliminary application. Please try again."
   },
   "notFound": {
     "title": "Page not found."

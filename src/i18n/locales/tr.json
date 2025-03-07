@@ -30,9 +30,10 @@
     "invalid": "Geçersiz girdi",
     "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
     "email": "Geçersiz e-posta adresi",
-    "required": "Bu alan alanı zorunludur.",
-    "minLength": "Bu alan çok kısa.",
-    "maxLength": "Bu alan çok uzun."
+    "required": "Bu alan alanı zorunludur",
+    "minLength": "Bu alan çok kısa",
+    "maxLength": "Bu alan çok uzun",
+    "phoneNumberLength": "Telefon numarası 10 haneli olmalıdır"
   },
   "metaData": {
     "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
@@ -42,8 +43,7 @@
     "application": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyi",
-    "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin",
-    "phoneNumberLengthError": "Telefon numarası 10 haneli olmalıdır."
+    "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin"
   },
   "notFound": {
     "title": "Sayfa Bulunamadı."
