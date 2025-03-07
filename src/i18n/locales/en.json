@@ -23,14 +23,16 @@
     "error": {
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
-      "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again"
+      "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again."
     }
   },
   "validation": {
     "invalid": "This field is not valid",
     "whitespace": "This field cannot start or end with space character",
     "email": "Invalid E-mail",
-    "required": "This field is required."
+    "required": "This field is required",
+    "minLength": "This field is too short",
+    "maxLength": "This field is too long"
   },
   "metaData": {
     "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
@@ -103,8 +105,6 @@
   "firstName": "First Name",
   "lastName": "Last Name",
   "logout": "Logout",
-  "minLength": "This field is too short.",
-  "maxLength": "This field is too long.",
   "notSpecialCharacters": "Text containing special characters cannot be sent.",
   "notOnlyNumbers": "This field cannot consist only of numbers.",
   "invalidPhoneNumber": "Phone Number is invalid",

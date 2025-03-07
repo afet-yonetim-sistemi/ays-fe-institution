@@ -13,8 +13,8 @@ export const nameboxWithLengthValidation = (
     .string({
       required_error: 'validation.required',
     })
-    .min(minLength, { message: 'minLength' })
-    .max(maxLength, { message: 'maxLength' })
+    .min(minLength, { message: 'validation.minLength' })
+    .max(maxLength, { message: 'validation.maxLength' })
     .refine(nameboxValidation, {
       message: 'validation.invalid',
     })

@@ -13,5 +13,5 @@ export const PasswordSchema = z
   .string({
     required_error: 'validation.required',
   })
-  .min(8, { message: 'minLength' })
-  .max(128, { message: 'maxLength' })
+  .min(8, { message: 'validation.minLength' })
+  .max(128, { message: 'validation.maxLength' })

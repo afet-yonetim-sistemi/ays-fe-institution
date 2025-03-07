@@ -30,7 +30,9 @@
     "invalid": "Geçersiz girdi",
     "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
     "email": "Geçersiz e-posta adresi",
-    "required": "Bu alan alanı zorunludur."
+    "required": "Bu alan alanı zorunludur.",
+    "minLength": "Bu alan çok kısa.",
+    "maxLength": "Bu alan çok uzun."
   },
   "metaData": {
     "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
@@ -99,8 +101,6 @@
   "noCountryFound": "Ülke bulunamadı",
   "noResult": "Sonuç Yok...",
   "logout": "Çıkış Yap",
-  "minLength": "Bu alan çok kısa.",
-  "maxLength": "Bu alan çok uzun.",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",
   "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",
   "invalidPhoneNumber": "Geçersiz telefon numarası",

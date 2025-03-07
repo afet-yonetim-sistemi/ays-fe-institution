@@ -40,8 +40,8 @@ export const PreApplicationFormSchema = z.object({
   reason: z
     .string()
     .trim()
-    .min(40, { message: 'minLength' })
-    .max(512, { message: 'maxLength' })
+    .min(40, { message: 'validation.minLength' })
+    .max(512, { message: 'validation.maxLength' })
     .refine((value) => !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`]/.test(value), {
       message: 'notSpecialCharacters',
     })
@@ -59,8 +59,8 @@ export const InstitutionFormSchema = z.object({
     .string({
       required_error: 'validation.required',
     })
-    .min(6, { message: 'minLength' })
-    .max(254, { message: 'maxLength' })
+    .min(6, { message: 'validation.minLength' })
+    .max(254, { message: 'validation.maxLength' })
     .regex(emailRegex, { message: 'validation.email' }),
   city: z.string({
     required_error: 'validation.required',
