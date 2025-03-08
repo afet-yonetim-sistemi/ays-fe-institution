@@ -98,10 +98,13 @@
     "receivedThirdApprove": "Received Third Approve",
     "cancelled": "Cancelled"
   },
-  "adminRegistrationCompletion": {
+  "adminRegistration": {
     "description": "Please complete your admin registration application by entering your information.",
     "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system.",
     "button": "Complete Registration"
+  },
+  "preApplication": {
+    "title": "Institution Admin Registration Preliminary Application Creation"
   },
   "phoneInput": {
     "search": "Search for a country"
@@ -179,7 +182,6 @@
   "rejectConfirm": "Are you sure you want to reject this application?",
   "approveConfirm": "Are you sure you want to approve this application?",
   "preApplication": "Create Pre-Application",
-  "preApplicationTitle": "Admin Registration Pre-Application Creation",
   "institution": "Institution",
   "createReason": "Creation Reason",
   "selectInstitution": "Select Institution",

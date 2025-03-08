@@ -103,6 +103,9 @@
     "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
     "button": "Kaydı Tamamla"
   },
+  "preApplication": {
+    "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma"
+  },
   "phoneInput": {
     "search": "Bir ülke arayın"
   },
@@ -179,7 +182,6 @@
   "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
   "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
   "preApplication": "Ön Başvuru Oluştur",
-  "preApplicationTitle": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
   "institution": "Kurum",
   "createReason": "Oluşturma Nedeni",
   "selectInstitution": "Kurum Seçiniz",
