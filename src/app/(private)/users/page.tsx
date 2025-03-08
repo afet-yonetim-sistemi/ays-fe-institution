@@ -291,7 +291,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="city"
-          label={t('user.city')}
+          label={t('common.city')}
           value={cityInput}
           onChange={(e) => {
             setCityInput(e.target.value)

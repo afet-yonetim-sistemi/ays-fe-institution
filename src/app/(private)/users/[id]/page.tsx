@@ -472,7 +472,7 @@ const Page = ({
                     name="city"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.city')}</FormLabel>
+                        <FormLabel>{t('common.city')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
