@@ -36,7 +36,8 @@
     "required": "Bu alan alanı zorunludur",
     "minLength": "Bu alan çok kısa",
     "maxLength": "Bu alan çok uzun",
-    "phoneNumberLength": "Telefon numarası 10 haneli olmalıdır",
+    "phone": "Geçersiz telefon numarası",
+    "phoneLength": "Telefon numarası 10 haneli olmalıdır",
     "specialChar": "Bu alan özel karakter içeremez",
     "noNumbersOnly": "Bu alan sadece sayılardan oluşamaz"
   },
@@ -109,7 +110,6 @@
     "toggle": "Gezinme menüsünü aç/kapat",
     "logout": "Çıkış Yap"
   },
-  "invalidPhoneNumber": "Geçersiz telefon numarası",
   "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",
   "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",
   "applicationApproveSuccess": "Başvuru başarıyla onaylandı.",

@@ -36,7 +36,8 @@
     "required": "This field is required",
     "minLength": "This field is too short",
     "maxLength": "This field is too long",
-    "phoneNumberLength": "Phone number must be 10 digits long",
+    "phone": "Phone number is invalid",
+    "phoneLength": "Phone number must be 10 digits long",
     "specialChar": "This field cannot contain special characters",
     "noNumbersOnly": "This field cannot contain only numbers"
   },
@@ -109,7 +110,6 @@
     "toggle": "Toggle navigation menu",
     "logout": "Logout"
   },
-  "invalidPhoneNumber": "Phone Number is invalid",
   "preApplicationSuccess": "Preliminary application created successfully.",
   "applicationRejectSuccess": "Application successfully rejected.",
   "applicationApproveSuccess": "Application successfully approved.",

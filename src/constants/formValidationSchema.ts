@@ -6,7 +6,7 @@ export const PhoneNumberSchema = z
     lineNumber: z.string(),
   })
   .refine((phoneNumber) => phoneNumber.countryCode && phoneNumber.lineNumber, {
-    message: 'invalidPhoneNumber',
+    message: 'validation.phone',
   })
 
 export const PasswordSchema = z
