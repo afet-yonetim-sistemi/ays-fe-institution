@@ -97,10 +97,12 @@
     "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system.",
     "button": "Complete Registration"
   },
+  "dataTable": {
+    "noResult": "No results found"
+  },
   "searchCountry": "Search country...",
   "noCountryFound": "No country found.",
   "creationReason": "Creation Reason",
-  "noResult": "No Results...",
   "username": "Username",
   "firstName": "First Name",
   "lastName": "Last Name",

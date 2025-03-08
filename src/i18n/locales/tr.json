@@ -97,9 +97,11 @@
     "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
     "button": "Kaydı Tamamla"
   },
+  "dataTable": {
+    "noResult": "Sonuç bulunamadı"
+  },
   "searchCountry": "Ülke ara...",
   "noCountryFound": "Ülke bulunamadı",
-  "noResult": "Sonuç Yok...",
   "logout": "Çıkış Yap",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",
   "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",
