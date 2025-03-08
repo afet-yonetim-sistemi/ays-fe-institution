@@ -43,7 +43,7 @@ export const PreApplicationFormSchema = z.object({
     .min(40, { message: 'validation.minLength' })
     .max(512, { message: 'validation.maxLength' })
     .refine((value) => !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`]/.test(value), {
-      message: 'notSpecialCharacters',
+      message: 'validation.specialChar',
     })
     .refine((value) => /\D/.test(value), {
       message: 'notOnlyNumbers',
