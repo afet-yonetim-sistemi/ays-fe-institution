@@ -51,7 +51,6 @@
     "aysDescription": "Afet Yönetim Sistemi | Disaster Management System"
   },
   "error": {
-    "application": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyiniz."
   },
@@ -116,6 +115,7 @@
     "status": "Başvuru Durumu",
     "rejectSuccess": "Başvuru başarıyla reddedildi.",
     "approveSuccess": "Başvuru başarıyla onaylandı.",
+    "error": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "admin": {
       "rejectTooltip": "Başvuru reddedilme nedeni en az 40 karakter olmalıdır.",
       "preliminary": {

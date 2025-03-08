@@ -51,7 +51,6 @@
     "aysDescription": "Disaster Management System | Afet Yönetim Sistemi"
   },
   "error": {
-    "application": "Error while fetching application details. Please try again",
     "userDetailFetch": "Error while fetching user details. Please try again",
     "roleSummaryFetch": "Error while fetching available roles. Please try again"
   },
@@ -116,6 +115,7 @@
     "status": "Application Status",
     "rejectSuccess": "Application successfully rejected.",
     "approveSuccess": "Application successfully approved.",
+    "error": "Error while fetching application details. Please try again",
     "admin": {
       "rejectTooltip": "Application rejection reason must be at least 40 characters.",
       "preliminary": {
