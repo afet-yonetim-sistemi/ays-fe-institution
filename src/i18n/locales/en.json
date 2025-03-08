@@ -104,7 +104,8 @@
     "button": "Complete Registration"
   },
   "preApplication": {
-    "title": "Institution Admin Registration Preliminary Application Creation"
+    "title": "Institution Admin Registration Preliminary Application Creation",
+    "button": "Create Preliminary Application"
   },
   "phoneInput": {
     "search": "Search for a country"
@@ -181,7 +182,6 @@
   "approve": "Approve",
   "rejectConfirm": "Are you sure you want to reject this application?",
   "approveConfirm": "Are you sure you want to approve this application?",
-  "preApplication": "Create Pre-Application",
   "institution": "Institution",
   "createReason": "Creation Reason",
   "selectInstitution": "Select Institution",

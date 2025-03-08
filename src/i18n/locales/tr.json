@@ -104,7 +104,8 @@
     "button": "Kaydı Tamamla"
   },
   "preApplication": {
-    "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma"
+    "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
+    "button": "Ön Başvuru Oluştur"
   },
   "phoneInput": {
     "search": "Bir ülke arayın"
@@ -181,7 +182,6 @@
   "approve": "Onayla",
   "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
   "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
-  "preApplication": "Ön Başvuru Oluştur",
   "institution": "Kurum",
   "createReason": "Oluşturma Nedeni",
   "selectInstitution": "Kurum Seçiniz",

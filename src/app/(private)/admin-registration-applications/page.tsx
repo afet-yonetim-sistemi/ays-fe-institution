@@ -136,7 +136,7 @@ const Page = (): JSX.Element => {
         <div className="flex items-center space-x-4">
           {userPermissions.includes(Permission.APPLICATION_CREATE) && (
             <Link href="/admin-registration-applications/pre-application">
-              <Button>{t('preApplication')}</Button>
+              <Button>{t('preApplication.button')}</Button>
             </Link>
           )}
         </div>
