@@ -105,7 +105,8 @@
   },
   "preApplication": {
     "title": "Institution Admin Registration Preliminary Application Creation",
-    "button": "Create Preliminary Application"
+    "button": "Create Preliminary Application",
+    "success": "Preliminary application created successfully."
   },
   "phoneInput": {
     "search": "Search for a country"
@@ -114,7 +115,6 @@
     "toggle": "Toggle navigation menu",
     "logout": "Logout"
   },
-  "preApplicationSuccess": "Preliminary application created successfully.",
   "applicationRejectSuccess": "Application successfully rejected.",
   "applicationApproveSuccess": "Application successfully approved.",
   "rejectReasonLengthInfo": "Application Rejection Reason must be at least 40 characters.",

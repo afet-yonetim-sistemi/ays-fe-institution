@@ -57,7 +57,7 @@ const Page = (): JSX.Element => {
       .then((res) => {
         toast({
           title: 'common.success',
-          description: 'preApplicationSuccess',
+          description: 'preApplication.success',
           variant: 'success',
         })
         router.push(`/admin-registration-applications/${res.data.response.id}`)

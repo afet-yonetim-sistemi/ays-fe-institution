@@ -105,7 +105,8 @@
   },
   "preApplication": {
     "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
-    "button": "Ön Başvuru Oluştur"
+    "button": "Ön Başvuru Oluştur",
+    "success": "Ön başvuru başarıyla oluşturuldu."
   },
   "phoneInput": {
     "search": "Bir ülke arayın"
@@ -114,7 +115,6 @@
     "toggle": "Gezinme menüsünü aç/kapat",
     "logout": "Çıkış Yap"
   },
-  "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",
   "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",
   "applicationApproveSuccess": "Başvuru başarıyla onaylandı.",
   "rejectReasonLengthInfo": "Başvuru Reddedilme Nedeni en az 40 karakter olmalıdır.",
