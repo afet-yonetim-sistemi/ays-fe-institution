@@ -29,7 +29,7 @@ export const columns: (
       header: ({ column }) => (
         <DataTableSort
           column={column}
-          label={i18next.t('user.firstName')}
+          label={i18next.t('common.firstName')}
           sortState={getSortState('firstName', filters)}
           onSortClick={onSortClick}
         />
