@@ -123,7 +123,7 @@ const Page = ({
                 userPermissions.includes(Permission.APPLICATION_CONCLUDE) && (
                   <div className="flex space-x-8 ml-auto">
                     <ButtonDialog
-                      triggerText={'reject'}
+                      triggerText={'common.reject'}
                       title={'rejectConfirm'}
                       onConfirm={handleReject}
                       variant={'destructive'}
@@ -131,7 +131,7 @@ const Page = ({
                       tooltipText={'application.admin.rejectTooltip'}
                     />
                     <ButtonDialog
-                      triggerText={'approve'}
+                      triggerText={'common.approve'}
                       title={'approveConfirm'}
                       onConfirm={handleApprove}
                       variant={'success'}
