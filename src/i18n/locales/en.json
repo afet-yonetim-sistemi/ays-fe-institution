@@ -100,7 +100,9 @@
   "dataTable": {
     "noResult": "No results found"
   },
-  "searchCountry": "Search country...",
+  "phoneInput": {
+    "search": "Search for a country"
+  },
   "noCountryFound": "No country found.",
   "creationReason": "Creation Reason",
   "username": "Username",

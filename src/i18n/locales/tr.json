@@ -100,7 +100,9 @@
   "dataTable": {
     "noResult": "Sonuç bulunamadı"
   },
-  "searchCountry": "Ülke ara...",
+  "phoneInput": {
+    "search": "Bir ülke arayın"
+  },
   "noCountryFound": "Ülke bulunamadı",
   "logout": "Çıkış Yap",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",
