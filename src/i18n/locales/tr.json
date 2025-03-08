@@ -105,7 +105,10 @@
   "phoneInput": {
     "search": "Bir ülke arayın"
   },
-  "logout": "Çıkış Yap",
+  "navBar": {
+    "toggle": "Gezinme menüsünü aç/kapat",
+    "logout": "Çıkış Yap"
+  },
   "invalidPhoneNumber": "Geçersiz telefon numarası",
   "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",
   "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",

@@ -50,7 +50,7 @@ function Navbar(): JSX.Element {
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
             <MenuIcon className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
+            <span className="sr-only">{t('navBar.toggle')}</span>
           </Button>
         </SheetTrigger>
         <SheetContent
@@ -82,7 +82,6 @@ function Navbar(): JSX.Element {
                 </span>
                 <span className={'text-sm'}>{userInfo?.institutionName}</span>
               </div>
-
               <Avatar className={'float-right ml-3'}>
                 <AvatarFallback>
                   <LuUser2 size={22} />
@@ -92,7 +91,7 @@ function Navbar(): JSX.Element {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuItem onClick={() => logout()}>
-              {t('logout')}
+              {t('navBar.logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
