@@ -83,7 +83,9 @@ const ButtonDialog = ({
         </DialogHeader>
         {reason && (
           <>
-            <Label htmlFor={'reason'}>{label ?? t('rejectReason')}</Label>
+            <Label htmlFor={'reason'}>
+              {label ?? t('application.rejectReason')}
+            </Label>
             <Textarea
               minLength={40}
               maxLength={512}

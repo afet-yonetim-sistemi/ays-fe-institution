@@ -107,6 +107,8 @@
   },
   "application": {
     "information": "Başvuru Bilgileri",
+    "reason": "Başvuru Nedeni",
+    "rejectReason": "Başvuru Reddedilme Nedeni",
     "rejectSuccess": "Başvuru başarıyla reddedildi.",
     "approveSuccess": "Başvuru başarıyla onaylandı.",
     "admin": {
@@ -127,10 +129,8 @@
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
   "clearSort": "Sıralamayı sıfırla",
-  "reason": "Başvuru Nedeni",
   "institutionName": "Kurum Adı",
   "applicationStatus": "Başvuru Durumu",
-  "rejectReason": "Başvuru Reddedilme Nedeni",
   "updatedUser": "Başvuruyu Güncelleyen Kullanıcı",
   "userInformation": "Kullanıcı  Bilgileri",
   "referenceNumber": "Referans Numarası",

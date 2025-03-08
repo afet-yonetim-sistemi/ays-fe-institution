@@ -106,6 +106,8 @@
     "logout": "Logout"
   },
   "application": {
+    "reason": "Application Reason",
+    "rejectReason": "Application Rejection Reason",
     "information": "Application Information",
     "rejectSuccess": "Application successfully rejected.",
     "approveSuccess": "Application successfully approved.",
@@ -134,10 +136,8 @@
   "sourceDistrict": "Source District",
   "targetCity": "Target City",
   "targetDistrict": "Target District",
-  "reason": "Application Reason",
   "institutionName": "Institution Name",
   "applicationStatus": "Application Status",
-  "rejectReason": "Application Rejection Reason",
   "updatedUser": "User Who Updated the Application",
   "userInformation": "User Information",
   "applicantFirstName": "Applicant's First Name",

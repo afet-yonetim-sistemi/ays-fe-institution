@@ -28,7 +28,7 @@ export const columns: (
     },
     {
       accessorKey: 'reason',
-      header: () => i18next.t('reason'),
+      header: () => i18next.t('application.reason'),
       cell: ({ row }) => (
         <div
           style={{

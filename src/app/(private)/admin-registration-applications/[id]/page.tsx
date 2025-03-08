@@ -215,7 +215,7 @@ const Page = ({
                       name="rejectReason"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-2">
-                          <FormLabel>{t('rejectReason')}</FormLabel>
+                          <FormLabel>{t('application.rejectReason')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
