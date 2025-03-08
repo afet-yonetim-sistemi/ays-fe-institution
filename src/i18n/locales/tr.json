@@ -126,9 +126,11 @@
       }
     }
   },
-  "desc": "Azalan sıraya göre sıralamak için tıklayın",
-  "asc": "Artan sıraya göre sıralamak için tıklayın",
-  "clearSort": "Sıralamayı sıfırla",
+  "sort": {
+    "descending": "Azalan sıraya göre sıralamak için tıklayın",
+    "ascending": "Artan sıraya göre sıralamak için tıklayın",
+    "clear": "Sıralamayı sıfırla"
+  },
   "institutionName": "Kurum Adı",
   "applicationStatus": "Başvuru Durumu",
   "updatedUser": "Başvuruyu Güncelleyen Kullanıcı",
