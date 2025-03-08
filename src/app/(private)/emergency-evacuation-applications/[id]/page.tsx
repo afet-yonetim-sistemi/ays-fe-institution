@@ -220,7 +220,7 @@ const Page = ({
             </div>
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>{t('applicationInformation')}</CardTitle>
+                <CardTitle>{t('application.information')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">

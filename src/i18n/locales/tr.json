@@ -106,9 +106,11 @@
     "logout": "Çıkış Yap"
   },
   "application": {
+    "information": "Başvuru Bilgileri",
     "rejectSuccess": "Başvuru başarıyla reddedildi.",
     "approveSuccess": "Başvuru başarıyla onaylandı.",
     "admin": {
+      "rejectTooltip": "Başvuru reddedilme nedeni en az 40 karakter olmalıdır.",
       "preliminary": {
         "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
         "button": "Ön Başvuru Oluştur",
@@ -122,11 +124,9 @@
       }
     }
   },
-  "rejectReasonLengthInfo": "Başvuru Reddedilme Nedeni en az 40 karakter olmalıdır.",
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",
   "clearSort": "Sıralamayı sıfırla",
-  "applicationInformation": "Başvuru Bilgileri",
   "reason": "Başvuru Nedeni",
   "institutionName": "Kurum Adı",
   "applicationStatus": "Başvuru Durumu",
