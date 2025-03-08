@@ -20,6 +20,7 @@
     "email": "E-posta",
     "password": "Şifre",
     "success": "Başarılı",
+    "noResult": "Sonuç bulunamadı",
     "error": {
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
@@ -97,13 +98,9 @@
     "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
     "button": "Kaydı Tamamla"
   },
-  "dataTable": {
-    "noResult": "Sonuç bulunamadı"
-  },
   "phoneInput": {
     "search": "Bir ülke arayın"
   },
-  "noCountryFound": "Ülke bulunamadı",
   "logout": "Çıkış Yap",
   "notSpecialCharacters": "Özel karakter içeren bir metin gönderilemez.",
   "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",

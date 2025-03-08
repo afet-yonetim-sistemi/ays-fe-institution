@@ -149,7 +149,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >
-                    {t('dataTable.noResult')}
+                    {t('common.noResult')}
                   </TableCell>
                 </TableRow>
               )

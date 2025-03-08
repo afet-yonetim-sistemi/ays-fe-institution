@@ -20,6 +20,7 @@
     "email": "Email",
     "password": "Password",
     "success": "Success",
+    "noResult": "No results found",
     "error": {
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
@@ -97,13 +98,9 @@
     "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system.",
     "button": "Complete Registration"
   },
-  "dataTable": {
-    "noResult": "No results found"
-  },
   "phoneInput": {
     "search": "Search for a country"
   },
-  "noCountryFound": "No country found.",
   "creationReason": "Creation Reason",
   "username": "Username",
   "firstName": "First Name",

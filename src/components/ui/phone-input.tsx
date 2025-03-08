@@ -125,7 +125,7 @@ const CountrySelect = ({
           <CommandList>
             <ScrollArea className="h-72">
               <CommandInput placeholder={i18n.t('phoneInput.search')} />
-              <CommandEmpty>{i18n.t('noCountryFound')}</CommandEmpty>
+              <CommandEmpty>{i18n.t('common.noResult')}</CommandEmpty>
               <CommandGroup>
                 {options
                   .filter((x) => x.value)
