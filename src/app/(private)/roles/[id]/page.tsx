@@ -538,7 +538,10 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                           <Input
                             {...field}
                             disabled
-                            value={t(roleDetail.status.toLowerCase()) ?? ''}
+                            value={
+                              t(`status.${roleDetail.status.toLowerCase()}`) ??
+                              ''
+                            }
                           />
                         </FormControl>
                       </FormItem>

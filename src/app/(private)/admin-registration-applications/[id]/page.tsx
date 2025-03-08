@@ -199,7 +199,7 @@ const Page = ({
                             value={
                               adminRegistrationApplicationDetails?.status
                                 ? t(
-                                    adminRegistrationApplicationDetails.status.toLowerCase()
+                                    `status.${adminRegistrationApplicationDetails.status.toLowerCase()}`
                                   )
                                 : ''
                             }
