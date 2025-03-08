@@ -81,7 +81,7 @@ const Page = ({
       .then(() => {
         toast({
           title: 'common.success',
-          description: 'adminRegistration.success',
+          description: 'application.admin.completion.success',
           variant: 'success',
         })
         router.push('/login')
@@ -113,7 +113,7 @@ const Page = ({
               />
               <CardTitle> {t('common.welcome')} </CardTitle>
               <CardDescription className="text-center">
-                {t('adminRegistration.description')}
+                {t('application.admin.completion.description')}
               </CardDescription>
             </CardHeader>
             <CardHeader>
@@ -237,7 +237,7 @@ const Page = ({
                     {isLoading ? (
                       <LoadingSpinner />
                     ) : (
-                      t('adminRegistration.button')
+                      t('application.admin.completion.button')
                     )}
                   </Button>
                 </form>

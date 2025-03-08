@@ -57,13 +57,15 @@ const Page = (): JSX.Element => {
       .then((res) => {
         toast({
           title: 'common.success',
-          description: 'preApplication.success',
+          description: 'application.admin.preliminary.success',
           variant: 'success',
         })
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'preApplication.error' })
+        handleErrorToast(error, {
+          description: 'application.admin.preliminary.error',
+        })
       })
       .finally(() => setIsLoading(false))
   }
@@ -85,7 +87,9 @@ const Page = (): JSX.Element => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">{t('preApplication.title')}</h1>
+            <h1 className="text-2xl font-bold">
+              {t('application.admin.preliminary.title')}
+            </h1>
             <Button disabled={isLoading} type="submit" className={'min-w-20'}>
               {isLoading ? <LoadingSpinner /> : t('common.create')}
             </Button>

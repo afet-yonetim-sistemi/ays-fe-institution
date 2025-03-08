@@ -98,23 +98,27 @@
     "receivedThirdApprove": "Received Third Approve",
     "cancelled": "Cancelled"
   },
-  "adminRegistration": {
-    "description": "Please complete your admin registration application by entering your information.",
-    "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system.",
-    "button": "Complete Registration"
-  },
-  "preApplication": {
-    "title": "Institution Admin Registration Preliminary Application Creation",
-    "button": "Create Preliminary Application",
-    "success": "Preliminary application created successfully.",
-    "error": "An error occurred while creating the preliminary application. Please try again."
-  },
   "phoneInput": {
     "search": "Search for a country"
   },
   "navBar": {
     "toggle": "Toggle navigation menu",
     "logout": "Logout"
+  },
+  "application": {
+    "admin": {
+      "preliminary": {
+        "title": "Institution Admin Registration Preliminary Application Creation",
+        "button": "Create Preliminary Application",
+        "success": "Preliminary application created successfully.",
+        "error": "An error occurred while creating the preliminary application. Please try again."
+      },
+      "completion": {
+        "description": "Please complete your admin registration application by entering your information.",
+        "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system.",
+        "button": "Complete Registration"
+      }
+    }
   },
   "applicationRejectSuccess": "Application successfully rejected.",
   "applicationApproveSuccess": "Application successfully approved.",

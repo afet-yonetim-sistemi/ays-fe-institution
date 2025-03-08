@@ -98,23 +98,27 @@
     "receivedThirdApprove": "3. Onay Alındı",
     "cancelled": "İptal Edildi"
   },
-  "adminRegistration": {
-    "description": "Lütfen bilgilerinizi girerek yönetici kayıt başvurunuzu tamamlayınız.",
-    "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
-    "button": "Kaydı Tamamla"
-  },
-  "preApplication": {
-    "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
-    "button": "Ön Başvuru Oluştur",
-    "success": "Ön başvuru başarıyla oluşturuldu.",
-    "error": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyiniz."
-  },
   "phoneInput": {
     "search": "Bir ülke arayın"
   },
   "navBar": {
     "toggle": "Gezinme menüsünü aç/kapat",
     "logout": "Çıkış Yap"
+  },
+  "application": {
+    "admin": {
+      "preliminary": {
+        "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
+        "button": "Ön Başvuru Oluştur",
+        "success": "Ön başvuru başarıyla oluşturuldu.",
+        "error": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyiniz."
+      },
+      "completion": {
+        "description": "Lütfen bilgilerinizi girerek yönetici kayıt başvurunuzu tamamlayınız.",
+        "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
+        "button": "Kaydı Tamamla"
+      }
+    }
   },
   "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",
   "applicationApproveSuccess": "Başvuru başarıyla onaylandı.",
