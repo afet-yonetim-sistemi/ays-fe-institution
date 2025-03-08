@@ -48,8 +48,7 @@
   "error": {
     "application": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
-    "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyi",
-    "preApplication": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyin"
+    "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyiniz."
   },
   "notFound": {
     "title": "Sayfa Bulunamadı."
@@ -106,7 +105,8 @@
   "preApplication": {
     "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
     "button": "Ön Başvuru Oluştur",
-    "success": "Ön başvuru başarıyla oluşturuldu."
+    "success": "Ön başvuru başarıyla oluşturuldu.",
+    "error": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyiniz."
   },
   "phoneInput": {
     "search": "Bir ülke arayın"

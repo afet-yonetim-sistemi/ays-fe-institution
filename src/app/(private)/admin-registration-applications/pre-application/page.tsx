@@ -63,7 +63,7 @@ const Page = (): JSX.Element => {
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'error.preApplication' })
+        handleErrorToast(error, { description: 'preApplication.error' })
       })
       .finally(() => setIsLoading(false))
   }

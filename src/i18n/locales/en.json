@@ -48,8 +48,7 @@
   "error": {
     "application": "Error while fetching application details. Please try again",
     "userDetailFetch": "Error while fetching user details. Please try again",
-    "roleSummaryFetch": "Error while fetching available roles. Please try again",
-    "preApplication": "An error occurred while creating the preliminary application. Please try again."
+    "roleSummaryFetch": "Error while fetching available roles. Please try again"
   },
   "notFound": {
     "title": "Page not found."
@@ -106,7 +105,8 @@
   "preApplication": {
     "title": "Institution Admin Registration Preliminary Application Creation",
     "button": "Create Preliminary Application",
-    "success": "Preliminary application created successfully."
+    "success": "Preliminary application created successfully.",
+    "error": "An error occurred while creating the preliminary application. Please try again."
   },
   "phoneInput": {
     "search": "Search for a country"
