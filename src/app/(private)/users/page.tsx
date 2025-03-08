@@ -263,7 +263,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="lastName"
-          label={t('user.lastName')}
+          label={t('common.lastName')}
           value={lastNameInput}
           onChange={(e) => {
             setLastNameInput(e.target.value)

@@ -37,7 +37,7 @@ export const columns: (
     },
     {
       accessorKey: 'lastName',
-      header: () => i18next.t('user.lastName'),
+      header: () => i18next.t('common.lastName'),
     },
     {
       accessorKey: 'emailAddress',

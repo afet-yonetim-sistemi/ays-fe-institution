@@ -8,6 +8,7 @@
     "delete": "Delete",
     "send": "Send",
     "firstName": "First Name",
+    "lastName": "Last Name",
     "city": "City",
     "createdAt": "Created At",
     "updatedAt": "Updated At",
@@ -104,7 +105,6 @@
   "phoneInput": {
     "search": "Search for a country"
   },
-  "lastName": "Last Name",
   "logout": "Logout",
   "invalidPhoneNumber": "Phone Number is invalid",
   "preApplicationSuccess": "Preliminary application created successfully.",
@@ -242,7 +242,6 @@
     "title": "Users",
     "detailsTitle": "User Details",
     "information": "User Information",
-    "lastName": "Surname",
     "email": "E-mail",
     "phoneNumber": "Phone Number",
     "countryCode": "Country Code",

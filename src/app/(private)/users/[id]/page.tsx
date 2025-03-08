@@ -402,7 +402,7 @@ const Page = ({
                     name="lastName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.lastName')}</FormLabel>
+                        <FormLabel>{t('common.lastName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
