@@ -338,7 +338,7 @@ const Page = ({
                       name="firstName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('firstName')}</FormLabel>
+                          <FormLabel>{t('common.firstName')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}

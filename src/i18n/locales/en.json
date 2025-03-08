@@ -7,6 +7,7 @@
     "save": "Save",
     "delete": "Delete",
     "send": "Send",
+    "firstName": "First Name",
     "city": "City",
     "createdAt": "Created At",
     "updatedAt": "Updated At",
@@ -103,9 +104,6 @@
   "phoneInput": {
     "search": "Search for a country"
   },
-  "creationReason": "Creation Reason",
-  "username": "Username",
-  "firstName": "First Name",
   "lastName": "Last Name",
   "logout": "Logout",
   "invalidPhoneNumber": "Phone Number is invalid",
