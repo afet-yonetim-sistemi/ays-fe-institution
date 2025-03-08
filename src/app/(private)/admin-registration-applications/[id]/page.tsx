@@ -327,7 +327,7 @@ const Page = ({
             {adminRegistrationApplicationDetails.user && (
               <Card>
                 <CardHeader>
-                  <CardTitle>{t('userInformation')}</CardTitle>
+                  <CardTitle>{t('user.information')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 mb-6">
