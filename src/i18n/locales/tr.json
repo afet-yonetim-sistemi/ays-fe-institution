@@ -127,6 +127,9 @@
         "success": "Yönetici kayıt başvurunuz başarıyla tamamlandı. Gerekli incelemeler yapıldıktan sonra başvurunuz onaylanacak ve sisteme giriş yapabileceksiniz.",
         "button": "Kaydı Tamamla"
       }
+    },
+    "evacuation": {
+      "referenceNumber": "Referans Numarası"
     }
   },
   "sort": {
@@ -134,7 +137,6 @@
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
     "clear": "Sıralamayı sıfırla"
   },
-  "referenceNumber": "Referans Numarası",
   "applicantFirstName": "Başvuru Yapan Kişinin Adı",
   "applicantLastName": "Başvuru Yapan Kişinin Soyadı",
   "isInPerson": "Bireysel Başvuru",

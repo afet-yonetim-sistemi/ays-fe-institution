@@ -282,7 +282,7 @@ const Page = (): JSX.Element => {
         </div>
         <FilterInput
           id="referenceNumber"
-          label={t('referenceNumber')}
+          label={t('application.evacuation.referenceNumber')}
           value={referenceNumberInput}
           onChange={(e) => {
             setReferenceNumberInput(e.target.value)

@@ -34,7 +34,7 @@ export const columns: (
   return [
     {
       accessorKey: 'referenceNumber',
-      header: () => i18next.t('referenceNumber'),
+      header: () => i18next.t('application.evacuation.referenceNumber'),
       cell: ({ row }) => formatReferenceNumber(row.original.referenceNumber),
     },
     {

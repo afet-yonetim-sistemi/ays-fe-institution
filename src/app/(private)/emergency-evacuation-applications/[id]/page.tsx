@@ -229,7 +229,9 @@ const Page = ({
                     name="referenceNumber"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('referenceNumber')}</FormLabel>
+                        <FormLabel>
+                          {t('application.evacuation.referenceNumber')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}

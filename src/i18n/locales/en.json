@@ -127,6 +127,9 @@
         "success": "Your admin registration application has been successfully completed. After the necessary reviews, your application will be approved, and you will be able to log in to the system.",
         "button": "Complete Registration"
       }
+    },
+    "evacuation": {
+      "referenceNumber": "Reference Number"
     }
   },
   "sort": {
@@ -136,7 +139,6 @@
   },
   "applicantFirstName": "Applicant's First Name",
   "applicantLastName": "Applicant's Last Name",
-  "referenceNumber": "Reference Number",
   "isInPerson": "Is In Person",
   "seatingCount": "Seat Count",
   "sourceCity": "Source City",
