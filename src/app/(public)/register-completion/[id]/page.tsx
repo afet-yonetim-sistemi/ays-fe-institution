@@ -165,9 +165,9 @@ const Page = ({
                     name="emailAddress"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('emailAddress')}</FormLabel>
+                        <FormLabel>{t('common.email')}</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder={t('emailAddress')} />
+                          <Input {...field} placeholder={t('common.email')} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

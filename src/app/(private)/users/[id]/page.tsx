@@ -420,7 +420,7 @@ const Page = ({
                     name="emailAddress"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.email')}</FormLabel>
+                        <FormLabel>{t('common.email')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}

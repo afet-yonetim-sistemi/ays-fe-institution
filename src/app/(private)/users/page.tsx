@@ -272,7 +272,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="emailAddress"
-          label={t('user.email')}
+          label={t('common.email')}
           value={emailAddressInput}
           onChange={(e) => {
             setEmailAddressInput(e.target.value)

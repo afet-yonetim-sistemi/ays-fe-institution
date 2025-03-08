@@ -421,7 +421,7 @@ const Page = ({
                       name="userEmailAddress"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('emailAddress')}</FormLabel>
+                          <FormLabel>{t('common.email')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
