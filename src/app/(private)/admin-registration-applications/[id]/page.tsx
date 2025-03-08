@@ -128,7 +128,7 @@ const Page = ({
                       onConfirm={handleReject}
                       variant={'destructive'}
                       reason={true}
-                      tooltipText={'rejectReasonLengthInfo'}
+                      tooltipText={'application.admin.rejectTooltip'}
                     />
                     <ButtonDialog
                       triggerText={'approve'}
