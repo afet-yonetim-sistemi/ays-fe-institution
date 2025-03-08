@@ -106,6 +106,8 @@
     "logout": "Çıkış Yap"
   },
   "application": {
+    "rejectSuccess": "Başvuru başarıyla reddedildi.",
+    "approveSuccess": "Başvuru başarıyla onaylandı.",
     "admin": {
       "preliminary": {
         "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
@@ -120,8 +122,6 @@
       }
     }
   },
-  "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",
-  "applicationApproveSuccess": "Başvuru başarıyla onaylandı.",
   "rejectReasonLengthInfo": "Başvuru Reddedilme Nedeni en az 40 karakter olmalıdır.",
   "desc": "Azalan sıraya göre sıralamak için tıklayın",
   "asc": "Artan sıraya göre sıralamak için tıklayın",

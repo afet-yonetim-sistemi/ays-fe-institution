@@ -59,7 +59,7 @@ const Page = ({
       .then(() => {
         toast({
           title: 'common.success',
-          description: 'applicationRejectSuccess',
+          description: 'application.rejectSuccess',
           variant: 'success',
         })
         router.push('/admin-registration-applications')
@@ -74,7 +74,7 @@ const Page = ({
       .then(() => {
         toast({
           title: 'common.success',
-          description: 'applicationApproveSuccess',
+          description: 'application.approveSuccess',
           variant: 'success',
         })
         router.push('/admin-registration-applications')

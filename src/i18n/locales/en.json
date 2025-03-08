@@ -106,6 +106,8 @@
     "logout": "Logout"
   },
   "application": {
+    "rejectSuccess": "Application successfully rejected.",
+    "approveSuccess": "Application successfully approved.",
     "admin": {
       "preliminary": {
         "title": "Institution Admin Registration Preliminary Application Creation",
@@ -120,8 +122,6 @@
       }
     }
   },
-  "applicationRejectSuccess": "Application successfully rejected.",
-  "applicationApproveSuccess": "Application successfully approved.",
   "rejectReasonLengthInfo": "Application Rejection Reason must be at least 40 characters.",
   "desc": "Click to sort descending",
   "asc": "Click to sort ascending",
