@@ -35,7 +35,8 @@
     "minLength": "This field is too short",
     "maxLength": "This field is too long",
     "phoneNumberLength": "Phone number must be 10 digits long",
-    "specialChar": "This field cannot contain special characters"
+    "specialChar": "This field cannot contain special characters",
+    "noNumbersOnly": "This field cannot contain only numbers"
   },
   "metaData": {
     "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
@@ -107,8 +108,6 @@
   "firstName": "First Name",
   "lastName": "Last Name",
   "logout": "Logout",
-  "notSpecialCharacters": "Text containing special characters cannot be sent.",
-  "notOnlyNumbers": "This field cannot consist only of numbers.",
   "invalidPhoneNumber": "Phone Number is invalid",
   "preApplicationSuccess": "Preliminary application created successfully.",
   "applicationRejectSuccess": "Application successfully rejected.",

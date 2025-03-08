@@ -46,7 +46,7 @@ export const PreApplicationFormSchema = z.object({
       message: 'validation.specialChar',
     })
     .refine((value) => /\D/.test(value), {
-      message: 'notOnlyNumbers',
+      message: 'validation.noNumbersOnly',
     }),
 })
 

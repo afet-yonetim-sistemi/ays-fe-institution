@@ -35,7 +35,8 @@
     "minLength": "Bu alan çok kısa",
     "maxLength": "Bu alan çok uzun",
     "phoneNumberLength": "Telefon numarası 10 haneli olmalıdır",
-    "specialChar": "Bu alan özel karakter içeremez"
+    "specialChar": "Bu alan özel karakter içeremez",
+    "noNumbersOnly": "Bu alan sadece sayılardan oluşamaz"
   },
   "metaData": {
     "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
@@ -103,7 +104,6 @@
     "search": "Bir ülke arayın"
   },
   "logout": "Çıkış Yap",
-  "notOnlyNumbers": "Bu alan sadece sayılardan oluşamaz.",
   "invalidPhoneNumber": "Geçersiz telefon numarası",
   "preApplicationSuccess": "Ön başvuru başarıyla oluşturuldu.",
   "applicationRejectSuccess": "Başvuru başarıyla reddedildi.",
