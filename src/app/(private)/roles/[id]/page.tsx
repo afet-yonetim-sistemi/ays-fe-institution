@@ -584,7 +584,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="updatedUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('role.updatedUser')}</FormLabel>
+                        <FormLabel>{t('common.updatedUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
