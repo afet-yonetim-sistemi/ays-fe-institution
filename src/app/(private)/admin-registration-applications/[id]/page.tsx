@@ -170,7 +170,7 @@ const Page = ({
                     name="institutionName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('institutionName')}</FormLabel>
+                        <FormLabel>{t('common.institution')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -189,9 +189,7 @@ const Page = ({
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.status')}
-                        </FormLabel>
+                        <FormLabel>{t('application.status')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}

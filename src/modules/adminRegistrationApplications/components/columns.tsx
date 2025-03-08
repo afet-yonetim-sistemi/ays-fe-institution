@@ -24,7 +24,7 @@ export const columns: (
   return [
     {
       accessorKey: 'institution.name',
-      header: () => i18next.t('institution'),
+      header: () => i18next.t('common.institution'),
     },
     {
       accessorKey: 'reason',

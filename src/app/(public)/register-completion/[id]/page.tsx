@@ -123,7 +123,7 @@ const Page = ({
                   className="space-y-5"
                 >
                   <FormItem>
-                    <FormLabel>{t('institution')}</FormLabel>
+                    <FormLabel>{t('common.institution')}</FormLabel>
                     <FormControl>
                       <Input value={institutionName} disabled />
                     </FormControl>

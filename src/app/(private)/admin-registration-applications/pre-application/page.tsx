@@ -101,7 +101,7 @@ const Page = (): JSX.Element => {
                 name="institutionId"
                 render={({ field }) => (
                   <FormItem className="col-span-1">
-                    <FormLabel>{t('institution')}</FormLabel>
+                    <FormLabel>{t('common.institution')}</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}

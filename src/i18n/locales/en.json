@@ -7,9 +7,11 @@
     "save": "Save",
     "delete": "Delete",
     "send": "Send",
+    "institution": "Institution",
     "firstName": "First Name",
     "lastName": "Last Name",
     "city": "City",
+    "email": "Email",
     "phoneNumber": "Phone Number",
     "createdAt": "Created At",
     "updatedAt": "Updated At",
@@ -20,7 +22,6 @@
     "welcome": "Welcome",
     "yes": "Yes",
     "no": "No",
-    "email": "Email",
     "password": "Password",
     "success": "Success",
     "noResult": "No results found",
@@ -106,9 +107,10 @@
     "logout": "Logout"
   },
   "application": {
+    "information": "Application Information",
     "reason": "Application Reason",
     "rejectReason": "Application Rejection Reason",
-    "information": "Application Information",
+    "status": "Application Status",
     "rejectSuccess": "Application successfully rejected.",
     "approveSuccess": "Application successfully approved.",
     "admin": {
@@ -131,8 +133,6 @@
     "ascending": "Click to sort ascending",
     "clear": "Clear sort"
   },
-  "institutionName": "Institution Name",
-  "applicationStatus": "Application Status",
   "updatedUser": "User Who Updated the Application",
   "userInformation": "User Information",
   "applicantFirstName": "Applicant's First Name",
@@ -154,7 +154,6 @@
     "createdAt": "Application Creation Date",
     "updatedAt": "Application Update Date",
     "createdUser": "User Who Created the Application",
-    "status": "Application Status",
     "copyLink": "Copy the Registration Completion Link",
     "linkCopied": "Copied the Registration Completion Link."
   },
@@ -169,7 +168,6 @@
     "targetCityAndDistrict": "City / District to be Evacuated",
     "seatingCount": "Seating Count",
     "isInPerson": "Individual Application?",
-    "status": "Application Status",
     "createdAt": "Application Date and Time",
     "anyDisability": "Any Person with Disability?",
     "confirmedSeatingCount": "Confirmed Seating Count",
@@ -186,7 +184,6 @@
   "approve": "Approve",
   "rejectConfirm": "Are you sure you want to reject this application?",
   "approveConfirm": "Are you sure you want to approve this application?",
-  "institution": "Institution",
   "createReason": "Creation Reason",
   "selectInstitution": "Select Institution",
   "role": {

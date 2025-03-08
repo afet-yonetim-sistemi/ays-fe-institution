@@ -511,9 +511,7 @@ const Page = ({
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('emergencyEvacuationApplications.status')}
-                        </FormLabel>
+                        <FormLabel>{t('application.status')}</FormLabel>
                         <FormControl>
                           <Select
                             value={
