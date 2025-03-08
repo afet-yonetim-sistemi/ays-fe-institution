@@ -397,7 +397,7 @@ const Page = ({
                       name="phone"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('phoneNumber')}</FormLabel>
+                          <FormLabel>{t('common.phoneNumber')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}

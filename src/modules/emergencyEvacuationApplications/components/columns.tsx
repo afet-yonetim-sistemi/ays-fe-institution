@@ -55,7 +55,7 @@ export const columns: (
     },
     {
       accessorKey: 'phoneNumber',
-      header: () => i18next.t('phoneNumber'),
+      header: () => i18next.t('common.phoneNumber'),
       cell: ({ row }) =>
         formatPhoneNumber(
           row.original.isInPerson

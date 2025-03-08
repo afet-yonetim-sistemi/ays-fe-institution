@@ -148,7 +148,7 @@ const Page = (): JSX.Element => {
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('phoneNumber')}</FormLabel>
+                  <FormLabel>{t('common.phoneNumber')}</FormLabel>
                   <FormControl>
                     <PhoneInput
                       onChange={field.onChange}
