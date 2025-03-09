@@ -149,7 +149,10 @@
       "targetCity": "Target City",
       "targetDistrict": "Target District",
       "applicantFullName": "Name and Surname of Person to Contact",
-      "applicantPhone": "Phone Number of Person to Contact"
+      "applicantPhone": "Phone Number of Person to Contact",
+      "sourceCityAndDistrict": "Current City / District",
+      "address": "Public Address",
+      "targetCityAndDistrict": "City / District to be Evacuated"
     }
   },
   "sort": {
@@ -158,9 +161,6 @@
     "clear": "Clear sort"
   },
   "emergencyEvacuationApplications": {
-    "sourceCityAndDistrict": "Current City / District",
-    "address": "Public Address",
-    "targetCityAndDistrict": "City / District to be Evacuated",
     "seatingCount": "Seating Count",
     "isInPerson": "Individual Application?",
     "createdAt": "Application Date and Time",

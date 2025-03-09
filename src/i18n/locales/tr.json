@@ -149,7 +149,10 @@
       "targetCity": "Tahliye Sağlanılacak Şehir",
       "targetDistrict": "Tahliye Sağlanılacak İlçe",
       "applicantFullName": "İletişime Geçilecek Kişinin Adı ve Soyadı",
-      "applicantPhone": "İletişime Geçilecek Kişininin Telefon Numarası"
+      "applicantPhone": "İletişime Geçilecek Kişininin Telefon Numarası",
+      "sourceCityAndDistrict": "Bulunulan Şehir / İlçe",
+      "address": "Açık Adres",
+      "targetCityAndDistrict": "Tahliye Sağlanılacak Şehir / İlçe"
     }
   },
   "sort": {
@@ -158,9 +161,6 @@
     "clear": "Sıralamayı sıfırla"
   },
   "emergencyEvacuationApplications": {
-    "sourceCityAndDistrict": "Bulunulan Şehir / İlçe",
-    "address": "Açık Adres",
-    "targetCityAndDistrict": "Tahliye Sağlanılacak Şehir / İlçe",
     "seatingCount": "Koltuk Sayısı",
     "isInPerson": "Bireysel Başvuru Mu?",
     "createdAt": "Başvuru Tarihi ve Saati",

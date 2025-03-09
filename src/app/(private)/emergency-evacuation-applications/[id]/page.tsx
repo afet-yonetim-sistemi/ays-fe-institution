@@ -376,9 +376,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t(
-                            'emergencyEvacuationApplications.sourceCityAndDistrict'
-                          )}
+                          {t('application.evacuation.sourceCityAndDistrict')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -405,9 +403,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t(
-                            'emergencyEvacuationApplications.targetCityAndDistrict'
-                          )}
+                          {t('application.evacuation.targetCityAndDistrict')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -434,7 +430,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormLabel>
-                          {t('emergencyEvacuationApplications.address')}
+                          {t('application.evacuation.address')}
                         </FormLabel>
                         <FormControl>
                           <Input
