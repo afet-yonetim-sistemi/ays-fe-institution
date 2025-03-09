@@ -154,7 +154,10 @@
       "applicantPhone": "Phone Number of Person to Contact",
       "sourceCityAndDistrict": "Current City / District",
       "address": "Public Address",
-      "targetCityAndDistrict": "City / District to be Evacuated"
+      "targetCityAndDistrict": "City / District to be Evacuated",
+      "anyDisability": "Any Person with Disability?",
+      "confirmedSeatingCount": "Confirmed Seating Count",
+      "notes": "Operator Notes"
     }
   },
   "sort": {
@@ -163,9 +166,6 @@
     "clear": "Clear sort"
   },
   "emergencyEvacuationApplications": {
-    "anyDisability": "Any Person with Disability?",
-    "confirmedSeatingCount": "Confirmed Seating Count",
-    "notes": "Operator Notes",
     "seatingCountinvalidType": "Please enter valid number",
     "noChangesError": "Cannot update the application without making any changes",
     "updatedSuccessfully": "Evacuation application updated successfully",

@@ -154,7 +154,10 @@
       "applicantPhone": "İletişime Geçilecek Kişininin Telefon Numarası",
       "sourceCityAndDistrict": "Bulunulan Şehir / İlçe",
       "address": "Açık Adres",
-      "targetCityAndDistrict": "Tahliye Sağlanılacak Şehir / İlçe"
+      "targetCityAndDistrict": "Tahliye Sağlanılacak Şehir / İlçe",
+      "anyDisability": "Engel Durumu Olan Biri Var mı?",
+      "confirmedSeatingCount": "Teyit Edilen Koltuk Sayısı",
+      "notes": "Operatör Notları"
     }
   },
   "sort": {
@@ -163,9 +166,6 @@
     "clear": "Sıralamayı sıfırla"
   },
   "emergencyEvacuationApplications": {
-    "anyDisability": "Engel Durumu Olan Biri Var mı?",
-    "confirmedSeatingCount": "Teyit Edilen Koltuk Sayısı",
-    "notes": "Operatör Notları",
     "seatingCountinvalidType": "Lütfen uygun bir sayı girin",
     "noChangesError": "Değişiklik yapmadan başvuruyu güncelleyemezsiniz.",
     "updatedSuccessfully": "Tahliye başvurusu başarıyla güncellendi.",

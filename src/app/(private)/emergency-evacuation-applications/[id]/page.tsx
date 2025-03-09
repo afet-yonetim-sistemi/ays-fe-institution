@@ -481,9 +481,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t(
-                            'emergencyEvacuationApplications.confirmedSeatingCount'
-                          )}
+                          {t('application.evacuation.confirmedSeatingCount')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -561,7 +559,7 @@ const Page = ({
                       <FormItem className="sm:col-span-1">
                         <div className="flex items-center">
                           <FormLabel className="mr-2">
-                            {t('emergencyEvacuationApplications.anyDisability')}
+                            {t('application.evacuation.anyDisability')}
                           </FormLabel>
                           <FormControl>
                             <Checkbox
@@ -584,7 +582,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormLabel>
-                          {t('emergencyEvacuationApplications.notes')}
+                          {t('application.evacuation.notes')}
                         </FormLabel>
                         <FormControl>
                           <Textarea
