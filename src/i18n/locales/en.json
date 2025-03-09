@@ -173,7 +173,6 @@
     "clear": "Clear sort"
   },
   "role": {
-    "status": "Role Status",
     "permissions": "Role Permissions",
     "detailsTitle": "Role Details",
     "information": "Role Information",
