@@ -16,10 +16,10 @@ const EmergencyEvacuationApplicationSchema = z.object({
         'emergencyEvacuationApplications.seatingCountinvalidType',
     })
     .int({
-      message: 'seatingCountValidationMessage',
+      message: 'validation.seatingCount',
     })
-    .min(1, { message: 'seatingCountValidationMessage' })
-    .max(999, { message: 'seatingCountValidationMessage' }),
+    .min(1, { message: 'validation.seatingCount' })
+    .max(999, { message: 'validation.seatingCount' }),
   targetCity: z.string(),
   targetDistrict: z.string(),
   status: z.string(),

@@ -44,15 +44,16 @@
     "phone": "Phone number is invalid",
     "phoneLength": "Phone number must be 10 digits long",
     "specialChar": "This field cannot contain special characters",
-    "noNumbersOnly": "This field cannot contain only numbers"
+    "noNumbersOnly": "This field cannot contain only numbers",
+    "seatingCount": "Only positive numbers with a maximum of 3 digits are allowed"
   },
   "metaData": {
     "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
     "aysDescription": "Disaster Management System | Afet Yönetim Sistemi"
   },
   "error": {
-    "userDetailFetch": "Error while fetching user details. Please try again",
-    "roleSummaryFetch": "Error while fetching available roles. Please try again"
+    "userDetailFetch": "Error while fetching user details. Please try again.",
+    "roleSummaryFetch": "Error while fetching available roles. Please try again."
   },
   "notFound": {
     "title": "Page not found."
@@ -147,12 +148,6 @@
     "ascending": "Click to sort ascending",
     "clear": "Clear sort"
   },
-  "sourceCity": "Source City",
-  "sourceDistrict": "Source District",
-  "targetCity": "Target City",
-  "targetDistrict": "Target District",
-  "seatingCountValidationMessage": "Only positive numbers with a maximum of 3 digits are allowed.",
-  "referenceNumberValidationMessage": "Only positive numerical values are allowed.",
   "nameValidationMessage": "Role name should have minimum 2, maximum 255 characters. Special characters not allowed.",
   "adminRegistrationApplications": {
     "title": "Admin Registration Applications",

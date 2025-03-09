@@ -44,7 +44,8 @@
     "phone": "Geçersiz telefon numarası",
     "phoneLength": "Telefon numarası 10 haneli olmalıdır",
     "specialChar": "Bu alan özel karakter içeremez",
-    "noNumbersOnly": "Bu alan sadece sayılardan oluşamaz"
+    "noNumbersOnly": "Bu alan sadece sayılardan oluşamaz",
+    "seatingCount": "Sadece maksimum 3 haneli, pozitif sayı değerleri alabilir"
   },
   "metaData": {
     "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
@@ -147,12 +148,6 @@
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
     "clear": "Sıralamayı sıfırla"
   },
-  "sourceCity": "Tahliye Edilecek Şehir",
-  "sourceDistrict": "Tahliye Edilecek İlçe",
-  "targetCity": "Tahliye Sağlanılacak Şehir",
-  "targetDistrict": "Tahliye Sağlanılacak İlçe",
-  "seatingCountValidationMessage": "Sadece maksimum 3 haneli, pozitif sayı değerleri alabilir.",
-  "referenceNumberValidationMessage": "Sadece pozitif sayısal değerler alabilir.",
   "nameValidationMessage": "Rol adı en az 2, en fazla 255 karakterden oluşmalıdır. Özel karakterlere izin verilmez.",
   "adminRegistrationApplications": {
     "title": "Yönetici Kayıt Başvuruları",
