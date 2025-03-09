@@ -292,7 +292,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="sourceCity"
-          label={t('sourceCity')}
+          label={t('application.evacuation.sourceCity')}
           value={sourceCityInput}
           onChange={(e) => {
             setSourceCityInput(e.target.value)
@@ -301,7 +301,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="sourceDistrict"
-          label={t('sourceDistrict')}
+          label={t('application.evacuation.sourceDistrict')}
           value={sourceDistrictInput}
           onChange={(e) => {
             setSourceDistrictInput(e.target.value)
@@ -310,7 +310,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="targetCity"
-          label={t('targetCity')}
+          label={t('application.evacuation.targetCity')}
           value={targetCityInput}
           onChange={(e) => {
             setTargetCityInput(e.target.value)
@@ -319,7 +319,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="targetDistrict"
-          label={t('targetDistrict')}
+          label={t('application.evacuation.targetDistrict')}
           value={targetDistrictInput}
           onChange={(e) => {
             setTargetDistrictInput(e.target.value)

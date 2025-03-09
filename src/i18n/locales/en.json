@@ -135,7 +135,11 @@
     "evacuation": {
       "referenceNumber": "Reference Number",
       "inPerson": "Is In Person",
-      "seatingCount": "Seat Count"
+      "seatingCount": "Seat Count",
+      "sourceCity": "Source City",
+      "sourceDistrict": "Source District",
+      "targetCity": "Target City",
+      "targetDistrict": "Target District"
     }
   },
   "sort": {

@@ -135,7 +135,11 @@
     "evacuation": {
       "referenceNumber": "Referans Numarası",
       "inPerson": "Bireysel Başvuru",
-      "seatingCount": "Koltuk Sayısı"
+      "seatingCount": "Koltuk Sayısı",
+      "sourceCity": "Tahliye Edilecek Şehir",
+      "sourceDistrict": "Tahliye Edilecek İlçe",
+      "targetCity": "Tahliye Sağlanılacak Şehir",
+      "targetDistrict": "Tahliye Sağlanılacak İlçe"
     }
   },
   "sort": {
@@ -143,8 +147,6 @@
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
     "clear": "Sıralamayı sıfırla"
   },
-  "isInPerson": "Bireysel Başvuru",
-  "seatingCount": "Koltuk Sayısı",
   "sourceCity": "Tahliye Edilecek Şehir",
   "sourceDistrict": "Tahliye Edilecek İlçe",
   "targetCity": "Tahliye Sağlanılacak Şehir",
