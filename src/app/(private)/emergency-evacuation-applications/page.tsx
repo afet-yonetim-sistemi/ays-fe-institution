@@ -271,7 +271,7 @@ const Page = (): JSX.Element => {
           />
           <FilterInput
             id="seatingCount"
-            label={t('seatingCount')}
+            label={t('application.evacuation.seatingCount')}
             value={seatingCountInput}
             onChange={(e) => {
               setSeatingCountInput(e.target.value)

@@ -71,7 +71,7 @@ export const columns: (
     },
     {
       accessorKey: 'seatingCount',
-      header: () => i18next.t('seatingCount'),
+      header: () => i18next.t('application.evacuation.seatingCount'),
       cell: ({ row }) => row.original.seatingCount,
     },
     {
