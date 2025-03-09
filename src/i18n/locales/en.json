@@ -148,14 +148,10 @@
     "ascending": "Click to sort ascending",
     "clear": "Clear sort"
   },
-  "nameValidationMessage": "Role name should have minimum 2, maximum 255 characters. Special characters not allowed.",
   "adminRegistrationApplications": {
     "title": "Admin Registration Applications",
     "detailsTitle": "Admin Registration Applications Details",
     "reason": "Application Reason",
-    "createdAt": "Application Creation Date",
-    "updatedAt": "Application Update Date",
-    "createdUser": "User Who Created the Application",
     "copyLink": "Copy the Registration Completion Link",
     "linkCopied": "Copied the Registration Completion Link."
   },

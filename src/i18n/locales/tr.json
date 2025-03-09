@@ -148,14 +148,10 @@
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
     "clear": "Sıralamayı sıfırla"
   },
-  "nameValidationMessage": "Rol adı en az 2, en fazla 255 karakterden oluşmalıdır. Özel karakterlere izin verilmez.",
   "adminRegistrationApplications": {
     "title": "Yönetici Kayıt Başvuruları",
     "detailsTitle": "Yönetici Kayıt Başvuru Detayı",
     "reason": "Başvuru Nedeni",
-    "createdAt": "Başvuru Oluşturulma Tarihi",
-    "updatedAt": "Başvuru Güncellenme Tarihi",
-    "createdUser": "Başvuruyu Oluşturan Kullanıcı",
     "copyLink": "Kayıt Tamamlama Linkini Kopyala",
     "linkCopied": "Kayıt Tamamlama Linki Kopyalandı."
   },
