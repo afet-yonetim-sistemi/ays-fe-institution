@@ -170,8 +170,6 @@
     "updateError": "Evacuation application update failed"
   },
   "name": "Role Name",
-  "createDateTime": "Creation Date and Time",
-  "updateDateTime": "Update Date and Time",
   "rejectConfirm": "Are you sure you want to reject this application?",
   "approveConfirm": "Are you sure you want to approve this application?",
   "createReason": "Creation Reason",

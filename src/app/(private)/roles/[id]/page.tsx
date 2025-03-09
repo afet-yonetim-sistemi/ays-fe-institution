@@ -568,7 +568,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="createdAt"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('createDateTime')}</FormLabel>
+                        <FormLabel>{t('common.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -600,7 +600,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="updateAt"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('updateDateTime')}</FormLabel>
+                        <FormLabel>{t('common.updatedAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}

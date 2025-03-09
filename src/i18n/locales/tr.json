@@ -170,8 +170,6 @@
     "updateError": "Tahliye başvurusu güncelleme başarısız."
   },
   "name": "Rol Adı",
-  "createDateTime": "Oluşturulma Tarihi ve Saati",
-  "updateDateTime": "Güncellenme Tarihi ve Saati",
   "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
   "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
   "createReason": "Oluşturma Nedeni",
