@@ -265,7 +265,7 @@ const Page = (): JSX.Element => {
             renderItem={(item) => <Status status={item} />}
           />
           <CheckboxFilter
-            label={t('isInPerson')}
+            label={t('application.evacuation.inPerson')}
             isChecked={filters.isInPerson ?? false}
             onChange={(checked) => handleFilterChange('isInPerson', checked)}
           />

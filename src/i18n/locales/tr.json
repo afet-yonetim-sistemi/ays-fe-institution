@@ -133,7 +133,9 @@
       }
     },
     "evacuation": {
-      "referenceNumber": "Referans Numarası"
+      "referenceNumber": "Referans Numarası",
+      "inPerson": "Bireysel Başvuru",
+      "seatingCount": "Koltuk Sayısı"
     }
   },
   "sort": {

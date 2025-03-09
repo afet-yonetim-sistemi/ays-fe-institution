@@ -65,7 +65,7 @@ export const columns: (
     },
     {
       accessorKey: 'isInPerson',
-      header: () => i18next.t('isInPerson'),
+      header: () => i18next.t('application.evacuation.inPerson'),
       cell: ({ row }) =>
         i18next.t(row.original.isInPerson ? 'common.yes' : 'common.no'),
     },
