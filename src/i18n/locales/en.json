@@ -85,10 +85,6 @@
       "mismatch": "Passwords do not match"
     }
   },
-  "roles": {
-    "title": "Roles",
-    "name": "Role Name"
-  },
   "status": {
     "title": "Status",
     "waiting": "Waiting",
@@ -173,9 +169,11 @@
     "clear": "Clear sort"
   },
   "role": {
+    "title": "Roles",
     "permissions": "Role Permissions",
     "detailsTitle": "Role Details",
     "information": "Role Information",
+    "name": "Role Name",
     "error": "Error while fetching role details. Please try again",
     "updatedSuccessfully": "Role updated successfully",
     "updateError": "Role update failed",

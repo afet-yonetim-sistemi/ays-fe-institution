@@ -175,7 +175,7 @@ const Page = (): JSX.Element => {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{t('roles.name')}</FormLabel>
+            <FormLabel>{t('role.name')}</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>

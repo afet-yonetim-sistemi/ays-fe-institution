@@ -85,10 +85,6 @@
       "mismatch": "Şifreler uyuşmuyor"
     }
   },
-  "roles": {
-    "title": "Roller",
-    "name": "Rol Adı"
-  },
   "status": {
     "title": "Durum",
     "waiting": "Beklemede",
@@ -173,9 +169,11 @@
     "clear": "Sıralamayı sıfırla"
   },
   "role": {
+    "title": "Roller",
     "permissions": "Rol Yetkileri",
     "detailsTitle": "Rol Detayları",
     "information": "Rol Bilgileri",
+    "name": "Rol Adı",
     "error": "Rol Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyiniz.",
     "updatedSuccessfully": "Rol başarıyla güncellendi.",
     "updateError": "Rol güncelleme başarısız.",

@@ -145,7 +145,7 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-medium">{t('roles.title')}</h1>
+        <h1 className="text-2xl font-medium">{t('role.title')}</h1>
         <div className="flex items-center space-x-4">
           {userPermissions.includes(Permission.ROLE_CREATE) && (
             <Link href="/roles/create-role">
@@ -166,7 +166,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="name"
-          label={t('roles.name')}
+          label={t('role.name')}
           value={nameInputValue}
           onChange={(e) => {
             setNameInputValue(e.target.value)

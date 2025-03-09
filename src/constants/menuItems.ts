@@ -29,7 +29,7 @@ export const MenuItems: Menu[] = [
   },
   {
     key: '/roles',
-    label: 'roles.title',
+    label: 'role.title',
     icon: ClipboardPenLine,
     requiredPermissions: [Permission.ROLE_LIST],
   },
