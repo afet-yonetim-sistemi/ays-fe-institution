@@ -29,7 +29,7 @@ export const columns: (
       header: ({ column }) => (
         <DataTableSort
           column={column}
-          label={i18next.t('user.firstName')}
+          label={i18next.t('common.firstName')}
           sortState={getSortState('firstName', filters)}
           onSortClick={onSortClick}
         />
@@ -37,20 +37,20 @@ export const columns: (
     },
     {
       accessorKey: 'lastName',
-      header: () => i18next.t('user.lastName'),
+      header: () => i18next.t('common.lastName'),
     },
     {
       accessorKey: 'emailAddress',
-      header: () => i18next.t('user.email'),
+      header: () => i18next.t('common.email'),
     },
     {
       accessorKey: 'phoneNumber',
-      header: () => i18next.t('user.phoneNumber'),
+      header: () => i18next.t('common.phoneNumber'),
       cell: ({ row }) => formatPhoneNumber(row.original.phoneNumber),
     },
     {
       accessorKey: 'city',
-      header: () => i18next.t('user.city'),
+      header: () => i18next.t('common.city'),
     },
     {
       accessorKey: 'status',

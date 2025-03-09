@@ -25,7 +25,7 @@ import { Permission } from '@/constants/permissions'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { userStatuses } from '@/modules/users/constants/statuses'
@@ -87,7 +87,7 @@ const Page = ({
       })
       .catch((error) => {
         setError(error.message)
-        handleApiError(error, { description: 'error.userDetailFetch' })
+        handleErrorToast(error, { description: 'error.userDetailFetch' })
       })
       .finally(() => {
         setIsLoading(false)
@@ -204,11 +204,7 @@ const Page = ({
     })
 
     if (!isChanged) {
-      toast({
-        title: 'common.error',
-        description: 'user.noChangesError',
-        variant: 'destructive',
-      })
+      handleErrorToast(undefined, { description: 'user.noChangesError' })
       return
     }
 
@@ -225,20 +221,20 @@ const Page = ({
           })
 
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'user.updatedSuccessfully',
             variant: 'success',
           })
           setIsUserEditable(false)
           fetchDetails()
         } else {
-          handleApiError(undefined, {
+          handleErrorToast(undefined, {
             description: 'user.updateError',
           })
         }
       })
       .catch((error) => {
-        handleApiError(error, {
+        handleErrorToast(error, {
           description: 'user.updateError',
         })
       })
@@ -249,7 +245,7 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'user.activatedSuccessfully',
             variant: 'success',
           })
@@ -260,11 +256,11 @@ const Page = ({
             })
           }
         } else {
-          handleApiError(undefined, { description: 'error.default' })
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -273,7 +269,7 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'user.deactivatedSuccessfully',
             variant: 'success',
           })
@@ -284,11 +280,11 @@ const Page = ({
             })
           }
         } else {
-          handleApiError(undefined, { description: 'error.default' })
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -297,21 +293,17 @@ const Page = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
+            title: 'common.success',
             description: 'user.deletedSuccessfully',
             variant: 'success',
           })
           router.push('/users')
         } else {
-          toast({
-            title: 'common.error',
-            description: 'error.default',
-            variant: 'destructive',
-          })
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -392,7 +384,7 @@ const Page = ({
                     name="firstName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.firstName')}</FormLabel>
+                        <FormLabel>{t('common.firstName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -410,7 +402,7 @@ const Page = ({
                     name="lastName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.lastName')}</FormLabel>
+                        <FormLabel>{t('common.lastName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -428,7 +420,7 @@ const Page = ({
                     name="emailAddress"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.email')}</FormLabel>
+                        <FormLabel>{t('common.email')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -446,7 +438,7 @@ const Page = ({
                     name="phoneNumber"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('phoneNumber')}</FormLabel>
+                        <FormLabel>{t('common.phoneNumber')}</FormLabel>
                         <FormControl>
                           {isUserEditable ? (
                             <div className="flex">
@@ -480,7 +472,7 @@ const Page = ({
                     name="city"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.city')}</FormLabel>
+                        <FormLabel>{t('common.city')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -508,7 +500,7 @@ const Page = ({
                             disabled
                           >
                             <SelectTrigger>
-                              <SelectValue placeholder={t('status')} />
+                              <SelectValue placeholder={t('status.title')} />
                             </SelectTrigger>
                             <SelectContent>
                               {userStatuses.map((status) => (
@@ -531,7 +523,7 @@ const Page = ({
                       name="createdUser"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('user.createdUser')}</FormLabel>
+                          <FormLabel>{t('common.createdUser')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -565,7 +557,7 @@ const Page = ({
                       name="updatedUser"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('user.updatedUser')}</FormLabel>
+                          <FormLabel>{t('common.updatedUser')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}

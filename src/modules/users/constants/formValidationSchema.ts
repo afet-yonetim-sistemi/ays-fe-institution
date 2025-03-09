@@ -9,16 +9,16 @@ export const UserValidationSchema = z.object({
   lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
-    .min(6, { message: 'minLength' })
-    .max(254, { message: 'maxLength' })
-    .regex(emailRegex, { message: 'invalidEmail' }),
+    .min(6, { message: 'validation.minLength' })
+    .max(254, { message: 'validation.maxLength' })
+    .regex(emailRegex, { message: 'validation.email' }),
   phoneNumber: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
-    .length(10, 'error.phoneNumberLengthError'),
+    .length(10, 'validation.phoneLength'),
   city: nameboxWithLengthValidation(2, 100),
   status: z.string(),
   createdUser: z.string(),
@@ -32,11 +32,11 @@ export const CreateUserValidationSchema = z.object({
   lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
-    .min(6, { message: 'minLength' })
-    .max(254, { message: 'maxLength' })
-    .regex(emailRegex, { message: 'invalidEmail' }),
+    .min(6, { message: 'validation.minLength' })
+    .max(254, { message: 'validation.maxLength' })
+    .regex(emailRegex, { message: 'validation.email' }),
   phoneNumber: PhoneNumberSchema,
   city: nameboxWithLengthValidation(2, 100),
 })

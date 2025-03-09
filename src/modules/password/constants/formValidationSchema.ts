@@ -7,6 +7,6 @@ export const FormValidationSchema = z
     passwordRepeat: PasswordSchema,
   })
   .refine((data) => data.password === data.passwordRepeat, {
-    message: 'passwordMismatch',
+    message: 'password.create.mismatch',
     path: ['passwordRepeat'],
   })

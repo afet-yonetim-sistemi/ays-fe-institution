@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/form'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -52,14 +52,14 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
       .resetPassword(values, id)
       .then(() => {
         toast({
-          title: 'success',
-          description: 'passwordSuccess',
+          title: 'common.success',
+          description: 'password.create.success',
           variant: 'success',
         })
       })
       .catch((error) => {
-        handleApiError(error, {
-          description: 'error.passwordRequestInvalidOrExpired',
+        handleErrorToast(error, {
+          description: 'password.create.error',
         })
       })
       .finally(() => {
@@ -83,8 +83,8 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
             width={100}
             height={100}
           />
-          <CardTitle>{t('passwordTitle')}</CardTitle>
-          <CardDescription>{t('passwordDescription')}</CardDescription>
+          <CardTitle>{t('password.create.title')}</CardTitle>
+          <CardDescription>{t('password.create.description')}</CardDescription>
         </CardHeader>
         <CardHeader>
           <Form {...passwordForm}>
@@ -98,9 +98,12 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
                 disabled={loading}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('password')}</FormLabel>
+                    <FormLabel>{t('common.password')}</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder={t('password')} {...field} />
+                      <PasswordInput
+                        placeholder={t('common.password')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,10 +115,10 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
                 disabled={loading}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('passwordRepeat')}</FormLabel>
+                    <FormLabel>{t('password.create.repeat')}</FormLabel>
                     <FormControl>
                       <PasswordInput
-                        placeholder={t('passwordRepeat')}
+                        placeholder={t('password.create.repeat')}
                         {...field}
                       />
                     </FormControl>
@@ -124,7 +127,7 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
                 )}
               />
               <Button type="submit" disabled={loading} className={'w-full'}>
-                {loading ? <LoadingSpinner /> : t('createPassword')}
+                {loading ? <LoadingSpinner /> : t('password.create.button')}
               </Button>
             </form>
           </Form>

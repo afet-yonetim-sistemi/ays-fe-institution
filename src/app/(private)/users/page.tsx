@@ -13,8 +13,7 @@ import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
-import { toast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, User } from '@/modules/users/components/columns'
 import { userStatuses } from '@/modules/users/constants/statuses'
@@ -122,7 +121,7 @@ const Page = (): JSX.Element => {
       getUsers(filters)
         .then((response) => {
           if (!response.data.isSuccess) {
-            handleApiError()
+            handleErrorToast()
             return
           }
 
@@ -138,7 +137,7 @@ const Page = (): JSX.Element => {
           setTotalRows(totalElementCount)
         })
         .catch((error) => {
-          handleApiError(error)
+          handleErrorToast(error)
         })
         .finally(() => {
           setIsLoading(false)
@@ -210,14 +209,9 @@ const Page = (): JSX.Element => {
         const result = getStringFilterValidation(rules).safeParse(stringValue)
 
         if (!result.success) {
-          const errorMessage =
-            result.error.errors[0]?.message || t('common.error')
+          const errorMessage = result.error.errors[0]?.message
 
-          toast({
-            title: 'common.error',
-            description: errorMessage,
-            variant: 'destructive',
-          })
+          handleErrorToast(undefined, { description: errorMessage })
           return
         }
       }
@@ -260,7 +254,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="firstName"
-          label={t('user.firstName')}
+          label={t('common.firstName')}
           value={firstNameInput}
           onChange={(e) => {
             setFirstNameInput(e.target.value)
@@ -269,7 +263,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="lastName"
-          label={t('user.lastName')}
+          label={t('common.lastName')}
           value={lastNameInput}
           onChange={(e) => {
             setLastNameInput(e.target.value)
@@ -278,7 +272,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="emailAddress"
-          label={t('user.email')}
+          label={t('common.email')}
           value={emailAddressInput}
           onChange={(e) => {
             setEmailAddressInput(e.target.value)
@@ -297,7 +291,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="city"
-          label={t('user.city')}
+          label={t('common.city')}
           value={cityInput}
           onChange={(e) => {
             setCityInput(e.target.value)

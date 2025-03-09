@@ -9,8 +9,8 @@ import { Toaster } from '@/components/ui/toaster'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: i18n.t('aysTitle'),
-  description: i18n.t('aysDescription'),
+  title: i18n.t('metaData.aysTitle'),
+  description: i18n.t('metaData.aysDescription'),
 }
 
 export default function RootLayout({

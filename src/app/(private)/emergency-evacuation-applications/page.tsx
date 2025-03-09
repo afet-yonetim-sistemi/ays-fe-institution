@@ -14,8 +14,7 @@ import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
-import { toast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns } from '@/modules/emergencyEvacuationApplications/components/columns'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
@@ -144,7 +143,7 @@ const Page = (): JSX.Element => {
       getEmergencyEvacuationApplications(filters)
         .then((response) => {
           if (!response.data.isSuccess) {
-            handleApiError()
+            handleErrorToast()
             return
           }
 
@@ -160,7 +159,7 @@ const Page = (): JSX.Element => {
           setTotalRows(totalElementCount)
         })
         .catch((error) => {
-          handleApiError(error)
+          handleErrorToast(error)
         })
         .finally(() => {
           setIsLoading(false)
@@ -228,13 +227,9 @@ const Page = (): JSX.Element => {
         const result = getStringFilterValidation().safeParse(value)
 
         if (!result.success) {
-          const errorMessage = result.error.errors[0]?.message || 'common.error'
+          const errorMessage = result.error.errors[0]?.message
 
-          toast({
-            title: 'common.error',
-            description: errorMessage,
-            variant: 'destructive',
-          })
+          handleErrorToast(undefined, { description: errorMessage })
           return
         }
       }
@@ -248,7 +243,7 @@ const Page = (): JSX.Element => {
     <div className="space-y-4">
       <div className="flex items-center gap-4 mb-4">
         <h1 className="text-2xl font-medium">
-          {t('emergencyEvacuationApplications.title')}
+          {t('application.evacuation.title')}
         </h1>
         <Button
           variant="outline"
@@ -266,17 +261,17 @@ const Page = (): JSX.Element => {
             onSelectionChange={(statuses) =>
               handleFilterChange('status', statuses)
             }
-            label="status"
+            label="status.title"
             renderItem={(item) => <Status status={item} />}
           />
           <CheckboxFilter
-            label={t('isInPerson')}
+            label={t('application.evacuation.inPerson')}
             isChecked={filters.isInPerson ?? false}
             onChange={(checked) => handleFilterChange('isInPerson', checked)}
           />
           <FilterInput
             id="seatingCount"
-            label={t('seatingCount')}
+            label={t('application.evacuation.seatingCount')}
             value={seatingCountInput}
             onChange={(e) => {
               setSeatingCountInput(e.target.value)
@@ -287,7 +282,7 @@ const Page = (): JSX.Element => {
         </div>
         <FilterInput
           id="referenceNumber"
-          label={t('referenceNumber')}
+          label={t('application.evacuation.referenceNumber')}
           value={referenceNumberInput}
           onChange={(e) => {
             setReferenceNumberInput(e.target.value)
@@ -297,7 +292,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="sourceCity"
-          label={t('sourceCity')}
+          label={t('application.evacuation.sourceCity')}
           value={sourceCityInput}
           onChange={(e) => {
             setSourceCityInput(e.target.value)
@@ -306,7 +301,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="sourceDistrict"
-          label={t('sourceDistrict')}
+          label={t('application.evacuation.sourceDistrict')}
           value={sourceDistrictInput}
           onChange={(e) => {
             setSourceDistrictInput(e.target.value)
@@ -315,7 +310,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="targetCity"
-          label={t('targetCity')}
+          label={t('application.evacuation.targetCity')}
           value={targetCityInput}
           onChange={(e) => {
             setTargetCityInput(e.target.value)
@@ -324,7 +319,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="targetDistrict"
-          label={t('targetDistrict')}
+          label={t('application.evacuation.targetDistrict')}
           value={targetDistrictInput}
           onChange={(e) => {
             setTargetDistrictInput(e.target.value)

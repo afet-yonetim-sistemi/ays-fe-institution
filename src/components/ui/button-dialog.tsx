@@ -83,7 +83,9 @@ const ButtonDialog = ({
         </DialogHeader>
         {reason && (
           <>
-            <Label htmlFor={'reason'}>{label ?? t('rejectReason')}</Label>
+            <Label htmlFor={'reason'}>
+              {label ?? t('application.rejectReason')}
+            </Label>
             <Textarea
               minLength={40}
               maxLength={512}
@@ -100,7 +102,7 @@ const ButtonDialog = ({
               className="w-36"
               onClick={handleCancelClick}
             >
-              {cancelText ?? t('no')}
+              {cancelText ?? t('common.no')}
             </Button>
           </DialogClose>
           <TooltipProvider>
@@ -115,7 +117,7 @@ const ButtonDialog = ({
                     reasonText.length > 512
                   }
                 >
-                  {confirmText ?? t('yes')}
+                  {confirmText ?? t('common.yes')}
                 </Button>
               </TooltipTrigger>
               {tooltipText && (

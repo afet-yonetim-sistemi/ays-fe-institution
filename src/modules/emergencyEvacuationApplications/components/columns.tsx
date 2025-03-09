@@ -34,12 +34,12 @@ export const columns: (
   return [
     {
       accessorKey: 'referenceNumber',
-      header: () => i18next.t('referenceNumber'),
+      header: () => i18next.t('application.evacuation.referenceNumber'),
       cell: ({ row }) => formatReferenceNumber(row.original.referenceNumber),
     },
     {
       accessorKey: 'firstName',
-      header: () => i18next.t('applicantFirstName'),
+      header: () => i18next.t('application.firstName'),
       cell: ({ row }) =>
         row.original.isInPerson
           ? row.original.firstName
@@ -47,7 +47,7 @@ export const columns: (
     },
     {
       accessorKey: 'lastName',
-      header: () => i18next.t('applicantLastName'),
+      header: () => i18next.t('application.lastName'),
       cell: ({ row }) =>
         row.original.isInPerson
           ? row.original.lastName
@@ -55,7 +55,7 @@ export const columns: (
     },
     {
       accessorKey: 'phoneNumber',
-      header: () => i18next.t('phoneNumber'),
+      header: () => i18next.t('common.phoneNumber'),
       cell: ({ row }) =>
         formatPhoneNumber(
           row.original.isInPerson
@@ -65,17 +65,18 @@ export const columns: (
     },
     {
       accessorKey: 'isInPerson',
-      header: () => i18next.t('isInPerson'),
-      cell: ({ row }) => i18next.t(row.original.isInPerson ? 'yes' : 'no'),
+      header: () => i18next.t('application.evacuation.inPerson'),
+      cell: ({ row }) =>
+        i18next.t(row.original.isInPerson ? 'common.yes' : 'common.no'),
     },
     {
       accessorKey: 'seatingCount',
-      header: () => i18next.t('seatingCount'),
+      header: () => i18next.t('application.evacuation.seatingCount'),
       cell: ({ row }) => row.original.seatingCount,
     },
     {
       accessorKey: 'status',
-      header: () => i18next.t('status'),
+      header: () => i18next.t('status.title'),
       cell: ({ row }) => {
         const status =
           emergencyEvacuationApplicationStatuses.find(

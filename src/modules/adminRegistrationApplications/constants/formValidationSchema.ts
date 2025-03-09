@@ -35,18 +35,18 @@ const AdminRegistrationApplicationSchema = z.object({
 
 export const PreApplicationFormSchema = z.object({
   institutionId: z.string().min(1, {
-    message: 'requiredField',
+    message: 'validation.required',
   }),
   reason: z
     .string()
     .trim()
-    .min(40, { message: 'minLength' })
-    .max(512, { message: 'maxLength' })
+    .min(40, { message: 'validation.minLength' })
+    .max(512, { message: 'validation.maxLength' })
     .refine((value) => !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`]/.test(value), {
-      message: 'notSpecialCharacters',
+      message: 'validation.specialChar',
     })
     .refine((value) => /\D/.test(value), {
-      message: 'notOnlyNumbers',
+      message: 'validation.noNumbersOnly',
     }),
 })
 
@@ -57,13 +57,13 @@ export const InstitutionFormSchema = z.object({
   lastName: nameboxWithLengthValidation(2, 100),
   emailAddress: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
-    .min(6, { message: 'minLength' })
-    .max(254, { message: 'maxLength' })
-    .regex(emailRegex, { message: 'invalidEmail' }),
+    .min(6, { message: 'validation.minLength' })
+    .max(254, { message: 'validation.maxLength' })
+    .regex(emailRegex, { message: 'validation.email' }),
   city: z.string({
-    required_error: 'requiredField',
+    required_error: 'validation.required',
   }),
   password: PasswordSchema,
   phoneNumber: PhoneNumberSchema,

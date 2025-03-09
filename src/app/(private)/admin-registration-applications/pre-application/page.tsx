@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   approveAdminRegistrationApplication,
@@ -56,14 +56,16 @@ const Page = (): JSX.Element => {
     approveAdminRegistrationApplication(values)
       .then((res) => {
         toast({
-          title: 'success',
-          description: 'preApplicationSuccess',
+          title: 'common.success',
+          description: 'application.admin.preliminary.success',
           variant: 'success',
         })
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch((error) => {
-        handleApiError(error, { description: 'error.preApplication' })
+        handleErrorToast(error, {
+          description: 'application.admin.preliminary.error',
+        })
       })
       .finally(() => setIsLoading(false))
   }
@@ -75,7 +77,7 @@ const Page = (): JSX.Element => {
         setInstitutionSummary(summaryData)
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
       .finally(() => setIsLoading(false))
   }, [])
@@ -85,7 +87,9 @@ const Page = (): JSX.Element => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">{t('preApplicationTitle')}</h1>
+            <h1 className="text-2xl font-bold">
+              {t('application.admin.preliminary.title')}
+            </h1>
             <Button disabled={isLoading} type="submit" className={'min-w-20'}>
               {isLoading ? <LoadingSpinner /> : t('common.create')}
             </Button>
@@ -97,14 +101,18 @@ const Page = (): JSX.Element => {
                 name="institutionId"
                 render={({ field }) => (
                   <FormItem className="col-span-1">
-                    <FormLabel>{t('institution')}</FormLabel>
+                    <FormLabel>{t('common.institution')}</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder={t('selectInstitution')} />
+                          <SelectValue
+                            placeholder={t(
+                              'application.admin.preliminary.selectInstitution'
+                            )}
+                          />
                         </SelectTrigger>
                         <SelectContent>
                           {institutionSummary?.map((item: Institution) => (
@@ -124,7 +132,9 @@ const Page = (): JSX.Element => {
                 name="reason"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
-                    <FormLabel>{t('createReason')}</FormLabel>
+                    <FormLabel>
+                      {t('application.admin.preliminary.reason')}
+                    </FormLabel>
                     <FormControl>
                       <Textarea {...field} />
                     </FormControl>
