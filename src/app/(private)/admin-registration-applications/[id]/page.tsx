@@ -117,7 +117,7 @@ const Page = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">
-                {t('adminRegistrationApplications.detailsTitle')}
+                {t('application.admin.detailsTitle')}
               </h1>
               {adminRegistrationApplicationDetails.status === 'COMPLETED' &&
                 userPermissions.includes(Permission.APPLICATION_CONCLUDE) && (

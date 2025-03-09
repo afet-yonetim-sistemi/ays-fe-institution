@@ -120,6 +120,8 @@
     "approveSuccess": "Başvuru başarıyla onaylandı.",
     "error": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "admin": {
+      "title": "Yönetici Kayıt Başvuruları",
+      "detailsTitle": "Yönetici Kayıt Başvuru Detayı",
       "rejectTooltip": "Başvuru reddedilme nedeni en az 40 karakter olmalıdır.",
       "preliminary": {
         "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
@@ -149,8 +151,6 @@
     "clear": "Sıralamayı sıfırla"
   },
   "adminRegistrationApplications": {
-    "title": "Yönetici Kayıt Başvuruları",
-    "detailsTitle": "Yönetici Kayıt Başvuru Detayı",
     "reason": "Başvuru Nedeni",
     "copyLink": "Kayıt Tamamlama Linkini Kopyala",
     "linkCopied": "Kayıt Tamamlama Linki Kopyalandı."

@@ -120,6 +120,8 @@
     "approveSuccess": "Application successfully approved.",
     "error": "Error while fetching application details. Please try again",
     "admin": {
+      "title": "Admin Registration Applications",
+      "detailsTitle": "Admin Registration Applications Details",
       "rejectTooltip": "Application rejection reason must be at least 40 characters.",
       "preliminary": {
         "title": "Institution Admin Registration Preliminary Application Creation",
@@ -149,8 +151,6 @@
     "clear": "Clear sort"
   },
   "adminRegistrationApplications": {
-    "title": "Admin Registration Applications",
-    "detailsTitle": "Admin Registration Applications Details",
     "reason": "Application Reason",
     "copyLink": "Copy the Registration Completion Link",
     "linkCopied": "Copied the Registration Completion Link."

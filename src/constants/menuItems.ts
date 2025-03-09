@@ -35,7 +35,7 @@ export const MenuItems: Menu[] = [
   },
   {
     key: '/admin-registration-applications',
-    label: 'adminRegistrationApplications.title',
+    label: 'application.admin.title',
     icon: UserRoundCheck,
     requiredPermissions: [Permission.APPLICATION_LIST],
   },

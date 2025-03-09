@@ -130,9 +130,7 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-medium">
-          {t('adminRegistrationApplications.title')}
-        </h1>
+        <h1 className="text-2xl font-medium">{t('application.admin.title')}</h1>
         <div className="flex items-center space-x-4">
           {userPermissions.includes(Permission.APPLICATION_CREATE) && (
             <Link href="/admin-registration-applications/pre-application">
