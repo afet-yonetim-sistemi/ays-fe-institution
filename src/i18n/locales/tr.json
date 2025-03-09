@@ -138,6 +138,8 @@
       }
     },
     "evacuation": {
+      "title": "Acil Durum Tahliye Başvuruları",
+      "detailsTitle": "Acil Durum Tahliye Başvurusu Detayları",
       "referenceNumber": "Referans Numarası",
       "inPerson": "Bireysel Başvuru",
       "seatingCount": "Koltuk Sayısı",
@@ -152,11 +154,7 @@
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
     "clear": "Sıralamayı sıfırla"
   },
-  "adminRegistrationApplications": {
-  },
   "emergencyEvacuationApplications": {
-    "title": "Acil Durum Tahliye Başvuruları",
-    "detailsTitle": "Acil Durum Tahliye Başvurusu Detayları",
     "nameSurname": "Ad ve Soyad",
     "applicantNameSurname": "İletişime Geçilecek Kişinin Adı ve Soyadı",
     "applicantPhoneNumber": "İletişime Geçilecek Kişininin Telefon Numarası",

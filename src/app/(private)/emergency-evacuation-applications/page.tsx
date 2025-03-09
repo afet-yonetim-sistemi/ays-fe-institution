@@ -243,7 +243,7 @@ const Page = (): JSX.Element => {
     <div className="space-y-4">
       <div className="flex items-center gap-4 mb-4">
         <h1 className="text-2xl font-medium">
-          {t('emergencyEvacuationApplications.title')}
+          {t('application.evacuation.title')}
         </h1>
         <Button
           variant="outline"

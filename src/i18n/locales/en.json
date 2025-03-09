@@ -138,6 +138,8 @@
       }
     },
     "evacuation": {
+      "title": "Emergency Evacuation Applications",
+      "detailsTitle": "Emergency Evacuation Application Details",
       "referenceNumber": "Reference Number",
       "inPerson": "Is In Person",
       "seatingCount": "Seat Count",
@@ -152,11 +154,7 @@
     "ascending": "Click to sort ascending",
     "clear": "Clear sort"
   },
-  "adminRegistrationApplications": {
-  },
   "emergencyEvacuationApplications": {
-    "title": "Emergency Evacuation Applications",
-    "detailsTitle": "Emergency Evacuation Application Details",
     "nameSurname": "Name and Surname",
     "applicantNameSurname": "Name and Surname of Person to Contact",
     "applicantPhoneNumber": "Phone Number of Person to Contact",

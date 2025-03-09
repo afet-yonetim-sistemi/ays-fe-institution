@@ -214,7 +214,7 @@ const Page = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">
-                {t('emergencyEvacuationApplications.detailsTitle')}
+                {t('application.evacuation.detailsTitle')}
               </h1>
               {renderUpdateButtons()}
             </div>

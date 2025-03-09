@@ -41,7 +41,7 @@ export const MenuItems: Menu[] = [
   },
   {
     key: '/emergency-evacuation-applications',
-    label: 'emergencyEvacuationApplications.title',
+    label: 'application.evacuation.title',
     icon: BusFront,
     requiredPermissions: [Permission.EVACUATION_LIST],
   },
