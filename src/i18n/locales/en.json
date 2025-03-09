@@ -161,9 +161,6 @@
     "clear": "Clear sort"
   },
   "emergencyEvacuationApplications": {
-    "seatingCount": "Seating Count",
-    "isInPerson": "Individual Application?",
-    "createdAt": "Application Date and Time",
     "anyDisability": "Any Person with Disability?",
     "confirmedSeatingCount": "Confirmed Seating Count",
     "notes": "Operator Notes",

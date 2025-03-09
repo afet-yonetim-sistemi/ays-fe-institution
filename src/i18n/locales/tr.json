@@ -161,9 +161,6 @@
     "clear": "Sıralamayı sıfırla"
   },
   "emergencyEvacuationApplications": {
-    "seatingCount": "Koltuk Sayısı",
-    "isInPerson": "Bireysel Başvuru Mu?",
-    "createdAt": "Başvuru Tarihi ve Saati",
     "anyDisability": "Engel Durumu Olan Biri Var mı?",
     "confirmedSeatingCount": "Teyit Edilen Koltuk Sayısı",
     "notes": "Operatör Notları",

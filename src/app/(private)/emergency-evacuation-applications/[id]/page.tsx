@@ -298,7 +298,7 @@ const Page = ({
                       <FormItem className="sm:col-span-3 mb-6">
                         <div className="flex items-center">
                           <FormLabel className="mr-2">
-                            {t('emergencyEvacuationApplications.isInPerson')}
+                            {t('application.evacuation.inPerson')}
                           </FormLabel>
                           <FormControl>
                             <Checkbox
@@ -451,7 +451,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t('emergencyEvacuationApplications.seatingCount')}
+                          {t('application.evacuation.seatingCount')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -541,9 +541,7 @@ const Page = ({
                     name="createdAt"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('emergencyEvacuationApplications.createdAt')}
-                        </FormLabel>
+                        <FormLabel>{t('common.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
