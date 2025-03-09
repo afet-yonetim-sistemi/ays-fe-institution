@@ -166,7 +166,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="name"
-          label={t('name')}
+          label={t('roles.name')}
           value={nameInputValue}
           onChange={(e) => {
             setNameInputValue(e.target.value)

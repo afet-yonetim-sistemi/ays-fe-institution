@@ -84,7 +84,8 @@
     }
   },
   "roles": {
-    "title": "Roller"
+    "title": "Roller",
+    "name": "Rol Adı"
   },
   "status": {
     "title": "Durum",
@@ -170,12 +171,10 @@
     "updatedSuccessfully": "Tahliye başvurusu başarıyla güncellendi.",
     "updateError": "Tahliye başvurusu güncelleme başarısız."
   },
-  "name": "Rol Adı",
   "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
   "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
   "selectInstitution": "Kurum Seçiniz",
   "role": {
-    "name": "Rol Adı",
     "status": "Rol Durumu",
     "permissions": "Rol Yetkileri",
     "detailsTitle": "Rol Detayları",

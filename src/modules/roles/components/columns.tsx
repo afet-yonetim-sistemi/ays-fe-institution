@@ -23,7 +23,7 @@ export const columns: (
   return [
     {
       accessorKey: 'name',
-      header: () => i18next.t('role.name'),
+      header: () => i18next.t('roles.name'),
     },
     {
       accessorKey: 'status',

@@ -84,7 +84,8 @@
     }
   },
   "roles": {
-    "title": "Roles"
+    "title": "Roles",
+    "name": "Role Name"
   },
   "status": {
     "title": "Status",
@@ -170,12 +171,10 @@
     "updatedSuccessfully": "Evacuation application updated successfully",
     "updateError": "Evacuation application update failed"
   },
-  "name": "Role Name",
   "rejectConfirm": "Are you sure you want to reject this application?",
   "approveConfirm": "Are you sure you want to approve this application?",
   "selectInstitution": "Select Institution",
   "role": {
-    "name": "Role Name",
     "status": "Role Status",
     "permissions": "Role Permissions",
     "detailsTitle": "Role Details",
