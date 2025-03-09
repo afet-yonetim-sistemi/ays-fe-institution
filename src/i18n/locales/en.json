@@ -147,7 +147,9 @@
       "sourceCity": "Source City",
       "sourceDistrict": "Source District",
       "targetCity": "Target City",
-      "targetDistrict": "Target District"
+      "targetDistrict": "Target District",
+      "applicantFullName": "Name and Surname of Person to Contact",
+      "applicantPhone": "Phone Number of Person to Contact"
     }
   },
   "sort": {
@@ -156,8 +158,6 @@
     "clear": "Clear sort"
   },
   "emergencyEvacuationApplications": {
-    "applicantNameSurname": "Name and Surname of Person to Contact",
-    "applicantPhoneNumber": "Phone Number of Person to Contact",
     "sourceCityAndDistrict": "Current City / District",
     "address": "Public Address",
     "targetCityAndDistrict": "City / District to be Evacuated",

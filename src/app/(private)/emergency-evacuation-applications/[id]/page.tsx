@@ -246,10 +246,10 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="nameSurname"
+                    name="fullName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('common.fullname')}</FormLabel>
+                        <FormLabel>{t('common.fullName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -318,13 +318,11 @@ const Page = ({
                   <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 mb-6">
                     <FormField
                       control={control}
-                      name="applicantNameSurname"
+                      name="applicantFullName"
                       render={({ field }) => (
                         <FormItem className="col-span-1">
                           <FormLabel>
-                            {t(
-                              'emergencyEvacuationApplications.applicantNameSurname'
-                            )}
+                            {t('application.evacuation.applicantFullName')}
                           </FormLabel>
                           <FormControl>
                             <Input
@@ -351,9 +349,7 @@ const Page = ({
                       render={({ field }) => (
                         <FormItem className="col-span-1">
                           <FormLabel>
-                            {t(
-                              'emergencyEvacuationApplications.applicantPhoneNumber'
-                            )}
+                            {t('application.evacuation.applicantPhone')}
                           </FormLabel>
                           <FormControl>
                             <Input
