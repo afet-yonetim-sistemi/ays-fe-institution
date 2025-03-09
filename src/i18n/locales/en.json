@@ -123,6 +123,8 @@
       "title": "Admin Registration Applications",
       "detailsTitle": "Admin Registration Applications Details",
       "rejectTooltip": "Application rejection reason must be at least 40 characters.",
+      "copy": "Copy the Registration Completion Link",
+      "copied": "Copied the Registration Completion Link.",
       "preliminary": {
         "title": "Institution Admin Registration Preliminary Application Creation",
         "button": "Create Preliminary Application",
@@ -151,9 +153,6 @@
     "clear": "Clear sort"
   },
   "adminRegistrationApplications": {
-    "reason": "Application Reason",
-    "copyLink": "Copy the Registration Completion Link",
-    "linkCopied": "Copied the Registration Completion Link."
   },
   "emergencyEvacuationApplications": {
     "title": "Emergency Evacuation Applications",

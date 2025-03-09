@@ -88,7 +88,7 @@ const Page = ({
     navigator.clipboard.writeText(registerCompletionUrl).then(() => {
       toast({
         title: 'common.success',
-        description: 'adminRegistrationApplications.linkCopied',
+        description: 'application.admin.copied',
         variant: 'success',
       })
     })
@@ -150,9 +150,7 @@ const Page = ({
                     name="reason"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.reason')}
-                        </FormLabel>
+                        <FormLabel>{t('application.reason')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -311,7 +309,7 @@ const Page = ({
                       <span className="truncate flex-grow">
                         {registerCompletionUrl}
                       </span>
-                      <span>{t('adminRegistrationApplications.copyLink')}</span>
+                      <span>{t('application.admin.copy')}</span>
                     </Button>
                   )}
                 </div>

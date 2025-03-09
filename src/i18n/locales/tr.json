@@ -123,6 +123,8 @@
       "title": "Yönetici Kayıt Başvuruları",
       "detailsTitle": "Yönetici Kayıt Başvuru Detayı",
       "rejectTooltip": "Başvuru reddedilme nedeni en az 40 karakter olmalıdır.",
+      "copy": "Kayıt Tamamlama Linkini Kopyala",
+      "copied": "Kayıt Tamamlama Linki Kopyalandı.",
       "preliminary": {
         "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
         "button": "Ön Başvuru Oluştur",
@@ -151,9 +153,6 @@
     "clear": "Sıralamayı sıfırla"
   },
   "adminRegistrationApplications": {
-    "reason": "Başvuru Nedeni",
-    "copyLink": "Kayıt Tamamlama Linkini Kopyala",
-    "linkCopied": "Kayıt Tamamlama Linki Kopyalandı."
   },
   "emergencyEvacuationApplications": {
     "title": "Acil Durum Tahliye Başvuruları",
