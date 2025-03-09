@@ -233,9 +233,7 @@ const Page = ({
                     name="createdUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.createdUser')}
-                        </FormLabel>
+                        <FormLabel>{t('common.createdUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -254,9 +252,7 @@ const Page = ({
                     name="createDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.createdAt')}
-                        </FormLabel>
+                        <FormLabel>{t('common.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -293,9 +289,7 @@ const Page = ({
                     name="updateDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.updatedAt')}
-                        </FormLabel>
+                        <FormLabel>{t('common.updatedAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
