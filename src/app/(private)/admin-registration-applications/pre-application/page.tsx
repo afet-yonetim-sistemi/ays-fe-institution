@@ -108,7 +108,11 @@ const Page = (): JSX.Element => {
                         defaultValue={field.value}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder={t('selectInstitution')} />
+                          <SelectValue
+                            placeholder={t(
+                              'application.admin.preliminary.selectInstitution'
+                            )}
+                          />
                         </SelectTrigger>
                         <SelectContent>
                           {institutionSummary?.map((item: Institution) => (

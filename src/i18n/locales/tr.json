@@ -120,6 +120,8 @@
     "reason": "Başvuru Nedeni",
     "rejectReason": "Başvuru Reddedilme Nedeni",
     "status": "Başvuru Durumu",
+    "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
+    "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
     "rejectSuccess": "Başvuru başarıyla reddedildi.",
     "approveSuccess": "Başvuru başarıyla onaylandı.",
     "updateSuccess": "Başvuru başarıyla güncellendi.",
@@ -135,6 +137,7 @@
         "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
         "reason": "Oluşturma Nedeni",
         "button": "Ön Başvuru Oluştur",
+        "selectInstitution": "Kurum Seçiniz",
         "success": "Ön başvuru başarıyla oluşturuldu.",
         "error": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyiniz."
       },
@@ -169,9 +172,6 @@
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
     "clear": "Sıralamayı sıfırla"
   },
-  "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
-  "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
-  "selectInstitution": "Kurum Seçiniz",
   "role": {
     "status": "Rol Durumu",
     "permissions": "Rol Yetkileri",

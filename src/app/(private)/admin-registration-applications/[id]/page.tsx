@@ -124,7 +124,7 @@ const Page = ({
                   <div className="flex space-x-8 ml-auto">
                     <ButtonDialog
                       triggerText={'common.reject'}
-                      title={'rejectConfirm'}
+                      title={'application.rejectConfirm'}
                       onConfirm={handleReject}
                       variant={'destructive'}
                       reason={true}
@@ -132,7 +132,7 @@ const Page = ({
                     />
                     <ButtonDialog
                       triggerText={'common.approve'}
-                      title={'approveConfirm'}
+                      title={'application.approveConfirm'}
                       onConfirm={handleApprove}
                       variant={'success'}
                     />
