@@ -110,6 +110,8 @@
   },
   "application": {
     "information": "Başvuru Bilgileri",
+    "firstName": "Başvuru Yapan Kişinin Adı",
+    "lastName": "Başvuru Yapan Kişinin Soyadı",
     "reason": "Başvuru Nedeni",
     "rejectReason": "Başvuru Reddedilme Nedeni",
     "status": "Başvuru Durumu",
@@ -139,8 +141,6 @@
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
     "clear": "Sıralamayı sıfırla"
   },
-  "applicantFirstName": "Başvuru Yapan Kişinin Adı",
-  "applicantLastName": "Başvuru Yapan Kişinin Soyadı",
   "isInPerson": "Bireysel Başvuru",
   "seatingCount": "Koltuk Sayısı",
   "sourceCity": "Tahliye Edilecek Şehir",

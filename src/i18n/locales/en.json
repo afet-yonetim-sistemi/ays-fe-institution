@@ -110,6 +110,8 @@
   },
   "application": {
     "information": "Application Information",
+    "firstName": "Applicant's First Name",
+    "lastName": "Applicant's Last Name",
     "reason": "Application Reason",
     "rejectReason": "Application Rejection Reason",
     "status": "Application Status",
@@ -139,8 +141,6 @@
     "ascending": "Click to sort ascending",
     "clear": "Clear sort"
   },
-  "applicantFirstName": "Applicant's First Name",
-  "applicantLastName": "Applicant's Last Name",
   "isInPerson": "Is In Person",
   "seatingCount": "Seat Count",
   "sourceCity": "Source City",

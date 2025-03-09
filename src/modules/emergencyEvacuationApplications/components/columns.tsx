@@ -39,7 +39,7 @@ export const columns: (
     },
     {
       accessorKey: 'firstName',
-      header: () => i18next.t('applicantFirstName'),
+      header: () => i18next.t('application.firstName'),
       cell: ({ row }) =>
         row.original.isInPerson
           ? row.original.firstName
@@ -47,7 +47,7 @@ export const columns: (
     },
     {
       accessorKey: 'lastName',
-      header: () => i18next.t('applicantLastName'),
+      header: () => i18next.t('application.lastName'),
       cell: ({ row }) =>
         row.original.isInPerson
           ? row.original.lastName
