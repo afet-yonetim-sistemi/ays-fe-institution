@@ -142,7 +142,7 @@ const Page = ({
 
     if (!isChanged) {
       handleErrorToast(undefined, {
-        description: 'emergencyEvacuationApplications.noChangesError',
+        description: 'common.error.noChange',
       })
       return
     }
@@ -160,19 +160,19 @@ const Page = ({
 
           toast({
             title: 'common.success',
-            description: 'emergencyEvacuationApplications.updatedSuccessfully',
+            description: 'application.updateSuccess',
             variant: 'success',
           })
           setIsEmergencyApplicationEditable(false)
         } else {
           handleErrorToast(undefined, {
-            description: 'emergencyEvacuationApplications.updateError',
+            description: 'application.updateError',
           })
         }
       })
       .catch((error) => {
         handleErrorToast(error, {
-          description: 'emergencyEvacuationApplications.updateError',
+          description: 'application.updateError',
         })
       })
   }

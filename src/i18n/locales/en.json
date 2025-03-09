@@ -32,12 +32,14 @@
     "error": {
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
-      "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again."
+      "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again.",
+      "noChange": "You cannot update without making changes."
     }
   },
   "validation": {
     "invalid": "This field is not valid",
     "whitespace": "This field cannot start or end with space character",
+    "number": "Please enter valid number",
     "email": "Invalid E-mail",
     "required": "This field is required",
     "minLength": "This field is too short",
@@ -120,6 +122,8 @@
     "status": "Application Status",
     "rejectSuccess": "Application successfully rejected.",
     "approveSuccess": "Application successfully approved.",
+    "updateSuccess": "Application updated successfully.",
+    "updateError": "Application update failed.",
     "error": "Error while fetching application details. Please try again",
     "admin": {
       "title": "Admin Registration Applications",
@@ -164,12 +168,6 @@
     "descending": "Click to sort descending",
     "ascending": "Click to sort ascending",
     "clear": "Clear sort"
-  },
-  "emergencyEvacuationApplications": {
-    "seatingCountinvalidType": "Please enter valid number",
-    "noChangesError": "Cannot update the application without making any changes",
-    "updatedSuccessfully": "Evacuation application updated successfully",
-    "updateError": "Evacuation application update failed"
   },
   "rejectConfirm": "Are you sure you want to reject this application?",
   "approveConfirm": "Are you sure you want to approve this application?",

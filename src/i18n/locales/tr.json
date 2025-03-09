@@ -32,12 +32,14 @@
     "error": {
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
-      "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz."
+      "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz.",
+      "noChange": "Değişiklik yapmadan güncelleyemezsiniz."
     }
   },
   "validation": {
     "invalid": "Geçersiz girdi",
     "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
+    "number": "Lütfen uygun bir sayı girin",
     "email": "Geçersiz e-posta adresi",
     "required": "Bu alan alanı zorunludur",
     "minLength": "Bu alan çok kısa",
@@ -120,6 +122,8 @@
     "status": "Başvuru Durumu",
     "rejectSuccess": "Başvuru başarıyla reddedildi.",
     "approveSuccess": "Başvuru başarıyla onaylandı.",
+    "updateSuccess": "Başvuru başarıyla güncellendi.",
+    "updateError": "Başvuru güncelleme başarısız.",
     "error": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "admin": {
       "title": "Yönetici Kayıt Başvuruları",
@@ -164,12 +168,6 @@
     "descending": "Azalan sıraya göre sıralamak için tıklayın",
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
     "clear": "Sıralamayı sıfırla"
-  },
-  "emergencyEvacuationApplications": {
-    "seatingCountinvalidType": "Lütfen uygun bir sayı girin",
-    "noChangesError": "Değişiklik yapmadan başvuruyu güncelleyemezsiniz.",
-    "updatedSuccessfully": "Tahliye başvurusu başarıyla güncellendi.",
-    "updateError": "Tahliye başvurusu güncelleme başarısız."
   },
   "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
   "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
