@@ -12,6 +12,7 @@
     "institution": "Kurum",
     "firstName": "Ad",
     "lastName": "Soyad",
+    "fullName": "Ad ve Soyad",
     "city": "Şehir",
     "email": "E-posta",
     "phoneNumber": "Telefon Numarası",
@@ -155,7 +156,6 @@
     "clear": "Sıralamayı sıfırla"
   },
   "emergencyEvacuationApplications": {
-    "nameSurname": "Ad ve Soyad",
     "applicantNameSurname": "İletişime Geçilecek Kişinin Adı ve Soyadı",
     "applicantPhoneNumber": "İletişime Geçilecek Kişininin Telefon Numarası",
     "sourceCityAndDistrict": "Bulunulan Şehir / İlçe",

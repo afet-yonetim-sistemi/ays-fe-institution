@@ -12,6 +12,7 @@
     "institution": "Institution",
     "firstName": "First Name",
     "lastName": "Last Name",
+    "fullName": "Full Name",
     "city": "City",
     "email": "Email",
     "phoneNumber": "Phone Number",
@@ -155,7 +156,6 @@
     "clear": "Clear sort"
   },
   "emergencyEvacuationApplications": {
-    "nameSurname": "Name and Surname",
     "applicantNameSurname": "Name and Surname of Person to Contact",
     "applicantPhoneNumber": "Phone Number of Person to Contact",
     "sourceCityAndDistrict": "Current City / District",

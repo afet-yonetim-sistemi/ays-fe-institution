@@ -249,9 +249,7 @@ const Page = ({
                     name="nameSurname"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('emergencyEvacuationApplications.nameSurname')}
-                        </FormLabel>
+                        <FormLabel>{t('common.fullname')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
