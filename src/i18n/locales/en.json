@@ -128,6 +128,7 @@
       "copied": "Copied the Registration Completion Link.",
       "preliminary": {
         "title": "Institution Admin Registration Preliminary Application Creation",
+        "reason": "Creation Reason",
         "button": "Create Preliminary Application",
         "success": "Preliminary application created successfully.",
         "error": "An error occurred while creating the preliminary application. Please try again."
@@ -172,7 +173,6 @@
   "name": "Role Name",
   "rejectConfirm": "Are you sure you want to reject this application?",
   "approveConfirm": "Are you sure you want to approve this application?",
-  "createReason": "Creation Reason",
   "selectInstitution": "Select Institution",
   "role": {
     "name": "Role Name",

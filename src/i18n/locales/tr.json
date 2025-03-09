@@ -128,6 +128,7 @@
       "copied": "Kayıt Tamamlama Linki Kopyalandı.",
       "preliminary": {
         "title": "Kurum Yönetici Kayıt Ön Başvuru Oluşturma",
+        "reason": "Oluşturma Nedeni",
         "button": "Ön Başvuru Oluştur",
         "success": "Ön başvuru başarıyla oluşturuldu.",
         "error": "Ön başvuru oluşturulurken bir hata oluştu. Lütfen tekrar deneyiniz."
@@ -172,7 +173,6 @@
   "name": "Rol Adı",
   "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
   "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
-  "createReason": "Oluşturma Nedeni",
   "selectInstitution": "Kurum Seçiniz",
   "role": {
     "name": "Rol Adı",

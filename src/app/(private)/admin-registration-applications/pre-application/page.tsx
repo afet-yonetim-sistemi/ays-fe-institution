@@ -128,7 +128,9 @@ const Page = (): JSX.Element => {
                 name="reason"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
-                    <FormLabel>{t('createReason')}</FormLabel>
+                    <FormLabel>
+                      {t('application.admin.preliminary.reason')}
+                    </FormLabel>
                     <FormControl>
                       <Textarea {...field} />
                     </FormControl>
