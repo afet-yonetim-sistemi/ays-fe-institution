@@ -204,7 +204,7 @@ const Page = ({
     })
 
     if (!isChanged) {
-      handleErrorToast(undefined, { description: 'user.noChangesError' })
+      handleErrorToast(undefined, { description: 'common.error.noChange' })
       return
     }
 
@@ -222,7 +222,7 @@ const Page = ({
 
           toast({
             title: 'common.success',
-            description: 'user.updatedSuccessfully',
+            description: 'user.updateSuccess',
             variant: 'success',
           })
           setIsUserEditable(false)
@@ -270,7 +270,7 @@ const Page = ({
         if (response.isSuccess) {
           toast({
             title: 'common.success',
-            description: 'user.deactivatedSuccessfully',
+            description: 'user.deactivateSuccess',
             variant: 'success',
           })
           if (userDetails) {
@@ -294,7 +294,7 @@ const Page = ({
         if (response.isSuccess) {
           toast({
             title: 'common.success',
-            description: 'user.deletedSuccessfully',
+            description: 'user.deleteSucces',
             variant: 'success',
           })
           router.push('/users')
