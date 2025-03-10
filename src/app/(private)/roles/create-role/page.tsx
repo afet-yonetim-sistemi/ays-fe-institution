@@ -187,7 +187,7 @@ const Page = (): JSX.Element => {
         <CardHeader>
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <CardTitle>{t('role.permissions')}</CardTitle>
+              <CardTitle>{t('role.permission')}</CardTitle>
               <div className="ml-4 flex items-center gap-2">
                 <Switch
                   checked={masterPermissionsSwitch}

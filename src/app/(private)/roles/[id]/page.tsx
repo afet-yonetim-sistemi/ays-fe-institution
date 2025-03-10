@@ -214,7 +214,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
         })
         .catch((error) => {
-          handleErrorToast(error, { description: 'role.error' })
+          handleErrorToast(error, { description: 'common.error.fetch' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -342,7 +342,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
           toast({
             title: 'common.success',
-            description: 'role.updatedSuccessfully',
+            description: 'role.updateSuccess',
             variant: 'success',
           })
           setIsRoleEditable(false)
@@ -617,7 +617,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             <Card className="mb-6">
               <CardHeader>
                 <div className="flex items-center">
-                  <CardTitle>{t('role.permissions')}</CardTitle>
+                  <CardTitle>{t('role.permission')}</CardTitle>
                   <Switch
                     className="ml-4"
                     disabled={!isRoleEditable}
