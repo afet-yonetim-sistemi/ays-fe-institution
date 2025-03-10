@@ -174,7 +174,10 @@ const Page = ({
                       <FormItem>
                         <FormLabel>{t('phoneNumber')}</FormLabel>
                         <FormControl>
-                          <PhoneInput onChange={field.onChange} />
+                          <PhoneInput
+                            onChange={field.onChange}
+                            disableCountrySelection
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
