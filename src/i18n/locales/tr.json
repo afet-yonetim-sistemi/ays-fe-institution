@@ -42,7 +42,7 @@
     "whitespace": "Bu alan boşluk karakteri ile başlayamaz veya bitemez",
     "number": "Lütfen uygun bir sayı girin",
     "email": "Geçersiz e-posta adresi",
-    "required": "Bu alan alanı zorunludur",
+    "required": "Bu alan zorunludur",
     "minLength": "Bu alan çok kısa",
     "maxLength": "Bu alan çok uzun",
     "phone": "Geçersiz telefon numarası",

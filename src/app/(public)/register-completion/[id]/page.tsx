@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { PhoneInput } from '@/components/ui/phone-input'
+import PhoneInput from '@/components/ui/phone-input'
 import {
   Select,
   SelectContent,
@@ -31,6 +31,7 @@ import {
 import { cityList } from '@/constants/trCity'
 import { useToast } from '@/hooks/useToast'
 import { handleErrorToast } from '@/lib/handleErrorToast'
+import { cn } from '@/lib/utils'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   getAdminRegistrationApplicationSummary,
@@ -42,6 +43,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { CountryData } from 'react-phone-input-2'
 import { z } from 'zod'
 
 const Page = ({
@@ -173,7 +175,7 @@ const Page = ({
                       </FormItem>
                     )}
                   />
-                  <FormField
+                  {/* <FormField
                     control={control}
                     name="phoneNumber"
                     render={({ field }) => (
@@ -183,6 +185,32 @@ const Page = ({
                           <PhoneInput
                             onChange={field.onChange}
                             disableCountrySelection
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  /> */}
+                  <FormField
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('common.phoneNumber')}</FormLabel>
+                        <FormControl
+                          // className={cn('border-2 border-blue-500')}
+                        >
+                          <PhoneInput
+                            value={
+                              (field.value?.countryCode || '') +
+                              (field.value?.lineNumber || '')
+                            }
+                            onChange={(value: string, country: CountryData) => {
+                              const countryCode: string = country.dialCode
+                              const lineNumber: string = value.slice(
+                                countryCode.length
+                              )
+                              field.onChange({ countryCode, lineNumber })
+                            }}
                           />
                         </FormControl>
                         <FormMessage />
