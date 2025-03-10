@@ -5,7 +5,7 @@ import { DataTable } from '@/components/ui/data-table'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
 import { usePagination } from '@/hooks/usePagination'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import {
   AdminRegistrationApplication,
   columns,
@@ -80,7 +80,7 @@ const Page = (): JSX.Element => {
       getAdminRegistrationApplications(filters)
         .then((response) => {
           if (!response.data.isSuccess) {
-            handleApiError()
+            handleErrorToast()
             return
           }
 
@@ -96,7 +96,7 @@ const Page = (): JSX.Element => {
           setTotalRows(totalElementCount)
         })
         .catch((error) => {
-          handleApiError(error)
+          handleErrorToast(error)
         })
         .finally(() => {
           setIsLoading(false)
@@ -130,13 +130,11 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-medium">
-          {t('adminRegistrationApplications.title')}
-        </h1>
+        <h1 className="text-2xl font-medium">{t('application.admin.title')}</h1>
         <div className="flex items-center space-x-4">
           {userPermissions.includes(Permission.APPLICATION_CREATE) && (
             <Link href="/admin-registration-applications/pre-application">
-              <Button>{t('preApplication')}</Button>
+              <Button>{t('application.admin.preliminary.button')}</Button>
             </Link>
           )}
         </div>
@@ -145,7 +143,7 @@ const Page = (): JSX.Element => {
         items={adminApplicationRegistrationStatuses}
         selectedItems={filters.statuses}
         onSelectionChange={(statuses) => handleFilterChange('status', statuses)}
-        label="status"
+        label="status.title"
         renderItem={(item) => <Status status={item} />}
       />
       <DataTable

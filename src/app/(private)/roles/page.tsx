@@ -13,8 +13,7 @@ import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
-import { toast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, Role } from '@/modules/roles/components/columns'
 import { roleStatuses } from '@/modules/roles/constants/statuses'
@@ -83,7 +82,7 @@ const Page = (): JSX.Element => {
       getRoles(filters)
         .then((response) => {
           if (!response.data.isSuccess) {
-            handleApiError()
+            handleErrorToast()
             return
           }
 
@@ -99,7 +98,7 @@ const Page = (): JSX.Element => {
           setTotalRows(totalElementCount)
         })
         .catch((error) => {
-          handleApiError(error)
+          handleErrorToast(error)
         })
         .finally(() => {
           setIsLoading(false)
@@ -132,13 +131,11 @@ const Page = (): JSX.Element => {
 
   useEffect(() => {
     const result = getStringFilterValidation().safeParse(filters.name)
+
     if (filters.name && !result.success) {
-      const errorMessage = result.error.errors[0]?.message || 'common.error'
-      toast({
-        title: 'common.error',
-        description: errorMessage,
-        variant: 'destructive',
-      })
+      const errorMessage = result.error.errors[0]?.message
+
+      handleErrorToast(undefined, { description: errorMessage })
       return
     }
     fetchData(filters)
@@ -148,7 +145,7 @@ const Page = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-medium">{t('roles')}</h1>
+        <h1 className="text-2xl font-medium">{t('role.title')}</h1>
         <div className="flex items-center space-x-4">
           {userPermissions.includes(Permission.ROLE_CREATE) && (
             <Link href="/roles/create-role">
@@ -164,12 +161,12 @@ const Page = (): JSX.Element => {
           onSelectionChange={(statuses) =>
             handleFilterChange('status', statuses)
           }
-          label="status"
+          label="status.title"
           renderItem={(item) => <Status status={item} />}
         />
         <FilterInput
           id="name"
-          label={t('name')}
+          label={t('role.name')}
           value={nameInputValue}
           onChange={(e) => {
             setNameInputValue(e.target.value)

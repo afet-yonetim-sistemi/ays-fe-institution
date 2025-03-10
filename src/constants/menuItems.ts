@@ -18,7 +18,7 @@ interface Menu {
 export const MenuItems: Menu[] = [
   {
     key: '/dashboard',
-    label: 'home',
+    label: 'common.home',
     icon: HomeIcon,
   },
   {
@@ -29,19 +29,19 @@ export const MenuItems: Menu[] = [
   },
   {
     key: '/roles',
-    label: 'roles',
+    label: 'role.title',
     icon: ClipboardPenLine,
     requiredPermissions: [Permission.ROLE_LIST],
   },
   {
     key: '/admin-registration-applications',
-    label: 'adminRegistrationApplications.title',
+    label: 'application.admin.title',
     icon: UserRoundCheck,
     requiredPermissions: [Permission.APPLICATION_LIST],
   },
   {
     key: '/emergency-evacuation-applications',
-    label: 'emergencyEvacuationApplications.title',
+    label: 'application.evacuation.title',
     icon: BusFront,
     requiredPermissions: [Permission.EVACUATION_LIST],
   },

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getRoleSummary } from '@/modules/roles/service'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { UserRole } from '@/modules/users/constants/types'
 
 const useFetchRoleSummary = () => {
@@ -17,7 +17,7 @@ const useFetchRoleSummary = () => {
         setRoles(availableRoles)
       })
       .catch((err) => {
-        handleApiError(err, { description: 'error.roleSummaryFetch' })
+        handleErrorToast(err, { description: 'common.error.fetch' })
       })
   }, [])
 

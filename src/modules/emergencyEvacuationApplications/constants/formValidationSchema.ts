@@ -12,14 +12,13 @@ const EmergencyEvacuationApplicationSchema = z.object({
   address: z.string(),
   seatingCount: z
     .number({
-      invalid_type_error:
-        'emergencyEvacuationApplications.seatingCountinvalidType',
+      invalid_type_error: 'validation.number',
     })
     .int({
-      message: 'seatingCountValidationMessage',
+      message: 'validation.seatingCount',
     })
-    .min(1, { message: 'seatingCountValidationMessage' })
-    .max(999, { message: 'seatingCountValidationMessage' }),
+    .min(1, { message: 'validation.seatingCount' })
+    .max(999, { message: 'validation.seatingCount' }),
   targetCity: z.string(),
   targetDistrict: z.string(),
   status: z.string(),
@@ -32,10 +31,7 @@ const EmergencyEvacuationApplicationSchema = z.object({
     .string()
     .max(1000, { message: 'maxLength' })
     .refine((value) => !/^\s/.test(value), {
-      message: 'cantStartOrEndWithWhitespace',
-    })
-    .refine((value) => !/\s$/.test(value), {
-      message: 'cantStartOrEndWithWhitespace',
+      message: 'validation.whitespace',
     })
     .optional(),
   createdUser: z.string(),

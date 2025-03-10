@@ -15,7 +15,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Permission } from '@/constants/permissions'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import {
@@ -58,14 +58,14 @@ const Page = ({
     rejectAdminRegistrationApplication(reason, params.id)
       .then(() => {
         toast({
-          title: 'success',
-          description: 'applicationRejectSuccess',
+          title: 'common.success',
+          description: 'application.rejectSuccess',
           variant: 'success',
         })
         router.push('/admin-registration-applications')
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -73,22 +73,22 @@ const Page = ({
     approveAdminRegistrationApplicationWithId(params.id)
       .then(() => {
         toast({
-          title: 'success',
-          description: 'applicationApproveSuccess',
+          title: 'common.success',
+          description: 'application.approveSuccess',
           variant: 'success',
         })
         router.push('/admin-registration-applications')
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
   const handleCopyLink = (): void => {
     navigator.clipboard.writeText(registerCompletionUrl).then(() => {
       toast({
-        title: 'success',
-        description: 'adminRegistrationApplications.linkCopied',
+        title: 'common.success',
+        description: 'application.admin.copied',
         variant: 'success',
       })
     })
@@ -101,7 +101,7 @@ const Page = ({
           setAdminRegistrationApplicationDetails(response.response)
         })
         .catch((error) => {
-          handleApiError(error, { description: 'error.application' })
+          handleErrorToast(error, { description: 'common.error.fetch' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -117,22 +117,22 @@ const Page = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">
-                {t('adminRegistrationApplications.detailsTitle')}
+                {t('application.admin.detailsTitle')}
               </h1>
               {adminRegistrationApplicationDetails.status === 'COMPLETED' &&
                 userPermissions.includes(Permission.APPLICATION_CONCLUDE) && (
                   <div className="flex space-x-8 ml-auto">
                     <ButtonDialog
-                      triggerText={'reject'}
-                      title={'rejectConfirm'}
+                      triggerText={'common.reject'}
+                      title={'application.rejectConfirm'}
                       onConfirm={handleReject}
                       variant={'destructive'}
                       reason={true}
-                      tooltipText={'rejectReasonLengthInfo'}
+                      tooltipText={'application.admin.rejectTooltip'}
                     />
                     <ButtonDialog
-                      triggerText={'approve'}
-                      title={'approveConfirm'}
+                      triggerText={'common.approve'}
+                      title={'application.approveConfirm'}
                       onConfirm={handleApprove}
                       variant={'success'}
                     />
@@ -141,7 +141,7 @@ const Page = ({
             </div>
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>{t('applicationInformation')}</CardTitle>
+                <CardTitle>{t('application.information')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
@@ -150,9 +150,7 @@ const Page = ({
                     name="reason"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.reason')}
-                        </FormLabel>
+                        <FormLabel>{t('application.reason')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -170,7 +168,7 @@ const Page = ({
                     name="institutionName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('institutionName')}</FormLabel>
+                        <FormLabel>{t('common.institution')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -189,9 +187,7 @@ const Page = ({
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.status')}
-                        </FormLabel>
+                        <FormLabel>{t('application.status')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -199,7 +195,7 @@ const Page = ({
                             value={
                               adminRegistrationApplicationDetails?.status
                                 ? t(
-                                    adminRegistrationApplicationDetails.status.toLowerCase()
+                                    `status.${adminRegistrationApplicationDetails.status.toLowerCase()}`
                                   )
                                 : ''
                             }
@@ -215,7 +211,7 @@ const Page = ({
                       name="rejectReason"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-2">
-                          <FormLabel>{t('rejectReason')}</FormLabel>
+                          <FormLabel>{t('application.rejectReason')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -235,9 +231,7 @@ const Page = ({
                     name="createdUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.createdUser')}
-                        </FormLabel>
+                        <FormLabel>{t('common.createdUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -256,9 +250,7 @@ const Page = ({
                     name="createDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.createdAt')}
-                        </FormLabel>
+                        <FormLabel>{t('common.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -276,7 +268,7 @@ const Page = ({
                     name="updatedUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('updatedUser')}</FormLabel>
+                        <FormLabel>{t('common.updatedUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -295,9 +287,7 @@ const Page = ({
                     name="updateDate"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('adminRegistrationApplications.updatedAt')}
-                        </FormLabel>
+                        <FormLabel>{t('common.updatedAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -319,7 +309,7 @@ const Page = ({
                       <span className="truncate flex-grow">
                         {registerCompletionUrl}
                       </span>
-                      <span>{t('adminRegistrationApplications.copyLink')}</span>
+                      <span>{t('application.admin.copy')}</span>
                     </Button>
                   )}
                 </div>
@@ -329,7 +319,7 @@ const Page = ({
             {adminRegistrationApplicationDetails.user && (
               <Card>
                 <CardHeader>
-                  <CardTitle>{t('userInformation')}</CardTitle>
+                  <CardTitle>{t('user.information')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 mb-6">
@@ -338,7 +328,7 @@ const Page = ({
                       name="firstName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('firstName')}</FormLabel>
+                          <FormLabel>{t('common.firstName')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -357,7 +347,7 @@ const Page = ({
                       name="lastName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('lastName')}</FormLabel>
+                          <FormLabel>{t('common.lastName')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -376,7 +366,7 @@ const Page = ({
                       name="userCity"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('city')}</FormLabel>
+                          <FormLabel>{t('common.city')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -397,7 +387,7 @@ const Page = ({
                       name="phone"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('phoneNumber')}</FormLabel>
+                          <FormLabel>{t('common.phoneNumber')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -421,7 +411,7 @@ const Page = ({
                       name="userEmailAddress"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('emailAddress')}</FormLabel>
+                          <FormLabel>{t('common.email')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}

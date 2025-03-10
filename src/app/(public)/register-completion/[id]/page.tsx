@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/select'
 import { cityList } from '@/constants/trCity'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   getAdminRegistrationApplicationSummary,
@@ -80,14 +80,14 @@ const Page = ({
     postRegistrationApplication(params.id, values)
       .then(() => {
         toast({
-          title: 'success',
-          description: 'successRegisterCompleted',
+          title: 'common.success',
+          description: 'application.admin.completion.success',
           variant: 'success',
         })
         router.push('/login')
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
       .finally(() => {
         setIsLoading(false)
@@ -111,9 +111,9 @@ const Page = ({
                 width={100}
                 height={100}
               />
-              <CardTitle> {t('welcome')} </CardTitle>
+              <CardTitle> {t('common.welcome')} </CardTitle>
               <CardDescription className="text-center">
-                {t('adminRegistrationDescription')}
+                {t('application.admin.completion.description')}
               </CardDescription>
             </CardHeader>
             <CardHeader>
@@ -123,7 +123,7 @@ const Page = ({
                   className="space-y-5"
                 >
                   <FormItem>
-                    <FormLabel>{t('institution')}</FormLabel>
+                    <FormLabel>{t('common.institution')}</FormLabel>
                     <FormControl>
                       <Input value={institutionName} disabled />
                     </FormControl>
@@ -133,9 +133,12 @@ const Page = ({
                     name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('firstName')}</FormLabel>
+                        <FormLabel>{t('common.firstName')}</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder={t('firstName')} />
+                          <Input
+                            {...field}
+                            placeholder={t('common.firstName')}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -146,9 +149,12 @@ const Page = ({
                     name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('lastName')}</FormLabel>
+                        <FormLabel>{t('common.lastName')}</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder={t('lastName')} />
+                          <Input
+                            {...field}
+                            placeholder={t('common.lastName')}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -159,9 +165,9 @@ const Page = ({
                     name="emailAddress"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('emailAddress')}</FormLabel>
+                        <FormLabel>{t('common.email')}</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder={t('emailAddress')} />
+                          <Input {...field} placeholder={t('common.email')} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -172,7 +178,7 @@ const Page = ({
                     name="phoneNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('phoneNumber')}</FormLabel>
+                        <FormLabel>{t('common.phoneNumber')}</FormLabel>
                         <FormControl>
                           <PhoneInput
                             onChange={field.onChange}
@@ -215,10 +221,10 @@ const Page = ({
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('password')}</FormLabel>
+                        <FormLabel>{t('common.password')}</FormLabel>
                         <FormControl>
                           <PasswordInput
-                            placeholder={t('password')}
+                            placeholder={t('common.password')}
                             {...field}
                           />
                         </FormControl>
@@ -231,7 +237,11 @@ const Page = ({
                     disabled={isLoading}
                     className={'w-full'}
                   >
-                    {isLoading ? <LoadingSpinner /> : t('completeRegister')}
+                    {isLoading ? (
+                      <LoadingSpinner />
+                    ) : (
+                      t('application.admin.completion.button')
+                    )}
                   </Button>
                 </form>
               </Form>

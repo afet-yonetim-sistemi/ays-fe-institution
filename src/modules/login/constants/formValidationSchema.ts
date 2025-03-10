@@ -5,11 +5,11 @@ import { PasswordSchema } from '@/constants/formValidationSchema'
 const LoginFormSchema = z.object({
   emailAddress: z
     .string({
-      required_error: 'requiredField',
+      required_error: 'validation.required',
     })
-    .regex(emailRegex, { message: 'invalidEmail' })
-    .min(6, { message: 'minLength' })
-    .max(254, { message: 'maxLength' }),
+    .regex(emailRegex, { message: 'validation.email' })
+    .min(6, { message: 'validation.minLength' })
+    .max(254, { message: 'validation.maxLength' }),
   password: PasswordSchema,
   sourcePage: z.string(),
 })

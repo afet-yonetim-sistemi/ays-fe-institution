@@ -6,12 +6,12 @@ export const PhoneNumberSchema = z
     lineNumber: z.string(),
   })
   .refine((phoneNumber) => phoneNumber.countryCode && phoneNumber.lineNumber, {
-    message: 'invalidPhoneNumber',
+    message: 'validation.phone',
   })
 
 export const PasswordSchema = z
   .string({
-    required_error: 'requiredField',
+    required_error: 'validation.required',
   })
-  .min(8, { message: 'minLength' })
-  .max(128, { message: 'maxLength' })
+  .min(8, { message: 'validation.minLength' })
+  .max(128, { message: 'validation.maxLength' })

@@ -17,7 +17,7 @@ import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
@@ -90,7 +90,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         }))
       })
       .catch((error) => {
-        handleApiError(error, { description: 'permissions.error' })
+        handleErrorToast(error, { description: 'common.error.fetch' })
         return []
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -214,7 +214,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
         })
         .catch((error) => {
-          handleApiError(error, { description: 'role.error' })
+          handleErrorToast(error, { description: 'common.error.fetch' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -319,11 +319,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     )
 
     if (!isNameChanged && !isPermissionsChanged) {
-      toast({
-        title: 'common.error',
-        description: 'role.noChangesError',
-        variant: 'destructive',
-      })
+      handleErrorToast(undefined, { description: 'common.error.noChange' })
       setIsRoleEditable(false)
       return
     }
@@ -345,17 +341,17 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           setOriginalRolePermissions(updatedPermissions)
 
           toast({
-            title: 'success',
-            description: 'role.updatedSuccessfully',
+            title: 'common.success',
+            description: 'role.updateSuccess',
             variant: 'success',
           })
           setIsRoleEditable(false)
         } else {
-          handleApiError(undefined, { description: 'role.updateError' })
+          handleErrorToast(undefined, { description: 'role.updateError' })
         }
       })
       .catch((error) => {
-        handleApiError(error, { description: 'role.updateError' })
+        handleErrorToast(error, { description: 'role.updateError' })
       })
   }
 
@@ -364,21 +360,17 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
-            description: 'role.deletedSuccessfully',
+            title: 'common.success',
+            description: 'role.deleteSuccess',
             variant: 'success',
           })
           router.push('/roles')
         } else {
-          toast({
-            title: 'common.error',
-            description: 'error.default',
-            variant: 'destructive',
-          })
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -399,17 +391,17 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
-            description: 'role.activatedSuccessfully',
+            title: 'common.success',
+            description: 'role.activateSuccess',
             variant: 'success',
           })
           refreshRoleStatus('active')
         } else {
-          handleApiError(undefined, { description: 'error.default' })
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -418,17 +410,17 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       .then((response) => {
         if (response.isSuccess) {
           toast({
-            title: 'success',
-            description: 'role.deactivatedSuccessfully',
+            title: 'common.success',
+            description: 'role.deactivateSuccess',
             variant: 'success',
           })
           refreshRoleStatus('passive')
         } else {
-          handleApiError(undefined, { description: 'error.default' })
+          handleErrorToast()
         }
       })
       .catch((error) => {
-        handleApiError(error)
+        handleErrorToast(error)
       })
   }
 
@@ -524,7 +516,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="name"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('name')}</FormLabel>
+                        <FormLabel>{t('role.name')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -541,12 +533,15 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('role.status')}</FormLabel>
+                        <FormLabel>{t('status.title')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             disabled
-                            value={t(roleDetail.status.toLowerCase()) ?? ''}
+                            value={
+                              t(`status.${roleDetail.status.toLowerCase()}`) ??
+                              ''
+                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -557,7 +552,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="createdUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('role.createdUser')}</FormLabel>
+                        <FormLabel>{t('common.createdUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -573,7 +568,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="createdAt"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('createDateTime')}</FormLabel>
+                        <FormLabel>{t('common.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -589,7 +584,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="updatedUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('role.updatedUser')}</FormLabel>
+                        <FormLabel>{t('common.updatedUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -605,7 +600,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="updateAt"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('updateDateTime')}</FormLabel>
+                        <FormLabel>{t('common.updatedAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -622,7 +617,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             <Card className="mb-6">
               <CardHeader>
                 <div className="flex items-center">
-                  <CardTitle>{t('role.permissions')}</CardTitle>
+                  <CardTitle>{t('role.permission')}</CardTitle>
                   <Switch
                     className="ml-4"
                     disabled={!isRoleEditable}

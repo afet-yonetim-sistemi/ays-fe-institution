@@ -26,11 +26,11 @@ const DataTableSort = <T extends object>({
   const isCurrentColumn = sortState?.column === column.id
   const sortDirection = isCurrentColumn ? sortState?.direction : undefined
 
-  let tooltipMessage = 'asc'
+  let tooltipMessage = 'sort.ascending'
   if (sortDirection === 'asc') {
-    tooltipMessage = 'desc'
+    tooltipMessage = 'sort.descending'
   } else if (sortDirection === 'desc') {
-    tooltipMessage = 'clearSort'
+    tooltipMessage = 'sort.clear'
   }
 
   return (

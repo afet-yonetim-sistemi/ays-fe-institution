@@ -7,8 +7,8 @@ export const getStringFilterValidation = ({
 }: FilterValidationOptions = {}) => {
   const schema = z
     .string()
-    .min(min, { message: 'minLength' })
-    .max(max, { message: 'maxLength' })
+    .min(min, { message: 'validation.minLength' })
+    .max(max, { message: 'validation.maxLength' })
 
   return schema.optional()
 }

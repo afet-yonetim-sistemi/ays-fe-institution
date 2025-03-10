@@ -24,11 +24,11 @@ export const columns: (
   return [
     {
       accessorKey: 'institution.name',
-      header: () => i18next.t('institution'),
+      header: () => i18next.t('common.institution'),
     },
     {
       accessorKey: 'reason',
-      header: () => i18next.t('reason'),
+      header: () => i18next.t('application.reason'),
       cell: ({ row }) => (
         <div
           style={{
@@ -45,7 +45,7 @@ export const columns: (
     },
     {
       accessorKey: 'status',
-      header: () => i18next.t('status'),
+      header: () => i18next.t('status.title'),
       cell: ({ row }) => {
         const status =
           adminApplicationRegistrationStatuses.find(
@@ -57,7 +57,7 @@ export const columns: (
     },
     {
       accessorKey: 'createdUser',
-      header: () => i18next.t('createdUser'),
+      header: () => i18next.t('common.createdUser'),
     },
     {
       accessorKey: 'createdAt',

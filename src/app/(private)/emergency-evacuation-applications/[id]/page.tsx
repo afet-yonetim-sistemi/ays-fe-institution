@@ -28,7 +28,7 @@ import {
   formatPhoneNumber,
   formatReferenceNumber,
 } from '@/lib/dataFormatters'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
@@ -93,7 +93,7 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          handleApiError(error, { description: 'error.application' })
+          handleErrorToast(error, { description: 'common.error.fetch' })
         })
         .finally(() => setIsLoading(false))
     }
@@ -141,10 +141,8 @@ const Page = ({
     })
 
     if (!isChanged) {
-      toast({
-        title: 'common.error',
-        description: 'emergencyEvacuationApplications.noChangesError',
-        variant: 'destructive',
+      handleErrorToast(undefined, {
+        description: 'common.error.noChange',
       })
       return
     }
@@ -161,20 +159,20 @@ const Page = ({
           })
 
           toast({
-            title: 'success',
-            description: 'emergencyEvacuationApplications.updatedSuccessfully',
+            title: 'common.success',
+            description: 'application.updateSuccess',
             variant: 'success',
           })
           setIsEmergencyApplicationEditable(false)
         } else {
-          handleApiError(undefined, {
-            description: 'emergencyEvacuationApplications.updateError',
+          handleErrorToast(undefined, {
+            description: 'application.updateError',
           })
         }
       })
       .catch((error) => {
-        handleApiError(error, {
-          description: 'emergencyEvacuationApplications.updateError',
+        handleErrorToast(error, {
+          description: 'application.updateError',
         })
       })
   }
@@ -216,13 +214,13 @@ const Page = ({
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">
-                {t('emergencyEvacuationApplications.detailsTitle')}
+                {t('application.evacuation.detailsTitle')}
               </h1>
               {renderUpdateButtons()}
             </div>
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>{t('applicationInformation')}</CardTitle>
+                <CardTitle>{t('application.information')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
@@ -231,7 +229,9 @@ const Page = ({
                     name="referenceNumber"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('referenceNumber')}</FormLabel>
+                        <FormLabel>
+                          {t('application.evacuation.referenceNumber')}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -246,12 +246,10 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="nameSurname"
+                    name="fullName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('emergencyEvacuationApplications.nameSurname')}
-                        </FormLabel>
+                        <FormLabel>{t('common.fullName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -276,7 +274,7 @@ const Page = ({
                     name="phoneNumber"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('phoneNumber')}</FormLabel>
+                        <FormLabel>{t('common.phoneNumber')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -300,7 +298,7 @@ const Page = ({
                       <FormItem className="sm:col-span-3 mb-6">
                         <div className="flex items-center">
                           <FormLabel className="mr-2">
-                            {t('emergencyEvacuationApplications.isInPerson')}
+                            {t('application.evacuation.inPerson')}
                           </FormLabel>
                           <FormControl>
                             <Checkbox
@@ -320,13 +318,11 @@ const Page = ({
                   <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 mb-6">
                     <FormField
                       control={control}
-                      name="applicantNameSurname"
+                      name="applicantFullName"
                       render={({ field }) => (
                         <FormItem className="col-span-1">
                           <FormLabel>
-                            {t(
-                              'emergencyEvacuationApplications.applicantNameSurname'
-                            )}
+                            {t('application.evacuation.applicantFullName')}
                           </FormLabel>
                           <FormControl>
                             <Input
@@ -353,9 +349,7 @@ const Page = ({
                       render={({ field }) => (
                         <FormItem className="col-span-1">
                           <FormLabel>
-                            {t(
-                              'emergencyEvacuationApplications.applicantPhoneNumber'
-                            )}
+                            {t('application.evacuation.applicantPhone')}
                           </FormLabel>
                           <FormControl>
                             <Input
@@ -382,9 +376,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t(
-                            'emergencyEvacuationApplications.sourceCityAndDistrict'
-                          )}
+                          {t('application.evacuation.sourceCityAndDistrict')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -411,9 +403,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t(
-                            'emergencyEvacuationApplications.targetCityAndDistrict'
-                          )}
+                          {t('application.evacuation.targetCityAndDistrict')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -440,7 +430,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormLabel>
-                          {t('emergencyEvacuationApplications.address')}
+                          {t('application.evacuation.address')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -461,7 +451,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t('emergencyEvacuationApplications.seatingCount')}
+                          {t('application.evacuation.seatingCount')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -491,9 +481,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t(
-                            'emergencyEvacuationApplications.confirmedSeatingCount'
-                          )}
+                          {t('application.evacuation.confirmedSeatingCount')}
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -513,9 +501,7 @@ const Page = ({
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('emergencyEvacuationApplications.status')}
-                        </FormLabel>
+                        <FormLabel>{t('application.status')}</FormLabel>
                         <FormControl>
                           <Select
                             value={
@@ -529,7 +515,7 @@ const Page = ({
                             disabled={!isEmergencyApplicationEditable}
                           >
                             <SelectTrigger>
-                              <SelectValue placeholder={t('status')} />
+                              <SelectValue placeholder={t('status.title')} />
                             </SelectTrigger>
                             <SelectContent>
                               {emergencyEvacuationApplicationStatuses.map(
@@ -553,9 +539,7 @@ const Page = ({
                     name="createdAt"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('emergencyEvacuationApplications.createdAt')}
-                        </FormLabel>
+                        <FormLabel>{t('common.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -575,7 +559,7 @@ const Page = ({
                       <FormItem className="sm:col-span-1">
                         <div className="flex items-center">
                           <FormLabel className="mr-2">
-                            {t('emergencyEvacuationApplications.anyDisability')}
+                            {t('application.evacuation.anyDisability')}
                           </FormLabel>
                           <FormControl>
                             <Checkbox
@@ -598,7 +582,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
                         <FormLabel>
-                          {t('emergencyEvacuationApplications.notes')}
+                          {t('application.evacuation.notes')}
                         </FormLabel>
                         <FormControl>
                           <Textarea

@@ -15,7 +15,7 @@ import { PhoneInput } from '@/components/ui/phone-input'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { CreateUserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { createUser } from '@/modules/users/service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -79,14 +79,14 @@ const Page = (): JSX.Element => {
     createUser(payload)
       .then(() => {
         toast({
-          title: 'success',
-          description: 'user.createdSuccessfully',
+          title: 'common.success',
+          description: 'user.createSuccess',
           variant: 'success',
         })
         router.push('/users')
       })
       .catch((error) => {
-        handleApiError(error, { description: 'user.createError' })
+        handleErrorToast(error, { description: 'user.createError' })
       })
   }
 
@@ -109,7 +109,7 @@ const Page = (): JSX.Element => {
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('firstName')}</FormLabel>
+                  <FormLabel>{t('common.firstName')}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -122,7 +122,7 @@ const Page = (): JSX.Element => {
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('lastName')}</FormLabel>
+                  <FormLabel>{t('common.lastName')}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -135,7 +135,7 @@ const Page = (): JSX.Element => {
               name="emailAddress"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('email')}</FormLabel>
+                  <FormLabel>{t('common.email')}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -148,7 +148,7 @@ const Page = (): JSX.Element => {
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('phoneNumber')}</FormLabel>
+                  <FormLabel>{t('common.phoneNumber')}</FormLabel>
                   <FormControl>
                     <PhoneInput
                       onChange={field.onChange}
@@ -164,7 +164,7 @@ const Page = (): JSX.Element => {
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('city')}</FormLabel>
+                  <FormLabel>{t('common.city')}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -179,7 +179,7 @@ const Page = (): JSX.Element => {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <CardTitle>{t('user.roles')}</CardTitle>
+              <CardTitle>{t('user.role')}</CardTitle>
               <div className="ml-4 flex items-center gap-2">
                 {minRoleError && (
                   <p className="text-destructive text-sm">{minRoleError}</p>

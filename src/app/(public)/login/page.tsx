@@ -21,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { loginFailed, loginSuccess } from '@/modules/auth/authSlice'
 import authService from '@/modules/auth/service'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
@@ -61,8 +61,8 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         dispatch(loginFailed(error.message))
         form.setValue('password', '')
-        handleApiError(error, {
-          description: 'error.invalidEmailOrPassword',
+        handleErrorToast(error, {
+          description: 'login.error.incorrectCredentials',
         })
       })
       .finally(() => setLoading(false))
@@ -74,7 +74,7 @@ const Page = (): JSX.Element => {
         <ModeToggle />
         <LanguageToggle />
       </nav>
-      <Card className={'w-[410px] h-fit'}>
+      <Card>
         <CardHeader className={'flex items-center'}>
           <Image
             src={'/aysfavicon360.png'}
@@ -82,8 +82,8 @@ const Page = (): JSX.Element => {
             width={100}
             height={100}
           />
-          <CardTitle>{t('welcome')}</CardTitle>
-          <CardDescription>{t('loginDescription')}</CardDescription>
+          <CardTitle>{t('common.welcome')}</CardTitle>
+          <CardDescription>{t('login.description')}</CardDescription>
         </CardHeader>
         <CardHeader>
           <Form {...form}>
@@ -94,9 +94,9 @@ const Page = (): JSX.Element => {
                 disabled={loading}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('email')}</FormLabel>
+                    <FormLabel>{t('common.email')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('email')} {...field} />
+                      <Input placeholder={t('common.email')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,16 +108,19 @@ const Page = (): JSX.Element => {
                 disabled={loading}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('password')}</FormLabel>
+                    <FormLabel>{t('common.password')}</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder={t('password')} {...field} />
+                      <PasswordInput
+                        placeholder={t('common.password')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <Button type="submit" disabled={loading} className={'w-full'}>
-                {loading ? <LoadingSpinner /> : t('login')}
+                {loading ? <LoadingSpinner /> : t('login.title')}
               </Button>
               <ForgotPasswordModal
                 disabled={loading}

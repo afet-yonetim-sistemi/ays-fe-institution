@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/hooks/useToast'
-import { handleApiError } from '@/lib/handleApiError'
+import { handleErrorToast } from '@/lib/handleErrorToast'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
 import React, { useEffect, useState } from 'react'
@@ -43,7 +43,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   const handleSubmit = (): void => {
     const validation = FormValidationSchema.shape.emailAddress.safeParse(email)
     if (!validation.success) {
-      setEmailError(t('invalidEmail'))
+      setEmailError(t('validation.email'))
       return
     }
     setLoading(true)
@@ -53,14 +53,14 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
       .then(() => {
         setIsOpen(false)
         toast({
-          title: 'success',
-          description: 'resetPasswordEmailSent',
+          title: 'common.success',
+          description: 'password.forgot.success',
           variant: 'success',
         })
       })
       .catch((error) => {
-        handleApiError(error, {
-          description: 'error.invalidEmailForgotPassword',
+        handleErrorToast(error, {
+          description: 'password.forgot.error',
         })
       })
       .finally(() => {
@@ -76,19 +76,19 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button disabled={disabled} className={'w-full'} variant="link">
-          {t('forgotPassword')}
+          {t('password.forgot.title')}
         </Button>
       </DialogTrigger>
       <DialogContent className="w-11/12 sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t('forgotPassword')}</DialogTitle>
+          <DialogTitle>{t('password.forgot.title')}</DialogTitle>
           <DialogDescription>
-            {t('forgotPasswordInstruction')}
+            {t('password.forgot.description')}
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
-            <Label htmlFor="email">{t('email')}</Label>
+            <Label htmlFor="email">{t('common.email')}</Label>
             <Input
               id="email"
               type="email"
@@ -105,7 +105,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
             onClick={handleSubmit}
             disabled={loading || !email}
           >
-            {loading ? <LoadingSpinner /> : t('send')}
+            {loading ? <LoadingSpinner /> : t('common.send')}
           </Button>
         </DialogFooter>
       </DialogContent>
