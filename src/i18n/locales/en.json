@@ -119,7 +119,6 @@
     "approveSuccess": "Application successfully approved.",
     "updateSuccess": "Application updated successfully.",
     "updateError": "Application update failed.",
-    "error": "Error while fetching application details. Please try again",
     "admin": {
       "title": "Admin Registration Applications",
       "detailsTitle": "Admin Registration Applications Details",
@@ -237,8 +236,7 @@
     "applicationEvacuationUpdate": "Update Evacuation Application",
     "super": "Super Admin",
     "landingPage": "Landing Page",
-    "institutionPage": "Institution Page",
-    "error": "Error while fetching role permission details. Please try again"
+    "institutionPage": "Institution Page"
   },
   "languages": {
     "en": "English",

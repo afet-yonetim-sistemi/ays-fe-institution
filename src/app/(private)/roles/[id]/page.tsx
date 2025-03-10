@@ -90,7 +90,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         }))
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'permissions.error' })
+        handleErrorToast(error, { description: 'common.error.fetch' })
         return []
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps

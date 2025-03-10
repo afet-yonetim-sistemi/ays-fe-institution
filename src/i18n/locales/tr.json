@@ -119,7 +119,6 @@
     "approveSuccess": "Başvuru başarıyla onaylandı.",
     "updateSuccess": "Başvuru başarıyla güncellendi.",
     "updateError": "Başvuru güncelleme başarısız.",
-    "error": "Başvuru detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
     "admin": {
       "title": "Yönetici Kayıt Başvuruları",
       "detailsTitle": "Yönetici Kayıt Başvuru Detayı",
@@ -237,8 +236,7 @@
     "applicationEvacuationUpdate": "Tahliye Başvurusunu Güncelle",
     "super": "Süper Yönetici",
     "landingPage": "Açılış Sayfası",
-    "institutionPage": "Kurum Sayfası",
-    "error": "Rol Yetki Bilgileri alınırken bir hata oluştu. Lütfen tekrar deneyin"
+    "institutionPage": "Kurum Sayfası"
   },
   "languages": {
     "en": "İngilizce",

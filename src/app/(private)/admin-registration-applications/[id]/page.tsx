@@ -101,7 +101,7 @@ const Page = ({
           setAdminRegistrationApplicationDetails(response.response)
         })
         .catch((error) => {
-          handleErrorToast(error, { description: 'application.error' })
+          handleErrorToast(error, { description: 'common.error.fetch' })
         })
         .finally(() => setIsLoading(false))
     }

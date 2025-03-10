@@ -93,7 +93,7 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          handleErrorToast(error, { description: 'application.error' })
+          handleErrorToast(error, { description: 'common.error.fetch' })
         })
         .finally(() => setIsLoading(false))
     }

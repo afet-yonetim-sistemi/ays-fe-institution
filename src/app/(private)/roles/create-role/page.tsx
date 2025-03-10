@@ -64,7 +64,7 @@ const Page = (): JSX.Element => {
         setFetchedRolePermissions(permissions)
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'permissions.error' })
+        handleErrorToast(error, { description: 'common.error.fetch' })
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
