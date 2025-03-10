@@ -17,7 +17,7 @@ const useFetchRoleSummary = () => {
         setRoles(availableRoles)
       })
       .catch((err) => {
-        handleErrorToast(err, { description: 'error.roleSummaryFetch' })
+        handleErrorToast(err, { description: 'common.error.fetch' })
       })
   }, [])
 

@@ -33,7 +33,8 @@
       "defaultTitle": "Hata",
       "defaultDescription": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
       "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz.",
-      "noChange": "Değişiklik yapmadan güncelleyemezsiniz."
+      "noChange": "Değişiklik yapmadan güncelleyemezsiniz.",
+      "fetch": "Bilgileri alırken bir hata oluştu. Lütfen tekrar deneyiniz."
     }
   },
   "validation": {
@@ -53,10 +54,6 @@
   "metaData": {
     "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
     "aysDescription": "Afet Yönetim Sistemi | Disaster Management System"
-  },
-  "error": {
-    "userDetailFetch": "Kullanıcı detaylarını alırken bir hata oluştu. Lütfen tekrar deneyin",
-    "roleSummaryFetch": "Rol bilgilerini alırken bir hata oluştu. Lütfen tekrar deneyiniz."
   },
   "notFound": {
     "title": "Sayfa Bulunamadı."

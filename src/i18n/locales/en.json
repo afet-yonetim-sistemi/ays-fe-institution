@@ -33,7 +33,8 @@
       "defaultTitle": "Error",
       "defaultDescription": "An error occurred. Please try again later.",
       "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again.",
-      "noChange": "You cannot update without making changes."
+      "noChange": "You cannot update without making changes.",
+      "fetch": "An error occurred while fetching the information. Please try again."
     }
   },
   "validation": {
@@ -53,10 +54,6 @@
   "metaData": {
     "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
     "aysDescription": "Disaster Management System | Afet Yönetim Sistemi"
-  },
-  "error": {
-    "userDetailFetch": "Error while fetching user details. Please try again.",
-    "roleSummaryFetch": "Error while fetching available roles. Please try again."
   },
   "notFound": {
     "title": "Page not found."
