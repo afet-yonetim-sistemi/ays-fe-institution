@@ -51,13 +51,6 @@
     "noNumbersOnly": "This field cannot contain only numbers",
     "seatingCount": "Only positive numbers with a maximum of 3 digits are allowed"
   },
-  "metaData": {
-    "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
-    "aysDescription": "Disaster Management System | Afet Yönetim Sistemi"
-  },
-  "notFound": {
-    "title": "Page not found."
-  },
   "login": {
     "title": "Login",
     "description": "Please enter your email and password to continue.",
@@ -82,30 +75,6 @@
       "mismatch": "Passwords do not match"
     }
   },
-  "status": {
-    "title": "Status",
-    "waiting": "Waiting",
-    "completed": "Completed",
-    "rejected": "Rejected",
-    "approved": "Approved",
-    "notVerified": "Not Verified",
-    "active": "Active",
-    "passive": "Passive",
-    "pending": "Pending",
-    "deleted": "Deleted",
-    "inReview": "In Review",
-    "receivedFirstApprove": "Received First Approve",
-    "receivedSecondApprove": "Received Second Approve",
-    "receivedThirdApprove": "Received Third Approve",
-    "cancelled": "Cancelled"
-  },
-  "phoneInput": {
-    "search": "Search for a country"
-  },
-  "navBar": {
-    "toggle": "Toggle navigation menu",
-    "logout": "Logout"
-  },
   "application": {
     "information": "Application Information",
     "firstName": "Applicant's First Name",
@@ -114,8 +83,8 @@
     "rejectReason": "Application Rejection Reason",
     "status": "Application Status",
     "rejectConfirm": "Are you sure you want to reject this application?",
-    "approveConfirm": "Are you sure you want to approve this application?",
     "rejectSuccess": "Application successfully rejected.",
+    "approveConfirm": "Are you sure you want to approve this application?",
     "approveSuccess": "Application successfully approved.",
     "updateSuccess": "Application updated successfully.",
     "updateError": "Application update failed.",
@@ -159,11 +128,6 @@
       "notes": "Operator Notes"
     }
   },
-  "sort": {
-    "descending": "Click to sort descending",
-    "ascending": "Click to sort ascending",
-    "clear": "Clear sort"
-  },
   "role": {
     "title": "Roles",
     "permission": "Role Permissions",
@@ -205,6 +169,21 @@
     "createSuccess": "User created successfully.",
     "createError": "User create failed."
   },
+  "notFound": {
+    "title": "Page not found."
+  },
+  "phoneInput": {
+    "search": "Search for a country"
+  },
+  "navBar": {
+    "toggle": "Toggle navigation menu",
+    "logout": "Logout"
+  },
+  "sort": {
+    "descending": "Click to sort descending",
+    "ascending": "Click to sort ascending",
+    "clear": "Clear sort"
+  },
   "permissions": {
     "superAdmin": "Super Admin",
     "pages": "Pages",
@@ -233,8 +212,29 @@
     "landingPage": "Landing Page",
     "institutionPage": "Institution Page"
   },
+  "status": {
+    "title": "Status",
+    "waiting": "Waiting",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "approved": "Approved",
+    "notVerified": "Not Verified",
+    "active": "Active",
+    "passive": "Passive",
+    "pending": "Pending",
+    "deleted": "Deleted",
+    "inReview": "In Review",
+    "receivedFirstApprove": "Received First Approve",
+    "receivedSecondApprove": "Received Second Approve",
+    "receivedThirdApprove": "Received Third Approve",
+    "cancelled": "Cancelled"
+  },
   "languages": {
     "en": "English",
     "tr": "Turkish"
+  },
+  "metaData": {
+    "aysTitle": "AYS | Disaster Management System | Afet Yönetim Sistemi",
+    "aysDescription": "Disaster Management System | Afet Yönetim Sistemi"
   }
 }

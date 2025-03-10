@@ -51,13 +51,6 @@
     "noNumbersOnly": "Bu alan sadece sayılardan oluşamaz",
     "seatingCount": "Sadece maksimum 3 haneli, pozitif sayı değerleri alabilir"
   },
-  "metaData": {
-    "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
-    "aysDescription": "Afet Yönetim Sistemi | Disaster Management System"
-  },
-  "notFound": {
-    "title": "Sayfa Bulunamadı."
-  },
   "login": {
     "title": "Oturum Aç",
     "description": "Devam etmek için lütfen e-posta adresinizi ve şifrenizi giriniz.",
@@ -68,7 +61,7 @@
   "password": {
     "forgot": {
       "title": "Şifrenizi mi unuttunuz?",
-      "description": "Lütfen hesabınıza kayıtlı doğrulanmış eposta adresinizi kullanınız. Size şifre oluşturmanız için size bir bağlantı ileteceğiz.",
+      "description": "Lütfen hesabınıza kayıtlı doğrulanmış e-posta adresinizi kullanınız. E-posta adresinize şifre oluşturmanız için bir bağlantı ileteceğiz.",
       "error": "Bu e-posta ile kayıtlı bir hesap bulunmuyor. Lütfen kontrol edip tekrar deneyiniz.",
       "success": "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol ediniz."
     },
@@ -82,30 +75,6 @@
       "mismatch": "Şifreler uyuşmuyor"
     }
   },
-  "status": {
-    "title": "Durum",
-    "waiting": "Beklemede",
-    "completed": "Tamamlandı",
-    "rejected": "Reddedildi",
-    "approved": "Onaylandı",
-    "notVerified": "Doğrulanmadı",
-    "active": "Aktif",
-    "passive": "Pasif",
-    "deleted": "Silinmiş",
-    "pending": "Bekleniyor",
-    "inReview": "İnceleniyor",
-    "receivedFirstApprove": "1. Onay Alındı",
-    "receivedSecondApprove": "2. Onay Alındı",
-    "receivedThirdApprove": "3. Onay Alındı",
-    "cancelled": "İptal Edildi"
-  },
-  "phoneInput": {
-    "search": "Bir ülke arayın"
-  },
-  "navBar": {
-    "toggle": "Gezinme menüsünü aç/kapat",
-    "logout": "Çıkış Yap"
-  },
   "application": {
     "information": "Başvuru Bilgileri",
     "firstName": "Başvuru Yapan Kişinin Adı",
@@ -114,8 +83,8 @@
     "rejectReason": "Başvuru Reddedilme Nedeni",
     "status": "Başvuru Durumu",
     "rejectConfirm": "Bu başvuruyu reddetmek istediğinizden emin misiniz?",
-    "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
     "rejectSuccess": "Başvuru başarıyla reddedildi.",
+    "approveConfirm": "Bu başvuruyu onaylamak istediğinizden emin misiniz?",
     "approveSuccess": "Başvuru başarıyla onaylandı.",
     "updateSuccess": "Başvuru başarıyla güncellendi.",
     "updateError": "Başvuru güncelleme başarısız.",
@@ -159,11 +128,6 @@
       "notes": "Operatör Notları"
     }
   },
-  "sort": {
-    "descending": "Azalan sıraya göre sıralamak için tıklayın",
-    "ascending": "Artan sıraya göre sıralamak için tıklayın",
-    "clear": "Sıralamayı sıfırla"
-  },
   "role": {
     "title": "Roller",
     "permission": "Rol Yetkileri",
@@ -205,6 +169,21 @@
     "createSuccess": "Kullanıcı başarıyla oluşturuldu.",
     "createError": "Kullanıcı oluşturma başarısız."
   },
+  "notFound": {
+    "title": "Sayfa Bulunamadı."
+  },
+  "phoneInput": {
+    "search": "Bir ülke arayın"
+  },
+  "navBar": {
+    "toggle": "Gezinme menüsünü aç/kapat",
+    "logout": "Çıkış Yap"
+  },
+  "sort": {
+    "descending": "Azalan sıraya göre sıralamak için tıklayın",
+    "ascending": "Artan sıraya göre sıralamak için tıklayın",
+    "clear": "Sıralamayı sıfırla"
+  },
   "permissions": {
     "superAdmin": "Süper Yönetici",
     "pages": "Sayfalar",
@@ -233,8 +212,29 @@
     "landingPage": "Açılış Sayfası",
     "institutionPage": "Kurum Sayfası"
   },
+  "status": {
+    "title": "Durum",
+    "waiting": "Beklemede",
+    "completed": "Tamamlandı",
+    "rejected": "Reddedildi",
+    "approved": "Onaylandı",
+    "notVerified": "Doğrulanmadı",
+    "active": "Aktif",
+    "passive": "Pasif",
+    "deleted": "Silinmiş",
+    "pending": "Bekleniyor",
+    "inReview": "İnceleniyor",
+    "receivedFirstApprove": "1. Onay Alındı",
+    "receivedSecondApprove": "2. Onay Alındı",
+    "receivedThirdApprove": "3. Onay Alındı",
+    "cancelled": "İptal Edildi"
+  },
   "languages": {
     "en": "İngilizce",
     "tr": "Türkçe"
+  },
+  "metaData": {
+    "aysTitle": "AYS | Afet Yönetim Sistemi | Disaster Management System",
+    "aysDescription": "Afet Yönetim Sistemi | Disaster Management System"
   }
 }
