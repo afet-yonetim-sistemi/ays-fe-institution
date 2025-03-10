@@ -246,7 +246,7 @@ const Page = ({
         if (response.isSuccess) {
           toast({
             title: 'common.success',
-            description: 'user.activatedSuccessfully',
+            description: 'user.activateSuccess',
             variant: 'success',
           })
           if (userDetails) {
@@ -593,7 +593,7 @@ const Page = ({
             <Card className="mb-6">
               <CardHeader>
                 <div className="flex items-center">
-                  <CardTitle>{t('user.roles')}</CardTitle>
+                  <CardTitle>{t('user.role')}</CardTitle>
                   <div className="ml-4 flex items-center gap-2">
                     {isUserEditable && minRoleError && (
                       <p className="text-destructive text-sm">{minRoleError}</p>

@@ -80,7 +80,7 @@ const Page = (): JSX.Element => {
       .then(() => {
         toast({
           title: 'common.success',
-          description: 'user.createdSuccessfully',
+          description: 'user.createSuccess',
           variant: 'success',
         })
         router.push('/users')
@@ -179,7 +179,7 @@ const Page = (): JSX.Element => {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <CardTitle>{t('user.roles')}</CardTitle>
+              <CardTitle>{t('user.role')}</CardTitle>
               <div className="ml-4 flex items-center gap-2">
                 {minRoleError && (
                   <p className="text-destructive text-sm">{minRoleError}</p>
