@@ -319,7 +319,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     )
 
     if (!isNameChanged && !isPermissionsChanged) {
-      handleErrorToast(undefined, { description: 'role.noChangesError' })
+      handleErrorToast(undefined, { description: 'common.error.noChange' })
       setIsRoleEditable(false)
       return
     }
@@ -361,7 +361,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         if (response.isSuccess) {
           toast({
             title: 'common.success',
-            description: 'role.deletedSuccessfully',
+            description: 'role.deleteSuccess',
             variant: 'success',
           })
           router.push('/roles')
@@ -392,7 +392,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         if (response.isSuccess) {
           toast({
             title: 'common.success',
-            description: 'role.activatedSuccessfully',
+            description: 'role.activateSuccess',
             variant: 'success',
           })
           refreshRoleStatus('active')
@@ -411,7 +411,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         if (response.isSuccess) {
           toast({
             title: 'common.success',
-            description: 'role.deactivatedSuccessfully',
+            description: 'role.deactivateSuccess',
             variant: 'success',
           })
           refreshRoleStatus('passive')

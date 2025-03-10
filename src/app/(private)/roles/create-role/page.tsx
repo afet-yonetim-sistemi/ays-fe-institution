@@ -152,7 +152,7 @@ const Page = (): JSX.Element => {
       .then(() => {
         toast({
           title: 'common.success',
-          description: 'role.createdSuccessfully',
+          description: 'role.createSuccess',
           variant: 'success',
         })
         router.push('/roles')
