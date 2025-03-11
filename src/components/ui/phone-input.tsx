@@ -11,10 +11,11 @@ const PhoneInput: React.FC<PhoneInputProps> = (props) => {
       enableSearch={true}
       searchPlaceholder={i18n.t('phoneInput.search')}
       searchNotFound={i18n.t('common.noResult')}
-      containerClass={cn('!w-full')}
       countryCodeEditable={false}
       onlyCountries={['tr']}
       disableDropdown
+      containerClass={cn('!w-full')}
+      inputClass={cn('!w-full')}
       buttonClass={cn('!pointer-events-none hover:!cursor-not-allowed')}
     />
   )

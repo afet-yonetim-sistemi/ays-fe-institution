@@ -102,3 +102,12 @@
   justify-content: center;
   align-items: center;
 }
+
+.react-tel-input .form-control {
+  border-color: hsl(var(--input)) !important;
+}
+
+.react-tel-input .flag-dropdown {
+  /* background-color: hsl(var(--input)) !important; */
+  border-color: hsl(var(--input)) !important;
+}

@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { PhoneInput } from '@/components/ui/phone-input'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
@@ -143,7 +142,7 @@ const Page = (): JSX.Element => {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={control}
               name="phoneNumber"
               render={({ field }) => (
@@ -158,7 +157,7 @@ const Page = (): JSX.Element => {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={control}
               name="city"

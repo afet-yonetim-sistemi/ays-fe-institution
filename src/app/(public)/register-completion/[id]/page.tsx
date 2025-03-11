@@ -31,7 +31,6 @@ import {
 import { cityList } from '@/constants/trCity'
 import { useToast } from '@/hooks/useToast'
 import { handleErrorToast } from '@/lib/handleErrorToast'
-import { cn } from '@/lib/utils'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   getAdminRegistrationApplicationSummary,
@@ -196,9 +195,7 @@ const Page = ({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>{t('common.phoneNumber')}</FormLabel>
-                        <FormControl
-                          // className={cn('border-2 border-blue-500')}
-                        >
+                        <FormControl>
                           <PhoneInput
                             value={
                               (field.value?.countryCode || '') +
