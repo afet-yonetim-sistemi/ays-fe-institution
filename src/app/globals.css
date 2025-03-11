@@ -104,10 +104,11 @@
 }
 
 .react-tel-input .form-control {
+  background-color: hsl(var(--background)) !important;
   border-color: hsl(var(--input)) !important;
 }
 
 .react-tel-input .flag-dropdown {
-  /* background-color: hsl(var(--input)) !important; */
+  background-color: hsl(var(--background)) !important;
   border-color: hsl(var(--input)) !important;
 }
