@@ -58,6 +58,9 @@ const Page = ({
   const form = useForm<z.infer<typeof InstitutionFormSchema>>({
     resolver: zodResolver(InstitutionFormSchema),
     mode: 'onChange',
+    defaultValues: {
+      phoneNumber: { countryCode: '90', lineNumber: '' },
+    },
   })
 
   const { control } = form
@@ -174,23 +177,8 @@ const Page = ({
                       </FormItem>
                     )}
                   />
-                  {/* <FormField
-                    control={control}
-                    name="phoneNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('common.phoneNumber')}</FormLabel>
-                        <FormControl>
-                          <PhoneInput
-                            onChange={field.onChange}
-                            disableCountrySelection
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  /> */}
                   <FormField
+                    control={control}
                     name="phoneNumber"
                     render={({ field }) => (
                       <FormItem>

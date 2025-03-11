@@ -1,3 +1,4 @@
+import { isValidPhoneNumber } from 'libphonenumber-js'
 import { z } from 'zod'
 
 export const PhoneNumberSchema = z
@@ -5,8 +6,22 @@ export const PhoneNumberSchema = z
     countryCode: z.string(),
     lineNumber: z.string(),
   })
-  .refine((phoneNumber) => phoneNumber.countryCode && phoneNumber.lineNumber, {
-    message: 'validation.phone',
+  .superRefine(({ countryCode, lineNumber }, ctx) => {
+    const fullNumber = `${countryCode}${lineNumber}`
+
+    if (!isValidPhoneNumber(fullNumber, 'TR')) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'validation.phone',
+      })
+    }
+
+    if (fullNumber.length !== 12) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'validation.phoneLength',
+      })
+    }
   })
 
 export const PasswordSchema = z
