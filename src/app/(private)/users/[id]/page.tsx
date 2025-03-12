@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import PhoneInput from '@/components/ui/phone-input'
 import {
   Select,
   SelectContent,
@@ -24,7 +25,7 @@ import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
-import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
+import { formatDateTime } from '@/lib/dataFormatters'
 import { handleErrorToast } from '@/lib/handleErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
@@ -43,6 +44,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { CountryData } from 'react-phone-input-2'
 
 const Page = ({
   params,
@@ -150,6 +152,10 @@ const Page = ({
         lastName: userDetails.lastName,
         emailAddress: userDetails.emailAddress,
         city: userDetails.city,
+        phoneNumber: {
+          countryCode: userDetails.phoneNumber?.countryCode ?? '90',
+          lineNumber: userDetails.phoneNumber?.lineNumber ?? '',
+        },
       })
       setSelectedRoles(userDetails.roles.map((role) => role.id))
     }
@@ -158,6 +164,8 @@ const Page = ({
   }
 
   const handleSaveButtonClick = (): void => {
+    const phoneNumberValue = getValues('phoneNumber')
+
     const currentValues: UserEditableFields = {
       firstName: getValues('firstName') ?? initialUserValues?.firstName,
       lastName: getValues('lastName') ?? initialUserValues?.lastName,
@@ -165,10 +173,8 @@ const Page = ({
         getValues('emailAddress') ?? initialUserValues?.emailAddress,
       city: getValues('city') ?? initialUserValues?.city,
       phoneNumber: {
-        countryCode: '90',
-        lineNumber:
-          getValues('phoneNumber') ??
-          initialUserValues?.phoneNumber?.lineNumber,
+        countryCode: phoneNumberValue?.countryCode ?? '90',
+        lineNumber: phoneNumberValue?.lineNumber ?? '',
       },
       roleIds: selectedRoles,
     }
@@ -185,8 +191,10 @@ const Page = ({
     const isChanged = editableFields.some((key) => {
       if (key === 'phoneNumber') {
         return (
+          currentValues.phoneNumber.countryCode !==
+            initialUserValues?.phoneNumber?.countryCode ||
           currentValues.phoneNumber.lineNumber !==
-          initialUserValues?.phoneNumber?.lineNumber
+            initialUserValues?.phoneNumber?.lineNumber
         )
       }
       if (key === 'roleIds') {
@@ -437,31 +445,28 @@ const Page = ({
                     control={control}
                     name="phoneNumber"
                     render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
+                      <FormItem>
                         <FormLabel>{t('common.phoneNumber')}</FormLabel>
                         <FormControl>
-                          {isUserEditable ? (
-                            <div className="flex">
-                              <Input value="+90" disabled className="w-14" />
-                              <Input
-                                {...field}
-                                type="number"
-                                defaultValue={
-                                  userDetails.phoneNumber?.lineNumber ?? ''
-                                }
-                              />
-                            </div>
-                          ) : (
-                            <Input
-                              {...field}
-                              disabled
-                              value={
-                                userDetails.phoneNumber
-                                  ? formatPhoneNumber(userDetails.phoneNumber)
-                                  : ''
-                              }
-                            />
-                          )}
+                          <PhoneInput
+                            disabled={!isUserEditable}
+                            value={
+                              (field.value?.countryCode ??
+                                userDetails?.phoneNumber?.countryCode ??
+                                '') +
+                              (field.value?.lineNumber ??
+                                userDetails?.phoneNumber?.lineNumber ??
+                                '')
+                            }
+                            onChange={(value: string, country: CountryData) => {
+                              if (!isUserEditable) return
+                              const countryCode: string = country.dialCode
+                              const lineNumber: string = value.slice(
+                                countryCode.length
+                              )
+                              field.onChange({ countryCode, lineNumber })
+                            }}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
