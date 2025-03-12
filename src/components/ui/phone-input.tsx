@@ -8,6 +8,7 @@ const PhoneInput: React.FC<PhoneInputProps> = (props) => {
     <ReactPhoneInput
       {...props}
       country="tr"
+      placeholder={i18n.t('common.phoneNumber')}
       enableSearch={true}
       searchPlaceholder={i18n.t('phoneInput.search')}
       searchNotFound={i18n.t('common.noResult')}

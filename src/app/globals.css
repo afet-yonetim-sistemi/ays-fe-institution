@@ -106,9 +106,24 @@
 .react-tel-input .form-control {
   background-color: hsl(var(--background)) !important;
   border-color: hsl(var(--input)) !important;
+  height: 40px !important;
+}
+
+.react-tel-input .form-control:disabled {
+  border-color: hsl(var(--input)) !important;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .react-tel-input .flag-dropdown {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
   background-color: hsl(var(--background)) !important;
   border-color: hsl(var(--input)) !important;
+}
+
+.react-tel-input .flag-dropdown:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
