@@ -131,6 +131,10 @@ const Page = (): JSX.Element => {
     filters.targetDistrict ?? ''
   )
 
+  const [filterErrors, setFilterErrors] = useState<
+    Record<string, string | null>
+  >({})
+
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
   const debouncedHandleInputFilterChange =
@@ -220,6 +224,8 @@ const Page = (): JSX.Element => {
       'targetDistrict',
     ]
 
+    const newFilterErrors: Record<string, string | null> = {}
+
     for (const field of fieldsToValidate) {
       const value = filters[field]
 
@@ -227,15 +233,22 @@ const Page = (): JSX.Element => {
         const result = getStringFilterValidation().safeParse(value)
 
         if (!result.success) {
-          const errorMessage = result.error.errors[0]?.message
-
-          handleErrorToast(undefined, { description: errorMessage })
-          return
+          newFilterErrors[field] = result.error.errors[0]?.message
+        } else {
+          newFilterErrors[field] = ''
         }
       }
     }
 
-    fetchData(filters)
+    setFilterErrors(newFilterErrors)
+
+    const hasFilterErrors = Object.values(newFilterErrors).some(
+      (error) => error !== null
+    )
+
+    if (!hasFilterErrors) {
+      fetchData(filters)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters])
 
@@ -254,7 +267,7 @@ const Page = (): JSX.Element => {
         </Button>
       </div>
       <div className="grid grid-cols-2 2xl:grid-cols-3 gap-4">
-        <div className="flex items-center gap-4">
+        <div className="flex items-top gap-4">
           <MultiSelectDropdown
             items={emergencyEvacuationApplicationStatuses}
             selectedItems={filters.statuses}
@@ -298,6 +311,7 @@ const Page = (): JSX.Element => {
             setSourceCityInput(e.target.value)
             debouncedHandleInputFilterChange('sourceCity', e.target.value)
           }}
+          error={filterErrors.sourceCity}
         />
         <FilterInput
           id="sourceDistrict"
@@ -307,6 +321,7 @@ const Page = (): JSX.Element => {
             setSourceDistrictInput(e.target.value)
             debouncedHandleInputFilterChange('sourceDistrict', e.target.value)
           }}
+          error={filterErrors.sourceDistrict}
         />
         <FilterInput
           id="targetCity"
@@ -316,6 +331,7 @@ const Page = (): JSX.Element => {
             setTargetCityInput(e.target.value)
             debouncedHandleInputFilterChange('targetCity', e.target.value)
           }}
+          error={filterErrors.targetCity}
         />
         <FilterInput
           id="targetDistrict"
@@ -325,6 +341,7 @@ const Page = (): JSX.Element => {
             setTargetDistrictInput(e.target.value)
             debouncedHandleInputFilterChange('targetDistrict', e.target.value)
           }}
+          error={filterErrors.targetDistrict}
         />
       </div>
       <DataTable
