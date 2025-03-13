@@ -2,6 +2,7 @@
 
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
+import PhoneNumberField from '@/components/PhoneNumberField'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -20,7 +21,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import PhoneInput from '@/components/ui/phone-input'
 import {
   Select,
   SelectContent,
@@ -42,7 +42,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { CountryData } from 'react-phone-input-2'
 import { z } from 'zod'
 
 const Page = ({
@@ -177,31 +176,9 @@ const Page = ({
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={control}
-                    name="phoneNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('common.phoneNumber')}</FormLabel>
-                        <FormControl>
-                          <PhoneInput
-                            value={
-                              (field.value?.countryCode || '') +
-                              (field.value?.lineNumber || '')
-                            }
-                            onChange={(value: string, country: CountryData) => {
-                              const countryCode: string = country.dialCode
-                              const lineNumber: string = value.slice(
-                                countryCode.length
-                              )
-                              field.onChange({ countryCode, lineNumber })
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+
+                  <PhoneNumberField control={control} name="phoneNumber" />
+
                   <FormField
                     control={control}
                     name="city"
