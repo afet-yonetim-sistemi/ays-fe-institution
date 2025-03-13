@@ -1,5 +1,6 @@
 'use client'
 
+import PhoneNumberField from '@/components/PhoneNumberField'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -11,7 +12,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import PhoneInput from '@/components/ui/phone-input'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
@@ -23,7 +23,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { CountryData } from 'react-phone-input-2'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -144,31 +143,9 @@ const Page = (): JSX.Element => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={control}
-              name="phoneNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('common.phoneNumber')}</FormLabel>
-                  <FormControl>
-                    <PhoneInput
-                      value={
-                        (field.value?.countryCode || '') +
-                        (field.value?.lineNumber || '')
-                      }
-                      onChange={(value: string, country: CountryData) => {
-                        const countryCode: string = country.dialCode
-                        const lineNumber: string = value.slice(
-                          countryCode.length
-                        )
-                        field.onChange({ countryCode, lineNumber })
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
+            <PhoneNumberField control={control} name="phoneNumber" />
+
             <FormField
               control={control}
               name="city"
