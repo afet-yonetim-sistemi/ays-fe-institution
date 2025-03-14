@@ -99,6 +99,10 @@ const Page = (): JSX.Element => {
     getInitialFilters(searchParams)
   )
 
+  const [filterErrors, setFilterErrors] = useState<
+    Record<string, string | null>
+  >({})
+
   const [firstNameInput, setFirstNameInput] = useState(filters.firstName ?? '')
   const [lastNameInput, setLastNameInput] = useState(filters.lastName ?? '')
   const [emailAddressInput, setEmailAddressInput] = useState(
@@ -200,6 +204,8 @@ const Page = (): JSX.Element => {
       'lineNumber',
     ]
 
+    const newFilterErrors: Record<string, string | null> = {}
+
     for (const field of fieldsToValidate) {
       const value = filters[field]
       const rules = validationRules[field] || {}
@@ -209,15 +215,22 @@ const Page = (): JSX.Element => {
         const result = getStringFilterValidation(rules).safeParse(stringValue)
 
         if (!result.success) {
-          const errorMessage = result.error.errors[0]?.message
-
-          handleErrorToast(undefined, { description: errorMessage })
-          return
+          newFilterErrors[field] = result.error.errors[0]?.message
+        } else {
+          newFilterErrors[field] = null
         }
       }
     }
 
-    fetchData(filters)
+    setFilterErrors(newFilterErrors)
+
+    const hasFilterErrors = Object.values(newFilterErrors).some(
+      (error) => error !== null
+    )
+
+    if (!hasFilterErrors) {
+      fetchData(filters)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters])
 
@@ -260,6 +273,7 @@ const Page = (): JSX.Element => {
             setFirstNameInput(e.target.value)
             debouncedHandleInputFilterChange('firstName', e.target.value)
           }}
+          error={filterErrors.firstName}
         />
         <FilterInput
           id="lastName"
@@ -269,6 +283,7 @@ const Page = (): JSX.Element => {
             setLastNameInput(e.target.value)
             debouncedHandleInputFilterChange('lastName', e.target.value)
           }}
+          error={filterErrors.lastName}
         />
         <FilterInput
           id="emailAddress"
@@ -278,6 +293,7 @@ const Page = (): JSX.Element => {
             setEmailAddressInput(e.target.value)
             debouncedHandleInputFilterChange('emailAddress', e.target.value)
           }}
+          error={filterErrors.emailAddress}
         />
         <FilterInput
           id="lineNumber"
@@ -288,6 +304,7 @@ const Page = (): JSX.Element => {
             debouncedHandleInputFilterChange('lineNumber', e.target.value)
           }}
           type="number"
+          error={filterErrors.lineNumber}
         />
         <FilterInput
           id="city"
@@ -297,6 +314,7 @@ const Page = (): JSX.Element => {
             setCityInput(e.target.value)
             debouncedHandleInputFilterChange('city', e.target.value)
           }}
+          error={filterErrors.city}
         />
       </div>
       <DataTable
