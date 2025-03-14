@@ -50,7 +50,7 @@ const MultiSelectDropdown = <T extends string>({
     <DropdownMenu>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger className="flex w-fit items-center gap-2">
+          <TooltipTrigger className="flex w-fit gap-2">
             <DropdownMenuTrigger
               asChild
               className="hover:bg-muted/90 data-[state=open]:bg-blue-600/10 data-[state=open]:text-blue-600 rounded h-10 px-4 py-2"

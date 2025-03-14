@@ -2,6 +2,7 @@ import React from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
+import { t } from 'i18next'
 
 interface FilterInputProps {
   id: string
@@ -10,10 +11,11 @@ interface FilterInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   type?: string
+  error?: string | null
 }
 
 const FilterInput: React.FC<FilterInputProps> = React.memo(
-  ({ id, label, value, onChange, placeholder = '', type = 'text' }) => {
+  ({ id, label, value, onChange, placeholder = '', type = 'text', error }) => {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       const char = e.key
 
@@ -68,10 +70,15 @@ const FilterInput: React.FC<FilterInputProps> = React.memo(
         />
         <Label
           htmlFor={id}
-          className="absolute !left-3 rounded cursor-text text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 top-1.5 z-10 origin-[0] bg-white dark:bg-background peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1.5 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+          className="absolute !left-3 rounded cursor-text text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 top-1.5 z-10 origin-[0] bg-white dark:bg-background peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-[calc(50%-10px)] peer-placeholder-shown:top-[calc(50%-20px)] peer-focus:top-1.5 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
         >
           {label}
         </Label>
+        <div className="h-[16px] mt-1">
+          {error && (
+            <p className="text-sm font-medium text-destructive">{t(error)}</p>
+          )}
+        </div>
       </div>
     )
   }

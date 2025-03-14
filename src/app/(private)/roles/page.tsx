@@ -68,6 +68,10 @@ const Page = (): JSX.Element => {
     getInitialFilters(searchParams)
   )
 
+  const [filterErrors, setFilterErrors] = useState<
+    Record<string, string | null>
+  >({})
+
   const [nameInputValue, setNameInputValue] = useState(filters.name ?? '')
 
   const { handlePageChange } = usePagination()
@@ -130,15 +134,27 @@ const Page = (): JSX.Element => {
   }, [filters.name])
 
   useEffect(() => {
-    const result = getStringFilterValidation().safeParse(filters.name)
+    const newFilterErrors: Record<string, string | null> = {}
 
-    if (filters.name && !result.success) {
-      const errorMessage = result.error.errors[0]?.message
+    if (filters.name) {
+      const result = getStringFilterValidation().safeParse(filters.name)
 
-      handleErrorToast(undefined, { description: errorMessage })
-      return
+      if (!result.success) {
+        newFilterErrors.name = result.error.errors[0]?.message
+      } else {
+        newFilterErrors.name = null
+      }
     }
-    fetchData(filters)
+
+    setFilterErrors(newFilterErrors)
+
+    const hasFilterErrors = Object.values(newFilterErrors).some(
+      (error) => error !== null
+    )
+
+    if (!hasFilterErrors) {
+      fetchData(filters)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters])
 
@@ -154,7 +170,7 @@ const Page = (): JSX.Element => {
           )}
         </div>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex gap-4">
         <MultiSelectDropdown
           items={roleStatuses}
           selectedItems={filters.statuses}
@@ -172,6 +188,7 @@ const Page = (): JSX.Element => {
             setNameInputValue(e.target.value)
             debouncedHandleInputFilterChange('name', e.target.value)
           }}
+          error={filterErrors.name}
         />
       </div>
       <DataTable
