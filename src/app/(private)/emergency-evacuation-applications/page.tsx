@@ -235,7 +235,7 @@ const Page = (): JSX.Element => {
         if (!result.success) {
           newFilterErrors[field] = result.error.errors[0]?.message
         } else {
-          newFilterErrors[field] = ''
+          newFilterErrors[field] = null
         }
       }
     }
