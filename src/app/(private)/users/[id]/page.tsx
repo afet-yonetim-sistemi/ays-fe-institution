@@ -174,7 +174,9 @@ const Page = ({
       city: getValues('city') ?? initialUserValues?.city,
       phoneNumber: {
         countryCode: phoneNumberValue?.countryCode ?? '90',
-        lineNumber: phoneNumberValue?.lineNumber ?? '',
+        lineNumber:
+          phoneNumberValue?.lineNumber ??
+          initialUserValues?.phoneNumber.lineNumber,
       },
       roleIds: selectedRoles,
     }
