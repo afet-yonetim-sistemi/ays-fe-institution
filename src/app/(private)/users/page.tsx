@@ -304,6 +304,7 @@ const Page = (): JSX.Element => {
             debouncedHandleInputFilterChange('lineNumber', e.target.value)
           }}
           type="number"
+          hideNumberSpinner
           error={filterErrors.lineNumber}
         />
         <FilterInput
