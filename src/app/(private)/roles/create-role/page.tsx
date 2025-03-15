@@ -12,8 +12,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { useToast } from '@/hooks/useToast'
-import { showErrorToast } from '@/lib/showToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
@@ -30,7 +29,6 @@ import { useTranslation } from 'react-i18next'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateRoleSchema),
@@ -150,11 +148,7 @@ const Page = (): JSX.Element => {
 
     createRole({ name, permissionIds: activePermissionIds })
       .then(() => {
-        toast({
-          title: 'common.success',
-          description: 'role.createSuccess',
-          variant: 'success',
-        })
+        showSuccessToast('role.createSuccess')
         router.push('/roles')
       })
       .catch((error) => {

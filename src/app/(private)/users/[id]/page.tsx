@@ -24,9 +24,8 @@ import {
 import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
-import { useToast } from '@/hooks/useToast'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { showErrorToast } from '@/lib/showToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { userStatuses } from '@/modules/users/constants/statuses'
@@ -52,7 +51,6 @@ const Page = ({
   params: { slug: string; id: string }
 }): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(UserValidationSchema),
@@ -230,11 +228,7 @@ const Page = ({
             ...currentValues,
           })
 
-          toast({
-            title: 'common.success',
-            description: 'user.updateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('user.updateSuccess')
           setIsUserEditable(false)
           fetchDetails()
         } else {
@@ -250,11 +244,7 @@ const Page = ({
     activateUser(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'user.activateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('user.activateSuccess')
           if (userDetails) {
             setUserDetails({
               ...userDetails,
@@ -274,11 +264,7 @@ const Page = ({
     deactivateUser(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'user.deactivateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('user.deactivateSuccess')
           if (userDetails) {
             setUserDetails({
               ...userDetails,
@@ -298,11 +284,7 @@ const Page = ({
     deleteUser(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'user.deleteSucces',
-            variant: 'success',
-          })
+          showSuccessToast('user.deleteSucces')
           router.push('/users')
         } else {
           showErrorToast()

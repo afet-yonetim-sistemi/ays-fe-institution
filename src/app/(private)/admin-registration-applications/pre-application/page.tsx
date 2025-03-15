@@ -20,8 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { useToast } from '@/hooks/useToast'
-import { showErrorToast } from '@/lib/showToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   approveAdminRegistrationApplication,
@@ -36,7 +35,6 @@ import { z } from 'zod'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [institutionSummary, setInstitutionSummary] = useState<Institution[]>(
@@ -55,11 +53,7 @@ const Page = (): JSX.Element => {
     setIsLoading(true)
     approveAdminRegistrationApplication(values)
       .then((res) => {
-        toast({
-          title: 'common.success',
-          description: 'application.admin.preliminary.success',
-          variant: 'success',
-        })
+        showSuccessToast('application.admin.preliminary.success')
         router.push(`/admin-registration-applications/${res.data.response.id}`)
       })
       .catch((error) => {

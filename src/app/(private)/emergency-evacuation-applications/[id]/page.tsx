@@ -22,13 +22,12 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { Permission } from '@/constants/permissions'
-import { toast } from '@/hooks/useToast'
 import {
   formatDateTime,
   formatPhoneNumber,
   formatReferenceNumber,
 } from '@/lib/dataFormatters'
-import { showErrorToast } from '@/lib/showToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
@@ -155,12 +154,7 @@ const Page = ({
             ...emergencyEvacuationApplicationDetails!,
             ...currentValues,
           })
-
-          toast({
-            title: 'common.success',
-            description: 'application.updateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('application.updateSuccess')
           setIsEmergencyApplicationEditable(false)
         } else {
           showErrorToast(undefined, 'application.updateError')
