@@ -1,0 +1,8837 @@
+[
+  {
+    "id": 1,
+    "name": "Adana",
+    "population": 2270298,
+    "area": 13844,
+    "altitude": 25,
+    "areaCode": [322],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR6",
+        "name": {
+          "en": "Mediterranean",
+          "tr": "Akdeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR62",
+        "name": "Adana"
+      },
+      "nuts3": "TR621"
+    },
+    "coordinates": {
+      "latitude": 37.001667,
+      "longitude": 35.328889
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4yHUNdZuhcBn7rqX8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/167216"
+    },
+    "region": {
+      "en": "Mediterranean",
+      "tr": "Akdeniz"
+    },
+    "districts": [
+      {
+        "id": 1757,
+        "name": "Aladağ",
+        "population": 16954,
+        "area": 1340
+      },
+      {
+        "id": 1219,
+        "name": "Ceyhan",
+        "population": 156610,
+        "area": 1426
+      },
+      {
+        "id": 2033,
+        "name": "Çukurova",
+        "population": 374205,
+        "area": 250
+      },
+      {
+        "id": 1329,
+        "name": "Feke",
+        "population": 17304,
+        "area": 1218
+      },
+      {
+        "id": 1806,
+        "name": "İmamoğlu",
+        "population": 27341,
+        "area": 445
+      },
+      {
+        "id": 1437,
+        "name": "Karaisalı",
+        "population": 23105,
+        "area": 1165
+      },
+      {
+        "id": 1443,
+        "name": "Karataş",
+        "population": 25245,
+        "area": 862
+      },
+      {
+        "id": 1486,
+        "name": "Kozan",
+        "population": 132642,
+        "area": 1903
+      },
+      {
+        "id": 1580,
+        "name": "Pozantı",
+        "population": 20733,
+        "area": 899
+      },
+      {
+        "id": 1588,
+        "name": "Saimbeyli",
+        "population": 13857,
+        "area": 989
+      },
+      {
+        "id": 2032,
+        "name": "Sarıçam",
+        "population": 236298,
+        "area": 770
+      },
+      {
+        "id": 1104,
+        "name": "Seyhan",
+        "population": 787771,
+        "area": 444
+      },
+      {
+        "id": 1687,
+        "name": "Tufanbeyli",
+        "population": 17258,
+        "area": 851
+      },
+      {
+        "id": 1734,
+        "name": "Yumurtalık",
+        "population": 18630,
+        "area": 447
+      },
+      {
+        "id": 1748,
+        "name": "Yüreğir",
+        "population": 402345,
+        "area": 835
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Adıyaman",
+    "population": 604978,
+    "area": 7337,
+    "altitude": 701,
+    "areaCode": [416],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC1",
+        "name": "Gaziantep"
+      },
+      "nuts3": "TRC12"
+    },
+    "coordinates": {
+      "latitude": 37.764722,
+      "longitude": 38.278611
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/UqRzeK1ApyPjbhpp6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223141"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1182,
+        "name": "Besni",
+        "population": 76415,
+        "area": 1235
+      },
+      {
+        "id": 1246,
+        "name": "Çelikhan",
+        "population": 14856,
+        "area": 444
+      },
+      {
+        "id": 1347,
+        "name": "Gerger",
+        "population": 15679,
+        "area": 668
+      },
+      {
+        "id": 1354,
+        "name": "Gölbaşı",
+        "population": 47876,
+        "area": 1274
+      },
+      {
+        "id": 1425,
+        "name": "Kahta",
+        "population": 132303,
+        "area": 319
+      },
+      {
+        "id": 1105,
+        "name": "Merkez",
+        "population": 284839,
+        "area": 1814
+      },
+      {
+        "id": 1592,
+        "name": "Samsat",
+        "population": 6898,
+        "area": 319
+      },
+      {
+        "id": 1985,
+        "name": "Sincik",
+        "population": 16477,
+        "area": 495
+      },
+      {
+        "id": 1989,
+        "name": "Tut",
+        "population": 9635,
+        "area": 290
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Afyonkarahisar",
+    "population": 751344,
+    "area": 14016,
+    "altitude": 1012,
+    "areaCode": [272],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR3",
+        "name": {
+          "en": "Aegean",
+          "tr": "Ege"
+        }
+      },
+      "nuts2": {
+        "code": "TR33",
+        "name": "Manisa"
+      },
+      "nuts3": "TR332"
+    },
+    "coordinates": {
+      "latitude": 38.750278,
+      "longitude": 30.556667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/YeNjtvM93DdWqXZ46",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223171"
+    },
+    "region": {
+      "en": "Aegean",
+      "tr": "Ege"
+    },
+    "districts": [
+      {
+        "id": 1771,
+        "name": "Başmakçı",
+        "population": 9378,
+        "area": 361
+      },
+      {
+        "id": 1773,
+        "name": "Bayat",
+        "population": 7852,
+        "area": 411
+      },
+      {
+        "id": 1200,
+        "name": "Bolvadin",
+        "population": 45073,
+        "area": 944
+      },
+      {
+        "id": 1239,
+        "name": "Çay",
+        "population": 29935,
+        "area": 803
+      },
+      {
+        "id": 1906,
+        "name": "Çobanlar",
+        "population": 14404,
+        "area": 165
+      },
+      {
+        "id": 1267,
+        "name": "Dazkırı",
+        "population": 11642,
+        "area": 408
+      },
+      {
+        "id": 1281,
+        "name": "Dinar",
+        "population": 47492,
+        "area": 1254
+      },
+      {
+        "id": 1306,
+        "name": "Emirdağ",
+        "population": 43603,
+        "area": 2103
+      },
+      {
+        "id": 1923,
+        "name": "Evciler",
+        "population": 7173,
+        "area": 252
+      },
+      {
+        "id": 1944,
+        "name": "Hocalar",
+        "population": 8644,
+        "area": 506
+      },
+      {
+        "id": 1404,
+        "name": "İhsaniye",
+        "population": 29044,
+        "area": 849
+      },
+      {
+        "id": 1809,
+        "name": "İscehisar",
+        "population": 25033,
+        "area": 489
+      },
+      {
+        "id": 1961,
+        "name": "Kızılören",
+        "population": 2107,
+        "area": 111
+      },
+      {
+        "id": 1108,
+        "name": "Merkez",
+        "population": 324685,
+        "area": 1261
+      },
+      {
+        "id": 1594,
+        "name": "Sandıklı",
+        "population": 55413,
+        "area": 1238
+      },
+      {
+        "id": 1626,
+        "name": "Sinanpaşa",
+        "population": 39566,
+        "area": 889
+      },
+      {
+        "id": 1639,
+        "name": "Sultandağı",
+        "population": 14229,
+        "area": 928
+      },
+      {
+        "id": 1664,
+        "name": "Şuhut",
+        "population": 36071,
+        "area": 1044
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Ağrı",
+    "population": 511238,
+    "area": 11099,
+    "altitude": 1630,
+    "areaCode": [472],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRA",
+        "name": {
+          "en": "Northeast Anatolia",
+          "tr": "Kuzeydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRA2",
+        "name": "Ağrı"
+      },
+      "nuts3": "TRA21"
+    },
+    "coordinates": {
+      "latitude": 39.719444,
+      "longitude": 43.050556
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/XRhjXkNfniLTjCfY7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/186433"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1283,
+        "name": "Diyadin",
+        "population": 37687,
+        "area": 1351
+      },
+      {
+        "id": 1287,
+        "name": "Doğubayazıt",
+        "population": 114727,
+        "area": 2250
+      },
+      {
+        "id": 1301,
+        "name": "Eleşkirt",
+        "population": 30103,
+        "area": 1307
+      },
+      {
+        "id": 1379,
+        "name": "Hamur",
+        "population": 16097,
+        "area": 873
+      },
+      {
+        "id": 1111,
+        "name": "Merkez",
+        "population": 153709,
+        "area": 1695
+      },
+      {
+        "id": 1568,
+        "name": "Patnos",
+        "population": 112515,
+        "area": 1394
+      },
+      {
+        "id": 1667,
+        "name": "Taşlıçay",
+        "population": 18781,
+        "area": 822
+      },
+      {
+        "id": 1691,
+        "name": "Tutak",
+        "population": 27619,
+        "area": 1407
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Amasya",
+    "population": 339529,
+    "area": 5628,
+    "altitude": 400,
+    "areaCode": [358],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR83",
+        "name": "Samsun"
+      },
+      "nuts3": "TR834"
+    },
+    "coordinates": {
+      "latitude": 40.649722,
+      "longitude": 35.835278
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/1wM3GEACXZW3kG219",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223452"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1363,
+        "name": "Göynücek",
+        "population": 10363,
+        "area": 591
+      },
+      {
+        "id": 1368,
+        "name": "Gümüşhacıköy",
+        "population": 22121,
+        "area": 629
+      },
+      {
+        "id": 1938,
+        "name": "Hamamözü",
+        "population": 4003,
+        "area": 204
+      },
+      {
+        "id": 1134,
+        "name": "Merkez",
+        "population": 148908,
+        "area": 1889
+      },
+      {
+        "id": 1524,
+        "name": "Merzifon",
+        "population": 76266,
+        "area": 888
+      },
+      {
+        "id": 1641,
+        "name": "Suluova",
+        "population": 46986,
+        "area": 456
+      },
+      {
+        "id": 1668,
+        "name": "Taşova",
+        "population": 30882,
+        "area": 971
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Ankara",
+    "population": 5803482,
+    "area": 25632,
+    "altitude": 905,
+    "areaCode": [312],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR5",
+        "name": {
+          "en": "West Anatolia",
+          "tr": "Batı Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR51",
+        "name": "Ankara"
+      },
+      "nuts3": "TR511"
+    },
+    "coordinates": {
+      "latitude": 39.92077,
+      "longitude": 32.85411
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Ri3Zh3yBka5RhXdG8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223422"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1872,
+        "name": "Akyurt",
+        "population": 43918,
+        "area": 369
+      },
+      {
+        "id": 1130,
+        "name": "Altındağ",
+        "population": 412267,
+        "area": 123
+      },
+      {
+        "id": 1157,
+        "name": "Ayaş",
+        "population": 15581,
+        "area": 1041
+      },
+      {
+        "id": 1167,
+        "name": "Bala",
+        "population": 28704,
+        "area": 1851
+      },
+      {
+        "id": 1187,
+        "name": "Beypazarı",
+        "population": 48558,
+        "area": 1697
+      },
+      {
+        "id": 1227,
+        "name": "Çamlıdere",
+        "population": 13971,
+        "area": 782
+      },
+      {
+        "id": 1231,
+        "name": "Çankaya",
+        "population": 937546,
+        "area": 483
+      },
+      {
+        "id": 1260,
+        "name": "Çubuk",
+        "population": 99096,
+        "area": 1198
+      },
+      {
+        "id": 1302,
+        "name": "Elmadağ",
+        "population": 45034,
+        "area": 647
+      },
+      {
+        "id": 1922,
+        "name": "Etimesgut",
+        "population": 617229,
+        "area": 273
+      },
+      {
+        "id": 1924,
+        "name": "Evren",
+        "population": 3581,
+        "area": 222
+      },
+      {
+        "id": 1744,
+        "name": "Gölbaşı",
+        "population": 157605,
+        "area": 1364
+      },
+      {
+        "id": 1365,
+        "name": "Güdül",
+        "population": 10014,
+        "area": 540
+      },
+      {
+        "id": 1387,
+        "name": "Haymana",
+        "population": 33494,
+        "area": 2164
+      },
+      {
+        "id": 1815,
+        "name": "Kahramankazan",
+        "population": 60804,
+        "area": 547
+      },
+      {
+        "id": 1427,
+        "name": "Kalecik",
+        "population": 13296,
+        "area": 1110
+      },
+      {
+        "id": 1745,
+        "name": "Keçiören",
+        "population": 923404,
+        "area": 159
+      },
+      {
+        "id": 1473,
+        "name": "Kızılcahamam",
+        "population": 31800,
+        "area": 1623
+      },
+      {
+        "id": 1746,
+        "name": "Mamak",
+        "population": 682279,
+        "area": 321
+      },
+      {
+        "id": 1539,
+        "name": "Nallıhan",
+        "population": 26831,
+        "area": 2079
+      },
+      {
+        "id": 1578,
+        "name": "Polatlı",
+        "population": 128895,
+        "area": 3618
+      },
+      {
+        "id": 2034,
+        "name": "Pursaklar",
+        "population": 161926,
+        "area": 169
+      },
+      {
+        "id": 1747,
+        "name": "Sincan",
+        "population": 571889,
+        "area": 880
+      },
+      {
+        "id": 1658,
+        "name": "Şereflikoçhisar",
+        "population": 34122,
+        "area": 2155
+      },
+      {
+        "id": 1723,
+        "name": "Yenimahalle",
+        "population": 701638,
+        "area": 219
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Antalya",
+    "population": 2696249,
+    "area": 20177,
+    "altitude": 62,
+    "areaCode": [242],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR6",
+        "name": {
+          "en": "Mediterranean",
+          "tr": "Akdeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR61",
+        "name": "Antalya"
+      },
+      "nuts3": "TR611"
+    },
+    "coordinates": {
+      "latitude": 36.88414,
+      "longitude": 30.70563
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/bs2JWRpPJPLLfTyv5",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223132"
+    },
+    "region": {
+      "en": "Mediterranean",
+      "tr": "Akdeniz"
+    },
+    "districts": [
+      {
+        "id": 1121,
+        "name": "Akseki",
+        "population": 11896,
+        "area": 1544
+      },
+      {
+        "id": 2035,
+        "name": "Aksu",
+        "population": 80350,
+        "area": 406
+      },
+      {
+        "id": 1126,
+        "name": "Alanya",
+        "population": 359891,
+        "area": 1577
+      },
+      {
+        "id": 1811,
+        "name": "Demre",
+        "population": 27762,
+        "area": 329
+      },
+      {
+        "id": 2036,
+        "name": "Döşemealtı",
+        "population": 86109,
+        "area": 687
+      },
+      {
+        "id": 1303,
+        "name": "Elmalı",
+        "population": 41240,
+        "area": 1433
+      },
+      {
+        "id": 1333,
+        "name": "Finike",
+        "population": 50688,
+        "area": 768
+      },
+      {
+        "id": 1337,
+        "name": "Gazipaşa",
+        "population": 55185,
+        "area": 1111
+      },
+      {
+        "id": 1370,
+        "name": "Gündoğmuş",
+        "population": 8259,
+        "area": 1175
+      },
+      {
+        "id": 1946,
+        "name": "İbradı",
+        "population": 4243,
+        "area": 778
+      },
+      {
+        "id": 1451,
+        "name": "Kaş",
+        "population": 64014,
+        "area": 1750
+      },
+      {
+        "id": 1959,
+        "name": "Kemer",
+        "population": 49695,
+        "area": 412
+      },
+      {
+        "id": 2037,
+        "name": "Kepez",
+        "population": 614135,
+        "area": 292
+      },
+      {
+        "id": 2038,
+        "name": "Konyaaltı",
+        "population": 196498,
+        "area": 546
+      },
+      {
+        "id": 1483,
+        "name": "Korkuteli",
+        "population": 59295,
+        "area": 2433
+      },
+      {
+        "id": 1492,
+        "name": "Kumluca",
+        "population": 74353,
+        "area": 1225
+      },
+      {
+        "id": 1512,
+        "name": "Manavgat",
+        "population": 258367,
+        "area": 2351
+      },
+      {
+        "id": 2039,
+        "name": "Muratpaşa",
+        "population": 512700,
+        "area": 96
+      },
+      {
+        "id": 1616,
+        "name": "Serik",
+        "population": 141569,
+        "area": 1263
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Artvin",
+    "population": 172356,
+    "area": 7393,
+    "altitude": 530,
+    "areaCode": [466],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR9",
+        "name": {
+          "en": "East Black Sea",
+          "tr": "Doğu Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR90",
+        "name": "Trabzon"
+      },
+      "nuts3": "TR905"
+    },
+    "coordinates": {
+      "latitude": 41.18222,
+      "longitude": 41.81889
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/BNqMFsBRd8AUX9mx8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223448"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1145,
+        "name": "Ardanuç",
+        "population": 11157,
+        "area": 958
+      },
+      {
+        "id": 1147,
+        "name": "Arhavi",
+        "population": 21746,
+        "area": 407
+      },
+      {
+        "id": 1202,
+        "name": "Borçka",
+        "population": 24622,
+        "area": 805
+      },
+      {
+        "id": 1395,
+        "name": "Hopa",
+        "population": 27176,
+        "area": 130
+      },
+      {
+        "id": 2105,
+        "name": "Kemalpaşa",
+        "population": 9688,
+        "area": 74
+      },
+      {
+        "id": 1152,
+        "name": "Merkez",
+        "population": 35929,
+        "area": 1141
+      },
+      {
+        "id": 1828,
+        "name": "Murgul",
+        "population": 6319,
+        "area": 301
+      },
+      {
+        "id": 1653,
+        "name": "Şavşat",
+        "population": 16917,
+        "area": 1316
+      },
+      {
+        "id": 1736,
+        "name": "Yusufeli",
+        "population": 18802,
+        "area": 2261
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Aydın",
+    "population": 1161702,
+    "area": 8116,
+    "altitude": 92,
+    "areaCode": [256],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR3",
+        "name": {
+          "en": "Aegean",
+          "tr": "Ege"
+        }
+      },
+      "nuts2": {
+        "code": "TR32",
+        "name": "Aydın"
+      },
+      "nuts3": "TR321"
+    },
+    "coordinates": {
+      "latitude": 37.84444,
+      "longitude": 27.84556
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/453kMPbSgGMJPWcg7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223166"
+    },
+    "region": {
+      "en": "Aegean",
+      "tr": "Ege"
+    },
+    "districts": [
+      {
+        "id": 1206,
+        "name": "Bozdoğan",
+        "population": 32528,
+        "area": 859
+      },
+      {
+        "id": 1781,
+        "name": "Buharkent",
+        "population": 13187,
+        "area": 124
+      },
+      {
+        "id": 1256,
+        "name": "Çine",
+        "population": 48585,
+        "area": 820
+      },
+      {
+        "id": 2000,
+        "name": "Didim",
+        "population": 100189,
+        "area": 424
+      },
+      {
+        "id": 2076,
+        "name": "Efeler",
+        "population": 308039,
+        "area": 624
+      },
+      {
+        "id": 1348,
+        "name": "Germencik",
+        "population": 44793,
+        "area": 394
+      },
+      {
+        "id": 1807,
+        "name": "İncirliova",
+        "population": 56934,
+        "area": 188
+      },
+      {
+        "id": 1435,
+        "name": "Karacasu",
+        "population": 17880,
+        "area": 727
+      },
+      {
+        "id": 1957,
+        "name": "Karpuzlu",
+        "population": 10616,
+        "area": 286
+      },
+      {
+        "id": 1479,
+        "name": "Koçarlı",
+        "population": 22599,
+        "area": 455
+      },
+      {
+        "id": 1968,
+        "name": "Köşk",
+        "population": 28440,
+        "area": 187
+      },
+      {
+        "id": 1497,
+        "name": "Kuşadası",
+        "population": 133177,
+        "area": 265
+      },
+      {
+        "id": 1498,
+        "name": "Kuyucak",
+        "population": 26047,
+        "area": 544
+      },
+      {
+        "id": 1542,
+        "name": "Nazilli",
+        "population": 162074,
+        "area": 691
+      },
+      {
+        "id": 1637,
+        "name": "Söke",
+        "population": 124217,
+        "area": 1064
+      },
+      {
+        "id": 1640,
+        "name": "Sultanhisar",
+        "population": 20399,
+        "area": 220
+      },
+      {
+        "id": 1724,
+        "name": "Yenipazar",
+        "population": 11998,
+        "area": 245
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Balıkesir",
+    "population": 1273519,
+    "area": 14583,
+    "altitude": 145,
+    "areaCode": [266],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR2",
+        "name": {
+          "en": "West Marmara",
+          "tr": "Batı Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR22",
+        "name": "Balıkesir"
+      },
+      "nuts3": "TR221"
+    },
+    "coordinates": {
+      "latitude": 39.64861,
+      "longitude": 27.8825
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/RJquCx4SbtBENXDu9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223464"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 2077,
+        "name": "Altıeylül",
+        "population": 185458,
+        "area": 956
+      },
+      {
+        "id": 1161,
+        "name": "Ayvalık",
+        "population": 74643,
+        "area": 305
+      },
+      {
+        "id": 1169,
+        "name": "Balya",
+        "population": 13000,
+        "area": 797
+      },
+      {
+        "id": 1171,
+        "name": "Bandırma",
+        "population": 166836,
+        "area": 755
+      },
+      {
+        "id": 1191,
+        "name": "Bigadiç",
+        "population": 49177,
+        "area": 1108
+      },
+      {
+        "id": 1216,
+        "name": "Burhaniye",
+        "population": 65790,
+        "area": 420
+      },
+      {
+        "id": 1291,
+        "name": "Dursunbey",
+        "population": 33621,
+        "area": 1719
+      },
+      {
+        "id": 1294,
+        "name": "Edremit",
+        "population": 171700,
+        "area": 682
+      },
+      {
+        "id": 1310,
+        "name": "Erdek",
+        "population": 32268,
+        "area": 307
+      },
+      {
+        "id": 1928,
+        "name": "Gömeç",
+        "population": 17556,
+        "area": 171
+      },
+      {
+        "id": 1360,
+        "name": "Gönen",
+        "population": 75572,
+        "area": 1162
+      },
+      {
+        "id": 1384,
+        "name": "Havran",
+        "population": 28287,
+        "area": 565
+      },
+      {
+        "id": 1418,
+        "name": "İvrindi",
+        "population": 31626,
+        "area": 818
+      },
+      {
+        "id": 2078,
+        "name": "Karesi",
+        "population": 188846,
+        "area": 695
+      },
+      {
+        "id": 1462,
+        "name": "Kepsut",
+        "population": 21804,
+        "area": 889
+      },
+      {
+        "id": 1514,
+        "name": "Manyas",
+        "population": 18190,
+        "area": 634
+      },
+      {
+        "id": 1824,
+        "name": "Marmara",
+        "population": 11454,
+        "area": 134
+      },
+      {
+        "id": 1608,
+        "name": "Savaştepe",
+        "population": 16787,
+        "area": 427
+      },
+      {
+        "id": 1619,
+        "name": "Sındırgı",
+        "population": 32879,
+        "area": 1387
+      },
+      {
+        "id": 1644,
+        "name": "Susurluk",
+        "population": 38025,
+        "area": 652
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Bilecik",
+    "population": 228058,
+    "area": 4179,
+    "altitude": 513,
+    "areaCode": [228],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR4",
+        "name": {
+          "en": "East Marmara",
+          "tr": "Doğu Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR41",
+        "name": "Bursa"
+      },
+      "nuts3": "TR413"
+    },
+    "coordinates": {
+      "latitude": 40.14556,
+      "longitude": 29.97917
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/LJDq5jVJdrcLhCHu5",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223420"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 1210,
+        "name": "Bozüyük",
+        "population": 79853,
+        "area": 860
+      },
+      {
+        "id": 1359,
+        "name": "Gölpazarı",
+        "population": 9831,
+        "area": 670
+      },
+      {
+        "id": 1948,
+        "name": "İnhisar",
+        "population": 2377,
+        "area": 244
+      },
+      {
+        "id": 1192,
+        "name": "Merkez",
+        "population": 82416,
+        "area": 793
+      },
+      {
+        "id": 1559,
+        "name": "Osmaneli",
+        "population": 21875,
+        "area": 490
+      },
+      {
+        "id": 1571,
+        "name": "Pazaryeri",
+        "population": 9967,
+        "area": 324
+      },
+      {
+        "id": 1636,
+        "name": "Söğüt",
+        "population": 18844,
+        "area": 523
+      },
+      {
+        "id": 1857,
+        "name": "Yenipazar",
+        "population": 2895,
+        "area": 273
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Bingöl",
+    "population": 285655,
+    "area": 8004,
+    "altitude": 1159,
+    "areaCode": [426],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRB",
+        "name": {
+          "en": "Central East Anatolia",
+          "tr": "Ortadoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRB1",
+        "name": "Malatya"
+      },
+      "nuts3": "TRB13"
+    },
+    "coordinates": {
+      "latitude": 38.885,
+      "longitude": 40.49861
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4YXDvYHT4iHFCMDb7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223444"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1750,
+        "name": "Adaklı",
+        "population": 8863,
+        "area": 825
+      },
+      {
+        "id": 1344,
+        "name": "Genç",
+        "population": 34178,
+        "area": 1443
+      },
+      {
+        "id": 1446,
+        "name": "Karlıova",
+        "population": 26819,
+        "area": 1566
+      },
+      {
+        "id": 1475,
+        "name": "Kiğı",
+        "population": 5035,
+        "area": 483
+      },
+      {
+        "id": 1193,
+        "name": "Merkez",
+        "population": 172007,
+        "area": 1814
+      },
+      {
+        "id": 1633,
+        "name": "Solhan",
+        "population": 33651,
+        "area": 1033
+      },
+      {
+        "id": 1855,
+        "name": "Yayladere",
+        "population": 2304,
+        "area": 417
+      },
+      {
+        "id": 1996,
+        "name": "Yedisu",
+        "population": 2798,
+        "area": 423
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Bitlis",
+    "population": 359747,
+    "area": 8294,
+    "altitude": 1637,
+    "areaCode": [434],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRB",
+        "name": {
+          "en": "Central East Anatolia",
+          "tr": "Ortadoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRB2",
+        "name": "Van"
+      },
+      "nuts3": "TRB23"
+    },
+    "coordinates": {
+      "latitude": 38.39528,
+      "longitude": 42.12361
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/p3fCL2MKcfHeqXcD6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223441"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1106,
+        "name": "Adilcevaz",
+        "population": 29697,
+        "area": 1586
+      },
+      {
+        "id": 1112,
+        "name": "Ahlat",
+        "population": 44475,
+        "area": 1153
+      },
+      {
+        "id": 1798,
+        "name": "Güroymak",
+        "population": 49161,
+        "area": 515
+      },
+      {
+        "id": 1394,
+        "name": "Hizan",
+        "population": 31911,
+        "area": 1021
+      },
+      {
+        "id": 1196,
+        "name": "Merkez",
+        "population": 73264,
+        "area": 1064
+      },
+      {
+        "id": 1537,
+        "name": "Mutki",
+        "population": 29203,
+        "area": 1069
+      },
+      {
+        "id": 1669,
+        "name": "Tatvan",
+        "population": 102036,
+        "area": 1885
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Bolu",
+    "population": 324789,
+    "area": 8313,
+    "altitude": 741,
+    "areaCode": [374],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR4",
+        "name": {
+          "en": "East Marmara",
+          "tr": "Doğu Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR42",
+        "name": "Kocaeli"
+      },
+      "nuts3": "TR424"
+    },
+    "coordinates": {
+      "latitude": 40.73528,
+      "longitude": 31.60639
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/T8DJCNo4S8ngxcY36",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223461"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1916,
+        "name": "Dörtdivan",
+        "population": 6703,
+        "area": 634
+      },
+      {
+        "id": 1346,
+        "name": "Gerede",
+        "population": 36177,
+        "area": 1060
+      },
+      {
+        "id": 1364,
+        "name": "Göynük",
+        "population": 14711,
+        "area": 1407
+      },
+      {
+        "id": 1466,
+        "name": "Kıbrıscık",
+        "population": 2980,
+        "area": 562
+      },
+      {
+        "id": 1522,
+        "name": "Mengen",
+        "population": 14113,
+        "area": 874
+      },
+      {
+        "id": 1199,
+        "name": "Merkez",
+        "population": 219913,
+        "area": 1616
+      },
+      {
+        "id": 1531,
+        "name": "Mudurnu",
+        "population": 18576,
+        "area": 1314
+      },
+      {
+        "id": 1610,
+        "name": "Seben",
+        "population": 4807,
+        "area": 683
+      },
+      {
+        "id": 1997,
+        "name": "Yeniçağa",
+        "population": 6809,
+        "area": 163
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Burdur",
+    "population": 277452,
+    "area": 7175,
+    "altitude": 963,
+    "areaCode": [248],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR6",
+        "name": {
+          "en": "Mediterranean",
+          "tr": "Akdeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR61",
+        "name": "Antalya"
+      },
+      "nuts3": "TR613"
+    },
+    "coordinates": {
+      "latitude": 37.72111,
+      "longitude": 30.29056
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/BA4vZ8FHqw9TdWFt8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/2319368"
+    },
+    "region": {
+      "en": "Mediterranean",
+      "tr": "Akdeniz"
+    },
+    "districts": [
+      {
+        "id": 1109,
+        "name": "Ağlasun",
+        "population": 7929,
+        "area": 305
+      },
+      {
+        "id": 1874,
+        "name": "Altınyayla",
+        "population": 5224,
+        "area": 221
+      },
+      {
+        "id": 1211,
+        "name": "Bucak",
+        "population": 68290,
+        "area": 1511
+      },
+      {
+        "id": 1899,
+        "name": "Çavdır",
+        "population": 13095,
+        "area": 482
+      },
+      {
+        "id": 1903,
+        "name": "Çeltikçi",
+        "population": 5337,
+        "area": 161
+      },
+      {
+        "id": 1357,
+        "name": "Gölhisar",
+        "population": 23920,
+        "area": 494
+      },
+      {
+        "id": 1813,
+        "name": "Karamanlı",
+        "population": 8249,
+        "area": 372
+      },
+      {
+        "id": 1816,
+        "name": "Kemer",
+        "population": 2888,
+        "area": 373
+      },
+      {
+        "id": 1215,
+        "name": "Merkez",
+        "population": 117537,
+        "area": 1567
+      },
+      {
+        "id": 1672,
+        "name": "Tefenni",
+        "population": 10546,
+        "area": 582
+      },
+      {
+        "id": 1728,
+        "name": "Yeşilova",
+        "population": 14437,
+        "area": 1108
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Bursa",
+    "population": 3214571,
+    "area": 10813,
+    "altitude": 238,
+    "areaCode": [224],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR4",
+        "name": {
+          "en": "East Marmara",
+          "tr": "Doğu Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR41",
+        "name": "Bursa"
+      },
+      "nuts3": "TR411"
+    },
+    "coordinates": {
+      "latitude": 40.18222,
+      "longitude": 29.06111
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/D4vgiGXypSUoAnb5A",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223463"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 1783,
+        "name": "Büyükorhan",
+        "population": 10325,
+        "area": 505
+      },
+      {
+        "id": 1343,
+        "name": "Gemlik",
+        "population": 122171,
+        "area": 401
+      },
+      {
+        "id": 1935,
+        "name": "Gürsu",
+        "population": 103770,
+        "area": 106
+      },
+      {
+        "id": 1799,
+        "name": "Harmancık",
+        "population": 6334,
+        "area": 400
+      },
+      {
+        "id": 1411,
+        "name": "İnegöl",
+        "population": 299203,
+        "area": 1118
+      },
+      {
+        "id": 1420,
+        "name": "İznik",
+        "population": 44988,
+        "area": 753
+      },
+      {
+        "id": 1434,
+        "name": "Karacabey",
+        "population": 85765,
+        "area": 1158
+      },
+      {
+        "id": 1457,
+        "name": "Keles",
+        "population": 11321,
+        "area": 617
+      },
+      {
+        "id": 1960,
+        "name": "Kestel",
+        "population": 75954,
+        "area": 423
+      },
+      {
+        "id": 1530,
+        "name": "Mudanya",
+        "population": 109964,
+        "area": 369
+      },
+      {
+        "id": 1535,
+        "name": "Mustafakemalpaşa",
+        "population": 103944,
+        "area": 1641
+      },
+      {
+        "id": 1829,
+        "name": "Nilüfer",
+        "population": 543934,
+        "area": 552
+      },
+      {
+        "id": 1553,
+        "name": "Orhaneli",
+        "population": 19527,
+        "area": 838
+      },
+      {
+        "id": 1554,
+        "name": "Orhangazi",
+        "population": 81862,
+        "area": 506
+      },
+      {
+        "id": 1832,
+        "name": "Osmangazi",
+        "population": 885273,
+        "area": 621
+      },
+      {
+        "id": 1725,
+        "name": "Yenişehir",
+        "population": 55745,
+        "area": 720
+      },
+      {
+        "id": 1859,
+        "name": "Yıldırım",
+        "population": 654491,
+        "area": 110
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Çanakkale",
+    "population": 570499,
+    "area": 9817,
+    "altitude": 11,
+    "areaCode": [286],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR2",
+        "name": {
+          "en": "West Marmara",
+          "tr": "Batı Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR22",
+        "name": "Balıkesir"
+      },
+      "nuts3": "TR222"
+    },
+    "coordinates": {
+      "latitude": 40.15556,
+      "longitude": 26.41444
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/TUMVgeTAWBChTA5D9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223471"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 1160,
+        "name": "Ayvacık",
+        "population": 35141,
+        "area": 880
+      },
+      {
+        "id": 1180,
+        "name": "Bayramiç",
+        "population": 29160,
+        "area": 1204
+      },
+      {
+        "id": 1190,
+        "name": "Biga",
+        "population": 93778,
+        "area": 1310
+      },
+      {
+        "id": 1205,
+        "name": "Bozcaada",
+        "population": 3243,
+        "area": 37
+      },
+      {
+        "id": 1229,
+        "name": "Çan",
+        "population": 47624,
+        "area": 905
+      },
+      {
+        "id": 1293,
+        "name": "Eceabat",
+        "population": 8780,
+        "area": 430
+      },
+      {
+        "id": 1326,
+        "name": "Ezine",
+        "population": 33413,
+        "area": 727
+      },
+      {
+        "id": 1340,
+        "name": "Gelibolu",
+        "population": 44461,
+        "area": 823
+      },
+      {
+        "id": 1408,
+        "name": "Gökçeada",
+        "population": 10721,
+        "area": 282
+      },
+      {
+        "id": 1503,
+        "name": "Lapseki",
+        "population": 30259,
+        "area": 821
+      },
+      {
+        "id": 1230,
+        "name": "Merkez",
+        "population": 203523,
+        "area": 1016
+      },
+      {
+        "id": 1722,
+        "name": "Yenice",
+        "population": 30396,
+        "area": 1381
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Çankırı",
+    "population": 205501,
+    "area": 7542,
+    "altitude": 730,
+    "areaCode": [376],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR82",
+        "name": "Kastamonu"
+      },
+      "nuts3": "TR822"
+    },
+    "coordinates": {
+      "latitude": 40.6,
+      "longitude": 33.61667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/6kF6GM2DkPqqCoMD8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223454"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 1765,
+        "name": "Atkaracalar",
+        "population": 5079,
+        "area": 234
+      },
+      {
+        "id": 1885,
+        "name": "Bayramören",
+        "population": 2740,
+        "area": 310
+      },
+      {
+        "id": 1248,
+        "name": "Çerkeş",
+        "population": 16909,
+        "area": 947
+      },
+      {
+        "id": 1300,
+        "name": "Eldivan",
+        "population": 7331,
+        "area": 350
+      },
+      {
+        "id": 1399,
+        "name": "Ilgaz",
+        "population": 14271,
+        "area": 845
+      },
+      {
+        "id": 1817,
+        "name": "Kızılırmak",
+        "population": 7703,
+        "area": 514
+      },
+      {
+        "id": 1963,
+        "name": "Korgun",
+        "population": 4226,
+        "area": 378
+      },
+      {
+        "id": 1494,
+        "name": "Kurşunlu",
+        "population": 9947,
+        "area": 609
+      },
+      {
+        "id": 1232,
+        "name": "Merkez",
+        "population": 98574,
+        "area": 1440
+      },
+      {
+        "id": 1555,
+        "name": "Orta",
+        "population": 16921,
+        "area": 706
+      },
+      {
+        "id": 1649,
+        "name": "Şabanözü",
+        "population": 13192,
+        "area": 467
+      },
+      {
+        "id": 1718,
+        "name": "Yapraklı",
+        "population": 8608,
+        "area": 741
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Çorum",
+    "population": 528351,
+    "area": 12428,
+    "altitude": 822,
+    "areaCode": [364],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR83",
+        "name": "Samsun"
+      },
+      "nuts3": "TR833"
+    },
+    "coordinates": {
+      "latitude": 40.55056,
+      "longitude": 34.95556
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/wQa5dtRQDPCU4UNv9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223453"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1124,
+        "name": "Alaca",
+        "population": 29952,
+        "area": 1296
+      },
+      {
+        "id": 1177,
+        "name": "Bayat",
+        "population": 15047,
+        "area": 717
+      },
+      {
+        "id": 1778,
+        "name": "Boğazkale",
+        "population": 4068,
+        "area": 264
+      },
+      {
+        "id": 1911,
+        "name": "Dodurga",
+        "population": 5786,
+        "area": 229
+      },
+      {
+        "id": 1414,
+        "name": "İskilip",
+        "population": 29270,
+        "area": 1170
+      },
+      {
+        "id": 1445,
+        "name": "Kargı",
+        "population": 16040,
+        "area": 1174
+      },
+      {
+        "id": 1972,
+        "name": "Laçin",
+        "population": 4883,
+        "area": 196
+      },
+      {
+        "id": 1520,
+        "name": "Mecitözü",
+        "population": 14441,
+        "area": 825
+      },
+      {
+        "id": 1259,
+        "name": "Merkez",
+        "population": 294321,
+        "area": 2436
+      },
+      {
+        "id": 1976,
+        "name": "Oğuzlar",
+        "population": 5240,
+        "area": 121
+      },
+      {
+        "id": 1556,
+        "name": "Ortaköy",
+        "population": 8496,
+        "area": 300
+      },
+      {
+        "id": 1558,
+        "name": "Osmancık",
+        "population": 43388,
+        "area": 1273
+      },
+      {
+        "id": 1642,
+        "name": "Sungurlu",
+        "population": 49086,
+        "area": 1999
+      },
+      {
+        "id": 1850,
+        "name": "Uğurludağ",
+        "population": 8333,
+        "area": 428
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Denizli",
+    "population": 1059082,
+    "area": 12134,
+    "altitude": 392,
+    "areaCode": [258],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR3",
+        "name": {
+          "en": "Aegean",
+          "tr": "Ege"
+        }
+      },
+      "nuts2": {
+        "code": "TR32",
+        "name": "Aydın"
+      },
+      "nuts3": "TR322"
+    },
+    "coordinates": {
+      "latitude": 37.77639,
+      "longitude": 29.08611
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/aVMraLcFzdK6MbeT9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223169"
+    },
+    "region": {
+      "en": "Aegean",
+      "tr": "Ege"
+    },
+    "districts": [
+      {
+        "id": 1102,
+        "name": "Acıpayam",
+        "population": 55406,
+        "area": 1772
+      },
+      {
+        "id": 1769,
+        "name": "Babadağ",
+        "population": 6424,
+        "area": 124
+      },
+      {
+        "id": 1881,
+        "name": "Baklan",
+        "population": 5457,
+        "area": 283
+      },
+      {
+        "id": 1774,
+        "name": "Bekilli",
+        "population": 6565,
+        "area": 304
+      },
+      {
+        "id": 1888,
+        "name": "Beyağaç",
+        "population": 6532,
+        "area": 333
+      },
+      {
+        "id": 1889,
+        "name": "Bozkurt",
+        "population": 11000,
+        "area": 462
+      },
+      {
+        "id": 1214,
+        "name": "Buldan",
+        "population": 26542,
+        "area": 523
+      },
+      {
+        "id": 1224,
+        "name": "Çal",
+        "population": 17919,
+        "area": 860
+      },
+      {
+        "id": 1226,
+        "name": "Çameli",
+        "population": 17814,
+        "area": 758
+      },
+      {
+        "id": 1233,
+        "name": "Çardak",
+        "population": 8781,
+        "area": 423
+      },
+      {
+        "id": 1257,
+        "name": "Çivril",
+        "population": 59912,
+        "area": 1570
+      },
+      {
+        "id": 1371,
+        "name": "Güney",
+        "population": 9573,
+        "area": 362
+      },
+      {
+        "id": 1803,
+        "name": "Honaz",
+        "population": 34237,
+        "area": 449
+      },
+      {
+        "id": 1426,
+        "name": "Kale",
+        "population": 19388,
+        "area": 684
+      },
+      {
+        "id": 2079,
+        "name": "Merkezefendi",
+        "population": 340400,
+        "area": 336
+      },
+      {
+        "id": 1871,
+        "name": "Pamukkale",
+        "population": 346047,
+        "area": 823
+      },
+      {
+        "id": 1597,
+        "name": "Sarayköy",
+        "population": 31047,
+        "area": 379
+      },
+      {
+        "id": 1840,
+        "name": "Serinhisar",
+        "population": 14591,
+        "area": 256
+      },
+      {
+        "id": 1670,
+        "name": "Tavas",
+        "population": 41447,
+        "area": 1432
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Diyarbakır",
+    "population": 1818133,
+    "area": 15168,
+    "altitude": 674,
+    "areaCode": [412],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC2",
+        "name": "Şanlıurfa"
+      },
+      "nuts3": "TRC22"
+    },
+    "coordinates": {
+      "latitude": 37.91417,
+      "longitude": 40.23056
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/qsS4gxc5GdbQeMo57",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223435"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 2040,
+        "name": "Bağlar",
+        "population": 394338,
+        "area": 429
+      },
+      {
+        "id": 1195,
+        "name": "Bismil",
+        "population": 119972,
+        "area": 1679
+      },
+      {
+        "id": 1249,
+        "name": "Çermik",
+        "population": 49900,
+        "area": 948
+      },
+      {
+        "id": 1253,
+        "name": "Çınar",
+        "population": 78351,
+        "area": 1934
+      },
+      {
+        "id": 1263,
+        "name": "Çüngüş",
+        "population": 10771,
+        "area": 512
+      },
+      {
+        "id": 1278,
+        "name": "Dicle",
+        "population": 38533,
+        "area": 738
+      },
+      {
+        "id": 1791,
+        "name": "Eğil",
+        "population": 23712,
+        "area": 449
+      },
+      {
+        "id": 1315,
+        "name": "Ergani",
+        "population": 137492,
+        "area": 1510
+      },
+      {
+        "id": 1381,
+        "name": "Hani",
+        "population": 32777,
+        "area": 436
+      },
+      {
+        "id": 1389,
+        "name": "Hazro",
+        "population": 17772,
+        "area": 426
+      },
+      {
+        "id": 2041,
+        "name": "Kayapınar",
+        "population": 425143,
+        "area": 480
+      },
+      {
+        "id": 1962,
+        "name": "Kocaköy",
+        "population": 15537,
+        "area": 248
+      },
+      {
+        "id": 1490,
+        "name": "Kulp",
+        "population": 37576,
+        "area": 1560
+      },
+      {
+        "id": 1504,
+        "name": "Lice",
+        "population": 26168,
+        "area": 982
+      },
+      {
+        "id": 1624,
+        "name": "Silvan",
+        "population": 87707,
+        "area": 1252
+      },
+      {
+        "id": 2042,
+        "name": "Sur",
+        "population": 98938,
+        "area": 1227
+      },
+      {
+        "id": 2043,
+        "name": "Yenişehir",
+        "population": 223446,
+        "area": 358
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Edirne",
+    "population": 419913,
+    "area": 6145,
+    "altitude": 50,
+    "areaCode": [284],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR2",
+        "name": {
+          "en": "West Marmara",
+          "tr": "Batı Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR21",
+        "name": "Tekirdağ"
+      },
+      "nuts3": "TR212"
+    },
+    "coordinates": {
+      "latitude": 41.67083,
+      "longitude": 26.55556
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/xBHKDxVHbWD2RrHs6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223465"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 1307,
+        "name": "Enez",
+        "population": 10625,
+        "area": 455
+      },
+      {
+        "id": 1385,
+        "name": "Havsa",
+        "population": 18077,
+        "area": 545
+      },
+      {
+        "id": 1412,
+        "name": "İpsala",
+        "population": 26155,
+        "area": 741
+      },
+      {
+        "id": 1464,
+        "name": "Keşan",
+        "population": 84846,
+        "area": 1098
+      },
+      {
+        "id": 1502,
+        "name": "Lalapaşa",
+        "population": 6198,
+        "area": 497
+      },
+      {
+        "id": 1523,
+        "name": "Meriç",
+        "population": 12897,
+        "area": 438
+      },
+      {
+        "id": 1295,
+        "name": "Merkez",
+        "population": 194991,
+        "area": 844
+      },
+      {
+        "id": 1988,
+        "name": "Süloğlu",
+        "population": 6405,
+        "area": 342
+      },
+      {
+        "id": 1705,
+        "name": "Uzunköprü",
+        "population": 59719,
+        "area": 1185
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Elazığ",
+    "population": 604411,
+    "area": 9383,
+    "altitude": 1041,
+    "areaCode": [424],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRB",
+        "name": {
+          "en": "Central East Anatolia",
+          "tr": "Ortadoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRB1",
+        "name": "Malatya"
+      },
+      "nuts3": "TRB12"
+    },
+    "coordinates": {
+      "latitude": 38.68056,
+      "longitude": 39.22639
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/aALifwxa3ZNacgtn6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223443"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1110,
+        "name": "Ağın",
+        "population": 2834,
+        "area": 242
+      },
+      {
+        "id": 1873,
+        "name": "Alacakaya",
+        "population": 6157,
+        "area": 318
+      },
+      {
+        "id": 1762,
+        "name": "Arıcak",
+        "population": 14970,
+        "area": 354
+      },
+      {
+        "id": 1173,
+        "name": "Baskil",
+        "population": 16578,
+        "area": 1318
+      },
+      {
+        "id": 1438,
+        "name": "Karakoçan",
+        "population": 29612,
+        "area": 1049
+      },
+      {
+        "id": 1455,
+        "name": "Keban",
+        "population": 7964,
+        "area": 641
+      },
+      {
+        "id": 1820,
+        "name": "Kovancılar",
+        "population": 38988,
+        "area": 960
+      },
+      {
+        "id": 1506,
+        "name": "Maden",
+        "population": 13320,
+        "area": 819
+      },
+      {
+        "id": 1298,
+        "name": "Merkez",
+        "population": 443448,
+        "area": 2243
+      },
+      {
+        "id": 1566,
+        "name": "Palu",
+        "population": 20215,
+        "area": 730
+      },
+      {
+        "id": 1631,
+        "name": "Sivrice",
+        "population": 10325,
+        "area": 710
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Erzincan",
+    "population": 243399,
+    "area": 11815,
+    "altitude": 1216,
+    "areaCode": [446],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRA",
+        "name": {
+          "en": "Northeast Anatolia",
+          "tr": "Kuzeydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRA1",
+        "name": "Erzurum"
+      },
+      "nuts3": "TRA12"
+    },
+    "coordinates": {
+      "latitude": 39.75,
+      "longitude": 39.5
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/9ypr7KJcnAEakUqY6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223445"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1243,
+        "name": "Çayırlı",
+        "population": 8415,
+        "area": 1062
+      },
+      {
+        "id": 1406,
+        "name": "İliç",
+        "population": 10044,
+        "area": 1382
+      },
+      {
+        "id": 1459,
+        "name": "Kemah",
+        "population": 7517,
+        "area": 2311
+      },
+      {
+        "id": 1460,
+        "name": "Kemaliye",
+        "population": 5066,
+        "area": 1207
+      },
+      {
+        "id": 1318,
+        "name": "Merkez",
+        "population": 165860,
+        "area": 1521
+      },
+      {
+        "id": 1977,
+        "name": "Otlukbeli",
+        "population": 2423,
+        "area": 320
+      },
+      {
+        "id": 1583,
+        "name": "Refahiye",
+        "population": 12984,
+        "area": 1808
+      },
+      {
+        "id": 1675,
+        "name": "Tercan",
+        "population": 16573,
+        "area": 1614
+      },
+      {
+        "id": 1853,
+        "name": "Üzümlü",
+        "population": 14517,
+        "area": 591
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Erzurum",
+    "population": 749993,
+    "area": 25006,
+    "altitude": 1923,
+    "areaCode": [442],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TRA",
+        "name": {
+          "en": "Northeast Anatolia",
+          "tr": "Kuzeydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRA1",
+        "name": "Erzurum"
+      },
+      "nuts3": "TRA11"
+    },
+    "coordinates": {
+      "latitude": 39.90861,
+      "longitude": 41.27694
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/ssmkHABXNprF5JFC9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/186432"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1153,
+        "name": "Aşkale",
+        "population": 21410,
+        "area": 1507
+      },
+      {
+        "id": 1945,
+        "name": "Aziziye",
+        "population": 68251,
+        "area": 1529
+      },
+      {
+        "id": 1235,
+        "name": "Çat",
+        "population": 15457,
+        "area": 1448
+      },
+      {
+        "id": 1392,
+        "name": "Hınıs",
+        "population": 24419,
+        "area": 1367
+      },
+      {
+        "id": 1396,
+        "name": "Horasan",
+        "population": 36359,
+        "area": 1740
+      },
+      {
+        "id": 1416,
+        "name": "İspir",
+        "population": 15914,
+        "area": 2129
+      },
+      {
+        "id": 1812,
+        "name": "Karaçoban",
+        "population": 21961,
+        "area": 571
+      },
+      {
+        "id": 1444,
+        "name": "Karayazı",
+        "population": 24559,
+        "area": 1953
+      },
+      {
+        "id": 1967,
+        "name": "Köprüköy",
+        "population": 14184,
+        "area": 777
+      },
+      {
+        "id": 1540,
+        "name": "Narman",
+        "population": 11959,
+        "area": 799
+      },
+      {
+        "id": 1550,
+        "name": "Oltu",
+        "population": 30296,
+        "area": 1441
+      },
+      {
+        "id": 1551,
+        "name": "Olur",
+        "population": 6737,
+        "area": 893
+      },
+      {
+        "id": 2044,
+        "name": "Palandöken",
+        "population": 177109,
+        "area": 667
+      },
+      {
+        "id": 1567,
+        "name": "Pasinler",
+        "population": 26833,
+        "area": 1134
+      },
+      {
+        "id": 1865,
+        "name": "Pazaryolu",
+        "population": 4290,
+        "area": 654
+      },
+      {
+        "id": 1657,
+        "name": "Şenkaya",
+        "population": 16112,
+        "area": 1381
+      },
+      {
+        "id": 1674,
+        "name": "Tekman",
+        "population": 22686,
+        "area": 2102
+      },
+      {
+        "id": 1683,
+        "name": "Tortum",
+        "population": 17418,
+        "area": 1463
+      },
+      {
+        "id": 1851,
+        "name": "Uzundere",
+        "population": 7973,
+        "area": 505
+      },
+      {
+        "id": 2045,
+        "name": "Yakutiye",
+        "population": 186066,
+        "area": 945
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Eskişehir",
+    "population": 915418,
+    "area": 13960,
+    "altitude": 796,
+    "areaCode": [222],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR4",
+        "name": {
+          "en": "East Marmara",
+          "tr": "Doğu Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR41",
+        "name": "Bursa"
+      },
+      "nuts3": "TR412"
+    },
+    "coordinates": {
+      "latitude": 39.77639,
+      "longitude": 30.52056
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/rRM16qjwATHfezhF8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223421"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1759,
+        "name": "Alpu",
+        "population": 10678,
+        "area": 1028
+      },
+      {
+        "id": 1777,
+        "name": "Beylikova",
+        "population": 6016,
+        "area": 715
+      },
+      {
+        "id": 1255,
+        "name": "Çifteler",
+        "population": 14926,
+        "area": 858
+      },
+      {
+        "id": 1934,
+        "name": "Günyüzü",
+        "population": 5679,
+        "area": 828
+      },
+      {
+        "id": 1939,
+        "name": "Han",
+        "population": 2352,
+        "area": 378
+      },
+      {
+        "id": 1808,
+        "name": "İnönü",
+        "population": 6244,
+        "area": 345
+      },
+      {
+        "id": 1508,
+        "name": "Mahmudiye",
+        "population": 7715,
+        "area": 659
+      },
+      {
+        "id": 1973,
+        "name": "Mihalgazi",
+        "population": 3037,
+        "area": 109
+      },
+      {
+        "id": 1527,
+        "name": "Mihalıççık",
+        "population": 8576,
+        "area": 1809
+      },
+      {
+        "id": 2046,
+        "name": "Odunpazarı",
+        "population": 421469,
+        "area": 1120
+      },
+      {
+        "id": 1599,
+        "name": "Sarıcakaya",
+        "population": 4651,
+        "area": 382
+      },
+      {
+        "id": 1618,
+        "name": "Seyitgazi",
+        "population": 13481,
+        "area": 1578
+      },
+      {
+        "id": 1632,
+        "name": "Sivrihisar",
+        "population": 20478,
+        "area": 2748
+      },
+      {
+        "id": 2047,
+        "name": "Tepebaşı",
+        "population": 390116,
+        "area": 1403
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Gaziantep",
+    "population": 2164134,
+    "area": 6803,
+    "altitude": 838,
+    "areaCode": [342],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC1",
+        "name": "Gaziantep"
+      },
+      "nuts3": "TRC11"
+    },
+    "coordinates": {
+      "latitude": 37.06667,
+      "longitude": 37.38333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/ySMoHHviNjRyBriG7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223139"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1139,
+        "name": "Araban",
+        "population": 33196,
+        "area": 592
+      },
+      {
+        "id": 1415,
+        "name": "İslahiye",
+        "population": 64013,
+        "area": 865
+      },
+      {
+        "id": 1956,
+        "name": "Karkamış",
+        "population": 10265,
+        "area": 298
+      },
+      {
+        "id": 1546,
+        "name": "Nizip",
+        "population": 150037,
+        "area": 944
+      },
+      {
+        "id": 1974,
+        "name": "Nurdağı",
+        "population": 39465,
+        "area": 697
+      },
+      {
+        "id": 1549,
+        "name": "Oğuzeli",
+        "population": 37170,
+        "area": 689
+      },
+      {
+        "id": 1841,
+        "name": "Şahinbey",
+        "population": 939497,
+        "area": 960
+      },
+      {
+        "id": 1844,
+        "name": "Şehitkamil",
+        "population": 867193,
+        "area": 1290
+      },
+      {
+        "id": 1720,
+        "name": "Yavuzeli",
+        "population": 23298,
+        "area": 468
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Giresun",
+    "population": 461712,
+    "area": 7025,
+    "altitude": 14,
+    "areaCode": [454],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR9",
+        "name": {
+          "en": "East Black Sea",
+          "tr": "Doğu Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR90",
+        "name": "Trabzon"
+      },
+      "nuts3": "TR903"
+    },
+    "coordinates": {
+      "latitude": 40.91667,
+      "longitude": 38.4
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/xsmiZVAeBZrndZYE8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223449"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1133,
+        "name": "Alucra",
+        "population": 10514,
+        "area": 1138
+      },
+      {
+        "id": 1212,
+        "name": "Bulancak",
+        "population": 70092,
+        "area": 774
+      },
+      {
+        "id": 1893,
+        "name": "Çamoluk",
+        "population": 7254,
+        "area": 444
+      },
+      {
+        "id": 1894,
+        "name": "Çanakçı",
+        "population": 6917,
+        "area": 142
+      },
+      {
+        "id": 1272,
+        "name": "Dereli",
+        "population": 19308,
+        "area": 849
+      },
+      {
+        "id": 1912,
+        "name": "Doğankent",
+        "population": 6539,
+        "area": 110
+      },
+      {
+        "id": 1320,
+        "name": "Espiye",
+        "population": 38130,
+        "area": 248
+      },
+      {
+        "id": 1324,
+        "name": "Eynesil",
+        "population": 13237,
+        "area": 51
+      },
+      {
+        "id": 1361,
+        "name": "Görele",
+        "population": 32192,
+        "area": 237
+      },
+      {
+        "id": 1930,
+        "name": "Güce",
+        "population": 8574,
+        "area": 351
+      },
+      {
+        "id": 1465,
+        "name": "Keşap",
+        "population": 20763,
+        "area": 197
+      },
+      {
+        "id": 1352,
+        "name": "Merkez",
+        "population": 143890,
+        "area": 376
+      },
+      {
+        "id": 1837,
+        "name": "Piraziz",
+        "population": 15151,
+        "area": 127
+      },
+      {
+        "id": 1654,
+        "name": "Şebinkarahisar",
+        "population": 19948,
+        "area": 1396
+      },
+      {
+        "id": 1678,
+        "name": "Tirebolu",
+        "population": 33459,
+        "area": 259
+      },
+      {
+        "id": 1854,
+        "name": "Yağlıdere",
+        "population": 15744,
+        "area": 327
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Gümüşhane",
+    "population": 148539,
+    "area": 6668,
+    "altitude": 1174,
+    "areaCode": [456],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR9",
+        "name": {
+          "en": "East Black Sea",
+          "tr": "Doğu Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR90",
+        "name": "Trabzon"
+      },
+      "nuts3": "TR906"
+    },
+    "coordinates": {
+      "latitude": 40.45,
+      "longitude": 39.48333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/5nGQ1c66NJLJT2QL9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223541"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1458,
+        "name": "Kelkit",
+        "population": 40875,
+        "area": 1571
+      },
+      {
+        "id": 1822,
+        "name": "Köse",
+        "population": 7261,
+        "area": 353
+      },
+      {
+        "id": 1971,
+        "name": "Kürtün",
+        "population": 13406,
+        "area": 917
+      },
+      {
+        "id": 1369,
+        "name": "Merkez",
+        "population": 54503,
+        "area": 1889
+      },
+      {
+        "id": 1660,
+        "name": "Şiran",
+        "population": 20202,
+        "area": 965
+      },
+      {
+        "id": 1684,
+        "name": "Torul",
+        "population": 12292,
+        "area": 973
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Hakkari",
+    "population": 287625,
+    "area": 7095,
+    "altitude": 1756,
+    "areaCode": [438],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRB",
+        "name": {
+          "en": "Central East Anatolia",
+          "tr": "Ortadoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRB2",
+        "name": "Van"
+      },
+      "nuts3": "TRB24"
+    },
+    "coordinates": {
+      "latitude": 37.58333,
+      "longitude": 43.73333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/Pa4EUb6rz91uW66q9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/174742"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1261,
+        "name": "Çukurca",
+        "population": 17734,
+        "area": 725
+      },
+      {
+        "id": 2107,
+        "name": "Derecik",
+        "population": 25907,
+        "area": 437
+      },
+      {
+        "id": 1377,
+        "name": "Merkez",
+        "population": 77273,
+        "area": 2179
+      },
+      {
+        "id": 1656,
+        "name": "Şemdinli",
+        "population": 44742,
+        "area": 1207
+      },
+      {
+        "id": 1737,
+        "name": "Yüksekova",
+        "population": 121969,
+        "area": 2547
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Hatay",
+    "population": 1544640,
+    "area": 5524,
+    "altitude": 89,
+    "areaCode": [326],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR6",
+        "name": {
+          "en": "Mediterranean",
+          "tr": "Akdeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR63",
+        "name": "Hatay"
+      },
+      "nuts3": "TR631"
+    },
+    "coordinates": {
+      "latitude": 36.2,
+      "longitude": 36.16667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/2VkFg1AM9B4Xv9W89",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223122"
+    },
+    "region": {
+      "en": "Mediterranean",
+      "tr": "Akdeniz"
+    },
+    "districts": [
+      {
+        "id": 1131,
+        "name": "Altınözü",
+        "population": 66533,
+        "area": 392
+      },
+      {
+        "id": 2080,
+        "name": "Antakya",
+        "population": 298620,
+        "area": 703
+      },
+      {
+        "id": 2081,
+        "name": "Arsuz",
+        "population": 106118,
+        "area": 462
+      },
+      {
+        "id": 1887,
+        "name": "Belen",
+        "population": 34430,
+        "area": 184
+      },
+      {
+        "id": 2082,
+        "name": "Defne",
+        "population": 142146,
+        "area": 155
+      },
+      {
+        "id": 1289,
+        "name": "Dörtyol",
+        "population": 129276,
+        "area": 342
+      },
+      {
+        "id": 1792,
+        "name": "Erzin",
+        "population": 42425,
+        "area": 258
+      },
+      {
+        "id": 1382,
+        "name": "Hassa",
+        "population": 55604,
+        "area": 520
+      },
+      {
+        "id": 1413,
+        "name": "İskenderun",
+        "population": 227498,
+        "area": 247
+      },
+      {
+        "id": 1468,
+        "name": "Kırıkhan",
+        "population": 106975,
+        "area": 715
+      },
+      {
+        "id": 1970,
+        "name": "Kumlu",
+        "population": 14971,
+        "area": 193
+      },
+      {
+        "id": 2083,
+        "name": "Payas",
+        "population": 44131,
+        "area": 157
+      },
+      {
+        "id": 1585,
+        "name": "Reyhanlı",
+        "population": 113615,
+        "area": 367
+      },
+      {
+        "id": 1591,
+        "name": "Samandağ",
+        "population": 120600,
+        "area": 384
+      },
+      {
+        "id": 1721,
+        "name": "Yayladağı",
+        "population": 41698,
+        "area": 445
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Isparta",
+    "population": 449777,
+    "area": 8946,
+    "altitude": 1058,
+    "areaCode": [246],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR6",
+        "name": {
+          "en": "Mediterranean",
+          "tr": "Akdeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR61",
+        "name": "Antalya"
+      },
+      "nuts3": "TR612"
+    },
+    "coordinates": {
+      "latitude": 37.76667,
+      "longitude": 30.55
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/v8tcHjuuCKyNMn687",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223134"
+    },
+    "region": {
+      "en": "Mediterranean",
+      "tr": "Akdeniz"
+    },
+    "districts": [
+      {
+        "id": 1755,
+        "name": "Aksu",
+        "population": 4135,
+        "area": 544
+      },
+      {
+        "id": 1154,
+        "name": "Atabey",
+        "population": 6103,
+        "area": 223
+      },
+      {
+        "id": 1297,
+        "name": "Eğirdir",
+        "population": 30988,
+        "area": 1315
+      },
+      {
+        "id": 1341,
+        "name": "Gelendost",
+        "population": 14471,
+        "area": 610
+      },
+      {
+        "id": 1929,
+        "name": "Gönen",
+        "population": 7094,
+        "area": 285
+      },
+      {
+        "id": 1456,
+        "name": "Keçiborlu",
+        "population": 14646,
+        "area": 494
+      },
+      {
+        "id": 1401,
+        "name": "Merkez",
+        "population": 271396,
+        "area": 773
+      },
+      {
+        "id": 1615,
+        "name": "Senirkent",
+        "population": 11196,
+        "area": 521
+      },
+      {
+        "id": 1648,
+        "name": "Sütçüler",
+        "population": 10143,
+        "area": 1235
+      },
+      {
+        "id": 1651,
+        "name": "Şarkikaraağaç",
+        "population": 24990,
+        "area": 1068
+      },
+      {
+        "id": 1699,
+        "name": "Uluborlu",
+        "population": 6426,
+        "area": 240
+      },
+      {
+        "id": 1717,
+        "name": "Yalvaç",
+        "population": 45694,
+        "area": 1402
+      },
+      {
+        "id": 2001,
+        "name": "Yenişarbademli",
+        "population": 2495,
+        "area": 237
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Mersin",
+    "population": 1938389,
+    "area": 16010,
+    "altitude": 18,
+    "areaCode": [324],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR6",
+        "name": {
+          "en": "Mediterranean",
+          "tr": "Akdeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR62",
+        "name": "Adana"
+      },
+      "nuts3": "TR622"
+    },
+    "coordinates": {
+      "latitude": 36.8,
+      "longitude": 34.63333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/jVPgxP2wEF1BcUV66",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223131"
+    },
+    "region": {
+      "en": "Mediterranean",
+      "tr": "Akdeniz"
+    },
+    "districts": [
+      {
+        "id": 2064,
+        "name": "Akdeniz",
+        "population": 260879,
+        "area": 265
+      },
+      {
+        "id": 1135,
+        "name": "Anamur",
+        "population": 66940,
+        "area": 1430
+      },
+      {
+        "id": 1766,
+        "name": "Aydıncık",
+        "population": 11662,
+        "area": 352
+      },
+      {
+        "id": 1779,
+        "name": "Bozyazı",
+        "population": 26985,
+        "area": 642
+      },
+      {
+        "id": 1892,
+        "name": "Çamlıyayla",
+        "population": 8692,
+        "area": 602
+      },
+      {
+        "id": 1311,
+        "name": "Erdemli",
+        "population": 153967,
+        "area": 2279
+      },
+      {
+        "id": 1366,
+        "name": "Gülnar",
+        "population": 33986,
+        "area": 1416
+      },
+      {
+        "id": 2065,
+        "name": "Mezitli",
+        "population": 223424,
+        "area": 371
+      },
+      {
+        "id": 1536,
+        "name": "Mut",
+        "population": 63516,
+        "area": 2718
+      },
+      {
+        "id": 1621,
+        "name": "Silifke",
+        "population": 137047,
+        "area": 2692
+      },
+      {
+        "id": 1665,
+        "name": "Tarsus",
+        "population": 353469,
+        "area": 2029
+      },
+      {
+        "id": 2066,
+        "name": "Toroslar",
+        "population": 320377,
+        "area": 1075
+      },
+      {
+        "id": 2067,
+        "name": "Yenişehir",
+        "population": 277445,
+        "area": 139
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "İstanbul",
+    "population": 15655924,
+    "area": 5461,
+    "altitude": 25,
+    "areaCode": [212, 216],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR1",
+        "name": {
+          "en": "İstanbul",
+          "tr": "İstanbul"
+        }
+      },
+      "nuts2": {
+        "code": "TR10",
+        "name": "İstanbul"
+      },
+      "nuts3": "TR100"
+    },
+    "coordinates": {
+      "latitude": 41.01384,
+      "longitude": 28.94966
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/wKdwRFM4NW8Wm6ZZ8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223474"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 1103,
+        "name": "Adalar",
+        "population": 16325,
+        "area": 11
+      },
+      {
+        "id": 2048,
+        "name": "Arnavutköy",
+        "population": 336062,
+        "area": 453
+      },
+      {
+        "id": 2049,
+        "name": "Ataşehir",
+        "population": 416529,
+        "area": 25
+      },
+      {
+        "id": 2003,
+        "name": "Avcılar",
+        "population": 437221,
+        "area": 50
+      },
+      {
+        "id": 2004,
+        "name": "Bağcılar",
+        "population": 719071,
+        "area": 23
+      },
+      {
+        "id": 2005,
+        "name": "Bahçelievler",
+        "population": 567848,
+        "area": 17
+      },
+      {
+        "id": 1166,
+        "name": "Bakırköy",
+        "population": 220476,
+        "area": 29
+      },
+      {
+        "id": 2050,
+        "name": "Başakşehir",
+        "population": 509915,
+        "area": 107
+      },
+      {
+        "id": 1886,
+        "name": "Bayrampaşa",
+        "population": 268850,
+        "area": 9
+      },
+      {
+        "id": 1183,
+        "name": "Beşiktaş",
+        "population": 169022,
+        "area": 18
+      },
+      {
+        "id": 1185,
+        "name": "Beykoz",
+        "population": 245647,
+        "area": 310
+      },
+      {
+        "id": 2051,
+        "name": "Beylikdüzü",
+        "population": 409347,
+        "area": 39
+      },
+      {
+        "id": 1186,
+        "name": "Beyoğlu",
+        "population": 218589,
+        "area": 9
+      },
+      {
+        "id": 1782,
+        "name": "Büyükçekmece",
+        "population": 276572,
+        "area": 173
+      },
+      {
+        "id": 1237,
+        "name": "Çatalca",
+        "population": 80007,
+        "area": 1142
+      },
+      {
+        "id": 2052,
+        "name": "Çekmeköy",
+        "population": 299806,
+        "area": 152
+      },
+      {
+        "id": 2016,
+        "name": "Esenler",
+        "population": 427901,
+        "area": 19
+      },
+      {
+        "id": 2053,
+        "name": "Esenyurt",
+        "population": 978007,
+        "area": 43
+      },
+      {
+        "id": 1325,
+        "name": "Eyüpsultan",
+        "population": 420194,
+        "area": 228
+      },
+      {
+        "id": 1327,
+        "name": "Fatih",
+        "population": 356025,
+        "area": 15
+      },
+      {
+        "id": 1336,
+        "name": "Gaziosmanpaşa",
+        "population": 483830,
+        "area": 12
+      },
+      {
+        "id": 2010,
+        "name": "Güngören",
+        "population": 269944,
+        "area": 7
+      },
+      {
+        "id": 1421,
+        "name": "Kadıköy",
+        "population": 467919,
+        "area": 25
+      },
+      {
+        "id": 1810,
+        "name": "Kağıthane",
+        "population": 445672,
+        "area": 15
+      },
+      {
+        "id": 1449,
+        "name": "Kartal",
+        "population": 475042,
+        "area": 38
+      },
+      {
+        "id": 1823,
+        "name": "Küçükçekmece",
+        "population": 792030,
+        "area": 44
+      },
+      {
+        "id": 2012,
+        "name": "Maltepe",
+        "population": 523137,
+        "area": 53
+      },
+      {
+        "id": 1835,
+        "name": "Pendik",
+        "population": 743774,
+        "area": 190
+      },
+      {
+        "id": 2054,
+        "name": "Sancaktepe",
+        "population": 492804,
+        "area": 63
+      },
+      {
+        "id": 1604,
+        "name": "Sarıyer",
+        "population": 344250,
+        "area": 177
+      },
+      {
+        "id": 1622,
+        "name": "Silivri",
+        "population": 221723,
+        "area": 858
+      },
+      {
+        "id": 2014,
+        "name": "Sultanbeyli",
+        "population": 360702,
+        "area": 29
+      },
+      {
+        "id": 2055,
+        "name": "Sultangazi",
+        "population": 532802,
+        "area": 37
+      },
+      {
+        "id": 1659,
+        "name": "Şile",
+        "population": 48537,
+        "area": 800
+      },
+      {
+        "id": 1663,
+        "name": "Şişli",
+        "population": 264736,
+        "area": 10
+      },
+      {
+        "id": 2015,
+        "name": "Tuzla",
+        "population": 293604,
+        "area": 138
+      },
+      {
+        "id": 1852,
+        "name": "Ümraniye",
+        "population": 723760,
+        "area": 46
+      },
+      {
+        "id": 1708,
+        "name": "Üsküdar",
+        "population": 517348,
+        "area": 35
+      },
+      {
+        "id": 1739,
+        "name": "Zeytinburnu",
+        "population": 280896,
+        "area": 12
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "İzmir",
+    "population": 4479525,
+    "area": 11891,
+    "altitude": 9,
+    "areaCode": [232],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR3",
+        "name": {
+          "en": "Aegean",
+          "tr": "Ege"
+        }
+      },
+      "nuts2": {
+        "code": "TR31",
+        "name": "İzmir"
+      },
+      "nuts3": "TR310"
+    },
+    "coordinates": {
+      "latitude": 38.41885,
+      "longitude": 27.12872
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/nukYGi69xLMX7SNR6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223167"
+    },
+    "region": {
+      "en": "Aegean",
+      "tr": "Ege"
+    },
+    "districts": [
+      {
+        "id": 1128,
+        "name": "Aliağa",
+        "population": 106168,
+        "area": 379
+      },
+      {
+        "id": 2006,
+        "name": "Balçova",
+        "population": 77831,
+        "area": 16
+      },
+      {
+        "id": 1178,
+        "name": "Bayındır",
+        "population": 40618,
+        "area": 548
+      },
+      {
+        "id": 2056,
+        "name": "Bayraklı",
+        "population": 300949,
+        "area": 30
+      },
+      {
+        "id": 1181,
+        "name": "Bergama",
+        "population": 107133,
+        "area": 1544
+      },
+      {
+        "id": 1776,
+        "name": "Beydağ",
+        "population": 12094,
+        "area": 172
+      },
+      {
+        "id": 1203,
+        "name": "Bornova",
+        "population": 447553,
+        "area": 220
+      },
+      {
+        "id": 1780,
+        "name": "Buca",
+        "population": 523487,
+        "area": 178
+      },
+      {
+        "id": 1251,
+        "name": "Çeşme",
+        "population": 50028,
+        "area": 285
+      },
+      {
+        "id": 2007,
+        "name": "Çiğli",
+        "population": 215172,
+        "area": 139
+      },
+      {
+        "id": 1280,
+        "name": "Dikili",
+        "population": 48379,
+        "area": 534
+      },
+      {
+        "id": 1334,
+        "name": "Foça",
+        "population": 36000,
+        "area": 251
+      },
+      {
+        "id": 2009,
+        "name": "Gaziemir",
+        "population": 137768,
+        "area": 70
+      },
+      {
+        "id": 2018,
+        "name": "Güzelbahçe",
+        "population": 38044,
+        "area": 77
+      },
+      {
+        "id": 2057,
+        "name": "Karabağlar",
+        "population": 476500,
+        "area": 89
+      },
+      {
+        "id": 1432,
+        "name": "Karaburun",
+        "population": 13379,
+        "area": 421
+      },
+      {
+        "id": 1448,
+        "name": "Karşıyaka",
+        "population": 341857,
+        "area": 51
+      },
+      {
+        "id": 1461,
+        "name": "Kemalpaşa",
+        "population": 117956,
+        "area": 681
+      },
+      {
+        "id": 1467,
+        "name": "Kınık",
+        "population": 29205,
+        "area": 479
+      },
+      {
+        "id": 1477,
+        "name": "Kiraz",
+        "population": 43572,
+        "area": 573
+      },
+      {
+        "id": 1819,
+        "name": "Konak",
+        "population": 327300,
+        "area": 24
+      },
+      {
+        "id": 1826,
+        "name": "Menderes",
+        "population": 109356,
+        "area": 777
+      },
+      {
+        "id": 1521,
+        "name": "Menemen",
+        "population": 207748,
+        "area": 573
+      },
+      {
+        "id": 2013,
+        "name": "Narlıdere",
+        "population": 62148,
+        "area": 50
+      },
+      {
+        "id": 1563,
+        "name": "Ödemiş",
+        "population": 132650,
+        "area": 1019
+      },
+      {
+        "id": 1611,
+        "name": "Seferihisar",
+        "population": 58570,
+        "area": 375
+      },
+      {
+        "id": 1612,
+        "name": "Selçuk",
+        "population": 38467,
+        "area": 317
+      },
+      {
+        "id": 1677,
+        "name": "Tire",
+        "population": 87935,
+        "area": 716
+      },
+      {
+        "id": 1682,
+        "name": "Torbalı",
+        "population": 214059,
+        "area": 577
+      },
+      {
+        "id": 1703,
+        "name": "Urla",
+        "population": 77599,
+        "area": 727
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Kars",
+    "population": 278335,
+    "area": 10193,
+    "altitude": 1756,
+    "areaCode": [474],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRA",
+        "name": {
+          "en": "Northeast Anatolia",
+          "tr": "Kuzeydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRA2",
+        "name": "Ağrı"
+      },
+      "nuts3": "TRA22"
+    },
+    "coordinates": {
+      "latitude": 40.60833,
+      "longitude": 43.08333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/worCQtM2sdTAy6t8A",
+      "openStreetMap": "https://www.openstreetmap.org/relation/186431"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1756,
+        "name": "Akyaka",
+        "population": 9998,
+        "area": 417
+      },
+      {
+        "id": 1149,
+        "name": "Arpaçay",
+        "population": 14670,
+        "area": 1165
+      },
+      {
+        "id": 1279,
+        "name": "Digor",
+        "population": 19403,
+        "area": 1092
+      },
+      {
+        "id": 1424,
+        "name": "Kağızman",
+        "population": 44162,
+        "area": 1871
+      },
+      {
+        "id": 1447,
+        "name": "Merkez",
+        "population": 122524,
+        "area": 2048
+      },
+      {
+        "id": 1601,
+        "name": "Sarıkamış",
+        "population": 37348,
+        "area": 2038
+      },
+      {
+        "id": 1614,
+        "name": "Selim",
+        "population": 21178,
+        "area": 982
+      },
+      {
+        "id": 1645,
+        "name": "Susuz",
+        "population": 9052,
+        "area": 578
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Kastamonu",
+    "population": 388990,
+    "area": 13064,
+    "altitude": 814,
+    "areaCode": [366],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR82",
+        "name": "Kastamonu"
+      },
+      "nuts3": "TR821"
+    },
+    "coordinates": {
+      "latitude": 41.38889,
+      "longitude": 33.78222
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/SSFqej5quZyQ6uZn7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/186431"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1101,
+        "name": "Abana",
+        "population": 4461,
+        "area": 28
+      },
+      {
+        "id": 1867,
+        "name": "Ağlı",
+        "population": 3521,
+        "area": 225
+      },
+      {
+        "id": 1140,
+        "name": "Araç",
+        "population": 18676,
+        "area": 1446
+      },
+      {
+        "id": 1162,
+        "name": "Azdavay",
+        "population": 8031,
+        "area": 759
+      },
+      {
+        "id": 1208,
+        "name": "Bozkurt",
+        "population": 9738,
+        "area": 308
+      },
+      {
+        "id": 1221,
+        "name": "Cide",
+        "population": 22965,
+        "area": 652
+      },
+      {
+        "id": 1238,
+        "name": "Çatalzeytin",
+        "population": 8127,
+        "area": 272
+      },
+      {
+        "id": 1264,
+        "name": "Daday",
+        "population": 8456,
+        "area": 843
+      },
+      {
+        "id": 1277,
+        "name": "Devrekani",
+        "population": 13886,
+        "area": 715
+      },
+      {
+        "id": 1915,
+        "name": "Doğanyurt",
+        "population": 5433,
+        "area": 193
+      },
+      {
+        "id": 1940,
+        "name": "Hanönü",
+        "population": 4395,
+        "area": 417
+      },
+      {
+        "id": 1805,
+        "name": "İhsangazi",
+        "population": 5235,
+        "area": 445
+      },
+      {
+        "id": 1410,
+        "name": "İnebolu",
+        "population": 20480,
+        "area": 417
+      },
+      {
+        "id": 1499,
+        "name": "Küre",
+        "population": 5644,
+        "area": 406
+      },
+      {
+        "id": 1450,
+        "name": "Merkez",
+        "population": 155011,
+        "area": 1847
+      },
+      {
+        "id": 1836,
+        "name": "Pınarbaşı",
+        "population": 6970,
+        "area": 546
+      },
+      {
+        "id": 1984,
+        "name": "Seydiler",
+        "population": 4796,
+        "area": 233
+      },
+      {
+        "id": 1845,
+        "name": "Şenpazar",
+        "population": 4844,
+        "area": 252
+      },
+      {
+        "id": 1666,
+        "name": "Taşköprü",
+        "population": 38372,
+        "area": 1758
+      },
+      {
+        "id": 1685,
+        "name": "Tosya",
+        "population": 39949,
+        "area": 1302
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Kayseri",
+    "population": 1445683,
+    "area": 16970,
+    "altitude": 1060,
+    "areaCode": [352],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR7",
+        "name": {
+          "en": "Central Anatolia",
+          "tr": "Orta Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR72",
+        "name": "Kayseri"
+      },
+      "nuts3": "TR721"
+    },
+    "coordinates": {
+      "latitude": 38.73111,
+      "longitude": 35.47889
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/A27qXKh2FCWEzTzr8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/154451"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1752,
+        "name": "Akkışla",
+        "population": 6246,
+        "area": 371
+      },
+      {
+        "id": 1218,
+        "name": "Bünyan",
+        "population": 30834,
+        "area": 1210
+      },
+      {
+        "id": 1275,
+        "name": "Develi",
+        "population": 67918,
+        "area": 1892
+      },
+      {
+        "id": 1330,
+        "name": "Felahiye",
+        "population": 6550,
+        "area": 444
+      },
+      {
+        "id": 1936,
+        "name": "Hacılar",
+        "population": 12979,
+        "area": 187
+      },
+      {
+        "id": 1409,
+        "name": "İncesu",
+        "population": 30477,
+        "area": 874
+      },
+      {
+        "id": 1863,
+        "name": "Kocasinan",
+        "population": 407600,
+        "area": 1471
+      },
+      {
+        "id": 1864,
+        "name": "Melikgazi",
+        "population": 585483,
+        "area": 668
+      },
+      {
+        "id": 1978,
+        "name": "Özvatan",
+        "population": 4523,
+        "area": 270
+      },
+      {
+        "id": 1576,
+        "name": "Pınarbaşı",
+        "population": 24172,
+        "area": 3418
+      },
+      {
+        "id": 1603,
+        "name": "Sarıoğlan",
+        "population": 15394,
+        "area": 642
+      },
+      {
+        "id": 1605,
+        "name": "Sarız",
+        "population": 11278,
+        "area": 1173
+      },
+      {
+        "id": 1846,
+        "name": "Talas",
+        "population": 168172,
+        "area": 444
+      },
+      {
+        "id": 1680,
+        "name": "Tomarza",
+        "population": 22041,
+        "area": 1405
+      },
+      {
+        "id": 1715,
+        "name": "Yahyalı",
+        "population": 36078,
+        "area": 1587
+      },
+      {
+        "id": 1727,
+        "name": "Yeşilhisar",
+        "population": 15938,
+        "area": 913
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Kırklareli",
+    "population": 377156,
+    "area": 6459,
+    "altitude": 231,
+    "areaCode": [288],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR2",
+        "name": {
+          "en": "West Marmara",
+          "tr": "Batı Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR21",
+        "name": "Tekirdağ"
+      },
+      "nuts3": "TR213"
+    },
+    "coordinates": {
+      "latitude": 41.73333,
+      "longitude": 27.21667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/v6PRExTopMCA2uhb6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223469"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 1163,
+        "name": "Babaeski",
+        "population": 46595,
+        "area": 670
+      },
+      {
+        "id": 1270,
+        "name": "Demirköy",
+        "population": 9656,
+        "area": 893
+      },
+      {
+        "id": 1480,
+        "name": "Kofçaz",
+        "population": 2308,
+        "area": 545
+      },
+      {
+        "id": 1505,
+        "name": "Lüleburgaz",
+        "population": 155670,
+        "area": 1016
+      },
+      {
+        "id": 1471,
+        "name": "Merkez",
+        "population": 112323,
+        "area": 1623
+      },
+      {
+        "id": 1572,
+        "name": "Pehlivanköy",
+        "population": 3400,
+        "area": 104
+      },
+      {
+        "id": 1577,
+        "name": "Pınarhisar",
+        "population": 17738,
+        "area": 518
+      },
+      {
+        "id": 1714,
+        "name": "Vize",
+        "population": 29466,
+        "area": 1090
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Kırşehir",
+    "population": 247179,
+    "area": 6584,
+    "altitude": 991,
+    "areaCode": [386],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR7",
+        "name": {
+          "en": "Central Anatolia",
+          "tr": "Orta Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR71",
+        "name": "Kırıkkale"
+      },
+      "nuts3": "TR715"
+    },
+    "coordinates": {
+      "latitude": 39.14222,
+      "longitude": 34.17056
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/C7rn2oVtZDqz54HA7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/154452#map=9/39.3111/34.0556"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1869,
+        "name": "Akçakent",
+        "population": 3792,
+        "area": 370
+      },
+      {
+        "id": 1754,
+        "name": "Akpınar",
+        "population": 7535,
+        "area": 582
+      },
+      {
+        "id": 1890,
+        "name": "Boztepe",
+        "population": 5539,
+        "area": 747
+      },
+      {
+        "id": 1254,
+        "name": "Çiçekdağı",
+        "population": 14480,
+        "area": 891
+      },
+      {
+        "id": 1429,
+        "name": "Kaman",
+        "population": 34285,
+        "area": 1284
+      },
+      {
+        "id": 1472,
+        "name": "Merkez",
+        "population": 162989,
+        "area": 1719
+      },
+      {
+        "id": 1529,
+        "name": "Mucur",
+        "population": 18559,
+        "area": 992
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Kocaeli",
+    "population": 2102907,
+    "area": 3397,
+    "altitude": 4,
+    "areaCode": [262],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR4",
+        "name": {
+          "en": "East Marmara",
+          "tr": "Doğu Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR42",
+        "name": "Kocaeli"
+      },
+      "nuts3": "TR421"
+    },
+    "coordinates": {
+      "latitude": 40.76667,
+      "longitude": 29.91667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/PSVVkZbPKuEUrim67",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223473"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 2058,
+        "name": "Başiskele",
+        "population": 121278,
+        "area": 209
+      },
+      {
+        "id": 2059,
+        "name": "Çayırova",
+        "population": 153301,
+        "area": 23
+      },
+      {
+        "id": 2060,
+        "name": "Darıca",
+        "population": 227892,
+        "area": 23
+      },
+      {
+        "id": 2030,
+        "name": "Derince",
+        "population": 146409,
+        "area": 198
+      },
+      {
+        "id": 2061,
+        "name": "Dilovası",
+        "population": 54391,
+        "area": 125
+      },
+      {
+        "id": 1338,
+        "name": "Gebze",
+        "population": 407436,
+        "area": 418
+      },
+      {
+        "id": 1355,
+        "name": "Gölcük",
+        "population": 177441,
+        "area": 217
+      },
+      {
+        "id": 2062,
+        "name": "İzmit",
+        "population": 378656,
+        "area": 480
+      },
+      {
+        "id": 1430,
+        "name": "Kandıra",
+        "population": 53845,
+        "area": 840
+      },
+      {
+        "id": 1440,
+        "name": "Karamürsel",
+        "population": 59952,
+        "area": 262
+      },
+      {
+        "id": 2063,
+        "name": "Kartepe",
+        "population": 142175,
+        "area": 301
+      },
+      {
+        "id": 1821,
+        "name": "Körfez",
+        "population": 180131,
+        "area": 301
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Konya",
+    "population": 2320241,
+    "area": 40838,
+    "altitude": 1023,
+    "areaCode": [332],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR5",
+        "name": {
+          "en": "West Anatolia",
+          "tr": "Batı Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR52",
+        "name": "Konya"
+      },
+      "nuts3": "TR521"
+    },
+    "coordinates": {
+      "latitude": 37.86667,
+      "longitude": 32.48333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/EMCU5es81LqioNid7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223133"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1868,
+        "name": "Ahırlı",
+        "population": 5027,
+        "area": 325
+      },
+      {
+        "id": 1753,
+        "name": "Akören",
+        "population": 5902,
+        "area": 640
+      },
+      {
+        "id": 1122,
+        "name": "Akşehir",
+        "population": 92946,
+        "area": 895
+      },
+      {
+        "id": 1760,
+        "name": "Altınekin",
+        "population": 14851,
+        "area": 1312
+      },
+      {
+        "id": 1188,
+        "name": "Beyşehir",
+        "population": 79030,
+        "area": 2054
+      },
+      {
+        "id": 1207,
+        "name": "Bozkır",
+        "population": 25885,
+        "area": 1105
+      },
+      {
+        "id": 1222,
+        "name": "Cihanbeyli",
+        "population": 50922,
+        "area": 3702
+      },
+      {
+        "id": 1902,
+        "name": "Çeltik",
+        "population": 10324,
+        "area": 640
+      },
+      {
+        "id": 1262,
+        "name": "Çumra",
+        "population": 68543,
+        "area": 2089
+      },
+      {
+        "id": 1907,
+        "name": "Derbent",
+        "population": 4160,
+        "area": 359
+      },
+      {
+        "id": 1789,
+        "name": "Derebucak",
+        "population": 5790,
+        "area": 451
+      },
+      {
+        "id": 1285,
+        "name": "Doğanhisar",
+        "population": 14815,
+        "area": 482
+      },
+      {
+        "id": 1920,
+        "name": "Emirgazi",
+        "population": 7945,
+        "area": 798
+      },
+      {
+        "id": 1312,
+        "name": "Ereğli",
+        "population": 153849,
+        "area": 2214
+      },
+      {
+        "id": 1933,
+        "name": "Güneysınır",
+        "population": 9415,
+        "area": 482
+      },
+      {
+        "id": 1375,
+        "name": "Hadim",
+        "population": 11459,
+        "area": 1165
+      },
+      {
+        "id": 1937,
+        "name": "Halkapınar",
+        "population": 4183,
+        "area": 605
+      },
+      {
+        "id": 1804,
+        "name": "Hüyük",
+        "population": 15431,
+        "area": 443
+      },
+      {
+        "id": 1400,
+        "name": "Ilgın",
+        "population": 53707,
+        "area": 1636
+      },
+      {
+        "id": 1422,
+        "name": "Kadınhanı",
+        "population": 31852,
+        "area": 1568
+      },
+      {
+        "id": 1441,
+        "name": "Karapınar",
+        "population": 51166,
+        "area": 2623
+      },
+      {
+        "id": 1814,
+        "name": "Karatay",
+        "population": 375919,
+        "area": 2832
+      },
+      {
+        "id": 1491,
+        "name": "Kulu",
+        "population": 52447,
+        "area": 2234
+      },
+      {
+        "id": 1827,
+        "name": "Meram",
+        "population": 347341,
+        "area": 1822
+      },
+      {
+        "id": 1598,
+        "name": "Sarayönü",
+        "population": 28967,
+        "area": 1620
+      },
+      {
+        "id": 1839,
+        "name": "Selçuklu",
+        "population": 695771,
+        "area": 1931
+      },
+      {
+        "id": 1617,
+        "name": "Seydişehir",
+        "population": 65928,
+        "area": 1458
+      },
+      {
+        "id": 1848,
+        "name": "Taşkent",
+        "population": 6976,
+        "area": 457
+      },
+      {
+        "id": 1990,
+        "name": "Tuzlukçu",
+        "population": 6546,
+        "area": 704
+      },
+      {
+        "id": 1994,
+        "name": "Yalıhüyük",
+        "population": 1854,
+        "area": 94
+      },
+      {
+        "id": 1735,
+        "name": "Yunak",
+        "population": 21290,
+        "area": 2101
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Kütahya",
+    "population": 575674,
+    "area": 11634,
+    "altitude": 958,
+    "areaCode": [274],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR3",
+        "name": {
+          "en": "Aegean",
+          "tr": "Ege"
+        }
+      },
+      "nuts2": {
+        "code": "TR33",
+        "name": "Manisa"
+      },
+      "nuts3": "TR333"
+    },
+    "coordinates": {
+      "latitude": 39.41667,
+      "longitude": 29.98333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/DsRnEr82a7fsJ1Xf8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223172"
+    },
+    "region": {
+      "en": "Aegean",
+      "tr": "Ege"
+    },
+    "districts": [
+      {
+        "id": 1132,
+        "name": "Altıntaş",
+        "population": 15446,
+        "area": 941
+      },
+      {
+        "id": 1764,
+        "name": "Aslanapa",
+        "population": 8485,
+        "area": 731
+      },
+      {
+        "id": 1898,
+        "name": "Çavdarhisar",
+        "population": 6073,
+        "area": 429
+      },
+      {
+        "id": 1288,
+        "name": "Domaniç",
+        "population": 14206,
+        "area": 539
+      },
+      {
+        "id": 1790,
+        "name": "Dumlupınar",
+        "population": 2957,
+        "area": 250
+      },
+      {
+        "id": 1304,
+        "name": "Emet",
+        "population": 18264,
+        "area": 951
+      },
+      {
+        "id": 1339,
+        "name": "Gediz",
+        "population": 49915,
+        "area": 1193
+      },
+      {
+        "id": 1802,
+        "name": "Hisarcık",
+        "population": 10996,
+        "area": 370
+      },
+      {
+        "id": 1500,
+        "name": "Merkez",
+        "population": 276427,
+        "area": 2470
+      },
+      {
+        "id": 1979,
+        "name": "Pazarlar",
+        "population": 5064,
+        "area": 115
+      },
+      {
+        "id": 1625,
+        "name": "Simav",
+        "population": 61346,
+        "area": 1515
+      },
+      {
+        "id": 1843,
+        "name": "Şaphane",
+        "population": 5844,
+        "area": 229
+      },
+      {
+        "id": 1671,
+        "name": "Tavşanlı",
+        "population": 100651,
+        "area": 1899
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Malatya",
+    "population": 742725,
+    "area": 12259,
+    "altitude": 970,
+    "areaCode": [422],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TRB",
+        "name": {
+          "en": "Central East Anatolia",
+          "tr": "Ortadoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRB1",
+        "name": "Malatya"
+      },
+      "nuts3": "TBB11"
+    },
+    "coordinates": {
+      "latitude": 38.355,
+      "longitude": 38.305
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/HkMktwFVCqoCt14g7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223426"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1114,
+        "name": "Akçadağ",
+        "population": 34322,
+        "area": 1118
+      },
+      {
+        "id": 1143,
+        "name": "Arapgir",
+        "population": 10641,
+        "area": 987
+      },
+      {
+        "id": 1148,
+        "name": "Arguvan",
+        "population": 7708,
+        "area": 1096
+      },
+      {
+        "id": 1772,
+        "name": "Battalgazi",
+        "population": 269150,
+        "area": 947
+      },
+      {
+        "id": 1265,
+        "name": "Darende",
+        "population": 26318,
+        "area": 1482
+      },
+      {
+        "id": 1286,
+        "name": "Doğanşehir",
+        "population": 35936,
+        "area": 1364
+      },
+      {
+        "id": 1914,
+        "name": "Doğanyol",
+        "population": 4436,
+        "area": 177
+      },
+      {
+        "id": 1390,
+        "name": "Hekimhan",
+        "population": 20106,
+        "area": 1514
+      },
+      {
+        "id": 1953,
+        "name": "Kale",
+        "population": 6492,
+        "area": 237
+      },
+      {
+        "id": 1969,
+        "name": "Kuluncak",
+        "population": 8549,
+        "area": 645
+      },
+      {
+        "id": 1582,
+        "name": "Pütürge",
+        "population": 15779,
+        "area": 1086
+      },
+      {
+        "id": 1995,
+        "name": "Yazıhan",
+        "population": 16370,
+        "area": 653
+      },
+      {
+        "id": 1729,
+        "name": "Yeşilyurt",
+        "population": 286918,
+        "area": 953
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Manisa",
+    "population": 1475716,
+    "area": 13339,
+    "altitude": 79,
+    "areaCode": [236],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR3",
+        "name": {
+          "en": "Aegean",
+          "tr": "Ege"
+        }
+      },
+      "nuts2": {
+        "code": "TR33",
+        "name": "Manisa"
+      },
+      "nuts3": "TR331"
+    },
+    "coordinates": {
+      "latitude": 38.61361,
+      "longitude": 27.42694
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/E9DzgTLFvBV3rstE7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223168"
+    },
+    "region": {
+      "en": "Aegean",
+      "tr": "Ege"
+    },
+    "districts": [
+      {
+        "id": 1751,
+        "name": "Ahmetli",
+        "population": 17370,
+        "area": 227
+      },
+      {
+        "id": 1118,
+        "name": "Akhisar",
+        "population": 178812,
+        "area": 1645
+      },
+      {
+        "id": 1127,
+        "name": "Alaşehir",
+        "population": 105397,
+        "area": 971
+      },
+      {
+        "id": 1269,
+        "name": "Demirci",
+        "population": 35868,
+        "area": 1321
+      },
+      {
+        "id": 1793,
+        "name": "Gölmarmara",
+        "population": 15211,
+        "area": 310
+      },
+      {
+        "id": 1362,
+        "name": "Gördes",
+        "population": 26240,
+        "area": 902
+      },
+      {
+        "id": 1470,
+        "name": "Kırkağaç",
+        "population": 37823,
+        "area": 541
+      },
+      {
+        "id": 1965,
+        "name": "Köprübaşı",
+        "population": 12752,
+        "area": 447
+      },
+      {
+        "id": 1489,
+        "name": "Kula",
+        "population": 43361,
+        "area": 981
+      },
+      {
+        "id": 1590,
+        "name": "Salihli",
+        "population": 165182,
+        "area": 1359
+      },
+      {
+        "id": 1600,
+        "name": "Sarıgöl",
+        "population": 35519,
+        "area": 432
+      },
+      {
+        "id": 1606,
+        "name": "Saruhanlı",
+        "population": 57452,
+        "area": 771
+      },
+      {
+        "id": 1613,
+        "name": "Selendi",
+        "population": 19115,
+        "area": 726
+      },
+      {
+        "id": 1634,
+        "name": "Soma",
+        "population": 111276,
+        "area": 820
+      },
+      {
+        "id": 2086,
+        "name": "Şehzadeler",
+        "population": 166541,
+        "area": 515
+      },
+      {
+        "id": 1689,
+        "name": "Turgutlu",
+        "population": 177071,
+        "area": 549
+      },
+      {
+        "id": 2087,
+        "name": "Yunusemre",
+        "population": 270726,
+        "area": 823
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Kahramanmaraş",
+    "population": 1116618,
+    "area": 14520,
+    "altitude": 562,
+    "areaCode": [344],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR6",
+        "name": {
+          "en": "Mediterranean",
+          "tr": "Akdeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR63",
+        "name": "Hatay"
+      },
+      "nuts3": "TR632"
+    },
+    "coordinates": {
+      "latitude": 37.58333,
+      "longitude": 36.93333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/s3dakhk52nvps97L9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223138"
+    },
+    "region": {
+      "en": "Mediterranean",
+      "tr": "Akdeniz"
+    },
+    "districts": [
+      {
+        "id": 1107,
+        "name": "Afşin",
+        "population": 78152,
+        "area": 1502
+      },
+      {
+        "id": 1136,
+        "name": "Andırın",
+        "population": 32581,
+        "area": 1202
+      },
+      {
+        "id": 1785,
+        "name": "Çağlayancerit",
+        "population": 23159,
+        "area": 470
+      },
+      {
+        "id": 2084,
+        "name": "Dulkadiroğlu",
+        "population": 214608,
+        "area": 1176
+      },
+      {
+        "id": 1919,
+        "name": "Ekinözü",
+        "population": 10471,
+        "area": 656
+      },
+      {
+        "id": 1299,
+        "name": "Elbistan",
+        "population": 127755,
+        "area": 2201
+      },
+      {
+        "id": 1353,
+        "name": "Göksun",
+        "population": 49119,
+        "area": 1942
+      },
+      {
+        "id": 1975,
+        "name": "Nurhak",
+        "population": 11984,
+        "area": 1028
+      },
+      {
+        "id": 2085,
+        "name": "Onikişubat",
+        "population": 427272,
+        "area": 2429
+      },
+      {
+        "id": 1570,
+        "name": "Pazarcık",
+        "population": 67262,
+        "area": 1253
+      },
+      {
+        "id": 1694,
+        "name": "Türkoğlu",
+        "population": 74255,
+        "area": 660
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Mardin",
+    "population": 888874,
+    "area": 8780,
+    "altitude": 938,
+    "areaCode": [482],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC3",
+        "name": "Mardin"
+      },
+      "nuts3": "TRC31"
+    },
+    "coordinates": {
+      "latitude": 37.31111,
+      "longitude": 40.74361
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/WidjMsfgeZwTdGqC9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223436"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 2088,
+        "name": "Artuklu",
+        "population": 194073,
+        "area": 885
+      },
+      {
+        "id": 1787,
+        "name": "Dargeçit",
+        "population": 28434,
+        "area": 519
+      },
+      {
+        "id": 1273,
+        "name": "Derik",
+        "population": 62475,
+        "area": 1381
+      },
+      {
+        "id": 1474,
+        "name": "Kızıltepe",
+        "population": 271307,
+        "area": 1236
+      },
+      {
+        "id": 1519,
+        "name": "Mazıdağı",
+        "population": 37399,
+        "area": 850
+      },
+      {
+        "id": 1526,
+        "name": "Midyat",
+        "population": 122308,
+        "area": 1241
+      },
+      {
+        "id": 1547,
+        "name": "Nusaybin",
+        "population": 118640,
+        "area": 1079
+      },
+      {
+        "id": 1564,
+        "name": "Ömerli",
+        "population": 14571,
+        "area": 458
+      },
+      {
+        "id": 1609,
+        "name": "Savur",
+        "population": 26173,
+        "area": 962
+      },
+      {
+        "id": 2002,
+        "name": "Yeşilli",
+        "population": 13494,
+        "area": 168
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Muğla",
+    "population": 1066736,
+    "area": 12654,
+    "altitude": 659,
+    "areaCode": [252],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR3",
+        "name": {
+          "en": "Aegean",
+          "tr": "Ege"
+        }
+      },
+      "nuts2": {
+        "code": "TR32",
+        "name": "Aydın"
+      },
+      "nuts3": "TR323"
+    },
+    "coordinates": {
+      "latitude": 37.21667,
+      "longitude": 28.36667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4YiaJwzP6U5Z2irW7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223136"
+    },
+    "region": {
+      "en": "Aegean",
+      "tr": "Ege"
+    },
+    "districts": [
+      {
+        "id": 1197,
+        "name": "Bodrum",
+        "population": 198335,
+        "area": 650
+      },
+      {
+        "id": 1742,
+        "name": "Dalaman",
+        "population": 49044,
+        "area": 608
+      },
+      {
+        "id": 1266,
+        "name": "Datça",
+        "population": 25649,
+        "area": 436
+      },
+      {
+        "id": 1331,
+        "name": "Fethiye",
+        "population": 177569,
+        "area": 875
+      },
+      {
+        "id": 1958,
+        "name": "Kavaklıdere",
+        "population": 10975,
+        "area": 302
+      },
+      {
+        "id": 1488,
+        "name": "Köyceğiz",
+        "population": 40665,
+        "area": 1329
+      },
+      {
+        "id": 1517,
+        "name": "Marmaris",
+        "population": 96778,
+        "area": 906
+      },
+      {
+        "id": 2089,
+        "name": "Menteşe",
+        "population": 123227,
+        "area": 1659
+      },
+      {
+        "id": 1528,
+        "name": "Milas",
+        "population": 149691,
+        "area": 2067
+      },
+      {
+        "id": 1831,
+        "name": "Ortaca",
+        "population": 56056,
+        "area": 285
+      },
+      {
+        "id": 2090,
+        "name": "Seydikemer",
+        "population": 65851,
+        "area": 2208
+      },
+      {
+        "id": 1695,
+        "name": "Ula",
+        "population": 27282,
+        "area": 479
+      },
+      {
+        "id": 1719,
+        "name": "Yatağan",
+        "population": 45614,
+        "area": 851
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Muş",
+    "population": 399879,
+    "area": 8650,
+    "altitude": 1334,
+    "areaCode": [436],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRB",
+        "name": {
+          "en": "Central East Anatolia",
+          "tr": "Ortadoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRB2",
+        "name": "Van"
+      },
+      "nuts3": "TRB22"
+    },
+    "coordinates": {
+      "latitude": 38.74444,
+      "longitude": 41.49611
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/7oitkLxS2gPPAHEF7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223440"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1213,
+        "name": "Bulanık",
+        "population": 72714,
+        "area": 1948
+      },
+      {
+        "id": 1801,
+        "name": "Hasköy",
+        "population": 27630,
+        "area": 264
+      },
+      {
+        "id": 1964,
+        "name": "Korkut",
+        "population": 23193,
+        "area": 775
+      },
+      {
+        "id": 1510,
+        "name": "Malazgirt",
+        "population": 44442,
+        "area": 1595
+      },
+      {
+        "id": 1534,
+        "name": "Merkez",
+        "population": 201717,
+        "area": 2750
+      },
+      {
+        "id": 1711,
+        "name": "Varto",
+        "population": 30183,
+        "area": 1318
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Nevşehir",
+    "population": 315994,
+    "area": 5485,
+    "altitude": 1197,
+    "areaCode": [384],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR7",
+        "name": {
+          "en": "Central Anatolia",
+          "tr": "Orta Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR71",
+        "name": "Kırıkkale"
+      },
+      "nuts3": "TR714"
+    },
+    "coordinates": {
+      "latitude": 38.62444,
+      "longitude": 34.72306
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/MUa2UDqfpWXXfiod9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/154449"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1749,
+        "name": "Acıgöl",
+        "population": 19565,
+        "area": 456
+      },
+      {
+        "id": 1155,
+        "name": "Avanos",
+        "population": 32682,
+        "area": 995
+      },
+      {
+        "id": 1274,
+        "name": "Derinkuyu",
+        "population": 20767,
+        "area": 473
+      },
+      {
+        "id": 1367,
+        "name": "Gülşehir",
+        "population": 21806,
+        "area": 879
+      },
+      {
+        "id": 1374,
+        "name": "Hacıbektaş",
+        "population": 11352,
+        "area": 750
+      },
+      {
+        "id": 1485,
+        "name": "Kozaklı",
+        "population": 13412,
+        "area": 772
+      },
+      {
+        "id": 1543,
+        "name": "Merkez",
+        "population": 159195,
+        "area": 574
+      },
+      {
+        "id": 1707,
+        "name": "Ürgüp",
+        "population": 37215,
+        "area": 587
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Niğde",
+    "population": 377080,
+    "area": 7234,
+    "altitude": 1239,
+    "areaCode": [388],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR7",
+        "name": {
+          "en": "Central Anatolia",
+          "tr": "Orta Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR71",
+        "name": "Kırıkkale"
+      },
+      "nuts3": "TR713"
+    },
+    "coordinates": {
+      "latitude": 37.96667,
+      "longitude": 34.68333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/PpKh8rj8wEsN1raW9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/154456"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1876,
+        "name": "Altunhisar",
+        "population": 14225,
+        "area": 552
+      },
+      {
+        "id": 1201,
+        "name": "Bor",
+        "population": 62553,
+        "area": 1522
+      },
+      {
+        "id": 1225,
+        "name": "Çamardı",
+        "population": 13614,
+        "area": 1163
+      },
+      {
+        "id": 1904,
+        "name": "Çiftlik",
+        "population": 28780,
+        "area": 400
+      },
+      {
+        "id": 1544,
+        "name": "Merkez",
+        "population": 236864,
+        "area": 2223
+      },
+      {
+        "id": 1700,
+        "name": "Ulukışla",
+        "population": 21044,
+        "area": 1375
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Ordu",
+    "population": 775800,
+    "area": 5861,
+    "altitude": 25,
+    "areaCode": [452],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR9",
+        "name": {
+          "en": "East Black Sea",
+          "tr": "Doğu Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR90",
+        "name": "Trabzon"
+      },
+      "nuts3": "TR902"
+    },
+    "coordinates": {
+      "latitude": 40.98333,
+      "longitude": 37.88333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/MUUAwLbot3PKiM4z9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223450"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1119,
+        "name": "Akkuş",
+        "population": 22456,
+        "area": 697
+      },
+      {
+        "id": 2103,
+        "name": "Altınordu",
+        "population": 225349,
+        "area": 410
+      },
+      {
+        "id": 1158,
+        "name": "Aybastı",
+        "population": 20966,
+        "area": 250
+      },
+      {
+        "id": 1891,
+        "name": "Çamaş",
+        "population": 10232,
+        "area": 81
+      },
+      {
+        "id": 1897,
+        "name": "Çatalpınar",
+        "population": 14014,
+        "area": 101
+      },
+      {
+        "id": 1900,
+        "name": "Çaybaşı",
+        "population": 12625,
+        "area": 102
+      },
+      {
+        "id": 1328,
+        "name": "Fatsa",
+        "population": 125399,
+        "area": 363
+      },
+      {
+        "id": 1358,
+        "name": "Gölköy",
+        "population": 26970,
+        "area": 421
+      },
+      {
+        "id": 1795,
+        "name": "Gülyalı",
+        "population": 9243,
+        "area": 62
+      },
+      {
+        "id": 1797,
+        "name": "Gürgentepe",
+        "population": 15543,
+        "area": 185
+      },
+      {
+        "id": 1947,
+        "name": "İkizce",
+        "population": 14013,
+        "area": 148
+      },
+      {
+        "id": 1950,
+        "name": "Kabadüz",
+        "population": 7548,
+        "area": 290
+      },
+      {
+        "id": 1951,
+        "name": "Kabataş",
+        "population": 11011,
+        "area": 74
+      },
+      {
+        "id": 1482,
+        "name": "Korgan",
+        "population": 28144,
+        "area": 254
+      },
+      {
+        "id": 1493,
+        "name": "Kumru",
+        "population": 29704,
+        "area": 296
+      },
+      {
+        "id": 1525,
+        "name": "Mesudiye",
+        "population": 15357,
+        "area": 1046
+      },
+      {
+        "id": 1573,
+        "name": "Perşembe",
+        "population": 31278,
+        "area": 217
+      },
+      {
+        "id": 1696,
+        "name": "Ulubey",
+        "population": 23033,
+        "area": 295
+      },
+      {
+        "id": 1706,
+        "name": "Ünye",
+        "population": 132915,
+        "area": 569
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Rize",
+    "population": 350506,
+    "area": 3835,
+    "altitude": 11,
+    "areaCode": [464],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR9",
+        "name": {
+          "en": "East Black Sea",
+          "tr": "Doğu Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR90",
+        "name": "Trabzon"
+      },
+      "nuts3": "TR904"
+    },
+    "coordinates": {
+      "latitude": 41.02083,
+      "longitude": 40.52361
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/zyNExe1TH4ca4TEp7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223542"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1146,
+        "name": "Ardeşen",
+        "population": 42467,
+        "area": 376
+      },
+      {
+        "id": 1228,
+        "name": "Çamlıhemşin",
+        "population": 7799,
+        "area": 897
+      },
+      {
+        "id": 1241,
+        "name": "Çayeli",
+        "population": 43075,
+        "area": 442
+      },
+      {
+        "id": 1908,
+        "name": "Derepazarı",
+        "population": 7732,
+        "area": 28
+      },
+      {
+        "id": 1332,
+        "name": "Fındıklı",
+        "population": 17385,
+        "area": 383
+      },
+      {
+        "id": 1796,
+        "name": "Güneysu",
+        "population": 15953,
+        "area": 159
+      },
+      {
+        "id": 1943,
+        "name": "Hemşin",
+        "population": 2499,
+        "area": 134
+      },
+      {
+        "id": 1405,
+        "name": "İkizdere",
+        "population": 8676,
+        "area": 855
+      },
+      {
+        "id": 1949,
+        "name": "İyidere",
+        "population": 9366,
+        "area": 28
+      },
+      {
+        "id": 1428,
+        "name": "Kalkandere",
+        "population": 15042,
+        "area": 107
+      },
+      {
+        "id": 1586,
+        "name": "Merkez",
+        "population": 147996,
+        "area": 253
+      },
+      {
+        "id": 1569,
+        "name": "Pazar",
+        "population": 32516,
+        "area": 173
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Sakarya",
+    "population": 1098115,
+    "area": 4824,
+    "altitude": 41,
+    "areaCode": [264],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR4",
+        "name": {
+          "en": "East Marmara",
+          "tr": "Doğu Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR42",
+        "name": "Kocaeli"
+      },
+      "nuts3": "TR422"
+    },
+    "coordinates": {
+      "latitude": 40.76667,
+      "longitude": 30.41667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/E14vjUfh6vtYgxNE6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223462"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 2068,
+        "name": "Adapazarı",
+        "population": 279431,
+        "area": 324
+      },
+      {
+        "id": 1123,
+        "name": "Akyazı",
+        "population": 96605,
+        "area": 628
+      },
+      {
+        "id": 2069,
+        "name": "Arifiye",
+        "population": 51467,
+        "area": 75
+      },
+      {
+        "id": 2070,
+        "name": "Erenler",
+        "population": 91611,
+        "area": 136
+      },
+      {
+        "id": 1925,
+        "name": "Ferizli",
+        "population": 32752,
+        "area": 173
+      },
+      {
+        "id": 1351,
+        "name": "Geyve",
+        "population": 51676,
+        "area": 662
+      },
+      {
+        "id": 1391,
+        "name": "Hendek",
+        "population": 91486,
+        "area": 646
+      },
+      {
+        "id": 1955,
+        "name": "Karapürçek",
+        "population": 13713,
+        "area": 142
+      },
+      {
+        "id": 1442,
+        "name": "Karasu",
+        "population": 73738,
+        "area": 411
+      },
+      {
+        "id": 1453,
+        "name": "Kaynarca",
+        "population": 25137,
+        "area": 343
+      },
+      {
+        "id": 1818,
+        "name": "Kocaali",
+        "population": 26523,
+        "area": 254
+      },
+      {
+        "id": 1833,
+        "name": "Pamukova",
+        "population": 31205,
+        "area": 289
+      },
+      {
+        "id": 1595,
+        "name": "Sapanca",
+        "population": 46080,
+        "area": 173
+      },
+      {
+        "id": 2071,
+        "name": "Serdivan",
+        "population": 164222,
+        "area": 130
+      },
+      {
+        "id": 1986,
+        "name": "Söğütlü",
+        "population": 15411,
+        "area": 145
+      },
+      {
+        "id": 1847,
+        "name": "Taraklı",
+        "population": 7058,
+        "area": 292
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "name": "Samsun",
+    "population": 1377546,
+    "area": 9725,
+    "altitude": 10,
+    "areaCode": [362],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR83",
+        "name": "Samsun"
+      },
+      "nuts3": "TR831"
+    },
+    "coordinates": {
+      "latitude": 41.28639,
+      "longitude": 36.33139
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/dfCJKSAcZh8fcHht5",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223451"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1830,
+        "name": "19 mayıs",
+        "population": 27910,
+        "area": 234
+      },
+      {
+        "id": 1125,
+        "name": "Alaçam",
+        "population": 25148,
+        "area": 598
+      },
+      {
+        "id": 1763,
+        "name": "Asarcık",
+        "population": 16906,
+        "area": 253
+      },
+      {
+        "id": 2072,
+        "name": "Atakum",
+        "population": 245328,
+        "area": 351
+      },
+      {
+        "id": 1879,
+        "name": "Ayvacık",
+        "population": 21090,
+        "area": 382
+      },
+      {
+        "id": 1164,
+        "name": "Bafra",
+        "population": 143109,
+        "area": 1503
+      },
+      {
+        "id": 2073,
+        "name": "Canik",
+        "population": 100040,
+        "area": 264
+      },
+      {
+        "id": 1234,
+        "name": "Çarşamba",
+        "population": 141199,
+        "area": 774
+      },
+      {
+        "id": 1386,
+        "name": "Havza",
+        "population": 38824,
+        "area": 865
+      },
+      {
+        "id": 2074,
+        "name": "İlkadım",
+        "population": 322228,
+        "area": 155
+      },
+      {
+        "id": 1452,
+        "name": "Kavak",
+        "population": 26346,
+        "area": 697
+      },
+      {
+        "id": 1501,
+        "name": "Ladik",
+        "population": 16907,
+        "area": 541
+      },
+      {
+        "id": 1838,
+        "name": "Salıpazarı",
+        "population": 21243,
+        "area": 356
+      },
+      {
+        "id": 1849,
+        "name": "Tekkeköy",
+        "population": 58615,
+        "area": 326
+      },
+      {
+        "id": 1676,
+        "name": "Terme",
+        "population": 73120,
+        "area": 548
+      },
+      {
+        "id": 1712,
+        "name": "Vezirköprü",
+        "population": 90388,
+        "area": 1674
+      },
+      {
+        "id": 1993,
+        "name": "Yakakent",
+        "population": 9145,
+        "area": 204
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Siirt",
+    "population": 347412,
+    "area": 5717,
+    "altitude": 887,
+    "areaCode": [484],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC3",
+        "name": "Mardin"
+      },
+      "nuts3": "TRC34"
+    },
+    "coordinates": {
+      "latitude": 37.94444,
+      "longitude": 41.93333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/A9RziYU4nmT5JRXTA",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223543"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1179,
+        "name": "Baykan",
+        "population": 26338,
+        "area": 488
+      },
+      {
+        "id": 1317,
+        "name": "Eruh",
+        "population": 20011,
+        "area": 1061
+      },
+      {
+        "id": 1495,
+        "name": "Kurtalan",
+        "population": 62232,
+        "area": 811
+      },
+      {
+        "id": 1620,
+        "name": "Merkez",
+        "population": 184163,
+        "area": 633
+      },
+      {
+        "id": 1575,
+        "name": "Pervari",
+        "population": 29448,
+        "area": 1651
+      },
+      {
+        "id": 1662,
+        "name": "Şirvan",
+        "population": 20779,
+        "area": 936
+      },
+      {
+        "id": 1878,
+        "name": "Tillo",
+        "population": 4441,
+        "area": 138
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Sinop",
+    "population": 229716,
+    "area": 5717,
+    "altitude": 27,
+    "areaCode": [368],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR82",
+        "name": "Kastamonu"
+      },
+      "nuts3": "TR823"
+    },
+    "coordinates": {
+      "latitude": 42.02361,
+      "longitude": 35.15306
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/dDFGTRBWxMVtV4sT6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223457"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1156,
+        "name": "Ayancık",
+        "population": 24473,
+        "area": 862
+      },
+      {
+        "id": 1204,
+        "name": "Boyabat",
+        "population": 45833,
+        "area": 1512
+      },
+      {
+        "id": 1910,
+        "name": "Dikmen",
+        "population": 5156,
+        "area": 411
+      },
+      {
+        "id": 1290,
+        "name": "Durağan",
+        "population": 17900,
+        "area": 995
+      },
+      {
+        "id": 1314,
+        "name": "Erfelek",
+        "population": 13123,
+        "area": 412
+      },
+      {
+        "id": 1349,
+        "name": "Gerze",
+        "population": 29534,
+        "area": 487
+      },
+      {
+        "id": 1627,
+        "name": "Merkez",
+        "population": 69844,
+        "area": 442
+      },
+      {
+        "id": 1981,
+        "name": "Saraydüzü",
+        "population": 6642,
+        "area": 334
+      },
+      {
+        "id": 1693,
+        "name": "Türkeli",
+        "population": 17211,
+        "area": 263
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Sivas",
+    "population": 650401,
+    "area": 28164,
+    "altitude": 1313,
+    "areaCode": [346],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR7",
+        "name": {
+          "en": "Central Anatolia",
+          "tr": "Orta Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR72",
+        "name": "Kayseri"
+      },
+      "nuts3": "TR722"
+    },
+    "coordinates": {
+      "latitude": 39.74722,
+      "longitude": 37.0175
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/1EnUytV861FmLWjZ8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223425"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1870,
+        "name": "Akıncılar",
+        "population": 5111,
+        "area": 432
+      },
+      {
+        "id": 1875,
+        "name": "Altınyayla",
+        "population": 8866,
+        "area": 654
+      },
+      {
+        "id": 1282,
+        "name": "Divriği",
+        "population": 16893,
+        "area": 2632
+      },
+      {
+        "id": 1913,
+        "name": "Doğanşar",
+        "population": 3216,
+        "area": 370
+      },
+      {
+        "id": 1342,
+        "name": "Gemerek",
+        "population": 22717,
+        "area": 1131
+      },
+      {
+        "id": 1927,
+        "name": "Gölova",
+        "population": 3614,
+        "area": 286
+      },
+      {
+        "id": 1373,
+        "name": "Gürün",
+        "population": 18118,
+        "area": 2632
+      },
+      {
+        "id": 1376,
+        "name": "Hafik",
+        "population": 10944,
+        "area": 1765
+      },
+      {
+        "id": 1407,
+        "name": "İmranlı",
+        "population": 9091,
+        "area": 1292
+      },
+      {
+        "id": 1431,
+        "name": "Kangal",
+        "population": 21629,
+        "area": 3342
+      },
+      {
+        "id": 1484,
+        "name": "Koyulhisar",
+        "population": 12959,
+        "area": 891
+      },
+      {
+        "id": 1628,
+        "name": "Merkez",
+        "population": 389719,
+        "area": 3488
+      },
+      {
+        "id": 1646,
+        "name": "Suşehri",
+        "population": 25295,
+        "area": 939
+      },
+      {
+        "id": 1650,
+        "name": "Şarkışla",
+        "population": 37758,
+        "area": 2073
+      },
+      {
+        "id": 1991,
+        "name": "Ulaş",
+        "population": 8879,
+        "area": 1092
+      },
+      {
+        "id": 1731,
+        "name": "Yıldızeli",
+        "population": 31719,
+        "area": 2529
+      },
+      {
+        "id": 1738,
+        "name": "Zara",
+        "population": 23873,
+        "area": 2616
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Tekirdağ",
+    "population": 1167059,
+    "area": 6190,
+    "altitude": 28,
+    "areaCode": [282],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR2",
+        "name": {
+          "en": "West Marmara",
+          "tr": "Batı Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR21",
+        "name": "Tekirdağ"
+      },
+      "nuts3": "TR221"
+    },
+    "coordinates": {
+      "latitude": 40.98333,
+      "longitude": 27.51667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/njUunD1SpA8zXX2r9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223470"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 1250,
+        "name": "Çerkezköy",
+        "population": 213243,
+        "area": 86
+      },
+      {
+        "id": 1258,
+        "name": "Çorlu",
+        "population": 294020,
+        "area": 531
+      },
+      {
+        "id": 2094,
+        "name": "Ergene",
+        "population": 68695,
+        "area": 418
+      },
+      {
+        "id": 1388,
+        "name": "Hayrabolu",
+        "population": 30930,
+        "area": 1009
+      },
+      {
+        "id": 2095,
+        "name": "Kapaklı",
+        "population": 142662,
+        "area": 182
+      },
+      {
+        "id": 1511,
+        "name": "Malkara",
+        "population": 51406,
+        "area": 1243
+      },
+      {
+        "id": 1825,
+        "name": "Marmaraereğlisi",
+        "population": 31191,
+        "area": 175
+      },
+      {
+        "id": 1538,
+        "name": "Muratlı",
+        "population": 30411,
+        "area": 388
+      },
+      {
+        "id": 1596,
+        "name": "Saray",
+        "population": 51224,
+        "area": 620
+      },
+      {
+        "id": 2096,
+        "name": "Süleymanpaşa",
+        "population": 219230,
+        "area": 1053
+      },
+      {
+        "id": 1652,
+        "name": "Şarköy",
+        "population": 34047,
+        "area": 487
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Tokat",
+    "population": 606934,
+    "area": 10042,
+    "altitude": 630,
+    "areaCode": [356],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR83",
+        "name": "Samsun"
+      },
+      "nuts3": "TR832"
+    },
+    "coordinates": {
+      "latitude": 40.31667,
+      "longitude": 36.55
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/NZdDAFbedQgwFHgV8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223424"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1129,
+        "name": "Almus",
+        "population": 25116,
+        "area": 1033
+      },
+      {
+        "id": 1151,
+        "name": "Artova",
+        "population": 7469,
+        "area": 444
+      },
+      {
+        "id": 1883,
+        "name": "Başçiftlik",
+        "population": 6216,
+        "area": 246
+      },
+      {
+        "id": 1308,
+        "name": "Erbaa",
+        "population": 100323,
+        "area": 1173
+      },
+      {
+        "id": 1679,
+        "name": "Merkez",
+        "population": 207741,
+        "area": 2003
+      },
+      {
+        "id": 1545,
+        "name": "Niksar",
+        "population": 62287,
+        "area": 889
+      },
+      {
+        "id": 1834,
+        "name": "Pazar",
+        "population": 13419,
+        "area": 188
+      },
+      {
+        "id": 1584,
+        "name": "Reşadiye",
+        "population": 36727,
+        "area": 1102
+      },
+      {
+        "id": 1987,
+        "name": "Sulusaray",
+        "population": 6698,
+        "area": 266
+      },
+      {
+        "id": 1690,
+        "name": "Turhal",
+        "population": 78827,
+        "area": 940
+      },
+      {
+        "id": 1858,
+        "name": "Yeşilyurt",
+        "population": 8356,
+        "area": 280
+      },
+      {
+        "id": 1740,
+        "name": "Zile",
+        "population": 53755,
+        "area": 1480
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Trabzon",
+    "population": 824352,
+    "area": 4628,
+    "altitude": 36,
+    "areaCode": [462],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TR9",
+        "name": {
+          "en": "East Black Sea",
+          "tr": "Doğu Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR90",
+        "name": "Trabzon"
+      },
+      "nuts3": "TR901"
+    },
+    "coordinates": {
+      "latitude": 41,
+      "longitude": 39.73333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/3MNVGU2vaK4K4pUT6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223447"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1113,
+        "name": "Akçaabat",
+        "population": 129628,
+        "area": 375
+      },
+      {
+        "id": 1141,
+        "name": "Araklı",
+        "population": 51124,
+        "area": 464
+      },
+      {
+        "id": 1150,
+        "name": "Arsin",
+        "population": 32717,
+        "area": 157
+      },
+      {
+        "id": 1775,
+        "name": "Beşikdüzü",
+        "population": 23568,
+        "area": 84
+      },
+      {
+        "id": 1896,
+        "name": "Çarşıbaşı",
+        "population": 15753,
+        "area": 66
+      },
+      {
+        "id": 1244,
+        "name": "Çaykara",
+        "population": 15180,
+        "area": 574
+      },
+      {
+        "id": 1909,
+        "name": "Dernekpazarı",
+        "population": 4294,
+        "area": 89
+      },
+      {
+        "id": 1917,
+        "name": "Düzköy",
+        "population": 14142,
+        "area": 125
+      },
+      {
+        "id": 1942,
+        "name": "Hayrat",
+        "population": 9337,
+        "area": 244
+      },
+      {
+        "id": 1966,
+        "name": "Köprübaşı",
+        "population": 4776,
+        "area": 189
+      },
+      {
+        "id": 1507,
+        "name": "Maçka",
+        "population": 27322,
+        "area": 925
+      },
+      {
+        "id": 1548,
+        "name": "Of",
+        "population": 44527,
+        "area": 258
+      },
+      {
+        "id": 2097,
+        "name": "Ortahisar",
+        "population": 322702,
+        "area": 235
+      },
+      {
+        "id": 1647,
+        "name": "Sürmene",
+        "population": 26127,
+        "area": 166
+      },
+      {
+        "id": 1842,
+        "name": "Şalpazarı",
+        "population": 11780,
+        "area": 161
+      },
+      {
+        "id": 1681,
+        "name": "Tonya",
+        "population": 14315,
+        "area": 176
+      },
+      {
+        "id": 1709,
+        "name": "Vakfıkebir",
+        "population": 27339,
+        "area": 141
+      },
+      {
+        "id": 1732,
+        "name": "Yomra",
+        "population": 49721,
+        "area": 200
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Tunceli",
+    "population": 89317,
+    "area": 7582,
+    "altitude": 922,
+    "areaCode": [428],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRB",
+        "name": {
+          "en": "Central East Anatolia",
+          "tr": "Ortadoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRB1",
+        "name": "Malatya"
+      },
+      "nuts3": "TRB14"
+    },
+    "coordinates": {
+      "latitude": 39.11667,
+      "longitude": 39.53333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4xdfVHREhnbcexoQA",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223537"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1247,
+        "name": "Çemişgezek",
+        "population": 8066,
+        "area": 851
+      },
+      {
+        "id": 1397,
+        "name": "Hozat",
+        "population": 5952,
+        "area": 663
+      },
+      {
+        "id": 1518,
+        "name": "Mazgirt",
+        "population": 7827,
+        "area": 702
+      },
+      {
+        "id": 1688,
+        "name": "Merkez",
+        "population": 41389,
+        "area": 1128
+      },
+      {
+        "id": 1541,
+        "name": "Nazımiye",
+        "population": 3437,
+        "area": 543
+      },
+      {
+        "id": 1562,
+        "name": "Ovacık",
+        "population": 7173,
+        "area": 1401
+      },
+      {
+        "id": 1574,
+        "name": "Pertek",
+        "population": 11463,
+        "area": 858
+      },
+      {
+        "id": 1581,
+        "name": "Pülümür",
+        "population": 4010,
+        "area": 1437
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "name": "Şanlıurfa",
+    "population": 2213964,
+    "area": 19242,
+    "altitude": 527,
+    "areaCode": [414],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC2",
+        "name": "Şanlıurfa"
+      },
+      "nuts3": "TRC21"
+    },
+    "coordinates": {
+      "latitude": 37.15,
+      "longitude": 38.8
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/HomBJUkX9PrtNk2L6",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223434"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1115,
+        "name": "Akçakale",
+        "population": 127277,
+        "area": 1038
+      },
+      {
+        "id": 1194,
+        "name": "Birecik",
+        "population": 93866,
+        "area": 912
+      },
+      {
+        "id": 1209,
+        "name": "Bozova",
+        "population": 55553,
+        "area": 1329
+      },
+      {
+        "id": 1220,
+        "name": "Ceylanpınar",
+        "population": 92147,
+        "area": 1589
+      },
+      {
+        "id": 2091,
+        "name": "Eyyübiye",
+        "population": 400084,
+        "area": 1626
+      },
+      {
+        "id": 1378,
+        "name": "Halfeti",
+        "population": 46312,
+        "area": 609
+      },
+      {
+        "id": 2092,
+        "name": "Haliliye",
+        "population": 392600,
+        "area": 1924
+      },
+      {
+        "id": 1800,
+        "name": "Harran",
+        "population": 98999,
+        "area": 904
+      },
+      {
+        "id": 1393,
+        "name": "Hilvan",
+        "population": 43448,
+        "area": 1111
+      },
+      {
+        "id": 2093,
+        "name": "Karaköprü",
+        "population": 277160,
+        "area": 1222
+      },
+      {
+        "id": 1630,
+        "name": "Siverek",
+        "population": 271832,
+        "area": 3936
+      },
+      {
+        "id": 1643,
+        "name": "Suruç",
+        "population": 103621,
+        "area": 744
+      },
+      {
+        "id": 1713,
+        "name": "Viranşehir",
+        "population": 211065,
+        "area": 2297
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "name": "Uşak",
+    "population": 377001,
+    "area": 5555,
+    "altitude": 915,
+    "areaCode": [276],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR3",
+        "name": {
+          "en": "Aegean",
+          "tr": "Ege"
+        }
+      },
+      "nuts2": {
+        "code": "TR33",
+        "name": "Manisa"
+      },
+      "nuts3": "TR334"
+    },
+    "coordinates": {
+      "latitude": 38.68333,
+      "longitude": 29.41667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/fAhNfzHxWuguCfib7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223170"
+    },
+    "region": {
+      "en": "Aegean",
+      "tr": "Ege"
+    },
+    "districts": [
+      {
+        "id": 1170,
+        "name": "Banaz",
+        "population": 35313,
+        "area": 1114
+      },
+      {
+        "id": 1323,
+        "name": "Eşme",
+        "population": 34692,
+        "area": 1156
+      },
+      {
+        "id": 1436,
+        "name": "Karahallı",
+        "population": 9884,
+        "area": 330
+      },
+      {
+        "id": 1704,
+        "name": "Merkez",
+        "population": 265148,
+        "area": 1655
+      },
+      {
+        "id": 1629,
+        "name": "Sivaslı",
+        "population": 19939,
+        "area": 473
+      },
+      {
+        "id": 1697,
+        "name": "Ulubey",
+        "population": 12025,
+        "area": 828
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Van",
+    "population": 1127612,
+    "area": 20921,
+    "altitude": 1728,
+    "areaCode": [432],
+    "isMetropolitan": true,
+    "nuts": {
+      "nuts1": {
+        "code": "TRB",
+        "name": {
+          "en": "Central East Anatolia",
+          "tr": "Ortadoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRB2",
+        "name": "Van"
+      },
+      "nuts3": "TRB21"
+    },
+    "coordinates": {
+      "latitude": 38.5,
+      "longitude": 43.4
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/HSTpUR2egRhG39M29",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223442"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1770,
+        "name": "Bahçesaray",
+        "population": 12983,
+        "area": 426
+      },
+      {
+        "id": 1175,
+        "name": "Başkale",
+        "population": 42922,
+        "area": 2727
+      },
+      {
+        "id": 1786,
+        "name": "Çaldıran",
+        "population": 56901,
+        "area": 1478
+      },
+      {
+        "id": 1236,
+        "name": "Çatak",
+        "population": 18825,
+        "area": 1952
+      },
+      {
+        "id": 1918,
+        "name": "Edremit",
+        "population": 129604,
+        "area": 515
+      },
+      {
+        "id": 1309,
+        "name": "Erciş",
+        "population": 171035,
+        "area": 2133
+      },
+      {
+        "id": 1350,
+        "name": "Gevaş",
+        "population": 27437,
+        "area": 1544
+      },
+      {
+        "id": 1372,
+        "name": "Gürpınar",
+        "population": 31816,
+        "area": 4028
+      },
+      {
+        "id": 2098,
+        "name": "İpekyolu",
+        "population": 350708,
+        "area": 956
+      },
+      {
+        "id": 1533,
+        "name": "Muradiye",
+        "population": 44322,
+        "area": 912
+      },
+      {
+        "id": 1565,
+        "name": "Özalp",
+        "population": 57829,
+        "area": 1430
+      },
+      {
+        "id": 1980,
+        "name": "Saray",
+        "population": 18779,
+        "area": 872
+      },
+      {
+        "id": 2099,
+        "name": "Tuşba",
+        "population": 164451,
+        "area": 1948
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Yozgat",
+    "population": 420699,
+    "area": 13690,
+    "altitude": 1317,
+    "areaCode": [354],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR7",
+        "name": {
+          "en": "Central Anatolia",
+          "tr": "Orta Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR72",
+        "name": "Kayseri"
+      },
+      "nuts3": "TR723"
+    },
+    "coordinates": {
+      "latitude": 39.81667,
+      "longitude": 34.81667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/FJbXiqUud8M9tpGp9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/154450"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1117,
+        "name": "Akdağmadeni",
+        "population": 40842,
+        "area": 1810
+      },
+      {
+        "id": 1877,
+        "name": "Aydıncık",
+        "population": 10208,
+        "area": 338
+      },
+      {
+        "id": 1198,
+        "name": "Boğazlıyan",
+        "population": 35075,
+        "area": 1515
+      },
+      {
+        "id": 1895,
+        "name": "Çandır",
+        "population": 4434,
+        "area": 205
+      },
+      {
+        "id": 1242,
+        "name": "Çayıralan",
+        "population": 12461,
+        "area": 995
+      },
+      {
+        "id": 1245,
+        "name": "Çekerek",
+        "population": 18781,
+        "area": 790
+      },
+      {
+        "id": 1952,
+        "name": "Kadışehri",
+        "population": 10612,
+        "area": 472
+      },
+      {
+        "id": 1733,
+        "name": "Merkez",
+        "population": 110620,
+        "area": 2024
+      },
+      {
+        "id": 1982,
+        "name": "Saraykent",
+        "population": 11828,
+        "area": 319
+      },
+      {
+        "id": 1602,
+        "name": "Sarıkaya",
+        "population": 31866,
+        "area": 1018
+      },
+      {
+        "id": 1635,
+        "name": "Sorgun",
+        "population": 80618,
+        "area": 1768
+      },
+      {
+        "id": 1655,
+        "name": "Şefaatli",
+        "population": 14594,
+        "area": 882
+      },
+      {
+        "id": 1998,
+        "name": "Yenifakılı",
+        "population": 5383,
+        "area": 390
+      },
+      {
+        "id": 1726,
+        "name": "Yerköy",
+        "population": 33377,
+        "area": 1164
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Zonguldak",
+    "population": 591492,
+    "area": 3342,
+    "altitude": 10,
+    "areaCode": [372],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR81",
+        "name": "Zonguldak"
+      },
+      "nuts3": "TR811"
+    },
+    "coordinates": {
+      "latitude": 41.45,
+      "longitude": 31.8
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/uLQrR9gNqGMRJ4t7A",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223459"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1758,
+        "name": "Alaplı",
+        "population": 43417,
+        "area": 383
+      },
+      {
+        "id": 1240,
+        "name": "Çaycuma",
+        "population": 91968,
+        "area": 492
+      },
+      {
+        "id": 1276,
+        "name": "Devrek",
+        "population": 57562,
+        "area": 953
+      },
+      {
+        "id": 1313,
+        "name": "Ereğli",
+        "population": 175294,
+        "area": 736
+      },
+      {
+        "id": 1926,
+        "name": "Gökçebey",
+        "population": 21344,
+        "area": 183
+      },
+      {
+        "id": 2100,
+        "name": "Kilimli",
+        "population": 33639,
+        "area": 145
+      },
+      {
+        "id": 2101,
+        "name": "Kozlu",
+        "population": 50908,
+        "area": 177
+      },
+      {
+        "id": 1741,
+        "name": "Merkez",
+        "population": 117360,
+        "area": 272
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Aksaray",
+    "population": 438504,
+    "area": 7659,
+    "altitude": 1228,
+    "areaCode": [382],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR7",
+        "name": {
+          "en": "Central Anatolia",
+          "tr": "Orta Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR71",
+        "name": "Kırıkkale"
+      },
+      "nuts3": "TR712"
+    },
+    "coordinates": {
+      "latitude": 38.36667,
+      "longitude": 34.03333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/xsGaB46hYrkMkwd8A",
+      "openStreetMap": "https://www.openstreetmap.org/relation/154454"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1860,
+        "name": "Ağaçören",
+        "population": 7971,
+        "area": 407
+      },
+      {
+        "id": 1921,
+        "name": "Eskil",
+        "population": 27795,
+        "area": 1701
+      },
+      {
+        "id": 1932,
+        "name": "Gülağaç",
+        "population": 20120,
+        "area": 326
+      },
+      {
+        "id": 1861,
+        "name": "Güzelyurt",
+        "population": 11675,
+        "area": 285
+      },
+      {
+        "id": 1120,
+        "name": "Merkez",
+        "population": 321160,
+        "area": 3539
+      },
+      {
+        "id": 1557,
+        "name": "Ortaköy",
+        "population": 31613,
+        "area": 727
+      },
+      {
+        "id": 1866,
+        "name": "Sarıyahşi",
+        "population": 5804,
+        "area": 210
+      },
+      {
+        "id": 2106,
+        "name": "Sultanhanı",
+        "population": 12366,
+        "area": 463
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "name": "Bayburt",
+    "population": 86047,
+    "area": 3746,
+    "altitude": 1555,
+    "areaCode": [458],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRA",
+        "name": {
+          "en": "Northeast Anatolia",
+          "tr": "Kuzeydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRA1",
+        "name": "Erzurum"
+      },
+      "nuts3": "TRA13"
+    },
+    "coordinates": {
+      "latitude": 40.25,
+      "longitude": 40.21667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/mGqWgVfqQneCzwj36",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223446"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1767,
+        "name": "Aydıntepe",
+        "population": 7070,
+        "area": 446
+      },
+      {
+        "id": 1788,
+        "name": "Demirözü",
+        "population": 8072,
+        "area": 594
+      },
+      {
+        "id": 1176,
+        "name": "Merkez",
+        "population": 70905,
+        "area": 2705
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "name": "Karaman",
+    "population": 263960,
+    "area": 8678,
+    "altitude": 1063,
+    "areaCode": [338],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR5",
+        "name": {
+          "en": "West Anatolia",
+          "tr": "Batı Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR52",
+        "name": "Konya"
+      },
+      "nuts3": "TR522"
+    },
+    "coordinates": {
+      "latitude": 37.18333,
+      "longitude": 33.21667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/FWnvmkmDTmfnt3FN7",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223446"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1768,
+        "name": "Ayrancı",
+        "population": 7630,
+        "area": 2245
+      },
+      {
+        "id": 1884,
+        "name": "Başyayla",
+        "population": 3434,
+        "area": 141
+      },
+      {
+        "id": 1316,
+        "name": "Ermenek",
+        "population": 28103,
+        "area": 1242
+      },
+      {
+        "id": 1862,
+        "name": "Kazımkarabekir",
+        "population": 4710,
+        "area": 423
+      },
+      {
+        "id": 1439,
+        "name": "Merkez",
+        "population": 208199,
+        "area": 4036
+      },
+      {
+        "id": 1983,
+        "name": "Sarıveliler",
+        "population": 11884,
+        "area": 590
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "name": "Kırıkkale",
+    "population": 285744,
+    "area": 4791,
+    "altitude": 746,
+    "areaCode": [318],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR7",
+        "name": {
+          "en": "Central Anatolia",
+          "tr": "Orta Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TR71",
+        "name": "Kırıkkale"
+      },
+      "nuts3": "TR711"
+    },
+    "coordinates": {
+      "latitude": 39.85,
+      "longitude": 33.51667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/wrhgZ7eMU9LwfiL46",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223423"
+    },
+    "region": {
+      "en": "Central Anatolia",
+      "tr": "İç Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1880,
+        "name": "Bahşılı",
+        "population": 8038,
+        "area": 266
+      },
+      {
+        "id": 1882,
+        "name": "Balışeyh",
+        "population": 7016,
+        "area": 623
+      },
+      {
+        "id": 1901,
+        "name": "Çelebi",
+        "population": 3954,
+        "area": 223
+      },
+      {
+        "id": 1268,
+        "name": "Delice",
+        "population": 11227,
+        "area": 970
+      },
+      {
+        "id": 1954,
+        "name": "Karakeçili",
+        "population": 3659,
+        "area": 137
+      },
+      {
+        "id": 1463,
+        "name": "Keskin",
+        "population": 16938,
+        "area": 1129
+      },
+      {
+        "id": 1469,
+        "name": "Merkez",
+        "population": 188419,
+        "area": 432
+      },
+      {
+        "id": 1638,
+        "name": "Sulakyurt",
+        "population": 6762,
+        "area": 708
+      },
+      {
+        "id": 1992,
+        "name": "Yahşihan",
+        "population": 39731,
+        "area": 304
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "name": "Batman",
+    "population": 647205,
+    "area": 4477,
+    "altitude": 570,
+    "areaCode": [488],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC3",
+        "name": "Mardin"
+      },
+      "nuts3": "TRC32"
+    },
+    "coordinates": {
+      "latitude": 37.88333,
+      "longitude": 41.13333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/DiyqUr2MEoPWmWjV8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223437"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1184,
+        "name": "Beşiri",
+        "population": 32378,
+        "area": 809
+      },
+      {
+        "id": 1345,
+        "name": "Gercüş",
+        "population": 21958,
+        "area": 914
+      },
+      {
+        "id": 1941,
+        "name": "Hasankeyf",
+        "population": 7969,
+        "area": 293
+      },
+      {
+        "id": 1487,
+        "name": "Kozluk",
+        "population": 61297,
+        "area": 1101
+      },
+      {
+        "id": 1174,
+        "name": "Merkez",
+        "population": 491811,
+        "area": 653
+      },
+      {
+        "id": 1607,
+        "name": "Sason",
+        "population": 31792,
+        "area": 706
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "name": "Şırnak",
+    "population": 570745,
+    "area": 7078,
+    "altitude": 1343,
+    "areaCode": [486],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC3",
+        "name": "Mardin"
+      },
+      "nuts3": "TRC33"
+    },
+    "coordinates": {
+      "latitude": 37.51667,
+      "longitude": 42.46667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/tDwsK4Y4kJZDpp55A",
+      "openStreetMap": "https://www.openstreetmap.org/relation/1751843"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1189,
+        "name": "Beytüşşebap",
+        "population": 16056,
+        "area": 1647
+      },
+      {
+        "id": 1223,
+        "name": "Cizre",
+        "population": 161135,
+        "area": 444
+      },
+      {
+        "id": 1931,
+        "name": "Güçlükonak",
+        "population": 12830,
+        "area": 466
+      },
+      {
+        "id": 1403,
+        "name": "İdil",
+        "population": 77159,
+        "area": 1148
+      },
+      {
+        "id": 1661,
+        "name": "Merkez",
+        "population": 108699,
+        "area": 1701
+      },
+      {
+        "id": 1623,
+        "name": "Silopi",
+        "population": 148126,
+        "area": 831
+      },
+      {
+        "id": 1698,
+        "name": "Uludere",
+        "population": 46740,
+        "area": 841
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Bartın",
+    "population": 207238,
+    "area": 2330,
+    "altitude": 12,
+    "areaCode": [378],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR81",
+        "name": "Zonguldak"
+      },
+      "nuts3": "TR813"
+    },
+    "coordinates": {
+      "latitude": 41.63333,
+      "longitude": 32.33333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/kEA1uaXRs5h4Ys497",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223458"
+    },
+    "region": {
+      "en": "North Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1761,
+        "name": "Amasra",
+        "population": 14552,
+        "area": 178
+      },
+      {
+        "id": 1496,
+        "name": "Kurucaşile",
+        "population": 6681,
+        "area": 152
+      },
+      {
+        "id": 1172,
+        "name": "Merkez",
+        "population": 163196,
+        "area": 1091
+      },
+      {
+        "id": 1701,
+        "name": "Ulus",
+        "population": 22809,
+        "area": 909
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Ardahan",
+    "population": 92819,
+    "area": 4934,
+    "altitude": 1799,
+    "areaCode": [478],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRA",
+        "name": {
+          "en": "Northeast Anatolia",
+          "tr": "Kuzeydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRA2",
+        "name": "Ağrı"
+      },
+      "nuts3": "TRA24"
+    },
+    "coordinates": {
+      "latitude": 41.10833,
+      "longitude": 42.7
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/czPjzpGKZMS5hUgm9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/1251450"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1252,
+        "name": "Çıldır",
+        "population": 8745,
+        "area": 988
+      },
+      {
+        "id": 2008,
+        "name": "Damal",
+        "population": 4757,
+        "area": 165
+      },
+      {
+        "id": 1356,
+        "name": "Göle",
+        "population": 22735,
+        "area": 1290
+      },
+      {
+        "id": 1380,
+        "name": "Hanak",
+        "population": 8033,
+        "area": 647
+      },
+      {
+        "id": 1144,
+        "name": "Merkez",
+        "population": 42209,
+        "area": 1261
+      },
+      {
+        "id": 1579,
+        "name": "Posof",
+        "population": 6340,
+        "area": 583
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Iğdır",
+    "population": 209738,
+    "area": 3664,
+    "altitude": 860,
+    "areaCode": [476],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRA",
+        "name": {
+          "en": "Northeast Anatolia",
+          "tr": "Kuzeydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRA2",
+        "name": "Ağrı"
+      },
+      "nuts3": "TRA23"
+    },
+    "coordinates": {
+      "latitude": 39.91667,
+      "longitude": 44.03333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4sTLXpYBHttBGPsdA",
+      "openStreetMap": "https://www.openstreetmap.org/relation/186434"
+    },
+    "region": {
+      "en": "Eastern Anatolia",
+      "tr": "Doğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 1142,
+        "name": "Aralık",
+        "population": 19495,
+        "area": 852
+      },
+      {
+        "id": 2011,
+        "name": "Karakoyunlu",
+        "population": 13116,
+        "area": 269
+      },
+      {
+        "id": 1398,
+        "name": "Merkez",
+        "population": 153543,
+        "area": 1273
+      },
+      {
+        "id": 1692,
+        "name": "Tuzluca",
+        "population": 23584,
+        "area": 1270
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Yalova",
+    "population": 304780,
+    "area": 798,
+    "altitude": 8,
+    "areaCode": [226],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR4",
+        "name": {
+          "en": "East Marmara",
+          "tr": "Doğu Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR42",
+        "name": "Kocaeli"
+      },
+      "nuts3": "TR425"
+    },
+    "coordinates": {
+      "latitude": 40.65,
+      "longitude": 29.26667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/RtzU9F1fuhPVMFsm9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223472"
+    },
+    "region": {
+      "en": "Marmara",
+      "tr": "Marmara"
+    },
+    "districts": [
+      {
+        "id": 2019,
+        "name": "Altınova",
+        "population": 33680,
+        "area": 113
+      },
+      {
+        "id": 2020,
+        "name": "Armutlu",
+        "population": 11729,
+        "area": 166
+      },
+      {
+        "id": 2021,
+        "name": "Çınarcık",
+        "population": 42078,
+        "area": 178
+      },
+      {
+        "id": 2022,
+        "name": "Çiftlikköy",
+        "population": 53858,
+        "area": 136
+      },
+      {
+        "id": 1716,
+        "name": "Merkez",
+        "population": 155863,
+        "area": 139
+      },
+      {
+        "id": 2026,
+        "name": "Termal",
+        "population": 7572,
+        "area": 67
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "name": "Karabük",
+    "population": 255242,
+    "area": 4142,
+    "altitude": 264,
+    "areaCode": [370],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR8",
+        "name": {
+          "en": "West Black Sea",
+          "tr": "Batı Karadeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR81",
+        "name": "Zonguldak"
+      },
+      "nuts3": "TR812"
+    },
+    "coordinates": {
+      "latitude": 41.2,
+      "longitude": 32.63333
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/QMVjbUBH7Q7XHKcK9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223455"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1296,
+        "name": "Eflani",
+        "population": 10101,
+        "area": 674
+      },
+      {
+        "id": 1321,
+        "name": "Eskipazar",
+        "population": 14343,
+        "area": 754
+      },
+      {
+        "id": 1433,
+        "name": "Merkez",
+        "population": 134486,
+        "area": 790
+      },
+      {
+        "id": 1561,
+        "name": "Ovacık",
+        "population": 5677,
+        "area": 398
+      },
+      {
+        "id": 1587,
+        "name": "Safranbolu",
+        "population": 70043,
+        "area": 750
+      },
+      {
+        "id": 1856,
+        "name": "Yenice",
+        "population": 20592,
+        "area": 777
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Kilis",
+    "population": 155179,
+    "area": 1412,
+    "altitude": 660,
+    "areaCode": [348],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TRC",
+        "name": {
+          "en": "Southeast Anatolia",
+          "tr": "Güneydoğu Anadolu"
+        }
+      },
+      "nuts2": {
+        "code": "TRC1",
+        "name": "Gaziantep"
+      },
+      "nuts3": "TRC13"
+    },
+    "coordinates": {
+      "latitude": 36.71667,
+      "longitude": 37.11667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/4qRGCoNwMNn9BJ8G8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223140"
+    },
+    "region": {
+      "en": "Southeastern Anatolia",
+      "tr": "Güneydoğu Anadolu"
+    },
+    "districts": [
+      {
+        "id": 2023,
+        "name": "Elbeyli",
+        "population": 6252,
+        "area": 238
+      },
+      {
+        "id": 1476,
+        "name": "Merkez",
+        "population": 130665,
+        "area": 610
+      },
+      {
+        "id": 2024,
+        "name": "Musabeyli",
+        "population": 13108,
+        "area": 346
+      },
+      {
+        "id": 2025,
+        "name": "Polateli",
+        "population": 5154,
+        "area": 218
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Osmaniye",
+    "population": 557666,
+    "area": 3320,
+    "altitude": 121,
+    "areaCode": [328],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR6",
+        "name": {
+          "en": "Mediterranean",
+          "tr": "Akdeniz"
+        }
+      },
+      "nuts2": {
+        "code": "TR63",
+        "name": "Hatay"
+      },
+      "nuts3": "TR633"
+    },
+    "coordinates": {
+      "latitude": 37.06667,
+      "longitude": 36.25
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/UVsA8GVQDsxjUysN9",
+      "openStreetMap": "https://www.openstreetmap.org/relation/167232"
+    },
+    "region": {
+      "en": "Mediterranean",
+      "tr": "Akdeniz"
+    },
+    "districts": [
+      {
+        "id": 1165,
+        "name": "Bahçe",
+        "population": 23218,
+        "area": 208
+      },
+      {
+        "id": 1743,
+        "name": "Düziçi",
+        "population": 86616,
+        "area": 595
+      },
+      {
+        "id": 2027,
+        "name": "Hasanbeyli",
+        "population": 5455,
+        "area": 168
+      },
+      {
+        "id": 1423,
+        "name": "Kadirli",
+        "population": 127513,
+        "area": 1021
+      },
+      {
+        "id": 1560,
+        "name": "Merkez",
+        "population": 280068,
+        "area": 859
+      },
+      {
+        "id": 2028,
+        "name": "Sumbas",
+        "population": 13375,
+        "area": 358
+      },
+      {
+        "id": 2029,
+        "name": "Toprakkale",
+        "population": 21421,
+        "area": 112
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Düzce",
+    "population": 409865,
+    "area": 2492,
+    "altitude": 149,
+    "areaCode": [380],
+    "isMetropolitan": false,
+    "nuts": {
+      "nuts1": {
+        "code": "TR4",
+        "name": {
+          "en": "East Marmara",
+          "tr": "Doğu Marmara"
+        }
+      },
+      "nuts2": {
+        "code": "TR42",
+        "name": "Kocaeli"
+      },
+      "nuts3": "TR423"
+    },
+    "coordinates": {
+      "latitude": 40.83333,
+      "longitude": 31.16667
+    },
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/ypKm6p456SRRkSCd8",
+      "openStreetMap": "https://www.openstreetmap.org/relation/223460"
+    },
+    "region": {
+      "en": "Black Sea",
+      "tr": "Karadeniz"
+    },
+    "districts": [
+      {
+        "id": 1116,
+        "name": "Akçakoca",
+        "population": 41363,
+        "area": 380
+      },
+      {
+        "id": 1784,
+        "name": "Cumayeri",
+        "population": 16091,
+        "area": 113
+      },
+      {
+        "id": 1905,
+        "name": "Çilimli",
+        "population": 19097,
+        "area": 85
+      },
+      {
+        "id": 1794,
+        "name": "Gölyaka",
+        "population": 20962,
+        "area": 228
+      },
+      {
+        "id": 2017,
+        "name": "Gümüşova",
+        "population": 17198,
+        "area": 103
+      },
+      {
+        "id": 2031,
+        "name": "Kaynaşlı",
+        "population": 20679,
+        "area": 237
+      },
+      {
+        "id": 1292,
+        "name": "Merkez",
+        "population": 259527,
+        "area": 710
+      },
+      {
+        "id": 1730,
+        "name": "Yığılca",
+        "population": 14948,
+        "area": 636
+      }
+    ]
+  }
+]
