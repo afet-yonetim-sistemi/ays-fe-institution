@@ -12,10 +12,20 @@ interface FilterInputProps {
   placeholder?: string
   type?: string
   error?: string | null
+  hideNumberSpinner?: boolean
 }
 
 const FilterInput: React.FC<FilterInputProps> = React.memo(
-  ({ id, label, value, onChange, placeholder = '', type = 'text', error }) => {
+  ({
+    id,
+    label,
+    value,
+    onChange,
+    placeholder = '',
+    type = 'text',
+    error,
+    hideNumberSpinner = false,
+  }) => {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       const char = e.key
 
@@ -55,6 +65,9 @@ const FilterInput: React.FC<FilterInputProps> = React.memo(
       onChange(e)
     }
 
+    const noNumberSpinnerClass =
+      'appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none'
+
     return (
       <div className="relative">
         <Input
@@ -65,7 +78,8 @@ const FilterInput: React.FC<FilterInputProps> = React.memo(
           onKeyDown={handleKeyDown}
           type={type}
           className={cn(
-            'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+            'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            type === 'number' && hideNumberSpinner && noNumberSpinnerClass
           )}
         />
         <Label
