@@ -12,17 +12,13 @@ import PhoneInput from './ui/phone-input'
 interface PhoneNumberFieldProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
-  name: string
 }
 
-const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
-  control,
-  name,
-}) => {
+const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({ control }) => {
   return (
     <Controller
       control={control}
-      name={name}
+      name="phoneNumber"
       render={({ field, fieldState }) => (
         <FormItem>
           <FormLabel>{t('common.phoneNumber')}</FormLabel>
