@@ -1,5 +1,6 @@
 'use client'
 
+import CitySelect from '@/components/CitySelect'
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
 import PhoneNumberField from '@/components/PhoneNumberField'
@@ -21,14 +22,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { cityList } from '@/constants/trCity'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
@@ -171,35 +164,10 @@ const Page = ({
                     )}
                   />
 
-                  <PhoneNumberField control={control} name="phoneNumber" />
+                  <PhoneNumberField control={control} />
 
-                  <FormField
-                    control={control}
-                    name="city"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('common.city')}</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder={t('common.city')} />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {cityList.map((city) => (
-                              <SelectItem key={city} value={city}>
-                                {city}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <CitySelect control={control} />
+
                   <FormField
                     control={form.control}
                     name="password"
