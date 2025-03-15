@@ -17,3 +17,15 @@ export const showErrorToast = (
     variant: 'destructive',
   })
 }
+
+export const showSuccessToast = (
+  description: string = 'common.success'
+): void => {
+  const title = 'common.success'
+
+  toast({
+    title,
+    description,
+    variant: 'success',
+  })
+}

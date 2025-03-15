@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/useToast'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   approveAdminRegistrationApplication,

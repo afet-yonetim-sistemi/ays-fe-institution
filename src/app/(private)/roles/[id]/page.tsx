@@ -17,7 +17,7 @@ import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,

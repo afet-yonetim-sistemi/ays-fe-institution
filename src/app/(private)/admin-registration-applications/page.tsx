@@ -5,7 +5,7 @@ import { DataTable } from '@/components/ui/data-table'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
 import { usePagination } from '@/hooks/usePagination'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import {
   AdminRegistrationApplication,
   columns,

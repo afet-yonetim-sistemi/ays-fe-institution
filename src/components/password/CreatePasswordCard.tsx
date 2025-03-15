@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/form'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
 import { zodResolver } from '@hookform/resolvers/zod'

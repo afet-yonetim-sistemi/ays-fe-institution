@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/select'
 import { cityList } from '@/constants/trCity'
 import { useToast } from '@/hooks/useToast'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   getAdminRegistrationApplicationSummary,

@@ -15,7 +15,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Permission } from '@/constants/permissions'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import {

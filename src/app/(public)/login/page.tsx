@@ -21,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { loginFailed, loginSuccess } from '@/modules/auth/authSlice'
 import authService from '@/modules/auth/service'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'

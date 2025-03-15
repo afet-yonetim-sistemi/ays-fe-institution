@@ -28,7 +28,7 @@ import {
   formatPhoneNumber,
   formatReferenceNumber,
 } from '@/lib/dataFormatters'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'

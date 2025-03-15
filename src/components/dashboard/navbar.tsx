@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { parseJwt } from '@/lib/helpers'
 import { selectRefreshToken, selectToken } from '@/modules/auth/authSlice'
 import authService from '@/modules/auth/service'

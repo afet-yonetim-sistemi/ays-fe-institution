@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getRoleSummary } from '@/modules/roles/service'
-import { showErrorToast } from '@/lib/showErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { UserRole } from '@/modules/users/constants/types'
 
 const useFetchRoleSummary = () => {
