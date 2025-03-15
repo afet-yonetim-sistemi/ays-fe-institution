@@ -1,13 +1,11 @@
 import { toast } from '@/hooks/useToast'
 import { AxiosError } from 'axios'
 
-export const handleErrorToast = (
+export const showErrorToast = (
   error?: AxiosError,
-  customMessage?: { title?: string; description?: string }
+  description: string = 'common.error.defaultDescription'
 ): void => {
-  const title = customMessage?.title ?? 'common.error.defaultTitle'
-  let description =
-    customMessage?.description ?? 'common.error.defaultDescription'
+  const title = 'common.error.defaultTitle'
 
   if (error?.response?.status === 429) {
     description = 'common.error.tooManyRequest'
