@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getRoleSummary } from '@/modules/roles/service'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { UserRole } from '@/modules/users/constants/types'
 
 const useFetchRoleSummary = () => {
@@ -16,8 +16,8 @@ const useFetchRoleSummary = () => {
         }))
         setRoles(availableRoles)
       })
-      .catch((err) => {
-        handleErrorToast(err, { description: 'common.error.fetch' })
+      .catch((error) => {
+        showErrorToast(error, 'common.error.fetch')
       })
   }, [])
 

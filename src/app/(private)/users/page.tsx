@@ -13,7 +13,7 @@ import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, User } from '@/modules/users/components/columns'
 import { userStatuses } from '@/modules/users/constants/statuses'
@@ -125,7 +125,7 @@ const Page = (): JSX.Element => {
       getUsers(filters)
         .then((response) => {
           if (!response.data.isSuccess) {
-            handleErrorToast()
+            showErrorToast()
             return
           }
 
@@ -141,7 +141,7 @@ const Page = (): JSX.Element => {
           setTotalRows(totalElementCount)
         })
         .catch((error) => {
-          handleErrorToast(error)
+          showErrorToast(error)
         })
         .finally(() => {
           setIsLoading(false)

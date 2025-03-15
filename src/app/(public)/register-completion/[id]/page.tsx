@@ -1,5 +1,6 @@
 'use client'
 
+import CitySelect from '@/components/CitySelect'
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
 import PhoneNumberField from '@/components/PhoneNumberField'
@@ -21,16 +22,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { cityList } from '@/constants/trCity'
-import { useToast } from '@/hooks/useToast'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   getAdminRegistrationApplicationSummary,
@@ -50,7 +42,6 @@ const Page = ({
   params: { slug: string; id: string }
 }): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(true)
   const [institutionName, setInstitutionName] = useState<string>('')
   const router = useRouter()
@@ -82,15 +73,11 @@ const Page = ({
     setIsLoading(true)
     postRegistrationApplication(params.id, values)
       .then(() => {
-        toast({
-          title: 'common.success',
-          description: 'application.admin.completion.success',
-          variant: 'success',
-        })
+        showSuccessToast('application.admin.completion.success')
         router.push('/login')
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
       .finally(() => {
         setIsLoading(false)
@@ -177,35 +164,10 @@ const Page = ({
                     )}
                   />
 
-                  <PhoneNumberField control={control} name="phoneNumber" />
+                  <PhoneNumberField control={control} />
 
-                  <FormField
-                    control={control}
-                    name="city"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('common.city')}</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder={t('common.city')} />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {cityList.map((city) => (
-                              <SelectItem key={city} value={city}>
-                                {city}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <CitySelect control={control} />
+
                   <FormField
                     control={form.control}
                     name="password"
