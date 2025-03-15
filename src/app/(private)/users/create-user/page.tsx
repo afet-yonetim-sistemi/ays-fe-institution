@@ -14,8 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
-import { useToast } from '@/hooks/useToast'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { CreateUserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { createUser } from '@/modules/users/service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,7 +25,6 @@ import { useTranslation } from 'react-i18next'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateUserValidationSchema),
@@ -78,15 +76,11 @@ const Page = (): JSX.Element => {
 
     createUser(payload)
       .then(() => {
-        toast({
-          title: 'common.success',
-          description: 'user.createSuccess',
-          variant: 'success',
-        })
+        showSuccessToast('user.createSuccess')
         router.push('/users')
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'user.createError' })
+        showErrorToast(error, 'user.createError')
       })
   }
 

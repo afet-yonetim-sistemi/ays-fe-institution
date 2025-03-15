@@ -15,9 +15,8 @@ import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
-import { useToast } from '@/hooks/useToast'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
@@ -46,7 +45,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   params,
 }) => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const router = useRouter()
   const userPermissions = useAppSelector(selectPermissions)
   const form = useForm({
@@ -90,7 +88,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         }))
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'common.error.fetch' })
+        showErrorToast(error, 'common.error.fetch')
         return []
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -214,13 +212,13 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
         })
         .catch((error) => {
-          handleErrorToast(error, { description: 'common.error.fetch' })
+          showErrorToast(error, 'common.error.fetch')
         })
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getAvailableRolePermissions, params.id, toast])
+  }, [getAvailableRolePermissions, params.id])
 
   useEffect(() => {
     if (fetchedRoleDetail && availablePermissions.length > 0) {
@@ -319,7 +317,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     )
 
     if (!isNameChanged && !isPermissionsChanged) {
-      handleErrorToast(undefined, { description: 'common.error.noChange' })
+      showErrorToast(undefined, 'common.error.noChange')
       setIsRoleEditable(false)
       return
     }
@@ -340,18 +338,14 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           setRolePermissions(updatedPermissions)
           setOriginalRolePermissions(updatedPermissions)
 
-          toast({
-            title: 'common.success',
-            description: 'role.updateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('role.updateSuccess')
           setIsRoleEditable(false)
         } else {
-          handleErrorToast(undefined, { description: 'role.updateError' })
+          showErrorToast(undefined, 'role.updateError')
         }
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'role.updateError' })
+        showErrorToast(error, 'role.updateError')
       })
   }
 
@@ -359,18 +353,14 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     deleteRole(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'role.deleteSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('role.deleteSuccess')
           router.push('/roles')
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
@@ -390,18 +380,14 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     activateRole(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'role.activateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('role.activateSuccess')
           refreshRoleStatus('active')
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
@@ -409,18 +395,14 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     deactivateRole(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'role.deactivateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('role.deactivateSuccess')
           refreshRoleStatus('passive')
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
