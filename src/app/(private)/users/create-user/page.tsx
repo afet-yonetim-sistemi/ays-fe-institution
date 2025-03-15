@@ -1,5 +1,6 @@
 'use client'
 
+import CitySelect from '@/components/CitySelect'
 import PhoneNumberField from '@/components/PhoneNumberField'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -138,21 +139,9 @@ const Page = (): JSX.Element => {
               )}
             />
 
-            <PhoneNumberField control={control} name="phoneNumber" />
+            <PhoneNumberField control={control} />
 
-            <FormField
-              control={control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('common.city')}</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <CitySelect control={control} />
           </div>
         </CardContent>
       </Card>
