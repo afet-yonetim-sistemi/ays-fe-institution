@@ -1,5 +1,6 @@
 'use client'
 
+import CitySelect from '@/components/CitySelect'
 import { Button } from '@/components/ui/button'
 import ButtonDialog from '@/components/ui/button-dialog'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -452,24 +453,13 @@ const Page = ({
                       </FormItem>
                     )}
                   />
-                  <FormField
+
+                  <CitySelect
                     control={control}
-                    name="city"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('common.city')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled={!isUserEditable}
-                            defaultValue={userDetails.city ?? ''}
-                            onChange={(e) => field.onChange(e.target.value)}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    defaultValue={userDetails.city}
+                    isDisabled={!isUserEditable}
                   />
+
                   <FormField
                     control={control}
                     name="status"
