@@ -74,9 +74,11 @@ const Page = ({
     postRegistrationApplication(params.id, values)
       .then(() => {
         showSuccessToast('application.admin.completion.success')
+        showSuccessToast('application.admin.completion.success')
         router.push('/login')
       })
       .catch((error) => {
+        showErrorToast(error)
         showErrorToast(error)
       })
       .finally(() => {
