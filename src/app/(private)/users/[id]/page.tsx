@@ -24,9 +24,8 @@ import {
 import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
-import { useToast } from '@/hooks/useToast'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { userStatuses } from '@/modules/users/constants/statuses'
@@ -52,7 +51,6 @@ const Page = ({
   params: { slug: string; id: string }
 }): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(UserValidationSchema),
@@ -89,7 +87,7 @@ const Page = ({
       })
       .catch((error) => {
         setError(error.message)
-        handleErrorToast(error, { description: 'common.error.fetch' })
+        showErrorToast(error, 'common.error.fetch')
       })
       .finally(() => {
         setIsLoading(false)
@@ -214,7 +212,7 @@ const Page = ({
     })
 
     if (!isChanged) {
-      handleErrorToast(undefined, { description: 'common.error.noChange' })
+      showErrorToast(undefined, 'common.error.noChange')
       return
     }
 
@@ -230,23 +228,15 @@ const Page = ({
             ...currentValues,
           })
 
-          toast({
-            title: 'common.success',
-            description: 'user.updateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('user.updateSuccess')
           setIsUserEditable(false)
           fetchDetails()
         } else {
-          handleErrorToast(undefined, {
-            description: 'user.updateError',
-          })
+          showErrorToast(undefined, 'user.updateError')
         }
       })
       .catch((error) => {
-        handleErrorToast(error, {
-          description: 'user.updateError',
-        })
+        showErrorToast(error, 'user.updateError')
       })
   }
 
@@ -254,11 +244,7 @@ const Page = ({
     activateUser(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'user.activateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('user.activateSuccess')
           if (userDetails) {
             setUserDetails({
               ...userDetails,
@@ -266,11 +252,11 @@ const Page = ({
             })
           }
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
@@ -278,11 +264,7 @@ const Page = ({
     deactivateUser(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'user.deactivateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('user.deactivateSuccess')
           if (userDetails) {
             setUserDetails({
               ...userDetails,
@@ -290,11 +272,11 @@ const Page = ({
             })
           }
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
@@ -302,18 +284,14 @@ const Page = ({
     deleteUser(params.id)
       .then((response) => {
         if (response.isSuccess) {
-          toast({
-            title: 'common.success',
-            description: 'user.deleteSucces',
-            variant: 'success',
-          })
+          showSuccessToast('user.deleteSucces')
           router.push('/users')
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 

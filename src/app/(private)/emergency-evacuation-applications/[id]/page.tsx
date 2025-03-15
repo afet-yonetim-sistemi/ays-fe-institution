@@ -22,13 +22,12 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { Permission } from '@/constants/permissions'
-import { toast } from '@/hooks/useToast'
 import {
   formatDateTime,
   formatPhoneNumber,
   formatReferenceNumber,
 } from '@/lib/dataFormatters'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
@@ -93,7 +92,7 @@ const Page = ({
         })
         .catch((error) => {
           setError(error.message)
-          handleErrorToast(error, { description: 'common.error.fetch' })
+          showErrorToast(error, 'common.error.fetch')
         })
         .finally(() => setIsLoading(false))
     }
@@ -141,9 +140,7 @@ const Page = ({
     })
 
     if (!isChanged) {
-      handleErrorToast(undefined, {
-        description: 'common.error.noChange',
-      })
+      showErrorToast(undefined, 'common.error.noChange')
       return
     }
     updateEmergencyEvacuationApplication(params.id, currentValues)
@@ -157,23 +154,14 @@ const Page = ({
             ...emergencyEvacuationApplicationDetails!,
             ...currentValues,
           })
-
-          toast({
-            title: 'common.success',
-            description: 'application.updateSuccess',
-            variant: 'success',
-          })
+          showSuccessToast('application.updateSuccess')
           setIsEmergencyApplicationEditable(false)
         } else {
-          handleErrorToast(undefined, {
-            description: 'application.updateError',
-          })
+          showErrorToast(undefined, 'application.updateError')
         }
       })
       .catch((error) => {
-        handleErrorToast(error, {
-          description: 'application.updateError',
-        })
+        showErrorToast(error, 'application.updateError')
       })
   }
 

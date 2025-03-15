@@ -29,8 +29,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { cityList } from '@/constants/trCity'
-import { useToast } from '@/hooks/useToast'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
   getAdminRegistrationApplicationSummary,
@@ -50,7 +49,6 @@ const Page = ({
   params: { slug: string; id: string }
 }): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(true)
   const [institutionName, setInstitutionName] = useState<string>('')
   const router = useRouter()
@@ -82,15 +80,11 @@ const Page = ({
     setIsLoading(true)
     postRegistrationApplication(params.id, values)
       .then(() => {
-        toast({
-          title: 'common.success',
-          description: 'application.admin.completion.success',
-          variant: 'success',
-        })
+        showSuccessToast('application.admin.completion.success')
         router.push('/login')
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
       .finally(() => {
         setIsLoading(false)

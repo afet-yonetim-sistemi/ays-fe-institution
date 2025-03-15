@@ -13,9 +13,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Permission } from '@/constants/permissions'
-import { useToast } from '@/hooks/useToast'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import {
@@ -37,7 +36,6 @@ const Page = ({
   params: { slug: string; id: string }
 }): React.JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const userPermissions = useAppSelector(selectPermissions)
   const router = useRouter()
   const form = useForm({
@@ -57,40 +55,28 @@ const Page = ({
     const reason = { rejectReason }
     rejectAdminRegistrationApplication(reason, params.id)
       .then(() => {
-        toast({
-          title: 'common.success',
-          description: 'application.rejectSuccess',
-          variant: 'success',
-        })
+        showSuccessToast('application.rejectSuccess')
         router.push('/admin-registration-applications')
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
   const handleApprove = (): void | object => {
     approveAdminRegistrationApplicationWithId(params.id)
       .then(() => {
-        toast({
-          title: 'common.success',
-          description: 'application.approveSuccess',
-          variant: 'success',
-        })
+        showSuccessToast('application.approveSuccess')
         router.push('/admin-registration-applications')
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
   const handleCopyLink = (): void => {
     navigator.clipboard.writeText(registerCompletionUrl).then(() => {
-      toast({
-        title: 'common.success',
-        description: 'application.admin.copied',
-        variant: 'success',
-      })
+      showSuccessToast('application.admin.copied')
     })
   }
 
@@ -101,7 +87,7 @@ const Page = ({
           setAdminRegistrationApplicationDetails(response.response)
         })
         .catch((error) => {
-          handleErrorToast(error, { description: 'common.error.fetch' })
+          showErrorToast(error, 'common.error.fetch')
         })
         .finally(() => setIsLoading(false))
     }

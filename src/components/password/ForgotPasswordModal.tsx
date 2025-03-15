@@ -11,8 +11,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { useToast } from '@/hooks/useToast'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
 import React, { useEffect, useState } from 'react'
@@ -28,7 +27,6 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   disabled,
 }) => {
   const { t } = useTranslation()
-  const { toast } = useToast()
 
   const [email, setEmail] = useState<string>(loginEmail ?? '')
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -52,16 +50,10 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
       .forgotPassword(email)
       .then(() => {
         setIsOpen(false)
-        toast({
-          title: 'common.success',
-          description: 'password.forgot.success',
-          variant: 'success',
-        })
+        showSuccessToast('password.forgot.success')
       })
       .catch((error) => {
-        handleErrorToast(error, {
-          description: 'password.forgot.error',
-        })
+        showErrorToast(error, 'password.forgot.error')
       })
       .finally(() => {
         setLoading(false)

@@ -12,8 +12,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { useToast } from '@/hooks/useToast'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
@@ -30,7 +29,6 @@ import { useTranslation } from 'react-i18next'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  const { toast } = useToast()
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateRoleSchema),
@@ -64,7 +62,7 @@ const Page = (): JSX.Element => {
         setFetchedRolePermissions(permissions)
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'common.error.fetch' })
+        showErrorToast(error, 'common.error.fetch')
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -150,15 +148,11 @@ const Page = (): JSX.Element => {
 
     createRole({ name, permissionIds: activePermissionIds })
       .then(() => {
-        toast({
-          title: 'common.success',
-          description: 'role.createSuccess',
-          variant: 'success',
-        })
+        showSuccessToast('role.createSuccess')
         router.push('/roles')
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'role.createError' })
+        showErrorToast(error, 'role.createError')
       })
   }
 
