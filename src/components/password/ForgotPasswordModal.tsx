@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { useToast } from '@/hooks/useToast'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showErrorToast'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
 import React, { useEffect, useState } from 'react'
@@ -59,9 +59,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
         })
       })
       .catch((error) => {
-        handleErrorToast(error, {
-          description: 'password.forgot.error',
-        })
+        showErrorToast(error, 'password.forgot.error')
       })
       .finally(() => {
         setLoading(false)

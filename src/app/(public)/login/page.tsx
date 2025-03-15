@@ -21,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showErrorToast'
 import { loginFailed, loginSuccess } from '@/modules/auth/authSlice'
 import authService from '@/modules/auth/service'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
@@ -61,9 +61,7 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         dispatch(loginFailed(error.message))
         form.setValue('password', '')
-        handleErrorToast(error, {
-          description: 'login.error.incorrectCredentials',
-        })
+        showErrorToast(error, 'login.error.incorrectCredentials')
       })
       .finally(() => setLoading(false))
   }

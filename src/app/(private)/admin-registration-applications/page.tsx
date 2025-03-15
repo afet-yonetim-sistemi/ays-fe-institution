@@ -5,7 +5,7 @@ import { DataTable } from '@/components/ui/data-table'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
 import { usePagination } from '@/hooks/usePagination'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showErrorToast'
 import {
   AdminRegistrationApplication,
   columns,
@@ -80,7 +80,7 @@ const Page = (): JSX.Element => {
       getAdminRegistrationApplications(filters)
         .then((response) => {
           if (!response.data.isSuccess) {
-            handleErrorToast()
+            showErrorToast()
             return
           }
 
@@ -96,7 +96,7 @@ const Page = (): JSX.Element => {
           setTotalRows(totalElementCount)
         })
         .catch((error) => {
-          handleErrorToast(error)
+          showErrorToast(error)
         })
         .finally(() => {
           setIsLoading(false)

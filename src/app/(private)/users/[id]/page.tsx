@@ -26,7 +26,7 @@ import { Permission } from '@/constants/permissions'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showErrorToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { userStatuses } from '@/modules/users/constants/statuses'
@@ -89,7 +89,7 @@ const Page = ({
       })
       .catch((error) => {
         setError(error.message)
-        handleErrorToast(error, { description: 'common.error.fetch' })
+        showErrorToast(error, 'common.error.fetch')
       })
       .finally(() => {
         setIsLoading(false)
@@ -214,7 +214,7 @@ const Page = ({
     })
 
     if (!isChanged) {
-      handleErrorToast(undefined, { description: 'common.error.noChange' })
+      showErrorToast(undefined, 'common.error.noChange')
       return
     }
 
@@ -238,15 +238,11 @@ const Page = ({
           setIsUserEditable(false)
           fetchDetails()
         } else {
-          handleErrorToast(undefined, {
-            description: 'user.updateError',
-          })
+          showErrorToast(undefined, 'user.updateError')
         }
       })
       .catch((error) => {
-        handleErrorToast(error, {
-          description: 'user.updateError',
-        })
+        showErrorToast(error, 'user.updateError')
       })
   }
 
@@ -266,11 +262,11 @@ const Page = ({
             })
           }
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
@@ -290,11 +286,11 @@ const Page = ({
             })
           }
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
@@ -309,11 +305,11 @@ const Page = ({
           })
           router.push('/users')
         } else {
-          handleErrorToast()
+          showErrorToast()
         }
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 

@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/form'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showErrorToast'
 import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -58,9 +58,7 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
         })
       })
       .catch((error) => {
-        handleErrorToast(error, {
-          description: 'password.create.error',
-        })
+        showErrorToast(error, 'password.create.error')
       })
       .finally(() => {
         setTimeout(() => {

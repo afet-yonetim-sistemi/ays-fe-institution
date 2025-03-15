@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { useToast } from '@/hooks/useToast'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showErrorToast'
 import { CreateUserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { createUser } from '@/modules/users/service'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -86,7 +86,7 @@ const Page = (): JSX.Element => {
         router.push('/users')
       })
       .catch((error) => {
-        handleErrorToast(error, { description: 'user.createError' })
+        showErrorToast(error, 'user.createError')
       })
   }
 

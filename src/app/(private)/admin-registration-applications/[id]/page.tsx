@@ -15,7 +15,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Permission } from '@/constants/permissions'
 import { useToast } from '@/hooks/useToast'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
-import { handleErrorToast } from '@/lib/handleErrorToast'
+import { showErrorToast } from '@/lib/showErrorToast'
 import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import {
@@ -65,7 +65,7 @@ const Page = ({
         router.push('/admin-registration-applications')
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
@@ -80,7 +80,7 @@ const Page = ({
         router.push('/admin-registration-applications')
       })
       .catch((error) => {
-        handleErrorToast(error)
+        showErrorToast(error)
       })
   }
 
@@ -101,7 +101,7 @@ const Page = ({
           setAdminRegistrationApplicationDetails(response.response)
         })
         .catch((error) => {
-          handleErrorToast(error, { description: 'common.error.fetch' })
+          showErrorToast(error, 'common.error.fetch')
         })
         .finally(() => setIsLoading(false))
     }
