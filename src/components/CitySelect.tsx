@@ -19,9 +19,15 @@ import { t } from 'i18next'
 interface CitySelectProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
+  defaultValue?: string
+  isDisabled?: boolean
 }
 
-const CitySelect = ({ control }: CitySelectProps) => {
+const CitySelect = ({
+  control,
+  defaultValue = '',
+  isDisabled = false,
+}: CitySelectProps) => {
   const [cityList, setCityList] = useState<string[]>([])
 
   useEffect(() => {
@@ -39,6 +45,11 @@ const CitySelect = ({ control }: CitySelectProps) => {
     fetchCities()
   }, [])
 
+  const citiesToShow =
+    defaultValue && !cityList.includes(defaultValue)
+      ? [defaultValue, ...cityList]
+      : cityList
+
   return (
     <FormField
       control={control}
@@ -46,14 +57,18 @@ const CitySelect = ({ control }: CitySelectProps) => {
       render={({ field }) => (
         <FormItem>
           <FormLabel>{t('common.city')}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select
+            onValueChange={field.onChange}
+            value={field.value || defaultValue}
+            disabled={isDisabled}
+          >
             <FormControl>
               <SelectTrigger>
                 <SelectValue placeholder={t('common.city')} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {cityList.map((city) => (
+              {citiesToShow.map((city) => (
                 <SelectItem key={city} value={city}>
                   {city}
                 </SelectItem>
