@@ -37,7 +37,7 @@ const DataTableSort = <T extends object>({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger
-          className="rounded transition-colors hover:bg-muted/90 w-full h-full p-2"
+          className="rounded transition-colors hover:bg-muted/90 w-full h-full"
           onClick={() => {
             column.toggleSorting()
             onSortClick(column)
