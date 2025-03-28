@@ -598,24 +598,24 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                 </div>
               </CardContent>
             </Card>
-            {permissionIsLoading ? (
-              <LoadingSpinner />
-            ) : (
-              <Card className="mb-6">
-                <CardHeader>
-                  <div className="flex items-center">
-                    <CardTitle>{t('role.permission')}</CardTitle>
-                    <Switch
-                      className="ml-4"
-                      disabled={!isRoleEditable}
-                      checked={masterPermissionsSwitch}
-                      onCheckedChange={(isActive) =>
-                        handleMasterSwitchChange(isActive)
-                      }
-                    />
-                  </div>
-                </CardHeader>
-                <CardContent>
+            <Card className="mb-6">
+              <CardHeader>
+                <div className="flex items-center">
+                  <CardTitle>{t('role.permission')}</CardTitle>
+                  <Switch
+                    className="ml-4"
+                    disabled={!isRoleEditable}
+                    checked={masterPermissionsSwitch}
+                    onCheckedChange={(isActive) =>
+                      handleMasterSwitchChange(isActive)
+                    }
+                  />
+                </div>
+              </CardHeader>
+              <CardContent>
+                {permissionIsLoading ? (
+                  <LoadingSpinner />
+                ) : (
                   <div className="grid grid-cols-2 gap-4">
                     {Object.entries(categorizePermissions(rolePermissions)).map(
                       ([category, permissions]) => (
@@ -630,9 +630,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       )
                     )}
                   </div>
-                </CardContent>
-              </Card>
-            )}
+                )}
+              </CardContent>
+            </Card>
           </form>
         </Form>
       )}

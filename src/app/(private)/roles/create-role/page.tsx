@@ -180,31 +180,31 @@ const Page = (): JSX.Element => {
           </FormItem>
         )}
       />
-      {permissionIsLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <Card className="mb-6">
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <CardTitle>{t('role.permission')}</CardTitle>
-                <div className="ml-4 flex items-center gap-2">
-                  <Switch
-                    checked={masterPermissionsSwitch}
-                    onCheckedChange={(isActive) =>
-                      handleMasterSwitchChange(isActive)
-                    }
-                  />
-                  {minPermissionError && (
-                    <p className="text-destructive text-sm">
-                      {minPermissionError}
-                    </p>
-                  )}
-                </div>
+      <Card className="mb-6">
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <CardTitle>{t('role.permission')}</CardTitle>
+              <div className="ml-4 flex items-center gap-2">
+                <Switch
+                  checked={masterPermissionsSwitch}
+                  onCheckedChange={(isActive) =>
+                    handleMasterSwitchChange(isActive)
+                  }
+                />
+                {minPermissionError && (
+                  <p className="text-destructive text-sm">
+                    {minPermissionError}
+                  </p>
+                )}
               </div>
             </div>
-          </CardHeader>
-          <CardContent>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {permissionIsLoading ? (
+            <LoadingSpinner />
+          ) : (
             <div className="grid grid-cols-2 gap-4">
               {Object.entries(categorizePermissions(rolePermissions)).map(
                 ([category, permissions]) => (
@@ -219,9 +219,9 @@ const Page = (): JSX.Element => {
                 )
               )}
             </div>
-          </CardContent>
-        </Card>
-      )}
+          )}
+        </CardContent>
+      </Card>
     </Form>
   )
 }
