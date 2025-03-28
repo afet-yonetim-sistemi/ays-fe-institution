@@ -54,7 +54,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const { control, reset, formState } = form
 
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [detailIsLoading, setDetailIsLoading] = useState(true)
+  const [permissionIsLoading, setPermissionIsLoading] = useState(true)
   const [isRoleEditable, setIsRoleEditable] = useState<boolean>(false)
 
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
@@ -91,6 +92,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         showErrorToast(error, 'common.error.fetch')
         return []
       })
+      .finally(() => setPermissionIsLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -214,7 +216,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         .catch((error) => {
           showErrorToast(error, 'common.error.fetch')
         })
-        .finally(() => setIsLoading(false))
+        .finally(() => setDetailIsLoading(false))
     }
     fetchDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -449,8 +451,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
-      {isLoading && <LoadingSpinner />}
-      {!isLoading && roleDetail && (
+      {detailIsLoading && <LoadingSpinner />}
+      {!detailIsLoading && roleDetail && (
         <Form {...form}>
           <form className="space-y-6">
             <div className="flex justify-between items-center mb-6">
@@ -611,20 +613,24 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 gap-4">
-                  {Object.entries(categorizePermissions(rolePermissions)).map(
-                    ([category, permissions]) => (
-                      <PermissionCard
-                        key={category}
-                        category={t(category)}
-                        permissions={permissions}
-                        isEditable={isRoleEditable}
-                        onPermissionToggle={handlePermissionToggle}
-                        onCategoryToggle={handleCategoryToggle}
-                      />
-                    )
-                  )}
-                </div>
+                {permissionIsLoading ? (
+                  <LoadingSpinner />
+                ) : (
+                  <div className="grid grid-cols-2 gap-4">
+                    {Object.entries(categorizePermissions(rolePermissions)).map(
+                      ([category, permissions]) => (
+                        <PermissionCard
+                          key={category}
+                          category={t(category)}
+                          permissions={permissions}
+                          isEditable={isRoleEditable}
+                          onPermissionToggle={handlePermissionToggle}
+                          onCategoryToggle={handleCategoryToggle}
+                        />
+                      )
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </form>

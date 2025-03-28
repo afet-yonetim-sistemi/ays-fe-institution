@@ -60,7 +60,7 @@ const Page = ({
   const userPermissions = useAppSelector(selectPermissions)
   const { control, reset, formState, getValues } = form
 
-  const roles = useFetchRoleSummary()
+  const { roles, userRolesIsLoading } = useFetchRoleSummary()
   const [selectedRoles, setSelectedRoles] = useState<string[]>([])
   const [userDetails, setUserDetails] = useState<User | null>(null)
   const [initialUserValues, setInitialUserValues] = useState<User | null>(null)
@@ -582,26 +582,30 @@ const Page = ({
                     <FormControl>
                       <div className="space-y-2">
                         <div className="grid grid-cols-1 gap-1">
-                          {roles.map((role) => (
-                            <FormItem
-                              key={role.id}
-                              className="flex items-center"
-                            >
-                              <FormControl>
-                                <Switch
-                                  className="mt-2"
-                                  checked={selectedRoles.includes(role.id)}
-                                  onCheckedChange={() =>
-                                    handleRoleToggle(role.id)
-                                  }
-                                  disabled={!isUserEditable}
-                                />
-                              </FormControl>
-                              <FormLabel className="ml-3 items-center">
-                                {role.name}
-                              </FormLabel>
-                            </FormItem>
-                          ))}
+                          {userRolesIsLoading ? (
+                            <LoadingSpinner />
+                          ) : (
+                            roles.map((role) => (
+                              <FormItem
+                                key={role.id}
+                                className="flex items-center"
+                              >
+                                <FormControl>
+                                  <Switch
+                                    className="mt-2"
+                                    checked={selectedRoles.includes(role.id)}
+                                    onCheckedChange={() =>
+                                      handleRoleToggle(role.id)
+                                    }
+                                    disabled={!isUserEditable}
+                                  />
+                                </FormControl>
+                                <FormLabel className="ml-3 items-center">
+                                  {role.name}
+                                </FormLabel>
+                              </FormItem>
+                            ))
+                          )}
                         </div>
                       </div>
                     </FormControl>

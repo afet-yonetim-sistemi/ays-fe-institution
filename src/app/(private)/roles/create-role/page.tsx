@@ -26,6 +26,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -39,6 +40,7 @@ const Page = (): JSX.Element => {
   const [fetchedRolePermissions, setFetchedRolePermissions] = useState<
     RolePermission[]
   >([])
+  const [permissionIsLoading, setPermissionIsLoading] = useState(true)
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
   const [masterPermissionsSwitch, setMasterPermissionsSwitch] =
     useState<boolean>(false)
@@ -64,6 +66,7 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         showErrorToast(error, 'common.error.fetch')
       })
+      .finally(() => setPermissionIsLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -199,20 +202,24 @@ const Page = (): JSX.Element => {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            {Object.entries(categorizePermissions(rolePermissions)).map(
-              ([category, permissions]) => (
-                <PermissionCard
-                  key={category}
-                  category={category}
-                  permissions={permissions}
-                  isEditable={true}
-                  onPermissionToggle={handlePermissionToggle}
-                  onCategoryToggle={handleCategoryToggle}
-                />
-              )
-            )}
-          </div>
+          {permissionIsLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <div className="grid grid-cols-2 gap-4">
+              {Object.entries(categorizePermissions(rolePermissions)).map(
+                ([category, permissions]) => (
+                  <PermissionCard
+                    key={category}
+                    category={category}
+                    permissions={permissions}
+                    isEditable={true}
+                    onPermissionToggle={handlePermissionToggle}
+                    onCategoryToggle={handleCategoryToggle}
+                  />
+                )
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
     </Form>

@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
@@ -33,7 +34,7 @@ const Page = (): JSX.Element => {
   })
   const { control, watch, formState } = form
 
-  const roles = useFetchRoleSummary()
+  const { roles, userRolesIsLoading } = useFetchRoleSummary()
   const [selectedRoles, setSelectedRoles] = useState<string[]>([])
   const [minRoleError, setMinRoleError] = useState<string | null>(null)
 
@@ -160,18 +161,24 @@ const Page = (): JSX.Element => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-1">
-            {roles.map((role) => (
-              <FormItem key={role.id} className="flex items-center">
-                <FormControl>
-                  <Switch
-                    className="mt-2"
-                    checked={selectedRoles.includes(role.id)}
-                    onCheckedChange={() => handleRoleToggle(role.id)}
-                  />
-                </FormControl>
-                <FormLabel className="ml-3 items-center">{role.name}</FormLabel>
-              </FormItem>
-            ))}
+            {userRolesIsLoading ? (
+              <LoadingSpinner />
+            ) : (
+              roles.map((role) => (
+                <FormItem key={role.id} className="flex items-center">
+                  <FormControl>
+                    <Switch
+                      className="mt-2"
+                      checked={selectedRoles.includes(role.id)}
+                      onCheckedChange={() => handleRoleToggle(role.id)}
+                    />
+                  </FormControl>
+                  <FormLabel className="ml-3 items-center">
+                    {role.name}
+                  </FormLabel>
+                </FormItem>
+              ))
+            )}
           </div>
         </CardContent>
       </Card>

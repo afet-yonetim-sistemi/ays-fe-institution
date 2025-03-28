@@ -5,6 +5,7 @@ import { UserRole } from '@/modules/users/constants/types'
 
 const useFetchRoleSummary = () => {
   const [roles, setRoles] = useState<UserRole[]>([])
+  const [userRolesIsLoading, setUserRolesIsLoading] = useState(true)
 
   useEffect(() => {
     getRoleSummary()
@@ -19,9 +20,10 @@ const useFetchRoleSummary = () => {
       .catch((error) => {
         showErrorToast(error, 'common.error.fetch')
       })
+      .finally(() => setUserRolesIsLoading(false))
   }, [])
 
-  return roles
+  return { roles, userRolesIsLoading }
 }
 
 export default useFetchRoleSummary
