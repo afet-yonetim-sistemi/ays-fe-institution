@@ -112,7 +112,7 @@
       "title": "Emergency Evacuation Applications",
       "detailsTitle": "Emergency Evacuation Application Details",
       "referenceNumber": "Reference Number",
-      "inPerson": "Is In Person",
+      "inPerson": "Is In Person?",
       "seatingCount": "Seat Count",
       "sourceCity": "Source City",
       "sourceDistrict": "Source District",
