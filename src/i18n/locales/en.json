@@ -9,6 +9,7 @@
     "send": "Send",
     "reject": "Reject",
     "approve": "Approve",
+    "confirmDescription": "These changes are irreversible. Do you want to proceed?",
     "institution": "Institution",
     "firstName": "First Name",
     "lastName": "Last Name",
