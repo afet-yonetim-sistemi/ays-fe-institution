@@ -4,6 +4,13 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {
   Form,
   FormControl,
   FormField,
@@ -68,6 +75,9 @@ const Page = ({
   const [error, setError] = useState<string | null>(null)
   const [isEmergencyApplicationEditable, setIsEmergencyApplicationEditable] =
     useState<boolean>(false)
+  const [showUpdateConfirmDialog, setShowUpdateConfirmDialog] = useState(false)
+  const [pendingSaveValues, setPendingSaveValues] =
+    useState<EvacuationApplicationEditableFields | null>(null)
 
   const canUpdateApplication =
     emergencyEvacuationApplicationDetails?.status !== 'COMPLETED' &&
@@ -143,19 +153,40 @@ const Page = ({
       showErrorToast(undefined, 'common.error.noChange')
       return
     }
-    updateEmergencyEvacuationApplication(params.id, currentValues)
+
+    setPendingSaveValues(currentValues)
+
+    if (
+      currentValues.status === 'COMPLETED' ||
+      currentValues.status === 'CANCELLED'
+    ) {
+      setShowUpdateConfirmDialog(true)
+      return
+    }
+
+    handleConfirmSave(currentValues)
+  }
+
+  const handleConfirmSave = (
+    values: EvacuationApplicationEditableFields = pendingSaveValues!
+  ) => {
+    if (!values) return
+
+    updateEmergencyEvacuationApplication(params.id, values)
       .then((response) => {
         if (response.isSuccess) {
-          setEmergencyEvacuationApplicationDetails({
-            ...emergencyEvacuationApplicationDetails!,
-            ...currentValues,
-          })
-          setInitialApplicationValues({
-            ...emergencyEvacuationApplicationDetails!,
-            ...currentValues,
-          })
+          setEmergencyEvacuationApplicationDetails((prev) => ({
+            ...prev!,
+            ...values,
+          }))
+          setInitialApplicationValues((prev) => ({
+            ...prev!,
+            ...values,
+          }))
           showSuccessToast('application.updateSuccess')
           setIsEmergencyApplicationEditable(false)
+          setShowUpdateConfirmDialog(false)
+          setPendingSaveValues(null)
         } else {
           showErrorToast(undefined, 'application.updateError')
         }
@@ -592,6 +623,27 @@ const Page = ({
           </form>
         </Form>
       )}
+      <Dialog
+        open={showUpdateConfirmDialog}
+        onOpenChange={setShowUpdateConfirmDialog}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('common.confirmDescription')}</DialogTitle>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowUpdateConfirmDialog(false)}
+            >
+              {t('common.no')}
+            </Button>
+            <Button onClick={() => handleConfirmSave()}>
+              {t('common.yes')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

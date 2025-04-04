@@ -9,6 +9,7 @@
     "send": "Gönder",
     "reject": "Reddet",
     "approve": "Onayla",
+    "confirmDescription": "Yapılan değişiklikler geri alınamayacaktır. Onaylıyor musunuz?",
     "institution": "Kurum",
     "firstName": "Ad",
     "lastName": "Soyad",
