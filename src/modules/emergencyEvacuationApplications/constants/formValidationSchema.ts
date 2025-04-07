@@ -29,8 +29,8 @@ const EmergencyEvacuationApplicationSchema = z.object({
   hasObstaclePersonExist: z.boolean().default(false).optional(),
   notes: z
     .string()
-    .max(1000, { message: 'maxLength' })
-    .refine((value) => !/^\s/.test(value), {
+    .max(1000, { message: 'validation.maxLength' })
+    .refine((value) => !/\s$/.test(value), {
       message: 'validation.whitespace',
     })
     .optional(),
