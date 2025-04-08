@@ -123,7 +123,8 @@ const Page = (): JSX.Element => {
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
     setFilters(updatedFilters)
-  }, [searchParams])
+    fetchData(updatedFilters)
+  }, [fetchData, searchParams])
 
   useEffect(() => {
     syncFiltersWithQuery()
@@ -152,9 +153,9 @@ const Page = (): JSX.Element => {
       (error) => error !== null
     )
 
-    if (!hasFilterErrors) {
-      fetchData(filters)
-    }
+    // if (!hasFilterErrors) {
+    //   fetchData(filters)
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters])
 
