@@ -225,9 +225,9 @@
     "deleted": "Silinmiş",
     "pending": "Bekleniyor",
     "inReview": "İnceleniyor",
-    "receivedFirstApprove": "1. Onay Alındı",
-    "receivedSecondApprove": "2. Onay Alındı",
-    "receivedThirdApprove": "3. Onay Alındı",
+    "receivedFirstApprove": "1. Onay Alındı (Başvuru Onayı)",
+    "receivedSecondApprove": "2. Onay Alındı (Rezervasyon Onayı)",
+    "receivedThirdApprove": "3. Onay Alındı (Kesin Katılım Onayı)",
     "cancelled": "İptal Edildi"
   },
   "languages": {
