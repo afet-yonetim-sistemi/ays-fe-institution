@@ -7,12 +7,12 @@ import FilterInput from '@/components/ui/filter-input'
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
-import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { Permission } from '@/constants/permissions'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
+import { getFilterErrors } from '@/lib/getFilterErrors'
 import { showErrorToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, Role } from '@/modules/roles/components/columns'
@@ -53,22 +53,6 @@ const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
     name: name ?? '',
     sort: column ? [{ column, direction: direction as SortDirection }] : [],
   }
-}
-
-const getFilterErrors = (
-  filters: RolesFilter
-): Record<string, string | null> => {
-  const newFilterErrors: Record<string, string | null> = {}
-
-  if (filters.name) {
-    const result = getStringFilterValidation().safeParse(filters.name)
-
-    newFilterErrors.name = result.success
-      ? null
-      : result.error.errors[0]?.message
-  }
-
-  return newFilterErrors
 }
 
 const Page = (): JSX.Element => {
@@ -131,7 +115,7 @@ const Page = (): JSX.Element => {
     if (!paramsReady) return
 
     const parsedFilters = getInitialFilters(searchParams)
-    const errors = getFilterErrors(parsedFilters)
+    const errors = getFilterErrors(parsedFilters, ['name'])
 
     setFilterErrors(errors)
     setFilters(parsedFilters)
