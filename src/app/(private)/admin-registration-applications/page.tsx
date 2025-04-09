@@ -60,6 +60,7 @@ const Page = (): JSX.Element => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const userPermissions = useAppSelector(selectPermissions)
+
   const [
     adminRegistrationApplicationList,
     setAdminRegistrationApplicationList,
@@ -106,26 +107,14 @@ const Page = (): JSX.Element => {
   )
 
   useEffect(() => {
-    fetchData(filters)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters])
+    const paramsReady = searchParams.toString().length > 0
+    if (!paramsReady) return
 
-  const syncFiltersWithQuery = useCallback(() => {
-    const { currentPage, statuses, column, direction } =
-      parseARASearchParams(searchParams)
+    const parsedFilters = getInitialFilters(searchParams)
+    setFilters(parsedFilters)
 
-    const updatedFilters: AdminRegistrationApplicationsFilter = {
-      page: currentPage,
-      pageSize: 10,
-      statuses,
-      sort: column ? [{ column, direction: direction as SortDirection }] : [],
-    }
-    setFilters(updatedFilters)
-  }, [searchParams])
-
-  useEffect(() => {
-    syncFiltersWithQuery()
-  }, [syncFiltersWithQuery])
+    fetchData(parsedFilters)
+  }, [searchParams, fetchData])
 
   return (
     <div className="space-y-4">
