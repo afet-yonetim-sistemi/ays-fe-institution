@@ -1,18 +1,18 @@
 'use client'
 
-import { FilterValidationOptions, Sort } from '@/common/types'
+import { Sort } from '@/common/types'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
-import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { Permission } from '@/constants/permissions'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
+import { getFilterErrors } from '@/lib/getFilterErrors'
 import { showErrorToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, User } from '@/modules/users/components/columns'
@@ -41,12 +41,10 @@ const parseUsersSearchParams = (searchParams: URLSearchParams) => {
   const firstName = searchParams.get('firstName') ?? ''
   const lastName = searchParams.get('lastName') ?? ''
   const emailAddress = searchParams.get('emailAddress') ?? ''
-
   const lineNumberParam = searchParams.get('lineNumber')
   const lineNumber = lineNumberParam?.trim()
     ? parseInt(lineNumberParam, 10)
     : undefined
-
   const city = searchParams.get('city') ?? ''
 
   return {
@@ -92,17 +90,16 @@ const Page = (): JSX.Element => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const userPermissions = useAppSelector(selectPermissions)
+
   const [userList, setUserList] = useState<User[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
   const [filters, setFilters] = useState<UsersFilter>(() =>
     getInitialFilters(searchParams)
   )
-
   const [filterErrors, setFilterErrors] = useState<
     Record<string, string | null>
   >({})
-
   const [firstNameInput, setFirstNameInput] = useState(filters.firstName ?? '')
   const [lastNameInput, setLastNameInput] = useState(filters.lastName ?? '')
   const [emailAddressInput, setEmailAddressInput] = useState(
@@ -132,7 +129,7 @@ const Page = (): JSX.Element => {
           const { content, totalElementCount, totalPageCount } =
             response.data.response
 
-          if (filters.page > totalPageCount && totalPageCount != 0) {
+          if (filters.page > totalPageCount && totalPageCount !== 0) {
             router.push('/not-found')
             return
           }
@@ -150,89 +147,36 @@ const Page = (): JSX.Element => {
     [router]
   )
 
-  const syncFiltersWithQuery = useCallback(() => {
-    const {
-      currentPage,
-      statuses,
-      firstName,
-      lastName,
-      emailAddress,
-      lineNumber,
-      city,
-      sort,
-    } = parseUsersSearchParams(searchParams)
-
-    const updatedFilters: UsersFilter = {
-      page: currentPage,
-      pageSize: 10,
-      statuses,
-      firstName: firstName || '',
-      lastName: lastName || '',
-      emailAddress: emailAddress || '',
-      lineNumber,
-      city: city || '',
-      sort,
-    }
-    setFilters(updatedFilters)
-  }, [searchParams])
-
   useEffect(() => {
-    syncFiltersWithQuery()
-  }, [syncFiltersWithQuery])
+    const paramsReady = searchParams.toString().length > 0
+    if (!paramsReady) return
 
-  useEffect(() => {
-    setFirstNameInput(filters.firstName ?? '')
-    setLastNameInput(filters.lastName ?? '')
-    setEmailAddressInput(filters.emailAddress ?? '')
-    setLineNumberInput(filters.lineNumber ?? '')
-    setCityInput(filters.city ?? '')
-  }, [filters])
+    const parsedFilters = getInitialFilters(searchParams)
 
-  useEffect(() => {
-    const validationRules: Partial<
-      Record<keyof UsersFilter, FilterValidationOptions>
-    > = {
+    const validationRules = {
       emailAddress: { min: 0, max: 254 },
       lineNumber: { min: 0, max: 13 },
     }
 
-    const fieldsToValidate: (keyof UsersFilter)[] = [
-      'firstName',
-      'lastName',
-      'emailAddress',
-      'city',
-      'lineNumber',
-    ]
-
-    const newFilterErrors: Record<string, string | null> = {}
-
-    for (const field of fieldsToValidate) {
-      const value = filters[field]
-      const rules = validationRules[field] || {}
-      const stringValue = String(value)
-
-      if (value) {
-        const result = getStringFilterValidation(rules).safeParse(stringValue)
-
-        if (!result.success) {
-          newFilterErrors[field] = result.error.errors[0]?.message
-        } else {
-          newFilterErrors[field] = null
-        }
-      }
-    }
-
-    setFilterErrors(newFilterErrors)
-
-    const hasFilterErrors = Object.values(newFilterErrors).some(
-      (error) => error !== null
+    const errors = getFilterErrors(
+      parsedFilters,
+      ['firstName', 'lastName', 'emailAddress', 'city', 'lineNumber'],
+      validationRules
     )
 
+    setFilterErrors(errors)
+    setFilters(parsedFilters)
+    setFirstNameInput(parsedFilters.firstName ?? '')
+    setLastNameInput(parsedFilters.lastName ?? '')
+    setEmailAddressInput(parsedFilters.emailAddress ?? '')
+    setCityInput(parsedFilters.city ?? '')
+    setLineNumberInput(parsedFilters.lineNumber ?? '')
+
+    const hasFilterErrors = Object.values(errors).some((e) => e !== null)
     if (!hasFilterErrors) {
-      fetchData(filters)
+      fetchData(parsedFilters)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters])
+  }, [searchParams, fetchData])
 
   return (
     <div className="space-y-4">
