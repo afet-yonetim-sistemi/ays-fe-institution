@@ -225,9 +225,9 @@
     "pending": "Pending",
     "deleted": "Deleted",
     "inReview": "In Review",
-    "receivedFirstApprove": "Received First Approve",
-    "receivedSecondApprove": "Received Second Approve",
-    "receivedThirdApprove": "Received Third Approve",
+    "receivedFirstApprove": "Received First Approve (Application Confirmation)",
+    "receivedSecondApprove": "Received Second Approve (Reservation Confirmation)",
+    "receivedThirdApprove": "Received Third Approve (Final Participation Confirmation)",
     "cancelled": "Cancelled"
   },
   "languages": {
