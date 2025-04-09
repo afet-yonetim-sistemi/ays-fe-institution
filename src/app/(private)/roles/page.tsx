@@ -122,8 +122,17 @@ const Page = (): JSX.Element => {
       name: name ?? '',
       sort: column ? [{ column, direction: direction as SortDirection }] : [],
     }
+
+    const errors = getFilterErrors(updatedFilters)
+    setFilterErrors(errors)
+
+    const hasErrors = Object.values(errors).some((error) => error !== null)
+
     setFilters(updatedFilters)
-    fetchData(updatedFilters)
+
+    if (!hasErrors) {
+      fetchData(updatedFilters)
+    }
   }, [fetchData, searchParams])
 
   useEffect(() => {
@@ -134,30 +143,21 @@ const Page = (): JSX.Element => {
     setNameInputValue(filters.name ?? '')
   }, [filters.name])
 
-  useEffect(() => {
+  const getFilterErrors = (
+    filters: RolesFilter
+  ): Record<string, string | null> => {
     const newFilterErrors: Record<string, string | null> = {}
 
     if (filters.name) {
       const result = getStringFilterValidation().safeParse(filters.name)
 
-      if (!result.success) {
-        newFilterErrors.name = result.error.errors[0]?.message
-      } else {
-        newFilterErrors.name = null
-      }
+      newFilterErrors.name = result.success
+        ? null
+        : result.error.errors[0]?.message
     }
 
-    setFilterErrors(newFilterErrors)
-
-    const hasFilterErrors = Object.values(newFilterErrors).some(
-      (error) => error !== null
-    )
-
-    // if (!hasFilterErrors) {
-    //   fetchData(filters)
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters])
+    return newFilterErrors
+  }
 
   return (
     <div className="space-y-4">
