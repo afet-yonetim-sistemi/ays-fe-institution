@@ -121,8 +121,8 @@ const Page = (): JSX.Element => {
     setFilters(parsedFilters)
     setNameInputValue(parsedFilters.name ?? '')
 
-    const hasErrors = Object.values(errors).some((e) => e !== null)
-    if (!hasErrors) {
+    const hasFilterErrors = Object.values(errors).some((e) => e !== null)
+    if (!hasFilterErrors) {
       fetchData(parsedFilters)
     }
   }, [searchParams, fetchData])
