@@ -55,23 +55,38 @@ const getInitialFilters = (searchParams: URLSearchParams): RolesFilter => {
   }
 }
 
+const getFilterErrors = (
+  filters: RolesFilter
+): Record<string, string | null> => {
+  const newFilterErrors: Record<string, string | null> = {}
+
+  if (filters.name) {
+    const result = getStringFilterValidation().safeParse(filters.name)
+
+    newFilterErrors.name = result.success
+      ? null
+      : result.error.errors[0]?.message
+  }
+
+  return newFilterErrors
+}
+
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const userPermissions = useAppSelector(selectPermissions)
+
   const [roleList, setRoleList] = useState<Role[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
   const [filters, setFilters] = useState<RolesFilter>(() =>
     getInitialFilters(searchParams)
   )
-
   const [filterErrors, setFilterErrors] = useState<
     Record<string, string | null>
   >({})
-
   const [nameInputValue, setNameInputValue] = useState(filters.name ?? '')
 
   const { handlePageChange } = usePagination()
@@ -111,53 +126,22 @@ const Page = (): JSX.Element => {
     [router]
   )
 
-  const syncFiltersWithQuery = useCallback(() => {
-    const { currentPage, statuses, name, column, direction } =
-      parseRolesSearchParams(searchParams)
+  useEffect(() => {
+    const paramsReady = searchParams.toString().length > 0
+    if (!paramsReady) return
 
-    const updatedFilters: RolesFilter = {
-      page: currentPage,
-      pageSize: 10,
-      statuses,
-      name: name ?? '',
-      sort: column ? [{ column, direction: direction as SortDirection }] : [],
-    }
+    const parsedFilters = getInitialFilters(searchParams)
+    const errors = getFilterErrors(parsedFilters)
 
-    const errors = getFilterErrors(updatedFilters)
     setFilterErrors(errors)
+    setFilters(parsedFilters)
+    setNameInputValue(parsedFilters.name ?? '')
 
-    const hasErrors = Object.values(errors).some((error) => error !== null)
-
-    setFilters(updatedFilters)
-
+    const hasErrors = Object.values(errors).some((e) => e !== null)
     if (!hasErrors) {
-      fetchData(updatedFilters)
+      fetchData(parsedFilters)
     }
-  }, [fetchData, searchParams])
-
-  useEffect(() => {
-    syncFiltersWithQuery()
-  }, [syncFiltersWithQuery])
-
-  useEffect(() => {
-    setNameInputValue(filters.name ?? '')
-  }, [filters.name])
-
-  const getFilterErrors = (
-    filters: RolesFilter
-  ): Record<string, string | null> => {
-    const newFilterErrors: Record<string, string | null> = {}
-
-    if (filters.name) {
-      const result = getStringFilterValidation().safeParse(filters.name)
-
-      newFilterErrors.name = result.success
-        ? null
-        : result.error.errors[0]?.message
-    }
-
-    return newFilterErrors
-  }
+  }, [searchParams, fetchData])
 
   return (
     <div className="space-y-4">
@@ -186,8 +170,9 @@ const Page = (): JSX.Element => {
           label={t('role.name')}
           value={nameInputValue}
           onChange={(e) => {
-            setNameInputValue(e.target.value)
-            debouncedHandleInputFilterChange('name', e.target.value)
+            const value = e.target.value
+            setNameInputValue(value)
+            debouncedHandleInputFilterChange('name', value)
           }}
           error={filterErrors.name}
         />
