@@ -8,12 +8,12 @@ import FilterInput from '@/components/ui/filter-input'
 import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
-import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { Permission } from '@/constants/permissions'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
 import { useSort } from '@/hooks/useSort'
+import { getFilterErrors } from '@/lib/getFilterErrors'
 import { showErrorToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns } from '@/modules/emergencyEvacuationApplications/components/columns'
@@ -38,12 +38,10 @@ const parseEEASearchParams = (searchParams: URLSearchParams) => {
 
   const isInPersonParam = searchParams.get('isInPerson')
   const isInPerson = isInPersonParam === 'true' ? true : undefined
-
   const seatingCountParam = searchParams.get('seatingCount')
   const seatingCount = seatingCountParam?.trim()
     ? parseInt(seatingCountParam, 10)
     : undefined
-
   const referenceNumber = searchParams.get('referenceNumber') ?? ''
   const sourceCity = searchParams.get('sourceCity') ?? ''
   const sourceDistrict = searchParams.get('sourceDistrict') ?? ''
@@ -103,6 +101,7 @@ const Page = (): JSX.Element => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const userPermissions = useAppSelector(selectPermissions)
+
   const [
     emergencyEvacuationApplicationList,
     setEmergencyEvacuationApplicationList,
@@ -112,6 +111,9 @@ const Page = (): JSX.Element => {
   const [filters, setFilters] = useState<EmergencyEvacuationApplicationsFilter>(
     () => getInitialFilters(searchParams)
   )
+  const [filterErrors, setFilterErrors] = useState<
+    Record<string, string | null>
+  >({})
   const [seatingCountInput, setSeatingCountInput] = useState(
     filters.seatingCount ?? ''
   )
@@ -130,10 +132,6 @@ const Page = (): JSX.Element => {
   const [targetDistrictInput, setTargetDistrictInput] = useState(
     filters.targetDistrict ?? ''
   )
-
-  const [filterErrors, setFilterErrors] = useState<
-    Record<string, string | null>
-  >({})
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
@@ -172,85 +170,32 @@ const Page = (): JSX.Element => {
     [router]
   )
 
-  const syncFiltersWithQuery = useCallback(() => {
-    const {
-      currentPage,
-      statuses,
-      isInPerson,
-      seatingCount,
-      referenceNumber,
-      sourceCity,
-      sourceDistrict,
-      targetCity,
-      targetDistrict,
-      column,
-      direction,
-    } = parseEEASearchParams(searchParams)
-
-    const updatedFilters: EmergencyEvacuationApplicationsFilter = {
-      page: currentPage,
-      pageSize: 10,
-      statuses,
-      isInPerson,
-      seatingCount,
-      referenceNumber: referenceNumber || '',
-      sourceCity: sourceCity || '',
-      sourceDistrict: sourceDistrict || '',
-      targetCity: targetCity || '',
-      targetDistrict: targetDistrict || '',
-      sort: column ? [{ column, direction: direction as SortDirection }] : [],
-    }
-    setFilters(updatedFilters)
-  }, [searchParams])
-
   useEffect(() => {
-    syncFiltersWithQuery()
-  }, [syncFiltersWithQuery])
+    const paramsReady = searchParams.toString().length > 0
+    if (!paramsReady) return
 
-  useEffect(() => {
-    setReferenceNumberInput(filters.referenceNumber ?? '')
-    setSourceCityInput(filters.sourceCity ?? '')
-    setSourceDistrictInput(filters.sourceDistrict ?? '')
-    setTargetCityInput(filters.targetCity ?? '')
-    setTargetDistrictInput(filters.targetDistrict ?? '')
-    setSeatingCountInput(filters.seatingCount ?? '')
-  }, [filters])
-
-  useEffect(() => {
-    const fieldsToValidate: (keyof EmergencyEvacuationApplicationsFilter)[] = [
+    const parsedFilters = getInitialFilters(searchParams)
+    const errors = getFilterErrors(parsedFilters, [
       'sourceCity',
       'sourceDistrict',
       'targetCity',
       'targetDistrict',
-    ]
+    ])
 
-    const newFilterErrors: Record<string, string | null> = {}
+    setFilterErrors(errors)
+    setFilters(parsedFilters)
+    setReferenceNumberInput(parsedFilters.referenceNumber ?? '')
+    setSourceCityInput(parsedFilters.sourceCity ?? '')
+    setSourceDistrictInput(parsedFilters.sourceDistrict ?? '')
+    setTargetCityInput(parsedFilters.targetCity ?? '')
+    setTargetDistrictInput(parsedFilters.targetDistrict ?? '')
+    setSeatingCountInput(parsedFilters.seatingCount ?? '')
 
-    for (const field of fieldsToValidate) {
-      const value = filters[field]
-
-      if (value) {
-        const result = getStringFilterValidation().safeParse(value)
-
-        if (!result.success) {
-          newFilterErrors[field] = result.error.errors[0]?.message
-        } else {
-          newFilterErrors[field] = null
-        }
-      }
-    }
-
-    setFilterErrors(newFilterErrors)
-
-    const hasFilterErrors = Object.values(newFilterErrors).some(
-      (error) => error !== null
-    )
-
+    const hasFilterErrors = Object.values(errors).some((e) => e !== null)
     if (!hasFilterErrors) {
-      fetchData(filters)
+      fetchData(parsedFilters)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters])
+  }, [searchParams, fetchData])
 
   return (
     <div className="space-y-4">
