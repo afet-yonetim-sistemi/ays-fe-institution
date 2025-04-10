@@ -211,33 +211,31 @@ const Page = (): JSX.Element => {
           <RefreshCw className="h-4 w-4" />
         </Button>
       </div>
-      <div className="grid grid-cols-2 2xl:grid-cols-3 gap-4">
-        <div className="flex items-top gap-4">
-          <MultiSelectDropdown
-            items={emergencyEvacuationApplicationStatuses}
-            selectedItems={filters.statuses}
-            onSelectionChange={(statuses) =>
-              handleFilterChange('status', statuses)
-            }
-            label="status.title"
-            renderItem={(item) => <Status status={item} />}
-          />
-          <CheckboxFilter
-            label={t('application.evacuation.inPerson')}
-            isChecked={filters.isInPerson ?? false}
-            onChange={(checked) => handleFilterChange('isInPerson', checked)}
-          />
-          <FilterInput
-            id="seatingCount"
-            label={t('application.evacuation.seatingCount')}
-            value={seatingCountInput}
-            onChange={(e) => {
-              setSeatingCountInput(e.target.value)
-              debouncedHandleInputFilterChange('seatingCount', e.target.value)
-            }}
-            type="number"
-          />
-        </div>
+      <div className="grid grid-cols-2 2xl:grid-cols-4 gap-4">
+        <MultiSelectDropdown
+          items={emergencyEvacuationApplicationStatuses}
+          selectedItems={filters.statuses}
+          onSelectionChange={(statuses) =>
+            handleFilterChange('status', statuses)
+          }
+          label="application.status"
+          renderItem={(item) => <Status status={item} />}
+        />
+        <CheckboxFilter
+          label={t('application.evacuation.inPerson')}
+          isChecked={filters.isInPerson ?? false}
+          onChange={(checked) => handleFilterChange('isInPerson', checked)}
+        />
+        <FilterInput
+          id="seatingCount"
+          label={t('application.evacuation.seatingCount')}
+          value={seatingCountInput}
+          onChange={(e) => {
+            setSeatingCountInput(e.target.value)
+            debouncedHandleInputFilterChange('seatingCount', e.target.value)
+          }}
+          type="number"
+        />
         <FilterInput
           id="referenceNumber"
           label={t('application.evacuation.referenceNumber')}

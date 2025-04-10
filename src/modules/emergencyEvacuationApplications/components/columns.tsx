@@ -55,7 +55,7 @@ export const columns: (
     },
     {
       accessorKey: 'phoneNumber',
-      header: () => i18next.t('common.phoneNumber'),
+      header: () => i18next.t('application.phoneNumber'),
       cell: ({ row }) =>
         formatPhoneNumber(
           row.original.isInPerson
@@ -65,7 +65,7 @@ export const columns: (
     },
     {
       accessorKey: 'isInPerson',
-      header: () => i18next.t('application.evacuation.inPerson'),
+      header: () => i18next.t('application.evacuation.inPerson?'),
       cell: ({ row }) =>
         i18next.t(row.original.isInPerson ? 'common.yes' : 'common.no'),
     },
@@ -76,7 +76,7 @@ export const columns: (
     },
     {
       accessorKey: 'status',
-      header: () => i18next.t('status.title'),
+      header: () => i18next.t('application.status'),
       cell: ({ row }) => {
         const status =
           emergencyEvacuationApplicationStatuses.find(
