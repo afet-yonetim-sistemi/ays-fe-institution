@@ -1,5 +1,7 @@
-import { isValidPhoneNumber } from 'libphonenumber-js'
 import { z } from 'zod'
+import { PhoneNumberUtil, PhoneNumberFormat } from 'google-libphonenumber'
+
+const phoneUtil = PhoneNumberUtil.getInstance()
 
 export const PhoneNumberSchema = z
   .object({
@@ -7,19 +9,31 @@ export const PhoneNumberSchema = z
     lineNumber: z.string(),
   })
   .superRefine(({ countryCode, lineNumber }, ctx) => {
-    const fullNumber = `${countryCode}${lineNumber}`
+    const fullNumber = `+${countryCode}${lineNumber}`
 
-    if (!isValidPhoneNumber(fullNumber, 'TR')) {
+    try {
+      const parsed = phoneUtil.parse(fullNumber)
+
+      if (!phoneUtil.isValidNumber(parsed)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'validation.phone',
+        })
+      }
+
+      const e164 = phoneUtil.format(parsed, PhoneNumberFormat.E164)
+      const digitsOnly = e164.replace(/\D/g, '')
+
+      if (digitsOnly.length !== 12) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'validation.phoneLength',
+        })
+      }
+    } catch {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'validation.phone',
-      })
-    }
-
-    if (fullNumber.length !== 12) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'validation.phoneLength',
       })
     }
   })
