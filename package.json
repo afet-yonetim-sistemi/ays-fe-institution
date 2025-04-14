@@ -31,8 +31,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "google-libphonenumber": "^3.2.40",
     "i18next": "^23.11.3",
-    "libphonenumber-js": "^1.12.5",
     "lodash": "^4.17.21",
     "lucide-react": "^0.378.0",
     "luxon": "^3.4.4",
@@ -51,6 +51,7 @@
     "zod": "^3.23.7"
   },
   "devDependencies": {
+    "@types/google-libphonenumber": "^7.4.30",
     "@types/lodash": "^4.17.13",
     "@types/luxon": "^3.4.2",
     "@types/node": "^20",
