@@ -161,6 +161,7 @@
     "city": "Bulunduğu Şehir",
     "lineNumber": "Telefon Numarası",
     "status": "Hesap Durumu",
+    "statusFilter": "Kullanıcı Hesabı Durumu",
     "role": "Kullanıcı Rolleri",
     "minRoleError": "Devam edebilmek için lütfen en az bir rol seçiniz",
     "deleteConfirm": "Kullanıcıyı silmek istediğinize emin misiniz?",
