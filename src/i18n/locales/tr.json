@@ -164,7 +164,7 @@
     "statusFilter": "Kullanıcı Hesabı Durumu",
     "updatedUser": "Son Güncelleyen Kullanıcı",
     "updatedAt": "Son Güncellenme Tarihi",
-    "role": "Kullanıcı Rolleri",
+    "role": "Kullanıcıya Ait Roller",
     "minRoleError": "Devam edebilmek için lütfen en az bir rol seçiniz",
     "deleteConfirm": "Kullanıcıyı silmek istediğinize emin misiniz?",
     "deleteSuccess": "Kullanıcı başarıyla silindi.",
