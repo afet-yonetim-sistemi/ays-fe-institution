@@ -409,7 +409,7 @@ const Page = ({
                     name="emailAddress"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('common.email')}</FormLabel>
+                        <FormLabel>{t('user.email')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -532,7 +532,7 @@ const Page = ({
                       name="updatedUser"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('common.updatedUser')}</FormLabel>
+                          <FormLabel>{t('user.updatedUser')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -548,7 +548,7 @@ const Page = ({
                       name="updatedAt"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('common.updatedAt')}</FormLabel>
+                          <FormLabel>{t('user.updatedAt')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
