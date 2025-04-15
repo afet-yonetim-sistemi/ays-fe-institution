@@ -211,7 +211,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="firstName"
-          label={t('common.firstName')}
+          label={t('user.firstName')}
           value={firstNameInput}
           onChange={(e) => {
             setFirstNameInput(e.target.value)
@@ -221,7 +221,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="lastName"
-          label={t('common.lastName')}
+          label={t('user.lastName')}
           value={lastNameInput}
           onChange={(e) => {
             setLastNameInput(e.target.value)
