@@ -159,6 +159,7 @@
     "lastName": "Surname",
     "email": "E-Mail Address",
     "lineNumber": "Line Number",
+    "city": "Located City",
     "status": "Status",
     "role": "User Roles",
     "minRoleError": "Please select at least one role in order to continue",

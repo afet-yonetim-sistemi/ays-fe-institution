@@ -50,7 +50,7 @@ export const columns: (
     },
     {
       accessorKey: 'city',
-      header: () => i18next.t('common.city'),
+      header: () => i18next.t('user.city'),
     },
     {
       accessorKey: 'status',

@@ -158,6 +158,7 @@
     "firstName": "Adı",
     "lastName": "Soyadı",
     "email": "E-posta Adresi",
+    "city": "Bulunduğu Şehir",
     "lineNumber": "Telefon Numarası",
     "status": "Hesap Durumu",
     "role": "Kullanıcı Rolleri",
