@@ -498,7 +498,7 @@ const Page = ({
                       name="createdUser"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('common.createdUser')}</FormLabel>
+                          <FormLabel>{t('user.createdUser')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -514,7 +514,7 @@ const Page = ({
                       name="createdAt"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('common.createdAt')}</FormLabel>
+                          <FormLabel>{t('user.createdAt')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}

@@ -162,6 +162,8 @@
     "lineNumber": "Telefon Numarası",
     "status": "Hesap Durumu",
     "statusFilter": "Kullanıcı Hesabı Durumu",
+    "createdUser": "Oluşturan Kullanıcı",
+    "createdAt": "Oluşturulma Tarihi",
     "updatedUser": "Son Güncelleyen Kullanıcı",
     "updatedAt": "Son Güncellenme Tarihi",
     "role": "Kullanıcıya Ait Roller",

@@ -162,6 +162,8 @@
     "city": "Located City",
     "status": "Account Status",
     "statusFilter": "User Account Status",
+    "createdUser": "Created User",
+    "createdAt": "Creation Date",
     "updatedUser": "User Who Last Updated",
     "updatedAt": "Date of Last Update",
     "role": "User Roles",
