@@ -167,6 +167,7 @@
     "updatedUser": "User Who Last Updated",
     "updatedAt": "Date of Last Update",
     "role": "User Roles",
+    "role2": "Roles",
     "minRoleError": "Please select at least one role in order to continue",
     "deleteConfirm": "Are you sure you want to delete this user?",
     "deleteSuccess": "User deleted successfully.",

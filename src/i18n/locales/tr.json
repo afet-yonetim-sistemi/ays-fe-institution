@@ -167,6 +167,7 @@
     "updatedUser": "Son Güncelleyen Kullanıcı",
     "updatedAt": "Son Güncellenme Tarihi",
     "role": "Kullanıcıya Ait Roller",
+    "role2": "Rolleri",
     "minRoleError": "Devam edebilmek için lütfen en az bir rol seçiniz",
     "deleteConfirm": "Kullanıcıyı silmek istediğinize emin misiniz?",
     "deleteSuccess": "Kullanıcı başarıyla silindi.",

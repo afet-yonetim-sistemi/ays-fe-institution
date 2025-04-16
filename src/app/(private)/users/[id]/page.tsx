@@ -568,7 +568,9 @@ const Page = ({
             <Card className="mb-6">
               <CardHeader>
                 <div className="flex items-center">
-                  <CardTitle>{t('user.role')}</CardTitle>
+                  <CardTitle>
+                    {isUserEditable ? t('user.role2') : t('user.role')}
+                  </CardTitle>
                   <div className="ml-4 flex items-center gap-2">
                     {isUserEditable && minRoleError && (
                       <p className="text-destructive text-sm">{minRoleError}</p>
