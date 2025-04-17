@@ -206,12 +206,12 @@ const Page = (): JSX.Element => {
           onSelectionChange={(statuses) =>
             handleFilterChange('status', statuses)
           }
-          label="user.status"
+          label="user.statusFilter"
           renderItem={(item) => <Status status={item} />}
         />
         <FilterInput
           id="firstName"
-          label={t('common.firstName')}
+          label={t('user.firstName')}
           value={firstNameInput}
           onChange={(e) => {
             setFirstNameInput(e.target.value)
@@ -221,7 +221,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="lastName"
-          label={t('common.lastName')}
+          label={t('user.lastName')}
           value={lastNameInput}
           onChange={(e) => {
             setLastNameInput(e.target.value)
@@ -231,7 +231,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="emailAddress"
-          label={t('common.email')}
+          label={t('user.email')}
           value={emailAddressInput}
           onChange={(e) => {
             setEmailAddressInput(e.target.value)
@@ -253,7 +253,7 @@ const Page = (): JSX.Element => {
         />
         <FilterInput
           id="city"
-          label={t('common.city')}
+          label={t('user.city')}
           value={cityInput}
           onChange={(e) => {
             setCityInput(e.target.value)

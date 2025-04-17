@@ -131,7 +131,7 @@ const Page = (): JSX.Element => {
               name="emailAddress"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('common.email')}</FormLabel>
+                  <FormLabel>{t('user.email')}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -150,7 +150,7 @@ const Page = (): JSX.Element => {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <CardTitle>{t('user.role')}</CardTitle>
+              <CardTitle>{t('user.role2')}</CardTitle>
               <div className="ml-4 flex items-center gap-2">
                 {minRoleError && (
                   <p className="text-destructive text-sm">{minRoleError}</p>

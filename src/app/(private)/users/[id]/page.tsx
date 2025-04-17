@@ -409,7 +409,7 @@ const Page = ({
                     name="emailAddress"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('common.email')}</FormLabel>
+                        <FormLabel>{t('user.email')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -498,7 +498,7 @@ const Page = ({
                       name="createdUser"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('common.createdUser')}</FormLabel>
+                          <FormLabel>{t('user.createdUser')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -514,7 +514,7 @@ const Page = ({
                       name="createdAt"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('common.createdAt')}</FormLabel>
+                          <FormLabel>{t('user.createdAt')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -532,7 +532,7 @@ const Page = ({
                       name="updatedUser"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('common.updatedUser')}</FormLabel>
+                          <FormLabel>{t('user.updatedUser')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -548,7 +548,7 @@ const Page = ({
                       name="updatedAt"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('common.updatedAt')}</FormLabel>
+                          <FormLabel>{t('user.updatedAt')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -568,7 +568,9 @@ const Page = ({
             <Card className="mb-6">
               <CardHeader>
                 <div className="flex items-center">
-                  <CardTitle>{t('user.role')}</CardTitle>
+                  <CardTitle>
+                    {isUserEditable ? t('user.role2') : t('user.role')}
+                  </CardTitle>
                   <div className="ml-4 flex items-center gap-2">
                     {isUserEditable && minRoleError && (
                       <p className="text-destructive text-sm">{minRoleError}</p>

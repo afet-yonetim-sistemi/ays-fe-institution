@@ -56,7 +56,7 @@ const CitySelect = ({
       name="city"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{t('common.city')}</FormLabel>
+          <FormLabel>{t('user.city')}</FormLabel>
           <Select
             onValueChange={field.onChange}
             value={field.value || defaultValue}
@@ -64,7 +64,7 @@ const CitySelect = ({
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={t('common.city')} />
+                <SelectValue placeholder={t('user.city')} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
