@@ -133,9 +133,11 @@
   },
   "role": {
     "title": "Roller",
-    "permission": "Rol Yetkileri",
+    "permission": "Role Ait Yetkiler",
+    "permissions": "Yetkiler",
     "detailsTitle": "Rol Detayları",
     "information": "Rol Bilgileri",
+    "status": "Rol Durumu",
     "name": "Rol Adı",
     "updateSuccess": "Rol başarıyla güncellendi.",
     "updateError": "Rol güncelleme başarısız.",

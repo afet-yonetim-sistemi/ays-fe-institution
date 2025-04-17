@@ -146,12 +146,12 @@ const Page = (): JSX.Element => {
           onSelectionChange={(statuses) =>
             handleFilterChange('status', statuses)
           }
-          label="status.title"
+          label="role.status"
           renderItem={(item) => <Status status={item} />}
         />
         <FilterInput
           id="name"
-          label={t('role.name')}
+          label={t('user.firstName')}
           value={nameInputValue}
           onChange={(e) => {
             const value = e.target.value
