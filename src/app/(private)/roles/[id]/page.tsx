@@ -517,7 +517,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('status.title')}</FormLabel>
+                        <FormLabel>{t('role.status')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -568,7 +568,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                     name="updatedUser"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('common.updatedUser')}</FormLabel>
+                        <FormLabel>{t('user.updatedUser')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -601,7 +601,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
             <Card className="mb-6">
               <CardHeader>
                 <div className="flex items-center">
-                  <CardTitle>{t('role.permission')}</CardTitle>
+                  <CardTitle>
+                    {isRoleEditable
+                      ? t('role.permissions')
+                      : t('role.permission')}
+                  </CardTitle>
                   <Switch
                     className="ml-4"
                     disabled={!isRoleEditable}

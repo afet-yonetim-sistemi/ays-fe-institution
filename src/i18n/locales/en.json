@@ -134,6 +134,7 @@
   "role": {
     "title": "Roles",
     "permission": "Role Permissions",
+    "permissions": "Permissions",
     "detailsTitle": "Role Details",
     "information": "Role Information",
     "status": "Role Status",

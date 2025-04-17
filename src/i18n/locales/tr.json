@@ -133,7 +133,8 @@
   },
   "role": {
     "title": "Roller",
-    "permission": "Rol Yetkileri",
+    "permission": "Role Ait Yetkiler",
+    "permissions": "Yetkiler",
     "detailsTitle": "Rol Detayları",
     "information": "Rol Bilgileri",
     "status": "Rol Durumu",
