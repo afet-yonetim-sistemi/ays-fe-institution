@@ -27,7 +27,7 @@ export const columns: (
     },
     {
       accessorKey: 'status',
-      header: () => i18next.t('status.title'),
+      header: () => i18next.t('role.status'),
       cell: ({ row }) => {
         const status =
           roleStatuses.find(

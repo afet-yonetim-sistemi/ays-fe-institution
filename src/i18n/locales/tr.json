@@ -136,6 +136,7 @@
     "permission": "Rol Yetkileri",
     "detailsTitle": "Rol Detayları",
     "information": "Rol Bilgileri",
+    "status": "Rol Durumu",
     "name": "Rol Adı",
     "updateSuccess": "Rol başarıyla güncellendi.",
     "updateError": "Rol güncelleme başarısız.",
