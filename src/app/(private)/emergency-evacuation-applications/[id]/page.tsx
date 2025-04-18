@@ -63,7 +63,8 @@ const Page = ({
     mode: 'onChange',
   })
   const userPermissions = useAppSelector(selectPermissions)
-  const { control, reset, formState, getValues } = form
+  const { control, reset, formState, getValues, watch } = form
+  const watchedValues = watch()
 
   const [
     emergencyEvacuationApplicationDetails,
@@ -78,13 +79,42 @@ const Page = ({
   const [showUpdateConfirmDialog, setShowUpdateConfirmDialog] = useState(false)
   const [pendingSaveValues, setPendingSaveValues] =
     useState<EvacuationApplicationEditableFields | null>(null)
+  const [isFormChanged, setIsFormChanged] = useState(false)
+
+  useEffect(() => {
+    if (!initialApplicationValues) return
+
+    const currentValues = {
+      seatingCount: watchedValues.seatingCount,
+      hasObstaclePersonExist: watchedValues.hasObstaclePersonExist,
+      status: watchedValues.status,
+      notes: watchedValues.notes,
+    }
+
+    const hasChanged = [
+      'seatingCount',
+      'hasObstaclePersonExist',
+      'status',
+      'notes',
+    ].some(
+      (key) =>
+        currentValues[key as keyof EvacuationApplicationEditableFields] !==
+        initialApplicationValues[
+          key as keyof EvacuationApplicationEditableFields
+        ]
+    )
+
+    setIsFormChanged(hasChanged)
+  }, [watchedValues, initialApplicationValues])
 
   const canUpdateApplication =
     emergencyEvacuationApplicationDetails?.status !== 'COMPLETED' &&
     emergencyEvacuationApplicationDetails?.status !== 'CANCELLED'
 
   const isSaveButtonDisabled =
-    Boolean(formState.errors.seatingCount) || Boolean(formState.errors.notes)
+    !isFormChanged ||
+    Boolean(formState.errors.seatingCount) ||
+    Boolean(formState.errors.notes)
 
   useEffect(() => {
     const fetchDetails = (): void => {
@@ -124,6 +154,7 @@ const Page = ({
         notes: emergencyEvacuationApplicationDetails.notes,
       })
     }
+    setIsFormChanged(false)
     setIsEmergencyApplicationEditable(false)
   }
 
@@ -136,22 +167,6 @@ const Page = ({
         initialApplicationValues?.hasObstaclePersonExist,
       status: getValues('status') ?? initialApplicationValues?.status,
       notes: getValues('notes') ?? initialApplicationValues?.notes,
-    }
-
-    const editableFields: (keyof EvacuationApplicationEditableFields)[] = [
-      'seatingCount',
-      'hasObstaclePersonExist',
-      'status',
-      'notes',
-    ]
-
-    const isChanged = editableFields.some((key) => {
-      return currentValues[key] !== initialApplicationValues?.[key]
-    })
-
-    if (!isChanged) {
-      showErrorToast(undefined, 'common.error.noChange')
-      return
     }
 
     setPendingSaveValues(currentValues)
@@ -187,6 +202,7 @@ const Page = ({
           setIsEmergencyApplicationEditable(false)
           setShowUpdateConfirmDialog(false)
           setPendingSaveValues(null)
+          setIsFormChanged(false)
         } else {
           showErrorToast(undefined, 'application.updateError')
         }
