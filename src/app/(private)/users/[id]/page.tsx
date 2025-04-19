@@ -58,7 +58,8 @@ const Page = ({
     mode: 'onChange',
   })
   const userPermissions = useAppSelector(selectPermissions)
-  const { control, reset, formState, getValues } = form
+  const { control, reset, formState, getValues, watch } = form
+  const watchedValues = watch()
 
   const { roles, userRolesIsLoading } = useFetchRoleSummary()
   const [selectedRoles, setSelectedRoles] = useState<string[]>([])
@@ -68,8 +69,65 @@ const Page = ({
   const [error, setError] = useState<string | null>(null)
   const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
   const [minRoleError, setMinRoleError] = useState<string | null>(null)
+  const [isFormChanged, setIsFormChanged] = useState(false)
+
+  useEffect(() => {
+    if (!initialUserValues) return
+
+    const currentValues: UserEditableFields = {
+      firstName: watchedValues.firstName,
+      lastName: watchedValues.lastName,
+      emailAddress: watchedValues.emailAddress,
+      city: watchedValues.city,
+      phoneNumber: {
+        countryCode: watchedValues.phoneNumber?.countryCode ?? '90',
+        lineNumber:
+          watchedValues.phoneNumber?.lineNumber ??
+          initialUserValues.phoneNumber?.lineNumber,
+      },
+      roleIds: selectedRoles,
+    }
+
+    const hasChanged = [
+      'firstName',
+      'lastName',
+      'emailAddress',
+      'city',
+      'phoneNumber',
+      'roleIds',
+    ].some((key) => {
+      if (key === 'phoneNumber') {
+        return (
+          currentValues.phoneNumber.countryCode !==
+            initialUserValues.phoneNumber?.countryCode ||
+          currentValues.phoneNumber.lineNumber !==
+            initialUserValues.phoneNumber?.lineNumber
+        )
+      }
+
+      if (key === 'roleIds') {
+        const initialRoleIds =
+          initialUserValues.roles?.map((role) => role.id) || []
+
+        return (
+          JSON.stringify(
+            currentValues.roleIds.toSorted((a, b) => a.localeCompare(b))
+          ) !==
+          JSON.stringify(initialRoleIds.toSorted((a, b) => a.localeCompare(b)))
+        )
+      }
+
+      // return (
+      //   currentValues[key as keyof UserEditableFields] !==
+      //   initialUserValues[key as keyof UserEditableFields]
+      // )
+    })
+
+    setIsFormChanged(hasChanged)
+  }, [watchedValues, selectedRoles, initialUserValues])
 
   const isSaveButtonDisabled =
+    !isFormChanged ||
     Boolean(formState.errors.firstName) ||
     Boolean(formState.errors.lastName) ||
     Boolean(formState.errors.emailAddress) ||
@@ -178,43 +236,6 @@ const Page = ({
           initialUserValues?.phoneNumber.lineNumber,
       },
       roleIds: selectedRoles,
-    }
-
-    const editableFields: (keyof UserEditableFields)[] = [
-      'firstName',
-      'lastName',
-      'emailAddress',
-      'city',
-      'phoneNumber',
-      'roleIds',
-    ]
-
-    const isChanged = editableFields.some((key) => {
-      if (key === 'phoneNumber') {
-        return (
-          currentValues.phoneNumber.countryCode !==
-            initialUserValues?.phoneNumber?.countryCode ||
-          currentValues.phoneNumber.lineNumber !==
-            initialUserValues?.phoneNumber?.lineNumber
-        )
-      }
-      if (key === 'roleIds') {
-        const initialRoleIds =
-          initialUserValues?.roles.map((role) => role.id) || []
-
-        return (
-          JSON.stringify(
-            currentValues.roleIds.toSorted((a, b) => a.localeCompare(b))
-          ) !==
-          JSON.stringify(initialRoleIds.toSorted((a, b) => a.localeCompare(b)))
-        )
-      }
-      return currentValues[key] !== initialUserValues?.[key]
-    })
-
-    if (!isChanged) {
-      showErrorToast(undefined, 'common.error.noChange')
-      return
     }
 
     updateUser(params.id, currentValues)
