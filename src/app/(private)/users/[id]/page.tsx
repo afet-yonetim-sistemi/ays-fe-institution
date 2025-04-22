@@ -88,13 +88,12 @@ const Page = ({
       roleIds: selectedRoles,
     }
 
-    const hasChanged = [
+    const hasFieldChanged = [
       'firstName',
       'lastName',
       'emailAddress',
       'city',
       'phoneNumber',
-      'roleIds',
     ].some((key) => {
       if (key === 'phoneNumber') {
         return (
@@ -105,25 +104,19 @@ const Page = ({
         )
       }
 
-      if (key === 'roleIds') {
-        const initialRoleIds =
-          initialUserValues.roles?.map((role) => role.id) || []
-
-        return (
-          JSON.stringify(
-            currentValues.roleIds.toSorted((a, b) => a.localeCompare(b))
-          ) !==
-          JSON.stringify(initialRoleIds.toSorted((a, b) => a.localeCompare(b)))
-        )
-      }
-
-      // return (
-      //   currentValues[key as keyof UserEditableFields] !==
-      //   initialUserValues[key as keyof UserEditableFields]
-      // )
+      return (
+        currentValues[key as keyof UserEditableFields] !==
+        initialUserValues[key as keyof User]
+      )
     })
 
-    setIsFormChanged(hasChanged)
+    const initialRoleIds = initialUserValues.roles?.map((r) => r.id).toSorted()
+    const currentRoleIds = selectedRoles.toSorted()
+
+    const haveRolesChanged =
+      JSON.stringify(currentRoleIds) !== JSON.stringify(initialRoleIds)
+
+    setIsFormChanged(hasFieldChanged || haveRolesChanged)
   }, [watchedValues, selectedRoles, initialUserValues])
 
   const isSaveButtonDisabled =
@@ -143,6 +136,16 @@ const Page = ({
         setUserDetails(details)
         setInitialUserValues(details)
         setSelectedRoles(details.roles.map((role) => role.id))
+        reset({
+          firstName: details.firstName,
+          lastName: details.lastName,
+          emailAddress: details.emailAddress,
+          city: details.city,
+          phoneNumber: {
+            countryCode: details.phoneNumber?.countryCode ?? '90',
+            lineNumber: details.phoneNumber?.lineNumber ?? '',
+          },
+        })
       })
       .catch((error) => {
         setError(error.message)
