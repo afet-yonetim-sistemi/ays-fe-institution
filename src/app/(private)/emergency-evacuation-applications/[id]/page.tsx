@@ -161,7 +161,6 @@ const Page = ({
         notes: emergencyEvacuationApplicationDetails.notes,
       })
     }
-    setIsFormChanged(false)
     setIsEmergencyApplicationEditable(false)
   }
 
@@ -209,7 +208,6 @@ const Page = ({
           setIsEmergencyApplicationEditable(false)
           setShowUpdateConfirmDialog(false)
           setPendingSaveValues(null)
-          setIsFormChanged(false)
         } else {
           showErrorToast(undefined, 'application.updateError')
         }
