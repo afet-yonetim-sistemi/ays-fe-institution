@@ -110,8 +110,8 @@ const Page = ({
       )
     })
 
-    const initialRoleIds = initialUserValues.roles?.map((r) => r.id).toSorted()
-    const currentRoleIds = selectedRoles.toSorted()
+    const initialRoleIds = initialUserValues.roles?.map((role) => role.id)
+    const currentRoleIds = selectedRoles
 
     const haveRolesChanged =
       JSON.stringify(currentRoleIds) !== JSON.stringify(initialRoleIds)
@@ -136,6 +136,16 @@ const Page = ({
         setUserDetails(details)
         setInitialUserValues(details)
         setSelectedRoles(details.roles.map((role) => role.id))
+        reset({
+          firstName: details.firstName,
+          lastName: details.lastName,
+          emailAddress: details.emailAddress,
+          city: details.city,
+          phoneNumber: {
+            countryCode: details.phoneNumber?.countryCode ?? '90',
+            lineNumber: details.phoneNumber?.lineNumber ?? '',
+          },
+        })
         reset({
           firstName: details.firstName,
           lastName: details.lastName,
