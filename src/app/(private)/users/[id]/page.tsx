@@ -146,6 +146,16 @@ const Page = ({
             lineNumber: details.phoneNumber?.lineNumber ?? '',
           },
         })
+        reset({
+          firstName: details.firstName,
+          lastName: details.lastName,
+          emailAddress: details.emailAddress,
+          city: details.city,
+          phoneNumber: {
+            countryCode: details.phoneNumber?.countryCode ?? '90',
+            lineNumber: details.phoneNumber?.lineNumber ?? '',
+          },
+        })
       })
       .catch((error) => {
         setError(error.message)

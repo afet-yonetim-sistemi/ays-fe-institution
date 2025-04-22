@@ -51,7 +51,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     resolver: zodResolver(FormValidationSchema),
     mode: 'onChange',
   })
-  const { control, reset, formState } = form
+  const { control, reset, formState, watch } = form
+  const watchedValues = watch()
 
   const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
   const [detailIsLoading, setDetailIsLoading] = useState(true)
@@ -67,13 +68,18 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [minPermissionError, setMinPermissionError] = useState<string | null>(
     null
   )
-
   const [fetchedRoleDetail, setFetchedRoleDetail] = useState<RoleDetail | null>(
     null
   )
   const [availablePermissions, setAvailablePermissions] = useState<
     RolePermission[]
   >([])
+  const [isFormChanged, setIsFormChanged] = useState(false)
+
+  const isSaveButtonDisabled =
+    !isFormChanged ||
+    Boolean(formState.errors.name) ||
+    Boolean(minPermissionError)
 
   const getAvailableRolePermissions = useCallback(async (): Promise<
     RolePermission[]
@@ -107,13 +113,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         .filter((permission) => permission.isActive)
         .map((permission) => permission.id),
     }
-  }
-
-  const hasRoleNameChanged = (
-    updatedRoleName: string,
-    originalRoleName: string
-  ): boolean => {
-    return updatedRoleName !== originalRoleName
   }
 
   const haveRolePermissionsChanged = (
@@ -201,6 +200,24 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   )
 
   useEffect(() => {
+    if (!roleDetail) return
+
+    const currentRoleName = watchedValues.name
+    const hasFieldChanged = currentRoleName !== roleDetail.name
+
+    const currentPermissionIds = rolePermissions
+      .filter((permission) => permission.isActive)
+      .map((permission) => permission.id)
+
+    const havePermissionsChanged = haveRolePermissionsChanged(
+      currentPermissionIds,
+      originalRolePermissions
+    )
+
+    setIsFormChanged(hasFieldChanged || havePermissionsChanged)
+  }, [watchedValues, rolePermissions, roleDetail, originalRolePermissions])
+
+  useEffect(() => {
     const fetchDetails = async (): Promise<void> => {
       const availablePermissions: RolePermission[] =
         await getAvailableRolePermissions()
@@ -212,6 +229,9 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           setAvailablePermissions(availablePermissions)
 
           enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
+          reset({
+            name: fetchedRoleDetail.name,
+          })
         })
         .catch((error) => {
           showErrorToast(error, 'common.error.fetch')
@@ -312,17 +332,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     if (!roleDetail) return
 
     const updatedData = createUpdatedRoleData(form, roleDetail, rolePermissions)
-    const isNameChanged = hasRoleNameChanged(updatedData.name, roleDetail.name)
-    const isPermissionsChanged = haveRolePermissionsChanged(
-      updatedData.permissionIds,
-      roleDetail.permissions
-    )
-
-    if (!isNameChanged && !isPermissionsChanged) {
-      showErrorToast(undefined, 'common.error.noChange')
-      setIsRoleEditable(false)
-      return
-    }
 
     updateRole(params.id, updatedData)
       .then((response) => {
@@ -439,9 +448,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
           type="button"
           variant="outline"
           onClick={handleSaveButtonClick}
-          disabled={
-            Boolean(formState.errors.name) || Boolean(minPermissionError)
-          }
+          disabled={isSaveButtonDisabled}
         >
           {t('common.save')}
         </Button>
