@@ -129,6 +129,13 @@ const Page = ({
             detailsWithoutNullHasObstacle
           )
           setInitialApplicationValues(detailsWithoutNullHasObstacle)
+          reset({
+            seatingCount: detailsWithoutNullHasObstacle.seatingCount,
+            hasObstaclePersonExist:
+              detailsWithoutNullHasObstacle.hasObstaclePersonExist,
+            status: detailsWithoutNullHasObstacle.status,
+            notes: detailsWithoutNullHasObstacle.notes,
+          })
         })
         .catch((error) => {
           setError(error.message)
