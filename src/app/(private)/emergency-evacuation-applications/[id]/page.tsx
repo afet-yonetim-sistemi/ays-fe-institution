@@ -161,7 +161,6 @@ const Page = ({
         notes: emergencyEvacuationApplicationDetails.notes,
       })
     }
-    setIsFormChanged(false)
     setIsEmergencyApplicationEditable(false)
   }
 
