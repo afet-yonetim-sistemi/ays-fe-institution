@@ -43,7 +43,7 @@ const DataTableSort = <T extends object>({
             onSortClick(column)
           }}
         >
-          <span className="flex items-center gap-2">
+          <span className="flex items-center text-left gap-1">
             {label}
             <SortIcon sortDirection={sortDirection} />
           </span>
@@ -55,9 +55,11 @@ const DataTableSort = <T extends object>({
 }
 
 const SortIcon = ({ sortDirection }: { sortDirection: SortDirection }) => {
-  if (sortDirection === 'asc') return <BiSortUp className="h-4 w-4" />
-  if (sortDirection === 'desc') return <BiSortDown className="h-4 w-4" />
-  return <BiSort className="h-4 w-4" />
+  const iconClass = 'w-4 h-4 min-w-4 min-h-4'
+
+  if (sortDirection === 'asc') return <BiSortUp className={iconClass} />
+  if (sortDirection === 'desc') return <BiSortDown className={iconClass} />
+  return <BiSort className={iconClass} />
 }
 
 export default DataTableSort
