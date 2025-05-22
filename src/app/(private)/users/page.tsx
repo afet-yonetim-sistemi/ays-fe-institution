@@ -155,7 +155,7 @@ const Page = (): JSX.Element => {
 
     const validationRules = {
       emailAddress: { min: 0, max: 254 },
-      lineNumber: { min: 0, max: 13 },
+      lineNumber: { min: 0, max: 10 },
     }
 
     const errors = getFilterErrors(
