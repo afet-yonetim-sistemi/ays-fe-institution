@@ -60,6 +60,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   const [isRoleEditable, setIsRoleEditable] = useState<boolean>(false)
 
   const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
+  const [rawPermissions, setRawPermissions] = useState<RolePermission[]>([])
   const [originalRolePermissions, setOriginalRolePermissions] = useState<
     RolePermission[]
   >([])
@@ -87,19 +88,20 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     return getPermissions()
       .then((response) => {
         const permissions = response.response
-        return permissions.map((permission: RolePermission) => ({
+        const rawPerms = permissions.map((permission: RolePermission) => ({
           id: permission.id,
           name: permission.name,
           category: permission.category,
           isActive: false,
         }))
+        setRawPermissions(rawPerms)
+        return rawPerms
       })
       .catch((error) => {
         showErrorToast(error, 'common.error.fetch')
         return []
       })
       .finally(() => setPermissionIsLoading(false))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const createUpdatedRoleData = (
@@ -146,16 +148,28 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     )
   }
 
-  const localizePermissions = (
-    permissions: RolePermission[],
-    t: (key: string) => string
-  ): RolePermission[] => {
-    return permissions.map((permission) => ({
-      ...permission,
-      name: getLocalizedPermission(permission.name, t),
-      category: getLocalizedCategory(permission.category, t),
-    }))
-  }
+  const localizePermissions = useCallback(
+    (
+      permissions: RolePermission[],
+      currentPermissions?: RolePermission[]
+    ): RolePermission[] => {
+      return permissions.map((permission) => {
+        const currentPermission = currentPermissions?.find(
+          (currentPermission) => currentPermission.id === permission.id
+        )
+
+        return {
+          ...permission,
+          name: getLocalizedPermission(permission.name, t),
+          category: getLocalizedCategory(permission.category, t),
+          isActive: currentPermission
+            ? currentPermission.isActive
+            : permission.isActive,
+        }
+      })
+    },
+    [t]
+  )
 
   const updatePermissionsActiveStatus = (
     permissions: RolePermission[],
@@ -187,7 +201,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
         availablePermissions
       )
 
-      const localizedPermissions = localizePermissions(updatedPermissions, t)
+      const localizedPermissions = localizePermissions(updatedPermissions)
 
       setRoleDetail({
         ...fetchedRoleDetail,
@@ -196,7 +210,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
       setOriginalRolePermissions(localizedPermissions)
       setRolePermissions(localizedPermissions)
     },
-    [t]
+    [localizePermissions]
   )
 
   useEffect(() => {
@@ -243,27 +257,43 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }, [getAvailableRolePermissions, params.id])
 
   useEffect(() => {
-    if (fetchedRoleDetail && availablePermissions.length > 0) {
-      if (rolePermissions !== originalRolePermissions) {
-        const updatedPermissions = updatePermissionsActiveStatus(
-          fetchedRoleDetail.permissions,
-          availablePermissions
-        )
+    if (!fetchedRoleDetail) return
 
-        const localizedPermissions = localizePermissions(updatedPermissions, t)
+    const permissionsSource =
+      rawPermissions.length > 0 ? rawPermissions : availablePermissions
 
+    if (permissionsSource.length > 0) {
+      const updatedPermissions = updatePermissionsActiveStatus(
+        fetchedRoleDetail.permissions,
+        permissionsSource
+      )
+
+      const localizedPermissions = localizePermissions(
+        updatedPermissions,
+        rolePermissions
+      )
+
+      setRolePermissions(localizedPermissions)
+
+      if (roleDetail) {
         setRoleDetail({
-          ...fetchedRoleDetail,
+          ...roleDetail,
           permissions: localizedPermissions,
         })
+      }
+
+      if (!isRoleEditable) {
+        setOriginalRolePermissions(localizedPermissions)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    enhanceRolePermissions,
+    t,
     fetchedRoleDetail,
+    rawPermissions,
     availablePermissions,
-    rolePermissions,
+    isRoleEditable,
+    localizePermissions,
   ])
 
   useEffect(() => {
