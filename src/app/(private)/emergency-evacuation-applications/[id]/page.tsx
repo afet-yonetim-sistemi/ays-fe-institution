@@ -27,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import Status from '@/components/ui/status'
 import { Textarea } from '@/components/ui/textarea'
 import { Permission } from '@/constants/permissions'
 import {
@@ -566,7 +567,7 @@ const Page = ({
                                     key={status.value}
                                     value={status.value}
                                   >
-                                    {t(status.label)}
+                                    <Status status={status} />
                                   </SelectItem>
                                 )
                               )}
