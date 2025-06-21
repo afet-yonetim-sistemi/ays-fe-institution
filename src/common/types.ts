@@ -42,4 +42,5 @@ export interface BaseApiResponse {
 export interface FilterValidationOptions {
   min?: number
   max?: number
+  regex?: RegExp
 }
