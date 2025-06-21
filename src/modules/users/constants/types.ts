@@ -9,7 +9,7 @@ export interface UsersFilter {
   lastName?: string
   emailAddress?: string
   countryCode?: number
-  lineNumber?: number
+  lineNumber?: string
   city?: string
 }
 

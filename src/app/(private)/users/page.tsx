@@ -41,10 +41,7 @@ const parseUsersSearchParams = (searchParams: URLSearchParams) => {
   const firstName = searchParams.get('firstName') ?? ''
   const lastName = searchParams.get('lastName') ?? ''
   const emailAddress = searchParams.get('emailAddress') ?? ''
-  const lineNumberParam = searchParams.get('lineNumber')
-  const lineNumber = lineNumberParam?.trim()
-    ? parseInt(lineNumberParam, 10)
-    : undefined
+  const lineNumber = searchParams.get('lineNumber') ?? ''
   const city = searchParams.get('city') ?? ''
 
   return {
@@ -247,8 +244,6 @@ const Page = (): JSX.Element => {
             setLineNumberInput(e.target.value)
             debouncedHandleInputFilterChange('lineNumber', e.target.value)
           }}
-          type="number"
-          hideNumberSpinner
           error={filterErrors.lineNumber}
         />
         <FilterInput
