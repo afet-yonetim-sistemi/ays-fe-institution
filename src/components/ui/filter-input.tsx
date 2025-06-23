@@ -62,6 +62,11 @@ const FilterInput: React.FC<FilterInputProps> = React.memo(
           return
         }
       }
+
+      if (id === 'lineNumber' && !/^\d*$/.test(newValue)) {
+        return
+      }
+
       onChange(e)
     }
 
