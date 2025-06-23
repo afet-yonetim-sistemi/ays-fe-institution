@@ -174,13 +174,25 @@ const Page = (): JSX.Element => {
     const paramsReady = searchParams.toString().length > 0
     if (!paramsReady) return
 
+    const locationValidationRule = {
+      min: 2,
+      max: 100,
+      regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
+    }
+
+    const validationRules = {
+      sourceCity: locationValidationRule,
+      sourceDistrict: locationValidationRule,
+      targetCity: locationValidationRule,
+      targetDistrict: locationValidationRule,
+    }
+
     const parsedFilters = getInitialFilters(searchParams)
-    const errors = getFilterErrors(parsedFilters, [
-      'sourceCity',
-      'sourceDistrict',
-      'targetCity',
-      'targetDistrict',
-    ])
+    const errors = getFilterErrors(
+      parsedFilters,
+      ['sourceCity', 'sourceDistrict', 'targetCity', 'targetDistrict'],
+      validationRules
+    )
 
     setFilterErrors(errors)
     setFilters(parsedFilters)
@@ -191,7 +203,9 @@ const Page = (): JSX.Element => {
     setTargetDistrictInput(parsedFilters.targetDistrict ?? '')
     setSeatingCountInput(parsedFilters.seatingCount ?? '')
 
-    const hasFilterErrors = Object.values(errors).some((e) => e !== null)
+    const hasFilterErrors = Object.values(errors).some(
+      (error) => error !== null
+    )
     if (!hasFilterErrors) {
       fetchData(parsedFilters)
     }
