@@ -150,14 +150,22 @@ const Page = (): JSX.Element => {
 
     const parsedFilters = getInitialFilters(searchParams)
 
+    const nameValidationRule = {
+      min: 2,
+      max: 100,
+      regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
+    }
+
     const validationRules = {
       emailAddress: { min: 0, max: 254 },
       lineNumber: { min: 0, max: 10 },
       city: {
         min: 2,
         max: 100,
-        regex: /^(?!\d+$)[\p{L}\p{P} ]+$/u,
+        regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
       },
+      firstName: nameValidationRule,
+      lastName: nameValidationRule,
     }
 
     const errors = getFilterErrors(
