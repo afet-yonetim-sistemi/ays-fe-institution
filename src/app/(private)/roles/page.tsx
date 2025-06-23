@@ -115,13 +115,21 @@ const Page = (): JSX.Element => {
     if (!paramsReady) return
 
     const parsedFilters = getInitialFilters(searchParams)
-    const errors = getFilterErrors(parsedFilters, ['name'])
+    const errors = getFilterErrors(parsedFilters, ['name'], {
+      name: {
+        min: 2,
+        max: 255,
+        regex: /^[\p{L}\p{P}\s]+$/u,
+      },
+    })
 
     setFilterErrors(errors)
     setFilters(parsedFilters)
     setNameInputValue(parsedFilters.name ?? '')
 
-    const hasFilterErrors = Object.values(errors).some((e) => e !== null)
+    const hasFilterErrors = Object.values(errors).some(
+      (error) => error !== null
+    )
     if (!hasFilterErrors) {
       fetchData(parsedFilters)
     }
