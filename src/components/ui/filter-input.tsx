@@ -1,8 +1,8 @@
-import React from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 import { t } from 'i18next'
+import { memo } from 'react'
 
 interface FilterInputProps {
   id: string
@@ -15,7 +15,7 @@ interface FilterInputProps {
   hideNumberSpinner?: boolean
 }
 
-const FilterInput: React.FC<FilterInputProps> = React.memo(
+const FilterInput: React.FC<FilterInputProps> = memo(
   ({
     id,
     label,
@@ -48,7 +48,7 @@ const FilterInput: React.FC<FilterInputProps> = React.memo(
 
       if (id === 'seatingCount' && type === 'number') {
         const numValue = parseInt(newValue, 10)
-        if (newValue && (isNaN(numValue) || numValue < 1 || numValue > 999)) {
+        if (newValue && (isNaN(numValue) || numValue < 0 || numValue > 999)) {
           return
         }
       }
