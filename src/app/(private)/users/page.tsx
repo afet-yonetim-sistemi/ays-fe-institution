@@ -153,6 +153,11 @@ const Page = (): JSX.Element => {
     const validationRules = {
       emailAddress: { min: 0, max: 254 },
       lineNumber: { min: 0, max: 10 },
+      city: {
+        min: 2,
+        max: 100,
+        regex: /^(?!\d+$)[\p{L}\p{P} ]+$/u,
+      },
     }
 
     const errors = getFilterErrors(
@@ -169,7 +174,9 @@ const Page = (): JSX.Element => {
     setCityInput(parsedFilters.city ?? '')
     setLineNumberInput(parsedFilters.lineNumber ?? '')
 
-    const hasFilterErrors = Object.values(errors).some((e) => e !== null)
+    const hasFilterErrors = Object.values(errors).some(
+      (error) => error !== null
+    )
     if (!hasFilterErrors) {
       fetchData(parsedFilters)
     }
