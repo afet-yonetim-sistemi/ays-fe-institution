@@ -1,8 +1,21 @@
-import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
 import { z } from 'zod'
 
+const roleNameSchema = z
+  .string()
+  .min(2, { message: 'validation.minLength' })
+  .max(255, { message: 'validation.maxLength' })
+  .regex(/^\p{L}/u, {
+    message: 'validation.invalid',
+  })
+  .regex(/^\S(?:.*\S)?$/u, {
+    message: 'validation.invalid',
+  })
+  .refine((val) => !/\d/.test(val), {
+    message: 'validation.invalid',
+  })
+
 const RolesSchema = z.object({
-  name: nameboxWithLengthValidation(2, 255),
+  name: roleNameSchema,
   status: z.string(),
   createdUser: z.string(),
   createdAt: z.string(),
@@ -11,7 +24,7 @@ const RolesSchema = z.object({
 })
 
 export const CreateRoleSchema = z.object({
-  name: nameboxWithLengthValidation(2, 255),
+  name: roleNameSchema,
 })
 
 export const FormValidationSchema = RolesSchema
