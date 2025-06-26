@@ -8,10 +8,16 @@ import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
+export const generateMetadata = async (): Promise<Metadata> => ({
   title: i18n.t('metaData.aysTitle'),
   description: i18n.t('metaData.aysDescription'),
-}
+  openGraph: {
+    title: i18n.t('metaData.aysTitle'),
+    description: i18n.t('metaData.aysDescription'),
+    type: 'website',
+    locale: i18n.language,
+  },
+})
 
 export default function RootLayout({
   children,
