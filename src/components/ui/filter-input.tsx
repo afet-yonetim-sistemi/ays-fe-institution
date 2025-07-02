@@ -53,12 +53,8 @@ const FilterInput: React.FC<FilterInputProps> = memo(
         }
       }
 
-      if (id === 'referenceNumber' && type === 'number') {
-        const numValue = parseInt(newValue, 10)
-        if (
-          newValue &&
-          (isNaN(numValue) || numValue < 0 || numValue > 9999999999)
-        ) {
+      if (id === 'referenceNumber') {
+        if (!/^\d*$/.test(newValue) || newValue.length > 10) {
           return
         }
       }

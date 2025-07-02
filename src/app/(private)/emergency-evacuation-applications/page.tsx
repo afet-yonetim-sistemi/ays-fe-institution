@@ -258,8 +258,6 @@ const Page = (): JSX.Element => {
             setReferenceNumberInput(e.target.value)
             debouncedHandleInputFilterChange('referenceNumber', e.target.value)
           }}
-          type="number"
-          hideNumberSpinner
         />
         <FilterInput
           id="sourceCity"
