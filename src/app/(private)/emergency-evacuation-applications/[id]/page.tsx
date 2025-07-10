@@ -122,20 +122,13 @@ const Page = ({
       getEmergencyEvacuationApplication(params.id)
         .then((response) => {
           const details = response.response
-          const detailsWithoutNullHasObstacle = {
-            ...details,
-            hasObstaclePersonExist: details.hasObstaclePersonExist || false,
-          }
-          setEmergencyEvacuationApplicationDetails(
-            detailsWithoutNullHasObstacle
-          )
-          setInitialApplicationValues(detailsWithoutNullHasObstacle)
+          setEmergencyEvacuationApplicationDetails(details)
+          setInitialApplicationValues(details)
           reset({
-            seatingCount: detailsWithoutNullHasObstacle.seatingCount,
-            hasObstaclePersonExist:
-              detailsWithoutNullHasObstacle.hasObstaclePersonExist,
-            status: detailsWithoutNullHasObstacle.status,
-            notes: detailsWithoutNullHasObstacle.notes,
+            seatingCount: details.seatingCount,
+            hasObstaclePersonExist: details.hasObstaclePersonExist,
+            status: details.status,
+            notes: details.notes,
           })
         })
         .catch((error) => {
@@ -157,7 +150,7 @@ const Page = ({
       reset({
         seatingCount: emergencyEvacuationApplicationDetails.seatingCount,
         hasObstaclePersonExist:
-          emergencyEvacuationApplicationDetails.hasObstaclePersonExist || false,
+          emergencyEvacuationApplicationDetails.hasObstaclePersonExist,
         status: emergencyEvacuationApplicationDetails.status,
         notes: emergencyEvacuationApplicationDetails.notes,
       })
