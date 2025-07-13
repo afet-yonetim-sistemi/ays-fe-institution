@@ -1,12 +1,15 @@
 import { z } from 'zod'
 import { emailRegex } from '@/constants/regex'
-import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
+import {
+  nameboxWithLengthValidation,
+  strictNameValidation,
+} from '@/lib/strictValidation'
 import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 
 export const UserValidationSchema = z.object({
   id: z.string(),
-  firstName: nameboxWithLengthValidation(2, 100),
-  lastName: nameboxWithLengthValidation(2, 100),
+  firstName: strictNameValidation,
+  lastName: strictNameValidation,
   emailAddress: z
     .string({
       required_error: 'validation.required',
@@ -24,8 +27,8 @@ export const UserValidationSchema = z.object({
 })
 
 export const CreateUserValidationSchema = z.object({
-  firstName: nameboxWithLengthValidation(2, 100),
-  lastName: nameboxWithLengthValidation(2, 100),
+  firstName: strictNameValidation,
+  lastName: strictNameValidation,
   emailAddress: z
     .string({
       required_error: 'validation.required',
