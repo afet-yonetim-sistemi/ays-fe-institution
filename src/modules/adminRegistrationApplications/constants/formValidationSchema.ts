@@ -3,7 +3,7 @@ import {
   PhoneNumberSchema,
 } from '@/constants/formValidationSchema'
 import { emailRegex } from '@/constants/regex'
-import { nameboxWithLengthValidation } from '@/lib/nameboxValidation'
+import { nameboxWithLengthValidation } from '@/lib/strictValidation'
 import { z } from 'zod'
 
 const UserSchema = z.object({
