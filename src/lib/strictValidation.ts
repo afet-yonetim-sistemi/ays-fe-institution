@@ -23,12 +23,12 @@ export const strictNameValidation = z
   .string()
   .min(2, { message: 'validation.minLength' })
   .max(100, { message: 'validation.maxLength' })
-  .regex(/^\p{L}(?:[\p{L}\s.,'\-]*\p{L})?$/u, {
+  .regex(/^\p{L}(?:[\p{L}\s.,'-]*\p{L})?$/u, {
     message: 'validation.invalid',
   })
   .refine((val) => !/ {2,}/.test(val), {
     message: 'validation.invalid',
   })
-  .refine((val) => !/[.,'\-]{2,}/.test(val), {
+  .refine((val) => !/[.,'-]{2,}/.test(val), {
     message: 'validation.invalid',
   })
