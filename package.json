@@ -8,7 +8,7 @@
     "start": "next start",
     "format": "prettier --check './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "format:fix": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "prepare": "husky install",
+    "prepare": "husky",
     "eslint": "npx eslint **/*.{ts,tsx} --max-warnings 0"
   },
   "dependencies": {
