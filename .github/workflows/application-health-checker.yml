@@ -22,7 +22,7 @@ jobs:
 
       - uses: actions/setup-node@v4 # Step to set up Node.js
         with:
-          node-version: 22
+          node-version: 22.17.1
 
       - name: Install npm # Install with npm
         run: npm install
