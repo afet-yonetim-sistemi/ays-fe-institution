@@ -59,6 +59,11 @@
       "incorrectCredentials": "Hatalı e-posta veya şifre. Lütfen tekrar deneyiniz."
     }
   },
+  "sessionExpired": {
+    "title": "Oturum Süreniz Doldu",
+    "description": "Lütfen tekrar giriş yapınız.",
+    "countdown": "{{count}} saniye içinde giriş ekranına yönlendirileceksiniz…"
+  },
   "password": {
     "forgot": {
       "title": "Şifrenizi mi unuttunuz?",

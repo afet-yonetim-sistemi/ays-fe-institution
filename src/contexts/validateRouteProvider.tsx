@@ -1,24 +1,40 @@
-import React, { ReactNode, useState, useEffect, useMemo } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
-import { useAppSelector } from '@/store/hooks'
-import { getRouteStatus } from '@/lib/getRouteStatus'
-import { getUserPermissions } from '@/lib/getUserPermissions'
-import { selectToken } from '@/modules/auth/authSlice'
+'use client'
+
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import {
   ValidateRouteContext,
   ValidateRouteContextType,
 } from '@/contexts/validateRouteContext'
+import { getRouteStatus } from '@/lib/getRouteStatus'
+import { getUserPermissions } from '@/lib/getUserPermissions'
+import { selectToken } from '@/modules/auth/authSlice'
+import { useAppSelector } from '@/store/hooks'
+import { usePathname, useRouter } from 'next/navigation'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { useTranslation } from 'react-i18next'
 
 export const ValidateRouteProvider = ({
   children,
 }: {
   children: ReactNode
 }): React.JSX.Element => {
+  const { t } = useTranslation()
   const router = useRouter()
   const pathname = usePathname()
   const token = useAppSelector(selectToken)
+
   const [loading, setLoading] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [countdown, setCountdown] = useState(3)
+
   const { isProtected, route, requiredPermission } = getRouteStatus(pathname)
   const userPermissions = token ? getUserPermissions(token) : []
 
@@ -46,17 +62,58 @@ export const ValidateRouteProvider = ({
         setLoading(false)
       }
     } else if (isProtected) {
-      router.replace('/login')
+      setShowModal(true)
     } else {
       setLoading(false)
     }
-  }, [token, pathname, isProtected, userHasPermission, router, loading])
+  }, [token, pathname, isProtected, userHasPermission, router])
 
-  if (loading) {
+  useEffect(() => {
+    if (!showModal) return
+
+    if (showModal) {
+      setCountdown(3)
+    }
+
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev === 1) {
+          clearInterval(interval)
+          setShowModal(false)
+          router.replace('/login')
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [showModal, router])
+
+  if (loading || showModal) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <LoadingSpinner />
-      </div>
+      <>
+        <Dialog open={showModal}>
+          <DialogContent
+            className="sm:max-w-md"
+            showClose={false}
+            onEscapeKeyDown={(e) => e.preventDefault()}
+            onPointerDownOutside={(e) => e.preventDefault()}
+          >
+            <DialogHeader>
+              <DialogTitle>{t('sessionExpired.title')}</DialogTitle>
+              <DialogDescription>
+                {t('sessionExpired.description')}
+                <br />
+                {t('sessionExpired.countdown', { count: countdown })}
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+
+        <div className="flex items-center justify-center h-screen">
+          <LoadingSpinner />
+        </div>
+      </>
     )
   }
 
