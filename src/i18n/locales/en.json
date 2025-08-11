@@ -59,11 +59,6 @@
       "incorrectCredentials": "Incorrect email or password. Please try again."
     }
   },
-  "sessionExpired": {
-    "title": "Your Session Has Expired",
-    "description": "Please log in again.",
-    "countdown": "You will be redirected to the login screen in {{count}} second."
-  },
   "password": {
     "forgot": {
       "title": "Forgot password",
