@@ -7,13 +7,9 @@ export const showErrorToast = (
 ): void => {
   const title = 'common.error.defaultTitle'
 
-  const status = error?.response?.status
-
-  // error status 401 means session expired in this project 🤷‍♂️. Which we do not want to show toast.
-  // Detailed info at https://afetyonetimsistemi.atlassian.net/browse/AYS-878
-  if (status === 401) return
-
-  if (status === 429) description = 'common.error.tooManyRequest'
+  if (error?.response?.status === 429) {
+    description = 'common.error.tooManyRequest'
+  }
 
   toast({
     title,
