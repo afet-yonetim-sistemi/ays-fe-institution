@@ -72,7 +72,7 @@ const Page = (): JSX.Element => {
         <ModeToggle />
         <LanguageToggle />
       </nav>
-      <Card>
+      <Card className="w-[410px] h-fit">
         <CardHeader className={'flex items-center'}>
           <Image
             src={'/aysfavicon360.png'}
@@ -81,7 +81,9 @@ const Page = (): JSX.Element => {
             height={100}
           />
           <CardTitle>{t('common.welcome')}</CardTitle>
-          <CardDescription>{t('login.description')}</CardDescription>
+          <CardDescription className="text-center">
+            {t('login.description')}
+          </CardDescription>
         </CardHeader>
         <CardHeader>
           <Form {...form}>
