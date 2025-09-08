@@ -16,7 +16,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { LuUser2 } from 'react-icons/lu'
+import { LuUser } from 'react-icons/lu'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { Button } from '../ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
@@ -84,7 +84,7 @@ function Navbar(): JSX.Element {
               </div>
               <Avatar className={'float-right ml-3'}>
                 <AvatarFallback>
-                  <LuUser2 size={22} />
+                  <LuUser size={22} />
                 </AvatarFallback>
               </Avatar>
             </div>
