@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { loginSuccess, logout } from '@/modules/auth/authSlice'
+import { loginSuccess, refreshTokenExpired } from '@/modules/auth/authSlice'
 import { store } from '@/store/StoreProvider'
 
 export const api = axios.create({
@@ -17,6 +17,7 @@ const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     const accessToken = store.getState().auth.accessToken
+
     if (!accessToken) {
       return Promise.reject(
         new Error(
@@ -46,7 +47,7 @@ http.interceptors.response.use(
         const refreshToken = store.getState().auth.refreshToken
 
         if (!refreshToken) {
-          store.dispatch(logout())
+          store.dispatch(refreshTokenExpired())
           return Promise.reject(new Error('No refresh token available'))
         }
 
@@ -61,7 +62,7 @@ http.interceptors.response.use(
           originalRequest.headers.Authorization = `Bearer ${token?.accessToken}`
           return http(originalRequest)
         } catch (refreshError: unknown) {
-          store.dispatch(logout())
+          store.dispatch(refreshTokenExpired())
           return Promise.reject(
             refreshError instanceof Error
               ? refreshError

@@ -194,6 +194,11 @@
     "toggle": "Toggle navigation menu",
     "logout": "Logout"
   },
+  "sessionExpired": {
+    "title": "Your Session Has Expired",
+    "description": "Please log in again.",
+    "countdown": "You will be redirected to the login page in {{seconds}} seconds..."
+  },
   "sort": {
     "descending": "Click to sort descending",
     "ascending": "Click to sort ascending",

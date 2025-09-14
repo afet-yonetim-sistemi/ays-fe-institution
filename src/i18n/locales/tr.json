@@ -194,6 +194,11 @@
     "toggle": "Gezinme menüsünü aç/kapat",
     "logout": "Çıkış Yap"
   },
+  "sessionExpired": {
+    "title": "Oturum Süreniz Doldu",
+    "description": "Lütfen tekrar giriş yapınız.",
+    "countdown": "{{seconds}} saniye içinde giriş ekranına yönlendirileceksiniz..."
+  },
   "sort": {
     "descending": "Azalan sıraya göre sıralamak için tıklayın",
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
