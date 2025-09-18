@@ -17,19 +17,19 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
-import { CreateUserValidationSchema } from '@/modules/users/constants/formValidationSchema'
 import { createUser } from '@/modules/users/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { userFormConfig } from '@/modules/users/constants/formConfig'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
   const router = useRouter()
   const form = useForm({
-    resolver: zodResolver(CreateUserValidationSchema),
+    resolver: zodResolver(userFormConfig.validationSchemeCreate),
     mode: 'onChange',
   })
   const { control, watch, formState } = form
