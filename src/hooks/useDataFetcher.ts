@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { showErrorToast } from '@/lib/showToast'
+import { AxiosError } from 'axios'
 
 interface ApiResponse<T> {
   data: {
@@ -54,7 +55,9 @@ export function useDataFetcher<T, F extends { page: number }>({
           onSuccess(content, totalElementCount)
         }
       } catch (error) {
-        showErrorToast(error)
+        showErrorToast(
+          error instanceof Error ? (error as AxiosError) : undefined
+        )
       } finally {
         setIsLoading(false)
       }
