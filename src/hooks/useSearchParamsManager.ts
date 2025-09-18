@@ -94,13 +94,17 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
         } else {
           updatedParams.delete(urlParamName)
         }
-      } else if (Array.isArray(value)) {
+      }
+
+      if (Array.isArray(value)) {
         if (value.length > 0) {
           updatedParams.set(urlParamName, value.join(','))
         } else {
           updatedParams.delete(urlParamName)
         }
-      } else {
+      }
+
+      if (typeof value === 'string' && !Array.isArray(value)) {
         if (value.trim()) {
           updatedParams.set(urlParamName, value)
         } else {
