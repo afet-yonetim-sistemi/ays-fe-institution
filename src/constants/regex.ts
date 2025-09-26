@@ -6,3 +6,5 @@ export const emailRegex = new RegExp(
     '[\\p{L}]{2,}$',
   'u'
 )
+
+export const numericRegex = /\D/g;
