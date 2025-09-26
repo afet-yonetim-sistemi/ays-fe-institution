@@ -47,19 +47,19 @@ export class SearchParamsParser {
   ): unknown {
     switch (type) {
       case SearchParamType.STRING:
-        return paramValue ?? (defaultValue || '')
+        return paramValue ?? defaultValue ?? ''
 
       case SearchParamType.NUMBER:
-        return paramValue ? parseInt(paramValue, 10) : defaultValue || 0
+        return paramValue ? parseInt(paramValue, 10) : (defaultValue ?? 0)
 
       case SearchParamType.ARRAY:
-        return paramValue?.trim() ? paramValue.split(',') : defaultValue || []
+        return paramValue?.trim() ? paramValue.split(',') : (defaultValue ?? [])
 
       case SearchParamType.SORT:
         if (paramValue?.trim()) {
           return this.parseSortValue(paramValue)
         }
-        return defaultValue || []
+        return defaultValue ?? []
 
       default:
         return paramValue ?? defaultValue

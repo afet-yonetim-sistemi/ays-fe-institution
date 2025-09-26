@@ -36,7 +36,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
     const initialInputs: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
       if (config[key]?.type === SearchParamType.STRING) {
-        initialInputs[key] = (filters[key] as string) || ''
+        initialInputs[key] = (filters[key] as string) ?? ''
       }
     })
     setInputValues(initialInputs)
@@ -61,7 +61,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
     const newInputValues: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
       if (config[key]?.type === SearchParamType.STRING) {
-        newInputValues[key] = (newFilters[key] as string) || ''
+        newInputValues[key] = (newFilters[key] as string) ?? ''
       }
     })
     setInputValues((prev) => ({ ...prev, ...newInputValues }))
