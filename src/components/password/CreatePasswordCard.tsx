@@ -67,7 +67,7 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
         <ModeToggle />
         <LanguageToggle />
       </nav>
-      <Card className={'w-[410px] h-fit'}>
+      <Card className={'w-[410px] min-h-[558px] h-fit'}>
         <CardHeader className={'flex items-center'}>
           <Image
             src={'/aysfavicon360.png'}
@@ -76,7 +76,9 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
             height={100}
           />
           <CardTitle>{t('password.create.title')}</CardTitle>
-          <CardDescription>{t('password.create.description')}</CardDescription>
+          <CardDescription className="text-center">
+            {t('password.create.description')}
+          </CardDescription>
         </CardHeader>
         <CardHeader>
           <Form {...passwordForm}>

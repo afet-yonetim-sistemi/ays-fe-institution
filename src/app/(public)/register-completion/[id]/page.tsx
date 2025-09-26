@@ -93,7 +93,7 @@ const Page = ({
             <ModeToggle />
             <LanguageToggle />
           </nav>
-          <Card className="w-[410px] h-fit">
+          <Card className="w-[410px] min-h-[558px]  h-fit">
             <CardHeader className="flex items-center gap-2">
               <Image
                 src={'/aysfavicon360.png'}
