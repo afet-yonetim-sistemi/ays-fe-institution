@@ -8,3 +8,5 @@ export const emailRegex = new RegExp(
 )
 
 export const nameRegex = /^(?!\d+$)[\p{L}\p{P}\s0-9]+$/u
+
+export const numericRegex = /\D/g;
