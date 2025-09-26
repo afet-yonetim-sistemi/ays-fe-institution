@@ -7,6 +7,9 @@ import { memo } from 'react'
 interface FilterInputProps {
   id: string
   label: string
+  onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  inputMode?: React.InputHTMLAttributes<HTMLInputElement>['inputMode']
+  maxLength?: number
   value: string | number | undefined
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
@@ -21,8 +24,11 @@ const FilterInput: React.FC<FilterInputProps> = memo(
     label,
     value,
     onChange,
+    onInput,
     placeholder = '',
     type = 'text',
+    inputMode,
+    maxLength,
     error,
     hideNumberSpinner = false,
   }) => {
@@ -75,9 +81,12 @@ const FilterInput: React.FC<FilterInputProps> = memo(
           id={id}
           placeholder={placeholder}
           value={value ?? ''}
+          maxLength={maxLength}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           type={type}
+          onInput={onInput}
+          inputMode={inputMode}
           className={cn(
             'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
             type === 'number' && hideNumberSpinner && noNumberSpinnerClass
