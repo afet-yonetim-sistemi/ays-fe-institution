@@ -72,7 +72,7 @@ const Page = (): JSX.Element => {
         <ModeToggle />
         <LanguageToggle />
       </nav>
-      <Card className="w-[410px] h-fit">
+      <Card className="w-[410px] min-h-[558px] h-fit">
         <CardHeader className={'flex items-center'}>
           <Image
             src={'/aysfavicon360.png'}
