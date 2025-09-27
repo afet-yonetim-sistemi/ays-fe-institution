@@ -36,7 +36,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
     const initialInputs: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
       if (config[key]?.type === SearchParamType.STRING) {
-        initialInputs[key] = (filters[key] as string) || ''
+        initialInputs[key] = (filters[key] as string) ?? ''
       }
     })
     setInputValues(initialInputs)
@@ -61,7 +61,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
     const newInputValues: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
       if (config[key]?.type === SearchParamType.STRING) {
-        newInputValues[key] = (newFilters[key] as string) || ''
+        newInputValues[key] = (newFilters[key] as string) ?? ''
       }
     })
     setInputValues((prev) => ({ ...prev, ...newInputValues }))
@@ -86,7 +86,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
       const updatedParams = new URLSearchParams(searchParams)
       updatedParams.set('page', '1')
 
-      const urlParamName = config[key]?.paramName || key
+      const urlParamName = config[key]?.paramName ?? key
 
       if (typeof value === 'boolean') {
         if (value) {
@@ -94,13 +94,17 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
         } else {
           updatedParams.delete(urlParamName)
         }
-      } else if (Array.isArray(value)) {
+      }
+
+      if (Array.isArray(value)) {
         if (value.length > 0) {
           updatedParams.set(urlParamName, value.join(','))
         } else {
           updatedParams.delete(urlParamName)
         }
-      } else {
+      }
+
+      if (typeof value === 'string' && !Array.isArray(value)) {
         if (value.trim()) {
           updatedParams.set(urlParamName, value)
         } else {
