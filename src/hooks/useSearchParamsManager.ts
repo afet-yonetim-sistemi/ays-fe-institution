@@ -86,7 +86,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
       const updatedParams = new URLSearchParams(searchParams)
       updatedParams.set('page', '1')
 
-      const urlParamName = config[key]?.paramName || key
+      const urlParamName = config[key]?.paramName ?? key
 
       if (typeof value === 'boolean') {
         if (value) {

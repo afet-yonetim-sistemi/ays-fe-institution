@@ -31,7 +31,7 @@ export class SearchParamsParser {
       if (!config) return
 
       const { type, defaultValue, paramName } = config
-      const urlParamName = paramName || key
+      const urlParamName = paramName ?? key
       const paramValue = searchParams.get(urlParamName)
 
       result[key] = this.parseParamValue(type, paramValue, defaultValue)
@@ -108,7 +108,7 @@ export class SearchParamsParser {
     key: string,
     value: unknown
   ): void {
-    const urlParamName = config.paramName || key
+    const urlParamName = config.paramName ?? key
 
     switch (config.type) {
       case SearchParamType.STRING:
