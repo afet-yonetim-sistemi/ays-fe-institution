@@ -1,6 +1,5 @@
 'use client'
 
-import { Sort } from '@/common/types'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import FilterInput from '@/components/ui/filter-input'
@@ -9,186 +8,60 @@ import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
-import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
-import { usePagination } from '@/hooks/usePagination'
+import { useDataFetcher } from '@/hooks/useDataFetcher'
+import { useSearchParamsManager } from '@/hooks/useSearchParamsManager'
 import { useSort } from '@/hooks/useSort'
-import { getFilterErrors } from '@/lib/getFilterErrors'
-import { showErrorToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, User } from '@/modules/users/components/columns'
 import { userStatuses } from '@/modules/users/constants/statuses'
-import { UsersFilter } from '@/modules/users/constants/types'
+import type { UsersFilter } from '@/modules/users/constants/types'
 import { getUsers } from '@/modules/users/service'
 import { useAppSelector } from '@/store/hooks'
 import { RefreshCw } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-
-const parseUsersSearchParams = (searchParams: URLSearchParams) => {
-  const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
-  const statusesParam = searchParams.get('status')
-  const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
-  const sortParam = searchParams.get('sort')
-  const sort: Sort[] = sortParam?.trim()
-    ? sortParam.split(';').map((s) => {
-        const [column, direction] = s.split(',')
-        return { column, direction } as Sort
-      })
-    : []
-
-  const firstName = searchParams.get('firstName') ?? ''
-  const lastName = searchParams.get('lastName') ?? ''
-  const emailAddress = searchParams.get('emailAddress') ?? ''
-  const lineNumber = searchParams.get('lineNumber') ?? ''
-  const city = searchParams.get('city') ?? ''
-
-  return {
-    currentPage,
-    statuses,
-    firstName,
-    lastName,
-    emailAddress,
-    lineNumber,
-    city,
-    sort,
-  }
-}
-
-const getInitialFilters = (searchParams: URLSearchParams): UsersFilter => {
-  const {
-    currentPage,
-    statuses,
-    firstName,
-    lastName,
-    emailAddress,
-    lineNumber,
-    city,
-    sort,
-  } = parseUsersSearchParams(searchParams)
-
-  return {
-    page: currentPage,
-    pageSize: 10,
-    statuses,
-    firstName: firstName || '',
-    lastName: lastName || '',
-    emailAddress: emailAddress || '',
-    lineNumber,
-    city: city || '',
-    sort,
-  }
-}
+import { usersFilterConfig } from '@/modules/users/constants/filterConfig'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
   const userPermissions = useAppSelector(selectPermissions)
 
-  const [userList, setUserList] = useState<User[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [totalRows, setTotalRows] = useState(0)
-  const [filters, setFilters] = useState<UsersFilter>(() =>
-    getInitialFilters(searchParams)
-  )
-  const [filterErrors, setFilterErrors] = useState<
-    Record<string, string | null>
-  >({})
-  const [firstNameInput, setFirstNameInput] = useState(filters.firstName ?? '')
-  const [lastNameInput, setLastNameInput] = useState(filters.lastName ?? '')
-  const [emailAddressInput, setEmailAddressInput] = useState(
-    filters.emailAddress ?? ''
-  )
-  const [lineNumberInput, setLineNumberInput] = useState(
-    filters.lineNumber ?? ''
-  )
-  const [cityInput, setCityInput] = useState(filters.city ?? '')
+  const {
+    filters,
+    filterErrors,
+    inputValues,
+    handleFilterChange,
+    handlePageChange,
+    handleInputValueChange,
+  } = useSearchParamsManager<UsersFilter>({
+    config: usersFilterConfig.searchParams,
+    validationRules: usersFilterConfig.validationRules,
+    defaultFilters: usersFilterConfig.defaultFilters,
+  })
 
-  const { handlePageChange } = usePagination()
-  const handleFilterChange = useHandleFilterChange()
+  const {
+    data: userList,
+    isLoading,
+    totalRows,
+    fetchData,
+    refetch,
+  } = useDataFetcher<User, UsersFilter>({
+    fetchFunction: getUsers,
+  })
+
   const debouncedHandleInputFilterChange =
     useDebouncedInputFilter(handleFilterChange)
   const handleSortChange = useSort(filters.sort)
 
-  const fetchData = useCallback(
-    (filters: UsersFilter) => {
-      setIsLoading(true)
-      getUsers(filters)
-        .then((response) => {
-          if (!response.data.isSuccess) {
-            showErrorToast()
-            return
-          }
-
-          const { content, totalElementCount, totalPageCount } =
-            response.data.response
-
-          if (filters.page > totalPageCount && totalPageCount !== 0) {
-            router.push('/not-found')
-            return
-          }
-
-          setUserList(content)
-          setTotalRows(totalElementCount)
-        })
-        .catch((error) => {
-          showErrorToast(error)
-        })
-        .finally(() => {
-          setIsLoading(false)
-        })
-    },
-    [router]
-  )
-
   useEffect(() => {
-    const paramsReady = searchParams.toString().length > 0
-    if (!paramsReady) return
-
-    const parsedFilters = getInitialFilters(searchParams)
-
-    const nameValidationRule = {
-      min: 2,
-      max: 100,
-      regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
-    }
-
-    const validationRules = {
-      emailAddress: { min: 0, max: 254 },
-      lineNumber: { min: 0, max: 10 },
-      city: {
-        min: 2,
-        max: 100,
-        regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
-      },
-      firstName: nameValidationRule,
-      lastName: nameValidationRule,
-    }
-
-    const errors = getFilterErrors(
-      parsedFilters,
-      ['firstName', 'lastName', 'emailAddress', 'city', 'lineNumber'],
-      validationRules
-    )
-
-    setFilterErrors(errors)
-    setFilters(parsedFilters)
-    setFirstNameInput(parsedFilters.firstName ?? '')
-    setLastNameInput(parsedFilters.lastName ?? '')
-    setEmailAddressInput(parsedFilters.emailAddress ?? '')
-    setCityInput(parsedFilters.city ?? '')
-    setLineNumberInput(parsedFilters.lineNumber ?? '')
-
-    const hasFilterErrors = Object.values(errors).some(
+    const hasFilterErrors = Object.values(filterErrors).some(
       (error) => error !== null
     )
-    if (!hasFilterErrors) {
-      fetchData(parsedFilters)
+    if (!hasFilterErrors && filters.page) {
+      fetchData(filters)
     }
-  }, [searchParams, fetchData])
+  }, [filters, filterErrors, fetchData])
 
   return (
     <div className="space-y-4">
@@ -198,7 +71,7 @@ const Page = (): JSX.Element => {
           <Button
             variant="outline"
             size="icon"
-            onClick={() => fetchData(filters)}
+            onClick={() => refetch(filters)}
           >
             <RefreshCw className="h-4 w-4" />
           </Button>
@@ -216,7 +89,7 @@ const Page = (): JSX.Element => {
           items={userStatuses}
           selectedItems={filters.statuses}
           onSelectionChange={(statuses) =>
-            handleFilterChange('status', statuses)
+            handleFilterChange('statuses', statuses)
           }
           label="user.statusFilter"
           renderItem={(item) => <Status status={item} />}
@@ -224,9 +97,9 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="firstName"
           label={t('user.firstName')}
-          value={firstNameInput}
+          value={inputValues.firstName || ''}
           onChange={(e) => {
-            setFirstNameInput(e.target.value)
+            handleInputValueChange('firstName', e.target.value)
             debouncedHandleInputFilterChange('firstName', e.target.value)
           }}
           error={filterErrors.firstName}
@@ -234,9 +107,9 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="lastName"
           label={t('user.lastName')}
-          value={lastNameInput}
+          value={inputValues.lastName || ''}
           onChange={(e) => {
-            setLastNameInput(e.target.value)
+            handleInputValueChange('lastName', e.target.value)
             debouncedHandleInputFilterChange('lastName', e.target.value)
           }}
           error={filterErrors.lastName}
@@ -244,9 +117,9 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="emailAddress"
           label={t('user.email')}
-          value={emailAddressInput}
+          value={inputValues.emailAddress || ''}
           onChange={(e) => {
-            setEmailAddressInput(e.target.value)
+            handleInputValueChange('emailAddress', e.target.value)
             debouncedHandleInputFilterChange('emailAddress', e.target.value)
           }}
           error={filterErrors.emailAddress}
@@ -254,9 +127,9 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="lineNumber"
           label={t('user.lineNumber')}
-          value={lineNumberInput}
+          value={inputValues.lineNumber || ''}
           onChange={(e) => {
-            setLineNumberInput(e.target.value)
+            handleInputValueChange('lineNumber', e.target.value)
             debouncedHandleInputFilterChange('lineNumber', e.target.value)
           }}
           error={filterErrors.lineNumber}
@@ -264,9 +137,9 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="city"
           label={t('user.city')}
-          value={cityInput}
+          value={inputValues.city || ''}
           onChange={(e) => {
-            setCityInput(e.target.value)
+            handleInputValueChange('city', e.target.value)
             debouncedHandleInputFilterChange('city', e.target.value)
           }}
           error={filterErrors.city}
@@ -277,7 +150,7 @@ const Page = (): JSX.Element => {
         data={userList}
         totalElements={totalRows}
         pageSize={filters.pageSize}
-        onPageChange={(page) => handlePageChange(page, pathname)}
+        onPageChange={(page) => handlePageChange(page)}
         currentPage={filters.page}
         loading={isLoading}
         enableRowClick={userPermissions.includes(Permission.USER_DETAIL)}
