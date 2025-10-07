@@ -19,10 +19,10 @@ interface UseDataFetcherOptions<T, F> {
   onSuccess?: (data: T[], totalElements: number) => void
 }
 
-export function useDataFetcher<T, F extends { page: number }>({
+export const useDataFetcher = <T, F extends { page: number }>({
   fetchFunction,
   onSuccess,
-}: UseDataFetcherOptions<T, F>) {
+}: UseDataFetcherOptions<T, F>) => {
   const router = useRouter()
   const [data, setData] = useState<T[]>([])
   const [isLoading, setIsLoading] = useState(true)
