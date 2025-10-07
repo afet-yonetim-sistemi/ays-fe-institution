@@ -3,18 +3,23 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   parseSearchParams,
   SearchParamsConfig,
+  SearchParamValue,
 } from '@/utils/searchParamsParser'
 import { getFilterErrors } from '@/lib/getFilterErrors'
 import { FilterValidationOptions, SearchParamType } from '@/common/types'
 
-interface UseSearchParamsManagerOptions<T> {
-  config: SearchParamsConfig
+interface UseSearchParamsManagerOptions<
+  T extends Record<string, SearchParamValue>,
+> {
+  config: SearchParamsConfig<T>
   validationRules?: Partial<Record<keyof T, FilterValidationOptions>>
   defaultFilters: T
   onFiltersChange?: (filters: T) => void
 }
 
-export function useSearchParamsManager<T extends Record<string, unknown>>({
+export function useSearchParamsManager<
+  T extends Record<string, SearchParamValue>,
+>({
   config,
   validationRules = {},
   defaultFilters,
@@ -33,8 +38,8 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
   useEffect(() => {
     const initialInputs: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
-      if (config[key]?.type === SearchParamType.STRING) {
-        initialInputs[key] = (filters[key] as string) ?? ''
+      if (config[key as keyof T]?.type === SearchParamType.STRING) {
+        initialInputs[key] = (filters[key as keyof T] as string) ?? ''
       }
     })
     setInputValues(initialInputs)
@@ -58,8 +63,8 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
 
     const newInputValues: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
-      if (config[key]?.type === SearchParamType.STRING) {
-        newInputValues[key] = (newFilters[key] as string) ?? ''
+      if (config[key as keyof T]?.type === SearchParamType.STRING) {
+        newInputValues[key] = (newFilters[key as keyof T] as string) ?? ''
       }
     })
     setInputValues((prev) => ({ ...prev, ...newInputValues }))
@@ -77,7 +82,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
       const updatedParams = new URLSearchParams(searchParams)
       updatedParams.set('page', '1')
 
-      const urlParamName = config[key]?.paramName ?? key
+      const urlParamName = config[key as keyof T]?.paramName ?? key
 
       if (typeof value === 'boolean') {
         if (value) {
