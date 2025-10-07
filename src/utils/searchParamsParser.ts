@@ -1,34 +1,42 @@
 import { SearchParamType, Sort, SortDirection } from '@/common/types'
 
-export interface SearchParamsConfig {
-  [key: string]: {
+export type SearchParamValue = string | number | string[] | Sort[]
+
+export type SearchParamsConfig<T extends Record<string, SearchParamValue>> = {
+  [K in keyof T]: {
     type: SearchParamType
-    defaultValue?: unknown
+    defaultValue?: T[K]
     paramName?: string
   }
 }
 
-export function parseSearchParams(
-  config: SearchParamsConfig,
+export function parseSearchParams<T extends Record<string, SearchParamValue>>(
+  config: SearchParamsConfig<T>,
   searchParams: URLSearchParams
-): Record<string, unknown> {
-  const result: Record<string, unknown> = {}
-  result.page = parseInt(searchParams.get('page') ?? '1', 10)
+): { [K in keyof T]?: T[K] } & { page: number } {
+  const result: Partial<T> = {}
   Object.entries(config).forEach(([key, conf]) => {
     if (!conf) return
     const { type, defaultValue, paramName } = conf
     const urlParamName = paramName ?? key
     const paramValue = searchParams.get(urlParamName)
-    result[key] = parseParamValue(type, paramValue, defaultValue)
+    result[key as keyof T] = parseParamValue(
+      type,
+      paramValue,
+      defaultValue
+    ) as T[keyof T]
   })
-  return result
+  return {
+    ...result,
+    page: parseInt(searchParams.get('page') ?? '1', 10),
+  }
 }
 
 function parseParamValue(
   type: SearchParamType,
   paramValue: string | null,
-  defaultValue: unknown
-): unknown {
+  defaultValue: SearchParamValue | undefined
+): SearchParamValue | undefined {
   switch (type) {
     case SearchParamType.STRING:
       return paramValue ?? defaultValue ?? ''
@@ -37,10 +45,9 @@ function parseParamValue(
     case SearchParamType.ARRAY:
       return paramValue?.trim() ? paramValue.split(',') : (defaultValue ?? [])
     case SearchParamType.SORT:
-      if (paramValue?.trim()) {
-        return parseSortValue(paramValue)
-      }
-      return defaultValue ?? []
+      return paramValue?.trim()
+        ? parseSortValue(paramValue)
+        : (defaultValue ?? [])
     default:
       return paramValue ?? defaultValue
   }
