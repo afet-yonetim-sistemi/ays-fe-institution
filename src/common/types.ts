@@ -44,3 +44,10 @@ export interface FilterValidationOptions {
   max?: number
   regex?: RegExp
 }
+
+export enum SearchParamType {
+  STRING = 'string',
+  NUMBER = 'number',
+  ARRAY = 'array',
+  SORT = 'sort',
+}
