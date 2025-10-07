@@ -1,21 +1,24 @@
+import { emailRegex, nameRegex } from '@/constants/regex'
+
 export const COMMON_VALIDATION_RULES = {
   NAME: {
     min: 2,
     max: 100,
-    regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
+    regex: nameRegex,
   },
   EMAIL: {
     min: 0,
     max: 254,
+    regex: emailRegex,
   },
   CITY: {
     min: 2,
     max: 100,
-    regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
+    regex: nameRegex,
   },
   LOCATION: {
     min: 2,
     max: 100,
-    regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
+    regex: nameRegex,
   },
 } as const
