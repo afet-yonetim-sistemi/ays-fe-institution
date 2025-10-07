@@ -1,11 +1,4 @@
-import { Sort, SortDirection } from '@/common/types'
-
-export enum SearchParamType {
-  STRING = 'string',
-  NUMBER = 'number',
-  ARRAY = 'array',
-  SORT = 'sort',
-}
+import { SearchParamType, Sort, SortDirection } from '@/common/types'
 
 export interface SearchParamsConfig {
   [key: string]: {

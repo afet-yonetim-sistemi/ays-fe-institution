@@ -3,10 +3,9 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   SearchParamsParser,
   SearchParamsConfig,
-  SearchParamType,
 } from '@/utils/searchParamsParser'
 import { getFilterErrors } from '@/lib/getFilterErrors'
-import { FilterValidationOptions } from '@/common/types'
+import { FilterValidationOptions, SearchParamType } from '@/common/types'
 
 interface UseSearchParamsManagerOptions<T> {
   config: SearchParamsConfig
