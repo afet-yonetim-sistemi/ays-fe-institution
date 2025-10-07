@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
-  SearchParamsParser,
+  parseSearchParams,
   SearchParamsConfig,
 } from '@/utils/searchParamsParser'
 import { getFilterErrors } from '@/lib/getFilterErrors'
@@ -23,7 +23,6 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const parser = useMemo(() => new SearchParamsParser(config), [config])
 
   const [filters, setFilters] = useState<T>(defaultFilters)
   const [filterErrors, setFilterErrors] = useState<
@@ -45,7 +44,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
     const paramsReady = searchParams.toString().length > 0
     if (!paramsReady) return
 
-    const parsedParams = parser.parse(searchParams)
+    const parsedParams = parseSearchParams(config, searchParams)
     const newFilters = { ...defaultFilters, ...parsedParams } as T
 
     let errors: Record<string, string | null> = {}
@@ -71,14 +70,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
     if (!hasFilterErrors && onFiltersChange) {
       onFiltersChange(newFilters)
     }
-  }, [
-    searchParams,
-    onFiltersChange,
-    config,
-    defaultFilters,
-    parser,
-    validationRules,
-  ])
+  }, [searchParams, onFiltersChange, config, defaultFilters, validationRules])
 
   const handleFilterChange = useCallback(
     (key: string, value: string | string[] | boolean) => {
