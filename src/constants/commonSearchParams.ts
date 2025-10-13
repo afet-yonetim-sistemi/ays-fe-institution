@@ -1,14 +1,14 @@
-import { SearchParamType } from '@/common/types'
+import { SearchParamType, Sort } from '@/common/types'
 
 export const COMMON_SEARCH_PARAMS = {
   STATUSES: {
     type: SearchParamType.ARRAY,
-    defaultValue: [],
+    defaultValue: [] as string[],
     paramName: 'status',
   },
   SORT: {
     type: SearchParamType.SORT,
-    defaultValue: [],
+    defaultValue: [] as Sort[],
   },
   PAGE: {
     type: SearchParamType.NUMBER,

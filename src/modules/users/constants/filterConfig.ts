@@ -1,7 +1,8 @@
 import { COMMON_VALIDATION_RULES } from '@/constants/commonValidationRules'
 import { COMMON_SEARCH_PARAMS } from '@/constants/commonSearchParams'
-import { SearchParamType } from '@/utils/searchParamsParser'
 import { UsersFilter } from './types'
+import { SearchParamType } from '@/common/types'
+import { SearchParamsConfig } from '@/utils/searchParamsParser'
 
 export const usersFilterConfig = {
   searchParams: {
@@ -29,7 +30,7 @@ export const usersFilterConfig = {
     sort: COMMON_SEARCH_PARAMS.SORT,
     page: COMMON_SEARCH_PARAMS.PAGE,
     pageSize: COMMON_SEARCH_PARAMS.PAGE_SIZE,
-  },
+  } as SearchParamsConfig<UsersFilter>,
 
   defaultFilters: {
     page: 1,

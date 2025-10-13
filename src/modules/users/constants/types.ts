@@ -1,6 +1,7 @@
 import { BaseApiResponse, PhoneNumber, Sort } from '@/common/types'
+import { SearchParamValue } from '@/utils/searchParamsParser'
 
-export interface UsersFilter extends Record<string, unknown> {
+export interface UsersFilter extends Record<string, SearchParamValue> {
   page: number
   pageSize: number
   sort?: Sort[]
