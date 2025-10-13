@@ -20,7 +20,7 @@ export const getAdminRegistrationApplications = (
         }))
       : undefined
 
-  return http.post('/api/v1/admin-registration-applications', {
+  return http.post('/api/institution/v1/admin-registration-applications', {
     pageable: {
       page: filter.page || 1,
       pageSize: filter.pageSize || 10,
@@ -38,14 +38,14 @@ export const getAdminRegistrationApplication = async (
   id: string
 ): Promise<AdminApplicationApiResponse> => {
   return http
-    .get(`/api/v1/admin-registration-application/${id}`)
+    .get(`/api/institution/v1/admin-registration-application/${id}`)
     .then((res) => res.data)
 }
 
 export const getAdminRegistrationApplicationSummary = (
   id: string | null
 ): Promise<GetRegisterSummary> =>
-  api.get(`/api/v1/admin-registration-application/${id}/summary`)
+  api.get(`/api/institution/v1/admin-registration-application/${id}/summary`)
 
 export const postRegistrationApplication = (
   id: string | null,
@@ -54,13 +54,13 @@ export const postRegistrationApplication = (
   api.post(`api/v1/admin-registration-application/${id}/complete`, form)
 
 export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
-  return http.get(`/api/v1/institutions/summary`)
+  return http.get(`/api/institution/v1/institutions/summary`)
 }
 
 export const approveAdminRegistrationApplication = (
   data: object
 ): Promise<AxiosResponse> => {
-  return http.post(`/api/v1/admin-registration-application`, data)
+  return http.post(`/api/institution/v1/admin-registration-application`, data)
 }
 
 export const rejectAdminRegistrationApplication = (
@@ -68,7 +68,7 @@ export const rejectAdminRegistrationApplication = (
   id: string
 ): Promise<AdminApplicationApiResponse> => {
   return http.post(
-    `/api/v1/admin-registration-application/${id}/reject`,
+    `/api/institution/v1/admin-registration-application/${id}/reject`,
     rejectReason
   )
 }
@@ -76,5 +76,7 @@ export const rejectAdminRegistrationApplication = (
 export const approveAdminRegistrationApplicationWithId = (
   id: string
 ): Promise<AdminApplicationApiResponse> => {
-  return http.post(`/api/v1/admin-registration-application/${id}/approve`)
+  return http.post(
+    `/api/institution/v1/admin-registration-application/${id}/approve`
+  )
 }

@@ -18,7 +18,7 @@ export const getEmergencyEvacuationApplications = (
         }))
       : undefined
 
-  return http.post('/api/v1/emergency-evacuation-applications', {
+  return http.post('/api/institution/v1/emergency-evacuation-applications', {
     pageable: {
       page: filter.page || 1,
       pageSize: filter.pageSize || 10,
@@ -44,7 +44,7 @@ export const getEmergencyEvacuationApplication = async (
 ): Promise<EmergencyApplicationApiResponse> => {
   return http
     .get<EmergencyApplicationApiResponse>(
-      `/api/v1/emergency-evacuation-application/${id}`
+      `/api/institution/v1/emergency-evacuation-application/${id}`
     )
     .then((response) => response.data)
 }
@@ -54,6 +54,6 @@ export const updateEmergencyEvacuationApplication = async (
   data: EvacuationApplicationEditableFields
 ): Promise<BaseApiResponse> => {
   return http
-    .put(`/api/v1/emergency-evacuation-application/${id}`, data)
+    .put(`/api/institution/v1/emergency-evacuation-application/${id}`, data)
     .then((response) => response.data)
 }
