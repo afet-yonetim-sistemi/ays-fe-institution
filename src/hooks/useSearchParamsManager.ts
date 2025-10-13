@@ -1,21 +1,25 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
-  SearchParamsParser,
+  parseSearchParams,
   SearchParamsConfig,
-  SearchParamType,
+  SearchParamValue,
 } from '@/utils/searchParamsParser'
 import { getFilterErrors } from '@/lib/getFilterErrors'
-import { FilterValidationOptions } from '@/common/types'
+import { FilterValidationOptions, SearchParamType } from '@/common/types'
 
-interface UseSearchParamsManagerOptions<T> {
-  config: SearchParamsConfig
+interface UseSearchParamsManagerOptions<
+  T extends Record<string, SearchParamValue>,
+> {
+  config: SearchParamsConfig<T>
   validationRules?: Partial<Record<keyof T, FilterValidationOptions>>
   defaultFilters: T
   onFiltersChange?: (filters: T) => void
 }
 
-export function useSearchParamsManager<T extends Record<string, unknown>>({
+export function useSearchParamsManager<
+  T extends Record<string, SearchParamValue>,
+>({
   config,
   validationRules = {},
   defaultFilters,
@@ -24,7 +28,6 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const parser = useMemo(() => new SearchParamsParser(config), [config])
 
   const [filters, setFilters] = useState<T>(defaultFilters)
   const [filterErrors, setFilterErrors] = useState<
@@ -35,8 +38,8 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
   useEffect(() => {
     const initialInputs: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
-      if (config[key]?.type === SearchParamType.STRING) {
-        initialInputs[key] = (filters[key] as string) ?? ''
+      if (config[key as keyof T]?.type === SearchParamType.STRING) {
+        initialInputs[key] = (filters[key as keyof T] as string) ?? ''
       }
     })
     setInputValues(initialInputs)
@@ -46,7 +49,7 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
     const paramsReady = searchParams.toString().length > 0
     if (!paramsReady) return
 
-    const parsedParams = parser.parse(searchParams)
+    const parsedParams = parseSearchParams(config, searchParams)
     const newFilters = { ...defaultFilters, ...parsedParams } as T
 
     let errors: Record<string, string | null> = {}
@@ -60,8 +63,8 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
 
     const newInputValues: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
-      if (config[key]?.type === SearchParamType.STRING) {
-        newInputValues[key] = (newFilters[key] as string) ?? ''
+      if (config[key as keyof T]?.type === SearchParamType.STRING) {
+        newInputValues[key] = (newFilters[key as keyof T] as string) ?? ''
       }
     })
     setInputValues((prev) => ({ ...prev, ...newInputValues }))
@@ -72,21 +75,14 @@ export function useSearchParamsManager<T extends Record<string, unknown>>({
     if (!hasFilterErrors && onFiltersChange) {
       onFiltersChange(newFilters)
     }
-  }, [
-    searchParams,
-    onFiltersChange,
-    config,
-    defaultFilters,
-    parser,
-    validationRules,
-  ])
+  }, [searchParams, onFiltersChange, config, defaultFilters, validationRules])
 
   const handleFilterChange = useCallback(
     (key: string, value: string | string[] | boolean) => {
       const updatedParams = new URLSearchParams(searchParams)
       updatedParams.set('page', '1')
 
-      const urlParamName = config[key]?.paramName ?? key
+      const urlParamName = config[key as keyof T]?.paramName ?? key
 
       if (typeof value === 'boolean') {
         if (value) {

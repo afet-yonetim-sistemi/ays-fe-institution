@@ -3,6 +3,8 @@ export const emailRegex = new RegExp(
     '[\\p{L}\\p{N}][\\p{L}\\p{N}._%+\\-]*' +
     '@' +
     '(?!-)(?:[\\p{L}\\p{N}]+(?<!-)\\.)+' +
-    '[\\p{L}]{2,}$',
+    '\\p{L}{2,}$',
   'u'
 )
+
+export const nameRegex = /^(?!\d+$)[\p{L}\p{P}\s0-9]+$/u

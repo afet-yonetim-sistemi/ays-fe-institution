@@ -1,4 +1,4 @@
-import { SearchParamType } from '@/utils/searchParamsParser'
+import { SearchParamType } from '@/common/types'
 
 export const COMMON_SEARCH_PARAMS = {
   STATUSES: {
