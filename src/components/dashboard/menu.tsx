@@ -13,6 +13,11 @@ import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { Permission } from '@/constants/permissions'
 import { showErrorToast } from '@/lib/showToast'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 
 const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
   const pathname = usePathname()
@@ -65,19 +70,23 @@ const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
           const LinkIcon = item.icon
           if (collapsed) {
             return (
-              <Link
-                key={item.key}
-                href={item.key}
-                className={clsx(
-                  'flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:text-primary',
-                  {
-                    'bg-slate-200 text-black dark:bg-slate-600/50 dark:text-slate-50 font-semibold':
-                      pathname === item.key,
-                  }
-                )}
-              >
-                <LinkIcon className="h-6 w-6" />
-              </Link>
+              <Tooltip key={item.key}>
+                <TooltipTrigger asChild>
+                  <Link
+                    href={item.key}
+                    className={clsx(
+                      'flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:text-primary',
+                      {
+                        'bg-slate-200 text-black dark:bg-slate-600/50 dark:text-slate-50 font-semibold':
+                          pathname === item.key,
+                      }
+                    )}
+                  >
+                    <LinkIcon className="h-6 w-6" />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">{t(item.label)}</TooltipContent>
+              </Tooltip>
             )
           } else {
             return (
