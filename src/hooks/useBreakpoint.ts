@@ -1,25 +1,21 @@
 import { useEffect, useState } from 'react'
+import {
+  BreakpointDirections as BreakpointDirectionsConst,
+  Breakpoint,
+} from '@/constants/breakpoint'
 
-const breakpoints: Record<string, number> = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
-  '2xl': 1536,
-}
-
-type Direction = 'up' | 'down' | 'only'
+export type BreakpointDirection = 'up' | 'down' | 'only'
 
 const getMediaQuery = (
-  breakpoint: keyof typeof breakpoints,
-  direction: Direction
+  breakpoint: keyof typeof Breakpoint,
+  direction: BreakpointDirection
 ): string => {
-  const px = breakpoints[breakpoint]
-  const keys = Object.keys(breakpoints)
+  const px = Breakpoint[breakpoint]
+  const keys = Object.keys(Breakpoint)
   const idx = keys.indexOf(breakpoint)
-  const nextBp = keys[idx + 1] ? breakpoints[keys[idx + 1]] : undefined
+  const nextBp = keys[idx + 1] ? Breakpoint[keys[idx + 1]] : undefined
 
-  const queryMap: Record<Direction, string> = {
+  const queryMap: Record<BreakpointDirection, string> = {
     down: `(max-width: ${px - 0.1}px)`,
     up: `(min-width: ${px}px)`,
     only: nextBp
@@ -31,8 +27,8 @@ const getMediaQuery = (
 }
 
 export function useBreakpoint(
-  breakpoint: keyof typeof breakpoints,
-  direction: Direction = 'down'
+  breakpoint: keyof typeof Breakpoint,
+  direction: BreakpointDirection = BreakpointDirectionsConst.down
 ) {
   const getInitialMatch = () => {
     if (globalThis.window === undefined) return false

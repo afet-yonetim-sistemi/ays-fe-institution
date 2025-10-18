@@ -4,6 +4,7 @@ import Sidebar from '@/components/dashboard/sidebar'
 import React, { useEffect, useRef } from 'react'
 import { useSidebarCollapse } from '@/hooks/useSidebarCollapse'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
+import { BreakpointDirections, BreakpointSize } from '@/constants/breakpoint'
 
 export default function RootLayout({
   children,
@@ -11,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const { collapsed, setCollapsed, ready, setReady } = useSidebarCollapse()
-  const isLgDown = useBreakpoint('lg', 'down')
+  const isLgDown = useBreakpoint(BreakpointSize.lg, BreakpointDirections.down)
   const firstSet = useRef(false)
 
   useEffect(() => {
