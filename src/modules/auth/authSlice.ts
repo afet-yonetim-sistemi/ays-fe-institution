@@ -17,12 +17,12 @@ interface AuthState {
 
 const tokens = getAuthTokens()
 const initialPermissions = tokens.accessToken
-  ? parseJwt(tokens.accessToken)?.userPermissions || []
+  ? (parseJwt(tokens.accessToken)?.userPermissions ?? [])
   : []
 
 const initialState: AuthState = {
-  accessToken: tokens.accessToken || '',
-  refreshToken: tokens.refreshToken || '',
+  accessToken: tokens.accessToken ?? '',
+  refreshToken: tokens.refreshToken ?? '',
   permissions: initialPermissions,
   error: null,
   isInitialized: true,
@@ -36,7 +36,7 @@ const authSlice = createSlice({
       state.accessToken = action.payload.accessToken
       state.refreshToken = action.payload.refreshToken
       const userInfo = parseJwt(action.payload.accessToken)
-      state.permissions = (userInfo?.userPermissions as string[]) || []
+      state.permissions = (userInfo?.userPermissions as string[]) ?? []
       state.error = null
       state.isInitialized = true
 

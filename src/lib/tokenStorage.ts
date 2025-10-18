@@ -50,8 +50,8 @@ export const getAuthTokens = (): {
   refreshToken: string | null
 } => {
   return {
-    accessToken: Cookies.get(COOKIE_KEYS.ACCESS_TOKEN) || null,
-    refreshToken: Cookies.get(COOKIE_KEYS.REFRESH_TOKEN) || null,
+    accessToken: Cookies.get(COOKIE_KEYS.ACCESS_TOKEN) ?? null,
+    refreshToken: Cookies.get(COOKIE_KEYS.REFRESH_TOKEN) ?? null,
   }
 }
 
