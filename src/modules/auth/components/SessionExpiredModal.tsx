@@ -9,38 +9,43 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 
 interface SessionExpiredModalProps {
-  countdown: number
   title?: string
   description?: string
+  initialCountdown?: number
+  onLogout: () => void
 }
 
 const SessionExpiredModal = ({
-  countdown,
   title,
   description,
+  initialCountdown = 3,
+  onLogout,
 }: SessionExpiredModalProps): JSX.Element => {
   const { t } = useTranslation()
-  const [localCountdown, setLocalCountdown] = useState(countdown)
+  const [countdown, setCountdown] = useState(initialCountdown)
 
   useEffect(() => {
-    setLocalCountdown(countdown)
-  }, [countdown])
-
-  useEffect(() => {
-    if (localCountdown > 0) {
+    if (countdown > 0) {
       const timer = setInterval(() => {
-        setLocalCountdown((prev) => (prev > 0 ? prev - 1 : 0))
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            onLogout()
+            return 0
+          }
+          return prev - 1
+        })
       }, 1000)
       return () => clearInterval(timer)
     }
-  }, [localCountdown])
+  }, [countdown, onLogout])
 
   return (
     <Dialog open={true} onOpenChange={() => false}>
       <DialogContent
-        className="sm:max-w-md"
+        className="sm:max-w-md [&>button]:hidden"
         onPointerDownOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
@@ -55,8 +60,13 @@ const SessionExpiredModal = ({
         </DialogHeader>
         <div className="text-center py-4">
           <p className="text-sm text-gray-500">
-            {t('sessionExpired.countdown', { seconds: localCountdown })}
+            {t('sessionExpired.countdown', { seconds: countdown })}
           </p>
+        </div>
+        <div className="flex justify-center pb-2">
+          <Button onClick={onLogout} className="w-full">
+            {t('sessionExpired.loginAgain')}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

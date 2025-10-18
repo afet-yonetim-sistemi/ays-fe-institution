@@ -197,7 +197,8 @@
   "sessionExpired": {
     "title": "Your Session Has Expired",
     "description": "Please log in again.",
-    "countdown": "You will be redirected to the login page in {{seconds}} seconds..."
+    "countdown": "You will be redirected to the login page in {{seconds}} seconds...",
+    "loginAgain": "Log In Again"
   },
   "sort": {
     "descending": "Click to sort descending",
