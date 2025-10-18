@@ -1,6 +1,6 @@
 import { SearchParamType, Sort, SortDirection } from '@/common/types'
 
-export type SearchParamValue = string | number | string[] | Sort[]
+export type SearchParamValue = string | number | string[] | Sort[] | undefined
 
 export type SearchParamsConfig<T extends Record<string, SearchParamValue>> = {
   [K in keyof T]: {

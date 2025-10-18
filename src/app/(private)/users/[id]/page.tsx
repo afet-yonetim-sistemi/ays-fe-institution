@@ -28,9 +28,9 @@ import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { formatDateTime } from '@/lib/dataFormatters'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
-import { UserValidationSchema } from '@/modules/users/constants/formValidationSchema'
+import { userFormConfig } from '@/modules/users/constants/formConfig'
 import { userStatuses } from '@/modules/users/constants/statuses'
-import { User, UserEditableFields } from '@/modules/users/constants/types'
+import { User } from '@/modules/users/constants/types'
 import {
   activateUser,
   deactivateUser,
@@ -54,7 +54,7 @@ const Page = ({
   const { t } = useTranslation()
   const router = useRouter()
   const form = useForm({
-    resolver: zodResolver(UserValidationSchema),
+    resolver: zodResolver(userFormConfig.validationSchemaDetail),
     mode: 'onChange',
   })
   const userPermissions = useAppSelector(selectPermissions)
@@ -62,7 +62,6 @@ const Page = ({
   const watchedValues = watch()
 
   const { roles, userRolesIsLoading } = useFetchRoleSummary()
-  const [selectedRoles, setSelectedRoles] = useState<string[]>([])
   const [userDetails, setUserDetails] = useState<User | null>(null)
   const [initialUserValues, setInitialUserValues] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -74,59 +73,23 @@ const Page = ({
   useEffect(() => {
     if (!initialUserValues) return
 
-    const currentValues: UserEditableFields = {
-      firstName: watchedValues.firstName,
-      lastName: watchedValues.lastName,
-      emailAddress: watchedValues.emailAddress,
-      city: watchedValues.city,
-      phoneNumber: {
-        countryCode: watchedValues.phoneNumber?.countryCode ?? '90',
-        lineNumber:
-          watchedValues.phoneNumber?.lineNumber ??
-          initialUserValues.phoneNumber?.lineNumber,
-      },
-      roleIds: selectedRoles,
-    }
+    const currentValues = userFormConfig.getCurrentValues(
+      watchedValues,
+      watchedValues.roleIds || [],
+      initialUserValues
+    )
 
-    const hasFieldChanged = [
-      'firstName',
-      'lastName',
-      'emailAddress',
-      'city',
-      'phoneNumber',
-    ].some((key) => {
-      if (key === 'phoneNumber') {
-        return (
-          currentValues.phoneNumber.countryCode !==
-            initialUserValues.phoneNumber?.countryCode ||
-          currentValues.phoneNumber.lineNumber !==
-            initialUserValues.phoneNumber?.lineNumber
-        )
-      }
+    const formChanged = userFormConfig.hasFormChanged(
+      currentValues,
+      initialUserValues
+    )
+    setIsFormChanged(formChanged)
+  }, [watchedValues, initialUserValues])
 
-      return (
-        currentValues[key as keyof UserEditableFields] !==
-        initialUserValues[key as keyof User]
-      )
-    })
-
-    const initialRoleIds = initialUserValues.roles?.map((role) => role.id)
-    const currentRoleIds = selectedRoles
-
-    const haveRolesChanged =
-      JSON.stringify(currentRoleIds) !== JSON.stringify(initialRoleIds)
-
-    setIsFormChanged(hasFieldChanged || haveRolesChanged)
-  }, [watchedValues, selectedRoles, initialUserValues])
-
-  const isSaveButtonDisabled =
-    !isFormChanged ||
-    Boolean(formState.errors.firstName) ||
-    Boolean(formState.errors.lastName) ||
-    Boolean(formState.errors.emailAddress) ||
-    Boolean(formState.errors.phoneNumber) ||
-    Boolean(formState.errors.city) ||
-    selectedRoles.length === 0
+  const isSaveButtonDisabled = userFormConfig.isSaveButtonDisabled(
+    isFormChanged,
+    formState.errors
+  )
 
   const fetchDetails = (): void => {
     setIsLoading(true)
@@ -135,27 +98,8 @@ const Page = ({
         const details = response.response
         setUserDetails(details)
         setInitialUserValues(details)
-        setSelectedRoles(details.roles.map((role) => role.id))
-        reset({
-          firstName: details.firstName,
-          lastName: details.lastName,
-          emailAddress: details.emailAddress,
-          city: details.city,
-          phoneNumber: {
-            countryCode: details.phoneNumber?.countryCode ?? '90',
-            lineNumber: details.phoneNumber?.lineNumber ?? '',
-          },
-        })
-        reset({
-          firstName: details.firstName,
-          lastName: details.lastName,
-          emailAddress: details.emailAddress,
-          city: details.city,
-          phoneNumber: {
-            countryCode: details.phoneNumber?.countryCode ?? '90',
-            lineNumber: details.phoneNumber?.lineNumber ?? '',
-          },
-        })
+        const formDefaults = userFormConfig.getDefaultValues(details)
+        reset(formDefaults)
       })
       .catch((error) => {
         setError(error.message)
@@ -190,26 +134,34 @@ const Page = ({
     !['NOT_VERIFIED', 'DELETED'].includes(userDetails?.status ?? '')
 
   useEffect(() => {
-    if (selectedRoles.length === 0) {
+    const roleIds = watchedValues.roleIds || []
+    if (roleIds.length === 0) {
       setMinRoleError(t('user.minRoleError'))
     } else {
       setMinRoleError(null)
     }
-  }, [selectedRoles, t])
+  }, [watchedValues.roleIds, t])
 
   useEffect(() => {
     fetchDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id])
 
-  const handleRoleToggle = useCallback((id: string): void => {
-    setSelectedRoles((prevSelectedRoles) => {
-      if (prevSelectedRoles.includes(id)) {
-        return prevSelectedRoles.filter((roleId) => roleId !== id)
+  const handleRoleToggle = useCallback(
+    (id: string): void => {
+      const currentRoleIds = getValues('roleIds') || []
+      let newRoleIds: string[]
+
+      if (currentRoleIds.includes(id)) {
+        newRoleIds = currentRoleIds.filter((roleId: string) => roleId !== id)
+      } else {
+        newRoleIds = [...currentRoleIds, id]
       }
-      return [...prevSelectedRoles, id]
-    })
-  }, [])
+
+      form.setValue('roleIds', newRoleIds, { shouldValidate: true })
+    },
+    [getValues, form]
+  )
 
   const handleUpdateButtonClick = (): void => {
     return setIsUserEditable(true)
@@ -217,50 +169,32 @@ const Page = ({
 
   const handleCancelButtonClick = (): void => {
     if (userDetails) {
-      reset({
-        firstName: userDetails.firstName,
-        lastName: userDetails.lastName,
-        emailAddress: userDetails.emailAddress,
-        city: userDetails.city,
-        phoneNumber: {
-          countryCode: userDetails.phoneNumber?.countryCode ?? '90',
-          lineNumber: userDetails.phoneNumber?.lineNumber ?? '',
-        },
-      })
-      setSelectedRoles(userDetails.roles.map((role) => role.id))
+      reset(userFormConfig.getDefaultValues(userDetails))
     }
 
     setIsUserEditable(false)
   }
 
   const handleSaveButtonClick = (): void => {
-    const phoneNumberValue = getValues('phoneNumber')
+    const formValues = getValues()
+    const currentValues = userFormConfig.getCurrentValues(
+      formValues,
+      formValues.roleIds || [],
+      initialUserValues
+    )
 
-    const currentValues: UserEditableFields = {
-      firstName: getValues('firstName') ?? initialUserValues?.firstName,
-      lastName: getValues('lastName') ?? initialUserValues?.lastName,
-      emailAddress:
-        getValues('emailAddress') ?? initialUserValues?.emailAddress,
-      city: getValues('city') ?? initialUserValues?.city,
-      phoneNumber: {
-        countryCode: phoneNumberValue?.countryCode ?? '90',
-        lineNumber:
-          phoneNumberValue?.lineNumber ??
-          initialUserValues?.phoneNumber.lineNumber,
-      },
-      roleIds: selectedRoles,
-    }
+    const payload = userFormConfig.getPayload(currentValues)
 
-    updateUser(params.id, currentValues)
+    updateUser(params.id, payload)
       .then((response) => {
         if (response.isSuccess) {
           setUserDetails({
             ...userDetails!,
-            ...currentValues,
+            ...payload,
           })
           setInitialUserValues({
             ...userDetails!,
-            ...currentValues,
+            ...payload,
           })
 
           showSuccessToast('user.updateSuccess')
@@ -629,7 +563,9 @@ const Page = ({
                                 <FormControl>
                                   <Switch
                                     className="mt-2"
-                                    checked={selectedRoles.includes(role.id)}
+                                    checked={(
+                                      watchedValues.roleIds || []
+                                    ).includes(role.id)}
                                     onCheckedChange={() =>
                                       handleRoleToggle(role.id)
                                     }
