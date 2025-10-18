@@ -52,10 +52,10 @@ const SessionExpiredModal = ({
       >
         <DialogHeader>
           <DialogTitle className="text-center text-lg font-semibold">
-            {title || t('sessionExpired.title')}
+            {title ?? t('sessionExpired.title')}
           </DialogTitle>
           <DialogDescription className="text-center text-sm text-gray-600 mt-2">
-            {description || t('sessionExpired.description')}
+            {description ?? t('sessionExpired.description')}
           </DialogDescription>
         </DialogHeader>
         <div className="text-center py-4">
