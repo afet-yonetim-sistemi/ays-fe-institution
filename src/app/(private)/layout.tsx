@@ -1,9 +1,8 @@
 'use client'
 import Navbar from '@/components/dashboard/navbar'
 import Sidebar from '@/components/dashboard/sidebar'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSidebarCollapse } from '@/hooks/useSidebarCollapse'
-import { SIDEBAR_COLLAPSED } from '@/constants/localStorageKey'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 
 export default function RootLayout({
@@ -13,22 +12,18 @@ export default function RootLayout({
 }) {
   const { collapsed, setCollapsed, ready, setReady } = useSidebarCollapse()
   const isLgDown = useBreakpoint('lg', 'down')
+  const firstSet = useRef(false)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    const saved = localStorage.getItem(SIDEBAR_COLLAPSED)
-    if (saved !== null) {
-      setCollapsed(saved === 'true')
-    } else {
-      setCollapsed(isLgDown)
+    if (!ready && !firstSet.current) {
+      if (collapsed === null) {
+        setCollapsed(isLgDown)
+      }
+      setReady(true)
+      firstSet.current = true
     }
-    setReady(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLgDown])
-
-  useEffect(() => {
-    if (ready) localStorage.setItem(SIDEBAR_COLLAPSED, String(collapsed))
-  }, [collapsed, ready])
+  }, [collapsed, isLgDown, ready])
 
   const sidebarWidthClass = collapsed
     ? 'md:grid-cols-[70px_1fr] lg:grid-cols-[72px_1fr]'

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface SidebarState {
-  collapsed: boolean
+  collapsed: boolean | null
   ready: boolean
 }
 
 const initialState: SidebarState = {
-  collapsed: false,
+  collapsed: null,
   ready: false,
 }
 
