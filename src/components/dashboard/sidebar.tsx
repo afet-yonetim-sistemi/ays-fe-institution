@@ -4,9 +4,12 @@ import Menu from './menu'
 import { Button } from '../ui/button'
 import { ChevronsLeft, ChevronsRight } from 'lucide-react'
 import { useSidebarCollapse } from '@/hooks/useSidebarCollapse'
+import { useTranslation } from 'react-i18next'
 
 export default function Sidebar(): JSX.Element {
   const { collapsed, setCollapsed } = useSidebarCollapse()
+  const { t } = useTranslation()
+
   return (
     <div
       className={`hidden border-r bg-muted/40 md:block overflow-auto transition-all duration-200 h-full ${collapsed ? 'md:w-[70px] lg:w-[72px]' : 'md:w-[220px] lg:w-[280px]'} min-w-0`}
@@ -18,7 +21,7 @@ export default function Sidebar(): JSX.Element {
           <Button
             variant="ghost"
             size="icon"
-            aria-label={collapsed ? 'Menüyü genişlet' : 'Menüyü daralt'}
+            aria-label={collapsed ? t('expandTheMenu') : t('collapseTheMenu')}
             onClick={() => setCollapsed(!collapsed)}
             className=""
           >

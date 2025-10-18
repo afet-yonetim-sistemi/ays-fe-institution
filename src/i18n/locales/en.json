@@ -194,6 +194,10 @@
     "toggle": "Toggle navigation menu",
     "logout": "Logout"
   },
+  "sidebar": {
+    "expandTheMenu": "Expand The Menu",
+    "collapseTheMenu": "Collapse The Menu"
+  },
   "sort": {
     "descending": "Click to sort descending",
     "ascending": "Click to sort ascending",
