@@ -5,6 +5,7 @@ import i18n from '@/i18n'
 import { Providers } from '@/contexts/providers'
 import { ThemeProvider } from '@/components/themeProvider'
 import { Toaster } from '@/components/ui/toaster'
+import GlobalModals from '@/components/GlobalModals'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         >
           <Providers>
             {children} <Toaster />
+            <GlobalModals />
           </Providers>
         </ThemeProvider>
       </body>
