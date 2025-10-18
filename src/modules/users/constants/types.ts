@@ -1,6 +1,7 @@
 import { BaseApiResponse, PhoneNumber, Sort } from '@/common/types'
+import { SearchParamValue } from '@/utils/searchParamsParser'
 
-export interface UsersFilter {
+export interface UsersFilter extends Record<string, SearchParamValue> {
   page: number
   pageSize: number
   sort?: Sort[]
@@ -40,6 +41,24 @@ export interface CreateUserPayload {
   phoneNumber: PhoneNumber
   city: string
   roleIds: string[]
+}
+
+export interface UserFormValues {
+  firstName: string
+  lastName: string
+  emailAddress: string
+  phoneNumber: PhoneNumber
+  city: string
+  roleIds: string[]
+}
+
+export interface UserDetails {
+  firstName: string
+  lastName: string
+  emailAddress: string
+  city: string
+  phoneNumber?: PhoneNumber
+  roles?: Array<{ id: string }>
 }
 
 export type UserEditableFields = Pick<

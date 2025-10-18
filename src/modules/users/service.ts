@@ -21,7 +21,7 @@ export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
     ...(filter.lineNumber ? { lineNumber: filter.lineNumber } : {}),
   }
 
-  return http.post('/api/v1/users', {
+  return http.post('/api/institution/v1/users', {
     pageable: {
       page: filter.page || 1,
       pageSize: filter.pageSize || 10,
@@ -42,35 +42,41 @@ export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
 
 export const getUser = async (id: string): Promise<UserApiResponse> => {
   return http
-    .get<UserApiResponse>(`/api/v1/user/${id}`)
+    .get<UserApiResponse>(`/api/institution/v1/user/${id}`)
     .then((response) => response.data)
 }
 
 export const createUser = async (
   data: CreateUserPayload
 ): Promise<BaseApiResponse> => {
-  return http.post('/api/v1/user', data).then((response) => response.data)
+  return http
+    .post('/api/institution/v1/user', data)
+    .then((response) => response.data)
 }
 
 export const activateUser = async (id: string): Promise<BaseApiResponse> => {
   return http
-    .patch(`/api/v1/user/${id}/activate`)
+    .patch(`/api/institution/v1/user/${id}/activate`)
     .then((response) => response.data)
 }
 
 export const deactivateUser = async (id: string): Promise<BaseApiResponse> => {
   return http
-    .patch(`/api/v1/user/${id}/passivate`)
+    .patch(`/api/institution/v1/user/${id}/passivate`)
     .then((response) => response.data)
 }
 
 export const deleteUser = async (id: string): Promise<BaseApiResponse> => {
-  return http.delete(`/api/v1/user/${id}`).then((response) => response.data)
+  return http
+    .delete(`/api/institution/v1/user/${id}`)
+    .then((response) => response.data)
 }
 
 export const updateUser = async (
   id: string,
   data: UserEditableFields
 ): Promise<BaseApiResponse> => {
-  return http.put(`/api/v1/user/${id}`, data).then((response) => response.data)
+  return http
+    .put(`/api/institution/v1/user/${id}`, data)
+    .then((response) => response.data)
 }
