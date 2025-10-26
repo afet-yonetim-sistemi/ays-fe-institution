@@ -194,6 +194,10 @@
     "toggle": "Gezinme menüsünü aç/kapat",
     "logout": "Çıkış Yap"
   },
+  "sidebar": {
+    "expandTheMenu": "Menüyü Genişlet",
+    "collapseTheMenu": "Münüyü Daralt"
+  },
   "sort": {
     "descending": "Azalan sıraya göre sıralamak için tıklayın",
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
