@@ -89,9 +89,24 @@ export const selectPermissions = (state: RootState): string[] =>
 export const selectError = (state: RootState): string | null => state.auth.error
 export const selectIsInitialized = (state: RootState): boolean =>
   state.auth.isInitialized
-export const selectIsRefreshTokenExpired = (state: RootState): boolean =>
-  !state.auth.accessToken &&
-  !state.auth.refreshToken &&
-  state.auth.isInitialized
+export const selectIsRefreshTokenExpired = (state: RootState): boolean => {
+  if (!state.auth.refreshToken || !state.auth.isInitialized) {
+    return false
+  }
+
+  try {
+    const decoded = parseJwt(state.auth.refreshToken)
+    if (!decoded?.exp) {
+      return true
+    }
+
+    const expirationTime = decoded.exp * 1000
+    const now = Date.now()
+
+    return expirationTime <= now
+  } catch (error) {
+    return true
+  }
+}
 
 export default authSlice.reducer
