@@ -66,6 +66,7 @@ function Navbar(): JSX.Element {
           width={40}
           height={40}
           priority
+          unoptimized
         />
         <div className="text-center md:text-left">{t('common.AYS')}</div>
       </div>
