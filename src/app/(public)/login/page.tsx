@@ -22,14 +22,18 @@ import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
 import { showErrorToast } from '@/lib/showToast'
-import { loginFailed, loginSuccess } from '@/modules/auth/authSlice'
+import {
+  clearRefreshTokenExpired,
+  loginFailed,
+  loginSuccess,
+} from '@/modules/auth/authSlice'
 import authService from '@/modules/auth/service'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 import { useAppDispatch } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
@@ -49,6 +53,10 @@ const Page = (): JSX.Element => {
       sourcePage: 'INSTITUTION',
     },
   })
+
+  useEffect(() => {
+    dispatch(clearRefreshTokenExpired())
+  }, [dispatch])
 
   const onSubmit = (values: z.infer<typeof FormValidationSchema>): void => {
     setLoading(true)

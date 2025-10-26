@@ -18,6 +18,7 @@ const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     const accessToken = store.getState().auth.accessToken
+
     if (!accessToken) {
       throw new Error(
         'Access denied: No token provided. Request has been canceled.'

@@ -13,6 +13,7 @@ interface AuthState {
   permissions: string[]
   error: string | null
   isInitialized: boolean
+  isRefreshTokenExpired: boolean
 }
 
 const tokens = getAuthTokens()
@@ -25,6 +26,7 @@ const initialState: AuthState = {
   refreshToken: tokens.refreshToken ?? '',
   permissions: initialPermissions,
   error: null,
+  isRefreshTokenExpired: false,
   isInitialized: true,
 }
 
@@ -39,11 +41,15 @@ const authSlice = createSlice({
       state.permissions = (userInfo?.userPermissions as string[]) ?? []
       state.error = null
       state.isInitialized = true
+      state.isRefreshTokenExpired = false
 
       setAuthTokens(action.payload.accessToken, action.payload.refreshToken)
     },
     loginFailed: (state, action) => {
       state.error = action.payload
+    },
+    clearRefreshTokenExpired: (state) => {
+      state.isRefreshTokenExpired = false
     },
     logout: (state) => {
       state.accessToken = ''
@@ -51,6 +57,7 @@ const authSlice = createSlice({
       state.permissions = []
       state.error = null
       state.isInitialized = true
+      state.isRefreshTokenExpired = false
 
       clearAuthTokens()
     },
@@ -66,8 +73,13 @@ const authSlice = createSlice({
   },
 })
 
-export const { loginSuccess, loginFailed, logout, refreshTokenExpired } =
-  authSlice.actions
+export const {
+  loginSuccess,
+  loginFailed,
+  refreshTokenExpired,
+  clearRefreshTokenExpired,
+  logout,
+} = authSlice.actions
 
 export const selectToken = (state: RootState): string => state.auth.accessToken
 export const selectRefreshToken = (state: RootState): string =>

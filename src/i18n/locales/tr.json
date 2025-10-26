@@ -198,6 +198,12 @@
     "expandTheMenu": "Menüyü Genişlet",
     "collapseTheMenu": "Münüyü Daralt"
   },
+  "sessionExpired": {
+    "title": "Oturum Süreniz Doldu",
+    "description": "Lütfen tekrar giriş yapınız.",
+    "countdown": "{{seconds}} saniye içinde giriş ekranına yönlendirileceksiniz...",
+    "loginAgain": "Yeniden Oturum Aç"
+  },
   "sort": {
     "descending": "Azalan sıraya göre sıralamak için tıklayın",
     "ascending": "Artan sıraya göre sıralamak için tıklayın",
