@@ -45,10 +45,10 @@ export const ValidateRouteProvider = ({
   )
 
   useEffect(() => {
-    if (isRefreshTokenExpired && !showSessionExpiredModal) {
+    if (isRefreshTokenExpired && !showSessionExpiredModal && isProtected) {
       setShowSessionExpiredModal(true)
     }
-  }, [isRefreshTokenExpired, showSessionExpiredModal])
+  }, [isRefreshTokenExpired, showSessionExpiredModal, isProtected])
 
   const handleLogout = () => {
     dispatch(logout())
