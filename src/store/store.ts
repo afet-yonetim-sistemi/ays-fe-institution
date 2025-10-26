@@ -25,14 +25,15 @@ const createNoopStorage = (): NoopStorage => {
 }
 
 const storage =
-  typeof window !== 'undefined'
-    ? createWebStorage('local')
-    : createNoopStorage()
+  globalThis.window === undefined
+    ? createNoopStorage()
+    : createWebStorage('local')
 
 //eslint-disable-next-line
-const persistConfig: { key: string; storage: any } = {
+const persistConfig: { key: string; storage: any; blacklist: string[] } = {
   key: 'root',
   storage,
+  blacklist: ['auth'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
