@@ -19,8 +19,10 @@ import { t } from 'i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { DataTableSkeleton } from './data-table-skeleton'
 import { LoadingSpinner } from './loadingSpinner'
 
+export type LoadingType = 'spinner' | 'skeleton'
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
@@ -30,6 +32,7 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   onPageChange: (page: number) => void
   enableRowClick?: boolean
   loading: boolean
+  loadingType: LoadingType
 }
 
 export function DataTable<TData extends { id: string }, TValue>({
@@ -41,6 +44,7 @@ export function DataTable<TData extends { id: string }, TValue>({
   onPageChange,
   enableRowClick = true,
   loading,
+  loadingType = 'skeleton',
 }: Readonly<DataTableProps<TData, TValue>>): JSX.Element {
   const router = useRouter()
   const pathname = usePathname()
@@ -104,56 +108,53 @@ export function DataTable<TData extends { id: string }, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {(() => {
-              if (loading) {
-                return (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
-                      <div className="flex justify-center items-center h-full">
-                        <LoadingSpinner />
-                      </div>
+            {loading && loadingType === 'skeleton' && (
+              <DataTableSkeleton columns={columns} pageSize={pageSize} />
+            )}
+            {loading && loadingType === 'spinner' && (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  <div className="flex justify-center items-center h-full">
+                    <LoadingSpinner />
+                  </div>
+                </TableCell>
+              </TableRow>
+            )}
+            {!loading && table.getRowModel().rows.length === 0 && (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  {t('common.noResult')}
+                </TableCell>
+              </TableRow>
+            )}
+            {!loading &&
+              table.getRowModel().rows.length > 0 &&
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  onClick={() => handleRowClick(row.original)}
+                  className={
+                    enableRowClick
+                      ? 'cursor-pointer hover:accent'
+                      : 'cursor-default'
+                  }
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
-                  </TableRow>
-                )
-              }
-
-              if (table.getRowModel().rows?.length) {
-                return table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    onClick={() => handleRowClick(row.original)}
-                    className={
-                      enableRowClick
-                        ? 'cursor-pointer hover:accent'
-                        : 'cursor-default'
-                    }
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              }
-
-              return (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    {t('common.noResult')}
-                  </TableCell>
+                  ))}
                 </TableRow>
-              )
-            })()}
+              ))}
           </TableBody>
         </Table>
       </div>
