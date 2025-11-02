@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { loginSuccess, logout } from '@/modules/auth/authSlice'
+import { loginSuccess, refreshTokenExpired } from '@/modules/auth/authSlice'
 import { store } from '@/store/StoreProvider'
+import { updateAccessToken } from '@/lib/tokenStorage'
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -17,20 +18,17 @@ const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     const accessToken = store.getState().auth.accessToken
+
     if (!accessToken) {
-      return Promise.reject(
-        new Error(
-          'Access denied: No token provided. Request has been canceled.'
-        )
+      throw new Error(
+        'Access denied: No token provided. Request has been canceled.'
       )
     }
     config.headers.Authorization = `Bearer ${accessToken}`
     return config
   },
   (error) => {
-    return Promise.reject(
-      error instanceof Error ? error : new Error('Request error')
-    )
+    throw error instanceof Error ? error : new Error('Request error')
   }
 )
 
@@ -46,8 +44,8 @@ http.interceptors.response.use(
         const refreshToken = store.getState().auth.refreshToken
 
         if (!refreshToken) {
-          store.dispatch(logout())
-          return Promise.reject(new Error('No refresh token available'))
+          store.dispatch(refreshTokenExpired())
+          throw new Error('No refresh token available')
         }
 
         try {
@@ -58,28 +56,25 @@ http.interceptors.response.use(
           const token = response?.data?.response
 
           store.dispatch(loginSuccess(token))
+          updateAccessToken(token?.accessToken)
           originalRequest.headers.Authorization = `Bearer ${token?.accessToken}`
           return http(originalRequest)
         } catch (refreshError: unknown) {
-          store.dispatch(logout())
-          return Promise.reject(
-            refreshError instanceof Error
-              ? refreshError
-              : new Error('Token refresh failed')
-          )
+          store.dispatch(refreshTokenExpired())
+          throw refreshError instanceof Error
+            ? refreshError
+            : new Error('Token refresh failed')
         }
       } catch (error: unknown) {
-        return Promise.reject(
-          error instanceof Error
-            ? error
-            : new Error('An unexpected error occurred during token refresh')
-        )
+        throw error instanceof Error
+          ? error
+          : new Error('An unexpected error occurred during token refresh')
       }
     }
 
-    return Promise.reject(
-      error instanceof Error ? error : new Error('An unexpected error occurred')
-    )
+    throw error instanceof Error
+      ? error
+      : new Error('An unexpected error occurred')
   }
 )
 

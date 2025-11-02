@@ -6,8 +6,11 @@ export const showErrorToast = (
   description: string = 'common.error.defaultDescription'
 ): void => {
   const title = 'common.error.defaultTitle'
+  const responseStatus = error?.response?.status
 
-  if (error?.response?.status === 429) {
+  if (responseStatus === 401) return
+
+  if (responseStatus === 429) {
     description = 'common.error.tooManyRequest'
   }
 

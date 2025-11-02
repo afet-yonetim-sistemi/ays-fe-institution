@@ -37,7 +37,6 @@ function Navbar(): JSX.Element {
       .logout(refreshToken)
       .then(() => {
         dispatch({ type: 'auth/logout' })
-        document.cookie = 'token=; Max-Age=0; path=/;'
         router.push('/login')
       })
       .catch((error) => {
@@ -67,6 +66,7 @@ function Navbar(): JSX.Element {
           width={40}
           height={40}
           priority
+          unoptimized
         />
         <div className="text-center md:text-left">{t('common.AYS')}</div>
       </div>

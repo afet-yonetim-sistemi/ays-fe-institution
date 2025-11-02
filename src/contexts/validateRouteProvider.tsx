@@ -1,14 +1,19 @@
 import React, { ReactNode, useState, useEffect, useMemo } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import { useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { getRouteStatus } from '@/lib/getRouteStatus'
 import { getUserPermissions } from '@/lib/getUserPermissions'
-import { selectToken } from '@/modules/auth/authSlice'
+import {
+  selectToken,
+  selectIsRefreshTokenExpired,
+  logout,
+} from '@/modules/auth/authSlice'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import {
   ValidateRouteContext,
   ValidateRouteContextType,
 } from '@/contexts/validateRouteContext'
+import SessionExpiredModal from '@/modules/auth/components/SessionExpiredModal'
 
 export const ValidateRouteProvider = ({
   children,
@@ -17,8 +22,11 @@ export const ValidateRouteProvider = ({
 }): React.JSX.Element => {
   const router = useRouter()
   const pathname = usePathname()
+  const dispatch = useAppDispatch()
   const token = useAppSelector(selectToken)
+  const isRefreshTokenExpired = useAppSelector(selectIsRefreshTokenExpired)
   const [loading, setLoading] = useState(true)
+  const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false)
   const { isProtected, route, requiredPermission } = getRouteStatus(pathname)
   const userPermissions = token ? getUserPermissions(token) : []
 
@@ -35,6 +43,18 @@ export const ValidateRouteProvider = ({
     }),
     [route, isProtected, requiredPermission, userHasPermission]
   )
+
+  useEffect(() => {
+    if (isRefreshTokenExpired && !showSessionExpiredModal && isProtected) {
+      setShowSessionExpiredModal(true)
+    }
+  }, [isRefreshTokenExpired, showSessionExpiredModal, isProtected])
+
+  const handleLogout = () => {
+    dispatch(logout())
+    setShowSessionExpiredModal(false)
+    router.replace('/login')
+  }
 
   useEffect(() => {
     if (token) {
@@ -63,6 +83,9 @@ export const ValidateRouteProvider = ({
   return (
     <ValidateRouteContext.Provider value={contextValue}>
       {children}
+      {showSessionExpiredModal && (
+        <SessionExpiredModal onLogout={handleLogout} />
+      )}
     </ValidateRouteContext.Provider>
   )
 }
