@@ -21,8 +21,7 @@ import { useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { DataTableSkeleton } from './data-table-skeleton'
 import { LoadingSpinner } from './loadingSpinner'
-
-export type LoadingType = 'spinner' | 'skeleton'
+import { LoadingType, LoadingTypeValue } from '@/constants/loadingType'
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
@@ -32,7 +31,7 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   onPageChange: (page: number) => void
   enableRowClick?: boolean
   loading: boolean
-  loadingType: LoadingType
+  loadingType?: LoadingTypeValue
 }
 
 export function DataTable<TData extends { id: string }, TValue>({
@@ -44,7 +43,7 @@ export function DataTable<TData extends { id: string }, TValue>({
   onPageChange,
   enableRowClick = true,
   loading,
-  loadingType = 'skeleton',
+  loadingType = LoadingType.SKELETON,
 }: Readonly<DataTableProps<TData, TValue>>): JSX.Element {
   const router = useRouter()
   const pathname = usePathname()
@@ -108,10 +107,10 @@ export function DataTable<TData extends { id: string }, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {loading && loadingType === 'skeleton' && (
+            {loading && loadingType === LoadingType.SKELETON && (
               <DataTableSkeleton columns={columns} pageSize={pageSize} />
             )}
-            {loading && loadingType === 'spinner' && (
+            {loading && loadingType === LoadingType.SPINNER && (
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
