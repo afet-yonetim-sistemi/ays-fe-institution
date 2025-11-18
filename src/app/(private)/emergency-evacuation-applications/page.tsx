@@ -28,6 +28,7 @@ import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { numericRegex } from '@/constants/regex'
 
 const parseEEASearchParams = (searchParams: URLSearchParams) => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
@@ -243,12 +244,18 @@ const Page = (): JSX.Element => {
         <FilterInput
           id="seatingCount"
           label={t('application.evacuation.seatingCount')}
+          inputMode="numeric"
+          maxLength={3}
+          onInput={(e) => {
+            ;(e.target as HTMLInputElement).value = (
+              e.target as HTMLInputElement
+            ).value.replace(numericRegex, '')
+          }}
           value={seatingCountInput}
           onChange={(e) => {
             setSeatingCountInput(e.target.value)
             debouncedHandleInputFilterChange('seatingCount', e.target.value)
           }}
-          type="number"
         />
         <FilterInput
           id="referenceNumber"
