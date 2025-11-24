@@ -36,7 +36,8 @@
       "tooManyRequest": "İstek limitini aştınız. Lütfen bir süre bekledikten sonra tekrar deneyiniz.",
       "noChange": "Değişiklik yapmadan güncelleyemezsiniz.",
       "fetch": "Bilgileri alırken bir hata oluştu. Lütfen tekrar deneyiniz."
-    }
+    },
+    "lastSuccessfulLoginAt": "Son Başarılı Giriş Tarihi ve Saati"
   },
   "validation": {
     "invalid": "Geçersiz girdi",
@@ -130,6 +131,10 @@
       "confirmedSeatingCount": "Teyit Edilen Koltuk Sayısı",
       "notes": "Operatör Notları"
     }
+  },
+  "dashboard": {
+    "title": "{{ays}}'ne Hoş Geldiniz!",
+    "description": "Bilgileriniz, sistem üzerinde en son giriş yaptığınız tarih ve saat bilgisi aşağıda yer almaktadır."
   },
   "role": {
     "title": "Roller",

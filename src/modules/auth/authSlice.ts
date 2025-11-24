@@ -6,6 +6,7 @@ import {
   clearAuthTokens,
   getAuthTokens,
 } from '@/lib/tokenStorage'
+import { UserInfo } from './constants/types'
 
 interface AuthState {
   accessToken: string
@@ -14,12 +15,14 @@ interface AuthState {
   error: string | null
   isInitialized: boolean
   isRefreshTokenExpired: boolean
+  userInfo: UserInfo | null
 }
 
 const tokens = getAuthTokens()
 const initialPermissions = tokens.accessToken
   ? (parseJwt(tokens.accessToken)?.userPermissions ?? [])
   : []
+const userInfo = tokens.accessToken ? parseJwt(tokens.accessToken) : null
 
 const initialState: AuthState = {
   accessToken: tokens.accessToken ?? '',
@@ -28,6 +31,7 @@ const initialState: AuthState = {
   error: null,
   isRefreshTokenExpired: false,
   isInitialized: true,
+  userInfo
 }
 
 const authSlice = createSlice({
@@ -38,6 +42,7 @@ const authSlice = createSlice({
       state.accessToken = action.payload.accessToken
       state.refreshToken = action.payload.refreshToken
       const userInfo = parseJwt(action.payload.accessToken)
+      state.userInfo = userInfo
       state.permissions = (userInfo?.userPermissions as string[]) ?? []
       state.error = null
       state.isInitialized = true
@@ -81,6 +86,7 @@ export const {
   logout,
 } = authSlice.actions
 
+export const selectUser = (state: RootState): UserInfo | null => state.auth.userInfo
 export const selectToken = (state: RootState): string => state.auth.accessToken
 export const selectRefreshToken = (state: RootState): string =>
   state.auth.refreshToken

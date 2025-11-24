@@ -36,7 +36,8 @@
       "tooManyRequest": "You have exceeded the request limit. Please wait for a while and try again.",
       "noChange": "You cannot update without making changes.",
       "fetch": "An error occurred while fetching the information. Please try again."
-    }
+    },
+    "lastSuccessfulLoginAt": "Last Successful Login Date and Time"
   },
   "validation": {
     "invalid": "This field is not valid",
@@ -130,6 +131,10 @@
       "confirmedSeatingCount": "Confirmed Seating Count",
       "notes": "Operator Notes"
     }
+  },
+  "dashboard": {
+    "title": "Welcome to {{ays}}!",
+    "description": "Your information and the date and time of your last login to the system are displayed below."
   },
   "role": {
     "title": "Roles",
