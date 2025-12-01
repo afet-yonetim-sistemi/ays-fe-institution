@@ -50,6 +50,7 @@ export const userFormConfig = {
       .string({
         required_error: 'validation.required',
       })
+      .trim()
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
       .regex(emailRegex, { message: 'validation.email' }),
@@ -70,6 +71,7 @@ export const userFormConfig = {
       .string({
         required_error: 'validation.required',
       })
+      .trim()
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
       .regex(emailRegex, { message: 'validation.email' }),
