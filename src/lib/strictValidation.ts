@@ -13,6 +13,7 @@ export const nameboxWithLengthValidation = (
     .string({
       required_error: 'validation.required',
     })
+    .trim()
     .min(minLength, { message: 'validation.minLength' })
     .max(maxLength, { message: 'validation.maxLength' })
     .refine(nameboxValidation, {
@@ -21,6 +22,7 @@ export const nameboxWithLengthValidation = (
 
 export const strictNameValidation = z
   .string()
+  .trim()
   .min(2, { message: 'validation.minLength' })
   .max(100, { message: 'validation.maxLength' })
   .regex(/^\p{L}(?:[\p{L}\s.,'-]*\p{L})?$/u, {
