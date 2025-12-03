@@ -33,18 +33,6 @@ const config = [
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/no-empty-function': 'warn',
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['@/components/ui/*'],
-              message:
-                'Import UI components only through the core wrapper layer instead of using Shadcn components directly.',
-            },
-          ],
-        },
-      ],
 
       '@next/next/no-img-element': 'warn',
 
@@ -66,18 +54,6 @@ const config = [
       'prettier/prettier': 'warn',
       'no-unused-vars': 'warn',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['@/components/ui/*'],
-              message:
-                'Import UI components only through the core wrapper layer instead of using Shadcn components directly.',
-            },
-          ],
-        },
-      ],
 
       'no-duplicate-imports': 'error',
       'no-unreachable': 'error',
