@@ -295,12 +295,12 @@ const Page = ({
   }
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && userDetails && (
         <Form {...form}>
           <form className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <h1 className="text-2xl font-bold">{t('user.detailsTitle')}</h1>
               <div className="flex items-center gap-4">
                 {showActivateButton && (
@@ -460,7 +460,7 @@ const Page = ({
                       </FormItem>
                     )}
                   />
-                  <div className="sm:col-span-3 grid grid-cols-4 gap-6">
+                  <div className="grid grid-cols-4 gap-6 sm:col-span-3">
                     <FormField
                       control={control}
                       name="createdUser"
@@ -541,7 +541,7 @@ const Page = ({
                   </CardTitle>
                   <div className="ml-4 flex items-center gap-2">
                     {isUserEditable && minRoleError && (
-                      <p className="text-destructive text-sm">{minRoleError}</p>
+                      <p className="text-sm text-destructive">{minRoleError}</p>
                     )}
                   </div>
                 </div>

@@ -1,11 +1,11 @@
+import GlobalModals from '@/components/GlobalModals'
+import { ThemeProvider } from '@/components/themeProvider'
+import { Toaster } from '@/components/ui/toaster'
+import { Providers } from '@/contexts/providers'
+import i18n from '@/i18n'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import i18n from '@/i18n'
-import { Providers } from '@/contexts/providers'
-import { ThemeProvider } from '@/components/themeProvider'
-import { Toaster } from '@/components/ui/toaster'
-import GlobalModals from '@/components/GlobalModals'
 
 const inter = Inter({ subsets: ['latin'] })
 

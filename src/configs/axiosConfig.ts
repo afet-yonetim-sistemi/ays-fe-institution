@@ -1,7 +1,7 @@
-import axios from 'axios'
+import { updateAccessToken } from '@/lib/tokenStorage'
 import { loginSuccess, refreshTokenExpired } from '@/modules/auth/authSlice'
 import { store } from '@/store/StoreProvider'
-import { updateAccessToken } from '@/lib/tokenStorage'
+import axios from 'axios'
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,

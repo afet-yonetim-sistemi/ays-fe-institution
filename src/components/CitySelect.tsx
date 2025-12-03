@@ -1,12 +1,3 @@
-import { useEffect, useState } from 'react'
-import { Control } from 'react-hook-form'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import {
   FormControl,
   FormField,
@@ -14,7 +5,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { t } from 'i18next'
+import { useEffect, useState } from 'react'
+import { Control } from 'react-hook-form'
 
 interface CitySelectProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -92,22 +92,21 @@ const Page = ({
         .finally(() => setIsLoading(false))
     }
     fetchDetails()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id])
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
       {isLoading && <LoadingSpinner />}
       {!isLoading && adminRegistrationApplicationDetails && (
         <Form {...form}>
           <form className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <h1 className="text-2xl font-bold">
                 {t('application.admin.detailsTitle')}
               </h1>
               {adminRegistrationApplicationDetails.status === 'COMPLETED' &&
                 userPermissions.includes(Permission.APPLICATION_CONCLUDE) && (
-                  <div className="flex space-x-8 ml-auto">
+                  <div className="ml-auto flex space-x-8">
                     <ButtonDialog
                       triggerText={'common.reject'}
                       title={'application.rejectConfirm'}
@@ -290,9 +289,9 @@ const Page = ({
                     <Button
                       type="button"
                       onClick={handleCopyLink}
-                      className="sm:col-span-2 text-left"
+                      className="text-left sm:col-span-2"
                     >
-                      <span className="truncate flex-grow">
+                      <span className="flex-grow truncate">
                         {registerCompletionUrl}
                       </span>
                       <span>{t('application.admin.copy')}</span>
@@ -308,7 +307,7 @@ const Page = ({
                   <CardTitle>{t('user.information')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6 mb-6">
+                  <div className="mb-6 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
                     <FormField
                       control={control}
                       name="firstName"

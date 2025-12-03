@@ -10,12 +10,13 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
-import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
 } from '@/lib/localizePermission'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import { CreateRoleSchema } from '@/modules/roles/constants/formValidationSchema'
 import { RolePermission } from '@/modules/roles/constants/types'
@@ -25,7 +26,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -66,7 +66,6 @@ const Page = (): JSX.Element => {
         showErrorToast(error, 'common.error.fetch')
       })
       .finally(() => setPermissionIsLoading(false))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -160,7 +159,7 @@ const Page = (): JSX.Element => {
 
   return (
     <Form {...form}>
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">{t('role.createTitle')}</h1>
         <Button onClick={handleCreate} disabled={isCreateDisabled}>
           {t('common.create')}
@@ -168,7 +167,7 @@ const Page = (): JSX.Element => {
       </div>
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <CardTitle>{t('role.name')}</CardTitle>
           </div>
         </CardHeader>
@@ -190,7 +189,7 @@ const Page = (): JSX.Element => {
 
       <Card className="mb-6">
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div className="flex items-center">
               <CardTitle>{t('role.permissions')}</CardTitle>
               <div className="ml-4 flex items-center gap-2">
@@ -201,7 +200,7 @@ const Page = (): JSX.Element => {
                   }
                 />
                 {minPermissionError && (
-                  <p className="text-destructive text-sm">
+                  <p className="text-sm text-destructive">
                     {minPermissionError}
                   </p>
                 )}

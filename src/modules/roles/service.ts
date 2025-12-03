@@ -1,12 +1,12 @@
+import { BaseApiResponse } from '@/common/types'
 import http from '@/configs/axiosConfig'
+import { AxiosResponse } from 'axios'
 import {
   RoleApiResponse,
   RolePermissionApiResponse,
   RolesFilter,
   RoleSummaryApiResponse,
 } from '../roles/constants/types'
-import { AxiosResponse } from 'axios'
-import { BaseApiResponse } from '@/common/types'
 
 export const getPermissions = async (): Promise<RolePermissionApiResponse> => {
   return http

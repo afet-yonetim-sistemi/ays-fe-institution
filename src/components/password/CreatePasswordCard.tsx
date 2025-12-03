@@ -63,11 +63,11 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
 
   return (
     <div className={'container'}>
-      <nav className="fixed flex gap-2 right-8 top-4">
+      <nav className="fixed right-8 top-4 flex gap-2">
         <ModeToggle />
         <LanguageToggle />
       </nav>
-      <Card className={'w-[410px] min-h-[558px] h-fit'}>
+      <Card className={'h-fit min-h-[558px] w-[410px]'}>
         <CardHeader className={'flex items-center'}>
           <Image
             src={'/aysfavicon360.png'}

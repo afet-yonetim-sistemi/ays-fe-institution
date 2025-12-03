@@ -1,6 +1,6 @@
-import { z } from 'zod'
-import { emailRegex } from '@/constants/regex'
 import { PasswordSchema } from '@/constants/formValidationSchema'
+import { emailRegex } from '@/constants/regex'
+import { z } from 'zod'
 
 const LoginFormSchema = z.object({
   emailAddress: z

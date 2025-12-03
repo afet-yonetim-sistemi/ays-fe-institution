@@ -1,7 +1,7 @@
-import i18n from 'i18next'
-import localeTR from './locales/tr.json'
-import localeEN from './locales/en.json'
 import { languageToUse } from '@/lib/languageDetector'
+import i18n from 'i18next'
+import localeEN from './locales/en.json'
+import localeTR from './locales/tr.json'
 
 const resources = {
   tr: {

@@ -2,7 +2,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>): JSX.Element {
   return (
-    <div className="overflow-auto scrollbar-gutter-stable h-screen">
+    <div className="scrollbar-gutter-stable h-screen overflow-auto">
       {children}
     </div>
   )

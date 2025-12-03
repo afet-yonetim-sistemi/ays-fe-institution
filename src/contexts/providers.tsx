@@ -1,11 +1,11 @@
 'use client'
 
-import { I18nextProvider } from 'react-i18next'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { ModalProvider } from '@/contexts/modalContext'
+import { ValidateRouteProvider } from '@/contexts/validateRouteProvider'
 import i18n from '@/i18n'
 import StoreProvider from '@/store/StoreProvider'
-import { TooltipProvider } from '@/components/ui/tooltip'
-import { ValidateRouteProvider } from '@/contexts/validateRouteProvider'
-import { ModalProvider } from '@/contexts/modalContext'
+import { I18nextProvider } from 'react-i18next'
 
 export const Providers = (props: React.PropsWithChildren): JSX.Element => {
   return (

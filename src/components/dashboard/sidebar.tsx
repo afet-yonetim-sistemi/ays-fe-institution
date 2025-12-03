@@ -1,10 +1,9 @@
 'use client'
-import React from 'react'
-import Menu from './menu'
-import { Button } from '../ui/button'
-import { ChevronsLeft, ChevronsRight } from 'lucide-react'
 import { useSidebarCollapse } from '@/hooks/useSidebarCollapse'
+import { ChevronsLeft, ChevronsRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { Button } from '../ui/button'
+import Menu from './menu'
 
 export default function Sidebar(): JSX.Element {
   const { collapsed, setCollapsed } = useSidebarCollapse()
@@ -12,11 +11,11 @@ export default function Sidebar(): JSX.Element {
 
   return (
     <div
-      className={`hidden border-r bg-muted/40 md:block overflow-auto transition-all duration-200 h-full ${collapsed ? 'md:w-[70px] lg:w-[72px]' : 'md:w-[220px] lg:w-[280px]'} min-w-0`}
+      className={`hidden h-full overflow-auto border-r bg-muted/40 transition-all duration-200 md:block ${collapsed ? 'md:w-[70px] lg:w-[72px]' : 'md:w-[220px] lg:w-[280px]'} min-w-0`}
     >
       <div className="flex h-full max-h-screen flex-col">
         <div
-          className={`flex items-center ${collapsed ? 'justify-center' : 'justify-start'} px-2 pt-4 pb-2 border-b border-muted-foreground/10`}
+          className={`flex items-center ${collapsed ? 'justify-center' : 'justify-start'} border-b border-muted-foreground/10 px-2 pb-2 pt-4`}
         >
           <Button
             variant="ghost"

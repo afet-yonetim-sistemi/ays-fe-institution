@@ -33,7 +33,7 @@ import { useAppDispatch } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
@@ -76,11 +76,11 @@ const Page = (): JSX.Element => {
 
   return (
     <div className={'container'}>
-      <nav className="fixed flex gap-2 right-8 top-4">
+      <nav className="fixed right-8 top-4 flex gap-2">
         <ModeToggle />
         <LanguageToggle />
       </nav>
-      <Card className="w-[410px] min-h-[558px] h-fit">
+      <Card className="h-fit min-h-[558px] w-[410px]">
         <CardHeader className={'flex items-center'}>
           <Image
             src={'/aysfavicon360.png'}

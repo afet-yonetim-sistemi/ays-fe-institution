@@ -1,9 +1,9 @@
 'use client'
 import { useRef } from 'react'
 import { Provider } from 'react-redux'
-import { makeStore, AppStore } from './store'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
+import { AppStore, makeStore } from './store'
 
 export const store = makeStore()
 

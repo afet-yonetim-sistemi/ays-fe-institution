@@ -77,7 +77,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground overflow-auto;
+    @apply overflow-auto bg-background text-foreground;
     height: 100%;
   }
   html {
@@ -87,7 +87,7 @@
 }
 
 .container {
-  @apply mx-auto px-4 flex flex-col items-center justify-center;
+  @apply mx-auto flex flex-col items-center justify-center px-4;
   height: 100vh;
 }
 

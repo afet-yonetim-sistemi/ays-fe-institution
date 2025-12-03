@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Switch } from '@/components/ui/switch'
 import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
-import { RolePermission } from '../constants/types'
+import { Switch } from '@/components/ui/switch'
 import React from 'react'
+import { RolePermission } from '../constants/types'
 
 interface PermissionCardProps {
   category: string
@@ -26,7 +26,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg flex items-center">
+        <CardTitle className="flex items-center text-lg">
           <span className="mr-4">{category}</span>
           <Switch
             disabled={!isEditable}

@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table'
+import { Button } from '@/components/ui/button'
 import {
   Table,
   TableBody,
@@ -14,14 +9,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
+import { LoadingType, LoadingTypeValue } from '@/constants/loadingType'
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from '@tanstack/react-table'
 import { t } from 'i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 import { DataTableSkeleton } from './data-table-skeleton'
 import { LoadingSpinner } from './loadingSpinner'
-import { LoadingType, LoadingTypeValue } from '@/constants/loadingType'
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
@@ -93,7 +93,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className="bg-secondary text-secondary-foreground font-bold text-left"
+                    className="bg-secondary text-left font-bold text-secondary-foreground"
                   >
                     {header.isPlaceholder
                       ? null
@@ -116,7 +116,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  <div className="flex justify-center items-center h-full">
+                  <div className="flex h-full items-center justify-center">
                     <LoadingSpinner />
                   </div>
                 </TableCell>
@@ -140,7 +140,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                   onClick={() => handleRowClick(row.original)}
                   className={
                     enableRowClick
-                      ? 'cursor-pointer hover:accent'
+                      ? 'hover:accent cursor-pointer'
                       : 'cursor-default'
                   }
                 >
@@ -157,7 +157,7 @@ export function DataTable<TData extends { id: string }, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end p-4 space-x-2">
+      <div className="flex items-center justify-end space-x-2 p-4">
         <Button
           onClick={handlePreviousPage}
           disabled={currentPage === 1 || totalPages === 0}

@@ -17,13 +17,13 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
+import { userFormConfig } from '@/modules/users/constants/formConfig'
 import { createUser } from '@/modules/users/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { userFormConfig } from '@/modules/users/constants/formConfig'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -88,7 +88,7 @@ const Page = (): JSX.Element => {
 
   return (
     <Form {...form}>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">{t('user.createTitle')}</h1>
         <Button onClick={handleCreate} disabled={isCreateDisabled}>
           {t('common.create')}
@@ -153,7 +153,7 @@ const Page = (): JSX.Element => {
               <CardTitle>{t('user.role2')}</CardTitle>
               <div className="ml-4 flex items-center gap-2">
                 {minRoleError && (
-                  <p className="text-destructive text-sm">{minRoleError}</p>
+                  <p className="text-sm text-destructive">{minRoleError}</p>
                 )}
               </div>
             </div>
