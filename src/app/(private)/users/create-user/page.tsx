@@ -31,6 +31,7 @@ const Page = (): JSX.Element => {
   const form = useForm({
     resolver: zodResolver(userFormConfig.validationSchemeCreate),
     mode: 'onChange',
+    defaultValues: userFormConfig.getDefaultValues(),
   })
   const { control, watch, formState } = form
 
@@ -38,7 +39,8 @@ const Page = (): JSX.Element => {
   const [selectedRoles, setSelectedRoles] = useState<string[]>([])
   const [minRoleError, setMinRoleError] = useState<string | null>(null)
 
-  const isCreateDisabled = !formState.isValid || minRoleError !== null
+  const hasFormErrors = Object.keys(formState.errors).length > 0
+  const isCreateDisabled = hasFormErrors || minRoleError !== null
 
   useEffect(() => {
     if (selectedRoles.length === 0) {
