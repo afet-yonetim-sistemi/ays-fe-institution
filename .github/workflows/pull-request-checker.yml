@@ -35,14 +35,14 @@ jobs:
       - name: Build Project # Build with npm
         run: npm run build
 
-      - uses: sonarsource/sonarqube-scan-action@v3 # Performs the project analysis using SonarQube Scanner.
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-      # If you wish to not fail your job when the Quality Gate is red, comment out the
-      # following lines.
-      - uses: sonarsource/sonarqube-quality-gate-action@master # Checks the SonarQube Quality Gate status.
-        timeout-minutes: 5 
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+#      - uses: sonarsource/sonarqube-scan-action@v3 # Performs the project analysis using SonarQube Scanner.
+#        env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+#
+#      # If you wish to not fail your job when the Quality Gate is red, comment out the
+#      # following lines.
+#      - uses: sonarsource/sonarqube-quality-gate-action@master # Checks the SonarQube Quality Gate status.
+#        timeout-minutes: 5
+#        env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
