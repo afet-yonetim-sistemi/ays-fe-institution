@@ -1,8 +1,8 @@
-import { COMMON_VALIDATION_RULES } from '@/constants/commonValidationRules'
-import { COMMON_SEARCH_PARAMS } from '@/constants/commonSearchParams'
-import { UsersFilter } from './types'
 import { SearchParamType } from '@/common/types'
+import { COMMON_SEARCH_PARAMS } from '@/constants/commonSearchParams'
+import { COMMON_VALIDATION_RULES } from '@/constants/commonValidationRules'
 import { SearchParamsConfig } from '@/utils/searchParamsParser'
+import { UsersFilter } from './types'
 
 export const usersFilterConfig = {
   searchParams: {

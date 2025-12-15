@@ -1,4 +1,4 @@
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export const usePagination = () => {
   const router = useRouter()

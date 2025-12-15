@@ -1,19 +1,19 @@
-import React, { ReactNode, useState, useEffect, useMemo } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { getRouteStatus } from '@/lib/getRouteStatus'
-import { getUserPermissions } from '@/lib/getUserPermissions'
-import {
-  selectToken,
-  selectIsRefreshTokenExpired,
-  logout,
-} from '@/modules/auth/authSlice'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import {
   ValidateRouteContext,
   ValidateRouteContextType,
 } from '@/contexts/validateRouteContext'
+import { getRouteStatus } from '@/lib/getRouteStatus'
+import { getUserPermissions } from '@/lib/getUserPermissions'
+import {
+  logout,
+  selectIsRefreshTokenExpired,
+  selectToken,
+} from '@/modules/auth/authSlice'
 import SessionExpiredModal from '@/modules/auth/components/SessionExpiredModal'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { ReactNode, useEffect, useMemo, useState } from 'react'
 
 export const ValidateRouteProvider = ({
   children,
@@ -74,7 +74,7 @@ export const ValidateRouteProvider = ({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <LoadingSpinner />
       </div>
     )

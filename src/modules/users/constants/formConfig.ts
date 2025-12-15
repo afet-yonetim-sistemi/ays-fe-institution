@@ -1,12 +1,12 @@
-import { UserFormValues, UserDetails, User } from './types'
-import { z } from 'zod'
-import { FieldErrors } from 'react-hook-form'
+import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 import { emailRegex } from '@/constants/regex'
 import {
-  strictNameValidation,
   nameboxWithLengthValidation,
+  strictNameValidation,
 } from '@/lib/strictValidation'
-import { PhoneNumberSchema } from '@/constants/formValidationSchema'
+import { FieldErrors } from 'react-hook-form'
+import { z } from 'zod'
+import { User, UserDetails, UserFormValues } from './types'
 
 export const userFormConfig = {
   fields: {

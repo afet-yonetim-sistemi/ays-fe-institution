@@ -1,6 +1,6 @@
+import CreatePasswordCard from '@/components/password/CreatePasswordCard'
 import passwordService from '@/modules/password/service'
 import { notFound } from 'next/navigation'
-import CreatePasswordCard from '@/components/password/CreatePasswordCard'
 
 const Page = async ({
   params,

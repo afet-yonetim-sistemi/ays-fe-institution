@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import { getRoleSummary } from '@/modules/roles/service'
 import { showErrorToast } from '@/lib/showToast'
+import { getRoleSummary } from '@/modules/roles/service'
 import { UserRole } from '@/modules/users/constants/types'
+import { useEffect, useState } from 'react'
 
 const useFetchRoleSummary = () => {
   const [roles, setRoles] = useState<UserRole[]>([])

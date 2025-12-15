@@ -6,15 +6,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { showErrorToast } from '@/lib/showToast'
 import { parseJwt } from '@/lib/helpers'
+import { showErrorToast } from '@/lib/showToast'
 import { selectRefreshToken, selectToken } from '@/modules/auth/authSlice'
 import authService from '@/modules/auth/service'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { MenuIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuUser } from 'react-icons/lu'
 import { Avatar, AvatarFallback } from '../ui/avatar'
@@ -54,12 +53,12 @@ function Navbar(): JSX.Element {
         </SheetTrigger>
         <SheetContent
           side="left"
-          className="p-2 flex flex-col overflow-auto pt-12"
+          className="flex flex-col overflow-auto p-2 pt-12"
         >
           <Menu />
         </SheetContent>
       </Sheet>
-      <div className="w-full flex-1 flex items-center space-x-2">
+      <div className="flex w-full flex-1 items-center space-x-2">
         <Image
           src="/aysLogo40px.svg"
           alt="AYS Logo"
@@ -76,8 +75,8 @@ function Navbar(): JSX.Element {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className={'flex cursor-pointer'}>
-              <div className={'grid ml-3'}>
-                <span className={'font-bold text-sm flex justify-end'}>
+              <div className={'ml-3 grid'}>
+                <span className={'flex justify-end text-sm font-bold'}>
                   {userInfo?.userFirstName} {userInfo?.userLastName}
                 </span>
                 <span className={'text-sm'}>{userInfo?.institutionName}</span>

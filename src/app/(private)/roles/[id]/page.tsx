@@ -16,11 +16,11 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import {
   getLocalizedCategory,
   getLocalizedPermission,
 } from '@/lib/localizePermission'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import { FormValidationSchema } from '@/modules/roles/constants/formValidationSchema'
@@ -37,7 +37,7 @@ import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { NextPage } from 'next'
 import { useRouter } from 'next/navigation'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useForm, UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -465,7 +465,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     return (
       <div className="flex items-center gap-4">
         {minPermissionError && (
-          <p className="text-red-500 text-sm">{minPermissionError}</p>
+          <p className="text-sm text-red-500">{minPermissionError}</p>
         )}
         <Button
           type="button"
@@ -487,12 +487,12 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
   }
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
       {detailIsLoading && <LoadingSpinner />}
       {!detailIsLoading && roleDetail && (
         <Form {...form}>
           <form className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <h1 className="text-2xl font-bold">{t('role.detailsTitle')}</h1>
               {roleDetail.status !== 'DELETED' && (
                 <div className="flex items-center gap-4">

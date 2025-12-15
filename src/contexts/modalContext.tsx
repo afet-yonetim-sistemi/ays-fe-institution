@@ -1,11 +1,5 @@
 'use client'
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useMemo,
-} from 'react'
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
 
 interface ModalContextType {
   isOpen: boolean

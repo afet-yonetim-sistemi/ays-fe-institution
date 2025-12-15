@@ -1,10 +1,10 @@
 'use client'
 import Navbar from '@/components/dashboard/navbar'
 import Sidebar from '@/components/dashboard/sidebar'
-import React, { useEffect, useRef } from 'react'
-import { useSidebarCollapse } from '@/hooks/useSidebarCollapse'
-import { useBreakpoint } from '@/hooks/useBreakpoint'
 import { BreakpointDirections, BreakpointSize } from '@/constants/breakpoint'
+import { useBreakpoint } from '@/hooks/useBreakpoint'
+import { useSidebarCollapse } from '@/hooks/useSidebarCollapse'
+import React, { useEffect, useRef } from 'react'
 
 export default function RootLayout({
   children,
@@ -32,13 +32,13 @@ export default function RootLayout({
 
   if (!ready) return <div />
   return (
-    <div className="overflow-hidden h-screen">
+    <div className="h-screen overflow-hidden">
       <Navbar />
       <div
         className={`grid w-full ${sidebarWidthClass} h-[calc(100dvh-3.5rem)]`}
       >
         <Sidebar />
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 overflow-y-scroll">
+        <main className="flex flex-1 flex-col gap-4 overflow-y-scroll p-4 lg:gap-6 lg:p-6">
           {children}
         </main>
       </div>

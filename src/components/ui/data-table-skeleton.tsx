@@ -1,7 +1,7 @@
 'use client'
 
+import { TableCell, TableRow } from '@/components/ui/table'
 import { ColumnDef } from '@tanstack/react-table'
-import { TableRow, TableCell } from '@/components/ui/table'
 import { Skeleton } from './skeleton'
 
 interface DataTableSkeletonProps<TData extends { id: string }, TValue> {
@@ -20,7 +20,7 @@ export function DataTableSkeleton<TData extends { id: string }, TValue>({
           {columns.map((_, colIndex) => {
             return (
               <TableCell key={`skeleton-row-${rowIndex}-col-${colIndex}`}>
-                <Skeleton className="h-3 md:h-4 w-full" />
+                <Skeleton className="h-3 w-full md:h-4" />
               </TableCell>
             )
           })}

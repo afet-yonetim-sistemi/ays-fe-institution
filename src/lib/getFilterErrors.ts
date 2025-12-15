@@ -1,5 +1,5 @@
-import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 import { FilterValidationOptions } from '@/common/types'
+import { getStringFilterValidation } from '@/constants/filterValidationSchema'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getFilterErrors = <T extends Record<string, any>>(

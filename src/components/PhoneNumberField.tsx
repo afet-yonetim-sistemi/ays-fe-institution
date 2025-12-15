@@ -4,8 +4,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Control, Controller } from 'react-hook-form'
 import { t } from 'i18next'
+import { Control, Controller } from 'react-hook-form'
 import { CountryData } from 'react-phone-input-2'
 import PhoneInput from './ui/phone-input'
 

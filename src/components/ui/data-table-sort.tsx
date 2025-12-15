@@ -1,14 +1,13 @@
-import React from 'react'
+import { SortDirection } from '@/common/types'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { Column } from '@tanstack/table-core'
 import i18n from 'i18next'
 import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
-import { Column } from '@tanstack/table-core'
-import { SortDirection } from '@/common/types'
 
 interface DataTableSortProps<T> {
   column: Column<T>
@@ -37,13 +36,13 @@ const DataTableSort = <T extends object>({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger
-          className="rounded transition-colors hover:bg-muted/90 w-full h-full"
+          className="h-full w-full rounded transition-colors hover:bg-muted/90"
           onClick={() => {
             column.toggleSorting()
             onSortClick(column)
           }}
         >
-          <span className="flex items-center text-left gap-1">
+          <span className="flex items-center gap-1 text-left">
             {label}
             <SortIcon sortDirection={sortDirection} />
           </span>

@@ -1,3 +1,4 @@
+import { BaseApiResponse } from '@/common/types'
 import http from '@/configs/axiosConfig'
 import { AxiosResponse } from 'axios'
 import {
@@ -6,7 +7,6 @@ import {
   UserEditableFields,
   UsersFilter,
 } from './constants/types'
-import { BaseApiResponse } from '@/common/types'
 
 export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
   const orders = filter.sort?.length

@@ -7,21 +7,21 @@ import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
-import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useDataFetcher } from '@/hooks/useDataFetcher'
+import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useSearchParamsManager } from '@/hooks/useSearchParamsManager'
 import { useSort } from '@/hooks/useSort'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, User } from '@/modules/users/components/columns'
+import { usersFilterConfig } from '@/modules/users/constants/filterConfig'
 import { userStatuses } from '@/modules/users/constants/statuses'
 import type { UsersFilter } from '@/modules/users/constants/types'
 import { getUsers } from '@/modules/users/service'
 import { useAppSelector } from '@/store/hooks'
 import { RefreshCw } from 'lucide-react'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { usersFilterConfig } from '@/modules/users/constants/filterConfig'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -84,7 +84,7 @@ const Page = (): JSX.Element => {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-3 2xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-3 gap-4 2xl:grid-cols-6">
         <MultiSelectDropdown
           items={userStatuses}
           selectedItems={filters.statuses}

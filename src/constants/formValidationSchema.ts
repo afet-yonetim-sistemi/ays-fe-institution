@@ -1,5 +1,5 @@
+import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber'
 import { z } from 'zod'
-import { PhoneNumberUtil, PhoneNumberFormat } from 'google-libphonenumber'
 
 const phoneUtil = PhoneNumberUtil.getInstance()
 

@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next'
-import { cn } from '@/lib/utils'
 import { LabeledItem } from '@/common/types'
+import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 interface StatusProps {
   status: LabeledItem

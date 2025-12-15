@@ -1,29 +1,29 @@
 'use client'
 
+import { SortDirection } from '@/common/types'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
+import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
+import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
+import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
+import { useSort } from '@/hooks/useSort'
 import { showErrorToast } from '@/lib/showToast'
 import {
   AdminRegistrationApplication,
   columns,
 } from '@/modules/adminRegistrationApplications/components/columns'
+import { adminApplicationRegistrationStatuses } from '@/modules/adminRegistrationApplications/constants/statuses'
 import { AdminRegistrationApplicationsFilter } from '@/modules/adminRegistrationApplications/constants/types'
 import { getAdminRegistrationApplications } from '@/modules/adminRegistrationApplications/service'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import Link from 'next/link'
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSort } from '@/hooks/useSort'
-import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
-import { adminApplicationRegistrationStatuses } from '@/modules/adminRegistrationApplications/constants/statuses'
-import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
-import Status from '@/components/ui/status'
-import { SortDirection } from '@/common/types'
 
 const parseARASearchParams = (searchParams: URLSearchParams) => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)

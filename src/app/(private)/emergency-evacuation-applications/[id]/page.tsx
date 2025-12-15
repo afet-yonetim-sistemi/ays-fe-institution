@@ -243,12 +243,12 @@ const Page = ({
   }
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
+    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && emergencyEvacuationApplicationDetails && (
         <Form {...form}>
           <form className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <h1 className="text-2xl font-bold">
                 {t('application.evacuation.detailsTitle')}
               </h1>
@@ -331,7 +331,7 @@ const Page = ({
                     control={control}
                     name="isInPerson"
                     render={({ field }) => (
-                      <FormItem className="sm:col-span-3 mb-6">
+                      <FormItem className="mb-6 sm:col-span-3">
                         <div className="flex items-center">
                           <FormLabel className="mr-2">
                             {t('application.evacuation.inPerson')}
@@ -351,7 +351,7 @@ const Page = ({
                   />
                 </div>
                 {!emergencyEvacuationApplicationDetails.isInPerson && (
-                  <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 mb-6">
+                  <div className="mb-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
                     <FormField
                       control={control}
                       name="applicantFullName"

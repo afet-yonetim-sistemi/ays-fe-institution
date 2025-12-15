@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -14,6 +13,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { ChevronDown } from 'lucide-react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 type DropdownItem<T> = {
@@ -53,12 +53,12 @@ const MultiSelectDropdown = <T extends string>({
           <TooltipTrigger className="flex w-fit gap-2">
             <DropdownMenuTrigger
               asChild
-              className="hover:bg-muted/90 data-[state=open]:bg-blue-600/10 data-[state=open]:text-blue-600 rounded h-10 px-4 py-2"
+              className="h-10 rounded px-4 py-2 hover:bg-muted/90 data-[state=open]:bg-blue-600/10 data-[state=open]:text-blue-600"
             >
-              <div className="flex gap-2 items-center">
+              <div className="flex items-center gap-2">
                 {t(label)}
                 {selectedItems.length > 0 && (
-                  <p className="px-1.5 py-1 text-xs text-white rounded-full text-center bg-blue-600">
+                  <p className="rounded-full bg-blue-600 px-1.5 py-1 text-center text-xs text-white">
                     {selectedItems.length}
                   </p>
                 )}

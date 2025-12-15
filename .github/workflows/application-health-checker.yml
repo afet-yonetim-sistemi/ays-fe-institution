@@ -6,7 +6,7 @@ name: Application Status
 on:
   push:
     branches:
-      - main  # Trigger the workflow when a push event occurs on the main branch
+      - main # Trigger the workflow when a push event occurs on the main branch
 
 jobs:
   build: # Define the "build" job
@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code # Step to check out the code from the repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       - uses: actions/setup-node@v4 # Step to set up Node.js
         with:
@@ -38,6 +38,6 @@ jobs:
       # If you wish to not fail your job when the Quality Gate is red, comment out the
       # following lines.
       - uses: sonarsource/sonarqube-quality-gate-action@master # Checks the SonarQube Quality Gate status.
-        timeout-minutes: 5 
+        timeout-minutes: 5
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -88,17 +88,17 @@ const FilterInput: React.FC<FilterInputProps> = memo(
           onInput={onInput}
           inputMode={inputMode}
           className={cn(
-            'block focus-visible:ring-0 focus-visible:ring-offset-0 p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-[2px] border-gray-200 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'peer block w-full appearance-none rounded-lg border-[2px] border-gray-200 bg-transparent p-3 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500',
             type === 'number' && hideNumberSpinner && noNumberSpinnerClass
           )}
         />
         <Label
           htmlFor={id}
-          className="absolute !left-3 rounded cursor-text text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 top-1.5 z-10 origin-[0] bg-white dark:bg-background peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-[calc(50%-10px)] peer-placeholder-shown:top-[calc(50%-20px)] peer-focus:top-1.5 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+          className="absolute !left-3 start-1 top-1.5 z-10 origin-[0] -translate-y-4 transform cursor-text rounded bg-white text-sm text-gray-500 duration-300 peer-placeholder-shown:top-[calc(50%-20px)] peer-placeholder-shown:-translate-y-[calc(50%-10px)] peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:text-blue-600 dark:bg-background dark:text-gray-400 peer-focus:dark:text-blue-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
         >
           {label}
         </Label>
-        <div className="h-[16px] mt-1">
+        <div className="mt-1 h-[16px]">
           {error && (
             <p className="text-sm font-medium text-destructive">{t(error)}</p>
           )}

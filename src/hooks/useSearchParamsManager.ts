@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { FilterValidationOptions, SearchParamType } from '@/common/types'
+import { getFilterErrors } from '@/lib/getFilterErrors'
 import {
   parseSearchParams,
   SearchParamsConfig,
   SearchParamValue,
 } from '@/utils/searchParamsParser'
-import { getFilterErrors } from '@/lib/getFilterErrors'
-import { FilterValidationOptions, SearchParamType } from '@/common/types'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
 
 interface UseSearchParamsManagerOptions<
   T extends Record<string, SearchParamValue>,
