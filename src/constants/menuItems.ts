@@ -3,6 +3,7 @@ import {
   BusFront,
   ClipboardPenLine,
   HomeIcon,
+  Map,
   UserRoundCheck,
   Users,
 } from 'lucide-react'
@@ -21,6 +22,7 @@ export const MenuItems: Menu[] = [
     label: 'common.home',
     icon: HomeIcon,
   },
+
   {
     key: '/users',
     label: 'user.title',
@@ -44,5 +46,10 @@ export const MenuItems: Menu[] = [
     label: 'application.evacuation.title',
     icon: BusFront,
     requiredPermissions: [Permission.EVACUATION_LIST],
+  },
+  {
+    key: '/map',
+    label: 'map.title',
+    icon: Map,
   },
 ]

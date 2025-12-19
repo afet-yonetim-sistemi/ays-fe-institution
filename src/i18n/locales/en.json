@@ -194,6 +194,9 @@
     "toggle": "Toggle navigation menu",
     "logout": "Logout"
   },
+  "map": {
+    "title": "Map"
+  },
   "sidebar": {
     "expandTheMenu": "Expand The Menu",
     "collapseTheMenu": "Collapse The Menu"
