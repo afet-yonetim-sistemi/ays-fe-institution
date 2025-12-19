@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev -p 5173",
+    "dev": "next dev -p 29790",
     "eslint": "npx eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
     "format": "prettier --check './**/*.{js,jsx,ts,tsx,css,scss,sass,less,json,json5,yaml,yml,md,mdx,html,htm}' --config ./.prettierrc",
     "format:fix": "prettier --write './**/*.{js,jsx,ts,tsx,css,scss,sass,less,json,json5,yaml,yml,md,mdx,html,htm}' --config ./.prettierrc",
