@@ -1,7 +1,7 @@
 import { showErrorToast } from '@/lib/showToast'
 import { AxiosError } from 'axios'
-import { useRouter } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ApiResponse<T> {
   data: {
@@ -16,20 +16,42 @@ interface ApiResponse<T> {
 
 interface UseDataFetcherOptions<T, F> {
   fetchFunction: (filters: F) => Promise<ApiResponse<T>>
+  filters?: F
+  enabled?: boolean
   onSuccess?: (data: T[], totalElements: number) => void
+}
+
+interface UseDataFetcherReturn<T, F extends { page: number }> {
+  data: T[]
+  isLoading: boolean
+  totalRows: number
+  fetchData: (filters: F) => Promise<void>
+  refetch: (filters: F) => void
 }
 
 export const useDataFetcher = <T, F extends { page: number }>({
   fetchFunction,
+  filters,
+  enabled = true,
   onSuccess,
-}: UseDataFetcherOptions<T, F>) => {
+}: UseDataFetcherOptions<T, F>): UseDataFetcherReturn<T, F> => {
   const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const [data, setData] = useState<T[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(enabled && !!filters)
   const [totalRows, setTotalRows] = useState(0)
+  const lastFetchedFilters = useRef<string>('')
 
   const fetchData = useCallback(
     async (filters: F) => {
+      if (filters.page <= 0) {
+        const params = new URLSearchParams(searchParams)
+        params.set('page', '1')
+        router.push(`${pathname}?${params.toString()}`)
+        return
+      }
+
       setIsLoading(true)
 
       try {
@@ -44,7 +66,9 @@ export const useDataFetcher = <T, F extends { page: number }>({
           response.data.response
 
         if (filters.page > totalPageCount && totalPageCount !== 0) {
-          router.push('/not-found')
+          const params = new URLSearchParams(searchParams)
+          params.set('page', '1')
+          router.push(`${pathname}?${params.toString()}`)
           return
         }
 
@@ -62,11 +86,23 @@ export const useDataFetcher = <T, F extends { page: number }>({
         setIsLoading(false)
       }
     },
-    [fetchFunction, onSuccess, router]
+    [fetchFunction, onSuccess, router, pathname, searchParams]
   )
+
+  useEffect(() => {
+    if (!filters || !enabled) return
+
+    const filtersKey = JSON.stringify(filters)
+
+    if (lastFetchedFilters.current === filtersKey) return
+
+    lastFetchedFilters.current = filtersKey
+    fetchData(filters)
+  }, [filters, enabled, fetchData])
 
   const refetch = useCallback(
     (filters: F) => {
+      lastFetchedFilters.current = ''
       fetchData(filters)
     },
     [fetchData]

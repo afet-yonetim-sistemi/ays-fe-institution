@@ -18,9 +18,9 @@ import { userStatuses } from '@/modules/users/constants/statuses'
 import type { UsersFilter } from '@/modules/users/constants/types'
 import { getUsers } from '@/modules/users/service'
 import { useAppSelector } from '@/store/hooks'
+import { createFilterInputProps } from '@/utils/filterInputHelpers'
 import { RefreshCw } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Page = (): JSX.Element => {
@@ -30,6 +30,7 @@ const Page = (): JSX.Element => {
   const {
     filters,
     filterErrors,
+    hasFilterErrors,
     inputValues,
     handleFilterChange,
     handlePageChange,
@@ -44,24 +45,24 @@ const Page = (): JSX.Element => {
     data: userList,
     isLoading,
     totalRows,
-    fetchData,
     refetch,
   } = useDataFetcher<User, UsersFilter>({
     fetchFunction: getUsers,
+    filters,
+    enabled: !hasFilterErrors && filters.page > 0,
   })
 
   const debouncedHandleInputFilterChange =
     useDebouncedInputFilter(handleFilterChange)
   const handleSortChange = useSort(filters.sort)
 
-  useEffect(() => {
-    const hasFilterErrors = Object.values(filterErrors).some(
-      (error) => error !== null
-    )
-    if (!hasFilterErrors && filters.page) {
-      fetchData(filters)
-    }
-  }, [filters, filterErrors, fetchData])
+  const getFilterInputProps = (
+    field: keyof UsersFilter & string
+  ): ReturnType<typeof createFilterInputProps<UsersFilter>> =>
+    createFilterInputProps(field, inputValues, filterErrors, {
+      handleInputValueChange,
+      debouncedHandleFilterChange: debouncedHandleInputFilterChange,
+    })
 
   return (
     <div className="space-y-4">
@@ -95,55 +96,22 @@ const Page = (): JSX.Element => {
           renderItem={(item) => <Status status={item} />}
         />
         <FilterInput
-          id="firstName"
           label={t('user.firstName')}
-          value={inputValues.firstName || ''}
-          onChange={(e) => {
-            handleInputValueChange('firstName', e.target.value)
-            debouncedHandleInputFilterChange('firstName', e.target.value)
-          }}
-          error={filterErrors.firstName}
+          {...getFilterInputProps('firstName')}
         />
         <FilterInput
-          id="lastName"
           label={t('user.lastName')}
-          value={inputValues.lastName || ''}
-          onChange={(e) => {
-            handleInputValueChange('lastName', e.target.value)
-            debouncedHandleInputFilterChange('lastName', e.target.value)
-          }}
-          error={filterErrors.lastName}
+          {...getFilterInputProps('lastName')}
         />
         <FilterInput
-          id="emailAddress"
           label={t('user.email')}
-          value={inputValues.emailAddress || ''}
-          onChange={(e) => {
-            handleInputValueChange('emailAddress', e.target.value)
-            debouncedHandleInputFilterChange('emailAddress', e.target.value)
-          }}
-          error={filterErrors.emailAddress}
+          {...getFilterInputProps('emailAddress')}
         />
         <FilterInput
-          id="lineNumber"
           label={t('user.lineNumber')}
-          value={inputValues.lineNumber || ''}
-          onChange={(e) => {
-            handleInputValueChange('lineNumber', e.target.value)
-            debouncedHandleInputFilterChange('lineNumber', e.target.value)
-          }}
-          error={filterErrors.lineNumber}
+          {...getFilterInputProps('lineNumber')}
         />
-        <FilterInput
-          id="city"
-          label={t('user.city')}
-          value={inputValues.city || ''}
-          onChange={(e) => {
-            handleInputValueChange('city', e.target.value)
-            debouncedHandleInputFilterChange('city', e.target.value)
-          }}
-          error={filterErrors.city}
-        />
+        <FilterInput label={t('user.city')} {...getFilterInputProps('city')} />
       </div>
       <DataTable
         columns={columns({ sort: filters.sort ?? [] }, handleSortChange)}

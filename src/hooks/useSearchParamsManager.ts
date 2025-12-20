@@ -6,7 +6,13 @@ import {
   SearchParamValue,
 } from '@/utils/searchParamsParser'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import {
+  startTransition,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
 interface UseSearchParamsManagerOptions<
   T extends Record<string, SearchParamValue>,
@@ -17,33 +23,65 @@ interface UseSearchParamsManagerOptions<
   onFiltersChange?: (filters: T) => void
 }
 
+interface UseSearchParamsManagerReturn<
+  T extends Record<string, SearchParamValue>,
+> {
+  filters: T
+  filterErrors: Record<string, string | null>
+  hasFilterErrors: boolean
+  inputValues: Record<string, string>
+  handleFilterChange: (key: string, value: string | string[] | boolean) => void
+  handlePageChange: (page: number) => void
+  handleInputValueChange: (key: string, value: string) => void
+}
+
 export function useSearchParamsManager<
   T extends Record<string, SearchParamValue>,
 >({
   config,
   validationRules = {},
   defaultFilters,
-  onFiltersChange,
-}: UseSearchParamsManagerOptions<T>) {
+}: UseSearchParamsManagerOptions<T>): UseSearchParamsManagerReturn<T> {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const [filters, setFilters] = useState<T>(defaultFilters)
+  const [filters, setFilters] = useState<T>(() => {
+    if (searchParams.toString().length > 0) {
+      const parsedParams = parseSearchParams(config, searchParams)
+      return { ...defaultFilters, ...parsedParams } as T
+    }
+    return defaultFilters
+  })
+
   const [filterErrors, setFilterErrors] = useState<
     Record<string, string | null>
-  >({})
-  const [inputValues, setInputValues] = useState<Record<string, string>>({})
+  >(() => {
+    if (
+      searchParams.toString().length > 0 &&
+      Object.keys(validationRules).length > 0
+    ) {
+      const parsedParams = parseSearchParams(config, searchParams)
+      const initialFilters = { ...defaultFilters, ...parsedParams } as T
+      const validationFields = Object.keys(validationRules) as (keyof T)[]
+      return getFilterErrors(initialFilters, validationFields, validationRules)
+    }
+    return {}
+  })
 
-  useEffect(() => {
+  const [inputValues, setInputValues] = useState<Record<string, string>>(() => {
     const initialInputs: Record<string, string> = {}
-    Object.keys(config).forEach((key) => {
-      if (config[key as keyof T]?.type === SearchParamType.STRING) {
-        initialInputs[key] = (filters[key as keyof T] as string) ?? ''
-      }
-    })
-    setInputValues(initialInputs)
-  }, [config, filters])
+    if (searchParams.toString().length > 0) {
+      const parsedParams = parseSearchParams(config, searchParams)
+      const initialFilters = { ...defaultFilters, ...parsedParams } as T
+      Object.keys(config).forEach((key) => {
+        if (config[key as keyof T]?.type === SearchParamType.STRING) {
+          initialInputs[key] = (initialFilters[key as keyof T] as string) ?? ''
+        }
+      })
+    }
+    return initialInputs
+  })
 
   useEffect(() => {
     const paramsReady = searchParams.toString().length > 0
@@ -52,14 +90,22 @@ export function useSearchParamsManager<
     const parsedParams = parseSearchParams(config, searchParams)
     const newFilters = { ...defaultFilters, ...parsedParams } as T
 
+    if (
+      'page' in newFilters &&
+      typeof newFilters.page === 'number' &&
+      newFilters.page <= 0
+    ) {
+      const updatedParams = new URLSearchParams(searchParams)
+      updatedParams.set('page', '1')
+      router.replace(`${pathname}?${updatedParams.toString()}`)
+      return
+    }
+
     let errors: Record<string, string | null> = {}
     if (Object.keys(validationRules).length > 0) {
       const validationFields = Object.keys(validationRules) as (keyof T)[]
       errors = getFilterErrors(newFilters, validationFields, validationRules)
     }
-
-    setFilterErrors(errors)
-    setFilters(newFilters)
 
     const newInputValues: Record<string, string> = {}
     Object.keys(config).forEach((key) => {
@@ -67,15 +113,26 @@ export function useSearchParamsManager<
         newInputValues[key] = (newFilters[key as keyof T] as string) ?? ''
       }
     })
-    setInputValues((prev) => ({ ...prev, ...newInputValues }))
 
-    const hasFilterErrors = Object.values(errors).some(
-      (error) => error !== null
-    )
-    if (!hasFilterErrors && onFiltersChange) {
-      onFiltersChange(newFilters)
-    }
-  }, [searchParams, onFiltersChange, config, defaultFilters, validationRules])
+    startTransition(() => {
+      setFilterErrors(errors)
+      setFilters(newFilters)
+      setInputValues((prev) => ({ ...prev, ...newInputValues }))
+    })
+  }, [
+    searchParams,
+    config,
+    defaultFilters,
+    validationRules,
+    router,
+    pathname,
+    setFilterErrors,
+  ])
+
+  const hasFilterErrors = useMemo(
+    () => Object.values(filterErrors).some((error) => error !== null),
+    [filterErrors]
+  )
 
   const handleFilterChange = useCallback(
     (key: string, value: string | string[] | boolean) => {
@@ -108,13 +165,9 @@ export function useSearchParamsManager<
         }
       }
 
-      window.history.pushState(
-        null,
-        '',
-        `${pathname}?${updatedParams.toString()}`
-      )
+      router.push(`${pathname}?${updatedParams.toString()}`)
     },
-    [pathname, searchParams, config]
+    [router, pathname, searchParams, config]
   )
 
   const handlePageChange = useCallback(
@@ -133,6 +186,7 @@ export function useSearchParamsManager<
   return {
     filters,
     filterErrors,
+    hasFilterErrors,
     inputValues,
     handleFilterChange,
     handlePageChange,
