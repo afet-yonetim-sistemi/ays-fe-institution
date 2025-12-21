@@ -15,77 +15,49 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
+import { useCreatePage } from '@/hooks/useCreatePage'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
-import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { userFormConfig } from '@/modules/users/constants/formConfig'
+import { CreateUserPayload } from '@/modules/users/constants/types'
+import { useRoleSelection } from '@/modules/users/hooks/useRoleSelection'
 import { createUser } from '@/modules/users/service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  const router = useRouter()
   const form = useForm({
     resolver: zodResolver(userFormConfig.validationSchemeCreate),
     mode: 'onChange',
     defaultValues: userFormConfig.getDefaultValues(),
   })
-  const { control, watch, formState } = form
+  const { control, formState } = form
 
   const { roles, userRolesIsLoading } = useFetchRoleSummary()
-  const [selectedRoles, setSelectedRoles] = useState<string[]>([])
-  const [minRoleError, setMinRoleError] = useState<string | null>(null)
+  const { selectedRoles, roleError, handleRoleToggle } = useRoleSelection({
+    minRoles: 1,
+    errorMessage: 'user.minRoleError',
+  })
 
   const hasFormErrors = Object.keys(formState.errors).length > 0
-  const isCreateDisabled = hasFormErrors || minRoleError !== null
+  const isCreateDisabled = hasFormErrors || roleError !== null
 
-  useEffect(() => {
-    if (selectedRoles.length === 0) {
-      setMinRoleError(t('user.minRoleError'))
-    } else {
-      setMinRoleError(null)
-    }
-  }, [selectedRoles, t])
-
-  const handleRoleToggle = (id: string): void => {
-    setSelectedRoles((prevSelectedRoles) => {
-      if (prevSelectedRoles.includes(id)) {
-        return prevSelectedRoles.filter((roleId) => roleId !== id)
-      }
-      return [...prevSelectedRoles, id]
-    })
-  }
+  const { handleCreate: createUserHandler } = useCreatePage<CreateUserPayload>({
+    createItem: createUser,
+    redirectPath: '/users',
+    successMessage: 'user.createSuccess',
+    errorMessage: 'user.createError',
+  })
 
   const handleCreate = (): void => {
-    const firstName = watch('firstName')
-    const lastName = watch('lastName')
-    const emailAddress = watch('emailAddress')
-    const phoneNumber = watch('phoneNumber')
-    const city = watch('city')
-
-    const payload = {
-      firstName,
-      lastName,
-      emailAddress,
-      phoneNumber: {
-        countryCode: phoneNumber.countryCode,
-        lineNumber: phoneNumber.lineNumber,
-      },
-      city,
+    const formValues = form.getValues()
+    const payload = userFormConfig.getCreatePayload({
+      ...formValues,
       roleIds: selectedRoles,
-    }
+    })
 
-    createUser(payload)
-      .then(() => {
-        showSuccessToast('user.createSuccess')
-        router.push('/users')
-      })
-      .catch((error) => {
-        showErrorToast(error, 'user.createError')
-      })
+    createUserHandler(payload)
   }
 
   return (
@@ -154,8 +126,8 @@ const Page = (): JSX.Element => {
             <div className="flex items-center">
               <CardTitle>{t('user.role2')}</CardTitle>
               <div className="ml-4 flex items-center gap-2">
-                {minRoleError && (
-                  <p className="text-sm text-destructive">{minRoleError}</p>
+                {roleError && (
+                  <p className="text-sm text-destructive">{roleError}</p>
                 )}
               </div>
             </div>

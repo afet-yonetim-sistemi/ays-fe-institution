@@ -104,6 +104,18 @@ export const userFormConfig = {
     roleIds: formValues.roleIds,
   }),
 
+  getCreatePayload: (formValues: UserFormValues) => ({
+    firstName: formValues.firstName,
+    lastName: formValues.lastName,
+    emailAddress: formValues.emailAddress,
+    phoneNumber: {
+      countryCode: formValues.phoneNumber.countryCode,
+      lineNumber: formValues.phoneNumber.lineNumber,
+    },
+    city: formValues.city,
+    roleIds: formValues.roleIds,
+  }),
+
   getCurrentValues: (
     watchedValues: Partial<UserFormValues>,
     selectedRoles: string[],

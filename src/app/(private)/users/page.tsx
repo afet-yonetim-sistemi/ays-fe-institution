@@ -8,7 +8,6 @@ import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
 import { useDataFetcher } from '@/hooks/useDataFetcher'
-import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useSearchParamsManager } from '@/hooks/useSearchParamsManager'
 import { useSort } from '@/hooks/useSort'
 import { selectPermissions } from '@/modules/auth/authSlice'
@@ -18,7 +17,6 @@ import { userStatuses } from '@/modules/users/constants/statuses'
 import type { UsersFilter } from '@/modules/users/constants/types'
 import { getUsers } from '@/modules/users/service'
 import { useAppSelector } from '@/store/hooks'
-import { createFilterInputProps } from '@/utils/filterInputHelpers'
 import { RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
@@ -29,12 +27,10 @@ const Page = (): JSX.Element => {
 
   const {
     filters,
-    filterErrors,
     hasFilterErrors,
-    inputValues,
     handleFilterChange,
     handlePageChange,
-    handleInputValueChange,
+    getFilterInputProps,
   } = useSearchParamsManager<UsersFilter>({
     config: usersFilterConfig.searchParams,
     validationRules: usersFilterConfig.validationRules,
@@ -52,17 +48,7 @@ const Page = (): JSX.Element => {
     enabled: !hasFilterErrors && filters.page > 0,
   })
 
-  const debouncedHandleInputFilterChange =
-    useDebouncedInputFilter(handleFilterChange)
   const handleSortChange = useSort(filters.sort)
-
-  const getFilterInputProps = (
-    field: keyof UsersFilter & string
-  ): ReturnType<typeof createFilterInputProps<UsersFilter>> =>
-    createFilterInputProps(field, inputValues, filterErrors, {
-      handleInputValueChange,
-      debouncedHandleFilterChange: debouncedHandleInputFilterChange,
-    })
 
   return (
     <div className="space-y-4">

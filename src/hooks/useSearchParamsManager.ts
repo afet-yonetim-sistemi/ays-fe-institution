@@ -33,6 +33,13 @@ interface UseSearchParamsManagerReturn<
   handleFilterChange: (key: string, value: string | string[] | boolean) => void
   handlePageChange: (page: number) => void
   handleInputValueChange: (key: string, value: string) => void
+  getFilterInputProps: (field: keyof T & string) => {
+    id: string
+    value: string
+    error: string | null
+    onValueChange: (value: string) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  }
 }
 
 export function useSearchParamsManager<
@@ -183,6 +190,30 @@ export function useSearchParamsManager<
     setInputValues((prev) => ({ ...prev, [key]: value }))
   }, [])
 
+  const getFilterInputProps = useCallback(
+    (
+      field: keyof T & string
+    ): {
+      id: string
+      value: string
+      error: string | null
+      onValueChange: (value: string) => void
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    } => ({
+      id: field,
+      value: inputValues[field] ?? '',
+      error: filterErrors[field] ?? null,
+      onValueChange: (value: string): void =>
+        handleInputValueChange(field, value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>): void => {
+        const value = e.target.value
+        handleInputValueChange(field, value)
+        handleFilterChange(field, value)
+      },
+    }),
+    [inputValues, filterErrors, handleInputValueChange, handleFilterChange]
+  )
+
   return {
     filters,
     filterErrors,
@@ -191,5 +222,6 @@ export function useSearchParamsManager<
     handleFilterChange,
     handlePageChange,
     handleInputValueChange,
+    getFilterInputProps,
   }
 }
