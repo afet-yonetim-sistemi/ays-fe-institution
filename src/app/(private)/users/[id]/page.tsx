@@ -24,13 +24,19 @@ import {
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
+import { useDetailPage } from '@/hooks/useDetailPage'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
+import { useFormManager } from '@/hooks/useFormManager'
 import { formatDateTime } from '@/lib/dataFormatters'
-import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { userFormConfig } from '@/modules/users/constants/formConfig'
 import { userStatuses } from '@/modules/users/constants/statuses'
-import { User } from '@/modules/users/constants/types'
+import {
+  User,
+  UserDetails,
+  UserEditableFields,
+  UserFormValues,
+} from '@/modules/users/constants/types'
 import {
   activateUser,
   deactivateUser,
@@ -40,7 +46,6 @@ import {
 } from '@/modules/users/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -52,63 +57,90 @@ const Page = ({
   params: { slug: string; id: string }
 }): JSX.Element => {
   const { t } = useTranslation()
-  const router = useRouter()
-  const form = useForm({
+  const userPermissions = useAppSelector(selectPermissions)
+  const form = useForm<UserFormValues>({
     resolver: zodResolver(userFormConfig.validationSchemaDetail),
     mode: 'onChange',
   })
-  const userPermissions = useAppSelector(selectPermissions)
-  const { control, reset, formState, getValues, watch } = form
-  const watchedValues = watch()
+  const { control, reset, getValues } = form
 
   const { roles, userRolesIsLoading } = useFetchRoleSummary()
-  const [userDetails, setUserDetails] = useState<User | null>(null)
   const [initialUserValues, setInitialUserValues] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [isUserEditable, setIsUserEditable] = useState<boolean>(false)
   const [minRoleError, setMinRoleError] = useState<string | null>(null)
-  const [isFormChanged, setIsFormChanged] = useState(false)
+
+  const {
+    detail: userDetails,
+    isLoading,
+    error,
+    isEditable: isUserEditable,
+    setIsEditable: setIsUserEditable,
+    fetchDetails,
+    handleUpdate: updateHandler,
+    statusOperations,
+    handleDelete: deleteHandler,
+    handleCancel: cancelHandler,
+  } = useDetailPage<User, UserEditableFields>({
+    fetchDetail: getUser,
+    updateItem: updateUser,
+    deleteItem: deleteUser,
+    redirectPath: '/users',
+    autoRefreshAfterUpdate: true,
+    statusOperations: {
+      activate: {
+        handler: activateUser,
+        successStatus: 'ACTIVE',
+        successMessage: 'user.activateSuccess',
+      },
+      deactivate: {
+        handler: deactivateUser,
+        successStatus: 'PASSIVE',
+        successMessage: 'user.deactivateSuccess',
+      },
+    },
+    onSuccess: {
+      update: (updatedData) => {
+        setInitialUserValues(updatedData)
+      },
+    },
+    successMessages: {
+      update: 'user.updateSuccess',
+      delete: 'user.deleteSucces',
+    },
+    errorMessages: {
+      update: 'user.updateError',
+      fetch: 'common.error.fetch',
+    },
+  })
 
   useEffect(() => {
-    if (!initialUserValues) return
+    if (userDetails) {
+      setInitialUserValues(userDetails)
+      const formDefaults = userFormConfig.getDefaultValues(userDetails)
+      reset(formDefaults)
+    }
+  }, [userDetails, reset])
 
-    const currentValues = userFormConfig.getCurrentValues(
-      watchedValues,
-      watchedValues.roleIds || [],
-      initialUserValues
-    )
+  const { isSaveButtonDisabled, watchedValues } = useFormManager<
+    UserFormValues,
+    UserDetails
+  >({
+    form,
+    initialValues: initialUserValues,
+    hasFormChanged: (currentValues, initialValues) => {
+      const current = userFormConfig.getCurrentValues(
+        currentValues,
+        currentValues.roleIds || [],
+        initialUserValues
+      )
+      return userFormConfig.hasFormChanged(current, initialValues)
+    },
+    isSaveButtonDisabled: userFormConfig.isSaveButtonDisabled,
+  })
 
-    const formChanged = userFormConfig.hasFormChanged(
-      currentValues,
-      initialUserValues
-    )
-    setIsFormChanged(formChanged)
-  }, [watchedValues, initialUserValues])
-
-  const isSaveButtonDisabled = userFormConfig.isSaveButtonDisabled(
-    isFormChanged,
-    formState.errors
-  )
-
-  const fetchDetails = (): void => {
-    setIsLoading(true)
-    getUser(params.id)
-      .then((response) => {
-        const details = response.response
-        setUserDetails(details)
-        setInitialUserValues(details)
-        const formDefaults = userFormConfig.getDefaultValues(details)
-        reset(formDefaults)
-      })
-      .catch((error) => {
-        setError(error.message)
-        showErrorToast(error, 'common.error.fetch')
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }
+  useEffect(() => {
+    fetchDetails(params.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.id])
 
   const showActivateButton =
     userPermissions.includes(Permission.USER_UPDATE) &&
@@ -142,11 +174,6 @@ const Page = ({
     }
   }, [watchedValues.roleIds, t])
 
-  useEffect(() => {
-    fetchDetails()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.id])
-
   const handleRoleToggle = useCallback(
     (id: string): void => {
       const currentRoleIds = getValues('roleIds') || []
@@ -164,15 +191,14 @@ const Page = ({
   )
 
   const handleUpdateButtonClick = (): void => {
-    return setIsUserEditable(true)
+    setIsUserEditable(true)
   }
 
   const handleCancelButtonClick = (): void => {
     if (userDetails) {
       reset(userFormConfig.getDefaultValues(userDetails))
     }
-
-    setIsUserEditable(false)
+    cancelHandler()
   }
 
   const handleSaveButtonClick = (): void => {
@@ -184,87 +210,26 @@ const Page = ({
     )
 
     const payload = userFormConfig.getPayload(currentValues)
-
-    updateUser(params.id, payload)
-      .then((response) => {
-        if (response.isSuccess) {
-          setUserDetails({
-            ...userDetails!,
-            ...payload,
-          })
-          setInitialUserValues({
-            ...userDetails!,
-            ...payload,
-          })
-
-          showSuccessToast('user.updateSuccess')
-          setIsUserEditable(false)
-          fetchDetails()
-        } else {
-          showErrorToast(undefined, 'user.updateError')
-        }
-      })
-      .catch((error) => {
-        showErrorToast(error, 'user.updateError')
-      })
+    updateHandler(params.id, payload)
   }
 
   const handleActivateUser = (): void => {
-    activateUser(params.id)
-      .then((response) => {
-        if (response.isSuccess) {
-          showSuccessToast('user.activateSuccess')
-          if (userDetails) {
-            setUserDetails({
-              ...userDetails,
-              status: 'ACTIVE',
-            })
-          }
-        } else {
-          showErrorToast()
-        }
-      })
-      .catch((error) => {
-        showErrorToast(error)
-      })
+    if (statusOperations.activate) {
+      statusOperations.activate(params.id)
+    }
   }
 
   const handleDeactivateUser = (): void => {
-    deactivateUser(params.id)
-      .then((response) => {
-        if (response.isSuccess) {
-          showSuccessToast('user.deactivateSuccess')
-          if (userDetails) {
-            setUserDetails({
-              ...userDetails,
-              status: 'PASSIVE',
-            })
-          }
-        } else {
-          showErrorToast()
-        }
-      })
-      .catch((error) => {
-        showErrorToast(error)
-      })
+    if (statusOperations.deactivate) {
+      statusOperations.deactivate(params.id)
+    }
   }
 
   const handleDeleteUser = (): void => {
-    deleteUser(params.id)
-      .then((response) => {
-        if (response.isSuccess) {
-          showSuccessToast('user.deleteSucces')
-          router.push('/users')
-        } else {
-          showErrorToast()
-        }
-      })
-      .catch((error) => {
-        showErrorToast(error)
-      })
+    deleteHandler(params.id)
   }
 
-  const renderUpdateButtons = () => {
+  const renderUpdateButtons = (): JSX.Element | null => {
     if (!showUpdateButton) {
       return null
     }
@@ -428,107 +393,54 @@ const Page = ({
                     isDisabled={!isUserEditable}
                   />
 
-                  <FormField
-                    control={control}
-                    name="status"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.status')}</FormLabel>
-                        <FormControl>
-                          <Select
-                            value={field.value || userDetails.status || ''}
-                            onValueChange={(value: string) =>
-                              field.onChange(value)
-                            }
-                            disabled
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder={t('status.title')} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {userStatuses.map((status) => (
-                                <SelectItem
-                                  key={status.value}
-                                  value={status.value}
-                                >
-                                  {t(status.label)}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>{t('user.status')}</FormLabel>
+                    <Select value={userDetails.status || ''} disabled>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t('status.title')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {userStatuses.map((status) => (
+                          <SelectItem key={status.value} value={status.value}>
+                            {t(status.label)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
                   <div className="grid grid-cols-4 gap-6 sm:col-span-3">
-                    <FormField
-                      control={control}
-                      name="createdUser"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('user.createdUser')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={userDetails.createdUser ?? ''}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="createdAt"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('user.createdAt')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={formatDateTime(
-                                userDetails.createdAt
-                              )}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="updatedUser"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('user.updatedUser')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={userDetails.updatedUser ?? ''}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name="updatedAt"
-                      render={({ field }) => (
-                        <FormItem className="sm:col-span-1">
-                          <FormLabel>{t('user.updatedAt')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              disabled
-                              defaultValue={formatDateTime(
-                                userDetails.updatedAt
-                              )}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
+                    <FormItem className="sm:col-span-1">
+                      <FormLabel>{t('user.createdUser')}</FormLabel>
+                      <Input
+                        disabled
+                        value={userDetails.createdUser ?? ''}
+                        readOnly
+                      />
+                    </FormItem>
+                    <FormItem className="sm:col-span-1">
+                      <FormLabel>{t('user.createdAt')}</FormLabel>
+                      <Input
+                        disabled
+                        value={formatDateTime(userDetails.createdAt)}
+                        readOnly
+                      />
+                    </FormItem>
+                    <FormItem className="sm:col-span-1">
+                      <FormLabel>{t('user.updatedUser')}</FormLabel>
+                      <Input
+                        disabled
+                        value={userDetails.updatedUser ?? ''}
+                        readOnly
+                      />
+                    </FormItem>
+                    <FormItem className="sm:col-span-1">
+                      <FormLabel>{t('user.updatedAt')}</FormLabel>
+                      <Input
+                        disabled
+                        value={formatDateTime(userDetails.updatedAt ?? '')}
+                        readOnly
+                      />
+                    </FormItem>
                   </div>
                 </div>
               </CardContent>
