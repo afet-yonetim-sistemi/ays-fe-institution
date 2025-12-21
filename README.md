@@ -28,6 +28,8 @@ This project is built using the following technologies:
 git clone https://github.com/afet-yonetim-sistemi/ays-fe-institution
 ```
 
+# Running As Local
+
 ###  Install dependencies
 
 ```bash
@@ -41,6 +43,28 @@ npm run dev
 ```
 
 Note that you need to install [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) to run the project locally. We recommend using `version v22.17.1` of Node.js.
+
+---
+
+# Running As Docker Container
+
+Before running the project, you need to run the following command to start the project container:
+
+```shell
+docker compose up -d --build
+```
+
+If you want to recreate the project container, you can run the following command:
+
+```shell
+docker compose up --force-recreate -d --build
+```
+
+If you want to stop the project container, you can run the following command:
+
+```shell
+docker compose down -v
+```
 
 ### Useful Commands
 
