@@ -20,23 +20,21 @@ This project is built using the following technologies:
 - [React Query](https://react-query.tanstack.com/)
 - [OpenAPI Typescript](https://www.npmjs.com/package/openapi-typescript)
 
-##  Getting Started
+## Running As Local
 
-###  Clone the repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/afet-yonetim-sistemi/ays-fe-institution
 ```
 
-# Running As Local
-
-###  Install dependencies
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-###  Run the project locally
+### Run the project locally
 
 ```bash
 npm run dev
@@ -46,7 +44,7 @@ Note that you need to install [Node.js](https://nodejs.org/en/) and [npm](https:
 
 ---
 
-# Running As Docker Container
+## Running As Docker Container
 
 Before running the project, you need to run the following command to start the project container:
 
@@ -65,6 +63,8 @@ If you want to stop the project container, you can run the following command:
 ```shell
 docker compose down -v
 ```
+
+---
 
 ### Useful Commands
 
