@@ -42,7 +42,7 @@ npm install
 npm run dev
 ```
 
-Note that you need to install [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) to run the project locally. We recommend using `version v22.17.1` of Node.js.
+Note that you need to install [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) to run the project locally. We recommend using `v24.0.12` of Node.js.
 
 ---
 
