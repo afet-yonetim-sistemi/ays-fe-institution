@@ -51,8 +51,10 @@ interface UseDetailPageReturn<TDetail> {
   setIsEditable: (value: boolean) => void
   fetchDetails: (id: string) => Promise<void>
   handleUpdate: (id: string, payload: unknown) => Promise<void>
-  handleActivate: (id: string) => Promise<void>
-  handleDeactivate: (id: string) => Promise<void>
+  statusOperations: {
+    activate?: (id: string) => Promise<void>
+    deactivate?: (id: string) => Promise<void>
+  }
   handleDelete: (id: string) => Promise<void>
   handleCancel: () => void
 }
@@ -258,8 +260,10 @@ export function useDetailPage<TDetail, TPayload>({
     setIsEditable,
     fetchDetails,
     handleUpdate,
-    handleActivate,
-    handleDeactivate,
+    statusOperations: {
+      activate: statusOperations?.activate ? handleActivate : undefined,
+      deactivate: statusOperations?.deactivate ? handleDeactivate : undefined,
+    },
     handleDelete,
     handleCancel,
   }

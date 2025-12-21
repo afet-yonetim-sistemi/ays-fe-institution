@@ -76,8 +76,7 @@ const Page = ({
     setIsEditable: setIsUserEditable,
     fetchDetails,
     handleUpdate: updateHandler,
-    handleActivate: activateHandler,
-    handleDeactivate: deactivateHandler,
+    statusOperations,
     handleDelete: deleteHandler,
     handleCancel: cancelHandler,
   } = useDetailPage<User, UserEditableFields>({
@@ -215,11 +214,15 @@ const Page = ({
   }
 
   const handleActivateUser = (): void => {
-    activateHandler(params.id)
+    if (statusOperations.activate) {
+      statusOperations.activate(params.id)
+    }
   }
 
   const handleDeactivateUser = (): void => {
-    deactivateHandler(params.id)
+    if (statusOperations.deactivate) {
+      statusOperations.deactivate(params.id)
+    }
   }
 
   const handleDeleteUser = (): void => {
