@@ -1,3 +1,4 @@
+import { MAX_PAGE_NUMBER, MIN_PAGE_NUMBER } from '@/constants/pagination'
 import { showErrorToast } from '@/lib/showToast'
 import { AxiosError } from 'axios'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -45,7 +46,7 @@ export const useDataFetcher = <T, F extends { page: number }>({
 
   const fetchData = useCallback(
     async (filters: F) => {
-      if (filters.page <= 0) {
+      if (filters.page < MIN_PAGE_NUMBER || filters.page >= MAX_PAGE_NUMBER) {
         const params = new URLSearchParams(searchParams)
         params.set('page', '1')
         router.push(`${pathname}?${params.toString()}`)
