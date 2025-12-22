@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
 import {
-  BreakpointDirections as BreakpointDirectionsConst,
   Breakpoint,
+  BreakpointDirections as BreakpointDirectionsConst,
 } from '@/constants/breakpoint'
+import { useEffect, useState } from 'react'
 
 export type BreakpointDirection = 'up' | 'down' | 'only'
 

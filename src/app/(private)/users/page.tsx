@@ -7,21 +7,19 @@ import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
-import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useDataFetcher } from '@/hooks/useDataFetcher'
 import { useSearchParamsManager } from '@/hooks/useSearchParamsManager'
 import { useSort } from '@/hooks/useSort'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { columns, User } from '@/modules/users/components/columns'
+import { usersFilterConfig } from '@/modules/users/constants/filterConfig'
 import { userStatuses } from '@/modules/users/constants/statuses'
 import type { UsersFilter } from '@/modules/users/constants/types'
 import { getUsers } from '@/modules/users/service'
 import { useAppSelector } from '@/store/hooks'
 import { RefreshCw } from 'lucide-react'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { usersFilterConfig } from '@/modules/users/constants/filterConfig'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
@@ -29,11 +27,10 @@ const Page = (): JSX.Element => {
 
   const {
     filters,
-    filterErrors,
-    inputValues,
+    hasFilterErrors,
     handleFilterChange,
     handlePageChange,
-    handleInputValueChange,
+    getFilterInputProps,
   } = useSearchParamsManager<UsersFilter>({
     config: usersFilterConfig.searchParams,
     validationRules: usersFilterConfig.validationRules,
@@ -44,24 +41,14 @@ const Page = (): JSX.Element => {
     data: userList,
     isLoading,
     totalRows,
-    fetchData,
     refetch,
   } = useDataFetcher<User, UsersFilter>({
     fetchFunction: getUsers,
+    filters,
+    enabled: !hasFilterErrors && filters.page > 0,
   })
 
-  const debouncedHandleInputFilterChange =
-    useDebouncedInputFilter(handleFilterChange)
   const handleSortChange = useSort(filters.sort)
-
-  useEffect(() => {
-    const hasFilterErrors = Object.values(filterErrors).some(
-      (error) => error !== null
-    )
-    if (!hasFilterErrors && filters.page) {
-      fetchData(filters)
-    }
-  }, [filters, filterErrors, fetchData])
 
   return (
     <div className="space-y-4">
@@ -84,7 +71,7 @@ const Page = (): JSX.Element => {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-3 2xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-3 gap-4 2xl:grid-cols-6">
         <MultiSelectDropdown
           items={userStatuses}
           selectedItems={filters.statuses}
@@ -95,55 +82,22 @@ const Page = (): JSX.Element => {
           renderItem={(item) => <Status status={item} />}
         />
         <FilterInput
-          id="firstName"
           label={t('user.firstName')}
-          value={inputValues.firstName || ''}
-          onChange={(e) => {
-            handleInputValueChange('firstName', e.target.value)
-            debouncedHandleInputFilterChange('firstName', e.target.value)
-          }}
-          error={filterErrors.firstName}
+          {...getFilterInputProps('firstName')}
         />
         <FilterInput
-          id="lastName"
           label={t('user.lastName')}
-          value={inputValues.lastName || ''}
-          onChange={(e) => {
-            handleInputValueChange('lastName', e.target.value)
-            debouncedHandleInputFilterChange('lastName', e.target.value)
-          }}
-          error={filterErrors.lastName}
+          {...getFilterInputProps('lastName')}
         />
         <FilterInput
-          id="emailAddress"
           label={t('user.email')}
-          value={inputValues.emailAddress || ''}
-          onChange={(e) => {
-            handleInputValueChange('emailAddress', e.target.value)
-            debouncedHandleInputFilterChange('emailAddress', e.target.value)
-          }}
-          error={filterErrors.emailAddress}
+          {...getFilterInputProps('emailAddress')}
         />
         <FilterInput
-          id="lineNumber"
           label={t('user.lineNumber')}
-          value={inputValues.lineNumber || ''}
-          onChange={(e) => {
-            handleInputValueChange('lineNumber', e.target.value)
-            debouncedHandleInputFilterChange('lineNumber', e.target.value)
-          }}
-          error={filterErrors.lineNumber}
+          {...getFilterInputProps('lineNumber')}
         />
-        <FilterInput
-          id="city"
-          label={t('user.city')}
-          value={inputValues.city || ''}
-          onChange={(e) => {
-            handleInputValueChange('city', e.target.value)
-            debouncedHandleInputFilterChange('city', e.target.value)
-          }}
-          error={filterErrors.city}
-        />
+        <FilterInput label={t('user.city')} {...getFilterInputProps('city')} />
       </div>
       <DataTable
         columns={columns({ sort: filters.sort ?? [] }, handleSortChange)}

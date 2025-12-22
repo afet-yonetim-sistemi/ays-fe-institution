@@ -1,8 +1,8 @@
 'use client'
 
-import * as React from 'react'
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import { Check, ChevronRight, Circle } from 'lucide-react'
+import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -99,16 +99,16 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'relative flex cursor-default select-none items-center group rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'group relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className
     )}
     checked={checked}
     {...props}
   >
-    <span className="absolute left-2 flex h-4 w-4 items-center justify-center border rounded bg-zinc-200 group-hover:bg-zinc-300/50 group-hover:border-zinc-300">
+    <span className="absolute left-2 flex h-4 w-4 items-center justify-center rounded border bg-zinc-200 group-hover:border-zinc-300 group-hover:bg-zinc-300/50">
       <DropdownMenuPrimitive.ItemIndicator>
         <Check
-          className="h-4 w-4 bg-blue-600 rounded"
+          className="h-4 w-4 rounded bg-blue-600"
           strokeWidth={3}
           color={'white'}
           size={32}
@@ -188,18 +188,18 @@ DropdownMenuShortcut.displayName = 'DropdownMenuShortcut'
 
 export {
   DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuCheckboxItem,
-  DropdownMenuRadioItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuGroup,
-  DropdownMenuPortal,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuRadioGroup,
+  DropdownMenuTrigger,
 }

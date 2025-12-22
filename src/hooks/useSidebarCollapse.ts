@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { setCollapsed, setReady } from '@/store/sidebarSlice'
 
 export function useSidebarCollapse() {

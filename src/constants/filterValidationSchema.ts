@@ -1,5 +1,5 @@
-import { z } from 'zod'
 import { FilterValidationOptions } from '@/common/types'
+import { z } from 'zod'
 
 export const getStringFilterValidation = ({
   min = 2,

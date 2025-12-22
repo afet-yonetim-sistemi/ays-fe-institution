@@ -1,12 +1,12 @@
-import { UserFormValues, UserDetails, User } from './types'
-import { z } from 'zod'
-import { FieldErrors } from 'react-hook-form'
+import { PhoneNumberSchema } from '@/constants/formValidationSchema'
 import { emailRegex } from '@/constants/regex'
 import {
-  strictNameValidation,
   nameboxWithLengthValidation,
+  strictNameValidation,
 } from '@/lib/strictValidation'
-import { PhoneNumberSchema } from '@/constants/formValidationSchema'
+import { FieldErrors } from 'react-hook-form'
+import { z } from 'zod'
+import { User, UserDetails, UserFormValues } from './types'
 
 export const userFormConfig = {
   fields: {
@@ -50,6 +50,7 @@ export const userFormConfig = {
       .string({
         required_error: 'validation.required',
       })
+      .trim()
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
       .regex(emailRegex, { message: 'validation.email' }),
@@ -70,6 +71,7 @@ export const userFormConfig = {
       .string({
         required_error: 'validation.required',
       })
+      .trim()
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
       .regex(emailRegex, { message: 'validation.email' }),
@@ -91,6 +93,18 @@ export const userFormConfig = {
   }),
 
   getPayload: (formValues: UserFormValues) => ({
+    firstName: formValues.firstName,
+    lastName: formValues.lastName,
+    emailAddress: formValues.emailAddress,
+    phoneNumber: {
+      countryCode: formValues.phoneNumber.countryCode,
+      lineNumber: formValues.phoneNumber.lineNumber,
+    },
+    city: formValues.city,
+    roleIds: formValues.roleIds,
+  }),
+
+  getCreatePayload: (formValues: UserFormValues) => ({
     firstName: formValues.firstName,
     lastName: formValues.lastName,
     emailAddress: formValues.emailAddress,

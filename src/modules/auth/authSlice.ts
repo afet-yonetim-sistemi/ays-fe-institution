@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { RootState } from '@/store/store'
 import { parseJwt } from '@/lib/helpers'
 import {
-  setAuthTokens,
   clearAuthTokens,
   getAuthTokens,
+  setAuthTokens,
 } from '@/lib/tokenStorage'
+import { RootState } from '@/store/store'
+import { createSlice } from '@reduxjs/toolkit'
 import { UserInfo } from './constants/types'
 
 interface AuthState {

@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useAppSelector } from '@/store/hooks'
 import { selectToken } from '@/modules/auth/authSlice'
+import { useAppSelector } from '@/store/hooks'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function Home(): JSX.Element {
   const router = useRouter()

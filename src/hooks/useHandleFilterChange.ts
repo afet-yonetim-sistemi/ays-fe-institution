@@ -1,11 +1,15 @@
-import { useSearchParams, usePathname } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 
-export const useHandleFilterChange = () => {
+export const useHandleFilterChange = (): ((
+  key: string,
+  value: string | string[] | boolean
+) => void) => {
+  const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  return useCallback(
+  const handleFilterChange = useCallback(
     (key: string, value: string | string[] | boolean) => {
       const updatedParams = new URLSearchParams(searchParams)
       updatedParams.set('page', '1')
@@ -13,22 +17,36 @@ export const useHandleFilterChange = () => {
       if (typeof value === 'boolean') {
         if (value) {
           updatedParams.set(key, 'true')
-        } else {
+        }
+        if (!value) {
           updatedParams.delete(key)
         }
-      } else if (Array.isArray(value)) {
-        updatedParams.set(key, value.join(','))
-      } else {
-        updatedParams.set(key, value)
+        router.push(`${pathname}?${updatedParams.toString()}`)
+        return
       }
 
-      // Update the URL without causing a full page re-render
-      window.history.pushState(
-        null,
-        '',
-        `${pathname}?${updatedParams.toString()}`
-      )
+      if (Array.isArray(value)) {
+        if (value.length > 0) {
+          updatedParams.set(key, value.join(','))
+        }
+        if (value.length === 0) {
+          updatedParams.delete(key)
+        }
+        router.push(`${pathname}?${updatedParams.toString()}`)
+        return
+      }
+
+      if (value.trim()) {
+        updatedParams.set(key, value)
+      }
+      if (!value.trim()) {
+        updatedParams.delete(key)
+      }
+
+      router.push(`${pathname}?${updatedParams.toString()}`)
     },
-    [pathname, searchParams]
+    [router, pathname, searchParams]
   )
+
+  return handleFilterChange
 }

@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
 import { PhoneNumber } from '@/common/types'
+import { DateTime } from 'luxon'
 
 export const formatDateTime = (date: string | null | undefined): string => {
   if (!date) return ''

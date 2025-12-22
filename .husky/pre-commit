@@ -1,1 +1,20 @@
-npm run eslint
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running lint-staged (ESLint + Prettier)..."
+npx lint-staged --config lint-staged.config.mjs
+
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint or Prettier errors/warnings detected. Commit aborted."
+  exit 1
+fi
+
+echo "🔷 Running TypeScript type check..."
+npx tsc --noEmit
+
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript type errors detected. Commit aborted."
+  exit 1
+fi
+
+echo "✅ All checks passed. Proceeding with commit..."

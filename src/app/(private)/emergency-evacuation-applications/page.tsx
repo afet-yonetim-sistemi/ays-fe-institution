@@ -9,6 +9,7 @@ import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
 import Status from '@/components/ui/status'
 import { Toaster } from '@/components/ui/toaster'
 import { Permission } from '@/constants/permissions'
+import { numericRegex } from '@/constants/regex'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
@@ -28,7 +29,6 @@ import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { numericRegex } from '@/constants/regex'
 
 const parseEEASearchParams = (searchParams: URLSearchParams) => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
@@ -214,7 +214,7 @@ const Page = (): JSX.Element => {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-4 mb-4">
+      <div className="mb-4 flex items-center gap-4">
         <h1 className="text-2xl font-medium">
           {t('application.evacuation.title')}
         </h1>
@@ -226,7 +226,7 @@ const Page = (): JSX.Element => {
           <RefreshCw className="h-4 w-4" />
         </Button>
       </div>
-      <div className="grid grid-cols-2 2xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 2xl:grid-cols-4">
         <MultiSelectDropdown
           items={emergencyEvacuationApplicationStatuses}
           selectedItems={filters.statuses}

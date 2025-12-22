@@ -87,7 +87,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
               value={email}
               onChange={handleEmailChange}
             />
-            {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
+            {emailError && <p className="text-sm text-red-500">{emailError}</p>}
           </div>
         </div>
         <DialogFooter className="justify-end">

@@ -77,8 +77,8 @@ const Page = (): JSX.Element => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="p-6 bg-white dark:bg-gray-800 rounded-md shadow-md text-black dark:text-white">
-          <div className="flex justify-between items-center mb-6">
+        <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+          <div className="mb-6 flex items-center justify-between">
             <h1 className="text-2xl font-bold">
               {t('application.admin.preliminary.title')}
             </h1>
@@ -86,7 +86,7 @@ const Page = (): JSX.Element => {
               {isLoading ? <LoadingSpinner /> : t('common.create')}
             </Button>
           </div>
-          <Card className="p-6 w-full">
+          <Card className="w-full p-6">
             <div className="grid grid-cols-1 gap-y-6 lg:grid-cols-3 lg:gap-x-6">
               <FormField
                 control={form.control}

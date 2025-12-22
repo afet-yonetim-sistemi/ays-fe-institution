@@ -1,3 +1,4 @@
+import { BaseApiResponse } from '@/common/types'
 import http from '@/configs/axiosConfig'
 import { AxiosResponse } from 'axios'
 import {
@@ -6,38 +7,11 @@ import {
   UserEditableFields,
   UsersFilter,
 } from './constants/types'
-import { BaseApiResponse } from '@/common/types'
+import { mapUsersFilterToApiRequest } from './utils/userFilterMapper'
 
 export const getUsers = (filter: UsersFilter): Promise<AxiosResponse> => {
-  const orders = filter.sort?.length
-    ? filter.sort.map((sortItem) => ({
-        property: sortItem?.column,
-        direction: sortItem?.direction?.toUpperCase(),
-      }))
-    : undefined
-
-  const phoneNumber = {
-    ...(filter.countryCode ? { countryCode: filter.countryCode } : {}),
-    ...(filter.lineNumber ? { lineNumber: filter.lineNumber } : {}),
-  }
-
-  return http.post('/api/institution/v1/users', {
-    pageable: {
-      page: filter.page || 1,
-      pageSize: filter.pageSize || 10,
-      ...(orders ? { orders } : []),
-    },
-    filter: {
-      ...(filter.statuses.length > 0
-        ? { statuses: filter.statuses }
-        : undefined),
-      firstName: String(filter.firstName) || undefined,
-      lastName: String(filter.lastName) || undefined,
-      emailAddress: String(filter.emailAddress) || undefined,
-      city: String(filter.city) || undefined,
-      ...(Object.keys(phoneNumber).length > 0 ? { phoneNumber } : undefined),
-    },
-  })
+  const request = mapUsersFilterToApiRequest(filter)
+  return http.post('/api/institution/v1/users', request)
 }
 
 export const getUser = async (id: string): Promise<UserApiResponse> => {

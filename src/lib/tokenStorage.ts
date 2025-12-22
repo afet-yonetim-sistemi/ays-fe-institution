@@ -1,6 +1,6 @@
+import { COOKIE_KEYS } from '@/constants/storageKey'
 import Cookies from 'js-cookie'
 import { parseJwt } from './helpers'
-import { COOKIE_KEYS } from '@/constants/storageKey'
 
 const getTokenExpirationInDays = (token: string): number => {
   try {

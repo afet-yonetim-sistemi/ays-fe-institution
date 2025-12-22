@@ -1,13 +1,13 @@
+import { BaseApiResponse } from '@/common/types'
 import http, { api } from '@/configs/axiosConfig'
+import { AxiosResponse } from 'axios'
 import {
   AdminApplicationApiResponse,
+  AdminRegistrationApplicationsFilter,
   ApiSummaryResponse,
   GetRegisterSummary,
   RegisterApplicationForm,
-  AdminRegistrationApplicationsFilter,
 } from './constants/types'
-import { AxiosResponse } from 'axios'
-import { BaseApiResponse } from '@/common/types'
 
 export const getAdminRegistrationApplications = (
   filter: AdminRegistrationApplicationsFilter

@@ -1,7 +1,6 @@
 'use client'
 
-import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -9,7 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface SessionExpiredModalProps {
   title?: string
@@ -54,11 +54,11 @@ const SessionExpiredModal = ({
           <DialogTitle className="text-center text-lg font-semibold">
             {title ?? t('sessionExpired.title')}
           </DialogTitle>
-          <DialogDescription className="text-center text-sm text-gray-600 mt-2">
+          <DialogDescription className="mt-2 text-center text-sm text-gray-600">
             {description ?? t('sessionExpired.description')}
           </DialogDescription>
         </DialogHeader>
-        <div className="text-center py-4">
+        <div className="py-4 text-center">
           <p className="text-sm text-gray-500">
             {t('sessionExpired.countdown', { seconds: countdown })}
           </p>

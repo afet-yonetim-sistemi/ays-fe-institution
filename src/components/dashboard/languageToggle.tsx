@@ -1,5 +1,4 @@
 'use client'
-import React, { useState } from 'react'
 import {
   Select,
   SelectContent,
@@ -9,6 +8,7 @@ import {
 } from '@/components/ui/select'
 import { supportedLanguages } from '@/lib/languageDetector'
 import i18next from 'i18next'
+import { useState } from 'react'
 
 function LanguageToggle(): JSX.Element {
   const [selectedLanguage, setSelectedLanguage] = useState(i18next.language)
