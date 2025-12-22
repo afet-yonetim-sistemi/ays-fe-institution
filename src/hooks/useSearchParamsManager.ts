@@ -1,4 +1,5 @@
 import { FilterValidationOptions, SearchParamType } from '@/common/types'
+import { MAX_PAGE_NUMBER, MIN_PAGE_NUMBER } from '@/constants/pagination'
 import { getFilterErrors } from '@/lib/getFilterErrors'
 import {
   parseSearchParams,
@@ -100,7 +101,7 @@ export function useSearchParamsManager<
     if (
       'page' in newFilters &&
       typeof newFilters.page === 'number' &&
-      newFilters.page <= 0
+      (newFilters.page < MIN_PAGE_NUMBER || newFilters.page >= MAX_PAGE_NUMBER)
     ) {
       const updatedParams = new URLSearchParams(searchParams)
       updatedParams.set('page', '1')
