@@ -19,10 +19,11 @@ interface AuthState {
 }
 
 const tokens = getAuthTokens()
-const initialPermissions = tokens.accessToken
-  ? (parseJwt(tokens.accessToken)?.userPermissions ?? [])
+const parsedToken = tokens.accessToken ? parseJwt(tokens.accessToken) : null
+const userInfo = parsedToken ? (parsedToken as UserInfo) : null
+const initialPermissions = userInfo?.userPermissions
+  ? (userInfo.userPermissions as string[])
   : []
-const userInfo = tokens.accessToken ? parseJwt(tokens.accessToken) : null
 
 const initialState: AuthState = {
   accessToken: tokens.accessToken ?? '',
