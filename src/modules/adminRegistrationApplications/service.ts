@@ -51,7 +51,10 @@ export const postRegistrationApplication = (
   id: string | null,
   form: RegisterApplicationForm
 ): Promise<BaseApiResponse> =>
-  api.post(`api/v1/admin-registration-application/${id}/complete`, form)
+  api.post(
+    `/api/institution/v1/admin-registration-application/${id}/complete`,
+    form
+  )
 
 export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
   return http.get(`/api/institution/v1/institutions/summary`)
