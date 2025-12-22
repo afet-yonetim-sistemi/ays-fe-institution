@@ -64,36 +64,42 @@ function Navbar(): JSX.Element {
   }
 
   return (
-    <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <MenuIcon className="h-5 w-5" />
-            <span className="sr-only">{t('navBar.toggle')}</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent
-          side="left"
-          className="flex flex-col overflow-auto p-2 pt-12"
-        >
-          <Menu />
-        </SheetContent>
-      </Sheet>
-      <Link href={'/'}>
-        <div className="flex w-full flex-1 items-center space-x-2">
-          <Image
-            src="/aysLogo40px.svg"
-            alt="AYS Logo"
-            width={40}
-            height={40}
-            priority
-            unoptimized
-          />
-          <div className="hidden text-center md:block md:text-left">
-            {t('common.AYS')}
+    <header className="flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+      <div className="flex items-center gap-4">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0 md:hidden"
+            >
+              <MenuIcon className="h-5 w-5" />
+              <span className="sr-only">{t('navBar.toggle')}</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            side="left"
+            className="flex flex-col overflow-auto p-2 pt-12"
+          >
+            <Menu />
+          </SheetContent>
+        </Sheet>
+        <Link href={'/'}>
+          <div className="flex items-center space-x-2">
+            <Image
+              src="/aysLogo40px.svg"
+              alt="AYS Logo"
+              width={40}
+              height={40}
+              priority
+              unoptimized
+            />
+            <div className="hidden text-center md:block md:text-left">
+              {t('common.AYS')}
+            </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="flex space-x-2">
         <LanguageToggle />
         <ModeToggle />
