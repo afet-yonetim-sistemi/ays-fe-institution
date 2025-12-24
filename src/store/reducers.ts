@@ -1,5 +1,5 @@
 import authReducer from '@/modules/auth/authSlice'
-import { combineReducers } from 'redux'
+import { combineReducers } from '@reduxjs/toolkit'
 import sidebar from './sidebarSlice'
 
 const rootReducer = combineReducers({
