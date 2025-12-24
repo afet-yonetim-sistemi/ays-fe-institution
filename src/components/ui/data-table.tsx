@@ -1,14 +1,15 @@
+/* eslint-disable max-lines-per-function, complexity, @typescript-eslint/explicit-function-return-type, react-hooks/incompatible-library */
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/components/ui'
 import { LoadingType, LoadingTypeValue } from '@/constants/loadingType'
 import {
   ColumnDef,
@@ -79,7 +80,7 @@ export function DataTable<TData extends { id: string }, TValue>({
 
   const handleRowClick = (row: TData): void => {
     if (enableRowClick) {
-      router.push(`${pathname}/${row.id}`)
+      router.push(`${pathname}/details?id=${row.id}`)
     }
   }
 

@@ -1,20 +1,25 @@
+/* eslint-disable react-hooks/incompatible-library */
 'use client'
 
 import CitySelect from '@/components/CitySelect'
 import PhoneNumberField from '@/components/PhoneNumberField'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Switch } from '@/components/ui/switch'
+  Input,
+  LoadingSpinner,
+  Switch,
+} from '@/components/ui'
+
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { userFormConfig } from '@/modules/users/constants/formConfig'

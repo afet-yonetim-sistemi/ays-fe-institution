@@ -3,11 +3,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
+  PhoneInput,
+} from '@/components/ui'
 import { t } from 'i18next'
 import { Control, Controller } from 'react-hook-form'
 import { CountryData } from 'react-phone-input-2'
-import PhoneInput from './ui/phone-input'
 
 interface PhoneNumberFieldProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

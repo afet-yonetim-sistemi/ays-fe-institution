@@ -1,8 +1,8 @@
 'use client'
 
-import { TableCell, TableRow } from '@/components/ui/table'
 import { ColumnDef } from '@tanstack/react-table'
 import { Skeleton } from './skeleton'
+import { TableCell, TableRow } from './table'
 
 interface DataTableSkeletonProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]

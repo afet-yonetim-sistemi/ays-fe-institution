@@ -1,6 +1,9 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { DialogDescription } from '@radix-ui/react-dialog'
+import { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button } from './button'
 import {
   Dialog,
   DialogClose,
@@ -8,18 +11,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+} from './dialog'
+import { Label } from './label'
+import { Textarea } from './textarea'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { DialogDescription } from '@radix-ui/react-dialog'
-import { ReactElement, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+} from './tooltip'
 
 interface ButtonDialogProps {
   triggerText: string
@@ -133,4 +133,4 @@ const ButtonDialog = ({
   )
 }
 
-export default ButtonDialog
+export { ButtonDialog }

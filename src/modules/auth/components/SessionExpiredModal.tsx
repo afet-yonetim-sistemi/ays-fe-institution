@@ -1,13 +1,14 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@/components/ui'
+
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -18,7 +19,7 @@ interface SessionExpiredModalProps {
   onLogout: () => void
 }
 
-const SessionExpiredModal = ({
+const SessionExpiredModal: React.FC<SessionExpiredModalProps> = ({
   title,
   description,
   initialCountdown = 3,
@@ -38,7 +39,7 @@ const SessionExpiredModal = ({
           return prev - 1
         })
       }, 1000)
-      return () => clearInterval(timer)
+      return (): void => clearInterval(timer)
     }
   }, [countdown, onLogout])
 

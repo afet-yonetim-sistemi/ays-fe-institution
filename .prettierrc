@@ -8,7 +8,7 @@
   "bracketSameLine": false,
   "jsxSingleQuote": false,
   "arrowParens": "always",
-  "endOfLine": "lf",
+  "endOfLine": "auto",
   "trailingComma": "es5",
   "plugins": [
     "prettier-plugin-organize-imports",

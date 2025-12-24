@@ -1,6 +1,7 @@
 import GlobalModals from '@/components/GlobalModals'
 import { ThemeProvider } from '@/components/themeProvider'
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/components/ui'
+
 import { Providers } from '@/contexts/providers'
 import i18n from '@/i18n'
 import type { Metadata } from 'next'

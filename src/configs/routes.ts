@@ -1,21 +1,21 @@
 export const protectedRoutes: Record<string, string> = {
   '/emergency-evacuation-applications': 'application:evacuation:list',
-  '/emergency-evacuation-applications/[id]': 'application:evacuation:detail',
+  '/emergency-evacuation-applications/details': 'application:evacuation:detail',
   '/admin-registration-applications': 'application:registration:list',
   '/admin-registration-applications/pre-application':
     'application:registration:create',
-  '/admin-registration-applications/[id]': 'application:registration:detail',
+  '/admin-registration-applications/details': 'application:registration:detail',
   '/roles': 'role:list',
   '/roles/create-role': 'role:create',
-  '/roles/[id]': 'role:detail',
+  '/roles/details': 'role:detail',
   '/users': 'user:list',
   '/users/create-user': 'user:create',
-  '/users/[id]': 'user:detail',
+  '/users/details': 'user:detail',
   '/dashboard': 'institution:page',
 }
 
 export const publicRoutes = [
   '/login',
-  '/create-password/[id]',
-  '/register-completion/[id]',
+  '/create-password',
+  '/register-completion',
 ]

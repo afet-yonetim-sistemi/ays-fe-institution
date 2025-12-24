@@ -1,12 +1,15 @@
 'use client'
 
 import { SortDirection } from '@/common/types'
-import { Button } from '@/components/ui/button'
-import { DataTable } from '@/components/ui/data-table'
-import FilterInput from '@/components/ui/filter-input'
-import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
-import Status from '@/components/ui/status'
-import { Toaster } from '@/components/ui/toaster'
+import {
+  Button,
+  DataTable,
+  FilterInput,
+  MultiSelectDropdown,
+  Status,
+  Toaster,
+} from '@/components/ui'
+
 import { Permission } from '@/constants/permissions'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
@@ -25,7 +28,15 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const parseRolesSearchParams = (searchParams: URLSearchParams) => {
+const parseRolesSearchParams = (
+  searchParams: URLSearchParams
+): {
+  currentPage: number
+  statuses: string[]
+  name: string
+  column: string
+  direction: string
+} => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const statusesParam = searchParams.get('status')
   const name = searchParams.get('name') ?? ''
@@ -65,12 +76,16 @@ const Page = (): JSX.Element => {
   const [roleList, setRoleList] = useState<Role[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const [filters, setFilters] = useState<RolesFilter>(() =>
-    getInitialFilters(searchParams)
-  )
-  const [filterErrors, setFilterErrors] = useState<
-    Record<string, string | null>
-  >({})
+  const filters = getInitialFilters(searchParams)
+
+  const errors = getFilterErrors(filters, ['name'], {
+    name: {
+      min: 2,
+      max: 255,
+      regex: /^[\p{L}\p{P}\s]+$/u,
+    },
+  })
+
   const [nameInputValue, setNameInputValue] = useState(filters.name ?? '')
 
   const { handlePageChange } = usePagination()
@@ -114,26 +129,16 @@ const Page = (): JSX.Element => {
     const paramsReady = searchParams.toString().length > 0
     if (!paramsReady) return
 
-    const parsedFilters = getInitialFilters(searchParams)
-    const errors = getFilterErrors(parsedFilters, ['name'], {
-      name: {
-        min: 2,
-        max: 255,
-        regex: /^[\p{L}\p{P}\s]+$/u,
-      },
-    })
-
-    setFilterErrors(errors)
-    setFilters(parsedFilters)
-    setNameInputValue(parsedFilters.name ?? '')
-
     const hasFilterErrors = Object.values(errors).some(
       (error) => error !== null
     )
     if (!hasFilterErrors) {
-      fetchData(parsedFilters)
+      setTimeout(() => {
+        setNameInputValue(filters.name ?? '')
+        fetchData(filters)
+      }, 0)
     }
-  }, [searchParams, fetchData])
+  }, [searchParams, fetchData, filters, errors])
 
   return (
     <div className="space-y-4">
@@ -166,7 +171,7 @@ const Page = (): JSX.Element => {
             setNameInputValue(value)
             debouncedHandleInputFilterChange('name', value)
           }}
-          error={filterErrors.name}
+          error={errors.name}
         />
       </div>
       <DataTable

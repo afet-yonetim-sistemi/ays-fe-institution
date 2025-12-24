@@ -1,11 +1,11 @@
 'use client'
 
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import {
+  LoadingSpinner,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
+} from '@/components/ui'
 import http from '@/configs/axiosConfig'
 import { MenuItems } from '@/constants/menuItems'
 import { Permission } from '@/constants/permissions'
@@ -41,8 +41,10 @@ const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
   useEffect(() => {
     const localStorageVersion = localStorage.getItem('apiVersionInfo')
     if (localStorageVersion) {
-      setApiVersionInfo(localStorageVersion)
-      setIsLoading(false)
+      setTimeout(() => {
+        setApiVersionInfo(localStorageVersion)
+        setIsLoading(false)
+      }, 0)
     }
     const fetchData = (): void => {
       http

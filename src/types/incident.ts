@@ -4,6 +4,6 @@ export type Incident = {
   lng: number
   type?: string
   status?: string
-  createdAt?: string
+  createdAt?: string | number
   message?: string
 }

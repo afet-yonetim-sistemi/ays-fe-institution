@@ -3,7 +3,7 @@ import { Incident } from '@/types/incident'
 import { DateTime } from 'luxon'
 import type maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Map, { Marker, NavigationControl, Popup } from 'react-map-gl/maplibre'
 
 interface IncidentsMapProps {
@@ -36,10 +36,13 @@ function applyTurkishLabels(map: maplibregl.Map): void {
   })
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function IncidentsMap({
   incidents,
   focusedIncident,
 }: IncidentsMapProps): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const mapRef = useRef<any>(null)
   // Center of North Cyprus
   const [viewState, setViewState] = React.useState({
     longitude: 33.3823,
@@ -54,12 +57,11 @@ export default function IncidentsMap({
   // Update view state when focusedIncident changes
   React.useEffect(() => {
     if (focusedIncident) {
-      setViewState((prev) => ({
-        ...prev,
-        longitude: focusedIncident.lng,
-        latitude: focusedIncident.lat,
-        zoom: 14, // Zoom in closer for new incident
-      }))
+      mapRef.current?.flyTo({
+        center: [focusedIncident.lng, focusedIncident.lat],
+        zoom: 14,
+        duration: 3000, // Slower animation (3 seconds)
+      })
       setSelectedIncident(focusedIncident)
     }
   }, [focusedIncident])
@@ -111,6 +113,7 @@ export default function IncidentsMap({
       </div>
 
       <Map
+        ref={mapRef}
         {...viewState}
         onMove={(evt): void => setViewState(evt.viewState)}
         style={{ width: '100%', height: '100%' }}
@@ -163,15 +166,23 @@ export default function IncidentsMap({
                   <span className="font-semibold text-gray-600">Time:</span>
                   <div className="flex flex-col items-end">
                     <span>
-                      {new Date(
-                        selectedIncident.createdAt || ''
-                      ).toLocaleTimeString()}
+                      {typeof selectedIncident.createdAt === 'number'
+                        ? DateTime.fromMillis(
+                            selectedIncident.createdAt
+                          ).toLocaleString(DateTime.TIME_WITH_SECONDS)
+                        : new Date(
+                            selectedIncident.createdAt || ''
+                          ).toLocaleTimeString()}
                     </span>
                     <span className="text-xs text-gray-400">
                       {selectedIncident.createdAt
-                        ? DateTime.fromISO(
-                            selectedIncident.createdAt
-                          ).toRelative()
+                        ? typeof selectedIncident.createdAt === 'number'
+                          ? DateTime.fromMillis(
+                              selectedIncident.createdAt
+                            ).toRelative()
+                          : DateTime.fromISO(
+                              selectedIncident.createdAt
+                            ).toRelative()
                         : ''}
                     </span>
                   </div>

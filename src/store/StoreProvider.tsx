@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs */
 'use client'
 import { useRef } from 'react'
 import { Provider } from 'react-redux'
@@ -19,12 +20,13 @@ export default function StoreProvider({
     //@ts-ignore
     storeRef.current.__persistor = persistStore(store)
   }
+  const activeStore = storeRef.current
 
   return (
-    <Provider store={storeRef.current}>
+    <Provider store={activeStore}>
       {/*eslint-disable-next-line*/}
       {/* @ts-ignore*/}
-      <PersistGate loading={null} persistor={storeRef.current.__persistor}>
+      <PersistGate loading={null} persistor={activeStore.__persistor}>
         {children}
       </PersistGate>
     </Provider>

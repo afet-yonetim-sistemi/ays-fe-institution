@@ -65,4 +65,5 @@ const SortIcon = ({
   return <BiSort className={iconClass} />
 }
 
+export { DataTableSort }
 export default DataTableSort

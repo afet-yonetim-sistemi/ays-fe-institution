@@ -1,17 +1,21 @@
+/* eslint-disable max-lines-per-function, @typescript-eslint/explicit-function-return-type */
 'use client'
 
-import { Button } from '@/components/ui/button'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  Button,
+  ButtonDialog,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+  Input,
+  LoadingSpinner,
+} from '@/components/ui'
 import { Permission } from '@/constants/permissions'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
@@ -25,19 +29,18 @@ import {
 import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React, { Suspense, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): React.JSX.Element => {
+const PageContent = (): React.JSX.Element => {
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id') as string
+  const params = { id }
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
   })
@@ -49,7 +52,7 @@ const Page = ({
   ] = useState<AdminRegistrationApplication | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const registerCompletionUrl = `${window.location.origin}/register-completion/${params.id}`
+  const registerCompletionUrl = `${window.location.origin}/register-completion?id=${params.id}`
 
   const handleReject = (rejectReason?: string): void | object => {
     const reason = { rejectReason }
@@ -420,5 +423,11 @@ const Page = ({
     </div>
   )
 }
+
+const Page = () => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <PageContent />
+  </Suspense>
+)
 
 export default Page

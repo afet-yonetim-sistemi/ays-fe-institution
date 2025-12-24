@@ -1,9 +1,9 @@
 'use client'
 
-import { Checkbox } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
+import { Checkbox } from './checkbox'
+import { Label } from './label'
 
 interface CheckboxFilterProps {
   label: string
@@ -39,4 +39,4 @@ const CheckboxFilter = ({
   )
 }
 
-export default CheckboxFilter
+export { CheckboxFilter }

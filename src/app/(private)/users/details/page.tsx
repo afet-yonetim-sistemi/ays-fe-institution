@@ -1,28 +1,30 @@
+/* eslint-disable max-lines-per-function, @typescript-eslint/explicit-function-return-type, complexity */
 'use client'
 
 import CitySelect from '@/components/CitySelect'
-import { Button } from '@/components/ui/button'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  Button,
+  ButtonDialog,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import PhoneInput from '@/components/ui/phone-input'
-import {
+  Input,
+  LoadingSpinner,
+  PhoneInput,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
+  Switch,
+} from '@/components/ui'
 import { Permission } from '@/constants/permissions'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { formatDateTime } from '@/lib/dataFormatters'
@@ -40,19 +42,18 @@ import {
 } from '@/modules/users/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CountryData } from 'react-phone-input-2'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const PageContent = (): JSX.Element => {
   const { t } = useTranslation()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id') as string // TODO: Handle null
+  const params = { id }
   const form = useForm({
     resolver: zodResolver(userFormConfig.validationSchemaDetail),
     mode: 'onChange',
@@ -591,5 +592,11 @@ const Page = ({
     </div>
   )
 }
+
+const Page = () => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <PageContent />
+  </Suspense>
+)
 
 export default Page

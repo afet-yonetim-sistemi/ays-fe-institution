@@ -1,26 +1,26 @@
+/* eslint-disable react-hooks/incompatible-library */
 'use client'
 
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
 import ForgotPasswordModal from '@/components/password/ForgotPasswordModal'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { PasswordInput } from '@/components/ui/passwordInput'
+  Input,
+  LoadingSpinner,
+  PasswordInput,
+} from '@/components/ui'
+
 import { showErrorToast } from '@/lib/showToast'
 import {
   clearRefreshTokenExpired,

@@ -21,4 +21,4 @@ const Status = ({ status }: StatusProps): JSX.Element => {
   )
 }
 
-export default Status
+export { Status }

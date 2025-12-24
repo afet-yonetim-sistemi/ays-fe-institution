@@ -1,17 +1,23 @@
+/* eslint-disable max-lines-per-function */
+/* eslint-disable react-hooks/incompatible-library */
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Switch } from '@/components/ui/switch'
+  Input,
+  LoadingSpinner,
+  Switch,
+} from '@/components/ui'
+
 import {
   getLocalizedCategory,
   getLocalizedPermission,

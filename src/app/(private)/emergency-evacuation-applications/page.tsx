@@ -1,13 +1,17 @@
+/* eslint-disable max-lines-per-function */
 'use client'
 
 import { SortDirection } from '@/common/types'
-import { Button } from '@/components/ui/button'
-import CheckboxFilter from '@/components/ui/checkbox-filter'
-import { DataTable } from '@/components/ui/data-table'
-import FilterInput from '@/components/ui/filter-input'
-import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
-import Status from '@/components/ui/status'
-import { Toaster } from '@/components/ui/toaster'
+import {
+  Button,
+  CheckboxFilter,
+  DataTable,
+  FilterInput,
+  MultiSelectDropdown,
+  Status,
+  Toaster,
+} from '@/components/ui'
+
 import { Permission } from '@/constants/permissions'
 import { numericRegex } from '@/constants/regex'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
@@ -30,7 +34,21 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const parseEEASearchParams = (searchParams: URLSearchParams) => {
+const parseEEASearchParams = (
+  searchParams: URLSearchParams
+): {
+  currentPage: number
+  statuses: string[]
+  referenceNumber: string
+  sourceCity: string
+  sourceDistrict: string
+  seatingCount: number | undefined
+  targetCity: string
+  targetDistrict: string
+  isInPerson: boolean | undefined
+  column: string
+  direction: string
+} => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const statusesParam = searchParams.get('status')
   const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
@@ -109,12 +127,27 @@ const Page = (): JSX.Element => {
   ] = useState<EmergencyEvacuationApplication[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const [filters, setFilters] = useState<EmergencyEvacuationApplicationsFilter>(
-    () => getInitialFilters(searchParams)
+  const filters = getInitialFilters(searchParams)
+
+  const locationValidationRule = {
+    min: 2,
+    max: 100,
+    regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
+  }
+
+  const validationRules = {
+    sourceCity: locationValidationRule,
+    sourceDistrict: locationValidationRule,
+    targetCity: locationValidationRule,
+    targetDistrict: locationValidationRule,
+  }
+
+  const filterErrors = getFilterErrors(
+    filters,
+    ['sourceCity', 'sourceDistrict', 'targetCity', 'targetDistrict'],
+    validationRules
   )
-  const [filterErrors, setFilterErrors] = useState<
-    Record<string, string | null>
-  >({})
+
   const [seatingCountInput, setSeatingCountInput] = useState(
     filters.seatingCount ?? ''
   )
@@ -175,42 +208,22 @@ const Page = (): JSX.Element => {
     const paramsReady = searchParams.toString().length > 0
     if (!paramsReady) return
 
-    const locationValidationRule = {
-      min: 2,
-      max: 100,
-      regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
-    }
+    setTimeout(() => {
+      setReferenceNumberInput(filters.referenceNumber ?? '')
+      setSourceCityInput(filters.sourceCity ?? '')
+      setSourceDistrictInput(filters.sourceDistrict ?? '')
+      setTargetCityInput(filters.targetCity ?? '')
+      setTargetDistrictInput(filters.targetDistrict ?? '')
+      setSeatingCountInput(filters.seatingCount?.toString() ?? '')
+    }, 0)
 
-    const validationRules = {
-      sourceCity: locationValidationRule,
-      sourceDistrict: locationValidationRule,
-      targetCity: locationValidationRule,
-      targetDistrict: locationValidationRule,
-    }
-
-    const parsedFilters = getInitialFilters(searchParams)
-    const errors = getFilterErrors(
-      parsedFilters,
-      ['sourceCity', 'sourceDistrict', 'targetCity', 'targetDistrict'],
-      validationRules
-    )
-
-    setFilterErrors(errors)
-    setFilters(parsedFilters)
-    setReferenceNumberInput(parsedFilters.referenceNumber ?? '')
-    setSourceCityInput(parsedFilters.sourceCity ?? '')
-    setSourceDistrictInput(parsedFilters.sourceDistrict ?? '')
-    setTargetCityInput(parsedFilters.targetCity ?? '')
-    setTargetDistrictInput(parsedFilters.targetDistrict ?? '')
-    setSeatingCountInput(parsedFilters.seatingCount ?? '')
-
-    const hasFilterErrors = Object.values(errors).some(
+    const hasFilterErrors = Object.values(filterErrors).some(
       (error) => error !== null
     )
     if (!hasFilterErrors) {
-      fetchData(parsedFilters)
+      setTimeout(() => fetchData(filters), 0)
     }
-  }, [searchParams, fetchData])
+  }, [searchParams, fetchData, filterErrors, filters])
 
   return (
     <div className="space-y-4">
@@ -239,7 +252,9 @@ const Page = (): JSX.Element => {
         <CheckboxFilter
           label={t('application.evacuation.inPerson')}
           isChecked={filters.isInPerson ?? false}
-          onChange={(checked) => handleFilterChange('isInPerson', checked)}
+          onChange={(checked: boolean) =>
+            handleFilterChange('isInPerson', checked)
+          }
         />
         <FilterInput
           id="seatingCount"

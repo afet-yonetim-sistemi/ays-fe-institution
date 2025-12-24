@@ -1,27 +1,26 @@
+/* eslint-disable max-lines-per-function, @typescript-eslint/explicit-function-return-type */
 'use client'
 
 import CitySelect from '@/components/CitySelect'
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
 import PhoneNumberField from '@/components/PhoneNumberField'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { PasswordInput } from '@/components/ui/passwordInput'
+  Input,
+  LoadingSpinner,
+  PasswordInput,
+} from '@/components/ui'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {
@@ -30,18 +29,17 @@ import {
 } from '@/modules/adminRegistrationApplications/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const PageContent = (): JSX.Element => {
   const { t } = useTranslation()
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id') as string // TODO: Handle null
+  const params = { id }
   const [isLoading, setIsLoading] = useState(true)
   const [institutionName, setInstitutionName] = useState<string>('')
   const router = useRouter()
@@ -200,6 +198,12 @@ const Page = ({
     </div>
   )
 }
+
+const Page = () => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <PageContent />
+  </Suspense>
+)
 
 Page.getLayout = (page: React.ReactNode) => page
 

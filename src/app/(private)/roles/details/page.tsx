@@ -1,19 +1,23 @@
+/* eslint-disable max-lines-per-function, @typescript-eslint/explicit-function-return-type */
 'use client'
 
-import { Button } from '@/components/ui/button'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  Button,
+  ButtonDialog,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Switch } from '@/components/ui/switch'
+  Input,
+  LoadingSpinner,
+  Switch,
+} from '@/components/ui'
 import { Permission } from '@/constants/permissions'
 import { formatDateTime } from '@/lib/dataFormatters'
 import {
@@ -35,17 +39,18 @@ import {
 } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { NextPage } from 'next'
-import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import { useForm, UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page: NextPage<{ params: { slug: string; id: string } }> = ({
-  params,
-}) => {
+const PageContent: React.FC = () => {
   const { t } = useTranslation()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id') as string
+  const params = { id } // Keep params object for temporary compatibility
+
   const userPermissions = useAppSelector(selectPermissions)
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
@@ -680,5 +685,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
     </div>
   )
 }
+
+const Page = () => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <PageContent />
+  </Suspense>
+)
 
 export default Page

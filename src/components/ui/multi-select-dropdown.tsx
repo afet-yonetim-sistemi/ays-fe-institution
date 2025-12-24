@@ -1,20 +1,20 @@
 'use client'
 
+import { ChevronDown } from 'lucide-react'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from './dropdown-menu'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { ChevronDown } from 'lucide-react'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
+} from './tooltip'
 
 type DropdownItem<T> = {
   value: T
@@ -36,10 +36,10 @@ const MultiSelectDropdown = <T extends string>({
   onSelectionChange,
   renderItem,
   label,
-}: MultiSelectDropdownProps<T>) => {
+}: MultiSelectDropdownProps<T>): React.ReactElement => {
   const { t } = useTranslation()
 
-  const handleSelectionChange = (value: T) => {
+  const handleSelectionChange = (value: T): void => {
     const updatedItems = selectedItems.includes(value)
       ? selectedItems.filter((item) => item !== value)
       : [...selectedItems, value]
@@ -91,4 +91,5 @@ const MultiSelectDropdown = <T extends string>({
   )
 }
 
+export { MultiSelectDropdown }
 export default MultiSelectDropdown

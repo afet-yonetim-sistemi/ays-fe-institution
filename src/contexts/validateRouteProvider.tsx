@@ -1,4 +1,5 @@
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { LoadingSpinner } from '@/components/ui'
+
 import {
   ValidateRouteContext,
   ValidateRouteContextType,
@@ -46,11 +47,11 @@ export const ValidateRouteProvider = ({
 
   useEffect(() => {
     if (isRefreshTokenExpired && !showSessionExpiredModal && isProtected) {
-      setShowSessionExpiredModal(true)
+      setTimeout(() => setShowSessionExpiredModal(true), 0)
     }
   }, [isRefreshTokenExpired, showSessionExpiredModal, isProtected])
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     dispatch(logout())
     setShowSessionExpiredModal(false)
     router.replace('/login')
@@ -63,12 +64,12 @@ export const ValidateRouteProvider = ({
       } else if (!userHasPermission) {
         router.replace('/not-found')
       } else {
-        setLoading(false)
+        setTimeout(() => setLoading(false), 0)
       }
     } else if (isProtected) {
       router.replace('/login')
     } else {
-      setLoading(false)
+      setTimeout(() => setLoading(false), 0)
     }
   }, [token, pathname, isProtected, userHasPermission, router, loading])
 

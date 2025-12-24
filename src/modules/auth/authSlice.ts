@@ -5,7 +5,7 @@ import {
   setAuthTokens,
 } from '@/lib/tokenStorage'
 import { RootState } from '@/store/store'
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface AuthState {
   accessToken: string
@@ -45,8 +45,9 @@ const authSlice = createSlice({
 
       setAuthTokens(action.payload.accessToken, action.payload.refreshToken)
     },
-    loginFailed: (state, action) => {
-      state.error = action.payload
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    loginFailed(_state, _action: PayloadAction<string>) {
+      // Intentionally empty - just marks login as failed
     },
     clearRefreshTokenExpired: (state) => {
       state.isRefreshTokenExpired = false
@@ -104,7 +105,7 @@ export const selectIsRefreshTokenExpired = (state: RootState): boolean => {
     const now = Date.now()
 
     return expirationTime <= now
-  } catch (error) {
+  } catch {
     return true
   }
 }

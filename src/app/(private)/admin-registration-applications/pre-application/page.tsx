@@ -1,25 +1,24 @@
 'use client'
 
 import { Institution } from '@/common/types'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import {
+  Button,
+  Card,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import {
+  LoadingSpinner,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
+  Textarea,
+} from '@/components/ui'
+
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
 import {

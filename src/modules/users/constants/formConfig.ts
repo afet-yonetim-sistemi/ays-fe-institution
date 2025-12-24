@@ -1,4 +1,6 @@
 import { PhoneNumberSchema } from '@/constants/formValidationSchema'
+/* eslint-disable complexity */
+
 import { emailRegex } from '@/constants/regex'
 import {
   nameboxWithLengthValidation,

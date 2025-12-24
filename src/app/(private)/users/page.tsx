@@ -1,11 +1,14 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { DataTable } from '@/components/ui/data-table'
-import FilterInput from '@/components/ui/filter-input'
-import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
-import Status from '@/components/ui/status'
-import { Toaster } from '@/components/ui/toaster'
+import {
+  Button,
+  DataTable,
+  FilterInput,
+  MultiSelectDropdown,
+  Status,
+  Toaster,
+} from '@/components/ui'
+
 import { Permission } from '@/constants/permissions'
 import { useDataFetcher } from '@/hooks/useDataFetcher'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'

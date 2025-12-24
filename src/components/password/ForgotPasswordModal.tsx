@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -7,10 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+  Input,
+  Label,
+  LoadingSpinner,
+} from '@/components/ui'
+
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
@@ -61,8 +62,11 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   }
 
   useEffect(() => {
-    setEmail(loginEmail ?? '')
-  }, [loginEmail])
+    if (isOpen) {
+      setEmail(loginEmail ?? '')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen])
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

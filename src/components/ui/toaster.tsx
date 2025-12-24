@@ -1,5 +1,7 @@
 'use client'
 
+import { useToast } from '@/hooks/useToast'
+import { useTranslation } from 'react-i18next'
 import {
   Toast,
   ToastClose,
@@ -7,9 +9,7 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '@/components/ui/toast'
-import { useToast } from '@/hooks/useToast'
-import { useTranslation } from 'react-i18next'
+} from './toast'
 
 export function Toaster(): JSX.Element {
   const { toasts } = useToast()

@@ -1,11 +1,14 @@
 'use client'
 
 import { SortDirection } from '@/common/types'
-import { Button } from '@/components/ui/button'
-import { DataTable } from '@/components/ui/data-table'
-import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
-import Status from '@/components/ui/status'
-import { Toaster } from '@/components/ui/toaster'
+import {
+  Button,
+  DataTable,
+  MultiSelectDropdown,
+  Status,
+  Toaster,
+} from '@/components/ui'
+
 import { Permission } from '@/constants/permissions'
 import { useHandleFilterChange } from '@/hooks/useHandleFilterChange'
 import { usePagination } from '@/hooks/usePagination'
@@ -25,7 +28,14 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const parseARASearchParams = (searchParams: URLSearchParams) => {
+const parseARASearchParams = (
+  searchParams: URLSearchParams
+): {
+  currentPage: number
+  statuses: string[]
+  column: string
+  direction: string
+} => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const statusesParam = searchParams.get('status')
   const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
@@ -67,9 +77,7 @@ const Page = (): JSX.Element => {
   ] = useState<AdminRegistrationApplication[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const [filters, setFilters] = useState<AdminRegistrationApplicationsFilter>(
-    () => getInitialFilters(searchParams)
-  )
+  const filters = getInitialFilters(searchParams)
 
   const { handlePageChange } = usePagination()
   const handleFilterChange = useHandleFilterChange()
@@ -110,11 +118,8 @@ const Page = (): JSX.Element => {
     const paramsReady = searchParams.toString().length > 0
     if (!paramsReady) return
 
-    const parsedFilters = getInitialFilters(searchParams)
-    setFilters(parsedFilters)
-
-    fetchData(parsedFilters)
-  }, [searchParams, fetchData])
+    setTimeout(() => fetchData(filters), 0)
+  }, [searchParams, fetchData, filters])
 
   return (
     <div className="space-y-4">

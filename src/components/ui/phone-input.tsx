@@ -22,4 +22,4 @@ const PhoneInput: React.FC<PhoneInputProps> = (props) => {
   )
 }
 
-export default PhoneInput
+export { PhoneInput }

@@ -12,7 +12,9 @@ const Page = (): JSX.Element => {
 
   useEffect(() => {
     // Configure Stomp client
-    const socket = new SockJS('http://localhost:8080/ws')
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
+    const socketUrl = `${apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl}/ws`
+    const socket = new SockJS(socketUrl)
     const stompClient = new Client({
       webSocketFactory: (): IStompSocket => socket as unknown as IStompSocket,
       debug: (str: string): void => {
@@ -31,7 +33,7 @@ const Page = (): JSX.Element => {
                 lng: sosData.longitude,
                 type: 'MEDICAL', // Default to MEDICAL or infer from message if possible
                 status: 'OPEN',
-                createdAt: sosData.createdAt || new Date().toISOString(),
+                createdAt: sosData.createdAt || Date.now(),
                 message: sosData.message,
               }
               setIncidents((prev) => [...prev, newIncident])

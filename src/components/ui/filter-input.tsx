@@ -1,8 +1,8 @@
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 import { t } from 'i18next'
 import { memo } from 'react'
+import { Input } from './input'
+import { Label } from './label'
 
 interface FilterInputProps {
   id: string
@@ -32,7 +32,7 @@ const FilterInput: React.FC<FilterInputProps> = memo(
     error,
     hideNumberSpinner = false,
   }) => {
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
       const char = e.key
 
       if (
@@ -49,7 +49,7 @@ const FilterInput: React.FC<FilterInputProps> = memo(
       }
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
       const newValue = e.target.value
 
       if (id === 'seatingCount' && type === 'number') {
@@ -110,4 +110,5 @@ const FilterInput: React.FC<FilterInputProps> = memo(
 
 FilterInput.displayName = 'FilterInput'
 
+export { FilterInput }
 export default FilterInput

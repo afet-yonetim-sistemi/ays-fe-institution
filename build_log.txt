@@ -1,0 +1,26 @@
+
+> ays-fe-institution@1.2.0 build C:\projects\ays\ays-fe-institution
+> next build
+
+  Γû▓ Next.js 14.2.35
+  - Environments: .env
+  - Experiments (use with caution):
+    ┬╖ turbo
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+
+> Build error occurred
+Error: Page "/roles/[id]" is missing "generateStaticParams()" so it cannot be used with "output: export" config.
+    at C:\projects\ays\ays-fe-institution\node_modules\.pnpm\next@14.2.35_@babel+core@7._95ebaecc2475824ac3b6e85c0682411a\node_modules\next\dist\build\index.js:1297:59
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Span.traceAsyncFn (C:\projects\ays\ays-fe-institution\node_modules\.pnpm\next@14.2.35_@babel+core@7._95ebaecc2475824ac3b6e85c0682411a\node_modules\next\dist\trace\trace.js:154:20)
+    at async Promise.all (index 11)
+    at async C:\projects\ays\ays-fe-institution\node_modules\.pnpm\next@14.2.35_@babel+core@7._95ebaecc2475824ac3b6e85c0682411a\node_modules\next\dist\build\index.js:1175:17
+    at async Span.traceAsyncFn (C:\projects\ays\ays-fe-institution\node_modules\.pnpm\next@14.2.35_@babel+core@7._95ebaecc2475824ac3b6e85c0682411a\node_modules\next\dist\trace\trace.js:154:20)
+    at async C:\projects\ays\ays-fe-institution\node_modules\.pnpm\next@14.2.35_@babel+core@7._95ebaecc2475824ac3b6e85c0682411a\node_modules\next\dist\build\index.js:1098:124
+    at async Span.traceAsyncFn (C:\projects\ays\ays-fe-institution\node_modules\.pnpm\next@14.2.35_@babel+core@7._95ebaecc2475824ac3b6e85c0682411a\node_modules\next\dist\trace\trace.js:154:20)
+    at async build (C:\projects\ays\ays-fe-institution\node_modules\.pnpm\next@14.2.35_@babel+core@7._95ebaecc2475824ac3b6e85c0682411a\node_modules\next\dist\build\index.js:368:9)
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 1.

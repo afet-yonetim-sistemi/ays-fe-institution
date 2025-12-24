@@ -4,14 +4,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
+
 import { t } from 'i18next'
 import { useEffect, useState } from 'react'
 import { Control } from 'react-hook-form'
@@ -27,11 +26,11 @@ const CitySelect = ({
   control,
   defaultValue = '',
   isDisabled = false,
-}: CitySelectProps) => {
+}: CitySelectProps): JSX.Element => {
   const [cityList, setCityList] = useState<string[]>([])
 
   useEffect(() => {
-    const fetchCities = async () => {
+    const fetchCities = async (): Promise<void> => {
       try {
         const res = await fetch('/turkey_cities_districts.json')
         const data = await res.json()

@@ -1,34 +1,34 @@
+/* eslint-disable max-lines-per-function, @typescript-eslint/explicit-function-return-type */
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Checkbox,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import {
+  Input,
+  LoadingSpinner,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import Status from '@/components/ui/status'
-import { Textarea } from '@/components/ui/textarea'
+  Status,
+  Textarea,
+} from '@/components/ui'
 import { Permission } from '@/constants/permissions'
 import {
   formatDateTime,
@@ -49,16 +49,16 @@ import {
 } from '@/modules/emergencyEvacuationApplications/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { Suspense, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const PageContent = (): JSX.Element => {
   const { t } = useTranslation()
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id') as string
+  const params = { id }
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
     mode: 'onChange',
@@ -664,5 +664,11 @@ const Page = ({
     </div>
   )
 }
+
+const Page = () => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <PageContent />
+  </Suspense>
+)
 
 export default Page

@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { SearchParamType, Sort, SortDirection } from '@/common/types'
 
 export type SearchParamValue = string | number | string[] | Sort[] | undefined
