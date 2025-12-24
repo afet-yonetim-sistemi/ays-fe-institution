@@ -4,7 +4,12 @@ import { DateTime } from 'luxon'
 import type maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { useRef, useState } from 'react'
-import Map, { Marker, NavigationControl, Popup } from 'react-map-gl/maplibre'
+import Map, {
+  MapRef,
+  Marker,
+  NavigationControl,
+  Popup,
+} from 'react-map-gl/maplibre'
 
 interface IncidentsMapProps {
   incidents: Incident[]
@@ -41,8 +46,7 @@ export default function IncidentsMap({
   incidents,
   focusedIncident,
 }: IncidentsMapProps): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const mapRef = useRef<any>(null)
+  const mapRef = useRef<MapRef>(null)
   // Center of North Cyprus
   const [viewState, setViewState] = React.useState({
     longitude: 33.3823,
@@ -56,8 +60,9 @@ export default function IncidentsMap({
 
   // Update view state when focusedIncident changes
   React.useEffect(() => {
-    if (focusedIncident) {
-      mapRef.current?.flyTo({
+    if (focusedIncident && mapRef.current) {
+      const map = mapRef.current.getMap()
+      map?.flyTo({
         center: [focusedIncident.lng, focusedIncident.lat],
         zoom: 14,
         duration: 3000, // Slower animation (3 seconds)
