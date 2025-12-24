@@ -5,24 +5,9 @@ const nextConfig = {
   swcMinify: true,
 
   experimental: {
-    turbo: {},
+    // turbo: {}, // Disabled due to build issues with class inheritance
 
-    optimizePackageImports: [
-      'lucide-react',
-      'react-icons',
-      '@radix-ui/react-avatar',
-      '@radix-ui/react-checkbox',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
-      '@radix-ui/react-label',
-      '@radix-ui/react-popover',
-      '@radix-ui/react-scroll-area',
-      '@radix-ui/react-select',
-      '@radix-ui/react-slot',
-      '@radix-ui/react-switch',
-      '@radix-ui/react-toast',
-      '@radix-ui/react-tooltip',
-    ],
+    optimizePackageImports: ['lucide-react', 'react-icons'],
   },
 
   output: 'export',

@@ -1,15 +1,6 @@
 /* eslint-disable max-lines-per-function, complexity, @typescript-eslint/explicit-function-return-type, react-hooks/incompatible-library */
 'use client'
 
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui'
 import { LoadingType, LoadingTypeValue } from '@/constants/loadingType'
 import {
   ColumnDef,
@@ -21,8 +12,17 @@ import { t } from 'i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+import { Button } from './button'
 import { DataTableSkeleton } from './data-table-skeleton'
 import { LoadingSpinner } from './loadingSpinner'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from './table'
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
