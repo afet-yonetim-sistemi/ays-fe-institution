@@ -10,6 +10,10 @@ import Map, {
   NavigationControl,
   Popup,
 } from 'react-map-gl/maplibre'
+// Use dynamic import for SosChat since it uses browser APIs
+import dynamic from 'next/dynamic'
+
+const SosChat = dynamic(() => import('./SosChat'), { ssr: false })
 
 interface IncidentsMapProps {
   incidents: Incident[]
@@ -169,50 +173,50 @@ export default function IncidentsMap({
             anchor="top"
             onClose={(): void => setSelectedIncident(null)}
             closeOnClick={true}
+            maxWidth="450px"
           >
-            <div className="min-w-[200px] p-2 text-black">
-              <h3 className="mb-2 text-lg font-bold">
-                {selectedIncident.type}
-              </h3>
-              <div className="grid gap-1 text-sm">
-                <div className="flex justify-between">
-                  <span className="font-semibold text-gray-600">Status:</span>
+            <div className="w-[400px] p-1 text-black">
+              <div className="mb-4 border-b pb-2">
+                <div className="mb-2 flex items-center justify-between">
+                  <h3 className="flex items-center gap-2 text-lg font-bold">
+                    {selectedIncident.type === 'FIRE' ? '🔥' : '🚑'}
+                    {selectedIncident.type}
+                  </h3>
                   <span
-                    className={`font-medium ${selectedIncident.status === 'OPEN' ? 'text-red-600' : 'text-blue-600'}`}
+                    className={`rounded px-2 py-0.5 text-xs font-bold ${
+                      selectedIncident.status === 'OPEN'
+                        ? 'bg-red-100 text-red-600'
+                        : 'bg-blue-100 text-blue-600'
+                    }`}
                   >
                     {selectedIncident.status}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="font-semibold text-gray-600">Time:</span>
-                  <div className="flex flex-col items-end">
-                    <span>
-                      {typeof selectedIncident.createdAt === 'number'
-                        ? DateTime.fromMillis(
-                            selectedIncident.createdAt
-                          ).toLocaleString(DateTime.TIME_WITH_SECONDS)
-                        : new Date(
-                            selectedIncident.createdAt || ''
-                          ).toLocaleTimeString()}
-                    </span>
-                    <span className="text-xs text-gray-400">
-                      {selectedIncident.createdAt
-                        ? typeof selectedIncident.createdAt === 'number'
-                          ? DateTime.fromMillis(
-                              selectedIncident.createdAt
-                            ).toRelative()
-                          : DateTime.fromISO(
-                              selectedIncident.createdAt
-                            ).toRelative()
-                        : ''}
-                    </span>
-                  </div>
+
+                <div className="flex justify-between text-xs text-gray-500">
+                  <span>
+                    Created:{' '}
+                    {typeof selectedIncident.createdAt === 'number'
+                      ? DateTime.fromMillis(
+                          selectedIncident.createdAt
+                        ).toLocaleString(DateTime.DATETIME_MED)
+                      : new Date(
+                          selectedIncident.createdAt || ''
+                        ).toLocaleString()}
+                  </span>
+                  <span>
+                    ({selectedIncident.lat.toFixed(4)},{' '}
+                    {selectedIncident.lng.toFixed(4)})
+                  </span>
                 </div>
-                {selectedIncident.message && (
-                  <div className="mt-2 border-t pt-2">
-                    <p className="text-gray-700">{selectedIncident.message}</p>
-                  </div>
-                )}
+              </div>
+
+              {/* Chat Interface */}
+              <div className="mt-2">
+                <h4 className="mb-2 text-sm font-semibold text-gray-700">
+                  Live Communication
+                </h4>
+                <SosChat sosId={selectedIncident.id} />
               </div>
             </div>
           </Popup>
