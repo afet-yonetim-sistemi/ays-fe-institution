@@ -37,20 +37,55 @@ const Page = (): JSX.Element => {
         onConnect: (): void => {
           console.log('Connected to WebSocket')
           stompClient?.subscribe('/topic/sos', (message) => {
+            console.log('[MapPage] Received WebSocket message:', message.body)
             if (message.body) {
               try {
                 const sosData = JSON.parse(message.body)
+
+                console.log(
+                  '[MapPage] Parsed SOS data:',
+                  JSON.stringify(sosData)
+                )
+
+                // Handle both field name formats (lat/lng vs latitude/longitude)
+                const lat = sosData.latitude ?? sosData.lat
+                const lng = sosData.longitude ?? sosData.lng
+
+                // Validate coordinates
+                if (typeof lat !== 'number' || typeof lng !== 'number') {
+                  console.error(
+                    '[MapPage] Invalid coordinates - lat:',
+                    lat,
+                    'lng:',
+                    lng
+                  )
+                  return
+                }
+
                 // Map backend SosEntity to frontend Incident
                 const newIncident: Incident = {
                   id: sosData.id,
-                  lat: sosData.latitude,
-                  lng: sosData.longitude,
+                  lat: lat,
+                  lng: lng,
                   type: 'MEDICAL', // Default to MEDICAL or infer from message if possible
                   status: 'OPEN',
                   createdAt: sosData.createdAt || Date.now(),
                   message: sosData.message,
                 }
-                setIncidents((prev) => [...prev, newIncident])
+
+                console.log(
+                  '[MapPage] Created newIncident:',
+                  JSON.stringify(newIncident)
+                )
+                setIncidents((prev) => {
+                  console.log(
+                    '[MapPage] Previous incidents count:',
+                    prev.length
+                  )
+                  return [...prev, newIncident]
+                })
+
+                console.log('[MapPage] Calling setFocusedIncident')
                 setFocusedIncident(newIncident)
               } catch (error) {
                 console.error('Error parsing WebSocket message:', error)

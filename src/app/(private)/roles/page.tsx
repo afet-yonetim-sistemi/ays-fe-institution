@@ -25,7 +25,7 @@ import { getRoles } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const parseRolesSearchParams = (
@@ -76,15 +76,26 @@ const Page = (): JSX.Element => {
   const [roleList, setRoleList] = useState<Role[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const filters = getInitialFilters(searchParams)
 
-  const errors = getFilterErrors(filters, ['name'], {
-    name: {
-      min: 2,
-      max: 255,
-      regex: /^[\p{L}\p{P}\s]+$/u,
-    },
-  })
+  // Memoize filters to prevent infinite re-renders
+  const filters = useMemo(
+    () => getInitialFilters(searchParams),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [searchParams.toString()]
+  )
+
+  // Memoize errors to prevent infinite re-renders
+  const errors = useMemo(
+    () =>
+      getFilterErrors(filters, ['name'], {
+        name: {
+          min: 2,
+          max: 255,
+          regex: /^[\p{L}\p{P}\s]+$/u,
+        },
+      }),
+    [filters]
+  )
 
   const [nameInputValue, setNameInputValue] = useState(filters.name ?? '')
 

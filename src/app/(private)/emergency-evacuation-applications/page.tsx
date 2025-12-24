@@ -31,7 +31,7 @@ import { getEmergencyEvacuationApplications } from '@/modules/emergencyEvacuatio
 import { useAppSelector } from '@/store/hooks'
 import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const parseEEASearchParams = (
@@ -127,7 +127,13 @@ const Page = (): JSX.Element => {
   ] = useState<EmergencyEvacuationApplication[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [totalRows, setTotalRows] = useState(0)
-  const filters = getInitialFilters(searchParams)
+
+  // Memoize filters to prevent infinite re-renders
+  const filters = useMemo(
+    () => getInitialFilters(searchParams),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [searchParams.toString()]
+  )
 
   const locationValidationRule = {
     min: 2,
@@ -142,10 +148,16 @@ const Page = (): JSX.Element => {
     targetDistrict: locationValidationRule,
   }
 
-  const filterErrors = getFilterErrors(
-    filters,
-    ['sourceCity', 'sourceDistrict', 'targetCity', 'targetDistrict'],
-    validationRules
+  // Memoize filterErrors to prevent infinite re-renders
+  const filterErrors = useMemo(
+    () =>
+      getFilterErrors(
+        filters,
+        ['sourceCity', 'sourceDistrict', 'targetCity', 'targetDistrict'],
+        validationRules
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filters]
   )
 
   const [seatingCountInput, setSeatingCountInput] = useState(

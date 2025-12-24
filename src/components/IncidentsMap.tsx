@@ -60,14 +60,30 @@ export default function IncidentsMap({
 
   // Update view state when focusedIncident changes
   React.useEffect(() => {
+    console.log('[IncidentsMap] focusedIncident changed:', focusedIncident)
+    console.log('[IncidentsMap] mapRef.current:', mapRef.current)
+
     if (focusedIncident && mapRef.current) {
       const map = mapRef.current.getMap()
+      console.log('[IncidentsMap] map instance:', map)
+      console.log('[IncidentsMap] Calling flyTo with:', {
+        center: [focusedIncident.lng, focusedIncident.lat],
+        zoom: 14,
+      })
       map?.flyTo({
         center: [focusedIncident.lng, focusedIncident.lat],
         zoom: 14,
         duration: 3000, // Slower animation (3 seconds)
       })
       setSelectedIncident(focusedIncident)
+      console.log('[IncidentsMap] setSelectedIncident called')
+    } else {
+      console.log(
+        '[IncidentsMap] Skipping flyTo - focusedIncident:',
+        !!focusedIncident,
+        'mapRef.current:',
+        !!mapRef.current
+      )
     }
   }, [focusedIncident])
 
