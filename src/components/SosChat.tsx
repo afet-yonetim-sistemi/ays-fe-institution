@@ -184,7 +184,7 @@ export default function SosChat({ sosId }: SosChatProps): JSX.Element {
           value={newMessage}
           onChange={(e): void => setNewMessage(e.target.value)}
           placeholder="Type a reply..."
-          className="flex-1"
+          className="flex-1 border-gray-300 bg-white text-black placeholder:text-gray-400 focus-visible:ring-blue-500"
         />
         <Button
           type="submit"
