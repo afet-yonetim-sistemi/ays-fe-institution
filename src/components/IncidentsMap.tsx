@@ -124,10 +124,34 @@ export default function IncidentsMap({
   }
 
   // Filter incidents based on toggle state
+  // Filter incidents based on toggle state
   const filteredIncidents = incidents.filter(
     (incident) =>
       incident.type && filters[incident.type as keyof typeof filters]
   )
+
+  const [locallyClosedIds, setLocallyClosedIds] = useState<Set<string>>(
+    new Set()
+  )
+
+  const isCaseClosed = (incident: Incident): boolean => {
+    return (
+      incident.status === 'CLOSED' ||
+      incident.status === 'RESOLVED' ||
+      locallyClosedIds.has(incident.id)
+    )
+  }
+
+  const handleCloseCase = (id: string): void => {
+    if (window.confirm('Are you sure you want to close this case?')) {
+      setLocallyClosedIds((prev) => {
+        const newSet = new Set(prev)
+        newSet.add(id)
+        return newSet
+      })
+      setSelectedIncident(null)
+    }
+  }
 
   return (
     <div className="relative h-full w-full overflow-hidden">
@@ -159,6 +183,27 @@ export default function IncidentsMap({
         </button>
       </div>
 
+      {/* Sidebar - All Cases */}
+      <div className="absolute left-0 top-20 z-10 flex flex-col gap-1 p-1">
+        {incidents.map((incident) => {
+          const closed = isCaseClosed(incident)
+          return (
+            <button
+              key={incident.id}
+              onClick={(): void => setSelectedIncident(incident)}
+              className={`flex h-8 w-8 items-center justify-center rounded-r-md text-white shadow-md transition-all hover:w-10 hover:shadow-lg ${
+                closed ? 'bg-green-500' : 'bg-red-500'
+              }`}
+              title={`${incident.type} - ${closed ? 'CLOSED' : 'OPEN'}`}
+            >
+              <span className="text-xs">
+                {incident.type === 'FIRE' ? '🔥' : '🚑'}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
       <Map
         ref={mapRef}
         {...viewState}
@@ -182,8 +227,16 @@ export default function IncidentsMap({
             }}
           >
             <div className="relative flex h-4 w-4 cursor-pointer items-center justify-center">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex h-3 w-3 rounded-full bg-red-600"></span>
+              <span
+                className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${
+                  isCaseClosed(incident) ? 'bg-green-400' : 'bg-red-400'
+                }`}
+              ></span>
+              <span
+                className={`relative inline-flex h-3 w-3 rounded-full ${
+                  isCaseClosed(incident) ? 'bg-green-600' : 'bg-red-600'
+                }`}
+              ></span>
             </div>
           </Marker>
         ))}
@@ -206,15 +259,27 @@ export default function IncidentsMap({
                       {selectedIncident.type === 'FIRE' ? '🔥' : '🚑'}
                       {selectedIncident.type}
                     </h3>
-                    <span
-                      className={`rounded px-2 py-0.5 text-xs font-bold ${
-                        selectedIncident.status === 'OPEN'
-                          ? 'bg-red-100 text-red-600'
-                          : 'bg-blue-100 text-blue-600'
-                      }`}
-                    >
-                      {selectedIncident.status}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`rounded px-2 py-0.5 text-xs font-bold ${
+                          isCaseClosed(selectedIncident)
+                            ? 'bg-green-100 text-green-600'
+                            : 'bg-red-100 text-red-600'
+                        }`}
+                      >
+                        {isCaseClosed(selectedIncident) ? 'CLOSED' : 'OPEN'}
+                      </span>
+                      {!isCaseClosed(selectedIncident) && (
+                        <button
+                          onClick={(): void =>
+                            handleCloseCase(selectedIncident.id)
+                          }
+                          className="rounded bg-red-600 px-2 py-1 text-[10px] font-bold text-white hover:bg-red-700"
+                        >
+                          CLOSE CASE
+                        </button>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex justify-between text-xs text-gray-500">
@@ -249,26 +314,27 @@ export default function IncidentsMap({
                 <h4 className="mb-4 text-sm font-semibold text-gray-700">
                   Dispatch Vehicle
                 </h4>
-                <div className="mb-4 grid grid-cols-2 gap-4">
+                <div className="mb-4 grid grid-cols-4 gap-2">
                   {(
                     Object.entries(VEHICLE_ICONS) as [VehicleType, string][]
                   ).map(([type, src]) => (
                     <button
                       key={type}
                       onClick={(): void => setSelectedVehicleType(type)}
-                      className={`flex flex-col items-center rounded-lg border p-2 transition-all hover:bg-gray-50 ${
+                      className={`flex flex-col items-center justify-center rounded-lg border p-1.5 transition-all hover:bg-gray-50 ${
                         selectedVehicleType === type
-                          ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
+                          ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-200'
                           : 'border-gray-200'
                       }`}
+                      title={type}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={src}
                         alt={type}
-                        className="mb-2 h-12 w-12 object-contain"
+                        className="mb-1 h-8 w-8 object-contain"
                       />
-                      <span className="text-xs font-medium text-gray-600">
+                      <span className="text-[9px] font-bold text-gray-600">
                         {type}
                       </span>
                     </button>

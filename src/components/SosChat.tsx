@@ -50,7 +50,11 @@ const MessageItem = ({ msg }: MessageItemProps): JSX.Element => (
       )}
       {msg.audioUrl && (
         <div className="mt-2">
-          <audio controls src={msg.audioUrl} className="w-full max-w-[200px]" />
+          <audio
+            controls
+            src={msg.audioUrl}
+            className="h-10 w-full min-w-[250px]"
+          />
           {/* Fallback/Debug */}
           <div className="mt-1 text-[10px] text-gray-500 underline">
             <a href={msg.audioUrl} download="voice.mp4">
