@@ -8,6 +8,7 @@ import Map, { Marker, NavigationControl, Popup } from 'react-map-gl/maplibre'
 
 interface IncidentsMapProps {
   incidents: Incident[]
+  focusedIncident?: Incident | null
 }
 
 // Extracted function to apply Turkish translations to map labels
@@ -37,6 +38,7 @@ function applyTurkishLabels(map: maplibregl.Map): void {
 
 export default function IncidentsMap({
   incidents,
+  focusedIncident,
 }: IncidentsMapProps): JSX.Element {
   // Center of North Cyprus
   const [viewState, setViewState] = React.useState({
@@ -48,6 +50,19 @@ export default function IncidentsMap({
   const [selectedIncident, setSelectedIncident] = useState<Incident | null>(
     null
   )
+
+  // Update view state when focusedIncident changes
+  React.useEffect(() => {
+    if (focusedIncident) {
+      setViewState((prev) => ({
+        ...prev,
+        longitude: focusedIncident.lng,
+        latitude: focusedIncident.lat,
+        zoom: 14, // Zoom in closer for new incident
+      }))
+      setSelectedIncident(focusedIncident)
+    }
+  }, [focusedIncident])
 
   // Filter toggles for incident types
   const [filters, setFilters] = useState({
