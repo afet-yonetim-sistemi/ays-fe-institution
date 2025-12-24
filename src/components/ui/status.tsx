@@ -1,3 +1,5 @@
+'use client'
+
 import { LabeledItem } from '@/common/types'
 import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'

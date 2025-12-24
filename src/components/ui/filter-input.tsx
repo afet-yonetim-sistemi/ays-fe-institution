@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@/lib/utils'
 import { t } from 'i18next'
 import { memo } from 'react'

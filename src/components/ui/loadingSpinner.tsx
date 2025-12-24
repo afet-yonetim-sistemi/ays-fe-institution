@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@/lib/utils'
 
 export interface ISVGProps extends React.SVGProps<SVGSVGElement> {

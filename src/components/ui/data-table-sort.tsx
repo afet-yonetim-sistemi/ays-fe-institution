@@ -1,3 +1,5 @@
+'use client'
+
 import { SortDirection } from '@/common/types'
 import { Column } from '@tanstack/react-table'
 import i18n from 'i18next'
