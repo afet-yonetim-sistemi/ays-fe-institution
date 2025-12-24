@@ -10,11 +10,7 @@ import Map, {
   NavigationControl,
   Popup,
 } from 'react-map-gl/maplibre'
-// Use dynamic import for SosChat since it uses browser APIs
-import dynamic from 'next/dynamic'
-
-import { SosChatRef } from './SosChat'
-const SosChat = dynamic(() => import('./SosChat'), { ssr: false })
+import SosChat, { SosChatRef } from './SosChat'
 
 type VehicleType = 'CAR' | 'AMBULANCE' | 'TRUCK' | 'EXCAVATOR'
 
