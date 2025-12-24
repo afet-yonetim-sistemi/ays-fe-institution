@@ -13,7 +13,30 @@ import Map, {
 // Use dynamic import for SosChat since it uses browser APIs
 import dynamic from 'next/dynamic'
 
+import { SosChatRef } from './SosChat'
 const SosChat = dynamic(() => import('./SosChat'), { ssr: false })
+
+type VehicleType = 'CAR' | 'AMBULANCE' | 'TRUCK' | 'EXCAVATOR'
+
+const VEHICLE_ICONS: Record<VehicleType, string> = {
+  AMBULANCE: '/ambulance.png',
+  CAR: '/car.png',
+  TRUCK: '/delivery-truck.png',
+  EXCAVATOR: '/excavator.png',
+}
+
+const VEHICLES: Record<VehicleType, { plate: string; name: string }[]> = {
+  AMBULANCE: [
+    { plate: '34 AC 112', name: 'Ambulance A1' },
+    { plate: '34 AC 113', name: 'Ambulance A2' },
+  ],
+  CAR: [
+    { plate: '34 XY 789', name: 'Patrol 1' },
+    { plate: '34 ZW 001', name: 'Patrol 2' },
+  ],
+  TRUCK: [{ plate: '34 TR 555', name: 'Truck T1' }],
+  EXCAVATOR: [{ plate: '34 EX 999', name: 'Excavator E1' }],
+}
 
 interface IncidentsMapProps {
   incidents: Incident[]
@@ -61,6 +84,9 @@ export default function IncidentsMap({
   const [selectedIncident, setSelectedIncident] = useState<Incident | null>(
     null
   )
+  const [selectedVehicleType, setSelectedVehicleType] =
+    useState<VehicleType | null>(null)
+  const sosChatRef = useRef<SosChatRef>(null)
 
   // Update view state when focusedIncident changes
   React.useEffect(() => {
@@ -173,50 +199,129 @@ export default function IncidentsMap({
             anchor="top"
             onClose={(): void => setSelectedIncident(null)}
             closeOnClick={true}
-            maxWidth="450px"
+            maxWidth="850px"
           >
-            <div className="w-[400px] p-1 text-black">
-              <div className="mb-4 border-b pb-2">
-                <div className="mb-2 flex items-center justify-between">
-                  <h3 className="flex items-center gap-2 text-lg font-bold">
-                    {selectedIncident.type === 'FIRE' ? '🔥' : '🚑'}
-                    {selectedIncident.type}
-                  </h3>
-                  <span
-                    className={`rounded px-2 py-0.5 text-xs font-bold ${
-                      selectedIncident.status === 'OPEN'
-                        ? 'bg-red-100 text-red-600'
-                        : 'bg-blue-100 text-blue-600'
-                    }`}
-                  >
-                    {selectedIncident.status}
-                  </span>
+            <div className="flex w-[800px] gap-4 p-1 text-black">
+              {/* Left Column: Info & Chat */}
+              <div className="w-[400px]">
+                <div className="mb-4 border-b pb-2">
+                  <div className="mb-2 flex items-center justify-between">
+                    <h3 className="flex items-center gap-2 text-lg font-bold">
+                      {selectedIncident.type === 'FIRE' ? '🔥' : '🚑'}
+                      {selectedIncident.type}
+                    </h3>
+                    <span
+                      className={`rounded px-2 py-0.5 text-xs font-bold ${
+                        selectedIncident.status === 'OPEN'
+                          ? 'bg-red-100 text-red-600'
+                          : 'bg-blue-100 text-blue-600'
+                      }`}
+                    >
+                      {selectedIncident.status}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between text-xs text-gray-500">
+                    <span>
+                      Created:{' '}
+                      {typeof selectedIncident.createdAt === 'number'
+                        ? DateTime.fromMillis(
+                            selectedIncident.createdAt
+                          ).toLocaleString(DateTime.DATETIME_MED)
+                        : new Date(
+                            selectedIncident.createdAt || ''
+                          ).toLocaleString()}
+                    </span>
+                    <span>
+                      ({selectedIncident.lat.toFixed(4)},{' '}
+                      {selectedIncident.lng.toFixed(4)})
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex justify-between text-xs text-gray-500">
-                  <span>
-                    Created:{' '}
-                    {typeof selectedIncident.createdAt === 'number'
-                      ? DateTime.fromMillis(
-                          selectedIncident.createdAt
-                        ).toLocaleString(DateTime.DATETIME_MED)
-                      : new Date(
-                          selectedIncident.createdAt || ''
-                        ).toLocaleString()}
-                  </span>
-                  <span>
-                    ({selectedIncident.lat.toFixed(4)},{' '}
-                    {selectedIncident.lng.toFixed(4)})
-                  </span>
+                {/* Chat Interface */}
+                <div className="mt-2">
+                  <h4 className="mb-2 text-sm font-semibold text-gray-700">
+                    Live Communication
+                  </h4>
+                  <SosChat sosId={selectedIncident.id} ref={sosChatRef} />
                 </div>
               </div>
 
-              {/* Chat Interface */}
-              <div className="mt-2">
-                <h4 className="mb-2 text-sm font-semibold text-gray-700">
-                  Live Communication
+              {/* Right Column: Vehicle Dispatch */}
+              <div className="w-[350px] border-l pl-4">
+                <h4 className="mb-4 text-sm font-semibold text-gray-700">
+                  Dispatch Vehicle
                 </h4>
-                <SosChat sosId={selectedIncident.id} />
+                <div className="mb-4 grid grid-cols-2 gap-4">
+                  {(
+                    Object.entries(VEHICLE_ICONS) as [VehicleType, string][]
+                  ).map(([type, src]) => (
+                    <button
+                      key={type}
+                      onClick={(): void => setSelectedVehicleType(type)}
+                      className={`flex flex-col items-center rounded-lg border p-2 transition-all hover:bg-gray-50 ${
+                        selectedVehicleType === type
+                          ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
+                          : 'border-gray-200'
+                      }`}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={src}
+                        alt={type}
+                        className="mb-2 h-12 w-12 object-contain"
+                      />
+                      <span className="text-xs font-medium text-gray-600">
+                        {type}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                {selectedVehicleType && (
+                  <div className="duration-200 animate-in fade-in slide-in-from-top-2">
+                    <h5 className="mb-2 text-xs font-bold uppercase text-gray-500">
+                      Available {selectedVehicleType}s
+                    </h5>
+                    <div className="max-h-[200px] space-y-2 overflow-y-auto">
+                      {VEHICLES[selectedVehicleType].map((vehicle) => (
+                        <button
+                          key={vehicle.plate}
+                          onClick={(): void => {
+                            if (
+                              window.confirm(
+                                `Dispatch ${vehicle.name} (${vehicle.plate})?`
+                              )
+                            ) {
+                              const msg = `${vehicle.plate} plakali ${
+                                selectedVehicleType === 'AMBULANCE'
+                                  ? 'Ambulans'
+                                  : selectedVehicleType === 'CAR'
+                                    ? 'Arac'
+                                    : selectedVehicleType === 'TRUCK'
+                                      ? 'Kamyon'
+                                      : 'Kepce'
+                              } yardim icin gonderilmistir`
+                              sosChatRef.current?.sendMessage(msg)
+                            }
+                          }}
+                          className="flex w-full items-center justify-between rounded-md border border-gray-100 bg-white p-2 text-left shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
+                        >
+                          <div>
+                            <div className="text-sm font-semibold text-gray-800">
+                              {vehicle.name}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              Plate: {vehicle.plate}
+                            </div>
+                          </div>
+                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </Popup>

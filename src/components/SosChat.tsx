@@ -5,7 +5,13 @@ import axiosInstance from '@/configs/axiosConfig'
 import { SosMessage, SosMessageRequest } from '@/types/chat'
 import { IStompSocket, Client as StompClient } from '@stomp/stompjs'
 import { Send } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
 
 interface SosChatProps {
   sosId: string
@@ -67,12 +73,25 @@ const MessageItem = ({ msg }: MessageItemProps): JSX.Element => (
   </div>
 )
 
-export default function SosChat({ sosId }: SosChatProps): JSX.Element {
+export interface SosChatRef {
+  sendMessage: (text: string) => Promise<void>
+}
+
+const SosChat = forwardRef<SosChatRef, SosChatProps>(({ sosId }, ref) => {
   const [messages, setMessages] = useState<SosMessage[]>([])
   const [newMessage, setNewMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const stompClientRef = useRef<StompClient | null>(null)
+
+  useImperativeHandle(
+    ref,
+    (): SosChatRef => ({
+      sendMessage: async (text: string): Promise<void> => {
+        await handleSendMessageInternal(text)
+      },
+    })
+  )
 
   const scrollToBottom = (): void => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -152,13 +171,12 @@ export default function SosChat({ sosId }: SosChatProps): JSX.Element {
     }
   }, [sosId])
 
-  const handleSendMessage = async (e?: React.FormEvent): Promise<void> => {
-    e?.preventDefault()
-    if (!newMessage.trim()) return
+  const handleSendMessageInternal = async (text: string): Promise<void> => {
+    if (!text.trim()) return
 
     try {
       const request: SosMessageRequest = {
-        message: newMessage.trim(),
+        message: text.trim(),
       }
 
       const response = await axiosInstance.post<{
@@ -167,12 +185,17 @@ export default function SosChat({ sosId }: SosChatProps): JSX.Element {
       }>(`/api/institution/v1/sos/${sosId}/messages`, request)
 
       if (response.data.isSuccess) {
-        setNewMessage('')
         // Message will be added via WebSocket
       }
     } catch (error) {
       console.error('Failed to send message:', error)
     }
+  }
+
+  const handleSendMessage = async (e?: React.FormEvent): Promise<void> => {
+    e?.preventDefault()
+    await handleSendMessageInternal(newMessage)
+    setNewMessage('')
   }
 
   return (
@@ -208,4 +231,8 @@ export default function SosChat({ sosId }: SosChatProps): JSX.Element {
       </form>
     </div>
   )
-}
+})
+
+SosChat.displayName = 'SosChat'
+
+export default SosChat
