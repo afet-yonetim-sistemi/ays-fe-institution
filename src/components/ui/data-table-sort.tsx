@@ -1,13 +1,13 @@
 import { SortDirection } from '@/common/types'
+import { Column } from '@tanstack/react-table'
+import i18n from 'i18next'
+import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { Column } from '@tanstack/table-core'
-import i18n from 'i18next'
-import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
+} from './tooltip'
 
 interface DataTableSortProps<T> {
   column: Column<T>
@@ -21,7 +21,7 @@ const DataTableSort = <T extends object>({
   label,
   sortState,
   onSortClick,
-}: DataTableSortProps<T>) => {
+}: DataTableSortProps<T>): JSX.Element => {
   const isCurrentColumn = sortState?.column === column.id
   const sortDirection = isCurrentColumn ? sortState?.direction : undefined
 
@@ -53,7 +53,11 @@ const DataTableSort = <T extends object>({
   )
 }
 
-const SortIcon = ({ sortDirection }: { sortDirection: SortDirection }) => {
+const SortIcon = ({
+  sortDirection,
+}: {
+  sortDirection: SortDirection
+}): JSX.Element => {
   const iconClass = 'w-4 h-4 min-w-4 min-h-4'
 
   if (sortDirection === 'asc') return <BiSortUp className={iconClass} />
