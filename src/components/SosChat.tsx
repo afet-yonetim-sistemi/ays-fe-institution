@@ -42,6 +42,13 @@ const MessageItem = ({ msg }: MessageItemProps): JSX.Element => (
           className="mt-2 max-h-40 rounded-md object-cover"
         />
       )}
+      {msg.audioUrl && (
+        <audio
+          controls
+          src={msg.audioUrl}
+          className="mt-2 w-full max-w-[200px]"
+        />
+      )}
       <div
         className={`mt-1 text-right text-[10px] ${
           msg.senderType === 'OPERATOR' ? 'text-blue-100' : 'text-gray-400'

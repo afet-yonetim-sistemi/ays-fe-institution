@@ -5,6 +5,8 @@ export type SosMessage = {
   senderId: string
   message: string
   imageUrl?: string
+  audioUrl?: string
+  messageType?: string
   createdAt: number
 }
 
