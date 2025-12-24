@@ -1,10 +1,12 @@
 import { Institution, Sort } from '@/common/types'
+// eslint-disable-next-line no-restricted-imports
 import DataTableSort from '@/components/ui/data-table-sort'
+// eslint-disable-next-line no-restricted-imports
 import Status from '@/components/ui/status'
 import { fallbackStatus } from '@/constants/fallBackStatus'
 import { formatDateTime } from '@/lib/dataFormatters'
 import { getSortState } from '@/lib/getSortState'
-import { Column, ColumnDef } from '@tanstack/table-core'
+import { Column, ColumnDef } from '@tanstack/react-table'
 import i18next from 'i18next'
 import { adminApplicationRegistrationStatuses } from '../constants/statuses'
 
@@ -46,7 +48,7 @@ export const columns: (
     {
       accessorKey: 'status',
       header: () => i18next.t('status.title'),
-      cell: ({ row }) => {
+      cell: ({ row }): JSX.Element => {
         const status =
           adminApplicationRegistrationStatuses.find(
             (status) => status.value === row.getValue<string>('status')
