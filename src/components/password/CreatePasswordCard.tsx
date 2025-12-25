@@ -52,7 +52,7 @@ const CreatePasswordCard: React.FC<{ id: string }> = ({ id }) => {
         showSuccessToast('password.create.success')
       })
       .catch((error) => {
-        showErrorToast(error, 'password.create.error')
+        showErrorToast(error, 'password.create.error', { show401: true })
       })
       .finally(() => {
         setTimeout(() => {

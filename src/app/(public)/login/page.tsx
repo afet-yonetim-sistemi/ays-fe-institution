@@ -34,7 +34,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
@@ -54,6 +54,11 @@ const Page = (): JSX.Element => {
     },
   })
 
+  const emailAddress = useWatch({
+    control: form.control,
+    name: 'emailAddress',
+  })
+
   useEffect(() => {
     dispatch(clearRefreshTokenExpired())
   }, [dispatch])
@@ -69,7 +74,9 @@ const Page = (): JSX.Element => {
       .catch((error) => {
         dispatch(loginFailed(error.message))
         form.setValue('password', '')
-        showErrorToast(error, 'login.error.incorrectCredentials')
+        showErrorToast(error, 'login.error.incorrectCredentials', {
+          show401: true,
+        })
       })
       .finally(() => setLoading(false))
   }
@@ -132,7 +139,7 @@ const Page = (): JSX.Element => {
               </Button>
               <ForgotPasswordModal
                 disabled={loading}
-                loginEmail={form.watch('emailAddress')}
+                loginEmail={emailAddress}
               />
             </form>
           </Form>
