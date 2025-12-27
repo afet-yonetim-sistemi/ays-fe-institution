@@ -14,7 +14,7 @@ import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface ForgotPasswordModalProps {
@@ -32,6 +32,12 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [emailError, setEmailError] = useState<string | null>(null)
+  const [prevLoginEmail, setPrevLoginEmail] = useState(loginEmail)
+
+  if (loginEmail !== prevLoginEmail) {
+    setPrevLoginEmail(loginEmail)
+    setEmail(loginEmail ?? '')
+  }
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value)
@@ -53,16 +59,12 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
         showSuccessToast('password.forgot.success')
       })
       .catch((error) => {
-        showErrorToast(error, 'password.forgot.error')
+        showErrorToast(error, 'password.forgot.error', { show401: true })
       })
       .finally(() => {
         setLoading(false)
       })
   }
-
-  useEffect(() => {
-    setEmail(loginEmail ?? '')
-  }, [loginEmail])
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

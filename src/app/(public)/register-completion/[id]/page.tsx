@@ -77,7 +77,7 @@ const Page = ({
         router.push('/login')
       })
       .catch((error) => {
-        showErrorToast(error)
+        showErrorToast(error, undefined, { show401: true })
       })
       .finally(() => {
         setIsLoading(false)
@@ -201,6 +201,6 @@ const Page = ({
   )
 }
 
-Page.getLayout = (page: React.ReactNode) => page
+Page.getLayout = (page: React.ReactNode): React.ReactNode => page
 
 export default Page
