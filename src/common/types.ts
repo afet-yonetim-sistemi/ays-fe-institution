@@ -51,3 +51,14 @@ export enum SearchParamType {
   ARRAY = 'array',
   SORT = 'sort',
 }
+
+export interface PageableParams {
+  page: number
+  pageSize: number
+  orders?: Array<{ property: string; direction: string }>
+}
+
+export interface ApiRequest<T> {
+  pageable: PageableParams
+  filter: T
+}
