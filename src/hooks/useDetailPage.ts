@@ -23,6 +23,7 @@ interface UseDetailPageOptions<TDetail, TPayload> {
     }
   }
   onSuccess?: {
+    fetch?: (data: TDetail) => void
     update?: (updatedData: TDetail) => void
     activate?: (updatedData: TDetail) => void
     deactivate?: (updatedData: TDetail) => void
@@ -85,6 +86,9 @@ export function useDetailPage<TDetail, TPayload>({
       try {
         const response = await fetchDetail(id)
         setDetail(response.response)
+        if (onSuccess.fetch) {
+          onSuccess.fetch(response.response)
+        }
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Bilinmeyen hata'
@@ -97,7 +101,7 @@ export function useDetailPage<TDetail, TPayload>({
         setIsLoading(false)
       }
     },
-    [fetchDetail, errorMessages.fetch]
+    [fetchDetail, errorMessages.fetch, onSuccess]
   )
 
   const handleUpdate = useCallback(
