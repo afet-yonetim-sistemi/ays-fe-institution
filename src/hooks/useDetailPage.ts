@@ -2,7 +2,7 @@ import { BaseApiResponse } from '@/common/types'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 interface UseDetailPageOptions<TDetail, TPayload> {
   fetchDetail: (id: string) => Promise<{ response: TDetail }>
@@ -78,6 +78,15 @@ export function useDetailPage<TDetail, TPayload>({
   const [isEditable, setIsEditable] = useState(false)
   const [currentId, setCurrentId] = useState<string | null>(null)
 
+  const onSuccessRef = useRef(onSuccess)
+  onSuccessRef.current = onSuccess
+  const errorMessagesRef = useRef(errorMessages)
+  errorMessagesRef.current = errorMessages
+  const statusOperationsRef = useRef(statusOperations)
+  statusOperationsRef.current = statusOperations
+  const successMessagesRef = useRef(successMessages)
+  successMessagesRef.current = successMessages
+
   const fetchDetails = useCallback(
     async (id: string): Promise<void> => {
       setCurrentId(id)
@@ -86,8 +95,8 @@ export function useDetailPage<TDetail, TPayload>({
       try {
         const response = await fetchDetail(id)
         setDetail(response.response)
-        if (onSuccess.fetch) {
-          onSuccess.fetch(response.response)
+        if (onSuccessRef.current.fetch) {
+          onSuccessRef.current.fetch(response.response)
         }
       } catch (err) {
         const errorMessage =
@@ -95,13 +104,13 @@ export function useDetailPage<TDetail, TPayload>({
         setError(errorMessage)
         showErrorToast(
           err instanceof AxiosError ? err : undefined,
-          errorMessages.fetch || 'common.error.fetch'
+          errorMessagesRef.current.fetch || 'common.error.fetch'
         )
       } finally {
         setIsLoading(false)
       }
     },
-    [fetchDetail, errorMessages.fetch, onSuccess]
+    [fetchDetail]
   )
 
   const handleUpdate = useCallback(
@@ -115,44 +124,37 @@ export function useDetailPage<TDetail, TPayload>({
           } as TDetail
           setDetail(updatedDetail)
 
-          if (onSuccess.update) {
-            onSuccess.update(updatedDetail)
+          if (onSuccessRef.current.update) {
+            onSuccessRef.current.update(updatedDetail)
           }
 
           if (autoRefreshAfterUpdate && currentId) {
             await fetchDetails(currentId)
           }
 
-          showSuccessToast(successMessages.update || 'common.updateSuccess')
+          showSuccessToast(
+            successMessagesRef.current.update || 'common.updateSuccess'
+          )
           setIsEditable(false)
         } else {
           showErrorToast(
             undefined,
-            errorMessages.update || 'common.updateError'
+            errorMessagesRef.current.update || 'common.updateError'
           )
         }
       } catch (err) {
         showErrorToast(
           err instanceof AxiosError ? err : undefined,
-          errorMessages.update || 'common.updateError'
+          errorMessagesRef.current.update || 'common.updateError'
         )
       }
     },
-    [
-      detail,
-      updateItem,
-      onSuccess,
-      autoRefreshAfterUpdate,
-      currentId,
-      fetchDetails,
-      successMessages.update,
-      errorMessages.update,
-    ]
+    [detail, updateItem, autoRefreshAfterUpdate, currentId, fetchDetails]
   )
 
   const handleActivate = useCallback(
     async (id: string): Promise<void> => {
-      const activateConfig = statusOperations?.activate
+      const activateConfig = statusOperationsRef.current?.activate
       if (!activateConfig?.handler) return
 
       try {
@@ -171,13 +173,13 @@ export function useDetailPage<TDetail, TPayload>({
 
           setDetail(updatedDetail)
 
-          if (onSuccess.activate) {
-            onSuccess.activate(updatedDetail)
+          if (onSuccessRef.current.activate) {
+            onSuccessRef.current.activate(updatedDetail)
           }
 
           const message =
             activateConfig.successMessage ||
-            successMessages.activate ||
+            successMessagesRef.current.activate ||
             'common.activateSuccess'
           showSuccessToast(message)
         } else {
@@ -187,12 +189,12 @@ export function useDetailPage<TDetail, TPayload>({
         showErrorToast(err instanceof AxiosError ? err : undefined)
       }
     },
-    [detail, statusOperations, onSuccess, successMessages.activate]
+    [detail]
   )
 
   const handleDeactivate = useCallback(
     async (id: string): Promise<void> => {
-      const deactivateConfig = statusOperations?.deactivate
+      const deactivateConfig = statusOperationsRef.current?.deactivate
       if (!deactivateConfig?.handler) return
 
       try {
@@ -211,13 +213,13 @@ export function useDetailPage<TDetail, TPayload>({
 
           setDetail(updatedDetail)
 
-          if (onSuccess.deactivate) {
-            onSuccess.deactivate(updatedDetail)
+          if (onSuccessRef.current.deactivate) {
+            onSuccessRef.current.deactivate(updatedDetail)
           }
 
           const message =
             deactivateConfig.successMessage ||
-            successMessages.deactivate ||
+            successMessagesRef.current.deactivate ||
             'common.deactivateSuccess'
           showSuccessToast(message)
         } else {
@@ -227,7 +229,7 @@ export function useDetailPage<TDetail, TPayload>({
         showErrorToast(err instanceof AxiosError ? err : undefined)
       }
     },
-    [detail, statusOperations, onSuccess, successMessages.deactivate]
+    [detail]
   )
 
   const handleDelete = useCallback(
@@ -236,12 +238,14 @@ export function useDetailPage<TDetail, TPayload>({
       try {
         const response = await deleteItem(id)
         if (response.isSuccess) {
-          if (onSuccess.delete) {
-            onSuccess.delete()
+          if (onSuccessRef.current.delete) {
+            onSuccessRef.current.delete()
           } else if (redirectPath) {
             router.push(redirectPath)
           }
-          showSuccessToast(successMessages.delete || 'common.deleteSuccess')
+          showSuccessToast(
+            successMessagesRef.current.delete || 'common.deleteSuccess'
+          )
         } else {
           showErrorToast()
         }
@@ -249,7 +253,7 @@ export function useDetailPage<TDetail, TPayload>({
         showErrorToast(err instanceof AxiosError ? err : undefined)
       }
     },
-    [deleteItem, onSuccess, redirectPath, router, successMessages.delete]
+    [deleteItem, redirectPath, router]
   )
 
   const handleCancel = useCallback((): void => {
