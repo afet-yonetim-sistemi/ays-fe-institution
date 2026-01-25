@@ -14,6 +14,18 @@ export interface UsersFilter extends Record<string, SearchParamValue> {
   city?: string
 }
 
+export interface UserFilterParams {
+  statuses?: string[]
+  firstName?: string
+  lastName?: string
+  emailAddress?: string
+  city?: string
+  phoneNumber?: {
+    countryCode?: number
+    lineNumber?: string
+  }
+}
+
 export interface UserRole {
   id: string
   name: string
