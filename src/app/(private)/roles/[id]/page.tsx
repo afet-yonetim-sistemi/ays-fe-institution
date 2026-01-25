@@ -15,439 +15,173 @@ import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Switch } from '@/components/ui/switch'
 import { Permission } from '@/constants/permissions'
+import { useDetailPage } from '@/hooks/useDetailPage'
+import { useFormManager } from '@/hooks/useFormManager'
 import { formatDateTime } from '@/lib/dataFormatters'
-import {
-  getLocalizedCategory,
-  getLocalizedPermission,
-} from '@/lib/localizePermission'
-import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
-import { FormValidationSchema } from '@/modules/roles/constants/formValidationSchema'
-import { RoleDetail, RolePermission } from '@/modules/roles/constants/types'
+import {
+  roleFormConfig,
+  RoleFormValues,
+} from '@/modules/roles/constants/formConfig'
+import { RoleDetail } from '@/modules/roles/constants/types'
+import { usePermissionSelection } from '@/modules/roles/hooks/usePermissionSelection'
 import {
   activateRole,
   deactivateRole,
   deleteRole,
-  getPermissions,
   getRoleDetail,
   updateRole,
 } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { NextPage } from 'next'
-import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import { useForm, UseFormReturn } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page: NextPage<{ params: { slug: string; id: string } }> = ({
+const Page = ({
   params,
-}) => {
+}: {
+  params: { slug: string; id: string }
+}): JSX.Element => {
   const { t } = useTranslation()
-  const router = useRouter()
   const userPermissions = useAppSelector(selectPermissions)
-  const form = useForm({
-    resolver: zodResolver(FormValidationSchema),
+  const [initialRoleValues, setInitialRoleValues] = useState<RoleDetail | null>(
+    null
+  )
+
+  const form = useForm<RoleFormValues>({
+    resolver: zodResolver(roleFormConfig.validationSchemaDetail),
     mode: 'onChange',
   })
-  const { control, reset, formState, watch } = form
-  const watchedValues = watch()
+  const { control, reset, getValues, setValue } = form
 
-  const [roleDetail, setRoleDetail] = useState<RoleDetail | null>(null)
-  const [detailIsLoading, setDetailIsLoading] = useState(true)
-  const [permissionIsLoading, setPermissionIsLoading] = useState(true)
-  const [isRoleEditable, setIsRoleEditable] = useState<boolean>(false)
-
-  const [rolePermissions, setRolePermissions] = useState<RolePermission[]>([])
-  const [rawPermissions, setRawPermissions] = useState<RolePermission[]>([])
-  const [originalRolePermissions, setOriginalRolePermissions] = useState<
-    RolePermission[]
-  >([])
-  const [masterPermissionsSwitch, setMasterPermissionsSwitch] =
-    useState<boolean>(false)
-  const [minPermissionError, setMinPermissionError] = useState<string | null>(
-    null
+  const handlePermissionSelectionChange = useCallback(
+    (ids: string[]) => {
+      setValue('permissionIds', ids, { shouldValidate: true })
+    },
+    [setValue]
   )
-  const [fetchedRoleDetail, setFetchedRoleDetail] = useState<RoleDetail | null>(
-    null
-  )
-  const [availablePermissions, setAvailablePermissions] = useState<
-    RolePermission[]
-  >([])
-  const [isFormChanged, setIsFormChanged] = useState(false)
 
-  const isSaveButtonDisabled =
-    !isFormChanged ||
-    Boolean(formState.errors.name) ||
-    Boolean(minPermissionError)
+  const {
+    permissionIsLoading,
+    masterPermissionsSwitch,
+    handlePermissionToggle,
+    handleCategoryToggle,
+    handleMasterSwitchChange,
+    categorizedPermissions,
+    setInitialPermissions,
+    permissionError,
+  } = usePermissionSelection({
+    onSelectionChange: handlePermissionSelectionChange,
+  })
 
-  const getAvailableRolePermissions = useCallback(async (): Promise<
-    RolePermission[]
-  > => {
-    return getPermissions()
-      .then((response) => {
-        const permissions = response.response
-        const rawPerms = permissions.map((permission: RolePermission) => ({
-          id: permission.id,
-          name: permission.name,
-          category: permission.category,
-          isActive: false,
-        }))
-        setRawPermissions(rawPerms)
-        return rawPerms
-      })
-      .catch((error) => {
-        showErrorToast(error, 'common.error.fetch')
-        return []
-      })
-      .finally(() => setPermissionIsLoading(false))
-  }, [])
-
-  const createUpdatedRoleData = (
-    form: UseFormReturn,
-    roleDetail: RoleDetail,
-    permissions: RolePermission[]
-  ): { name: string; permissionIds: string[] } => {
-    return {
-      name: form.getValues('name') || roleDetail.name,
-      permissionIds: permissions
-        .filter((permission) => permission.isActive)
-        .map((permission) => permission.id),
-    }
-  }
-
-  const haveRolePermissionsChanged = (
-    updatedPermissionIds: string[],
-    originalPermissions: RolePermission[]
-  ): boolean => {
-    const originalPermissionIds = originalPermissions
-      .filter((permission) => permission.isActive)
-      .map((permission) => permission.id)
-
-    return (
-      updatedPermissionIds.length !== originalPermissionIds.length ||
-      updatedPermissionIds.some(
-        (id, index) => id !== originalPermissionIds[index]
-      )
-    )
-  }
-
-  const categorizePermissions = (
-    permissions: RolePermission[]
-  ): Record<string, RolePermission[]> => {
-    return permissions.reduce<Record<string, RolePermission[]>>(
-      (acc, permission) => {
-        if (!acc[permission.category]) {
-          acc[permission.category] = []
-        }
-        acc[permission.category].push(permission)
-        return acc
+  const {
+    detail: roleDetail,
+    isLoading,
+    error,
+    isEditable: isRoleEditable,
+    setIsEditable: setIsRoleEditable,
+    fetchDetails,
+    handleUpdate: updateHandler,
+    statusOperations,
+    handleDelete: deleteHandler,
+    handleCancel: cancelHandler,
+  } = useDetailPage<RoleDetail, { name: string; permissionIds: string[] }>({
+    fetchDetail: getRoleDetail,
+    updateItem: updateRole,
+    deleteItem: deleteRole,
+    redirectPath: '/roles',
+    autoRefreshAfterUpdate: true,
+    statusOperations: {
+      activate: {
+        handler: activateRole,
+        successStatus: 'ACTIVE',
+        successMessage: 'role.activateSuccess',
       },
-      {}
-    )
-  }
-
-  const localizePermissions = useCallback(
-    (
-      permissions: RolePermission[],
-      currentPermissions?: RolePermission[]
-    ): RolePermission[] => {
-      return permissions.map((permission) => {
-        const currentPermission = currentPermissions?.find(
-          (currentPermission) => currentPermission.id === permission.id
-        )
-
-        return {
-          ...permission,
-          name: getLocalizedPermission(permission.name, t),
-          category: getLocalizedCategory(permission.category, t),
-          isActive: currentPermission
-            ? currentPermission.isActive
-            : permission.isActive,
-        }
-      })
+      deactivate: {
+        handler: deactivateRole,
+        successStatus: 'PASSIVE',
+        successMessage: 'role.deactivateSuccess',
+      },
     },
-    [t]
-  )
-
-  const updatePermissionsActiveStatus = (
-    permissions: RolePermission[],
-    initialPermissions: RolePermission[]
-  ): RolePermission[] => {
-    const apiPermissionsMap: Record<string, { id: string; name: string }> = {}
-
-    permissions.forEach(({ id, name }) => {
-      apiPermissionsMap[id] = { id, name }
-    })
-
-    return initialPermissions.map((permission): RolePermission => {
-      const apiPermission = apiPermissionsMap[permission.id]
-      return {
-        ...permission,
-        id: apiPermission ? apiPermission.id : permission.id,
-        isActive: !!apiPermission,
-      }
-    })
-  }
-
-  const enhanceRolePermissions = useCallback(
-    (
-      fetchedRoleDetail: RoleDetail,
-      availablePermissions: RolePermission[]
-    ): void => {
-      const updatedPermissions = updatePermissionsActiveStatus(
-        fetchedRoleDetail.permissions,
-        availablePermissions
-      )
-
-      const localizedPermissions = localizePermissions(updatedPermissions)
-
-      setRoleDetail({
-        ...fetchedRoleDetail,
-        permissions: localizedPermissions,
-      })
-      setOriginalRolePermissions(localizedPermissions)
-      setRolePermissions(localizedPermissions)
+    onSuccess: {
+      fetch: (data) => {
+        setInitialRoleValues(data)
+        reset(roleFormConfig.getDefaultValues(data))
+        setInitialPermissions(data.permissions)
+      },
+      update: (updatedData) => {
+        setInitialRoleValues(updatedData)
+      },
     },
-    [localizePermissions]
-  )
+    successMessages: {
+      update: 'role.updateSuccess',
+      delete: 'role.deleteSuccess',
+    },
+    errorMessages: {
+      update: 'role.updateError',
+      fetch: 'common.error.fetch',
+    },
+  })
+
+  const { isSaveButtonDisabled } = useFormManager<RoleFormValues, RoleDetail>({
+    form,
+    initialValues: initialRoleValues,
+    hasFormChanged: (currentValues, initialValues) => {
+      const current = roleFormConfig.getCurrentValues(
+        currentValues,
+        initialValues
+      )
+      return roleFormConfig.hasFormChanged(current, initialValues)
+    },
+    isSaveButtonDisabled: (isFormChanged, formErrors) => {
+      return (
+        roleFormConfig.isSaveButtonDisabled(isFormChanged, formErrors) ||
+        permissionError !== null
+      )
+    },
+  })
 
   useEffect(() => {
-    if (!roleDetail) return
-
-    const currentRoleName = watchedValues.name
-    const hasFieldChanged = currentRoleName !== roleDetail.name
-
-    const currentPermissionIds = rolePermissions
-      .filter((permission) => permission.isActive)
-      .map((permission) => permission.id)
-
-    const havePermissionsChanged = haveRolePermissionsChanged(
-      currentPermissionIds,
-      originalRolePermissions
-    )
-
-    setIsFormChanged(hasFieldChanged || havePermissionsChanged)
-  }, [watchedValues, rolePermissions, roleDetail, originalRolePermissions])
-
-  useEffect(() => {
-    const fetchDetails = async (): Promise<void> => {
-      const availablePermissions: RolePermission[] =
-        await getAvailableRolePermissions()
-
-      getRoleDetail(params.id)
-        .then((response) => {
-          const fetchedRoleDetail = response.response
-          setFetchedRoleDetail(fetchedRoleDetail)
-          setAvailablePermissions(availablePermissions)
-
-          enhanceRolePermissions(fetchedRoleDetail, availablePermissions)
-          reset({
-            name: fetchedRoleDetail.name,
-          })
-        })
-        .catch((error) => {
-          showErrorToast(error, 'common.error.fetch')
-        })
-        .finally(() => setDetailIsLoading(false))
-    }
-    fetchDetails()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getAvailableRolePermissions, params.id])
-
-  useEffect(() => {
-    if (!fetchedRoleDetail) return
-
-    const permissionsSource =
-      rawPermissions.length > 0 ? rawPermissions : availablePermissions
-
-    if (permissionsSource.length > 0) {
-      const updatedPermissions = updatePermissionsActiveStatus(
-        fetchedRoleDetail.permissions,
-        permissionsSource
-      )
-
-      const localizedPermissions = localizePermissions(
-        updatedPermissions,
-        rolePermissions
-      )
-
-      setRolePermissions(localizedPermissions)
-
-      if (roleDetail) {
-        setRoleDetail({
-          ...roleDetail,
-          permissions: localizedPermissions,
-        })
-      }
-
-      if (!isRoleEditable) {
-        setOriginalRolePermissions(localizedPermissions)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    t,
-    fetchedRoleDetail,
-    rawPermissions,
-    availablePermissions,
-    isRoleEditable,
-    localizePermissions,
-  ])
-
-  useEffect(() => {
-    if (rolePermissions) {
-      const allActive = rolePermissions.every(
-        (permission) => permission.isActive
-      )
-      const allInactive = rolePermissions.every(
-        (permission) => !permission.isActive
-      )
-
-      setMasterPermissionsSwitch(allActive)
-      if (allInactive) {
-        setMinPermissionError(t('role.minPermissionError'))
-      } else {
-        setMinPermissionError(null)
-      }
-    }
-  }, [rolePermissions, t])
-
-  const handlePermissionToggle = (id: string): void => {
-    setRolePermissions((prevPermissions) =>
-      prevPermissions.map((permission) =>
-        permission.id === id
-          ? { ...permission, isActive: !permission.isActive }
-          : permission
-      )
-    )
-  }
-
-  const handleCategoryToggle = (category: string, isActive: boolean): void => {
-    setRolePermissions((prevPermissions) =>
-      prevPermissions.map((permission) =>
-        permission.category === category
-          ? { ...permission, isActive }
-          : permission
-      )
-    )
-  }
-
-  const handleMasterSwitchChange = (isActive: boolean): void => {
-    setMasterPermissionsSwitch(isActive)
-    setRolePermissions((prevPermissions) =>
-      prevPermissions.map((permission) => ({
-        ...permission,
-        isActive,
-      }))
-    )
-  }
+    fetchDetails(params.id)
+  }, [params.id, fetchDetails])
 
   const handleUpdateButtonClick = (): void => {
     setIsRoleEditable(true)
   }
 
   const handleCancelButtonClick = (): void => {
-    setIsRoleEditable(false)
     if (roleDetail) {
-      reset({
-        name: roleDetail.name,
-      })
-      setRolePermissions(originalRolePermissions)
+      reset(roleFormConfig.getDefaultValues(roleDetail))
+      setInitialPermissions(roleDetail.permissions)
     }
+    cancelHandler()
   }
 
   const handleSaveButtonClick = (): void => {
-    if (!roleDetail) return
-
-    const updatedData = createUpdatedRoleData(form, roleDetail, rolePermissions)
-
-    updateRole(params.id, updatedData)
-      .then((response) => {
-        if (response.isSuccess) {
-          const updatedPermissions = rolePermissions.map((permission) => ({
-            ...permission,
-            isActive: updatedData.permissionIds.includes(permission.id),
-          }))
-
-          setRoleDetail({
-            ...roleDetail,
-            name: updatedData.name,
-            permissions: updatedPermissions,
-          })
-          setRolePermissions(updatedPermissions)
-          setOriginalRolePermissions(updatedPermissions)
-
-          showSuccessToast('role.updateSuccess')
-          setIsRoleEditable(false)
-        } else {
-          showErrorToast(undefined, 'role.updateError')
-        }
-      })
-      .catch((error) => {
-        showErrorToast(error, 'role.updateError')
-      })
+    const formValues = getValues()
+    const payload = roleFormConfig.getPayload(formValues)
+    updateHandler(params.id, payload)
   }
 
-  const handleDeleteConfirm = (): void => {
-    deleteRole(params.id)
-      .then((response) => {
-        if (response.isSuccess) {
-          showSuccessToast('role.deleteSuccess')
-          router.push('/roles')
-        } else {
-          showErrorToast()
-        }
-      })
-      .catch((error) => {
-        showErrorToast(error)
-      })
-  }
-
-  const refreshRoleStatus = (status: string): void => {
-    reset({
-      status: t(status),
-    })
-    if (roleDetail) {
-      setRoleDetail({
-        ...roleDetail,
-        status: status.toUpperCase(),
-      })
-    }
+  const handleDeleteRole = (): void => {
+    deleteHandler(params.id)
   }
 
   const handleActivateRole = (): void => {
-    activateRole(params.id)
-      .then((response) => {
-        if (response.isSuccess) {
-          showSuccessToast('role.activateSuccess')
-          refreshRoleStatus('active')
-        } else {
-          showErrorToast()
-        }
-      })
-      .catch((error) => {
-        showErrorToast(error)
-      })
+    if (statusOperations.activate) {
+      statusOperations.activate(params.id)
+    }
   }
 
   const handleDeactivateRole = (): void => {
-    deactivateRole(params.id)
-      .then((response) => {
-        if (response.isSuccess) {
-          showSuccessToast('role.deactivateSuccess')
-          refreshRoleStatus('passive')
-        } else {
-          showErrorToast()
-        }
-      })
-      .catch((error) => {
-        showErrorToast(error)
-      })
+    if (statusOperations.deactivate) {
+      statusOperations.deactivate(params.id)
+    }
   }
 
-  const renderRoleUpdateButtons = () => {
+  const renderRoleUpdateButtons = (): JSX.Element | null => {
     if (!userPermissions.includes(Permission.ROLE_UPDATE)) return null
 
     if (!isRoleEditable) {
@@ -464,9 +198,6 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
     return (
       <div className="flex items-center gap-4">
-        {minPermissionError && (
-          <p className="text-sm text-red-500">{minPermissionError}</p>
-        )}
         <Button
           type="button"
           variant="outline"
@@ -488,8 +219,8 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
 
   return (
     <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
-      {detailIsLoading && <LoadingSpinner />}
-      {!detailIsLoading && roleDetail && (
+      {isLoading && <LoadingSpinner />}
+      {!isLoading && !error && roleDetail && (
         <Form {...form}>
           <form className="space-y-6">
             <div className="mb-6 flex items-center justify-between">
@@ -518,7 +249,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       <ButtonDialog
                         triggerText={'common.delete'}
                         title={'role.deleteConfirm'}
-                        onConfirm={handleDeleteConfirm}
+                        onConfirm={handleDeleteRole}
                         variant={'destructive'}
                       />
                     )}
@@ -531,7 +262,7 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                 <CardTitle>{t('role.information')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
                   <FormField
                     control={control}
                     name="name"
@@ -539,99 +270,55 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       <FormItem className="sm:col-span-1">
                         <FormLabel>{t('role.name')}</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            disabled={!isRoleEditable}
-                            defaultValue={roleDetail.name ?? ''}
-                          />
+                          <Input {...field} disabled={!isRoleEditable} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={control}
-                    name="status"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('role.status')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            value={
-                              t(`status.${roleDetail.status.toLowerCase()}`) ??
-                              ''
-                            }
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="createdUser"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('common.createdUser')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={roleDetail.createdUser ?? ''}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="createdAt"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('common.createdAt')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={formatDateTime(roleDetail.createdAt)}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="updatedUser"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('user.updatedUser')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={roleDetail.updatedUser ?? ''}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={control}
-                    name="updateAt"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>{t('common.updatedAt')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={formatDateTime(roleDetail.updatedAt)}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                  <FormItem className="sm:col-span-1">
+                    <FormLabel>{t('role.status')}</FormLabel>
+                    <Input
+                      disabled
+                      value={
+                        t(`status.${roleDetail.status.toLowerCase()}`) ?? ''
+                      }
+                    />
+                  </FormItem>
+                  <div className="grid grid-cols-4 gap-6 sm:col-span-3">
+                    <FormItem className="sm:col-span-1">
+                      <FormLabel>{t('common.createdUser')}</FormLabel>
+                      <Input
+                        disabled
+                        value={roleDetail.createdUser ?? ''}
+                        readOnly
+                      />
+                    </FormItem>
+                    <FormItem className="sm:col-span-1">
+                      <FormLabel>{t('common.createdAt')}</FormLabel>
+                      <Input
+                        disabled
+                        value={formatDateTime(roleDetail.createdAt)}
+                        readOnly
+                      />
+                    </FormItem>
+                    <FormItem className="sm:col-span-1">
+                      <FormLabel>{t('common.updatedUser')}</FormLabel>
+                      <Input
+                        disabled
+                        value={roleDetail.updatedUser ?? ''}
+                        readOnly
+                      />
+                    </FormItem>
+                    <FormItem className="sm:col-span-1">
+                      <FormLabel>{t('common.updatedAt')}</FormLabel>
+                      <Input
+                        disabled
+                        value={formatDateTime(roleDetail.updatedAt)}
+                        readOnly
+                      />
+                    </FormItem>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -643,14 +330,20 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                       ? t('role.permissions')
                       : t('role.permission')}
                   </CardTitle>
-                  <Switch
-                    className="ml-4"
-                    disabled={!isRoleEditable}
-                    checked={masterPermissionsSwitch}
-                    onCheckedChange={(isActive) =>
-                      handleMasterSwitchChange(isActive)
-                    }
-                  />
+                  <div className="ml-4 flex items-center gap-2">
+                    <Switch
+                      disabled={!isRoleEditable}
+                      checked={masterPermissionsSwitch}
+                      onCheckedChange={(isActive) =>
+                        handleMasterSwitchChange(isActive)
+                      }
+                    />
+                    {isRoleEditable && permissionError && (
+                      <p className="text-sm text-destructive">
+                        {permissionError}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -658,11 +351,11 @@ const Page: NextPage<{ params: { slug: string; id: string } }> = ({
                   <LoadingSpinner />
                 ) : (
                   <div className="grid grid-cols-2 gap-4">
-                    {Object.entries(categorizePermissions(rolePermissions)).map(
+                    {Object.entries(categorizedPermissions).map(
                       ([category, permissions]) => (
                         <PermissionCard
                           key={category}
-                          category={t(category)}
+                          category={category}
                           permissions={permissions}
                           isEditable={isRoleEditable}
                           onPermissionToggle={handlePermissionToggle}

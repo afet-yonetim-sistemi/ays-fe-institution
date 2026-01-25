@@ -1,12 +1,18 @@
 import { BaseApiResponse, Sort } from '@/common/types'
 import { UserRole } from '@/modules/users/constants/types'
+import { SearchParamValue } from '@/utils/searchParamsParser'
 
-export interface RolesFilter {
+export interface RolesFilter extends Record<string, SearchParamValue> {
   page: number
   pageSize: number
   sort?: Sort[]
   name?: string
   statuses: string[]
+}
+
+export interface RoleFilterParams {
+  statuses?: string[]
+  name?: string
 }
 
 export interface RolePermission {
