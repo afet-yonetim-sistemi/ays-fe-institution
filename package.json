@@ -35,7 +35,7 @@
     "google-libphonenumber": "^3.2.40",
     "i18next": "^23.11.3",
     "js-cookie": "^3.0.5",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "lucide-react": "^0.378.0",
     "luxon": "^3.4.4",
     "next": "14.2.35",
