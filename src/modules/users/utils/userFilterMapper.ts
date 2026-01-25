@@ -1,28 +1,5 @@
-import { Sort } from '@/common/types'
-import { UsersFilter } from '../constants/types'
-
-interface PageableParams {
-  page: number
-  pageSize: number
-  orders?: Array<{ property: string; direction: string }>
-}
-
-interface FilterParams {
-  statuses?: string[]
-  firstName?: string
-  lastName?: string
-  emailAddress?: string
-  city?: string
-  phoneNumber?: {
-    countryCode?: number
-    lineNumber?: string
-  }
-}
-
-interface UsersApiRequest {
-  pageable: PageableParams
-  filter: FilterParams
-}
+import { ApiRequest, PageableParams, Sort } from '@/common/types'
+import { UserFilterParams, UsersFilter } from '../constants/types'
 
 export const mapPageableParams = (filter: UsersFilter): PageableParams => {
   let orders: Array<{ property: string; direction: string }> | undefined
@@ -47,7 +24,7 @@ export const mapPageableParams = (filter: UsersFilter): PageableParams => {
   }
 }
 
-export const mapFilterParams = (filter: UsersFilter): FilterParams => {
+export const mapFilterParams = (filter: UsersFilter): UserFilterParams => {
   const phoneNumber: { countryCode?: number; lineNumber?: string } = {}
 
   if (filter.countryCode) {
@@ -71,7 +48,7 @@ export const mapFilterParams = (filter: UsersFilter): FilterParams => {
 
 export const mapUsersFilterToApiRequest = (
   filter: UsersFilter
-): UsersApiRequest => ({
+): ApiRequest<UserFilterParams> => ({
   pageable: mapPageableParams(filter),
   filter: mapFilterParams(filter),
 })

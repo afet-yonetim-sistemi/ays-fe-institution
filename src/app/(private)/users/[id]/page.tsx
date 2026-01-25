@@ -98,6 +98,11 @@ const Page = ({
       },
     },
     onSuccess: {
+      fetch: (data) => {
+        setInitialUserValues(data)
+        const formDefaults = userFormConfig.getDefaultValues(data)
+        reset(formDefaults)
+      },
       update: (updatedData) => {
         setInitialUserValues(updatedData)
       },
@@ -111,14 +116,6 @@ const Page = ({
       fetch: 'common.error.fetch',
     },
   })
-
-  useEffect(() => {
-    if (userDetails) {
-      setInitialUserValues(userDetails)
-      const formDefaults = userFormConfig.getDefaultValues(userDetails)
-      reset(formDefaults)
-    }
-  }, [userDetails, reset])
 
   const { isSaveButtonDisabled, watchedValues } = useFormManager<
     UserFormValues,
