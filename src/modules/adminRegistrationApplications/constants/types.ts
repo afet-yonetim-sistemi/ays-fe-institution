@@ -5,11 +5,13 @@ import {
   Sort,
   User,
 } from '@/common/types'
+import { SearchParamValue } from '@/utils/searchParamsParser'
+import { AdminRegistrationApplicationStatus } from './statuses'
 
 export interface AdminRegistrationApplication {
   id: string
   reason: string
-  status: string
+  status: AdminRegistrationApplicationStatus
   institution: Institution
   createdUser: string
   createdAt: string
@@ -46,9 +48,21 @@ export interface GetRegisterSummary extends BaseApiResponse {
   }
 }
 
-export interface AdminRegistrationApplicationsFilter {
+export interface PreApplicationForm {
+  institutionId: string
+  reason: string
+}
+
+export interface AdminRegistrationApplicationsFilter extends Record<
+  string,
+  SearchParamValue
+> {
   page: number
   pageSize: number
   sort?: Sort[]
   statuses: string[]
+}
+
+export interface AdminRegistrationApplicationsFilterParams {
+  statuses?: string[]
 }

@@ -20,14 +20,14 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { showErrorToast, showSuccessToast } from '@/lib/showToast'
-import { PreApplicationFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
+import { useCreatePage } from '@/hooks/useCreatePage'
+import { showErrorToast } from '@/lib/showToast'
+import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
 import {
-  approveAdminRegistrationApplication,
+  createAdminRegistrationApplication,
   getPreApplicationSummary,
 } from '@/modules/adminRegistrationApplications/service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -35,31 +35,36 @@ import { z } from 'zod'
 
 const Page = (): JSX.Element => {
   const { t } = useTranslation()
-  const router = useRouter()
+  const { handleCreate, isCreating } = useCreatePage({
+    createItem: createAdminRegistrationApplication,
+    redirectPath: '/admin-registration-applications',
+    successMessage: 'application.admin.preliminary.success',
+    errorMessage: 'application.admin.preliminary.error',
+  })
+
   const [isLoading, setIsLoading] = useState(true)
   const [institutionSummary, setInstitutionSummary] = useState<Institution[]>(
     []
   )
 
-  const form = useForm<z.infer<typeof PreApplicationFormSchema>>({
-    resolver: zodResolver(PreApplicationFormSchema),
-    defaultValues: {
-      institutionId: '',
-      reason: '',
-    },
+  const form = useForm<
+    z.infer<
+      typeof adminRegistrationApplicationFormConfig.preApplicationValidationSchema
+    >
+  >({
+    resolver: zodResolver(
+      adminRegistrationApplicationFormConfig.preApplicationValidationSchema
+    ),
+    defaultValues:
+      adminRegistrationApplicationFormConfig.getPreApplicationDefaultValues(),
   })
 
-  const onSubmit = (values: z.infer<typeof PreApplicationFormSchema>): void => {
-    setIsLoading(true)
-    approveAdminRegistrationApplication(values)
-      .then((res) => {
-        showSuccessToast('application.admin.preliminary.success')
-        router.push(`/admin-registration-applications/${res.data.response.id}`)
-      })
-      .catch((error) => {
-        showErrorToast(error, 'application.admin.preliminary.error')
-      })
-      .finally(() => setIsLoading(false))
+  const onSubmit = (
+    values: z.infer<
+      typeof adminRegistrationApplicationFormConfig.preApplicationValidationSchema
+    >
+  ): void => {
+    handleCreate(values)
   }
 
   useEffect(() => {
@@ -82,8 +87,12 @@ const Page = (): JSX.Element => {
             <h1 className="text-2xl font-bold">
               {t('application.admin.preliminary.title')}
             </h1>
-            <Button disabled={isLoading} type="submit" className={'min-w-20'}>
-              {isLoading ? <LoadingSpinner /> : t('common.create')}
+            <Button
+              disabled={isLoading || isCreating}
+              type="submit"
+              className={'min-w-20'}
+            >
+              {isCreating ? <LoadingSpinner /> : t('common.create')}
             </Button>
           </div>
           <Card className="w-full p-6">
@@ -93,7 +102,12 @@ const Page = (): JSX.Element => {
                 name="institutionId"
                 render={({ field }) => (
                   <FormItem className="col-span-1">
-                    <FormLabel>{t('common.institution')}</FormLabel>
+                    <FormLabel>
+                      {t(
+                        adminRegistrationApplicationFormConfig.fields
+                          .institutionId.label
+                      )}
+                    </FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
@@ -125,7 +139,10 @@ const Page = (): JSX.Element => {
                 render={({ field }) => (
                   <FormItem className="col-span-2">
                     <FormLabel>
-                      {t('application.admin.preliminary.reason')}
+                      {t(
+                        adminRegistrationApplicationFormConfig.fields.reason
+                          .label
+                      )}
                     </FormLabel>
                     <FormControl>
                       <Textarea {...field} />

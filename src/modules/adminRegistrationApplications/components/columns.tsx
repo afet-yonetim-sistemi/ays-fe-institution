@@ -1,4 +1,4 @@
-import { Institution, Sort } from '@/common/types'
+import { Sort } from '@/common/types'
 import DataTableSort from '@/components/ui/data-table-sort'
 import Status from '@/components/ui/status'
 import { fallbackStatus } from '@/constants/fallBackStatus'
@@ -6,16 +6,11 @@ import { formatDateTime } from '@/lib/dataFormatters'
 import { getSortState } from '@/lib/getSortState'
 import { Column, ColumnDef } from '@tanstack/table-core'
 import i18next from 'i18next'
-import { adminApplicationRegistrationStatuses } from '../constants/statuses'
-
-export interface AdminRegistrationApplication {
-  id: string
-  reason: string
-  status: string
-  institution: Institution
-  createdUser: string
-  createdAt: string
-}
+import {
+  adminApplicationRegistrationStatuses,
+  AdminRegistrationApplicationStatus,
+} from '../constants/statuses'
+import { AdminRegistrationApplication } from '../constants/types'
 
 export const columns: (
   filters: { sort: Sort[] },
@@ -29,7 +24,7 @@ export const columns: (
     {
       accessorKey: 'reason',
       header: () => i18next.t('application.reason'),
-      cell: ({ row }) => (
+      cell: ({ row }): JSX.Element => (
         <div
           style={{
             maxWidth: '400px',
@@ -46,10 +41,12 @@ export const columns: (
     {
       accessorKey: 'status',
       header: () => i18next.t('status.title'),
-      cell: ({ row }) => {
+      cell: ({ row }): JSX.Element => {
         const status =
           adminApplicationRegistrationStatuses.find(
-            (status) => status.value === row.getValue<string>('status')
+            (status) =>
+              status.value ===
+              row.getValue<AdminRegistrationApplicationStatus>('status')
           ) || fallbackStatus
         return <Status status={status} />
       },
@@ -69,7 +66,7 @@ export const columns: (
           onSortClick={onSortClick}
         />
       ),
-      cell: ({ row }) => formatDateTime(row.getValue('createdAt')),
+      cell: ({ row }): string => formatDateTime(row.getValue('createdAt')),
     },
   ]
 }
