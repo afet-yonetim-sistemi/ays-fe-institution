@@ -9,29 +9,15 @@ import {
   RegisterApplicationForm,
 } from './constants/types'
 
+import { mapAdminRegistrationApplicationFilterToApiRequest } from './utils/adminRegistrationApplicationFilterMapper'
+
 export const getAdminRegistrationApplications = (
   filter: AdminRegistrationApplicationsFilter
 ): Promise<AxiosResponse> => {
-  const orders =
-    filter.sort && filter.sort.length > 0
-      ? filter.sort.map((sort) => ({
-          property: sort?.column,
-          direction: sort?.direction?.toUpperCase(),
-        }))
-      : undefined
-
-  return http.post('/api/institution/v1/admin-registration-applications', {
-    pageable: {
-      page: filter.page || 1,
-      pageSize: filter.pageSize || 10,
-      ...(orders ? { orders } : []),
-    },
-    filter: {
-      ...(filter.statuses.length > 0
-        ? { statuses: filter.statuses }
-        : undefined),
-    },
-  })
+  return http.post(
+    '/api/institution/v1/admin-registration-applications',
+    mapAdminRegistrationApplicationFilterToApiRequest(filter)
+  )
 }
 
 export const getAdminRegistrationApplication = async (
@@ -60,10 +46,12 @@ export const getPreApplicationSummary = (): Promise<ApiSummaryResponse> => {
   return http.get(`/api/institution/v1/institutions/summary`)
 }
 
-export const approveAdminRegistrationApplication = (
+export const createAdminRegistrationApplication = (
   data: object
-): Promise<AxiosResponse> => {
-  return http.post(`/api/institution/v1/admin-registration-application`, data)
+): Promise<BaseApiResponse> => {
+  return http
+    .post(`/api/institution/v1/admin-registration-application`, data)
+    .then((res) => res.data)
 }
 
 export const rejectAdminRegistrationApplication = (

@@ -22,8 +22,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { PasswordInput } from '@/components/ui/passwordInput'
-import { showErrorToast, showSuccessToast } from '@/lib/showToast'
-import { InstitutionFormSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
+import { useCreatePage } from '@/hooks/useCreatePage'
+import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
 import {
   getAdminRegistrationApplicationSummary,
   postRegistrationApplication,
@@ -45,8 +45,24 @@ const Page = ({
   const [isLoading, setIsLoading] = useState(true)
   const [institutionName, setInstitutionName] = useState<string>('')
   const router = useRouter()
-  const form = useForm<z.infer<typeof InstitutionFormSchema>>({
-    resolver: zodResolver(InstitutionFormSchema),
+  const { handleCreate, isCreating: isSubmitting } = useCreatePage({
+    createItem: (
+      values: z.infer<
+        typeof adminRegistrationApplicationFormConfig.completeApplicationValidationSchema
+      >
+    ) => postRegistrationApplication(params.id, values),
+    redirectPath: '/login',
+    successMessage: 'application.admin.completion.success',
+  })
+
+  const form = useForm<
+    z.infer<
+      typeof adminRegistrationApplicationFormConfig.completeApplicationValidationSchema
+    >
+  >({
+    resolver: zodResolver(
+      adminRegistrationApplicationFormConfig.completeApplicationValidationSchema
+    ),
     mode: 'onChange',
     defaultValues: {
       phoneNumber: { countryCode: '90', lineNumber: '' },
@@ -69,19 +85,12 @@ const Page = ({
       })
   }, [params.id, router])
 
-  const onSubmit = (values: z.infer<typeof InstitutionFormSchema>): void => {
-    setIsLoading(true)
-    postRegistrationApplication(params.id, values)
-      .then(() => {
-        showSuccessToast('application.admin.completion.success')
-        router.push('/login')
-      })
-      .catch((error) => {
-        showErrorToast(error, undefined, { show401: true })
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+  const onSubmit = (
+    values: z.infer<
+      typeof adminRegistrationApplicationFormConfig.completeApplicationValidationSchema
+    >
+  ): void => {
+    handleCreate(values)
   }
 
   return (
@@ -184,8 +193,12 @@ const Page = ({
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={isLoading} className="w-full">
-                    {isLoading ? (
+                  <Button
+                    type="submit"
+                    disabled={isLoading || isSubmitting}
+                    className="w-full"
+                  >
+                    {isSubmitting ? (
                       <LoadingSpinner />
                     ) : (
                       t('application.admin.completion.button')

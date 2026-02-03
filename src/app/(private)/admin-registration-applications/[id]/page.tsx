@@ -13,9 +13,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { LoadingSpinner } from '@/components/ui/loadingSpinner'
 import { Permission } from '@/constants/permissions'
+import { useDetailPage } from '@/hooks/useDetailPage'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
-import { FormValidationSchema } from '@/modules/adminRegistrationApplications/constants/formValidationSchema'
+import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
+import { AdminRegistrationApplicationStatus } from '@/modules/adminRegistrationApplications/constants/statuses'
 import { AdminRegistrationApplication } from '@/modules/adminRegistrationApplications/constants/types'
 import {
   approveAdminRegistrationApplicationWithId,
@@ -26,32 +28,40 @@ import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): React.JSX.Element => {
+const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
   const router = useRouter()
   const form = useForm({
-    resolver: zodResolver(FormValidationSchema),
+    resolver: zodResolver(
+      adminRegistrationApplicationFormConfig.detailsValidationSchema
+    ),
   })
   const { control } = form
 
-  const [
-    adminRegistrationApplicationDetails,
-    setAdminRegistrationApplicationDetails,
-  ] = useState<AdminRegistrationApplication | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const {
+    detail: adminRegistrationApplicationDetails,
+    isLoading,
+    fetchDetails,
+  } = useDetailPage<AdminRegistrationApplication, object>({
+    fetchDetail: getAdminRegistrationApplication,
+    updateItem: () => Promise.resolve({ isSuccess: true, time: '' }),
+  })
 
-  const registerCompletionUrl = `${window.location.origin}/register-completion/${params.id}`
+  useEffect(() => {
+    fetchDetails(params.id)
+  }, [params.id, fetchDetails])
 
-  const handleReject = (rejectReason?: string): void | object => {
+  const getRegisterCompletionUrl = (): string => {
+    if (typeof window === 'undefined') return ''
+    return `${window.location.origin}/register-completion/${params.id}`
+  }
+
+  const handleReject = (rejectReason?: string): void => {
     const reason = { rejectReason }
     rejectAdminRegistrationApplication(reason, params.id)
       .then(() => {
@@ -63,7 +73,7 @@ const Page = ({
       })
   }
 
-  const handleApprove = (): void | object => {
+  const handleApprove = (): void => {
     approveAdminRegistrationApplicationWithId(params.id)
       .then(() => {
         showSuccessToast('application.approveSuccess')
@@ -75,24 +85,10 @@ const Page = ({
   }
 
   const handleCopyLink = (): void => {
-    navigator.clipboard.writeText(registerCompletionUrl).then(() => {
+    navigator.clipboard.writeText(getRegisterCompletionUrl()).then(() => {
       showSuccessToast('application.admin.copied')
     })
   }
-
-  useEffect(() => {
-    const fetchDetails = (): void => {
-      getAdminRegistrationApplication(params.id)
-        .then((response) => {
-          setAdminRegistrationApplicationDetails(response.response)
-        })
-        .catch((error) => {
-          showErrorToast(error, 'common.error.fetch')
-        })
-        .finally(() => setIsLoading(false))
-    }
-    fetchDetails()
-  }, [params.id])
 
   return (
     <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
@@ -104,7 +100,8 @@ const Page = ({
               <h1 className="text-2xl font-bold">
                 {t('application.admin.detailsTitle')}
               </h1>
-              {adminRegistrationApplicationDetails.status === 'COMPLETED' &&
+              {adminRegistrationApplicationDetails.status ===
+                AdminRegistrationApplicationStatus.COMPLETED &&
                 userPermissions.includes(Permission.APPLICATION_CONCLUDE) && (
                   <div className="ml-auto flex space-x-8">
                     <ButtonDialog
@@ -190,7 +187,7 @@ const Page = ({
                     )}
                   />
                   {adminRegistrationApplicationDetails.status ===
-                    'REJECTED' && (
+                    AdminRegistrationApplicationStatus.REJECTED && (
                     <FormField
                       control={control}
                       name="rejectReason"
@@ -285,14 +282,15 @@ const Page = ({
                       </FormItem>
                     )}
                   />
-                  {adminRegistrationApplicationDetails.status === 'WAITING' && (
+                  {adminRegistrationApplicationDetails.status ===
+                    AdminRegistrationApplicationStatus.WAITING && (
                     <Button
                       type="button"
                       onClick={handleCopyLink}
                       className="text-left sm:col-span-2"
                     >
                       <span className="flex-grow truncate">
-                        {registerCompletionUrl}
+                        {getRegisterCompletionUrl()}
                       </span>
                       <span>{t('application.admin.copy')}</span>
                     </Button>
