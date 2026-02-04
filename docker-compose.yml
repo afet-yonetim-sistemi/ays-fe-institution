@@ -9,3 +9,9 @@ services:
       - '127.0.0.1:29790:29790'
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:9790
+    networks:
+      - ays-network
+
+networks:
+  ays-network:
+    driver: bridge
