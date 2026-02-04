@@ -6,6 +6,6 @@ services:
     container_name: application-institution
     restart: on-failure
     ports:
-      - '29790:29790'
+      - '127.0.0.1:29790:29790'
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:9790
