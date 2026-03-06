@@ -37,7 +37,9 @@ import {
 } from '@/lib/dataFormatters'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
+import PriorityIcon from '@/modules/emergencyEvacuationApplications/components/PriorityIcon'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
+import { emergencyEvacuationApplicationPriorities } from '@/modules/emergencyEvacuationApplications/constants/priorities'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
 import {
   EmergencyEvacuationApplication,
@@ -89,6 +91,7 @@ const Page = ({
       seatingCount: watchedValues.seatingCount,
       hasObstaclePersonExist: watchedValues.hasObstaclePersonExist,
       status: watchedValues.status,
+      priority: watchedValues.priority ?? initialApplicationValues.priority,
       notes: watchedValues.notes,
     }
 
@@ -96,6 +99,7 @@ const Page = ({
       'seatingCount',
       'hasObstaclePersonExist',
       'status',
+      'priority',
       'notes',
     ].some(
       (key) =>
@@ -115,6 +119,7 @@ const Page = ({
   const isSaveButtonDisabled =
     !isFormChanged ||
     Boolean(formState.errors.seatingCount) ||
+    Boolean(formState.errors.priority) ||
     Boolean(formState.errors.notes)
 
   useEffect(() => {
@@ -128,6 +133,7 @@ const Page = ({
             seatingCount: details.seatingCount,
             hasObstaclePersonExist: details.hasObstaclePersonExist,
             status: details.status,
+            priority: details.priority,
             notes: details.notes,
           })
         })
@@ -152,6 +158,7 @@ const Page = ({
         hasObstaclePersonExist:
           emergencyEvacuationApplicationDetails.hasObstaclePersonExist,
         status: emergencyEvacuationApplicationDetails.status,
+        priority: emergencyEvacuationApplicationDetails.priority,
         notes: emergencyEvacuationApplicationDetails.notes,
       })
     }
@@ -167,6 +174,7 @@ const Page = ({
         getValues('hasObstaclePersonExist') ??
         initialApplicationValues?.hasObstaclePersonExist,
       status: getValues('status') ?? initialApplicationValues?.status,
+      priority: getValues('priority') ?? initialApplicationValues?.priority,
       notes: getValues('notes') ?? initialApplicationValues?.notes,
     }
 
@@ -185,7 +193,7 @@ const Page = ({
 
   const handleConfirmSave = (
     values: EvacuationApplicationEditableFields = pendingSaveValues!
-  ) => {
+  ): void => {
     if (!values) return
 
     updateEmergencyEvacuationApplication(params.id, values)
@@ -213,7 +221,7 @@ const Page = ({
       })
   }
 
-  const renderUpdateButtons = () => {
+  const renderUpdateButtons = (): JSX.Element | null => {
     if (!userPermissions.includes(Permission.EVACUATION_UPDATE)) return null
     if (!canUpdateApplication) return null
 
@@ -534,6 +542,51 @@ const Page = ({
                   />
                   <FormField
                     control={control}
+                    name="priority"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-1">
+                        <FormLabel>
+                          {t('application.evacuation.priority')}
+                        </FormLabel>
+                        <FormControl>
+                          <Select
+                            value={
+                              field.value ||
+                              emergencyEvacuationApplicationDetails.priority
+                            }
+                            onValueChange={(value: string) =>
+                              field.onChange(value)
+                            }
+                            disabled={!isEmergencyApplicationEditable}
+                          >
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={t(
+                                  'application.evacuation.priority'
+                                )}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {emergencyEvacuationApplicationPriorities.map(
+                                (priority) => (
+                                  <SelectItem
+                                    key={priority.value}
+                                    value={priority.value}
+                                    className="pl-2 [&>.absolute]:hidden"
+                                  >
+                                    <PriorityIcon priority={priority.value} />
+                                  </SelectItem>
+                                )
+                              )}
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
                     name="status"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
@@ -592,7 +645,7 @@ const Page = ({
                     control={control}
                     name="hasObstaclePersonExist"
                     render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
+                      <FormItem className="sm:col-span-2">
                         <div className="flex items-center">
                           <FormLabel className="mr-2">
                             {t('application.evacuation.anyDisability')}
