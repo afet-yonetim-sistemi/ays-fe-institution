@@ -39,7 +39,7 @@ import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
 import PriorityIcon from '@/modules/emergencyEvacuationApplications/components/PriorityIcon'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
-import { emergencyEvacuationApplicationPriorities } from '@/modules/emergencyEvacuationApplications/constants/priorities'
+import { EMERGENCY_EVACUATION_APPLICATION_PRIORITIES } from '@/modules/emergencyEvacuationApplications/constants/priorities'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
 import {
   EmergencyEvacuationApplication,
@@ -567,17 +567,17 @@ const Page = ({
                               />
                             </SelectTrigger>
                             <SelectContent>
-                              {emergencyEvacuationApplicationPriorities.map(
-                                (priority) => (
-                                  <SelectItem
-                                    key={priority.value}
-                                    value={priority.value}
-                                    className="pl-2 [&>.absolute]:hidden"
-                                  >
-                                    <PriorityIcon priority={priority.value} />
-                                  </SelectItem>
-                                )
-                              )}
+                              {Object.values(
+                                EMERGENCY_EVACUATION_APPLICATION_PRIORITIES
+                              ).map((priority) => (
+                                <SelectItem
+                                  key={priority.value}
+                                  value={priority.value}
+                                  className="pl-2 [&>.absolute]:hidden"
+                                >
+                                  <PriorityIcon priority={priority.value} />
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                         </FormControl>

@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import {
+  EMERGENCY_EVACUATION_APPLICATION_PRIORITIES,
   EmergencyEvacuationApplicationPriority,
-  getEmergencyEvacuationApplicationPriorityItem,
 } from '@/modules/emergencyEvacuationApplications/constants/priorities'
 import { useTranslation } from 'react-i18next'
 
@@ -19,7 +19,7 @@ const PriorityIcon = ({
   showLabel = true,
 }: PriorityIconProps): JSX.Element | null => {
   const { t } = useTranslation()
-  const priorityItem = getEmergencyEvacuationApplicationPriorityItem(priority)
+  const priorityItem = EMERGENCY_EVACUATION_APPLICATION_PRIORITIES[priority]
   if (!priorityItem) return null
 
   const Icon = priorityItem.icon
