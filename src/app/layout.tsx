@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>): React.ReactNode {
   return (
-    <html lang={i18n.language}>
+    <html lang={i18n.language} suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
