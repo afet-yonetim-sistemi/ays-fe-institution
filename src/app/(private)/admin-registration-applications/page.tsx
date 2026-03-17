@@ -23,7 +23,7 @@ import { RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
 

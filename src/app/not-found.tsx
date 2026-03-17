@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/ui/button'
 
-const NotFound = (): JSX.Element => {
+const NotFound = (): React.ReactNode => {
   const router = useRouter()
   const { t } = useTranslation()
   return (

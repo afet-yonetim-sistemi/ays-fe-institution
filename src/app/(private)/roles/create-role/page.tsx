@@ -22,7 +22,7 @@ import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const form = useForm({
     resolver: zodResolver(roleFormConfig.validationSchemaCreate),

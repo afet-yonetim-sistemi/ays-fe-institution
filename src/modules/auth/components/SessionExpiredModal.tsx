@@ -23,7 +23,7 @@ const SessionExpiredModal = ({
   description,
   initialCountdown = 3,
   onLogout,
-}: SessionExpiredModalProps): JSX.Element => {
+}: SessionExpiredModalProps): React.ReactNode => {
   const { t } = useTranslation()
   const [countdown, setCountdown] = useState(initialCountdown)
 

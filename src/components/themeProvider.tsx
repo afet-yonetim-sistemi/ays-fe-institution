@@ -6,6 +6,6 @@ import { type ThemeProviderProps } from 'next-themes/dist/types'
 export function ThemeProvider({
   children,
   ...props
-}: Readonly<ThemeProviderProps>): JSX.Element {
+}: Readonly<ThemeProviderProps>): React.ReactNode {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }

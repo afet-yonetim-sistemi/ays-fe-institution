@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '../ui/button'
 import Menu from './menu'
 
-export default function Sidebar(): JSX.Element {
+export default function Sidebar(): React.ReactNode {
   const { collapsed, setCollapsed } = useSidebarCollapse()
   const { t } = useTranslation()
 

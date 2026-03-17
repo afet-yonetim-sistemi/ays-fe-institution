@@ -10,7 +10,7 @@ interface UserInfoCardProps {
   userInfo: UserInfo | null
 }
 
-const UserInfoCard = ({ userInfo }: UserInfoCardProps): JSX.Element | null => {
+const UserInfoCard = ({ userInfo }: UserInfoCardProps): React.ReactNode | null => {
   const { t } = useTranslation()
 
   if (!userInfo) return null

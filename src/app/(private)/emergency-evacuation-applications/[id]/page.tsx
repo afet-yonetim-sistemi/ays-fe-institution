@@ -49,15 +49,16 @@ import {
 } from '@/modules/emergencyEvacuationApplications/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, use } from 'react';
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const Page = (
+  props: {
+    params: Promise<{ slug: string; id: string }>
+  }
+): React.ReactNode => {
+  const params = use(props.params);
   const { t } = useTranslation()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),

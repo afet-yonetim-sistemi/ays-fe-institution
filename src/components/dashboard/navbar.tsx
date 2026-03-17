@@ -44,7 +44,7 @@ const UserInfoDisplay: React.FC<UserInfoProps> = ({ userInfo, className }) => {
   )
 }
 
-function Navbar(): JSX.Element {
+function Navbar(): React.ReactNode {
   const { t } = useTranslation()
   const userInfo = useAppSelector(selectUser)
   const refreshToken = useAppSelector(selectRefreshToken)

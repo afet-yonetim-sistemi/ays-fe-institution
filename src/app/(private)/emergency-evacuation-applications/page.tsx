@@ -96,7 +96,7 @@ const getInitialFilters = (
   }
 }
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const router = useRouter()
   const pathname = usePathname()

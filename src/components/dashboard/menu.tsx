@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import packageInfo from '../../../package.json'
 
-const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
+const Menu = ({ collapsed = false }: { collapsed?: boolean }): React.ReactNode => {
   const pathname = usePathname()
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions) ?? []
@@ -41,8 +41,9 @@ const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
   useEffect(() => {
     const localStorageVersion = localStorage.getItem('apiVersionInfo')
     if (localStorageVersion) {
-      setApiVersionInfo(localStorageVersion)
-      setIsLoading(false)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setApiVersionInfo((prev) => (prev === localStorageVersion ? prev : localStorageVersion))
+      setIsLoading((prev) => (prev ? false : prev))
     }
     const fetchData = (): void => {
       http

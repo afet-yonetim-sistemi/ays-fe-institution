@@ -28,11 +28,12 @@ import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React, { useEffect, use } from 'react';
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
+const Page = (props: { params: Promise<{ id: string }> }): React.React.ReactNode => {
+  const params = use(props.params);
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
   const router = useRouter()

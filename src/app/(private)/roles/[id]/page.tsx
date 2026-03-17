@@ -35,15 +35,16 @@ import {
 } from '@/modules/roles/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, use } from 'react';
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const Page = (
+  props: {
+    params: Promise<{ slug: string; id: string }>
+  }
+): React.ReactNode => {
+  const params = use(props.params);
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
   const [initialRoleValues, setInitialRoleValues] = useState<RoleDetail | null>(
@@ -181,7 +182,7 @@ const Page = ({
     }
   }
 
-  const renderRoleUpdateButtons = (): JSX.Element | null => {
+  const renderRoleUpdateButtons = (): React.ReactNode | null => {
     if (!userPermissions.includes(Permission.ROLE_UPDATE)) return null
 
     if (!isRoleEditable) {

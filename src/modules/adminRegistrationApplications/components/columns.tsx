@@ -24,7 +24,7 @@ export const columns: (
     {
       accessorKey: 'reason',
       header: () => i18next.t('application.reason'),
-      cell: ({ row }): JSX.Element => (
+      cell: ({ row }): React.ReactNode => (
         <div
           style={{
             maxWidth: '400px',
@@ -41,7 +41,7 @@ export const columns: (
     {
       accessorKey: 'status',
       header: () => i18next.t('status.title'),
-      cell: ({ row }): JSX.Element => {
+      cell: ({ row }): React.ReactNode => {
         const status =
           adminApplicationRegistrationStatuses.find(
             (status) =>
