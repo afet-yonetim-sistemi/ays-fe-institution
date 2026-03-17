@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/shadcn/ui/card'
 import { formatDateTime } from '@/lib/dataFormatters'
 import { UserInfo } from '@/modules/auth/constants/types'
 import { CalendarCheck, Landmark, User } from 'lucide-react'

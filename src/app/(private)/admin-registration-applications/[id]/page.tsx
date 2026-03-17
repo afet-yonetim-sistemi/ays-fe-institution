@@ -1,17 +1,17 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import ButtonDialog from '@/components/custom/button-dialog'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
 import { Permission } from '@/constants/permissions'
 import { useDetailPage } from '@/hooks/useDetailPage'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
@@ -28,12 +28,14 @@ import { selectPermissions } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, use } from 'react';
+import React, { use, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = (props: { params: Promise<{ id: string }> }): React.React.ReactNode => {
-  const params = use(props.params);
+const Page = (props: {
+  params: Promise<{ id: string }>
+}): React.React.ReactNode => {
+  const params = use(props.params)
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
   const router = useRouter()
@@ -117,7 +119,8 @@ const Page = (props: { params: Promise<{ id: string }> }): React.React.ReactNode
                       triggerText={'common.approve'}
                       title={'application.approveConfirm'}
                       onConfirm={handleApprove}
-                      variant={'success'}
+                      variant={'default'}
+                      className="bg-success text-success-foreground hover:bg-success/90"
                     />
                   </div>
                 )}

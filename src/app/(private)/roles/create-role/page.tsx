@@ -1,17 +1,17 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Switch } from '@/components/ui/switch'
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
+import { Switch } from '@/shadcn/ui/switch'
 import { useCreatePage } from '@/hooks/useCreatePage'
 import PermissionCard from '@/modules/roles/components/PermissionCard'
 import { roleFormConfig } from '@/modules/roles/constants/formConfig'

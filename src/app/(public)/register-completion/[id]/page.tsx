@@ -1,16 +1,18 @@
 'use client'
 
 import CitySelect from '@/components/CitySelect'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { PasswordInput } from '@/components/custom/passwordInput'
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
 import PhoneNumberField from '@/components/PhoneNumberField'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shadcn/ui/button'
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
@@ -18,10 +20,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { PasswordInput } from '@/components/ui/passwordInput'
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
 import { useCreatePage } from '@/hooks/useCreatePage'
 import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
 import {
@@ -31,17 +31,15 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState, use } from 'react';
+import { use, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const Page = (
-  props: {
-    params: Promise<{ slug: string; id: string }>
-  }
-): React.ReactNode => {
-  const params = use(props.params);
+const Page = (props: {
+  params: Promise<{ slug: string; id: string }>
+}): React.ReactNode => {
+  const params = use(props.params)
   const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(true)
   const [institutionName, setInstitutionName] = useState<string>('')

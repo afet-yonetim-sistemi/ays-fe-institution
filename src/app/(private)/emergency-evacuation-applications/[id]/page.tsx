@@ -1,15 +1,17 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import Status from '@/components/custom/status'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
+import { Checkbox } from '@/shadcn/ui/checkbox'
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@/shadcn/ui/dialog'
 import {
   Form,
   FormControl,
@@ -17,18 +19,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import Status from '@/components/ui/status'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/shadcn/ui/select'
+import { Textarea } from '@/shadcn/ui/textarea'
 import { Permission } from '@/constants/permissions'
 import {
   formatDateTime,
@@ -49,16 +49,14 @@ import {
 } from '@/modules/emergencyEvacuationApplications/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState, use } from 'react';
+import { use, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = (
-  props: {
-    params: Promise<{ slug: string; id: string }>
-  }
-): React.ReactNode => {
-  const params = use(props.params);
+const Page = (props: {
+  params: Promise<{ slug: string; id: string }>
+}): React.ReactNode => {
+  const params = use(props.params)
   const { t } = useTranslation()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
@@ -186,7 +184,7 @@ const Page = (
 
   const handleConfirmSave = (
     values: EvacuationApplicationEditableFields = pendingSaveValues!
-  ) => {
+  ): void => {
     if (!values) return
 
     updateEmergencyEvacuationApplication(params.id, values)
@@ -214,7 +212,7 @@ const Page = (
       })
   }
 
-  const renderUpdateButtons = () => {
+  const renderUpdateButtons = (): React.ReactNode => {
     if (!userPermissions.includes(Permission.EVACUATION_UPDATE)) return null
     if (!canUpdateApplication) return null
 

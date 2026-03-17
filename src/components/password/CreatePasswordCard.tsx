@@ -1,12 +1,14 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { PasswordInput } from '@/components/custom/passwordInput'
+import { Button } from '@/shadcn/ui/button'
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
@@ -14,9 +16,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { PasswordInput } from '@/components/ui/passwordInput'
+} from '@/shadcn/ui/form'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { FormValidationSchema } from '@/modules/password/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'

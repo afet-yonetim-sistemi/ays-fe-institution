@@ -1,4 +1,5 @@
-import { Button } from '@/components/ui/button'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { Button } from '@/shadcn/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -7,10 +8,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+} from '@/shadcn/ui/dialog'
+import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { FormValidationSchema } from '@/modules/login/constants/formValidationSchema'
 import passwordService from '@/modules/password/service'

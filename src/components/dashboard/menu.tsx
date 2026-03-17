@@ -1,11 +1,11 @@
 'use client'
 
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
+} from '@/shadcn/ui/tooltip'
 import http from '@/configs/axiosConfig'
 import { MenuItems } from '@/constants/menuItems'
 import { Permission } from '@/constants/permissions'
@@ -19,7 +19,11 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import packageInfo from '../../../package.json'
 
-const Menu = ({ collapsed = false }: { collapsed?: boolean }): React.ReactNode => {
+const Menu = ({
+  collapsed = false,
+}: {
+  collapsed?: boolean
+}): React.ReactNode => {
   const pathname = usePathname()
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions) ?? []
@@ -42,7 +46,9 @@ const Menu = ({ collapsed = false }: { collapsed?: boolean }): React.ReactNode =
     const localStorageVersion = localStorage.getItem('apiVersionInfo')
     if (localStorageVersion) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setApiVersionInfo((prev) => (prev === localStorageVersion ? prev : localStorageVersion))
+      setApiVersionInfo((prev) =>
+        prev === localStorageVersion ? prev : localStorageVersion
+      )
       setIsLoading((prev) => (prev ? false : prev))
     }
     const fetchData = (): void => {

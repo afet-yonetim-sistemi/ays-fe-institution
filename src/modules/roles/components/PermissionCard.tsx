@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
-import { Switch } from '@/components/ui/switch'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
+import { FormControl, FormItem, FormLabel } from '@/shadcn/ui/form'
+import { Switch } from '@/shadcn/ui/switch'
 import React from 'react'
 import { RolePermission } from '../constants/types'
 

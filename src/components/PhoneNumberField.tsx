@@ -1,13 +1,13 @@
 import {
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+    FormControl,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/shadcn/ui/form'
 import { t } from 'i18next'
 import { Control, Controller } from 'react-hook-form'
 import { CountryData } from 'react-phone-input-2'
-import PhoneInput from './ui/phone-input'
+import PhoneInput from '@/components/custom/phone-input'
 
 interface PhoneNumberFieldProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

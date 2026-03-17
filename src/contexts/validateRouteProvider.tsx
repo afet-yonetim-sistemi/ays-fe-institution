@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import {
   ValidateRouteContext,
   ValidateRouteContextType,
@@ -51,7 +51,7 @@ export const ValidateRouteProvider = ({
     }
   }, [isRefreshTokenExpired, isProtected])
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     dispatch(logout())
     setShowSessionExpiredModal(false)
     router.replace('/login')

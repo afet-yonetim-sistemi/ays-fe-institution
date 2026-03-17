@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/shadcn/ui/select'
 import { supportedLanguages } from '@/lib/languageDetector'
 import i18next from 'i18next'
 import { useState } from 'react'

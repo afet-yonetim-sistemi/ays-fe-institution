@@ -35,6 +35,5 @@ export const showSuccessToast = (
   toast({
     title,
     description,
-    variant: 'success',
   })
 }

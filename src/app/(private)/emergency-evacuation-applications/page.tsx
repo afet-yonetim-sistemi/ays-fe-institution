@@ -1,13 +1,11 @@
 'use client'
 
 import { SortDirection } from '@/common/types'
-import { Button } from '@/components/ui/button'
-import CheckboxFilter from '@/components/ui/checkbox-filter'
-import { DataTable } from '@/components/ui/data-table'
-import FilterInput from '@/components/ui/filter-input'
-import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
-import Status from '@/components/ui/status'
-import { Toaster } from '@/components/ui/toaster'
+import CheckboxFilter from '@/components/custom/checkbox-filter'
+import { DataTable } from '@/components/custom/data-table'
+import FilterInput from '@/components/custom/filter-input'
+import MultiSelectDropdown from '@/components/custom/multi-select-dropdown'
+import Status from '@/components/custom/status'
 import { Permission } from '@/constants/permissions'
 import { numericRegex } from '@/constants/regex'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
@@ -24,13 +22,31 @@ import {
   EmergencyEvacuationApplicationsFilter,
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/service'
+import { Button } from '@/shadcn/ui/button'
+import { Toaster } from '@/shadcn/ui/toaster'
 import { useAppSelector } from '@/store/hooks'
 import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const parseEEASearchParams = (searchParams: URLSearchParams) => {
+interface ParsedEEASearchParams {
+  currentPage: number
+  statuses: string[]
+  referenceNumber: string
+  sourceCity: string
+  sourceDistrict: string
+  seatingCount: number | undefined
+  targetCity: string
+  targetDistrict: string
+  isInPerson: boolean | undefined
+  column: string
+  direction: string | undefined
+}
+
+const parseEEASearchParams = (
+  searchParams: URLSearchParams
+): ParsedEEASearchParams => {
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
   const statusesParam = searchParams.get('status')
   const statuses = statusesParam?.trim() ? statusesParam.split(',') : []
@@ -195,6 +211,7 @@ const Page = (): React.ReactNode => {
       validationRules
     )
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFilterErrors(errors)
     setFilters(parsedFilters)
     setReferenceNumberInput(parsedFilters.referenceNumber ?? '')

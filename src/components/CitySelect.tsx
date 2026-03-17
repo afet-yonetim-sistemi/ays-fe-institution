@@ -4,14 +4,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
+} from '@/shadcn/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/shadcn/ui/select'
 import { t } from 'i18next'
 import { useEffect, useState } from 'react'
 import { Control } from 'react-hook-form'

@@ -1,9 +1,10 @@
 'use client'
 
 import CitySelect from '@/components/CitySelect'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import PhoneNumberField from '@/components/PhoneNumberField'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
@@ -11,10 +12,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Switch } from '@/components/ui/switch'
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
+import { Switch } from '@/shadcn/ui/switch'
 import { useCreatePage } from '@/hooks/useCreatePage'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
 import { userFormConfig } from '@/modules/users/constants/formConfig'

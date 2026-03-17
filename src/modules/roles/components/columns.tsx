@@ -1,6 +1,6 @@
 import { Sort } from '@/common/types'
-import DataTableSort from '@/components/ui/data-table-sort'
-import Status from '@/components/ui/status'
+import DataTableSort from '@/components/custom/data-table-sort'
+import Status from '@/components/custom/status'
 import { fallbackStatus } from '@/constants/fallBackStatus'
 import { formatDateTime } from '@/lib/dataFormatters'
 import { getSortState } from '@/lib/getSortState'
@@ -28,7 +28,7 @@ export const columns: (
     {
       accessorKey: 'status',
       header: () => i18next.t('role.status'),
-      cell: ({ row }) => {
+      cell: ({ row }): React.ReactNode => {
         const status =
           roleStatuses.find(
             (status) => status.value === row.getValue<string>('status')

@@ -1,8 +1,9 @@
 'use client'
 
 import { Institution } from '@/common/types'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { Button } from '@/shadcn/ui/button'
+import { Card } from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
@@ -10,16 +11,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+} from '@/shadcn/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/shadcn/ui/select'
+import { Textarea } from '@/shadcn/ui/textarea'
 import { useCreatePage } from '@/hooks/useCreatePage'
 import { showErrorToast } from '@/lib/showToast'
 import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
