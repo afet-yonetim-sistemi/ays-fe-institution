@@ -1,6 +1,6 @@
+import { Toaster } from '@/components/custom/sonner'
 import GlobalModals from '@/components/GlobalModals'
 import { ThemeProvider } from '@/components/themeProvider'
-import { Toaster } from '@/shadcn/ui/toaster'
 import { Providers } from '@/contexts/providers'
 import i18n from '@/i18n'
 import type { Metadata } from 'next'

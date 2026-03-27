@@ -23,7 +23,6 @@ import {
 } from '@/modules/emergencyEvacuationApplications/constants/types'
 import { getEmergencyEvacuationApplications } from '@/modules/emergencyEvacuationApplications/service'
 import { Button } from '@/shadcn/ui/button'
-import { Toaster } from '@/shadcn/ui/toaster'
 import { useAppSelector } from '@/store/hooks'
 import { RefreshCw } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -334,7 +333,6 @@ const Page = (): React.ReactNode => {
         loading={isLoading}
         enableRowClick={userPermissions.includes(Permission.EVACUATION_DETAIL)}
       />
-      <Toaster />
     </div>
   )
 }
