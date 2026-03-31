@@ -15,8 +15,8 @@ export interface AdminRegistrationApplication {
   institution: Institution
   createdUser: string
   createdAt: string
-  updatedUser: string
-  updatedAt: string
+  updatedUser: string | null
+  updatedAt: string | null
   rejectReason: string | null
   user: User
 }

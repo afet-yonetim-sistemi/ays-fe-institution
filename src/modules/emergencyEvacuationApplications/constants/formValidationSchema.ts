@@ -11,9 +11,7 @@ const EmergencyEvacuationApplicationSchema = z.object({
   sourceDistrict: z.string(),
   address: z.string(),
   seatingCount: z
-    .number({
-      invalid_type_error: 'validation.number',
-    })
+    .number()
     .int({
       message: 'validation.seatingCount',
     })

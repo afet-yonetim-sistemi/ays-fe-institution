@@ -2,6 +2,24 @@
 
 import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import Status from '@/components/custom/status'
+import { Permission } from '@/constants/permissions'
+import {
+  formatDateTime,
+  formatPhoneNumber,
+  formatReferenceNumber,
+} from '@/lib/dataFormatters'
+import { showErrorToast, showSuccessToast } from '@/lib/showToast'
+import { selectPermissions } from '@/modules/auth/authSlice'
+import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
+import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
+import {
+  EmergencyEvacuationApplication,
+  EvacuationApplicationEditableFields,
+} from '@/modules/emergencyEvacuationApplications/constants/types'
+import {
+  getEmergencyEvacuationApplication,
+  updateEmergencyEvacuationApplication,
+} from '@/modules/emergencyEvacuationApplications/service'
 import { Button } from '@/shadcn/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
 import { Checkbox } from '@/shadcn/ui/checkbox'
@@ -29,24 +47,6 @@ import {
   SelectValue,
 } from '@/shadcn/ui/select'
 import { Textarea } from '@/shadcn/ui/textarea'
-import { Permission } from '@/constants/permissions'
-import {
-  formatDateTime,
-  formatPhoneNumber,
-  formatReferenceNumber,
-} from '@/lib/dataFormatters'
-import { showErrorToast, showSuccessToast } from '@/lib/showToast'
-import { selectPermissions } from '@/modules/auth/authSlice'
-import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
-import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
-import {
-  EmergencyEvacuationApplication,
-  EvacuationApplicationEditableFields,
-} from '@/modules/emergencyEvacuationApplications/constants/types'
-import {
-  getEmergencyEvacuationApplication,
-  updateEmergencyEvacuationApplication,
-} from '@/modules/emergencyEvacuationApplications/service'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { use, useEffect, useState } from 'react'
@@ -124,10 +124,7 @@ const Page = (props: {
           setEmergencyEvacuationApplicationDetails(details)
           setInitialApplicationValues(details)
           reset({
-            seatingCount: details.seatingCount,
-            hasObstaclePersonExist: details.hasObstaclePersonExist,
-            status: details.status,
-            notes: details.notes,
+            ...details,
           })
         })
         .catch((error) => {
@@ -147,11 +144,7 @@ const Page = (props: {
   const handleCancelButtonClick = (): void => {
     if (emergencyEvacuationApplicationDetails) {
       reset({
-        seatingCount: emergencyEvacuationApplicationDetails.seatingCount,
-        hasObstaclePersonExist:
-          emergencyEvacuationApplicationDetails.hasObstaclePersonExist,
-        status: emergencyEvacuationApplicationDetails.status,
-        notes: emergencyEvacuationApplicationDetails.notes,
+        ...emergencyEvacuationApplicationDetails,
       })
     }
     setIsFormChanged(false)
@@ -164,9 +157,10 @@ const Page = (props: {
         getValues('seatingCount') ?? initialApplicationValues?.seatingCount,
       hasObstaclePersonExist:
         getValues('hasObstaclePersonExist') ??
-        initialApplicationValues?.hasObstaclePersonExist,
-      status: getValues('status') ?? initialApplicationValues?.status,
-      notes: getValues('notes') ?? initialApplicationValues?.notes,
+        initialApplicationValues?.hasObstaclePersonExist ??
+        false,
+      status: getValues('status') ?? initialApplicationValues?.status ?? '',
+      notes: getValues('notes') ?? initialApplicationValues?.notes ?? '',
     }
 
     setPendingSaveValues(currentValues)
@@ -270,10 +264,12 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
+                            value={
+                              field.value
+                                ? formatReferenceNumber(field.value)
+                                : ''
+                            }
                             disabled
-                            defaultValue={formatReferenceNumber(
-                              emergencyEvacuationApplicationDetails.referenceNumber
-                            )}
                           />
                         </FormControl>
                       </FormItem>
@@ -281,24 +277,15 @@ const Page = (props: {
                   />
                   <FormField
                     control={control}
-                    name="fullName"
+                    name="firstName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>{t('common.fullName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              (emergencyEvacuationApplicationDetails.firstName ??
-                                '') +
-                              (emergencyEvacuationApplicationDetails.firstName &&
-                              emergencyEvacuationApplicationDetails.lastName
-                                ? ' '
-                                : '') +
-                              (emergencyEvacuationApplicationDetails.lastName ??
-                                '')
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -313,14 +300,10 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.phoneNumber
-                                ? formatPhoneNumber(
-                                    emergencyEvacuationApplicationDetails.phoneNumber
-                                  )
-                                : ''
+                            value={
+                              field.value ? formatPhoneNumber(field.value) : ''
                             }
+                            disabled
                           />
                         </FormControl>
                       </FormItem>
@@ -337,11 +320,12 @@ const Page = (props: {
                           </FormLabel>
                           <FormControl>
                             <Checkbox
-                              {...field}
+                              id={field.name}
                               disabled
                               checked={
-                                emergencyEvacuationApplicationDetails.isInPerson
+                                !!emergencyEvacuationApplicationDetails.isInPerson
                               }
+                              onCheckedChange={field.onChange}
                             />
                           </FormControl>
                         </div>
@@ -353,7 +337,7 @@ const Page = (props: {
                   <div className="mb-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
                     <FormField
                       control={control}
-                      name="applicantFullName"
+                      name="applicantFirstName"
                       render={({ field }) => (
                         <FormItem className="col-span-1">
                           <FormLabel>
@@ -362,17 +346,8 @@ const Page = (props: {
                           <FormControl>
                             <Input
                               {...field}
+                              value={field.value ?? ''}
                               disabled
-                              defaultValue={
-                                (emergencyEvacuationApplicationDetails.applicantFirstName ??
-                                  '') +
-                                (emergencyEvacuationApplicationDetails.applicantFirstName &&
-                                emergencyEvacuationApplicationDetails.applicantLastName
-                                  ? ' '
-                                  : '') +
-                                (emergencyEvacuationApplicationDetails.applicantLastName ??
-                                  '')
-                              }
                             />
                           </FormControl>
                         </FormItem>
@@ -389,14 +364,12 @@ const Page = (props: {
                           <FormControl>
                             <Input
                               {...field}
-                              disabled
-                              defaultValue={
-                                emergencyEvacuationApplicationDetails.applicantPhoneNumber
-                                  ? formatPhoneNumber(
-                                      emergencyEvacuationApplicationDetails.applicantPhoneNumber
-                                    )
+                              value={
+                                field.value
+                                  ? formatPhoneNumber(field.value)
                                   : ''
                               }
+                              disabled
                             />
                           </FormControl>
                         </FormItem>
@@ -407,7 +380,7 @@ const Page = (props: {
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
                   <FormField
                     control={control}
-                    name="sourceCityAndDistrict"
+                    name="sourceCity"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
@@ -416,17 +389,8 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              (emergencyEvacuationApplicationDetails.sourceCity ??
-                                '') +
-                              (emergencyEvacuationApplicationDetails.sourceCity &&
-                              emergencyEvacuationApplicationDetails.sourceDistrict
-                                ? ' / '
-                                : '') +
-                              (emergencyEvacuationApplicationDetails.sourceDistrict ??
-                                '')
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -434,7 +398,7 @@ const Page = (props: {
                   />
                   <FormField
                     control={control}
-                    name="targetCityAndDistrict"
+                    name="targetCity"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
@@ -443,17 +407,8 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              (emergencyEvacuationApplicationDetails.targetCity ??
-                                '') +
-                              (emergencyEvacuationApplicationDetails.targetCity &&
-                              emergencyEvacuationApplicationDetails.targetDistrict
-                                ? ' / '
-                                : '') +
-                              (emergencyEvacuationApplicationDetails.targetDistrict ??
-                                '')
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -470,11 +425,8 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.address ??
-                              ''
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -493,16 +445,13 @@ const Page = (props: {
                             {...field}
                             type="number"
                             disabled={!isEmergencyApplicationEditable}
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.seatingCount ??
-                              ''
-                            }
+                            value={field.value ?? ''}
                             onChange={(e) => {
-                              const value =
+                              const val =
                                 e.target.value === ''
                                   ? ''
                                   : Number(e.target.value)
-                              field.onChange(value)
+                              field.onChange(val)
                             }}
                           />
                         </FormControl>
@@ -512,7 +461,7 @@ const Page = (props: {
                   />
                   <FormField
                     control={control}
-                    name="confirmedSeatingCount"
+                    name="seatingCount"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
@@ -521,11 +470,8 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.seatingCount ??
-                              ''
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -578,10 +524,8 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
+                            value={formatDateTime(field.value)}
                             disabled
-                            defaultValue={formatDateTime(
-                              emergencyEvacuationApplicationDetails.createdAt
-                            )}
                           />
                         </FormControl>
                       </FormItem>
@@ -598,12 +542,9 @@ const Page = (props: {
                           </FormLabel>
                           <FormControl>
                             <Checkbox
-                              {...field}
+                              id={field.name}
                               disabled={!isEmergencyApplicationEditable}
-                              defaultChecked={
-                                emergencyEvacuationApplicationDetails.hasObstaclePersonExist
-                              }
-                              checked={field.value}
+                              checked={!!field.value}
                               onCheckedChange={field.onChange}
                             />
                           </FormControl>
@@ -623,9 +564,7 @@ const Page = (props: {
                           <Textarea
                             {...field}
                             disabled={!isEmergencyApplicationEditable}
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.notes ?? ''
-                            }
+                            value={field.value ?? ''}
                             onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>

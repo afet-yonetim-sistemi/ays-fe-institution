@@ -15,7 +15,7 @@ const CheckboxFilter = ({
   label,
   isChecked,
   onChange,
-}: CheckboxFilterProps): JSX.Element => {
+}: CheckboxFilterProps): React.ReactNode => {
   const { t } = useTranslation()
 
   return (

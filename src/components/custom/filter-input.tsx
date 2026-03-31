@@ -1,13 +1,13 @@
+import { cn } from '@/shadcn/lib/utils'
 import { Input } from '@/shadcn/ui/input'
 import { Label } from '@/shadcn/ui/label'
-import { cn } from '@/shadcn/lib/utils'
 import { t } from 'i18next'
 import { memo } from 'react'
 
 interface FilterInputProps {
   id: string
   label: string
-  onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onInput?: (e: React.FormEvent<HTMLInputElement>) => void
   inputMode?: React.InputHTMLAttributes<HTMLInputElement>['inputMode']
   maxLength?: number
   value: string | number | undefined

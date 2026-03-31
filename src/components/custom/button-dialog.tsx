@@ -31,14 +31,14 @@ interface ButtonDialogProps {
   onCancel?: () => void
   reason?: boolean
   label?: string
-  variant:
+  className?: string
+  variant?:
     | 'link'
     | 'default'
     | 'destructive'
     | 'outline'
     | 'secondary'
     | 'ghost'
-    | 'success'
     | null
     | undefined
 }
@@ -53,6 +53,7 @@ const ButtonDialog = ({
   reason = false,
   label,
   variant,
+  className,
   tooltipText,
 }: ButtonDialogProps): ReactElement => {
   const { t } = useTranslation()
@@ -74,7 +75,9 @@ const ButtonDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant ?? 'default'}>{t(triggerText)}</Button>
+        <Button variant={variant ?? 'default'} className={className}>
+          {t(triggerText)}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>

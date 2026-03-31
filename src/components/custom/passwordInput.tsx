@@ -1,12 +1,12 @@
 'use client'
 
-import { Button } from '@/shadcn/ui/button'
-import { Input, InputProps } from '@/shadcn/ui/input'
 import { cn } from '@/shadcn/lib/utils'
+import { Button } from '@/shadcn/ui/button'
+import { Input } from '@/shadcn/ui/input'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { forwardRef, useState } from 'react'
+import { ComponentProps, forwardRef, useState } from 'react'
 
-const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
+const PasswordInput = forwardRef<HTMLInputElement, ComponentProps<'input'>>(
   ({ className, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
     const disabled =
@@ -38,7 +38,6 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           </span>
         </Button>
 
-        {/* hides browsers password toggles */}
         <style>{`
 					.hide-password-toggle::-ms-reveal,
 					.hide-password-toggle::-ms-clear {

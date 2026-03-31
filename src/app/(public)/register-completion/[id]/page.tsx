@@ -6,13 +6,14 @@ import { PasswordInput } from '@/components/custom/passwordInput'
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
 import PhoneNumberField from '@/components/PhoneNumberField'
-import { Button } from '@/shadcn/ui/button'
+import { useCreatePage } from '@/hooks/useCreatePage'
+import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
 import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/shadcn/ui/card'
+  getAdminRegistrationApplicationSummary,
+  postRegistrationApplication,
+} from '@/modules/adminRegistrationApplications/service'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
@@ -22,12 +23,7 @@ import {
   FormMessage,
 } from '@/shadcn/ui/form'
 import { Input } from '@/shadcn/ui/input'
-import { useCreatePage } from '@/hooks/useCreatePage'
-import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
-import {
-  getAdminRegistrationApplicationSummary,
-  postRegistrationApplication,
-} from '@/modules/adminRegistrationApplications/service'
+import { Label } from '@/shadcn/ui/label'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -120,12 +116,10 @@ const Page = (props: {
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-5"
                 >
-                  <FormItem>
-                    <FormLabel>{t('common.institution')}</FormLabel>
-                    <FormControl>
-                      <Input value={institutionName} disabled />
-                    </FormControl>
-                  </FormItem>
+                  <div className="space-y-2">
+                    <Label>{t('common.institution')}</Label>
+                    <Input value={institutionName} disabled />
+                  </div>
                   <FormField
                     control={control}
                     name="firstName"

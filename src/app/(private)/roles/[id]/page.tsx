@@ -2,18 +2,6 @@
 
 import ButtonDialog from '@/components/custom/button-dialog'
 import { LoadingSpinner } from '@/components/custom/loadingSpinner'
-import { Button } from '@/shadcn/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/shadcn/ui/form'
-import { Input } from '@/shadcn/ui/input'
-import { Switch } from '@/shadcn/ui/switch'
 import { Permission } from '@/constants/permissions'
 import { useDetailPage } from '@/hooks/useDetailPage'
 import { useFormManager } from '@/hooks/useFormManager'
@@ -33,6 +21,19 @@ import {
   getRoleDetail,
   updateRole,
 } from '@/modules/roles/service'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
+import { Switch } from '@/shadcn/ui/switch'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { use, useCallback, useEffect, useState } from 'react'
@@ -276,7 +277,9 @@ const Page = (props: {
                     )}
                   />
                   <FormItem className="sm:col-span-1">
-                    <FormLabel>{t('role.status')}</FormLabel>
+                    <Label className="text-sm font-medium leading-none">
+                      {t('role.status')}
+                    </Label>
                     <Input
                       disabled
                       value={
@@ -286,7 +289,9 @@ const Page = (props: {
                   </FormItem>
                   <div className="grid grid-cols-4 gap-6 sm:col-span-3">
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('common.createdUser')}</FormLabel>
+                      <Label className="text-sm font-medium leading-none">
+                        {t('common.createdUser')}
+                      </Label>
                       <Input
                         disabled
                         value={roleDetail.createdUser ?? ''}
@@ -294,7 +299,9 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('common.createdAt')}</FormLabel>
+                      <Label className="text-sm font-medium leading-none">
+                        {t('common.createdAt')}
+                      </Label>
                       <Input
                         disabled
                         value={formatDateTime(roleDetail.createdAt)}
@@ -302,7 +309,9 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('common.updatedUser')}</FormLabel>
+                      <Label className="text-sm font-medium leading-none">
+                        {t('common.updatedUser')}
+                      </Label>
                       <Input
                         disabled
                         value={roleDetail.updatedUser ?? ''}
@@ -310,7 +319,9 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('common.updatedAt')}</FormLabel>
+                      <Label className="text-sm font-medium leading-none">
+                        {t('common.updatedAt')}
+                      </Label>
                       <Input
                         disabled
                         value={formatDateTime(roleDetail.updatedAt)}
