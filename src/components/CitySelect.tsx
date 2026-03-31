@@ -14,24 +14,25 @@ import {
 } from '@/shadcn/ui/select'
 import { t } from 'i18next'
 import { useEffect, useState } from 'react'
-import { Control } from 'react-hook-form'
+import { Control, FieldPathByValue, FieldValues } from 'react-hook-form'
 
-interface CitySelectProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<any>
+interface CitySelectProps<TFieldValues extends FieldValues = FieldValues> {
+  control: Control<TFieldValues>
+  name?: FieldPathByValue<TFieldValues, string | null | undefined>
   defaultValue?: string
   isDisabled?: boolean
 }
 
-const CitySelect = ({
+const CitySelect = <TFieldValues extends FieldValues = FieldValues>({
   control,
+  name = 'city' as FieldPathByValue<TFieldValues, string | null | undefined>,
   defaultValue = '',
   isDisabled = false,
-}: CitySelectProps) => {
+}: CitySelectProps<TFieldValues>): React.ReactNode => {
   const [cityList, setCityList] = useState<string[]>([])
 
   useEffect(() => {
-    const fetchCities = async () => {
+    const fetchCities = async (): Promise<void> => {
       try {
         const res = await fetch('/turkey_cities_districts.json')
         const data = await res.json()
@@ -53,7 +54,7 @@ const CitySelect = ({
   return (
     <FormField
       control={control}
-      name="city"
+      name={name}
       render={({ field }) => (
         <FormItem>
           <FormLabel>{t('user.city')}</FormLabel>
