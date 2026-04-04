@@ -1,4 +1,5 @@
 import { BaseApiResponse, PhoneNumber, Sort } from '@/common/types'
+import { EmergencyEvacuationApplicationPriority } from '@/modules/emergencyEvacuationApplications/constants/priorities'
 
 export interface EmergencyEvacuationApplicationsFilter {
   page: number
@@ -26,6 +27,7 @@ export interface EmergencyEvacuationApplication {
   seatingCount: number
   targetCity: string
   targetDistrict: string
+  priority: EmergencyEvacuationApplicationPriority
   status: string
   applicantFirstName: string
   applicantLastName: string
@@ -41,7 +43,7 @@ export interface EmergencyEvacuationApplication {
 
 export type EvacuationApplicationEditableFields = Pick<
   EmergencyEvacuationApplication,
-  'seatingCount' | 'hasObstaclePersonExist' | 'status' | 'notes'
+  'seatingCount' | 'hasObstaclePersonExist' | 'priority' | 'status' | 'notes'
 >
 
 export interface EmergencyApplicationApiResponse extends BaseApiResponse {

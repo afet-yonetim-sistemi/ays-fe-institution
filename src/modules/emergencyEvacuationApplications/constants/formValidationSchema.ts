@@ -19,6 +19,7 @@ const EmergencyEvacuationApplicationSchema = z.object({
     .max(999, { message: 'validation.seatingCount' }),
   targetCity: z.string(),
   targetDistrict: z.string(),
+  priority: z.string(),
   status: z.string(),
   applicantFirstName: z.string(),
   applicantLastName: z.string(),

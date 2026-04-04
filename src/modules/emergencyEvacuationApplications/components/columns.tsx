@@ -8,6 +8,8 @@ import {
   formatReferenceNumber,
 } from '@/lib/dataFormatters'
 import { getSortState } from '@/lib/getSortState'
+import PriorityIcon from '@/modules/emergencyEvacuationApplications/components/PriorityIcon'
+import { EmergencyEvacuationApplicationPriority } from '@/modules/emergencyEvacuationApplications/constants/priorities'
 import { Column, ColumnDef } from '@tanstack/table-core'
 import i18next from 'i18next'
 import { emergencyEvacuationApplicationStatuses } from '../constants/statuses'
@@ -23,6 +25,7 @@ export interface EmergencyEvacuationApplication {
   phoneNumber?: PhoneNumber
   isInPerson: boolean
   seatingCount: number
+  priority: EmergencyEvacuationApplicationPriority
   status: string
   createdAt: string
 }
@@ -73,6 +76,19 @@ export const columns: (
       accessorKey: 'seatingCount',
       header: () => i18next.t('application.evacuation.seatingCount'),
       cell: ({ row }) => row.original.seatingCount,
+    },
+    {
+      id: 'priority',
+      accessorFn: (row) => row.priority,
+      header: ({ column }) => (
+        <DataTableSort
+          column={column}
+          label={i18next.t('application.evacuation.priority')}
+          sortState={getSortState('priority', filters)}
+          onSortClick={onSortClick}
+        />
+      ),
+      cell: ({ row }) => <PriorityIcon priority={row.original.priority} />,
     },
     {
       accessorKey: 'status',

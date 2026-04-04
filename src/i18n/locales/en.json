@@ -129,6 +129,7 @@
       "targetCityAndDistrict": "City / District to be Evacuated",
       "anyDisability": "Any Person with Disability?",
       "confirmedSeatingCount": "Confirmed Seating Count",
+      "priority": "Application Priority",
       "notes": "Operator Notes"
     }
   },
@@ -258,6 +259,14 @@
     "receivedSecondApprove": "Received Second Approve (Reservation Confirmation)",
     "receivedThirdApprove": "Received Third Approve (Final Participation Confirmation)",
     "cancelled": "Cancelled"
+  },
+  "priority": {
+    "critical": "Critical",
+    "highest": "Highest",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "lowest": "Lowest"
   },
   "languages": {
     "en": "English",
