@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -17,8 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/shadcn/ui/tooltip'
-import { DialogDescription } from '@radix-ui/react-dialog'
-import { ReactElement, useState } from 'react'
+import { ReactElement, useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface ButtonDialogProps {
@@ -57,6 +57,7 @@ const ButtonDialog = ({
   tooltipText,
 }: ButtonDialogProps): ReactElement => {
   const { t } = useTranslation()
+  const reasonFieldId = useId()
   const [reasonText, setReasonText] = useState<string>('')
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -82,18 +83,20 @@ const ButtonDialog = ({
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t(title)}</DialogTitle>
-          <DialogDescription />
+          <DialogDescription className="sr-only">
+            {t('common.confirmDescription')}
+          </DialogDescription>
         </DialogHeader>
         {reason && (
           <>
-            <Label htmlFor={'reason'}>
+            <Label htmlFor={reasonFieldId}>
               {label ?? t('application.rejectReason')}
             </Label>
             <Textarea
               minLength={40}
               maxLength={512}
               onChange={(e) => setReasonText(e.target.value.trim())}
-              id="reason"
+              id={reasonFieldId}
             />
           </>
         )}
@@ -108,28 +111,39 @@ const ButtonDialog = ({
               {cancelText ?? t('common.no')}
             </Button>
           </DialogClose>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  type="button"
-                  className="w-36"
-                  onClick={handleConfirmClick}
-                  disabled={
-                    (reason && reasonText.length < 40) ||
-                    reasonText.length > 512
-                  }
-                >
-                  {confirmText ?? t('common.yes')}
-                </Button>
-              </TooltipTrigger>
-              {tooltipText && (
+          {tooltipText ? (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type="button"
+                    className="w-36"
+                    onClick={handleConfirmClick}
+                    disabled={
+                      (reason && reasonText.length < 40) ||
+                      reasonText.length > 512
+                    }
+                  >
+                    {confirmText ?? t('common.yes')}
+                  </Button>
+                </TooltipTrigger>
                 <TooltipContent>
                   <p>{t(tooltipText)}</p>
                 </TooltipContent>
-              )}
-            </Tooltip>
-          </TooltipProvider>
+              </Tooltip>
+            </TooltipProvider>
+          ) : (
+            <Button
+              type="button"
+              className="w-36"
+              onClick={handleConfirmClick}
+              disabled={
+                (reason && reasonText.length < 40) || reasonText.length > 512
+              }
+            >
+              {confirmText ?? t('common.yes')}
+            </Button>
+          )}
         </div>
       </DialogContent>
     </Dialog>
