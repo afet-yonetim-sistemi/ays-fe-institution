@@ -218,7 +218,7 @@ const Page = (props: {
   }
 
   return (
-    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+    <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && roleDetail && (
         <Form {...form}>
@@ -277,7 +277,7 @@ const Page = (props: {
                     )}
                   />
                   <FormItem className="sm:col-span-1">
-                    <Label className="text-sm font-medium leading-none">
+                    <Label className="text-sm leading-none font-medium">
                       {t('role.status')}
                     </Label>
                     <Input
@@ -289,7 +289,7 @@ const Page = (props: {
                   </FormItem>
                   <div className="grid grid-cols-4 gap-6 sm:col-span-3">
                     <FormItem className="sm:col-span-1">
-                      <Label className="text-sm font-medium leading-none">
+                      <Label className="text-sm leading-none font-medium">
                         {t('common.createdUser')}
                       </Label>
                       <Input
@@ -299,7 +299,7 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <Label className="text-sm font-medium leading-none">
+                      <Label className="text-sm leading-none font-medium">
                         {t('common.createdAt')}
                       </Label>
                       <Input
@@ -309,7 +309,7 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <Label className="text-sm font-medium leading-none">
+                      <Label className="text-sm leading-none font-medium">
                         {t('common.updatedUser')}
                       </Label>
                       <Input
@@ -319,7 +319,7 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <Label className="text-sm font-medium leading-none">
+                      <Label className="text-sm leading-none font-medium">
                         {t('common.updatedAt')}
                       </Label>
                       <Input
@@ -349,7 +349,7 @@ const Page = (props: {
                       }
                     />
                     {isRoleEditable && permissionError && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-destructive text-sm">
                         {permissionError}
                       </p>
                     )}

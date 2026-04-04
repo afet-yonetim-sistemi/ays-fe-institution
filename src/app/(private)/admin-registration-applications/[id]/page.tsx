@@ -99,7 +99,7 @@ const Page = (props: { params: Promise<{ id: string }> }): React.ReactNode => {
   }
 
   return (
-    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+    <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
       {isLoading && <LoadingSpinner />}
       {!isLoading && adminRegistrationApplicationDetails && (
         <Form {...form}>

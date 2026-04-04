@@ -2,6 +2,13 @@
 
 import { Institution } from '@/common/types'
 import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { useCreatePage } from '@/hooks/useCreatePage'
+import { showErrorToast } from '@/lib/showToast'
+import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
+import {
+  createAdminRegistrationApplication,
+  getPreApplicationSummary,
+} from '@/modules/adminRegistrationApplications/service'
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 import {
@@ -20,13 +27,6 @@ import {
   SelectValue,
 } from '@/shadcn/ui/select'
 import { Textarea } from '@/shadcn/ui/textarea'
-import { useCreatePage } from '@/hooks/useCreatePage'
-import { showErrorToast } from '@/lib/showToast'
-import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
-import {
-  createAdminRegistrationApplication,
-  getPreApplicationSummary,
-} from '@/modules/adminRegistrationApplications/service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -82,7 +82,7 @@ const Page = (): React.ReactNode => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+        <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
           <div className="mb-6 flex items-center justify-between">
             <h1 className="text-2xl font-bold">
               {t('application.admin.preliminary.title')}

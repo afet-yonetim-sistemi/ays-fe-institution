@@ -259,7 +259,7 @@ const Page = (props: {
   }
 
   return (
-    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+    <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && userDetails && (
         <Form {...form}>
@@ -399,7 +399,7 @@ const Page = (props: {
                   />
 
                   <FormItem className="sm:col-span-1">
-                    <Label className="text-sm font-medium leading-none">
+                    <Label className="text-sm leading-none font-medium">
                       {t('user.status')}
                     </Label>
                     <Select value={userDetails.status || ''} disabled>
@@ -417,7 +417,7 @@ const Page = (props: {
                   </FormItem>
                   <div className="grid grid-cols-4 gap-6 sm:col-span-3">
                     <FormItem className="sm:col-span-1">
-                      <Label className="text-sm font-medium leading-none">
+                      <Label className="text-sm leading-none font-medium">
                         {t('user.createdUser')}
                       </Label>
                       <Input
@@ -427,7 +427,7 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <Label className="text-sm font-medium leading-none">
+                      <Label className="text-sm leading-none font-medium">
                         {t('user.createdAt')}
                       </Label>
                       <Input
@@ -437,7 +437,7 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <Label className="text-sm font-medium leading-none">
+                      <Label className="text-sm leading-none font-medium">
                         {t('user.updatedUser')}
                       </Label>
                       <Input
@@ -447,7 +447,7 @@ const Page = (props: {
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <Label className="text-sm font-medium leading-none">
+                      <Label className="text-sm leading-none font-medium">
                         {t('user.updatedAt')}
                       </Label>
                       <Input
@@ -468,7 +468,7 @@ const Page = (props: {
                   </CardTitle>
                   <div className="ml-4 flex items-center gap-2">
                     {isUserEditable && minRoleError && (
-                      <p className="text-sm text-destructive">{minRoleError}</p>
+                      <p className="text-destructive text-sm">{minRoleError}</p>
                     )}
                   </div>
                 </div>
@@ -483,7 +483,7 @@ const Page = (props: {
                         roles.map((role) => (
                           <div
                             key={role.id}
-                            className="flex items-center space-x-3 space-y-0"
+                            className="flex items-center space-y-0 space-x-3"
                           >
                             <Switch
                               className="mt-2"

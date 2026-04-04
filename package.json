@@ -27,6 +27,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@reduxjs/toolkit": "^2.11.2",
+    "@tailwindcss/postcss": "^4.2.2",
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.14.0",
     "class-variance-authority": "^0.7.1",
@@ -81,7 +82,7 @@
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2"
   }
 }
