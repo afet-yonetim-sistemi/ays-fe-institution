@@ -88,19 +88,19 @@ const FilterInput: React.FC<FilterInputProps> = memo(
           onInput={onInput}
           inputMode={inputMode}
           className={cn(
-            'peer block w-full appearance-none rounded-lg border-[2px] border-gray-200 bg-transparent p-3 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500',
+            'peer border-input text-foreground focus:border-primary focus-visible:border-primary block w-full appearance-none rounded-lg border-2 bg-transparent p-3 text-sm focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0',
             type === 'number' && hideNumberSpinner && noNumberSpinnerClass
           )}
         />
         <Label
           htmlFor={id}
-          className="absolute !left-3 start-1 top-1.5 z-10 origin-[0] -translate-y-4 transform cursor-text rounded bg-white text-sm text-gray-500 duration-300 peer-placeholder-shown:top-[calc(50%-20px)] peer-placeholder-shown:-translate-y-[calc(50%-10px)] peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:text-blue-600 dark:bg-background dark:text-gray-400 peer-focus:dark:text-blue-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+          className="bg-background text-muted-foreground peer-focus:text-primary absolute start-1 top-1.5 !left-3 z-10 origin-[0] -translate-y-4 transform cursor-text rounded text-sm duration-300 peer-placeholder-shown:top-[calc(50%-20px)] peer-placeholder-shown:-translate-y-[calc(50%-10px)] peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
         >
           {label}
         </Label>
         <div className="mt-1 h-[16px]">
           {error && (
-            <p className="text-sm font-medium text-destructive">{t(error)}</p>
+            <p className="text-destructive text-sm font-medium">{t(error)}</p>
           )}
         </div>
       </div>

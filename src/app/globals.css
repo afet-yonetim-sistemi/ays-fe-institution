@@ -172,13 +172,22 @@
 }
 
 .react-tel-input .form-control {
-  background-color: hsl(var(--background)) !important;
-  border-color: hsl(var(--input)) !important;
+  background-color: var(--background) !important;
+  border-color: var(--input) !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-radius: calc(var(--radius) - 2px) !important;
   height: 40px !important;
 }
 
+.react-tel-input .form-control:focus {
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .react-tel-input .form-control:disabled {
-  border-color: hsl(var(--input)) !important;
+  border-color: var(--input) !important;
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -186,8 +195,9 @@
 .react-tel-input .flag-dropdown {
   pointer-events: none !important;
   cursor: not-allowed !important;
-  background-color: hsl(var(--background)) !important;
-  border-color: hsl(var(--input)) !important;
+  background-color: var(--muted) !important;
+  border-color: var(--input) !important;
+  border-radius: calc(var(--radius) - 2px) 0 0 calc(var(--radius) - 2px) !important;
 }
 
 .react-tel-input .flag-dropdown:disabled {

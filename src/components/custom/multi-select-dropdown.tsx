@@ -53,12 +53,12 @@ const MultiSelectDropdown = <T extends string>({
           <TooltipTrigger className="flex w-fit gap-2">
             <DropdownMenuTrigger
               asChild
-              className="h-10 rounded px-4 py-2 hover:bg-muted/90 data-[state=open]:bg-blue-600/10 data-[state=open]:text-blue-600"
+              className="hover:bg-muted/90 data-[state=open]:bg-primary/10 data-[state=open]:text-primary h-10 rounded px-4 py-2"
             >
               <div className="flex items-center gap-2">
                 {t(label)}
                 {selectedItems.length > 0 && (
-                  <p className="rounded-full bg-blue-600 px-1.5 py-1 text-center text-xs text-white">
+                  <p className="bg-primary text-primary-foreground rounded-full px-1.5 py-1 text-center text-xs">
                     {selectedItems.length}
                   </p>
                 )}
@@ -80,7 +80,7 @@ const MultiSelectDropdown = <T extends string>({
               checked={isSelected}
               onCheckedChange={() => handleSelectionChange(item.value)}
               onSelect={(event) => event.preventDefault()}
-              className="cursor-pointer rounded-none border-l-2 border-transparent hover:border-l-2 hover:border-l-blue-700"
+              className="hover:border-l-primary cursor-pointer rounded-none border-l-2 border-transparent hover:border-l-2"
             >
               {renderItem(item, isSelected)}
             </DropdownMenuCheckboxItem>
