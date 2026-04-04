@@ -1,25 +1,7 @@
 'use client'
 
 import { Institution } from '@/common/types'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import { useCreatePage } from '@/hooks/useCreatePage'
 import { showErrorToast } from '@/lib/showToast'
 import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
@@ -27,13 +9,31 @@ import {
   createAdminRegistrationApplication,
   getPreApplicationSummary,
 } from '@/modules/adminRegistrationApplications/service'
+import { Button } from '@/shadcn/ui/button'
+import { Card } from '@/shadcn/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shadcn/ui/form'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shadcn/ui/select'
+import { Textarea } from '@/shadcn/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const { handleCreate, isCreating } = useCreatePage({
     createItem: createAdminRegistrationApplication,
@@ -82,7 +82,7 @@ const Page = (): JSX.Element => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+        <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
           <div className="mb-6 flex items-center justify-between">
             <h1 className="text-2xl font-bold">
               {t('application.admin.preliminary.title')}

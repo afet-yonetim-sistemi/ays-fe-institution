@@ -56,12 +56,18 @@ export interface CreateUserPayload {
 }
 
 export interface UserFormValues {
+  id?: string
   firstName: string
   lastName: string
   emailAddress: string
   phoneNumber: PhoneNumber
   city: string
   roleIds: string[]
+  status?: string
+  createdUser?: string
+  createdAt?: string
+  updatedUser?: string | null
+  updatedAt?: string | null
 }
 
 export interface UserDetails {

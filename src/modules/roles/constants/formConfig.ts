@@ -4,8 +4,13 @@ import { z } from 'zod'
 import { RoleDetail } from './types'
 
 export interface RoleFormValues {
+  id?: string
   name: string
   status?: string
+  createdUser?: string
+  createdAt?: string
+  updatedUser?: string | null
+  updatedAt?: string | null
   permissionIds: string[]
 }
 
@@ -21,20 +26,29 @@ export const roleFormConfig = {
 
   validationSchema: z.object({
     name: strictNameValidation,
+    permissionIds: z
+      .array(z.string())
+      .min(1, { message: 'validation.required' }),
   }),
 
   validationSchemaCreate: z.object({
     name: strictNameValidation,
+    permissionIds: z
+      .array(z.string())
+      .min(1, { message: 'validation.required' }),
   }),
 
   validationSchemaDetail: z.object({
-    id: z.string(),
+    id: z.string().optional(),
     name: strictNameValidation,
-    status: z.string(),
-    createdUser: z.string(),
-    createdAt: z.string(),
-    updatedUser: z.string(),
-    updatedAt: z.string(),
+    status: z.string().optional(),
+    createdUser: z.string().optional(),
+    createdAt: z.string().optional(),
+    updatedUser: z.string().optional().nullable(),
+    updatedAt: z.string().optional().nullable(),
+    permissionIds: z
+      .array(z.string())
+      .min(1, { message: 'validation.required' }),
   }),
 
   getDefaultValues: (roleDetails?: RoleDetail): RoleFormValues => ({

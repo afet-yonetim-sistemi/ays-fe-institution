@@ -1,8 +1,8 @@
+import { useSyncExternalStore, useMemo } from 'react'
 import {
   Breakpoint,
   BreakpointDirections as BreakpointDirectionsConst,
 } from '@/constants/breakpoint'
-import { useEffect, useState } from 'react'
 
 export type BreakpointDirection = 'up' | 'down' | 'only'
 
@@ -30,23 +30,24 @@ export function useBreakpoint(
   breakpoint: keyof typeof Breakpoint,
   direction: BreakpointDirection = BreakpointDirectionsConst.down
 ) {
-  const getInitialMatch = () => {
+  const query = useMemo(
+    () => getMediaQuery(breakpoint, direction),
+    [breakpoint, direction]
+  )
+
+  const subscribe = (callback: () => void) => {
+    if (globalThis.window === undefined) return () => {}
+    const mq = globalThis.window.matchMedia(query)
+    mq.addEventListener('change', callback)
+    return () => mq.removeEventListener('change', callback)
+  }
+
+  const getSnapshot = () => {
     if (globalThis.window === undefined) return false
-    const query = getMediaQuery(breakpoint, direction)
     return globalThis.window.matchMedia(query).matches
   }
 
-  const [matches, setMatches] = useState(getInitialMatch)
+  const getServerSnapshot = () => false
 
-  useEffect(() => {
-    if (globalThis.window === undefined) return
-    const query = getMediaQuery(breakpoint, direction)
-    const mq = globalThis.window.matchMedia(query)
-    setMatches(mq.matches)
-    const cb = (ev: MediaQueryListEvent) => setMatches(ev.matches)
-    mq.addEventListener('change', cb)
-    return () => mq.removeEventListener('change', cb)
-  }, [breakpoint, direction])
-
-  return matches
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }

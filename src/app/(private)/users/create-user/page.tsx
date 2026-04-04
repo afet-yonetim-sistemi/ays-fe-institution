@@ -1,9 +1,16 @@
 'use client'
 
 import CitySelect from '@/components/CitySelect'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import PhoneNumberField from '@/components/PhoneNumberField'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useCreatePage } from '@/hooks/useCreatePage'
+import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
+import { userFormConfig } from '@/modules/users/constants/formConfig'
+import { CreateUserPayload } from '@/modules/users/constants/types'
+import { useRoleSelection } from '@/modules/users/hooks/useRoleSelection'
+import { createUser } from '@/modules/users/service'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
@@ -11,21 +18,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Switch } from '@/components/ui/switch'
-import { useCreatePage } from '@/hooks/useCreatePage'
-import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
-import { userFormConfig } from '@/modules/users/constants/formConfig'
-import { CreateUserPayload } from '@/modules/users/constants/types'
-import { useRoleSelection } from '@/modules/users/hooks/useRoleSelection'
-import { createUser } from '@/modules/users/service'
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
+import { Switch } from '@/shadcn/ui/switch'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const form = useForm({
     resolver: zodResolver(userFormConfig.validationSchemeCreate),
@@ -139,18 +140,19 @@ const Page = (): JSX.Element => {
               <LoadingSpinner />
             ) : (
               roles.map((role) => (
-                <FormItem key={role.id} className="flex items-center">
-                  <FormControl>
-                    <Switch
-                      className="mt-2"
-                      checked={selectedRoles.includes(role.id)}
-                      onCheckedChange={() => handleRoleToggle(role.id)}
-                    />
-                  </FormControl>
-                  <FormLabel className="ml-3 items-center">
+                <div
+                  key={role.id}
+                  className="flex items-center space-x-3 space-y-0"
+                >
+                  <Switch
+                    className="mt-2"
+                    checked={selectedRoles.includes(role.id)}
+                    onCheckedChange={() => handleRoleToggle(role.id)}
+                  />
+                  <Label className="items-center font-normal">
                     {role.name}
-                  </FormLabel>
-                </FormItem>
+                  </Label>
+                </div>
               ))
             )}
           </div>

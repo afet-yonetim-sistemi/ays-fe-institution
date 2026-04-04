@@ -5,7 +5,7 @@ import { selectUser } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { useTranslation } from 'react-i18next'
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const user = useAppSelector(selectUser)
 

@@ -1,15 +1,17 @@
 'use client'
 
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { PasswordInput } from '@/components/custom/passwordInput'
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
 import ForgotPasswordModal from '@/components/password/ForgotPasswordModal'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shadcn/ui/button'
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
@@ -17,10 +19,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { PasswordInput } from '@/components/ui/passwordInput'
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
 import { showErrorToast } from '@/lib/showToast'
 import {
   clearRefreshTokenExpired,
@@ -38,7 +38,7 @@ import { useForm, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const router = useRouter()

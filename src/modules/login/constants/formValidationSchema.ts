@@ -4,9 +4,8 @@ import { z } from 'zod'
 
 const LoginFormSchema = z.object({
   emailAddress: z
-    .string({
-      required_error: 'validation.required',
-    })
+    .string()
+    .min(1, { message: 'validation.required' })
     .regex(emailRegex, { message: 'validation.email' })
     .min(6, { message: 'validation.minLength' })
     .max(254, { message: 'validation.maxLength' }),

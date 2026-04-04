@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { FormControl, FormItem, FormLabel } from '@/components/ui/form'
-import { Switch } from '@/components/ui/switch'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
+import { Label } from '@/shadcn/ui/label'
+import { Switch } from '@/shadcn/ui/switch'
 import React from 'react'
 import { RolePermission } from '../constants/types'
 
@@ -38,19 +38,20 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
       <CardContent>
         <div className="grid grid-cols-1 gap-1">
           {permissions.map((permission) => (
-            <FormItem key={permission.id} className="flex items-center">
-              <FormControl>
-                <Switch
-                  className="mt-2"
-                  disabled={!isEditable}
-                  checked={permission.isActive}
-                  onCheckedChange={() => onPermissionToggle(permission.id)}
-                />
-              </FormControl>
-              <FormLabel className="ml-3 items-center">
+            <div
+              key={permission.id}
+              className="flex items-center space-x-3 space-y-0"
+            >
+              <Switch
+                className="mt-2"
+                disabled={!isEditable}
+                checked={permission.isActive}
+                onCheckedChange={() => onPermissionToggle(permission.id)}
+              />
+              <Label className="items-center font-normal">
                 {permission.name}
-              </FormLabel>
-            </FormItem>
+              </Label>
+            </div>
           ))}
         </div>
       </CardContent>
