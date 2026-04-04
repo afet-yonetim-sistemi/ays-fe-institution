@@ -44,6 +44,7 @@ import {
   FormMessage,
 } from '@/shadcn/ui/form'
 import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
 import {
   Select,
   SelectContent,
@@ -132,11 +133,8 @@ const Page = (props: {
           setEmergencyEvacuationApplicationDetails(details)
           setInitialApplicationValues(details)
           reset({
-            seatingCount: details.seatingCount,
-            hasObstaclePersonExist: details.hasObstaclePersonExist,
-            status: details.status,
-            priority: details.priority,
-            notes: details.notes,
+            ...details,
+            notes: details.notes ?? '',
           })
         })
         .catch((error) => {
@@ -156,12 +154,8 @@ const Page = (props: {
   const handleCancelButtonClick = (): void => {
     if (emergencyEvacuationApplicationDetails) {
       reset({
-        seatingCount: emergencyEvacuationApplicationDetails.seatingCount,
-        hasObstaclePersonExist:
-          emergencyEvacuationApplicationDetails.hasObstaclePersonExist,
-        status: emergencyEvacuationApplicationDetails.status,
-        priority: emergencyEvacuationApplicationDetails.priority,
-        notes: emergencyEvacuationApplicationDetails.notes,
+        ...emergencyEvacuationApplicationDetails,
+        notes: emergencyEvacuationApplicationDetails.notes ?? '',
       })
     }
     setIsFormChanged(false)
@@ -304,7 +298,11 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
-                            value={field.value ?? ''}
+                            value={
+                              [field.value, watch('lastName')]
+                                .filter(Boolean)
+                                .join(' ') || ''
+                            }
                             disabled
                           />
                         </FormControl>
@@ -366,7 +364,11 @@ const Page = (props: {
                           <FormControl>
                             <Input
                               {...field}
-                              value={field.value ?? ''}
+                              value={
+                                [field.value, watch('applicantLastName')]
+                                  .filter(Boolean)
+                                  .join(' ') || ''
+                              }
                               disabled
                             />
                           </FormControl>
@@ -409,7 +411,11 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
-                            value={field.value ?? ''}
+                            value={
+                              [field.value, watch('sourceDistrict')]
+                                .filter(Boolean)
+                                .join(' / ') || ''
+                            }
                             disabled
                           />
                         </FormControl>
@@ -427,7 +433,11 @@ const Page = (props: {
                         <FormControl>
                           <Input
                             {...field}
-                            value={field.value ?? ''}
+                            value={
+                              [field.value, watch('targetDistrict')]
+                                .filter(Boolean)
+                                .join(' / ') || ''
+                            }
                             disabled
                           />
                         </FormControl>
@@ -479,24 +489,16 @@ const Page = (props: {
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={control}
-                    name="seatingCount"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
-                        <FormLabel>
-                          {t('application.evacuation.confirmedSeatingCount')}
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            value={field.value ?? ''}
-                            disabled
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                  <div className="space-y-2 sm:col-span-1">
+                    <Label className="text-sm leading-none font-medium">
+                      {t('application.evacuation.confirmedSeatingCount')}
+                    </Label>
+                    <Input
+                      value={String(watch('seatingCount') ?? '')}
+                      disabled
+                      readOnly
+                    />
+                  </div>
                   <FormField
                     control={control}
                     name="priority"
