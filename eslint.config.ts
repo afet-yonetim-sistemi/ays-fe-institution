@@ -19,6 +19,7 @@ const config = [
     'coverage/**',
     '.vscode/**',
     '.idea/**',
+    'src/shadcn/**',
   ]),
   {
     files: ['**/*.{ts,tsx}'],

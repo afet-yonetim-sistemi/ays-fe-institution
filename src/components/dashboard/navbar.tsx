@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/shadcn/ui/dropdown-menu'
 import { showErrorToast } from '@/lib/showToast'
 import { selectRefreshToken, selectUser } from '@/modules/auth/authSlice'
 import type { UserInfo } from '@/modules/auth/constants/types'
@@ -18,9 +18,9 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuUser } from 'react-icons/lu'
-import { Avatar, AvatarFallback } from '../ui/avatar'
-import { Button } from '../ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { Avatar, AvatarFallback } from '@/shadcn/ui/avatar'
+import { Button } from '@/shadcn/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/shadcn/ui/sheet'
 import LanguageToggle from './languageToggle'
 import Menu from './menu'
 import { ModeToggle } from './modeToggle'
@@ -44,7 +44,7 @@ const UserInfoDisplay: React.FC<UserInfoProps> = ({ userInfo, className }) => {
   )
 }
 
-function Navbar(): JSX.Element {
+function Navbar(): React.ReactNode {
   const { t } = useTranslation()
   const userInfo = useAppSelector(selectUser)
   const refreshToken = useAppSelector(selectRefreshToken)

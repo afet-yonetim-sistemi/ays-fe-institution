@@ -8,11 +8,10 @@ export const nameboxValidation = (str: string): boolean => {
 export const nameboxWithLengthValidation = (
   minLength: number = 2,
   maxLength: number = 100
-): z.ZodEffects<z.ZodString, string, string> =>
+): z.ZodString =>
   z
-    .string({
-      required_error: 'validation.required',
-    })
+    .string()
+    .min(1, { message: 'validation.required' })
     .trim()
     .min(minLength, { message: 'validation.minLength' })
     .max(maxLength, { message: 'validation.maxLength' })

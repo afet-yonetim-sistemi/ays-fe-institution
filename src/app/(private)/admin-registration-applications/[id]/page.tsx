@@ -1,17 +1,7 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import ButtonDialog from '@/components/custom/button-dialog'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import { Permission } from '@/constants/permissions'
 import { useDetailPage } from '@/hooks/useDetailPage'
 import { formatDateTime, formatPhoneNumber } from '@/lib/dataFormatters'
@@ -25,21 +15,32 @@ import {
   rejectAdminRegistrationApplication,
 } from '@/modules/adminRegistrationApplications/service'
 import { selectPermissions } from '@/modules/auth/authSlice'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import React, { use, useEffect } from 'react'
+import { Resolver, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
+const Page = (props: { params: Promise<{ id: string }> }): React.ReactNode => {
+  const params = use(props.params)
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
   const router = useRouter()
-  const form = useForm({
+  const form = useForm<AdminRegistrationApplication>({
     resolver: zodResolver(
       adminRegistrationApplicationFormConfig.detailsValidationSchema
-    ),
+    ) as unknown as Resolver<AdminRegistrationApplication>,
   })
   const { control } = form
 
@@ -50,6 +51,13 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
   } = useDetailPage<AdminRegistrationApplication, object>({
     fetchDetail: getAdminRegistrationApplication,
     updateItem: () => Promise.resolve({ isSuccess: true, time: '' }),
+    onSuccess: {
+      fetch: (data) => {
+        const formDefaults =
+          adminRegistrationApplicationFormConfig.getDefaultValues(data)
+        form.reset(formDefaults)
+      },
+    },
   })
 
   useEffect(() => {
@@ -91,7 +99,7 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
   }
 
   return (
-    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+    <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
       {isLoading && <LoadingSpinner />}
       {!isLoading && adminRegistrationApplicationDetails && (
         <Form {...form}>
@@ -116,7 +124,8 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                       triggerText={'common.approve'}
                       title={'application.approveConfirm'}
                       onConfirm={handleApprove}
-                      variant={'success'}
+                      variant={'default'}
+                      className="bg-success text-success-foreground hover:bg-success/90"
                     />
                   </div>
                 )}
@@ -136,10 +145,8 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.reason ?? ''
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -147,18 +154,15 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                   />
                   <FormField
                     control={control}
-                    name="institutionName"
+                    name="institution.name"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>{t('common.institution')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.institution
-                                ?.name ?? ''
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -175,9 +179,9 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                             {...field}
                             disabled
                             value={
-                              adminRegistrationApplicationDetails?.status
+                              field.value
                                 ? t(
-                                    `status.${adminRegistrationApplicationDetails.status.toLowerCase()}`
+                                    `status.${String(field.value).toLowerCase()}`
                                   )
                                 : ''
                             }
@@ -197,11 +201,8 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                           <FormControl>
                             <Input
                               {...field}
+                              value={field.value ?? ''}
                               disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.rejectReason ??
-                                ''
-                              }
                             />
                           </FormControl>
                         </FormItem>
@@ -217,11 +218,8 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.createdUser ??
-                              ''
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -229,17 +227,15 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                   />
                   <FormField
                     control={control}
-                    name="createDate"
+                    name="createdAt"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>{t('common.createdAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
+                            value={formatDateTime(field.value)}
                             disabled
-                            defaultValue={formatDateTime(
-                              adminRegistrationApplicationDetails.createdAt
-                            )}
                           />
                         </FormControl>
                       </FormItem>
@@ -254,11 +250,8 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              adminRegistrationApplicationDetails.updatedUser ??
-                              ''
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -266,17 +259,15 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                   />
                   <FormField
                     control={control}
-                    name="updateDate"
+                    name="updatedAt"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>{t('common.updatedAt')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
+                            value={formatDateTime(field.value)}
                             disabled
-                            defaultValue={formatDateTime(
-                              adminRegistrationApplicationDetails.updatedAt
-                            )}
                           />
                         </FormControl>
                       </FormItem>
@@ -308,18 +299,15 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                   <div className="mb-6 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
                     <FormField
                       control={control}
-                      name="firstName"
+                      name="user.firstName"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{t('common.firstName')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
+                              value={field.value ?? ''}
                               disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.user
-                                  .firstName ?? ''
-                              }
                             />
                           </FormControl>
                         </FormItem>
@@ -327,18 +315,15 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                     />
                     <FormField
                       control={control}
-                      name="lastName"
+                      name="user.lastName"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{t('common.lastName')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
+                              value={field.value ?? ''}
                               disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.user
-                                  .lastName ?? ''
-                              }
                             />
                           </FormControl>
                         </FormItem>
@@ -346,18 +331,15 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                     />
                     <FormField
                       control={control}
-                      name="userCity"
+                      name="user.city"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{t('common.city')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
+                              value={field.value ?? ''}
                               disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.user.city ??
-                                ''
-                              }
                             />
                           </FormControl>
                         </FormItem>
@@ -367,23 +349,19 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                   <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
                     <FormField
                       control={control}
-                      name="phone"
+                      name="user.phoneNumber"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
                           <FormLabel>{t('common.phoneNumber')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
-                              disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.user
-                                  .phoneNumber
-                                  ? formatPhoneNumber(
-                                      adminRegistrationApplicationDetails.user
-                                        .phoneNumber
-                                    )
+                              value={
+                                field.value
+                                  ? formatPhoneNumber(field.value)
                                   : ''
                               }
+                              disabled
                             />
                           </FormControl>
                         </FormItem>
@@ -391,18 +369,15 @@ const Page = ({ params }: { params: { id: string } }): React.JSX.Element => {
                     />
                     <FormField
                       control={control}
-                      name="userEmailAddress"
+                      name="user.emailAddress"
                       render={({ field }) => (
                         <FormItem className="sm:col-span-1">
                           <FormLabel>{t('common.email')}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
+                              value={field.value ?? ''}
                               disabled
-                              defaultValue={
-                                adminRegistrationApplicationDetails.user
-                                  .emailAddress ?? ''
-                              }
                             />
                           </FormControl>
                         </FormItem>

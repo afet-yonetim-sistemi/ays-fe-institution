@@ -1,11 +1,9 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { DataTable } from '@/components/ui/data-table'
-import FilterInput from '@/components/ui/filter-input'
-import MultiSelectDropdown from '@/components/ui/multi-select-dropdown'
-import Status from '@/components/ui/status'
-import { Toaster } from '@/components/ui/toaster'
+import { DataTable } from '@/components/custom/data-table'
+import FilterInput from '@/components/custom/filter-input'
+import MultiSelectDropdown from '@/components/custom/multi-select-dropdown'
+import Status from '@/components/custom/status'
 import { Permission } from '@/constants/permissions'
 import { useDataFetcher } from '@/hooks/useDataFetcher'
 import { useSearchParamsManager } from '@/hooks/useSearchParamsManager'
@@ -16,12 +14,13 @@ import { rolesFilterConfig } from '@/modules/roles/constants/filterConfig'
 import { roleStatuses } from '@/modules/roles/constants/statuses'
 import { RolesFilter } from '@/modules/roles/constants/types'
 import { getRoles } from '@/modules/roles/service'
+import { Button } from '@/shadcn/ui/button'
 import { useAppSelector } from '@/store/hooks'
 import { RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
 
@@ -93,7 +92,6 @@ const Page = (): JSX.Element => {
         loading={isLoading}
         enableRowClick={userPermissions.includes(Permission.ROLE_DETAIL)}
       />
-      <Toaster />
     </div>
   )
 }

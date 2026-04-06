@@ -1,16 +1,12 @@
 'use client'
 
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import http from '@/configs/axiosConfig'
 import { MenuItems } from '@/constants/menuItems'
 import { Permission } from '@/constants/permissions'
 import { showErrorToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/shadcn/ui/tooltip'
 import { useAppSelector } from '@/store/hooks'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -19,7 +15,11 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import packageInfo from '../../../package.json'
 
-const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
+const Menu = ({
+  collapsed = false,
+}: {
+  collapsed?: boolean
+}): React.ReactNode => {
   const pathname = usePathname()
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions) ?? []
@@ -41,8 +41,11 @@ const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
   useEffect(() => {
     const localStorageVersion = localStorage.getItem('apiVersionInfo')
     if (localStorageVersion) {
-      setApiVersionInfo(localStorageVersion)
-      setIsLoading(false)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setApiVersionInfo((prev) =>
+        prev === localStorageVersion ? prev : localStorageVersion
+      )
+      setIsLoading((prev) => (prev ? false : prev))
     }
     const fetchData = (): void => {
       http
@@ -75,9 +78,9 @@ const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
                   <Link
                     href={item.key}
                     className={clsx(
-                      'flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:text-primary',
+                      'text-muted-foreground hover:text-primary flex items-center justify-center rounded-lg p-2 transition-colors',
                       {
-                        'bg-slate-200 font-semibold text-black dark:bg-slate-600/50 dark:text-slate-50':
+                        'bg-accent text-accent-foreground font-semibold':
                           pathname === item.key,
                       }
                     )}
@@ -94,9 +97,9 @@ const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
                 key={item.key}
                 href={item.key}
                 className={clsx(
-                  'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:text-primary',
+                  'text-muted-foreground hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-colors',
                   {
-                    'bg-slate-200 font-semibold text-black dark:bg-slate-600/50 dark:text-slate-50':
+                    'bg-accent text-accent-foreground font-semibold':
                       pathname === item.key,
                   }
                 )}
@@ -110,13 +113,13 @@ const Menu = ({ collapsed = false }: { collapsed?: boolean }): JSX.Element => {
       </nav>
       {collapsed ? (
         <div className="flex w-full flex-col items-center justify-center gap-1 py-2">
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          <span className="text-[10px] font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
             UI
           </span>
           <span className="text-xs text-gray-500 dark:text-gray-400">
             v{uiVersion}
           </span>
-          <span className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          <span className="mt-2 text-[10px] font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
             API
           </span>
           <span className="text-xs text-gray-500 dark:text-gray-400">

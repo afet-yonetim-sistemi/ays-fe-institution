@@ -1,24 +1,34 @@
+import { PhoneNumber } from '@/common/types'
+import PhoneInput from '@/components/custom/phone-input'
 import {
   FormControl,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
+} from '@/shadcn/ui/form'
 import { t } from 'i18next'
-import { Control, Controller } from 'react-hook-form'
+import { Control, FieldPathByValue, FieldValues } from 'react-hook-form'
 import { CountryData } from 'react-phone-input-2'
-import PhoneInput from './ui/phone-input'
 
-interface PhoneNumberFieldProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<any>
+interface PhoneNumberFieldProps<
+  TFieldValues extends FieldValues = FieldValues,
+> {
+  control: Control<TFieldValues>
+  name?: FieldPathByValue<TFieldValues, PhoneNumber | null | undefined>
 }
 
-const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({ control }) => {
+const PhoneNumberField = <TFieldValues extends FieldValues = FieldValues>({
+  control,
+  name = 'phoneNumber' as FieldPathByValue<
+    TFieldValues,
+    PhoneNumber | null | undefined
+  >,
+}: PhoneNumberFieldProps<TFieldValues>): React.ReactNode => {
   return (
-    <Controller
+    <FormField
       control={control}
-      name="phoneNumber"
+      name={name}
       render={({ field, fieldState }) => (
         <FormItem>
           <FormLabel>{t('common.phoneNumber')}</FormLabel>
