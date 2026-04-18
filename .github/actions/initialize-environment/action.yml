@@ -1,0 +1,32 @@
+# Purpose: This workflow is responsible for initializing the environment for the frontend project.
+name: Initialize Environment
+
+inputs:
+  GH_USERNAME:
+    description: 'GitHub username'
+    required: true
+  GH_USER_ACCESS_TOKEN:
+    description: 'GitHub user access token'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Update package cache
+      run: sudo apt-get update
+      shell: bash
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 22.17.1
+
+    - name: Set up Docker
+      uses: actions/hello-world-docker-action@v2
+
+    - name: Cache npm packages
+      uses: actions/cache@v5
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-node-
