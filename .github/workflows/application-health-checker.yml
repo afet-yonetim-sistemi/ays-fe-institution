@@ -1,4 +1,6 @@
 # Purpose: This file is used for check application health.
+
+# Name of the workflow
 name: Application Status
 
 on:
@@ -7,10 +9,10 @@ on:
       - main # Trigger the workflow when a push event occurs on the main branch
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
+  build: # Define the "build" job
+    runs-on: ubuntu-latest # Run the job on the latest version of Ubuntu
+    steps: # List of steps to execute within the job
+      - name: Checkout code # Step to check out the code from the repository
         uses: actions/checkout@v6
 
       - name: Initialize environment
@@ -19,7 +21,7 @@ jobs:
           GH_USERNAME: ${{ vars.GH_USERNAME }}
           GH_USER_ACCESS_TOKEN: ${{ secrets.GH_USER_ACCESS_TOKEN }}
 
-      - name: Install and Build
+      - name: Install and Build # Step to install and build the project with npm
         run: |
           npm install
           npm run build
@@ -28,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Checkout code
+      - name: Checkout code # Step to check out the code from the repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
@@ -39,7 +41,7 @@ jobs:
           GH_USERNAME: ${{ vars.GH_USERNAME }}
           GH_USER_ACCESS_TOKEN: ${{ secrets.GH_USER_ACCESS_TOKEN }}
 
-      - name: SonarQube Scan
+      - name: SonarQube Scan # Step to run SonarQube scan
         uses: sonarsource/sonarqube-scan-action@v7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
