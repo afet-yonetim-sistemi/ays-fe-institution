@@ -198,7 +198,8 @@
   },
   "navBar": {
     "toggle": "Gezinme menüsünü aç/kapat",
-    "logout": "Çıkış Yap"
+    "logout": "Çıkış Yap",
+    "secureLogout": "Güvenli Çıkış Yap"
   },
   "sidebar": {
     "expandTheMenu": "Menüyü Genişlet",

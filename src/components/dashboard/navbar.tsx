@@ -1,42 +1,30 @@
 'use client'
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/shadcn/ui/dropdown-menu'
 import { showErrorToast } from '@/lib/showToast'
 import { selectRefreshToken, selectUser } from '@/modules/auth/authSlice'
 import type { UserInfo } from '@/modules/auth/constants/types'
 import authService from '@/modules/auth/service'
+import { Button } from '@/shadcn/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/shadcn/ui/sheet'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { MenuIcon } from 'lucide-react'
+import { LogOut, MenuIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { LuUser } from 'react-icons/lu'
-import { Avatar, AvatarFallback } from '@/shadcn/ui/avatar'
-import { Button } from '@/shadcn/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/shadcn/ui/sheet'
 import LanguageToggle from './languageToggle'
 import Menu from './menu'
 import { ModeToggle } from './modeToggle'
 
 interface UserInfoProps {
   userInfo?: UserInfo | null
-  className?: string
 }
 
-const UserInfoDisplay: React.FC<UserInfoProps> = ({ userInfo, className }) => {
-  const isDropdown = className === 'grid'
+const UserInfoDisplay: React.FC<UserInfoProps> = ({ userInfo }) => {
   return (
-    <div className={className || 'hidden sm:grid'}>
-      <span
-        className={`text-sm font-bold ${isDropdown ? 'text-left' : 'flex justify-end'}`}
-      >
+    <div className="hidden sm:grid">
+      <span className="flex text-sm font-bold">
         {userInfo?.userFirstName} {userInfo?.userLastName}
       </span>
       <span className={'text-sm'}>{userInfo?.institutionName}</span>
@@ -64,7 +52,7 @@ function Navbar(): React.ReactNode {
   }
 
   return (
-    <header className="flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+    <header className="bg-muted/40 flex h-14 items-center justify-between gap-4 border-b px-4 lg:h-[60px] lg:px-6">
       <div className="flex items-center gap-4">
         <Sheet>
           <SheetTrigger asChild>
@@ -94,35 +82,19 @@ function Navbar(): React.ReactNode {
               priority
               unoptimized
             />
-            <div className="hidden text-center md:block md:text-left">
-              {t('common.AYS')}
-            </div>
+            <UserInfoDisplay userInfo={userInfo} />
           </div>
         </Link>
       </div>
-      <div className="flex space-x-2">
-        <LanguageToggle />
+      <div className="flex items-center space-x-2">
         <ModeToggle />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className={'flex cursor-pointer'}>
-              <UserInfoDisplay userInfo={userInfo} />
-              <Avatar className={'float-right ml-3'}>
-                <AvatarFallback>
-                  <LuUser size={22} />
-                </AvatarFallback>
-              </Avatar>
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuItem disabled className={'block sm:hidden'}>
-              <UserInfoDisplay userInfo={userInfo} className="grid" />
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => logout()}>
-              {t('navBar.logout')}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <LanguageToggle />
+        <Button variant="destructive" onClick={logout}>
+          <LogOut className="h-4 w-4" />
+          <span className="ml-2 hidden sm:inline">
+            {t('navBar.secureLogout')}
+          </span>
+        </Button>
       </div>
     </header>
   )
