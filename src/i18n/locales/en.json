@@ -198,7 +198,6 @@
   },
   "navBar": {
     "toggle": "Toggle navigation menu",
-    "logout": "Logout",
     "secureLogout": "Secure Logout"
   },
   "sidebar": {
