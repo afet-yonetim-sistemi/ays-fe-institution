@@ -1,9 +1,8 @@
-# Purpose: This file is used to build the project when a pull request is opened, reopened, synchronized, ready for review, or unlocked.
+# Purpose: This file is used to build the frontend project and run SonarQube analysis when a PR is updated.
 
 # Name of the workflow
 name: Pull Request Checker
 
-# Trigger the workflow when various types of pull request events occur
 on:
   pull_request:
     types:
@@ -17,32 +16,42 @@ jobs:
   build: # Define the "build" job
     runs-on: ubuntu-latest # Run the job on the latest version of Ubuntu
     steps: # List of steps to execute within the job
-      - name: Update package cache # Step to update the package cache
-        run: sudo apt-get update
-
       - name: Checkout code # Step to check out the code from the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
+      - name: Initialize environment
+        uses: ./.github/actions/initialize-environment
+        with:
+          GH_USERNAME: ${{ vars.GH_USERNAME }}
+          GH_USER_ACCESS_TOKEN: ${{ secrets.GH_USER_ACCESS_TOKEN }}
+
+      - name: Install and Build # Step to install and build the project with npm
+        run: |
+          npm install
+          npm run build
+
+  sonarqube:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code # Step to check out the code from the repository
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-      - uses: actions/setup-node@v4 # Step to set up Node.js
+      - name: Initialize environment
+        uses: ./.github/actions/initialize-environment
         with:
-          node-version: 22.17.1
+          GH_USERNAME: ${{ vars.GH_USERNAME }}
+          GH_USER_ACCESS_TOKEN: ${{ secrets.GH_USER_ACCESS_TOKEN }}
 
-      - name: Install npm # Install with npm
-        run: npm install
-
-      - name: Build Project # Build with npm
-        run: npm run build
-
-#      - uses: sonarsource/sonarqube-scan-action@v3 # Performs the project analysis using SonarQube Scanner.
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-#
-#      # If you wish to not fail your job when the Quality Gate is red, comment out the
-#      # following lines.
-#      - uses: sonarsource/sonarqube-quality-gate-action@master # Checks the SonarQube Quality Gate status.
-#        timeout-minutes: 5
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarQube Scan # Step to run SonarQube scan
+        uses: sonarsource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.projectName=ays-fe-institution
