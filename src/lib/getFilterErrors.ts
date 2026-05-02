@@ -18,7 +18,7 @@ export const getFilterErrors = <T extends Record<string, any>>(
 
       errors[field as string] = result.success
         ? null
-        : result.error.errors[0]?.message
+        : result.error.issues[0]?.message || 'validation.invalid'
     } else {
       errors[field as string] = null
     }

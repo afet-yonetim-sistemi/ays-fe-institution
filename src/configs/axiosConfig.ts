@@ -1,6 +1,6 @@
 import { updateAccessToken } from '@/lib/tokenStorage'
 import { loginSuccess, refreshTokenExpired } from '@/modules/auth/authSlice'
-import { store } from '@/store/StoreProvider'
+import { store } from '@/store/store'
 import axios from 'axios'
 
 export const api = axios.create({

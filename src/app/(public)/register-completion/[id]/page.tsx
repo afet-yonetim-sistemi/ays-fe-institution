@@ -1,16 +1,19 @@
 'use client'
 
 import CitySelect from '@/components/CitySelect'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import { PasswordInput } from '@/components/custom/passwordInput'
 import LanguageToggle from '@/components/dashboard/languageToggle'
 import { ModeToggle } from '@/components/dashboard/modeToggle'
 import PhoneNumberField from '@/components/PhoneNumberField'
-import { Button } from '@/components/ui/button'
+import { useCreatePage } from '@/hooks/useCreatePage'
+import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
 import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+  getAdminRegistrationApplicationSummary,
+  postRegistrationApplication,
+} from '@/modules/adminRegistrationApplications/service'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/shadcn/ui/card'
 import {
   Form,
   FormControl,
@@ -18,29 +21,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { PasswordInput } from '@/components/ui/passwordInput'
-import { useCreatePage } from '@/hooks/useCreatePage'
-import { adminRegistrationApplicationFormConfig } from '@/modules/adminRegistrationApplications/constants/formConfig'
-import {
-  getAdminRegistrationApplicationSummary,
-  postRegistrationApplication,
-} from '@/modules/adminRegistrationApplications/service'
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const Page = (props: {
+  params: Promise<{ slug: string; id: string }>
+}): React.ReactNode => {
+  const params = use(props.params)
   const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(true)
   const [institutionName, setInstitutionName] = useState<string>('')
@@ -121,12 +116,10 @@ const Page = ({
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-5"
                 >
-                  <FormItem>
-                    <FormLabel>{t('common.institution')}</FormLabel>
-                    <FormControl>
-                      <Input value={institutionName} disabled />
-                    </FormControl>
-                  </FormItem>
+                  <div className="space-y-2">
+                    <Label>{t('common.institution')}</Label>
+                    <Input value={institutionName} disabled />
+                  </div>
                   <FormField
                     control={control}
                     name="firstName"

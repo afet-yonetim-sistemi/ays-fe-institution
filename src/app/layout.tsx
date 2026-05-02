@@ -1,6 +1,6 @@
+import { Toaster } from '@/components/custom/sonner'
 import GlobalModals from '@/components/GlobalModals'
 import { ThemeProvider } from '@/components/themeProvider'
-import { Toaster } from '@/components/ui/toaster'
 import { Providers } from '@/contexts/providers'
 import i18n from '@/i18n'
 import type { Metadata } from 'next'
@@ -24,9 +24,9 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
-}>): JSX.Element {
+}>): React.ReactNode {
   return (
-    <html lang={i18n.language}>
+    <html lang={i18n.language} suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"

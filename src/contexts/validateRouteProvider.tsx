@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import {
   ValidateRouteContext,
   ValidateRouteContextType,
@@ -19,7 +19,7 @@ export const ValidateRouteProvider = ({
   children,
 }: {
   children: ReactNode
-}): React.JSX.Element => {
+}): React.ReactNode => {
   const router = useRouter()
   const pathname = usePathname()
   const dispatch = useAppDispatch()
@@ -45,32 +45,39 @@ export const ValidateRouteProvider = ({
   )
 
   useEffect(() => {
-    if (isRefreshTokenExpired && !showSessionExpiredModal && isProtected) {
-      setShowSessionExpiredModal(true)
+    if (isRefreshTokenExpired && isProtected) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowSessionExpiredModal((prev) => (prev ? prev : true))
     }
-  }, [isRefreshTokenExpired, showSessionExpiredModal, isProtected])
+  }, [isRefreshTokenExpired, isProtected])
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     dispatch(logout())
     setShowSessionExpiredModal(false)
     router.replace('/login')
   }
 
   useEffect(() => {
+    let shouldLoad = true
+
     if (token) {
       if (['/login', '/'].includes(pathname)) {
         router.replace('/dashboard')
+        shouldLoad = false
       } else if (!userHasPermission) {
         router.replace('/not-found')
-      } else {
-        setLoading(false)
+        shouldLoad = false
       }
     } else if (isProtected) {
       router.replace('/login')
-    } else {
-      setLoading(false)
+      shouldLoad = false
     }
-  }, [token, pathname, isProtected, userHasPermission, router, loading])
+
+    if (shouldLoad) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLoading((prev) => (prev ? false : prev))
+    }
+  }, [token, pathname, isProtected, userHasPermission, router])
 
   if (loading) {
     return (

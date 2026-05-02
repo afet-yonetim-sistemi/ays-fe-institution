@@ -5,7 +5,7 @@ import { selectUser } from '@/modules/auth/authSlice'
 import { useAppSelector } from '@/store/hooks'
 import { useTranslation } from 'react-i18next'
 
-const Page = (): JSX.Element => {
+const Page = (): React.ReactNode => {
   const { t } = useTranslation()
   const user = useAppSelector(selectUser)
 
@@ -15,11 +15,11 @@ const Page = (): JSX.Element => {
         <h1 className="text-2xl font-medium">
           {t('dashboard.title', { ays: t('common.AYS') })}
         </h1>
-        <p className="text-gray-500 font-medium">
+        <p className="font-medium text-gray-500">
           {t('dashboard.description')}
         </p>
       </div>
-      <UserInfoCard userInfo={user}/>
+      <UserInfoCard userInfo={user} />
     </div>
   )
 }

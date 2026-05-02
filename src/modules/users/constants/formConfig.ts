@@ -43,13 +43,12 @@ export const userFormConfig = {
   },
 
   validationSchemaDetail: z.object({
-    id: z.string(),
+    id: z.string().optional(),
     firstName: strictNameValidation,
     lastName: strictNameValidation,
     emailAddress: z
-      .string({
-        required_error: 'validation.required',
-      })
+      .string()
+      .min(1, { message: 'validation.required' })
       .trim()
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
@@ -57,20 +56,19 @@ export const userFormConfig = {
     phoneNumber: PhoneNumberSchema,
     city: nameboxWithLengthValidation(2, 100),
     roleIds: z.array(z.string()).min(1, { message: 'validation.required' }),
-    status: z.string(),
-    createdUser: z.string(),
-    createdAt: z.string(),
-    updatedUser: z.string(),
-    updatedAt: z.string(),
+    status: z.string().optional(),
+    createdUser: z.string().optional(),
+    createdAt: z.string().optional(),
+    updatedUser: z.string().optional().nullable(),
+    updatedAt: z.string().optional().nullable(),
   }),
 
   validationSchemeCreate: z.object({
     firstName: strictNameValidation,
     lastName: strictNameValidation,
     emailAddress: z
-      .string({
-        required_error: 'validation.required',
-      })
+      .string()
+      .min(1, { message: 'validation.required' })
       .trim()
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })

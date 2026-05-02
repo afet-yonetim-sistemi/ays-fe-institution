@@ -39,8 +39,7 @@ export const PhoneNumberSchema = z
   })
 
 export const PasswordSchema = z
-  .string({
-    required_error: 'validation.required',
-  })
+  .string()
+  .min(1, { message: 'validation.required' })
   .min(8, { message: 'validation.minLength' })
   .max(128, { message: 'validation.maxLength' })

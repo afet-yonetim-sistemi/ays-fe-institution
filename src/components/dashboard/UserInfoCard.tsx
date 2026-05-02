@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/shadcn/ui/card'
 import { formatDateTime } from '@/lib/dataFormatters'
 import { UserInfo } from '@/modules/auth/constants/types'
 import { CalendarCheck, Landmark, User } from 'lucide-react'
@@ -10,7 +10,7 @@ interface UserInfoCardProps {
   userInfo: UserInfo | null
 }
 
-const UserInfoCard = ({ userInfo }: UserInfoCardProps): JSX.Element | null => {
+const UserInfoCard = ({ userInfo }: UserInfoCardProps): React.ReactNode | null => {
   const { t } = useTranslation()
 
   if (!userInfo) return null

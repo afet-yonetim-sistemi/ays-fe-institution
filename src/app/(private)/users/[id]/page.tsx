@@ -1,28 +1,9 @@
 'use client'
 
 import CitySelect from '@/components/CitySelect'
-import { Button } from '@/components/ui/button'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import PhoneInput from '@/components/ui/phone-input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
+import ButtonDialog from '@/components/custom/button-dialog'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import PhoneInput from '@/components/custom/phone-input'
 import { Permission } from '@/constants/permissions'
 import { useDetailPage } from '@/hooks/useDetailPage'
 import useFetchRoleSummary from '@/hooks/useFetchRoleSummary'
@@ -44,22 +25,43 @@ import {
   getUser,
   updateUser,
 } from '@/modules/users/service'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shadcn/ui/select'
+import { Switch } from '@/shadcn/ui/switch'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useCallback, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { use, useCallback, useEffect, useState } from 'react'
+import { Resolver, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CountryData } from 'react-phone-input-2'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const Page = (props: {
+  params: Promise<{ slug: string; id: string }>
+}): React.ReactNode => {
+  const params = use(props.params)
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
   const form = useForm<UserFormValues>({
-    resolver: zodResolver(userFormConfig.validationSchemaDetail),
+    resolver: zodResolver(
+      userFormConfig.validationSchemaDetail
+    ) as unknown as Resolver<UserFormValues>,
     mode: 'onChange',
   })
   const { control, reset, getValues } = form
@@ -226,7 +228,7 @@ const Page = ({
     deleteHandler(params.id)
   }
 
-  const renderUpdateButtons = (): JSX.Element | null => {
+  const renderUpdateButtons = (): React.ReactNode | null => {
     if (!showUpdateButton) {
       return null
     }
@@ -257,7 +259,7 @@ const Page = ({
   }
 
   return (
-    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+    <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && userDetails && (
         <Form {...form}>
@@ -306,10 +308,12 @@ const Page = ({
                         <FormLabel>{t('common.firstName')}</FormLabel>
                         <FormControl>
                           <Input
-                            {...field}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                            name={field.name}
+                            ref={field.ref}
                             disabled={!isUserEditable}
-                            defaultValue={userDetails.firstName ?? ''}
-                            onChange={(e) => field.onChange(e.target.value)}
+                            value={field.value ?? ''}
                           />
                         </FormControl>
                         <FormMessage />
@@ -324,10 +328,12 @@ const Page = ({
                         <FormLabel>{t('common.lastName')}</FormLabel>
                         <FormControl>
                           <Input
-                            {...field}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                            name={field.name}
+                            ref={field.ref}
                             disabled={!isUserEditable}
-                            defaultValue={userDetails.lastName ?? ''}
-                            onChange={(e) => field.onChange(e.target.value)}
+                            value={field.value ?? ''}
                           />
                         </FormControl>
                         <FormMessage />
@@ -342,10 +348,12 @@ const Page = ({
                         <FormLabel>{t('user.email')}</FormLabel>
                         <FormControl>
                           <Input
-                            {...field}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                            name={field.name}
+                            ref={field.ref}
                             disabled={!isUserEditable}
-                            defaultValue={userDetails.emailAddress ?? ''}
-                            onChange={(e) => field.onChange(e.target.value)}
+                            value={field.value ?? ''}
                           />
                         </FormControl>
                         <FormMessage />
@@ -391,7 +399,9 @@ const Page = ({
                   />
 
                   <FormItem className="sm:col-span-1">
-                    <FormLabel>{t('user.status')}</FormLabel>
+                    <Label className="text-sm leading-none font-medium">
+                      {t('user.status')}
+                    </Label>
                     <Select value={userDetails.status || ''} disabled>
                       <SelectTrigger>
                         <SelectValue placeholder={t('status.title')} />
@@ -407,7 +417,9 @@ const Page = ({
                   </FormItem>
                   <div className="grid grid-cols-4 gap-6 sm:col-span-3">
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('user.createdUser')}</FormLabel>
+                      <Label className="text-sm leading-none font-medium">
+                        {t('user.createdUser')}
+                      </Label>
                       <Input
                         disabled
                         value={userDetails.createdUser ?? ''}
@@ -415,7 +427,9 @@ const Page = ({
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('user.createdAt')}</FormLabel>
+                      <Label className="text-sm leading-none font-medium">
+                        {t('user.createdAt')}
+                      </Label>
                       <Input
                         disabled
                         value={formatDateTime(userDetails.createdAt)}
@@ -423,7 +437,9 @@ const Page = ({
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('user.updatedUser')}</FormLabel>
+                      <Label className="text-sm leading-none font-medium">
+                        {t('user.updatedUser')}
+                      </Label>
                       <Input
                         disabled
                         value={userDetails.updatedUser ?? ''}
@@ -431,7 +447,9 @@ const Page = ({
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('user.updatedAt')}</FormLabel>
+                      <Label className="text-sm leading-none font-medium">
+                        {t('user.updatedAt')}
+                      </Label>
                       <Input
                         disabled
                         value={formatDateTime(userDetails.updatedAt ?? '')}
@@ -450,47 +468,39 @@ const Page = ({
                   </CardTitle>
                   <div className="ml-4 flex items-center gap-2">
                     {isUserEditable && minRoleError && (
-                      <p className="text-sm text-destructive">{minRoleError}</p>
+                      <p className="text-destructive text-sm">{minRoleError}</p>
                     )}
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-6">
-                  <FormItem className="sm:col-span-1">
-                    <FormControl>
-                      <div className="space-y-2">
-                        <div className="grid grid-cols-1 gap-1">
-                          {userRolesIsLoading ? (
-                            <LoadingSpinner />
-                          ) : (
-                            roles.map((role) => (
-                              <FormItem
-                                key={role.id}
-                                className="flex items-center"
-                              >
-                                <FormControl>
-                                  <Switch
-                                    className="mt-2"
-                                    checked={(
-                                      watchedValues.roleIds || []
-                                    ).includes(role.id)}
-                                    onCheckedChange={() =>
-                                      handleRoleToggle(role.id)
-                                    }
-                                    disabled={!isUserEditable}
-                                  />
-                                </FormControl>
-                                <FormLabel className="ml-3 items-center">
-                                  {role.name}
-                                </FormLabel>
-                              </FormItem>
-                            ))
-                          )}
-                        </div>
-                      </div>
-                    </FormControl>
-                  </FormItem>
+                  <div className="space-y-2 sm:col-span-1">
+                    <div className="grid grid-cols-1 gap-1">
+                      {userRolesIsLoading ? (
+                        <LoadingSpinner />
+                      ) : (
+                        roles.map((role) => (
+                          <div
+                            key={role.id}
+                            className="flex items-center space-y-0 space-x-3"
+                          >
+                            <Switch
+                              className="mt-2"
+                              checked={(watchedValues.roleIds || []).includes(
+                                role.id
+                              )}
+                              onCheckedChange={() => handleRoleToggle(role.id)}
+                              disabled={!isUserEditable}
+                            />
+                            <Label className="items-center font-normal">
+                              {role.name}
+                            </Label>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>

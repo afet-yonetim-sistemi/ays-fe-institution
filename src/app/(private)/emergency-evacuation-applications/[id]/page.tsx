@@ -1,34 +1,7 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import Status from '@/components/ui/status'
-import { Textarea } from '@/components/ui/textarea'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import Status from '@/components/custom/status'
 import { Permission } from '@/constants/permissions'
 import {
   formatDateTime,
@@ -37,7 +10,12 @@ import {
 } from '@/lib/dataFormatters'
 import { showErrorToast, showSuccessToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
+import PriorityIcon from '@/modules/emergencyEvacuationApplications/components/PriorityIcon'
 import { FormValidationSchema } from '@/modules/emergencyEvacuationApplications/constants/formValidationSchema'
+import {
+  EMERGENCY_EVACUATION_APPLICATION_PRIORITIES,
+  EmergencyEvacuationApplicationPriority,
+} from '@/modules/emergencyEvacuationApplications/constants/priorities'
 import { emergencyEvacuationApplicationStatuses } from '@/modules/emergencyEvacuationApplications/constants/statuses'
 import {
   EmergencyEvacuationApplication,
@@ -47,17 +25,44 @@ import {
   getEmergencyEvacuationApplication,
   updateEmergencyEvacuationApplication,
 } from '@/modules/emergencyEvacuationApplications/service'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
+import { Checkbox } from '@/shadcn/ui/checkbox'
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/shadcn/ui/dialog'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shadcn/ui/select'
+import { Textarea } from '@/shadcn/ui/textarea'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const Page = (props: {
+  params: Promise<{ slug: string; id: string }>
+}): React.ReactNode => {
+  const params = use(props.params)
   const { t } = useTranslation()
   const form = useForm({
     resolver: zodResolver(FormValidationSchema),
@@ -89,6 +94,7 @@ const Page = ({
       seatingCount: watchedValues.seatingCount,
       hasObstaclePersonExist: watchedValues.hasObstaclePersonExist,
       status: watchedValues.status,
+      priority: watchedValues.priority ?? initialApplicationValues.priority,
       notes: watchedValues.notes,
     }
 
@@ -96,6 +102,7 @@ const Page = ({
       'seatingCount',
       'hasObstaclePersonExist',
       'status',
+      'priority',
       'notes',
     ].some(
       (key) =>
@@ -115,6 +122,7 @@ const Page = ({
   const isSaveButtonDisabled =
     !isFormChanged ||
     Boolean(formState.errors.seatingCount) ||
+    Boolean(formState.errors.priority) ||
     Boolean(formState.errors.notes)
 
   useEffect(() => {
@@ -125,10 +133,8 @@ const Page = ({
           setEmergencyEvacuationApplicationDetails(details)
           setInitialApplicationValues(details)
           reset({
-            seatingCount: details.seatingCount,
-            hasObstaclePersonExist: details.hasObstaclePersonExist,
-            status: details.status,
-            notes: details.notes,
+            ...details,
+            notes: details.notes ?? '',
           })
         })
         .catch((error) => {
@@ -148,11 +154,8 @@ const Page = ({
   const handleCancelButtonClick = (): void => {
     if (emergencyEvacuationApplicationDetails) {
       reset({
-        seatingCount: emergencyEvacuationApplicationDetails.seatingCount,
-        hasObstaclePersonExist:
-          emergencyEvacuationApplicationDetails.hasObstaclePersonExist,
-        status: emergencyEvacuationApplicationDetails.status,
-        notes: emergencyEvacuationApplicationDetails.notes,
+        ...emergencyEvacuationApplicationDetails,
+        notes: emergencyEvacuationApplicationDetails.notes ?? '',
       })
     }
     setIsFormChanged(false)
@@ -165,9 +168,13 @@ const Page = ({
         getValues('seatingCount') ?? initialApplicationValues?.seatingCount,
       hasObstaclePersonExist:
         getValues('hasObstaclePersonExist') ??
-        initialApplicationValues?.hasObstaclePersonExist,
-      status: getValues('status') ?? initialApplicationValues?.status,
-      notes: getValues('notes') ?? initialApplicationValues?.notes,
+        initialApplicationValues?.hasObstaclePersonExist ??
+        false,
+      status: getValues('status') ?? initialApplicationValues?.status ?? '',
+      priority:
+        (getValues('priority') as EmergencyEvacuationApplicationPriority) ??
+        initialApplicationValues?.priority,
+      notes: getValues('notes') ?? initialApplicationValues?.notes ?? '',
     }
 
     setPendingSaveValues(currentValues)
@@ -185,7 +192,7 @@ const Page = ({
 
   const handleConfirmSave = (
     values: EvacuationApplicationEditableFields = pendingSaveValues!
-  ) => {
+  ): void => {
     if (!values) return
 
     updateEmergencyEvacuationApplication(params.id, values)
@@ -213,7 +220,7 @@ const Page = ({
       })
   }
 
-  const renderUpdateButtons = () => {
+  const renderUpdateButtons = (): React.ReactNode => {
     if (!userPermissions.includes(Permission.EVACUATION_UPDATE)) return null
     if (!canUpdateApplication) return null
 
@@ -243,7 +250,7 @@ const Page = ({
   }
 
   return (
-    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+    <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && emergencyEvacuationApplicationDetails && (
         <Form {...form}>
@@ -271,10 +278,12 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
+                            value={
+                              field.value
+                                ? formatReferenceNumber(field.value)
+                                : ''
+                            }
                             disabled
-                            defaultValue={formatReferenceNumber(
-                              emergencyEvacuationApplicationDetails.referenceNumber
-                            )}
                           />
                         </FormControl>
                       </FormItem>
@@ -282,24 +291,19 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="fullName"
+                    name="firstName"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>{t('common.fullName')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
-                            defaultValue={
-                              (emergencyEvacuationApplicationDetails.firstName ??
-                                '') +
-                              (emergencyEvacuationApplicationDetails.firstName &&
-                              emergencyEvacuationApplicationDetails.lastName
-                                ? ' '
-                                : '') +
-                              (emergencyEvacuationApplicationDetails.lastName ??
-                                '')
+                            value={
+                              [field.value, watch('lastName')]
+                                .filter(Boolean)
+                                .join(' ') || ''
                             }
+                            disabled
                           />
                         </FormControl>
                       </FormItem>
@@ -314,14 +318,10 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.phoneNumber
-                                ? formatPhoneNumber(
-                                    emergencyEvacuationApplicationDetails.phoneNumber
-                                  )
-                                : ''
+                            value={
+                              field.value ? formatPhoneNumber(field.value) : ''
                             }
+                            disabled
                           />
                         </FormControl>
                       </FormItem>
@@ -338,11 +338,12 @@ const Page = ({
                           </FormLabel>
                           <FormControl>
                             <Checkbox
-                              {...field}
+                              id={field.name}
                               disabled
                               checked={
-                                emergencyEvacuationApplicationDetails.isInPerson
+                                !!emergencyEvacuationApplicationDetails.isInPerson
                               }
+                              onCheckedChange={field.onChange}
                             />
                           </FormControl>
                         </div>
@@ -354,7 +355,7 @@ const Page = ({
                   <div className="mb-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
                     <FormField
                       control={control}
-                      name="applicantFullName"
+                      name="applicantFirstName"
                       render={({ field }) => (
                         <FormItem className="col-span-1">
                           <FormLabel>
@@ -363,17 +364,12 @@ const Page = ({
                           <FormControl>
                             <Input
                               {...field}
-                              disabled
-                              defaultValue={
-                                (emergencyEvacuationApplicationDetails.applicantFirstName ??
-                                  '') +
-                                (emergencyEvacuationApplicationDetails.applicantFirstName &&
-                                emergencyEvacuationApplicationDetails.applicantLastName
-                                  ? ' '
-                                  : '') +
-                                (emergencyEvacuationApplicationDetails.applicantLastName ??
-                                  '')
+                              value={
+                                [field.value, watch('applicantLastName')]
+                                  .filter(Boolean)
+                                  .join(' ') || ''
                               }
+                              disabled
                             />
                           </FormControl>
                         </FormItem>
@@ -390,14 +386,12 @@ const Page = ({
                           <FormControl>
                             <Input
                               {...field}
-                              disabled
-                              defaultValue={
-                                emergencyEvacuationApplicationDetails.applicantPhoneNumber
-                                  ? formatPhoneNumber(
-                                      emergencyEvacuationApplicationDetails.applicantPhoneNumber
-                                    )
+                              value={
+                                field.value
+                                  ? formatPhoneNumber(field.value)
                                   : ''
                               }
+                              disabled
                             />
                           </FormControl>
                         </FormItem>
@@ -408,7 +402,7 @@ const Page = ({
                 <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
                   <FormField
                     control={control}
-                    name="sourceCityAndDistrict"
+                    name="sourceCity"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
@@ -417,17 +411,12 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
-                            defaultValue={
-                              (emergencyEvacuationApplicationDetails.sourceCity ??
-                                '') +
-                              (emergencyEvacuationApplicationDetails.sourceCity &&
-                              emergencyEvacuationApplicationDetails.sourceDistrict
-                                ? ' / '
-                                : '') +
-                              (emergencyEvacuationApplicationDetails.sourceDistrict ??
-                                '')
+                            value={
+                              [field.value, watch('sourceDistrict')]
+                                .filter(Boolean)
+                                .join(' / ') || ''
                             }
+                            disabled
                           />
                         </FormControl>
                       </FormItem>
@@ -435,7 +424,7 @@ const Page = ({
                   />
                   <FormField
                     control={control}
-                    name="targetCityAndDistrict"
+                    name="targetCity"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
@@ -444,17 +433,12 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
-                            disabled
-                            defaultValue={
-                              (emergencyEvacuationApplicationDetails.targetCity ??
-                                '') +
-                              (emergencyEvacuationApplicationDetails.targetCity &&
-                              emergencyEvacuationApplicationDetails.targetDistrict
-                                ? ' / '
-                                : '') +
-                              (emergencyEvacuationApplicationDetails.targetDistrict ??
-                                '')
+                            value={
+                              [field.value, watch('targetDistrict')]
+                                .filter(Boolean)
+                                .join(' / ') || ''
                             }
+                            disabled
                           />
                         </FormControl>
                       </FormItem>
@@ -471,11 +455,8 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
+                            value={field.value ?? ''}
                             disabled
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.address ??
-                              ''
-                            }
                           />
                         </FormControl>
                       </FormItem>
@@ -494,16 +475,13 @@ const Page = ({
                             {...field}
                             type="number"
                             disabled={!isEmergencyApplicationEditable}
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.seatingCount ??
-                              ''
-                            }
+                            value={field.value ?? ''}
                             onChange={(e) => {
-                              const value =
+                              const val =
                                 e.target.value === ''
                                   ? ''
                                   : Number(e.target.value)
-                              field.onChange(value)
+                              field.onChange(val)
                             }}
                           />
                         </FormControl>
@@ -511,24 +489,58 @@ const Page = ({
                       </FormItem>
                     )}
                   />
+                  <div className="space-y-2 sm:col-span-1">
+                    <Label className="text-sm leading-none font-medium">
+                      {t('application.evacuation.confirmedSeatingCount')}
+                    </Label>
+                    <Input
+                      value={String(watch('seatingCount') ?? '')}
+                      disabled
+                      readOnly
+                    />
+                  </div>
                   <FormField
                     control={control}
-                    name="confirmedSeatingCount"
+                    name="priority"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-1">
                         <FormLabel>
-                          {t('application.evacuation.confirmedSeatingCount')}
+                          {t('application.evacuation.priority')}
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            disabled
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.seatingCount ??
-                              ''
+                          <Select
+                            value={
+                              field.value ||
+                              emergencyEvacuationApplicationDetails.priority
                             }
-                          />
+                            onValueChange={(value: string) =>
+                              field.onChange(value)
+                            }
+                            disabled={!isEmergencyApplicationEditable}
+                          >
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={t(
+                                  'application.evacuation.priority'
+                                )}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {Object.values(
+                                EMERGENCY_EVACUATION_APPLICATION_PRIORITIES
+                              ).map((priority) => (
+                                <SelectItem
+                                  key={priority.value}
+                                  value={priority.value}
+                                  className="pl-2 [&>.absolute]:hidden"
+                                >
+                                  <PriorityIcon priority={priority.value} />
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -579,10 +591,8 @@ const Page = ({
                         <FormControl>
                           <Input
                             {...field}
+                            value={formatDateTime(field.value)}
                             disabled
-                            defaultValue={formatDateTime(
-                              emergencyEvacuationApplicationDetails.createdAt
-                            )}
                           />
                         </FormControl>
                       </FormItem>
@@ -592,19 +602,16 @@ const Page = ({
                     control={control}
                     name="hasObstaclePersonExist"
                     render={({ field }) => (
-                      <FormItem className="sm:col-span-1">
+                      <FormItem className="sm:col-span-2">
                         <div className="flex items-center">
                           <FormLabel className="mr-2">
                             {t('application.evacuation.anyDisability')}
                           </FormLabel>
                           <FormControl>
                             <Checkbox
-                              {...field}
+                              id={field.name}
                               disabled={!isEmergencyApplicationEditable}
-                              defaultChecked={
-                                emergencyEvacuationApplicationDetails.hasObstaclePersonExist
-                              }
-                              checked={field.value}
+                              checked={!!field.value}
                               onCheckedChange={field.onChange}
                             />
                           </FormControl>
@@ -624,9 +631,7 @@ const Page = ({
                           <Textarea
                             {...field}
                             disabled={!isEmergencyApplicationEditable}
-                            defaultValue={
-                              emergencyEvacuationApplicationDetails.notes ?? ''
-                            }
+                            value={field.value ?? ''}
                             onChange={(e) => field.onChange(e.target.value)}
                           />
                         </FormControl>
