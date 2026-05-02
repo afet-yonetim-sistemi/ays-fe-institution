@@ -1,13 +1,13 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shadcn/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@/shadcn/ui/dialog'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -23,7 +23,7 @@ const SessionExpiredModal = ({
   description,
   initialCountdown = 3,
   onLogout,
-}: SessionExpiredModalProps): JSX.Element => {
+}: SessionExpiredModalProps): React.ReactNode => {
   const { t } = useTranslation()
   const [countdown, setCountdown] = useState(initialCountdown)
 
