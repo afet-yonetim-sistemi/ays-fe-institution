@@ -129,6 +129,7 @@
       "targetCityAndDistrict": "Tahliye Sağlanılacak Şehir / İlçe",
       "anyDisability": "Engel Durumu Olan Biri Var mı?",
       "confirmedSeatingCount": "Teyit Edilen Koltuk Sayısı",
+      "priority": "Başvuru Önceliği",
       "notes": "Operatör Notları"
     }
   },
@@ -197,7 +198,7 @@
   },
   "navBar": {
     "toggle": "Gezinme menüsünü aç/kapat",
-    "logout": "Çıkış Yap"
+    "secureLogout": "Güvenli Çıkış Yap"
   },
   "sidebar": {
     "expandTheMenu": "Menüyü Genişlet",
@@ -258,6 +259,14 @@
     "receivedSecondApprove": "2. Onay Alındı (Rezervasyon Onayı)",
     "receivedThirdApprove": "3. Onay Alındı (Kesin Katılım Onayı)",
     "cancelled": "İptal Edildi"
+  },
+  "priority": {
+    "critical": "Kritik",
+    "highest": "En Yüksek",
+    "high": "Yüksek",
+    "medium": "Orta",
+    "low": "Düşük",
+    "lowest": "Çok Düşük"
   },
   "languages": {
     "en": "İngilizce",

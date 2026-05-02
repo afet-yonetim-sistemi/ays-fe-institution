@@ -1,5 +1,6 @@
-import { toast } from '@/hooks/useToast'
 import { AxiosError } from 'axios'
+import i18next from 'i18next'
+import { toast } from 'sonner'
 
 interface ErrorToastOptions {
   show401?: boolean
@@ -7,34 +8,31 @@ interface ErrorToastOptions {
 
 export const showErrorToast = (
   error?: AxiosError,
-  description: string = 'common.error.defaultDescription',
+  descriptionKey: string = 'common.error.defaultDescription',
   options: ErrorToastOptions = {}
 ): void => {
   const { show401 = false } = options
-  const title = 'common.error.defaultTitle'
+  const titleKey = 'common.error.defaultTitle'
   const responseStatus = error?.response?.status
 
   if (responseStatus === 401 && !show401) return
 
+  let finalDescriptionKey = descriptionKey
   if (responseStatus === 429) {
-    description = 'common.error.tooManyRequest'
+    finalDescriptionKey = 'common.error.tooManyRequest'
   }
 
-  toast({
-    title,
-    description,
-    variant: 'destructive',
+  toast.error(i18next.t(titleKey), {
+    description: i18next.t(finalDescriptionKey),
   })
 }
 
 export const showSuccessToast = (
-  description: string = 'common.success'
+  descriptionKey: string = 'common.success'
 ): void => {
-  const title = 'common.success'
+  const titleKey = 'common.success'
 
-  toast({
-    title,
-    description,
-    variant: 'success',
+  toast.success(i18next.t(titleKey), {
+    description: i18next.t(descriptionKey),
   })
 }

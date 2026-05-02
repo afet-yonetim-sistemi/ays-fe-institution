@@ -5,12 +5,12 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/shadcn/ui/select'
 import { supportedLanguages } from '@/lib/languageDetector'
 import i18next from 'i18next'
 import { useState } from 'react'
 
-function LanguageToggle(): JSX.Element {
+function LanguageToggle(): React.ReactNode {
   const [selectedLanguage, setSelectedLanguage] = useState(i18next.language)
   const changeLanguage = (language: string): void => {
     i18next.changeLanguage(language)

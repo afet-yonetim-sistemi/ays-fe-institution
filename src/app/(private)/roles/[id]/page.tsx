@@ -1,19 +1,7 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import ButtonDialog from '@/components/ui/button-dialog'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { LoadingSpinner } from '@/components/ui/loadingSpinner'
-import { Switch } from '@/components/ui/switch'
+import ButtonDialog from '@/components/custom/button-dialog'
+import { LoadingSpinner } from '@/components/custom/loadingSpinner'
 import { Permission } from '@/constants/permissions'
 import { useDetailPage } from '@/hooks/useDetailPage'
 import { useFormManager } from '@/hooks/useFormManager'
@@ -33,17 +21,29 @@ import {
   getRoleDetail,
   updateRole,
 } from '@/modules/roles/service'
+import { Button } from '@/shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shadcn/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shadcn/ui/form'
+import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
+import { Switch } from '@/shadcn/ui/switch'
 import { useAppSelector } from '@/store/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useCallback, useEffect, useState } from 'react'
+import { use, useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-const Page = ({
-  params,
-}: {
-  params: { slug: string; id: string }
-}): JSX.Element => {
+const Page = (props: {
+  params: Promise<{ slug: string; id: string }>
+}): React.ReactNode => {
+  const params = use(props.params)
   const { t } = useTranslation()
   const userPermissions = useAppSelector(selectPermissions)
   const [initialRoleValues, setInitialRoleValues] = useState<RoleDetail | null>(
@@ -181,7 +181,7 @@ const Page = ({
     }
   }
 
-  const renderRoleUpdateButtons = (): JSX.Element | null => {
+  const renderRoleUpdateButtons = (): React.ReactNode | null => {
     if (!userPermissions.includes(Permission.ROLE_UPDATE)) return null
 
     if (!isRoleEditable) {
@@ -218,7 +218,7 @@ const Page = ({
   }
 
   return (
-    <div className="rounded-md bg-white p-6 text-black shadow-md dark:bg-gray-800 dark:text-white">
+    <div className="bg-card text-card-foreground rounded-md p-6 shadow-md">
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && roleDetail && (
         <Form {...form}>
@@ -277,7 +277,9 @@ const Page = ({
                     )}
                   />
                   <FormItem className="sm:col-span-1">
-                    <FormLabel>{t('role.status')}</FormLabel>
+                    <Label className="text-sm leading-none font-medium">
+                      {t('role.status')}
+                    </Label>
                     <Input
                       disabled
                       value={
@@ -287,7 +289,9 @@ const Page = ({
                   </FormItem>
                   <div className="grid grid-cols-4 gap-6 sm:col-span-3">
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('common.createdUser')}</FormLabel>
+                      <Label className="text-sm leading-none font-medium">
+                        {t('common.createdUser')}
+                      </Label>
                       <Input
                         disabled
                         value={roleDetail.createdUser ?? ''}
@@ -295,7 +299,9 @@ const Page = ({
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('common.createdAt')}</FormLabel>
+                      <Label className="text-sm leading-none font-medium">
+                        {t('common.createdAt')}
+                      </Label>
                       <Input
                         disabled
                         value={formatDateTime(roleDetail.createdAt)}
@@ -303,7 +309,9 @@ const Page = ({
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('common.updatedUser')}</FormLabel>
+                      <Label className="text-sm leading-none font-medium">
+                        {t('common.updatedUser')}
+                      </Label>
                       <Input
                         disabled
                         value={roleDetail.updatedUser ?? ''}
@@ -311,7 +319,9 @@ const Page = ({
                       />
                     </FormItem>
                     <FormItem className="sm:col-span-1">
-                      <FormLabel>{t('common.updatedAt')}</FormLabel>
+                      <Label className="text-sm leading-none font-medium">
+                        {t('common.updatedAt')}
+                      </Label>
                       <Input
                         disabled
                         value={formatDateTime(roleDetail.updatedAt)}
@@ -339,7 +349,7 @@ const Page = ({
                       }
                     />
                     {isRoleEditable && permissionError && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-destructive text-sm">
                         {permissionError}
                       </p>
                     )}

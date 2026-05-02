@@ -5,7 +5,8 @@ import {
 import { emailRegex } from '@/constants/regex'
 import { nameboxWithLengthValidation } from '@/lib/strictValidation'
 import { z } from 'zod'
-import { PreApplicationForm } from './types'
+import { AdminRegistrationApplicationStatus } from './statuses'
+import { AdminRegistrationApplication, PreApplicationForm } from './types'
 
 export const adminRegistrationApplicationFormConfig = {
   fields: {
@@ -42,15 +43,12 @@ export const adminRegistrationApplicationFormConfig = {
     firstName: nameboxWithLengthValidation(2, 100),
     lastName: nameboxWithLengthValidation(2, 100),
     emailAddress: z
-      .string({
-        required_error: 'validation.required',
-      })
+      .string()
+      .min(1, { message: 'validation.required' })
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
       .regex(emailRegex, { message: 'validation.email' }),
-    city: z.string({
-      required_error: 'validation.required',
-    }),
+    city: z.string().min(1, { message: 'validation.required' }),
     password: PasswordSchema,
     phoneNumber: PhoneNumberSchema,
   }),
@@ -58,12 +56,12 @@ export const adminRegistrationApplicationFormConfig = {
   detailsValidationSchema: z.object({
     createdUser: z.string().optional(),
     createdAt: z.string().optional(),
-    updatedUser: z.string().optional(),
-    updatedAt: z.string().optional(),
+    updatedUser: z.string().optional().nullable(),
+    updatedAt: z.string().optional().nullable(),
     id: z.string().optional(),
     reason: z.string().optional(),
     rejectReason: z.string().nullable().optional(),
-    status: z.string().optional(),
+    status: z.nativeEnum(AdminRegistrationApplicationStatus).optional(),
     institution: z
       .object({
         id: z.string(),
@@ -85,5 +83,29 @@ export const adminRegistrationApplicationFormConfig = {
   getPreApplicationDefaultValues: (): PreApplicationForm => ({
     institutionId: '',
     reason: '',
+  }),
+
+  getDefaultValues: (
+    data?: AdminRegistrationApplication
+  ): Partial<AdminRegistrationApplication> => ({
+    id: data?.id,
+    reason: data?.reason,
+    rejectReason: data?.rejectReason,
+    status: data?.status,
+    institution: data?.institution,
+    createdUser: data?.createdUser,
+    createdAt: data?.createdAt,
+    updatedUser: data?.updatedUser,
+    updatedAt: data?.updatedAt,
+    user: data?.user
+      ? {
+          id: data.user.id,
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          emailAddress: data.user.emailAddress,
+          city: data.user.city,
+          phoneNumber: data.user.phoneNumber,
+        }
+      : undefined,
   }),
 } as const
