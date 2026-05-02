@@ -53,6 +53,6 @@ export const usersFilterConfig = {
       min: 0,
       max: 10,
     },
-    city: COMMON_VALIDATION_RULES.CITY,
+    city: COMMON_VALIDATION_RULES.LOCATION,
   } as const,
 } as const

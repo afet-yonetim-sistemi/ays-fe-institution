@@ -6,6 +6,7 @@ import { DataTable } from '@/components/custom/data-table'
 import FilterInput from '@/components/custom/filter-input'
 import MultiSelectDropdown from '@/components/custom/multi-select-dropdown'
 import Status from '@/components/custom/status'
+import { COMMON_VALIDATION_RULES } from '@/constants/commonValidationRules'
 import { Permission } from '@/constants/permissions'
 import { numericRegex } from '@/constants/regex'
 import useDebouncedInputFilter from '@/hooks/useDebouncedInputFilter'
@@ -190,17 +191,11 @@ const Page = (): React.ReactNode => {
     const paramsReady = searchParams.toString().length > 0
     if (!paramsReady) return
 
-    const locationValidationRule = {
-      min: 2,
-      max: 100,
-      regex: /^(?!\d+$)[\p{L}\d\p{P} ]+$/u,
-    }
-
     const validationRules = {
-      sourceCity: locationValidationRule,
-      sourceDistrict: locationValidationRule,
-      targetCity: locationValidationRule,
-      targetDistrict: locationValidationRule,
+      sourceCity: COMMON_VALIDATION_RULES.LOCATION,
+      sourceDistrict: COMMON_VALIDATION_RULES.LOCATION,
+      targetCity: COMMON_VALIDATION_RULES.LOCATION,
+      targetDistrict: COMMON_VALIDATION_RULES.LOCATION,
     }
 
     const parsedFilters = getInitialFilters(searchParams)
