@@ -1,7 +1,7 @@
 # Purpose: Deploy the frontend institution to the test environment.
 
 # Name of the workflow
-name: Institution Deployment
+name: Deploy to Test Environment
 
 on:
   push:
