@@ -1,3 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
 echo "🔍 Running lint-staged (ESLint + Prettier)..."
 npx lint-staged --config lint-staged.config.mjs
 
