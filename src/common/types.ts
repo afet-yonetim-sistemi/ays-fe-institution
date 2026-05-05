@@ -39,10 +39,16 @@ export interface BaseApiResponse {
   message?: string
 }
 
+export interface RegexValidation {
+  regex: RegExp
+  message: string
+}
+
 export interface FilterValidationOptions {
   min?: number
   max?: number
   regex?: RegExp
+  customRegexes?: RegexValidation[]
 }
 
 export enum SearchParamType {

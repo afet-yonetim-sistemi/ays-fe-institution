@@ -51,7 +51,10 @@
     "phoneLength": "Telefon numarası 10 haneli olmalıdır",
     "specialChar": "Bu alan özel karakter içeremez",
     "noNumbersOnly": "Bu alan sadece sayılardan oluşamaz",
-    "seatingCount": "Sadece maksimum 3 haneli, pozitif sayı değerleri alabilir"
+    "seatingCount": "Sadece maksimum 3 haneli, pozitif sayı değerleri alabilir",
+    "onlySpecialCharacters": "Sadece özel karakterlerden oluşamaz.",
+    "consecutivePunctuation": "Ardışık noktalama işaretleri içeremez.",
+    "consecutiveSpecialCharacters": "Ardışık özel karakterler içeremez."
   },
   "login": {
     "title": "Oturum Aç",
