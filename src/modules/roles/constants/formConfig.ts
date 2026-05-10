@@ -1,4 +1,4 @@
-import { strictNameValidation } from '@/lib/strictValidation'
+import { roleNameValidation } from '@/lib/strictValidation'
 import { FieldErrors } from 'react-hook-form'
 import { z } from 'zod'
 import { RoleDetail } from './types'
@@ -25,14 +25,14 @@ export const roleFormConfig = {
   },
 
   validationSchema: z.object({
-    name: strictNameValidation,
+    name: roleNameValidation,
     permissionIds: z
       .array(z.string())
       .min(1, { message: 'validation.required' }),
   }),
 
   validationSchemaCreate: z.object({
-    name: strictNameValidation,
+    name: roleNameValidation,
     permissionIds: z
       .array(z.string())
       .min(1, { message: 'validation.required' }),
@@ -40,7 +40,7 @@ export const roleFormConfig = {
 
   validationSchemaDetail: z.object({
     id: z.string().optional(),
-    name: strictNameValidation,
+    name: roleNameValidation,
     status: z.string().optional(),
     createdUser: z.string().optional(),
     createdAt: z.string().optional(),
