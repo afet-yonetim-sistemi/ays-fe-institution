@@ -1,8 +1,26 @@
-import { SearchParamType } from '@/common/types'
+import { FilterValidationOptions, SearchParamType } from '@/common/types'
 import { COMMON_SEARCH_PARAMS } from '@/constants/commonSearchParams'
-import { COMMON_VALIDATION_RULES } from '@/constants/commonValidationRules'
 import { SearchParamsConfig } from '@/utils/searchParamsParser'
 import { RolesFilter } from './types'
+
+export const ROLE_FILTER_NAME_VALIDATION: FilterValidationOptions = {
+  min: 2,
+  max: 255,
+  customRegexes: [
+    {
+      regex: /[\p{L}0-9]/u,
+      message: 'validation.onlySpecialCharacters',
+    },
+    {
+      regex: /^(?!.*[.,:;?!'"\-\(\)\[\]{}]{2}).*$/u,
+      message: 'validation.consecutivePunctuation',
+    },
+    {
+      regex: /^(?!.*[^\p{L}0-9\s.,:;?!'"\-\(\)\[\]{}]{2}).*$/u,
+      message: 'validation.consecutiveSpecialCharacters',
+    },
+  ],
+}
 
 export const rolesFilterConfig = {
   searchParams: {
@@ -25,6 +43,6 @@ export const rolesFilterConfig = {
   } as RolesFilter,
 
   validationRules: {
-    name: COMMON_VALIDATION_RULES.NAME,
+    name: ROLE_FILTER_NAME_VALIDATION,
   } as const,
 } as const

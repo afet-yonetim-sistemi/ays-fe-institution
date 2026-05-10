@@ -51,7 +51,10 @@
     "phoneLength": "Phone number must be 10 digits long",
     "specialChar": "This field cannot contain special characters",
     "noNumbersOnly": "This field cannot contain only numbers",
-    "seatingCount": "Only positive numbers with a maximum of 3 digits are allowed"
+    "seatingCount": "Only positive numbers with a maximum of 3 digits are allowed",
+    "onlySpecialCharacters": "Cannot consist ONLY of special characters.",
+    "consecutivePunctuation": "Cannot contain consecutive punctuation marks.",
+    "consecutiveSpecialCharacters": "Cannot contain consecutive special characters."
   },
   "login": {
     "title": "Login",
