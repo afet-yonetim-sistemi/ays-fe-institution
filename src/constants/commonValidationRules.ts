@@ -1,4 +1,4 @@
-import { emailRegex, nameRegex } from '@/constants/regex'
+import { emailRegex, locationRegex, nameRegex } from '@/constants/regex'
 
 export const COMMON_VALIDATION_RULES = {
   NAME: {
@@ -11,14 +11,9 @@ export const COMMON_VALIDATION_RULES = {
     max: 254,
     regex: emailRegex,
   },
-  CITY: {
-    min: 2,
-    max: 100,
-    regex: nameRegex,
-  },
   LOCATION: {
     min: 2,
     max: 100,
-    regex: nameRegex,
+    regex: locationRegex,
   },
 } as const
