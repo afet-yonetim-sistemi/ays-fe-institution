@@ -1,10 +1,5 @@
 import { SortDirection } from '@/common/types'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/shadcn/ui/tooltip'
+import Tooltip from '@/components/custom/tooltip'
 import { Column } from '@tanstack/table-core'
 import i18n from 'i18next'
 import { BiSort, BiSortDown, BiSortUp } from 'react-icons/bi'
@@ -33,23 +28,21 @@ const DataTableSort = <T extends object>({
   }
 
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger
-          className="h-full w-full rounded transition-colors hover:bg-muted/90"
-          onClick={() => {
-            column.toggleSorting()
-            onSortClick(column)
-          }}
-        >
-          <span className="flex items-center gap-1 text-left">
-            {label}
-            <SortIcon sortDirection={sortDirection} />
-          </span>
-        </TooltipTrigger>
-        <TooltipContent>{i18n.t(tooltipMessage)}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip content={i18n.t(tooltipMessage)}>
+      <button
+        type="button"
+        className="hover:bg-muted/90 h-full w-full rounded transition-colors"
+        onClick={() => {
+          column.toggleSorting()
+          onSortClick(column)
+        }}
+      >
+        <span className="flex items-center gap-1 text-left">
+          {label}
+          <SortIcon sortDirection={sortDirection} />
+        </span>
+      </button>
+    </Tooltip>
   )
 }
 
