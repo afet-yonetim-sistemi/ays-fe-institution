@@ -1,17 +1,12 @@
 'use client'
 
+import Tooltip from '@/components/custom/tooltip'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/shadcn/ui/dropdown-menu'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/shadcn/ui/tooltip'
 import { ChevronDown } from 'lucide-react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -48,29 +43,17 @@ const MultiSelectDropdown = <T extends string>({
 
   return (
     <DropdownMenu>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger className="flex w-fit gap-2">
-            <DropdownMenuTrigger
-              asChild
-              className="hover:bg-muted/90 data-[state=open]:bg-primary/10 data-[state=open]:text-primary h-10 rounded px-4 py-2"
-            >
-              <div className="flex items-center gap-2">
-                {t(label)}
-                {selectedItems.length > 0 && (
-                  <p className="bg-primary text-primary-foreground rounded-full px-1.5 py-1 text-center text-xs">
-                    {selectedItems.length}
-                  </p>
-                )}
-                <ChevronDown size={14} />
-              </div>
-            </DropdownMenuTrigger>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">
-            <p>{t(label)}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Tooltip content={t(label)} side="bottom">
+        <DropdownMenuTrigger className="hover:bg-muted/90 data-[state=open]:bg-primary/10 data-[state=open]:text-primary flex h-10 w-fit items-center gap-2 rounded px-4 py-2">
+          {t(label)}
+          {selectedItems.length > 0 && (
+            <p className="bg-primary text-primary-foreground rounded-full px-1.5 py-1 text-center text-xs">
+              {selectedItems.length}
+            </p>
+          )}
+          <ChevronDown size={14} />
+        </DropdownMenuTrigger>
+      </Tooltip>
       <DropdownMenuContent align="start" className="px-0">
         {items.map((item) => {
           const isSelected = selectedItems.includes(item.value)

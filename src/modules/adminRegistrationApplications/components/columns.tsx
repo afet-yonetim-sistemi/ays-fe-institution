@@ -1,6 +1,7 @@
 import { Sort } from '@/common/types'
 import DataTableSort from '@/components/custom/data-table-sort'
 import Status from '@/components/custom/status'
+import Tooltip from '@/components/custom/tooltip'
 import { fallbackStatus } from '@/constants/fallBackStatus'
 import { formatDateTime } from '@/lib/dataFormatters'
 import { getSortState } from '@/lib/getSortState'
@@ -25,17 +26,11 @@ export const columns: (
       accessorKey: 'reason',
       header: () => i18next.t('application.reason'),
       cell: ({ row }): React.ReactNode => (
-        <div
-          style={{
-            maxWidth: '400px',
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-            textOverflow: 'ellipsis',
-          }}
-          title={row.original.reason}
-        >
-          {row.original.reason}
-        </div>
+        <Tooltip content={row.original.reason}>
+          <div className="max-w-[400px] overflow-hidden text-ellipsis whitespace-nowrap">
+            {row.original.reason}
+          </div>
+        </Tooltip>
       ),
     },
     {
