@@ -1,12 +1,12 @@
 'use client'
 
 import { LoadingSpinner } from '@/components/custom/loadingSpinner'
+import Tooltip from '@/components/custom/tooltip'
 import http from '@/configs/axiosConfig'
 import { MenuItems } from '@/constants/menuItems'
 import { Permission } from '@/constants/permissions'
 import { showErrorToast } from '@/lib/showToast'
 import { selectPermissions } from '@/modules/auth/authSlice'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/shadcn/ui/tooltip'
 import { useAppSelector } from '@/store/hooks'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -73,22 +73,19 @@ const Menu = ({
           const LinkIcon = item.icon
           if (collapsed) {
             return (
-              <Tooltip key={item.key}>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={item.key}
-                    className={clsx(
-                      'text-muted-foreground hover:text-primary flex items-center justify-center rounded-lg p-2 transition-colors',
-                      {
-                        'bg-accent text-accent-foreground font-semibold':
-                          pathname === item.key,
-                      }
-                    )}
-                  >
-                    <LinkIcon className="h-6 w-6" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent side="right">{t(item.label)}</TooltipContent>
+              <Tooltip key={item.key} content={t(item.label)} side="right">
+                <Link
+                  href={item.key}
+                  className={clsx(
+                    'text-muted-foreground hover:text-primary flex items-center justify-center rounded-lg p-2 transition-colors',
+                    {
+                      'bg-accent text-accent-foreground font-semibold':
+                        pathname === item.key,
+                    }
+                  )}
+                >
+                  <LinkIcon className="h-6 w-6" />
+                </Link>
               </Tooltip>
             )
           } else {

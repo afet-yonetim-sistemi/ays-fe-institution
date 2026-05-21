@@ -1,5 +1,6 @@
 'use client'
 
+import Tooltip from '@/components/custom/tooltip'
 import { Button } from '@/shadcn/ui/button'
 import {
   Dialog,
@@ -12,12 +13,6 @@ import {
 } from '@/shadcn/ui/dialog'
 import { Label } from '@/shadcn/ui/label'
 import { Textarea } from '@/shadcn/ui/textarea'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/shadcn/ui/tooltip'
 import { ReactElement, useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -111,28 +106,7 @@ const ButtonDialog = ({
               {cancelText ?? t('common.no')}
             </Button>
           </DialogClose>
-          {tooltipText ? (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    type="button"
-                    className="w-36"
-                    onClick={handleConfirmClick}
-                    disabled={
-                      (reason && reasonText.length < 40) ||
-                      reasonText.length > 512
-                    }
-                  >
-                    {confirmText ?? t('common.yes')}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{t(tooltipText)}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          ) : (
+          <Tooltip content={tooltipText ? t(tooltipText) : null}>
             <Button
               type="button"
               className="w-36"
@@ -143,7 +117,7 @@ const ButtonDialog = ({
             >
               {confirmText ?? t('common.yes')}
             </Button>
-          )}
+          </Tooltip>
         </div>
       </DialogContent>
     </Dialog>
