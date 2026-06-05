@@ -17,8 +17,10 @@ import packageInfo from '../../../package.json'
 
 const Menu = ({
   collapsed = false,
+  onItemClick,
 }: {
   collapsed?: boolean
+  onItemClick?: () => void
 }): React.ReactNode => {
   const pathname = usePathname()
   const { t } = useTranslation()
@@ -76,6 +78,7 @@ const Menu = ({
               <Tooltip key={item.key} content={t(item.label)} side="right">
                 <Link
                   href={item.key}
+                  onClick={() => onItemClick?.()}
                   className={clsx(
                     'text-muted-foreground hover:text-primary flex items-center justify-center rounded-lg p-2 transition-colors',
                     {
@@ -93,6 +96,7 @@ const Menu = ({
               <Link
                 key={item.key}
                 href={item.key}
+                onClick={() => onItemClick?.()}
                 className={clsx(
                   'text-muted-foreground hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-colors',
                   {

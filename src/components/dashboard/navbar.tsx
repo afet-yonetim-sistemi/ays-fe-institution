@@ -5,13 +5,18 @@ import { selectRefreshToken, selectUser } from '@/modules/auth/authSlice'
 import type { UserInfo } from '@/modules/auth/constants/types'
 import authService from '@/modules/auth/service'
 import { Button } from '@/shadcn/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/shadcn/ui/sheet'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from '@/shadcn/ui/sheet'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { LogOut, MenuIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import React from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import LanguageToggle from './languageToggle'
 import Menu from './menu'
@@ -37,6 +42,8 @@ function Navbar(): React.ReactNode {
   const userInfo = useAppSelector(selectUser)
   const refreshToken = useAppSelector(selectRefreshToken)
   const dispatch = useAppDispatch()
+  const pathname = usePathname()
+  const sheetCloseRef = useRef<HTMLButtonElement | null>(null)
   const router = useRouter()
 
   const logout = (): void => {
@@ -54,7 +61,7 @@ function Navbar(): React.ReactNode {
   return (
     <header className="bg-muted/40 flex h-14 items-center justify-between gap-4 border-b px-4 lg:h-[60px] lg:px-6">
       <div className="flex items-center gap-4">
-        <Sheet>
+        <Sheet key={pathname}>
           <SheetTrigger asChild>
             <Button
               variant="outline"
@@ -69,7 +76,8 @@ function Navbar(): React.ReactNode {
             side="left"
             className="flex flex-col overflow-auto p-2 pt-12"
           >
-            <Menu />
+            <SheetClose ref={sheetCloseRef} className="hidden" />
+            <Menu onItemClick={() => sheetCloseRef.current?.click()} />
           </SheetContent>
         </Sheet>
         <Link href={'/'}>
