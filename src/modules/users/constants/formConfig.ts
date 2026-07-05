@@ -1,5 +1,5 @@
 import { PhoneNumberSchema } from '@/constants/formValidationSchema'
-import { emailRegex } from '@/constants/regex'
+import { emailFormRegex } from '@/constants/regex'
 import {
   nameboxWithLengthValidation,
   strictNameValidation,
@@ -52,7 +52,7 @@ export const userFormConfig = {
       .trim()
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
-      .regex(emailRegex, { message: 'validation.email' }),
+      .regex(emailFormRegex, { message: 'validation.email' }),
     phoneNumber: PhoneNumberSchema,
     city: nameboxWithLengthValidation(2, 100),
     roleIds: z.array(z.string()).min(1, { message: 'validation.required' }),
@@ -72,7 +72,7 @@ export const userFormConfig = {
       .trim()
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
-      .regex(emailRegex, { message: 'validation.email' }),
+      .regex(emailFormRegex, { message: 'validation.email' }),
     phoneNumber: PhoneNumberSchema,
     city: nameboxWithLengthValidation(2, 100),
     roleIds: z.array(z.string()).min(1, { message: 'validation.required' }),

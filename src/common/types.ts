@@ -48,6 +48,8 @@ export interface FilterValidationOptions {
   min?: number
   max?: number
   regex?: RegExp
+  formRegex?: RegExp
+  filterRegex?: RegExp
   customRegexes?: RegexValidation[]
 }
 

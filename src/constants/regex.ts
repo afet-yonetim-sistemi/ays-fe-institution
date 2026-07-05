@@ -1,15 +1,10 @@
-export const emailRegex = new RegExp(
-  '^(?!.*\\.{2})' +
-    '[\\p{L}\\p{N}][\\p{L}\\p{N}._%+\\-]*' +
-    '@' +
-    '(?!-)(?:[\\p{L}\\p{N}]+(?<!-)\\.)+' +
-    '\\p{L}{2,}$',
-  'u'
-)
+export const nameFormRegex = /^(?! )[a-zA-ZçÇğĞıİöÖşŞüÜ ,.'-]+(?<! )$/u
+export const nameFilterRegex = /^[a-zA-ZçÇğĞıİöÖşŞüÜ ,.'-]*$/u
 
-export const nameRegex =
-  /^(?! )(?!.* {2})(?!.*[.\-][.\-])(?=.*\p{L})[\p{L} .\-]+(?<! )$/u
+export const roleFormRegex = /^(?! )[a-zA-ZçÇğĞıİöÖşŞüÜ0-9 /&|_\-,.']+(?<! )$/u
+export const roleFilterRegex = /^[a-zA-ZçÇğĞıİöÖşŞüÜ0-9 /&|_\-,.']*$/u
 
-export const locationRegex = /^(?! )(?!.* {2})(?!.*[-.][-.])[-\p{L}. ]+(?<! )$/u
+export const emailFormRegex =
+  /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/
 
 export const numericRegex = /\D/g

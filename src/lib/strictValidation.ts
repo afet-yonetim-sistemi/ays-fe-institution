@@ -1,8 +1,8 @@
+import { COMMON_VALIDATION_RULES } from '@/constants/commonValidationRules'
 import { z } from 'zod'
 
 export const nameboxValidation = (str: string): boolean => {
-  const strRegex = /^(?![^a-zA-ZÇçĞğİıÖöŞşÜü])[a-zA-ZÇçĞğİıÖöŞşÜü ,.'-]*$/
-  return strRegex.test(str)
+  return COMMON_VALIDATION_RULES.NAME.formRegex.test(str)
 }
 
 export const nameboxWithLengthValidation = (
@@ -21,15 +21,10 @@ export const nameboxWithLengthValidation = (
 
 export const strictNameValidation = z
   .string()
-  .min(2, { message: 'validation.minLength' })
-  .max(100, { message: 'validation.maxLength' })
-  .regex(/^\p{L}(?:[\p{L} .'-]*\p{L})?$/u, {
-    message: 'validation.invalid',
-  })
-  .refine((val) => !/ {2,}/.test(val), {
-    message: 'validation.invalid',
-  })
-  .refine((val) => !/[.'-]{2,}/.test(val), {
+  .trim()
+  .min(COMMON_VALIDATION_RULES.NAME.min, { message: 'validation.minLength' })
+  .max(COMMON_VALIDATION_RULES.NAME.max, { message: 'validation.maxLength' })
+  .regex(COMMON_VALIDATION_RULES.NAME.formRegex, {
     message: 'validation.invalid',
   })
 
