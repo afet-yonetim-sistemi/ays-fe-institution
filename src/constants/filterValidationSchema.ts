@@ -5,6 +5,7 @@ export const getStringFilterValidation = ({
   min = 2,
   max = 100,
   regex,
+  filterRegex,
   customRegexes,
 }: FilterValidationOptions = {}): z.ZodOptional<z.ZodString> => {
   let schema = z
@@ -12,8 +13,9 @@ export const getStringFilterValidation = ({
     .min(min, { message: 'validation.minLength' })
     .max(max, { message: 'validation.maxLength' })
 
-  if (regex) {
-    schema = schema.regex(regex, {
+  const finalRegex = filterRegex || regex
+  if (finalRegex) {
+    schema = schema.regex(finalRegex, {
       message: 'validation.invalid',
     })
   }

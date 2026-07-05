@@ -2,7 +2,7 @@ import {
   PasswordSchema,
   PhoneNumberSchema,
 } from '@/constants/formValidationSchema'
-import { emailRegex } from '@/constants/regex'
+import { emailFormRegex } from '@/constants/regex'
 import { nameboxWithLengthValidation } from '@/lib/strictValidation'
 import { z } from 'zod'
 import { AdminRegistrationApplicationStatus } from './statuses'
@@ -47,7 +47,7 @@ export const adminRegistrationApplicationFormConfig = {
       .min(1, { message: 'validation.required' })
       .min(6, { message: 'validation.minLength' })
       .max(254, { message: 'validation.maxLength' })
-      .regex(emailRegex, { message: 'validation.email' }),
+      .regex(emailFormRegex, { message: 'validation.email' }),
     city: z.string().min(1, { message: 'validation.required' }),
     password: PasswordSchema,
     phoneNumber: PhoneNumberSchema,

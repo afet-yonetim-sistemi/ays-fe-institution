@@ -192,10 +192,10 @@ const Page = (): React.ReactNode => {
     if (!paramsReady) return
 
     const validationRules = {
-      sourceCity: COMMON_VALIDATION_RULES.LOCATION,
-      sourceDistrict: COMMON_VALIDATION_RULES.LOCATION,
-      targetCity: COMMON_VALIDATION_RULES.LOCATION,
-      targetDistrict: COMMON_VALIDATION_RULES.LOCATION,
+      sourceCity: COMMON_VALIDATION_RULES.CITY,
+      sourceDistrict: COMMON_VALIDATION_RULES.DISTRICT,
+      targetCity: COMMON_VALIDATION_RULES.CITY,
+      targetDistrict: COMMON_VALIDATION_RULES.DISTRICT,
     }
 
     const parsedFilters = getInitialFilters(searchParams)
