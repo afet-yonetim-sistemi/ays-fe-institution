@@ -8,7 +8,7 @@ on:
     branches:
       - main # Trigger the workflow when a push event occurs on the main branch
 concurrency:
-  group: deployment-institution-group
+  group: test-environment-deployment-group
   cancel-in-progress: false # Do NOT cancel the current running deploy; wait for it to finish and queue the next one
 
 jobs:
