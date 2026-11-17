@@ -57,12 +57,12 @@ export const roleFormConfig = {
   }),
 
   getPayload: (formValues: RoleFormValues) => ({
-    name: formValues.name,
+    name: formValues.name.trim(),
     permissionIds: formValues.permissionIds,
   }),
 
   getCreatePayload: (formValues: RoleFormValues) => ({
-    name: formValues.name,
+    name: formValues.name.trim(),
     permissionIds: formValues.permissionIds,
   }),
 
@@ -81,7 +81,7 @@ export const roleFormConfig = {
     currentValues: RoleFormValues,
     initialValues: RoleDetail
   ): boolean => {
-    const nameChanged = currentValues.name !== initialValues.name
+    const nameChanged = currentValues.name.trim() !== initialValues.name
     const initialPermissionIds =
       initialValues.permissions?.map((p) => p.id) ?? []
     const permissionsChanged =

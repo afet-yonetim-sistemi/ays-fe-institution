@@ -31,11 +31,12 @@ export const strictNameValidation = z
 export const roleNameValidation = z
   .string()
   .trim()
+  .min(1, { message: 'validation.required' })
   .min(2, { message: 'validation.minLength' })
   .max(255, { message: 'validation.maxLength' })
-  .regex(/^\p{L}(?:[\p{L}0-9 .'&|#\-,]*[\p{L}0-9])?$/u, {
+  .regex(/^\p{L}(?:[\p{L}0-9 .'&|#\-,/_]*[\p{L}0-9])?$/u, {
     message: 'validation.invalid',
   })
-  .refine((val) => !/[.'&|#\-,]{2,}/.test(val), {
+  .refine((val) => !/[.'&|#\-,/_]{2,}/.test(val), {
     message: 'validation.invalid',
   })
