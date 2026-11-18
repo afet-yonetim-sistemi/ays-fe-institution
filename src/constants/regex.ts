@@ -1,4 +1,5 @@
-export const nameFormRegex = /^(?! )[a-zA-ZçÇğĞıİöÖşŞüÜ ,.'-]+(?<! )$/u
+export const nameFormRegex =
+  /^[a-zA-ZçÇğĞıİöÖşŞüÜ]+(?:(?: ?[.,'-] ?| )[a-zA-ZçÇğĞıİöÖşŞüÜ]+)*$/u
 export const nameFilterRegex = /^[a-zA-ZçÇğĞıİöÖşŞüÜ ,.'-]*$/u
 
 export const roleFormRegex = /^(?! )[a-zA-ZçÇğĞıİöÖşŞüÜ0-9 /&|_\-,.']+(?<! )$/u

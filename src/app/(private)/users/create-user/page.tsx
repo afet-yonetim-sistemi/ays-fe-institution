@@ -51,7 +51,10 @@ const Page = (): React.ReactNode => {
     errorMessage: 'user.createError',
   })
 
-  const handleCreate = (): void => {
+  const handleCreate = async (): Promise<void> => {
+    const isFormValid = await form.trigger()
+    if (!isFormValid) return
+
     const formValues = form.getValues()
     const payload = userFormConfig.getCreatePayload({
       ...formValues,
@@ -128,7 +131,7 @@ const Page = (): React.ReactNode => {
               <CardTitle>{t('user.role2')}</CardTitle>
               <div className="ml-4 flex items-center gap-2">
                 {roleError && (
-                  <p className="text-sm text-destructive">{roleError}</p>
+                  <p className="text-destructive text-sm">{roleError}</p>
                 )}
               </div>
             </div>
@@ -142,7 +145,7 @@ const Page = (): React.ReactNode => {
               roles.map((role) => (
                 <div
                   key={role.id}
-                  className="flex items-center space-x-3 space-y-0"
+                  className="flex items-center space-y-0 space-x-3"
                 >
                   <Switch
                     className="mt-2"

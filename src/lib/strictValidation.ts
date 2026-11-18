@@ -6,27 +6,19 @@ export const nameboxValidation = (str: string): boolean => {
 }
 
 export const nameboxWithLengthValidation = (
-  minLength: number = 2,
-  maxLength: number = 100
+  minLength: number = COMMON_VALIDATION_RULES.NAME.min,
+  maxLength: number = COMMON_VALIDATION_RULES.NAME.max
 ): z.ZodString =>
   z
     .string()
     .min(1, { message: 'validation.required' })
-    .trim()
     .min(minLength, { message: 'validation.minLength' })
     .max(maxLength, { message: 'validation.maxLength' })
     .refine(nameboxValidation, {
       message: 'validation.invalid',
     })
 
-export const strictNameValidation = z
-  .string()
-  .trim()
-  .min(COMMON_VALIDATION_RULES.NAME.min, { message: 'validation.minLength' })
-  .max(COMMON_VALIDATION_RULES.NAME.max, { message: 'validation.maxLength' })
-  .regex(COMMON_VALIDATION_RULES.NAME.formRegex, {
-    message: 'validation.invalid',
-  })
+export const strictNameValidation = nameboxWithLengthValidation()
 
 export const roleNameValidation = z
   .string()
