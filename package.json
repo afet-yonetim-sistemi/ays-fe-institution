@@ -12,6 +12,9 @@
     "prepare": "husky",
     "start": "next start"
   },
+  "resolutions": {
+    "typescript-eslint": "^8.73.0"
+  },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-avatar": "^1.1.11",
@@ -62,8 +65,8 @@
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.58.0",
-    "@typescript-eslint/parser": "^8.58.0",
+    "@typescript-eslint/eslint-plugin": "^8.73.0",
+    "@typescript-eslint/parser": "^8.73.0",
     "autoprefixer": "^10.4.27",
     "baseline-browser-mapping": "^2.11.0",
     "cssnano": "^7.1.4",
